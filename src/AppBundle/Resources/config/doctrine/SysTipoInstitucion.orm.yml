@@ -1,0 +1,52 @@
+AppBundle\Entity\SysTipoInstitucion:
+    type: entity
+    table: sys_tipo_institucion
+    id:
+        idSysInstitucion:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_sys_institucion
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombreTipoSysInstitucion:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: nombre_tipo_sys_institucion
+        descripcionSysTipoInstitucion:
+            type: text
+            nullable: true
+            length: 65535
+            options:
+                fixed: false
+            column: descripcion_sys_tipo_institucion
+        estadoSysTipoInstitucion:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: estado_sys_tipo_institucion
+        codigoSysTipoInstitucion:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+            column: codigo_sys_tipo_institucion
+        fechaCrecionSysTipoInstitucion:
+            type: date
+            nullable: true
+            column: fecha_crecion_sys_tipo_institucion
+        idMunicipio:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: id_municipio
+    lifecycleCallbacks: {  }

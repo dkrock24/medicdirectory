@@ -1,0 +1,104 @@
+AppBundle\Entity\SysInstitucion:
+    type: entity
+    table: sys_institucion
+    indexes:
+        fk_sys_institucion_sys_tipo_institucion_idx:
+            columns:
+                - sys_tipo_institucion_id
+        fk_sys_institucion_sys_usuario1_idx:
+            columns:
+                - sys_usuario_id
+        fk_sys_institucion_sys_municipio1_idx:
+            columns:
+                - sys_municipio_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombreSysInstitucion:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+            column: nombre_sys_institucion
+        direccionSysInstitucion:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+            column: direccion_sys_institucion
+        latitudSysInstitucion:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+            column: latitud_sys_institucion
+        longitudSysInstitucion:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+            column: longitud_sys_institucion
+        prefijoSysInstitucion:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+            column: prefijo_sys_institucion
+        telefono1SysInstitucion:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+            column: telefono1_sys_institucion
+        telefono2SysInstitucion:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+            column: telefono2_sys_institucion
+    manyToOne:
+        sysMunicipio:
+            targetEntity: SysMunicipio
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                sys_municipio_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        sysTipoInstitucion:
+            targetEntity: SysTipoInstitucion
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                sys_tipo_institucion_id:
+                    referencedColumnName: id_sys_institucion
+            orphanRemoval: false
+        sysUsuario:
+            targetEntity: SysUsuario
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                sys_usuario_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

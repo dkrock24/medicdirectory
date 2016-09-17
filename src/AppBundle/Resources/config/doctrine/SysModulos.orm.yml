@@ -1,0 +1,72 @@
+AppBundle\Entity\SysModulos:
+    type: entity
+    table: sys_modulos
+    indexes:
+        FK_sys_modulos_sys_especialidades:
+            columns:
+                - id_especialidad
+    id:
+        idSysModulo:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_sys_modulo
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombreSysModulo:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+            column: nombre_sys_modulo
+        descripcionSysModulo:
+            type: text
+            nullable: true
+            length: 65535
+            options:
+                fixed: false
+            column: descripcion_sys_modulo
+        precioSysModulo:
+            type: float
+            nullable: true
+            precision: 10
+            scale: 0
+            column: precio_sys_modulo
+        esActivoSysModulo:
+            type: boolean
+            nullable: true
+            column: es_activo_sys_modulo
+        codigoSysModulo:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+            column: codigo_sys_modulo
+        fechaCreacionSysModulo:
+            type: date
+            nullable: true
+            column: fecha_creacion_sys_modulo
+        imagenModulo:
+            type: string
+            nullable: true
+            length: 50
+            options:
+                fixed: false
+            column: imagen_modulo
+    manyToOne:
+        idEspecialidad:
+            targetEntity: SysEspecialidades
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_especialidad:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

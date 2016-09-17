@@ -1,0 +1,47 @@
+AppBundle\Entity\SysPais:
+    type: entity
+    table: sys_pais
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombreSysPais:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+            column: nombre_sys_pais
+        prefijoSysPais:
+            type: string
+            nullable: true
+            length: 10
+            options:
+                fixed: false
+            column: prefijo_sys_pais
+        codigoPostalSysPais:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: codigo_postal_sys_pais
+        contientePaisSysPais:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+            column: contiente_pais_sys_pais
+        estadoSysPais:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: estado_sys_pais
+    lifecycleCallbacks: {  }

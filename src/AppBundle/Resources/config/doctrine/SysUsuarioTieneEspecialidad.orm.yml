@@ -1,0 +1,60 @@
+AppBundle\Entity\SysUsuarioTieneEspecialidad:
+    type: entity
+    table: sys_usuario_tiene_especialidad
+    indexes:
+        fk_sys_usuario_tiene_especialidad_sys_especialidades1_idx:
+            columns:
+                - sys_especialidades_id
+        fk_sys_usuario_tiene_especialidad_sys_usuario1_idx:
+            columns:
+                - sys_usuario_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        subCategoriaSysUte:
+            type: string
+            nullable: true
+            length: 60
+            options:
+                fixed: false
+            column: sub_categoria_sys_ute
+        descripcionSysUte:
+            type: text
+            nullable: true
+            length: 65535
+            options:
+                fixed: false
+            column: descripcion_sys_ute
+        esActivoSysUte:
+            type: boolean
+            nullable: true
+            column: es_activo_sys_ute
+    manyToOne:
+        sysEspecialidades:
+            targetEntity: SysEspecialidades
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                sys_especialidades_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        sysUsuario:
+            targetEntity: SysUsuario
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                sys_usuario_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

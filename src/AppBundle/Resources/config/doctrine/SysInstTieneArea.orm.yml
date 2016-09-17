@@ -1,0 +1,46 @@
+AppBundle\Entity\SysInstTieneArea:
+    type: entity
+    table: sys_inst_tiene_area
+    indexes:
+        fk_sys_inst_tiene_area_sys_area1_idx:
+            columns:
+                - sys_area_id
+        fk_sys_inst_tiene_area_sys_institucion1_idx:
+            columns:
+                - sys_institucion_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        esActivoIta:
+            type: boolean
+            nullable: true
+            column: es_activo_ita
+    manyToOne:
+        sysArea:
+            targetEntity: SysArea
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                sys_area_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        sysInstitucion:
+            targetEntity: SysInstitucion
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                sys_institucion_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

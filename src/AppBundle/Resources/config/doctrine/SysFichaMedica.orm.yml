@@ -1,0 +1,46 @@
+AppBundle\Entity\SysFichaMedica:
+    type: entity
+    table: sys_ficha_medica
+    indexes:
+        fk_sys_ficha_medica_sys_usuario1_idx:
+            columns:
+                - sys_usuario_medico
+        fk_sys_ficha_medica_sys_usuario2_idx:
+            columns:
+                - sys_usuario_paciente
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        fechaCreacionSysFichaMedica:
+            type: date
+            nullable: true
+            column: fecha_creacion_sys_ficha_medica
+    manyToOne:
+        sysUsuarioMedico:
+            targetEntity: SysUsuario
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                sys_usuario_medico:
+                    referencedColumnName: id
+            orphanRemoval: false
+        sysUsuarioPaciente:
+            targetEntity: SysUsuario
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                sys_usuario_paciente:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

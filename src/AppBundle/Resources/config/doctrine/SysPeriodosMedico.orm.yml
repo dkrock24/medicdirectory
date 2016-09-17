@@ -1,0 +1,44 @@
+AppBundle\Entity\SysPeriodosMedico:
+    type: entity
+    table: sys_periodos_medico
+    indexes:
+        fk_sys_periodos_medico_sys_usuario1_idx:
+            columns:
+                - sys_usuario_id
+    id:
+        idSysPeriodosMedico:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_sys_periodos_medico
+            generator:
+                strategy: IDENTITY
+    fields:
+        fechaContratoInico:
+            type: date
+            nullable: true
+            column: fecha_contrato_inico
+        fechaContratoFin:
+            type: date
+            nullable: true
+            column: fecha_contrato_fin
+        montoSysPeriodosMedico:
+            type: float
+            nullable: true
+            precision: 10
+            scale: 0
+            column: monto_sys_periodos_medico
+    manyToOne:
+        sysUsuario:
+            targetEntity: SysUsuario
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                sys_usuario_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

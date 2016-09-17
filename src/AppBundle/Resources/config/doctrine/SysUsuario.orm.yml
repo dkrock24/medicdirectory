@@ -1,0 +1,123 @@
+AppBundle\Entity\SysUsuario:
+    type: entity
+    table: sys_usuario
+    indexes:
+        FK_sys_usuario_sys_municipio:
+            columns:
+                - id_municipio_sys_usuario
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombreSysUsuario:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+            column: nombre_sys_usuario
+        apellidoSysUsuario:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+            column: apellido_sys_usuario
+        emailSysUsuario:
+            type: string
+            nullable: true
+            length: 60
+            options:
+                fixed: false
+            column: email_sys_usuario
+        esActivoSysUsuario:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: es_activo_sys_usuario
+        passwordSysUsuario:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: password_sys_usuario
+        fechaNacimientoSysUsuario:
+            type: date
+            nullable: true
+            column: fecha_nacimiento_sys_usuario
+        telefonoSysUsuariocol:
+            type: string
+            nullable: true
+            length: 50
+            options:
+                fixed: false
+            column: telefono_sys_usuariocol
+        celularSysUsuario:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+            column: celular_sys_usuario
+        jvrmSysUsuario:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+            column: jvrm_sys_usuario
+        tarjetaCreditoSysUsuario:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+            column: tarjeta_credito_sys_usuario
+        sysUsuario:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+            column: sys_usuario
+        codigoPostalSysUsuario:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: codigo_postal_sys_usuario
+        duiSysUsuario:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+            column: dui_sys_usuario
+        fechaCreacionSysUsuario:
+            type: date
+            nullable: true
+            column: fecha_creacion_sys_usuario
+        fechaActualizacionSysUsuario:
+            type: datetime
+            nullable: true
+            column: fecha_actualizacion_sys_usuario
+    manyToOne:
+        idMunicipioSysUsuario:
+            targetEntity: SysMunicipio
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_municipio_sys_usuario:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }
