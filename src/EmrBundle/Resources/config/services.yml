@@ -1,0 +1,4 @@
+services:
+#    emr.example:
+#        class: EmrBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]

@@ -1,0 +1,3 @@
+emr_homepage:
+    path:     /emr
+    defaults: { _controller: EmrBundle:Default:index }
