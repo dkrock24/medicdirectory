@@ -1,10 +1,28 @@
 emr:
     resource: "@EmrBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /emr
+
+emr:
+    resource: "@AdminBundle/Resources/config/routing.yml"
+    prefix:   /emr
+    host:     '{emr_domain}'
+    defaults:
+        domain: '%emr_domain%'
+    requirements:
+        domain: '%emr_domain%'
 
 admin:
     resource: "@AdminBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /admin
+
+admin_host:
+    resource: "@AdminBundle/Resources/config/routing.yml"
+    prefix:   /admin
+    host:     '{admin_domain}'
+    defaults:
+        domain: '%admin_domain%'
+    requirements:
+        domain: '%admin_domain%'
 
 web:
     resource: "@WebBundle/Resources/config/routing.yml"
