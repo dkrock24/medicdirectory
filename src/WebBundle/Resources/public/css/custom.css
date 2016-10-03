@@ -1,0 +1,31 @@
+/*
+Top bar
+*/ 
+.navbar-brand-custom{
+    font-size: 18px;
+    line-height: 20px;
+    color:#009EE2 !important;
+
+    padding-top: 4px;
+    font-size: 32px;
+}
+.logo-custom{
+    font-size: 32px;
+    padding-right: 10px;
+    color:#009EE2 !important;
+}
+
+.right{
+       text-align: right !important; 
+}
+
+.padding-bottom10{
+    padding-bottom: 10px;
+}
+
+.padding-top10{
+    padding-top: 10px;
+}
+.filter-color{
+    background: rgba(0,0,0,0.7);
+}

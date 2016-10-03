@@ -1,3 +1,19 @@
 web_homepage:
     path:     /
     defaults: { _controller: WebBundle:Default:index }
+
+web_doctores:
+    path:     /doctores
+    defaults: { _controller: WebBundle:Default:indexDoctores }
+    
+web_doctores_perfil:
+    path:     /doctores/perfil
+    defaults: { _controller: WebBundle:Default:indexProfile }
+
+web_hospitales:
+    path:     /hospitales
+    defaults: { _controller: WebBundle:Default:indexHospitales }
+
+web_farmacias:
+    path:     /farmacias
+    defaults: { _controller: WebBundle:Default:indexFarmacias }

@@ -1,33 +1,22 @@
+# Rutas para los Doctores, Hospitales, Secretarias, etc.
 emr:
     resource: "@EmrBundle/Resources/config/routing.yml"
-    prefix:   /emr
-
-emr:
-    resource: "@AdminBundle/Resources/config/routing.yml"
-    prefix:   /emr
-    host:     '{emr_domain}'
+    host:     "%emr_domain%"
     defaults:
         domain: '%emr_domain%'
     requirements:
         domain: '%emr_domain%'
 
+# Rutas para manejo de cobros, ajustes del sistema, cambios de usuarios, etc.
 admin:
     resource: "@AdminBundle/Resources/config/routing.yml"
-    prefix:   /admin
-
-admin_host:
-    resource: "@AdminBundle/Resources/config/routing.yml"
-    prefix:   /admin
-    host:     '{admin_domain}'
+    host:     "%admin_domain%"
     defaults:
         domain: '%admin_domain%'
     requirements:
         domain: '%admin_domain%'
 
+# Sitio web publico
 web:
     resource: "@WebBundle/Resources/config/routing.yml"
     prefix:   /
-
-app:
-    resource: "@AppBundle/Controller/"
-    type:     annotation

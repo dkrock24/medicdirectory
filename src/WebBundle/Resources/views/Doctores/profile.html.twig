@@ -1,0 +1,88 @@
+{% extends "WebBundle::base.html.twig" %}
+
+{% block breadcrumb %}
+    <!-- Breadcrumb Starts -->
+    <div class="breadcrumb">
+        <div class="container">
+            <ul class="list-unstyled list-inline">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="doctors.html">Doctores</a></li>
+                <li class="active">Perfil</li>
+            </ul>
+        </div>
+    </div>		
+    <!-- Breadcrumb Ends -->
+{% endblock %}
+
+{%block body %}
+
+    <!-- Doctor Profile Starts -->
+    <div class="row">
+        <div class="col-sm-5 col-xs-12">
+            <div class="profile-block">
+                <div class="panel panel-profile">
+                    <div class="panel-heading">
+                        <img src="images/doctors/doctor-bio-img6.jpg" alt="Doctor Profile Image" class="img-responsive img-center-xs">
+                        <h3 class="panel-title">Dr. Tom Smith Bert</h3>
+                        <p class="caption">Gynecology, Health Care &amp; Obstetrics</p>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="list-unstyled">
+                            <li class="row">
+                                <span class="col-sm-4 col-xs-12"><strong>Speciality</strong></span>
+                                <span class="col-sm-8 col-xs-12">Obstetrics and Gynecology</span>
+                            </li>
+                            <li class="row">
+                                <span class="col-sm-4 col-xs-12"><strong>Education</strong></span>
+                                <span class="col-sm-8 col-xs-12">MD, OB/GYN</span>
+                            </li>
+                            <li class="row">
+                                <span class="col-sm-4 col-xs-12"><strong>Work Days</strong></span>
+                                <span class="col-sm-8 col-xs-12">Monday, Wednesday, Thursday</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="panel-footer text-center-md text-center-sm text-center-xs">
+                        <div class="row">
+                            <div class="col-lg-6 col-xs-12">
+                                <ul class="list-unstyled list-inline sm-links">
+                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-skype"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-6 col-xs-12">
+                                <a href="#" class="btn btn-secondary text-uppercase">Book An Appointment</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-7 col-xs-12">
+            <div class="profile-details">
+                <h3 class="main-heading2">Dr. Tom Smith Bert</h3>
+                <h4>Royal Prince Alfred Hospital – United Kingdom</h4>
+                <h5>June 2006 to July 2020</h5>
+                <p>
+                    It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text.
+                </p>
+                <h5>June 2000 to July 2006</h5>
+                <p>
+                    It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. 
+                </p>
+                <p>
+                    Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text.
+                </p>
+                <p><br></p>
+                <h4>Royal Prince Alfred Hospital – United Kingdom</h4>
+                <h5>June 2006 to July 2010</h5>
+                <p>
+                    It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text.
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- Doctor Profile Ends -->
+
+{% endblock %}
