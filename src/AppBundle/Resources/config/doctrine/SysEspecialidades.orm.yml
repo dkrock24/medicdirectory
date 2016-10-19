@@ -22,10 +22,6 @@ AppBundle\Entity\SysEspecialidades:
             options:
                 fixed: false
             column: categoria_sys_especialidad
-        esActivoSysEspecialidad:
-            type: boolean
-            nullable: true
-            column: es_activo_sys_especialidad
         nombreSysEspecialidades:
             type: string
             nullable: true
@@ -47,6 +43,10 @@ AppBundle\Entity\SysEspecialidades:
             options:
                 fixed: false
             column: codigo_sys_especialidades
+        esActivoSysEspecialidad:
+            type: boolean
+            nullable: true
+            column: es_activo_sys_especialidad
     manyToOne:
         sysModulosSysModulo:
             targetEntity: SysModulos

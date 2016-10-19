@@ -1,0 +1,46 @@
+AppBundle\Entity\SysConfiguracionPreferencia:
+    type: entity
+    table: sys_configuracion_preferencia
+    indexes:
+        FK_sys_configuracion_preferencia_sys_preferencias:
+            columns:
+                - id_preferencia
+        FK_sys_configuracion_preferencia_sys_unidad_medida:
+            columns:
+                - id_unidad
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        fechaCreacion:
+            type: datetime
+            nullable: true
+            column: fecha_creacion
+    manyToOne:
+        idPreferencia:
+            targetEntity: SysPreferencias
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_preferencia:
+                    referencedColumnName: id
+            orphanRemoval: false
+        idUnidad:
+            targetEntity: SysUnidadMedida
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_unidad:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

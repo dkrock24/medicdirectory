@@ -5,6 +5,9 @@ AppBundle\Entity\SysUsuario:
         FK_sys_usuario_sys_municipio:
             columns:
                 - id_municipio_sys_usuario
+        FK_sys_usuario_sys_roles:
+            columns:
+                - id_rol
     id:
         id:
             type: integer
@@ -109,6 +112,43 @@ AppBundle\Entity\SysUsuario:
             type: datetime
             nullable: true
             column: fecha_actualizacion_sys_usuario
+        genero:
+            type: string
+            nullable: true
+            length: 50
+            options:
+                fixed: false
+        ocupacion:
+            type: string
+            nullable: true
+            length: 50
+            options:
+                fixed: false
+        direccion:
+            type: string
+            nullable: true
+            length: 50
+            options:
+                fixed: false
+        responsableDePaciente:
+            type: string
+            nullable: true
+            length: 50
+            options:
+                fixed: false
+            column: responsable_de_paciente
+        numeroAfp:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: numero_afp
+        numeroNup:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: numero_nup
     manyToOne:
         idMunicipioSysUsuario:
             targetEntity: SysMunicipio
@@ -118,6 +158,16 @@ AppBundle\Entity\SysUsuario:
             inversedBy: null
             joinColumns:
                 id_municipio_sys_usuario:
+                    referencedColumnName: id
+            orphanRemoval: false
+        idRol:
+            targetEntity: SysRoles
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_rol:
                     referencedColumnName: id
             orphanRemoval: false
     lifecycleCallbacks: {  }

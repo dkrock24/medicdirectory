@@ -1,0 +1,24 @@
+AppBundle\Entity\SysCategoriaUnidadMedida:
+    type: entity
+    table: sys_categoria_unidad_medida
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        unidad:
+            type: string
+            nullable: true
+            length: 50
+            options:
+                fixed: false
+        fechaCreacion:
+            type: datetime
+            nullable: true
+            column: fecha_creacion
+    lifecycleCallbacks: {  }

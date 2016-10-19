@@ -1,16 +1,16 @@
-AppBundle\Entity\SysCita:
+AppBundle\Entity\SysAntecedetenUsuario:
     type: entity
-    table: sys_cita
+    table: sys_antecedeten_usuario
     indexes:
-        fk_sys_cita_sys_usuario1_idx:
+        FK_sys_antecedeten_usuario_sys_antecedentes_especialidad:
             columns:
-                - sys_usuario_medico
-        fk_sys_cita_sys_usuario2_idx:
+                - id_antecedente_especialidad
+        FK_sys_antecedeten_usuario_sys_usuario:
             columns:
-                - sys_usuario_paciente
-        fk_sys_cita_sys_inst_tiene_area1_idx:
+                - id_usuario
+        FK_sys_antecedeten_usuario_sys_cita:
             columns:
-                - sys_inst_tiene_area_id
+                - id_cita
     id:
         id:
             type: integer
@@ -21,55 +21,44 @@ AppBundle\Entity\SysCita:
             generator:
                 strategy: IDENTITY
     fields:
-        fechaCitaSysCita:
-            type: datetime
-            nullable: true
-            column: fecha_cita_sys_cita
-        comentario:
-            type: text
-            nullable: false
-            length: 65535
-            options:
-                fixed: false
-        estadoCita:
+        descripcion:
             type: integer
-            nullable: false
+            nullable: true
             options:
                 unsigned: false
-            column: estado_cita
-        fechaCita:
-            type: datetime
-            nullable: false
-            column: fecha_cita
+        fechaCreacion:
+            type: date
+            nullable: true
+            column: fecha_creacion
     manyToOne:
-        sysInstTieneArea:
-            targetEntity: SysInstTieneArea
+        idAntecedenteEspecialidad:
+            targetEntity: SysAntecedentesEspecialidad
             cascade: {  }
             fetch: LAZY
             mappedBy: null
             inversedBy: null
             joinColumns:
-                sys_inst_tiene_area_id:
+                id_antecedente_especialidad:
                     referencedColumnName: id
             orphanRemoval: false
-        sysUsuarioMedico:
+        idCita:
+            targetEntity: SysCita
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_cita:
+                    referencedColumnName: id
+            orphanRemoval: false
+        idUsuario:
             targetEntity: SysUsuario
             cascade: {  }
             fetch: LAZY
             mappedBy: null
             inversedBy: null
             joinColumns:
-                sys_usuario_medico:
-                    referencedColumnName: id
-            orphanRemoval: false
-        sysUsuarioPaciente:
-            targetEntity: SysUsuario
-            cascade: {  }
-            fetch: LAZY
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                sys_usuario_paciente:
+                id_usuario:
                     referencedColumnName: id
             orphanRemoval: false
     lifecycleCallbacks: {  }

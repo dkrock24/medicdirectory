@@ -1,0 +1,50 @@
+AppBundle\Entity\SysTratamiento:
+    type: entity
+    table: sys_tratamiento
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        via:
+            type: string
+            nullable: false
+            length: 50
+            options:
+                fixed: false
+                default: '0'
+        docis:
+            type: string
+            nullable: false
+            length: 50
+            options:
+                fixed: false
+                default: '0'
+        preriocidad:
+            type: string
+            nullable: false
+            length: 50
+            options:
+                fixed: false
+                default: '0'
+        idCita:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                default: '0'
+            column: id_cita
+        tipoTratamiento:
+            type: string
+            nullable: false
+            length: 50
+            options:
+                fixed: false
+                default: '0'
+            column: tipo_tratamiento
+    lifecycleCallbacks: {  }

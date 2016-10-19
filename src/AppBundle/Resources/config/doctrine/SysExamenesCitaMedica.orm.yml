@@ -1,0 +1,50 @@
+AppBundle\Entity\SysExamenesCitaMedica:
+    type: entity
+    table: sys_examenes_cita_medica
+    indexes:
+        FK_sys_examenes_cita_medica_sys_cita:
+            columns:
+                - id_cita
+        FK_sys_examenes_cita_medica_sys_examenes_cita_medica:
+            columns:
+                - id_examen_medico
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        date:
+            type: date
+            nullable: true
+        estado:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+    manyToOne:
+        idCita:
+            targetEntity: SysCita
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_cita:
+                    referencedColumnName: id
+            orphanRemoval: false
+        idExamenMedico:
+            targetEntity: SysExamenesCitaMedica
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_examen_medico:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }
