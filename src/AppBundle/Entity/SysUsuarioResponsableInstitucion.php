@@ -81,4 +81,3 @@ class SysUsuarioResponsableInstitucion
         return $this->sysUsuario;
     }
 }
-

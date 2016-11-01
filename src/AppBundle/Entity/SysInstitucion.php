@@ -313,4 +313,3 @@ class SysInstitucion
         return $this->sysUsuario;
     }
 }
-

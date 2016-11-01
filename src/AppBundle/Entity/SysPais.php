@@ -168,4 +168,3 @@ class SysPais
         return $this->estadoSysPais;
     }
 }
-

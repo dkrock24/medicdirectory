@@ -197,4 +197,3 @@ class SysTipoInstitucion
         return $this->idMunicipio;
     }
 }
-

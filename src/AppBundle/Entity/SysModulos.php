@@ -255,4 +255,3 @@ class SysModulos
         return $this->idEspecialidad;
     }
 }
-

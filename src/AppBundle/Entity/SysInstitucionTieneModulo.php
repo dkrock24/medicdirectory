@@ -226,4 +226,3 @@ class SysInstitucionTieneModulo
         return $this->sysModulo;
     }
 }
-

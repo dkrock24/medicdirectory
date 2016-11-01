@@ -1,3 +1,7 @@
 admin_homepage:
     path:     /
     defaults: { _controller: AdminBundle:Default:index }
+
+admin_crear_medicos:
+    path:   /generate/medicos/{number}
+    defaults: { _controller: AdminBundle:Default:generateMedicos }

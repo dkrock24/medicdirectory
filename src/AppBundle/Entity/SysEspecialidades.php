@@ -197,4 +197,3 @@ class SysEspecialidades
         return $this->sysModulosSysModulo;
     }
 }
-

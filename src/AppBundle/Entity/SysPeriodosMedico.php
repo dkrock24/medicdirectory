@@ -139,4 +139,3 @@ class SysPeriodosMedico
         return $this->sysUsuario;
     }
 }
-

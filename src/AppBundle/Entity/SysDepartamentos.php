@@ -197,4 +197,3 @@ class SysDepartamentos
         return $this->pais;
     }
 }
-

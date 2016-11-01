@@ -168,4 +168,3 @@ class SysUsuarioTieneEspecialidad
         return $this->sysUsuario;
     }
 }
-

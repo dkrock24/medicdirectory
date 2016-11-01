@@ -196,5 +196,33 @@ class SysCita
     {
         return $this->sysUsuarioPaciente;
     }
-}
+    /**
+     * @var string
+     */
+    private $comentario;
 
+
+    /**
+     * Set comentario
+     *
+     * @param string $comentario
+     *
+     * @return SysCita
+     */
+    public function setComentario($comentario)
+    {
+        $this->comentario = $comentario;
+
+        return $this;
+    }
+
+    /**
+     * Get comentario
+     *
+     * @return string
+     */
+    public function getComentario()
+    {
+        return $this->comentario;
+    }
+}

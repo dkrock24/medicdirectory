@@ -110,4 +110,3 @@ class SysRoles
         return $this->fechaCreacionSysRoles;
     }
 }
-

@@ -486,5 +486,207 @@ class SysUsuario
     {
         return $this->idMunicipioSysUsuario;
     }
-}
+    /**
+     * @var string
+     */
+    private $genero;
 
+    /**
+     * @var string
+     */
+    private $ocupacion;
+
+    /**
+     * @var string
+     */
+    private $direccion;
+
+    /**
+     * @var string
+     */
+    private $responsableDePaciente;
+
+    /**
+     * @var integer
+     */
+    private $numeroAfp;
+
+    /**
+     * @var integer
+     */
+    private $numeroNup;
+
+    /**
+     * @var \AppBundle\Entity\SysRoles
+     */
+    private $idRol;
+
+
+    /**
+     * Set genero
+     *
+     * @param string $genero
+     *
+     * @return SysUsuario
+     */
+    public function setGenero($genero)
+    {
+        $this->genero = $genero;
+
+        return $this;
+    }
+
+    /**
+     * Get genero
+     *
+     * @return string
+     */
+    public function getGenero()
+    {
+        return $this->genero;
+    }
+
+    /**
+     * Set ocupacion
+     *
+     * @param string $ocupacion
+     *
+     * @return SysUsuario
+     */
+    public function setOcupacion($ocupacion)
+    {
+        $this->ocupacion = $ocupacion;
+
+        return $this;
+    }
+
+    /**
+     * Get ocupacion
+     *
+     * @return string
+     */
+    public function getOcupacion()
+    {
+        return $this->ocupacion;
+    }
+
+    /**
+     * Set direccion
+     *
+     * @param string $direccion
+     *
+     * @return SysUsuario
+     */
+    public function setDireccion($direccion)
+    {
+        $this->direccion = $direccion;
+
+        return $this;
+    }
+
+    /**
+     * Get direccion
+     *
+     * @return string
+     */
+    public function getDireccion()
+    {
+        return $this->direccion;
+    }
+
+    /**
+     * Set responsableDePaciente
+     *
+     * @param string $responsableDePaciente
+     *
+     * @return SysUsuario
+     */
+    public function setResponsableDePaciente($responsableDePaciente)
+    {
+        $this->responsableDePaciente = $responsableDePaciente;
+
+        return $this;
+    }
+
+    /**
+     * Get responsableDePaciente
+     *
+     * @return string
+     */
+    public function getResponsableDePaciente()
+    {
+        return $this->responsableDePaciente;
+    }
+
+    /**
+     * Set numeroAfp
+     *
+     * @param integer $numeroAfp
+     *
+     * @return SysUsuario
+     */
+    public function setNumeroAfp($numeroAfp)
+    {
+        $this->numeroAfp = $numeroAfp;
+
+        return $this;
+    }
+
+    /**
+     * Get numeroAfp
+     *
+     * @return integer
+     */
+    public function getNumeroAfp()
+    {
+        return $this->numeroAfp;
+    }
+
+    /**
+     * Set numeroNup
+     *
+     * @param integer $numeroNup
+     *
+     * @return SysUsuario
+     */
+    public function setNumeroNup($numeroNup)
+    {
+        $this->numeroNup = $numeroNup;
+
+        return $this;
+    }
+
+    /**
+     * Get numeroNup
+     *
+     * @return integer
+     */
+    public function getNumeroNup()
+    {
+        return $this->numeroNup;
+    }
+
+    /**
+     * Set idRol
+     *
+     * @param \AppBundle\Entity\SysRoles $idRol
+     *
+     * @return SysUsuario
+     */
+    public function setIdRol(\AppBundle\Entity\SysRoles $idRol = null)
+    {
+        $this->idRol = $idRol;
+
+        return $this;
+    }
+
+    /**
+     * Get idRol
+     *
+     * @return \AppBundle\Entity\SysRoles
+     */
+    public function getIdRol()
+    {
+        return $this->idRol;
+    }
+}

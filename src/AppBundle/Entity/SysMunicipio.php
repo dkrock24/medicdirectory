@@ -139,4 +139,3 @@ class SysMunicipio
         return $this->sysDepartamentos;
     }
 }
-
