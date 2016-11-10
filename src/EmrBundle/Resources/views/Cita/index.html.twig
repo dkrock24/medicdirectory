@@ -1,0 +1,63 @@
+{# empty Twig template #}
+{%extends "LipsBundle::layout.html.twig" %}
+{% block javascript %}
+    <script>
+        $(document).on("ready",function(){
+            $(".fancybox").fancybox();
+        });
+    </script>
+{% endblock%}    
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+        <h2>Lista de chicas disponibles para citas</h2>
+        {% if is_granted('ROLE_ADMIN')%}
+            <a href="{{path("lips_add_girl")}}" class="btn btn-success margin-top"><span class="glyphicon glyphicon-plus"></span> Agregar chica</a>
+        {% endif %}
+        <table class="table table-striped">
+            <thead>
+            <th>Nombre</th>
+            <th>Nick Name</th>
+            <th>Foto</th>
+            <th>Edad</th>
+            <th>Costo</th>
+            <th>Telefono</th>
+            <th>Citar</th>
+            {% if is_granted('ROLE_ADMIN')%}
+                <th>Editar</th>
+                <th>Eliminar</th>
+            {% endif %}
+            </thead>
+            <tbody>
+                {% for girl in girls %}
+                    <tr>
+                        <td>{{girl.name}}</td>
+                        <td>{{girl.username}}</td>
+                        <td>
+                            {% if girl.image is empty %}
+                                Imagen no disponible
+                            {% else %}
+                                <a  class="fancybox" rel="group" href="{{ asset("uploads/"~girl.image) }}"><img src="{{ asset("uploads/"~girl.image) }}" class="small"></a>
+                            {% endif %}
+                            
+                        </td>
+                        <td>{{girl.age}}</td>
+                        <td>${{girl.price|number_format(2, '.', ',')}}</td>
+                        <td>{{girl.phone}}</td>
+                        <td><a class="btn btn-btn btn-info" href="{{path("lips_add_appointment", {"id":girl.id}) }}"><span class="glyphicon glyphicon-heart-empty"></span> Citar Ahora</a></td>
+                        {% if is_granted('ROLE_ADMIN')%}
+                            <td><a class="btn btn-default" href="{{path("lips_edit_girl", {"id":girl.id}) }}"><span class="glyphicon glyphicon-pencil"></span> Editar</a></td>
+                            <td><a class="btn btn-danger" href="{{path("lips_delete_girl", {"id":girl.id}) }}"><span class="glyphicon glyphicon-trash"></span> Eliminar</a></td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+         </table>
+        {% if is_granted('ROLE_ADMIN')%}
+            <a href="{{path("lips_add_girl")}}" class="btn btn-success margin-top"><span class="glyphicon glyphicon-plus"></span> Agregar chica</a>
+        {% endif %}
+         
+        </div>
+    </div>
+{% endblock %}
+

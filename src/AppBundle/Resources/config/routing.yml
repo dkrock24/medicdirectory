@@ -1,0 +1,24 @@
+app_sysroles:
+    resource: "@AppBundle/Resources/config/routing/sysroles.yml"
+    prefix:   /sysroles
+    
+app_syspais:
+    resource: "@AppBundle/Resources/config/routing/syspais.yml"
+    prefix:   /syspais
+    
+app_sysdepartamentos:
+    resource: "@AppBundle/Resources/config/routing/sysdepartamentos.yml"
+    prefix:   /sysdepartamentos
+    
+app_sysmunicipio:
+    resource: "@AppBundle/Resources/config/routing/sysmunicipio.yml"
+    prefix:   /sysmunicipio
+    
+app_sysusuario:
+    resource: "@AppBundle/Resources/config/routing/sysusuario.yml"
+    prefix:   /sysusuario
+    
+app_systipoinstitucion:
+    resource: "@AppBundle/Resources/config/routing/systipoinstitucion.yml"
+    prefix:   /sysusuario
+

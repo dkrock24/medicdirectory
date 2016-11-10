@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>SysDepartamentos</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ sysDepartamento.id }}</td>
+            </tr>
+            <tr>
+                <th>Nombresysdepartamento</th>
+                <td>{{ sysDepartamento.nombreSysDepartamento }}</td>
+            </tr>
+            <tr>
+                <th>Codigozonasysdepartamento</th>
+                <td>{{ sysDepartamento.codigoZonaSysDepartamento }}</td>
+            </tr>
+            <tr>
+                <th>Descripcionsysdepartamento</th>
+                <td>{{ sysDepartamento.descripcionSysDepartamento }}</td>
+            </tr>
+            <tr>
+                <th>Prefijosysdepartamento</th>
+                <td>{{ sysDepartamento.prefijoSysDepartamento }}</td>
+            </tr>
+            <tr>
+                <th>Estadosysdepartamento</th>
+                <td>{% if sysDepartamento.estadoSysDepartamento %}Yes{% else %}No{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('sysdepartamentos_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('sysdepartamentos_edit', { 'id': sysDepartamento.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

@@ -1,3 +1,7 @@
+app:
+    resource: "@AppBundle/Resources/config/routing.yml"
+    prefix:   /
+
 # Rutas para los Doctores, Hospitales, Secretarias, etc.
 emr:
     resource: "@EmrBundle/Resources/config/routing.yml"

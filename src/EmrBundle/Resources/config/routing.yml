@@ -1,3 +1,11 @@
 emr_homepage:
     path:     /
     defaults: { _controller: EmrBundle:Default:index }
+
+emr_cita_add:
+    path:     /nueva/cita
+    defaults: { _controller: EmrBundle:Cita:add  }
+    
+emr_cita_list:
+    path:     /list/cita
+    defaults: { _controller: EmrBundle:Cita:list  }

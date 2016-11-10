@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>SysMunicipio list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombresysmunicipo</th>
+                <th>Esactivosysmunicipo</th>
+                <th>Descripcionsysmunicipio</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for sysMunicipio in sysMunicipios %}
+            <tr>
+                <td><a href="{{ path('sysmunicipio_show', { 'id': sysMunicipio.id }) }}">{{ sysMunicipio.id }}</a></td>
+                <td>{{ sysMunicipio.nombreSysMunicipo }}</td>
+                <td>{% if sysMunicipio.esActivoSysMunicipo %}Yes{% else %}No{% endif %}</td>
+                <td>{{ sysMunicipio.descripcionSysMunicipio }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('sysmunicipio_show', { 'id': sysMunicipio.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('sysmunicipio_edit', { 'id': sysMunicipio.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('sysmunicipio_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

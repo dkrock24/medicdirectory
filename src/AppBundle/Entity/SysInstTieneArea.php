@@ -109,4 +109,9 @@ class SysInstTieneArea
     {
         return $this->sysInstitucion;
     }
+	
+	public function __toString()
+    {
+        return (string)$this->sysArea;
+    }
 }

@@ -689,4 +689,9 @@ class SysUsuario
     {
         return $this->idRol;
     }
+	
+	
+	public function __toString() {
+		return $this->nombreSysUsuario;
+	}
 }

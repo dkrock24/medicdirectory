@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>SysTipoInstitucion</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Idsysinstitucion</th>
+                <td>{{ sysTipoInstitucion.idSysInstitucion }}</td>
+            </tr>
+            <tr>
+                <th>Nombretiposysinstitucion</th>
+                <td>{{ sysTipoInstitucion.nombreTipoSysInstitucion }}</td>
+            </tr>
+            <tr>
+                <th>Descripcionsystipoinstitucion</th>
+                <td>{{ sysTipoInstitucion.descripcionSysTipoInstitucion }}</td>
+            </tr>
+            <tr>
+                <th>Estadosystipoinstitucion</th>
+                <td>{{ sysTipoInstitucion.estadoSysTipoInstitucion }}</td>
+            </tr>
+            <tr>
+                <th>Codigosystipoinstitucion</th>
+                <td>{{ sysTipoInstitucion.codigoSysTipoInstitucion }}</td>
+            </tr>
+            <tr>
+                <th>Fechacrecionsystipoinstitucion</th>
+                <td>{% if sysTipoInstitucion.fechaCrecionSysTipoInstitucion %}{{ sysTipoInstitucion.fechaCrecionSysTipoInstitucion|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Idmunicipio</th>
+                <td>{{ sysTipoInstitucion.idMunicipio }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('systipoinstitucion_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('systipoinstitucion_edit', { 'id': sysTipoInstitucion.idSysInstitucion }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}
