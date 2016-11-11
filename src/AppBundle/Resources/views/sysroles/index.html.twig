@@ -1,43 +1,56 @@
-{% extends 'base.html.twig' %}
-
+{% extends "::base.html.twig" %}
+  
 {% block body %}
-    <h1>SysRoles list</h1>
+    <div class="row">
+        <div class="col-lg-12">
+            <h1>Lista de Roles</h1>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nombrerolsysroles</th>
-                <th>Esactivosysroles</th>
-                <th>Fechacreacionsysroles</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for sysRole in sysRoles %}
-            <tr>
-                <td><a href="{{ path('sysroles_show', { 'id': sysRole.id }) }}">{{ sysRole.id }}</a></td>
-                <td>{{ sysRole.nombreRolSysRoles }}</td>
-                <td>{% if sysRole.esActivoSysRoles %}Yes{% else %}No{% endif %}</td>
-                <td>{{ sysRole.fechaCreacionSysRoles }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('sysroles_show', { 'id': sysRole.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('sysroles_edit', { 'id': sysRole.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nombrerol</th>
+                        <th>Esactivo</th>
+                        <th>Fechacreacion</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for sysRole in sysRoles %}
+                        <tr>
+                            <td><a href="{{ path('sysroles_show', { 'id': sysRole.id }) }}">{{ sysRole.id }}</a></td>
+                            <td>{{ sysRole.nombreRolSysRoles }}</td>
+                            <td>{% if sysRole.esActivoSysRoles %}Yes{% else %}No{% endif %}</td>
+                            <td>{{ sysRole.fechaCreacionSysRoles }}</td>
+                            <td>
+                                <ul>
+                                    <li>
+                                        <a href="{{ path('sysroles_show', { 'id': sysRole.id }) }}">show</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ path('sysroles_edit', { 'id': sysRole.id }) }}">edit</a>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('sysroles_new') }}">Create a new entry</a>
-        </li>
-    </ul>
+            <ul>
+                <li>
+                    <a href="{{ path('sysroles_new') }}">Create a new entry</a>
+                </li>
+            </ul>
+        
+        </div>
+    </div>
 {% endblock %}
+
+{% block codejs %}
+    <script>
+        $(function(){
+
+          });
+    </script>
+{% endblock %} 

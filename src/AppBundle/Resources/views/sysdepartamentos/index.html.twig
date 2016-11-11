@@ -1,47 +1,60 @@
-{% extends 'base.html.twig' %}
-
+{% extends "::base.html.twig" %}
+  
 {% block body %}
-    <h1>SysDepartamentos list</h1>
+    <div class="row">
+        <div class="col-lg-12">
+            <h1>SysDepartamentos list</h1>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nombresysdepartamento</th>
-                <th>Codigozonasysdepartamento</th>
-                <th>Descripcionsysdepartamento</th>
-                <th>Prefijosysdepartamento</th>
-                <th>Estadosysdepartamento</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for sysDepartamento in sysDepartamentos %}
-            <tr>
-                <td><a href="{{ path('sysdepartamentos_show', { 'id': sysDepartamento.id }) }}">{{ sysDepartamento.id }}</a></td>
-                <td>{{ sysDepartamento.nombreSysDepartamento }}</td>
-                <td>{{ sysDepartamento.codigoZonaSysDepartamento }}</td>
-                <td>{{ sysDepartamento.descripcionSysDepartamento }}</td>
-                <td>{{ sysDepartamento.prefijoSysDepartamento }}</td>
-                <td>{% if sysDepartamento.estadoSysDepartamento %}Yes{% else %}No{% endif %}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('sysdepartamentos_show', { 'id': sysDepartamento.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('sysdepartamentos_edit', { 'id': sysDepartamento.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nombresysdepartamento</th>
+                        <th>Codigozonasysdepartamento</th>
+                        <th>Descripcionsysdepartamento</th>
+                        <th>Prefijosysdepartamento</th>
+                        <th>Estadosysdepartamento</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for sysDepartamento in sysDepartamentos %}
+                        <tr>
+                            <td><a href="{{ path('sysdepartamentos_show', { 'id': sysDepartamento.id }) }}">{{ sysDepartamento.id }}</a></td>
+                            <td>{{ sysDepartamento.nombreSysDepartamento }}</td>
+                            <td>{{ sysDepartamento.codigoZonaSysDepartamento }}</td>
+                            <td>{{ sysDepartamento.descripcionSysDepartamento }}</td>
+                            <td>{{ sysDepartamento.prefijoSysDepartamento }}</td>
+                            <td>{% if sysDepartamento.estadoSysDepartamento %}Yes{% else %}No{% endif %}</td>
+                            <td>
+                                <ul>
+                                    <li>
+                                        <a href="{{ path('sysdepartamentos_show', { 'id': sysDepartamento.id }) }}">show</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ path('sysdepartamentos_edit', { 'id': sysDepartamento.id }) }}">edit</a>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('sysdepartamentos_new') }}">Create a new entry</a>
-        </li>
-    </ul>
+            <ul>
+                <li>
+                    <a href="{{ path('sysdepartamentos_new') }}">Create a new entry</a>
+                </li>
+            </ul>
+        
+        </div>
+    </div>
 {% endblock %}
+
+{% block codejs %}
+    <script>
+        $(function(){
+
+          });
+    </script>
+{% endblock %} 

@@ -3,16 +3,21 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/xampp/htdocs/symfony3/emr/src/AppBundle/Controller/SysRolesController.php</file>
+            <file>file:/C:/xampp/htdocs/symfony3/emr/src/AppBundle/Resources/config/routing.yml</file>
+            <file>file:/C:/xampp/htdocs/symfony3/emr/src/AppBundle/Controller/SysTipoInstitucionController.php</file>
             <file>file:/C:/xampp/htdocs/symfony3/emr/src/EmrBundle/Controller/CitaController.php</file>
-            <file>file:/C:/xampp/htdocs/symfony3/emr/app/Resources/views/default/index.html.twig</file>
-            <file>file:/C:/xampp/htdocs/symfony3/emr/src/AppBundle/Entity/SysArea.php</file>
-            <file>file:/C:/xampp/htdocs/symfony3/emr/src/AppBundle/Entity/SysInstTieneArea.php</file>
-            <file>file:/C:/xampp/htdocs/symfony3/emr/src/AppBundle/Entity/SysUsuario.php</file>
+            <file>file:/C:/xampp/htdocs/symfony3/emr/src/AppBundle/Form/SysUsuarioType.php</file>
             <file>file:/C:/xampp/htdocs/symfony3/emr/app/config/parameters.yml</file>
-            <file>file:/C:/xampp/htdocs/symfony3/emr/src/EmrBundle/Resources/config/routing.yml</file>
             <file>file:/C:/xampp/htdocs/symfony3/emr/src/EmrBundle/Form/SysCitaType.php</file>
-            <file>file:/C:/xampp/htdocs/symfony3/emr/src/WebBundle/Resources/config/routing.yml</file>
+            <file>file:/C:/xampp/htdocs/symfony3/emr/src/AppBundle/Resources/config/routing/sysroles.yml</file>
             <file>file:/C:/xampp/htdocs/symfony3/emr/src/EmrBundle/Resources/views/Cita/add.html.twig</file>
+            <file>file:/C:/xampp/htdocs/symfony3/emr/src/AppBundle/Controller/SysMunicipioController.php</file>
+            <file>file:/C:/xampp/htdocs/symfony3/emr/src/AppBundle/Resources/config/routing/syspais.yml</file>
+            <file>file:/C:/xampp/htdocs/symfony3/emr/src/AppBundle/Controller/SysPaisController.php</file>
+            <file>file:/C:/xampp/htdocs/symfony3/emr/src/AppBundle/Controller/SysUsuarioController.php</file>
+            <file>file:/C:/xampp/htdocs/symfony3/emr/src/EmrBundle/Resources/config/routing.yml</file>
+            <file>file:/C:/xampp/htdocs/symfony3/emr/src/AppBundle/Controller/SysDepartamentosController.php</file>
         </group>
     </open-files>
 </project-private>

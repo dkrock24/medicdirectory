@@ -1,13 +1,171 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
-</html>
+{% extends "::estructura.html.twig" %}
+
+{% block title %}EMR{% endblock %}
+ 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/admin/css/bootstrap.min.css') }}" type="text/css" id="link-bootstrap" />
+    <link rel="stylesheet" href="{{ asset('bundles/admin/css/animate.min.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ asset('bundles/admin/css/app.min.css') }}" type="text/css" id="link-app" />
+    <link rel="stylesheet" href="{{ asset('bundles/admin/css/demo.min.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ asset('bundles/admin/css/font-awesome.min.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ asset('bundles/admin/css/pe-icon-7-stroke.css') }} " type="text/css" />
+   
+{% endblock %}
+
+{% block javascripts %}
+     <!-- [6. JavaScript References] -->
+    <script src="{{ asset('bundles/admin/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('bundles/admin/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('bundles/admin/js/modernizr.custom.js') }}"></script>
+    <script src="{{ asset('bundles/admin/js/lib/slimscroll/jquery.slimscroll.min.js') }}"></script>
+    <script src="{{ asset('bundles/admin/js/lib/animsition/animsition.min.js') }}"></script>
+    <script src="{{ asset('bundles/admin/js/main.js') }}"></script>
+
+    <!-- [7. Page Related Scripts] -->
+      {#  
+    <script src="{{ asset('bundles/admin/js/lib/easypiechart/jquery.easypiechart.min.js') }}"></script>
+    <script src="{{ asset('bundles/admin/js/lib/easypiechart/easypiechart-init.js') }}"></script>
+    <script src="{{ asset('bundles/admin/js/lib/sparkline/jquery.sparkline.min.js') }}"></script>
+    <script src="{{ asset('bundles/admin/js/lib/sparkline/sparkline-init.js') }}"></script>
+    
+    <script src="{{ asset('bundles/admin/js/lib/flot/jquery.flot.min.js') }}"></script>
+    <script src="{{ asset('bundles/admin/js/lib/flot/jquery.flot.orderBars.min.js') }} "></script>
+    <script src="{{ asset('bundles/admin/js/lib/flot/jquery.flot.tooltip.min.js') }} "></script>
+    <script src="{{ asset('bundles/admin/js/lib/flot/jquery.flot.resize.min.js') }} "></script>
+    <script src="{{ asset('bundles/admin/js/lib/flot/jquery.flot.selection.min.js') }} "></script>
+    <script src="{{ asset('bundles/admin/js/lib/flot/jquery.flot.crosshair.min.js') }} "></script>
+    <script src="{{ asset('bundles/admin/js/lib/flot/jquery.flot.stack.min.js') }} "></script>
+    <script src="{{ asset('bundles/admin/js/lib/flot/jquery.flot.time.min.js') }} "></script>
+    <script src="{{ asset('bundles/admin/js/lib/flot/jquery.flot.pie.min.js') }} "></script>
+    
+    <script src="{{ asset('bundles/admin/js/lib/flot/curvedLines.min.js') }}"></script>
+    
+    <script src="{{ asset('bundles/admin/js/lib/echarts/echarts-all.js') }}"></script>
+    <script src="{{ asset('bundles/admin/js/lib/echarts/theme.js') }}"></script>
+    <script src="{{ asset('bundles/admin/js/pages/dashboard-minimal.js') }}"></script>
+    #}
+    
+    
+{% endblock %}
+ 
+{% block body_page %}
+    <!--
+    <section id="layout-body" class="container">
+        
+        <section id="layout-body-right" class="layout-body-right">
+            {#
+            {% block right_block %}
+            {% endblock %} #}
+        </section>
+    </section>
+        -->
+      
+   <div class="animsition">
+        <!--
+        [3. Sidebar Menu]
+        -->
+        
+        <div class="sidebar menu">
+            <!-- Header lateral izquierdo ====================================== -->
+            <div class="sidebar-header">
+                <div class="header-brand">
+                    <div class="brand-logo">
+                        <img src="{{ asset('bundles/admin/img/logo.png') }}" alt="Yima - Admin Web App" />
+                    </div>
+                    <div class="brand-slogan">
+                        <div class="slogan-title">EMR</div>
+                    </div>
+                </div>
+                <div class="header-notification">
+                    <a class="notification" href="Inbox.html">
+                        <i class="icon pe-7s-mail"></i>
+                        <span class="text">You've Got 3 New Mails!</span>
+                        <div class="more">
+                            <span class="more-text">Go to Inbox</span>
+                            <i class="more-icon pe-7s-right-arrow"></i>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <!-- Fin Header lateral izquierdo ===============================-->
+            
+            
+            <!-- Menu lateral izquierdo ==================================== -->
+            {{ include('_menu.left.html.twig')  }}
+            <!-- fin del menú lateral izquierdo ============================ -->
+            
+            <!-- Footer lateral izquierdo ================================== -->
+            <div class="sidebar-footer">
+                <div class="footer-avatar">
+                    <img src="{{ asset('bundles/admin/img/avatars/andy.jpg') }}" alt="Fabian Mellan Jr." />
+                </div>
+                <div class="footer-user">
+                    <a href="Profile.html">Fabian Mellan Jr.</a>
+                </div>
+                <div class="footer-links">
+                    <a href="Login.html" class="links-logout">
+                        <i class="pe-7s-power"></i>
+                        <span>Sign Out</span>
+                    </a>
+                </div>
+            </div>
+            <!-- Fin Footer lateral izquierdo ============================== -->
+        </div>
+        <!--
+        [4. Sidebar Form]
+        -->
+        <div class="sidebar form collapsed">
+        </div>
+        <!--
+        [5. Main Page Content]
+        -->
+        <div class="main-content">
+            <!--
+            [5.1. Page Header]
+            -->
+            <div class="content-header">
+                <!--
+                [5.1.1. BreadCrumb]
+                -->
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="#">
+                            <i class="pe-7s-home"></i>
+                            <span>Home</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="pe-7s-monitor"></i>
+                            <span>Dashboards</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <i class="pe-7s-graph1"></i>
+                        <span>Minimal</span>
+                    </li>
+                </ul>
+                <!--
+                [5.1.2. Header Buttons]
+                -->
+                
+                <!-- Iconos top lado derecho ================================-->
+                {{ include('_menu.top.right.html.twig')  }}
+                <!-- Fin iconos menu rerecho ===============================-- >
+            </div>
+
+            <!--
+            Sub menu top
+            -->
+            {{ include('_sub.menu.top.html.twig')  }}
+            <!--
+            [5.3. Page Body]
+            -->
+            <div class="content-body">
+                
+                {% block body %}
+                {% endblock %}    
+                
+            </div>
+        </div>    
+{% endblock %}

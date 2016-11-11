@@ -1,47 +1,58 @@
-{% extends 'base.html.twig' %}
-
+{% extends "::base.html.twig" %}
+  
 {% block body %}
-    <h1>SysPais list</h1>
-
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nombresyspais</th>
-                <th>Prefijosyspais</th>
-                <th>Codigopostalsyspais</th>
-                <th>Contientepaissyspais</th>
-                <th>Estadosyspais</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for sysPai in sysPais %}
-            <tr>
-                <td><a href="{{ path('syspais_show', { 'id': sysPai.id }) }}">{{ sysPai.id }}</a></td>
-                <td>{{ sysPai.nombreSysPais }}</td>
-                <td>{{ sysPai.prefijoSysPais }}</td>
-                <td>{{ sysPai.codigoPostalSysPais }}</td>
-                <td>{{ sysPai.contientePaisSysPais }}</td>
-                <td>{{ sysPai.estadoSysPais }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('syspais_show', { 'id': sysPai.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('syspais_edit', { 'id': sysPai.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('syspais_new') }}">Create a new entry</a>
-        </li>
-    </ul>
+    <div class="row">
+        <div class="col-lg-12">
+        <h1>Lista de Paises</h1>
+        <ul>
+            <li>
+                <a href="{{ path('syspais_new') }}">Create a nueva entrada</a>
+            </li>
+        </ul>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nombres</th>
+                    <th>Prefijo</th>
+                    <th>Código postal</th>
+                    <th>Continente</th>
+                    <th>Estatus</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for sysPai in sysPais %}
+                <tr>
+                    <td><a href="{{ path('syspais_show', { 'id': sysPai.id }) }}">{{ sysPai.id }}</a></td>
+                    <td>{{ sysPai.nombreSysPais }}</td>
+                    <td>{{ sysPai.prefijoSysPais }}</td>
+                    <td>{{ sysPai.codigoPostalSysPais }}</td>
+                    <td>{{ sysPai.contientePaisSysPais }}</td>
+                    <td>{{ sysPai.estadoSysPais }}</td>
+                    <td>
+                        <ul>
+                            <li>
+                                <a href="{{ path('syspais_show', { 'id': sysPai.id }) }}">show</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('syspais_edit', { 'id': sysPai.id }) }}">edit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        
+        </div>
+    </div>
 {% endblock %}
+
+{% block codejs %}
+    <script>
+        $(function(){
+
+          });
+    </script>
+{% endblock %}    
