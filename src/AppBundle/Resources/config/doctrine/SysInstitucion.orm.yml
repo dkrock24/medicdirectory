@@ -71,6 +71,16 @@ AppBundle\Entity\SysInstitucion:
                 fixed: false
             column: telefono2_sys_institucion
     manyToOne:
+        sysTipoInstitucion:
+            targetEntity: SysTipoInstitucion
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                sys_tipo_institucion_id:
+                    referencedColumnName: id
+            orphanRemoval: false
         sysMunicipio:
             targetEntity: SysMunicipio
             cascade: {  }
@@ -80,16 +90,6 @@ AppBundle\Entity\SysInstitucion:
             joinColumns:
                 sys_municipio_id:
                     referencedColumnName: id
-            orphanRemoval: false
-        sysTipoInstitucion:
-            targetEntity: SysTipoInstitucion
-            cascade: {  }
-            fetch: LAZY
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                sys_tipo_institucion_id:
-                    referencedColumnName: id_sys_institucion
             orphanRemoval: false
         sysUsuario:
             targetEntity: SysUsuario

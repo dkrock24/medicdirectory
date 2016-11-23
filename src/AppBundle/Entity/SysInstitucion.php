@@ -48,14 +48,14 @@ class SysInstitucion
     private $telefono2SysInstitucion;
 
     /**
-     * @var \AppBundle\Entity\SysMunicipio
-     */
-    private $sysMunicipio;
-
-    /**
      * @var \AppBundle\Entity\SysTipoInstitucion
      */
     private $sysTipoInstitucion;
+
+    /**
+     * @var \AppBundle\Entity\SysMunicipio
+     */
+    private $sysMunicipio;
 
     /**
      * @var \AppBundle\Entity\SysUsuario
@@ -242,30 +242,6 @@ class SysInstitucion
     }
 
     /**
-     * Set sysMunicipio
-     *
-     * @param \AppBundle\Entity\SysMunicipio $sysMunicipio
-     *
-     * @return SysInstitucion
-     */
-    public function setSysMunicipio(\AppBundle\Entity\SysMunicipio $sysMunicipio = null)
-    {
-        $this->sysMunicipio = $sysMunicipio;
-
-        return $this;
-    }
-
-    /**
-     * Get sysMunicipio
-     *
-     * @return \AppBundle\Entity\SysMunicipio
-     */
-    public function getSysMunicipio()
-    {
-        return $this->sysMunicipio;
-    }
-
-    /**
      * Set sysTipoInstitucion
      *
      * @param \AppBundle\Entity\SysTipoInstitucion $sysTipoInstitucion
@@ -287,6 +263,30 @@ class SysInstitucion
     public function getSysTipoInstitucion()
     {
         return $this->sysTipoInstitucion;
+    }
+
+    /**
+     * Set sysMunicipio
+     *
+     * @param \AppBundle\Entity\SysMunicipio $sysMunicipio
+     *
+     * @return SysInstitucion
+     */
+    public function setSysMunicipio(\AppBundle\Entity\SysMunicipio $sysMunicipio = null)
+    {
+        $this->sysMunicipio = $sysMunicipio;
+
+        return $this;
+    }
+
+    /**
+     * Get sysMunicipio
+     *
+     * @return \AppBundle\Entity\SysMunicipio
+     */
+    public function getSysMunicipio()
+    {
+        return $this->sysMunicipio;
     }
 
     /**
@@ -313,3 +313,4 @@ class SysInstitucion
         return $this->sysUsuario;
     }
 }
+

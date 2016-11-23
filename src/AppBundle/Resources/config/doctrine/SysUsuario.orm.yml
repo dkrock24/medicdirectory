@@ -39,16 +39,14 @@ AppBundle\Entity\SysUsuario:
             options:
                 fixed: false
             column: email_sys_usuario
-        esActivoSysUsuario:
-            type: integer
+        estatusSysUsuario:
+            type: boolean
             nullable: true
-            options:
-                unsigned: false
-            column: es_activo_sys_usuario
+            column: estatus_sys_usuario
         passwordSysUsuario:
             type: string
             nullable: true
-            length: 255
+            length: 75
             options:
                 fixed: false
             column: password_sys_usuario
@@ -56,13 +54,13 @@ AppBundle\Entity\SysUsuario:
             type: date
             nullable: true
             column: fecha_nacimiento_sys_usuario
-        telefonoSysUsuariocol:
+        telefonoSysUsuario:
             type: string
             nullable: true
             length: 50
             options:
                 fixed: false
-            column: telefono_sys_usuariocol
+            column: telefono_sys_usuario
         celularSysUsuario:
             type: string
             nullable: true

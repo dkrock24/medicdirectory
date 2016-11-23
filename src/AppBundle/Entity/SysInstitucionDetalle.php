@@ -18,14 +18,14 @@ class SysInstitucionDetalle
     private $valorSysInstitucionDetalle;
 
     /**
-     * @var \AppBundle\Entity\SysInstitucion
-     */
-    private $sysInstitucion;
-
-    /**
      * @var \AppBundle\Entity\SysInstitucionPropiedad
      */
     private $sysInstitucionPropiedad;
+
+    /**
+     * @var \AppBundle\Entity\SysInstitucion
+     */
+    private $sysInstitucion;
 
 
     /**
@@ -63,30 +63,6 @@ class SysInstitucionDetalle
     }
 
     /**
-     * Set sysInstitucion
-     *
-     * @param \AppBundle\Entity\SysInstitucion $sysInstitucion
-     *
-     * @return SysInstitucionDetalle
-     */
-    public function setSysInstitucion(\AppBundle\Entity\SysInstitucion $sysInstitucion = null)
-    {
-        $this->sysInstitucion = $sysInstitucion;
-
-        return $this;
-    }
-
-    /**
-     * Get sysInstitucion
-     *
-     * @return \AppBundle\Entity\SysInstitucion
-     */
-    public function getSysInstitucion()
-    {
-        return $this->sysInstitucion;
-    }
-
-    /**
      * Set sysInstitucionPropiedad
      *
      * @param \AppBundle\Entity\SysInstitucionPropiedad $sysInstitucionPropiedad
@@ -109,4 +85,29 @@ class SysInstitucionDetalle
     {
         return $this->sysInstitucionPropiedad;
     }
+
+    /**
+     * Set sysInstitucion
+     *
+     * @param \AppBundle\Entity\SysInstitucion $sysInstitucion
+     *
+     * @return SysInstitucionDetalle
+     */
+    public function setSysInstitucion(\AppBundle\Entity\SysInstitucion $sysInstitucion = null)
+    {
+        $this->sysInstitucion = $sysInstitucion;
+
+        return $this;
+    }
+
+    /**
+     * Get sysInstitucion
+     *
+     * @return \AppBundle\Entity\SysInstitucion
+     */
+    public function getSysInstitucion()
+    {
+        return $this->sysInstitucion;
+    }
 }
+

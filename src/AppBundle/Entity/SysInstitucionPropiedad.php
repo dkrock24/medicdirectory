@@ -20,7 +20,7 @@ class SysInstitucionPropiedad
     /**
      * @var boolean
      */
-    private $esActivoSysInstitucionPropiedad;
+    private $estatusSysInstitucionPropiedad;
 
 
     /**
@@ -58,26 +58,27 @@ class SysInstitucionPropiedad
     }
 
     /**
-     * Set esActivoSysInstitucionPropiedad
+     * Set estatusSysInstitucionPropiedad
      *
-     * @param boolean $esActivoSysInstitucionPropiedad
+     * @param boolean $estatusSysInstitucionPropiedad
      *
      * @return SysInstitucionPropiedad
      */
-    public function setEsActivoSysInstitucionPropiedad($esActivoSysInstitucionPropiedad)
+    public function setEstatusSysInstitucionPropiedad($estatusSysInstitucionPropiedad)
     {
-        $this->esActivoSysInstitucionPropiedad = $esActivoSysInstitucionPropiedad;
+        $this->estatusSysInstitucionPropiedad = $estatusSysInstitucionPropiedad;
 
         return $this;
     }
 
     /**
-     * Get esActivoSysInstitucionPropiedad
+     * Get estatusSysInstitucionPropiedad
      *
      * @return boolean
      */
-    public function getEsActivoSysInstitucionPropiedad()
+    public function getEstatusSysInstitucionPropiedad()
     {
-        return $this->esActivoSysInstitucionPropiedad;
+        return $this->estatusSysInstitucionPropiedad;
     }
 }
+

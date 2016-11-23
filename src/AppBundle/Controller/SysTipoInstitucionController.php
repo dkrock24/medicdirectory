@@ -42,7 +42,13 @@ class SysTipoInstitucionController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($sysTipoInstitucion);
-            $em->flush();
+            $flush = $em->flush();
+			
+			if ($flush == null) {
+				$this->get('session')->getFlashBag()->add('success', "Regístro creado exitosamente");
+			} else {
+				$this->get('session')->getFlashBag()->add('error', "No se ha podido crear el regístro");
+			}
 
             return $this->redirectToRoute('systipoinstitucion_show', array('id' => $sysTipoInstitucion->getId()));
         }
@@ -80,7 +86,13 @@ class SysTipoInstitucionController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($sysTipoInstitucion);
-            $em->flush();
+            $flush = $em->flush();
+			
+			if ($flush == null) {
+				$this->get('session')->getFlashBag()->add('success', "Regístro creado exitosamente");
+			} else {
+				$this->get('session')->getFlashBag()->add('error', "No se ha podido crear el regístro");
+			}
 
             return $this->redirectToRoute('systipoinstitucion_edit', array('id' => $sysTipoInstitucion->getId()));
         }

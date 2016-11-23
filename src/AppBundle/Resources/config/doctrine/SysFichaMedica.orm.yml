@@ -4,10 +4,10 @@ AppBundle\Entity\SysFichaMedica:
     indexes:
         fk_sys_ficha_medica_sys_usuario1_idx:
             columns:
-                - sys_usuario_medico
+                - sys_usuario_medico_id
         fk_sys_ficha_medica_sys_usuario2_idx:
             columns:
-                - sys_usuario_paciente
+                - sys_usuario_paciente_di
     id:
         id:
             type: integer
@@ -19,7 +19,7 @@ AppBundle\Entity\SysFichaMedica:
                 strategy: IDENTITY
     fields:
         fechaCreacionSysFichaMedica:
-            type: date
+            type: datetime
             nullable: true
             column: fecha_creacion_sys_ficha_medica
     manyToOne:
@@ -30,17 +30,17 @@ AppBundle\Entity\SysFichaMedica:
             mappedBy: null
             inversedBy: null
             joinColumns:
-                sys_usuario_medico:
+                sys_usuario_medico_id:
                     referencedColumnName: id
             orphanRemoval: false
-        sysUsuarioPaciente:
+        sysUsuarioPacienteDi:
             targetEntity: SysUsuario
             cascade: {  }
             fetch: LAZY
             mappedBy: null
             inversedBy: null
             joinColumns:
-                sys_usuario_paciente:
+                sys_usuario_paciente_di:
                     referencedColumnName: id
             orphanRemoval: false
     lifecycleCallbacks: {  }

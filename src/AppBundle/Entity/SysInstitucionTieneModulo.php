@@ -15,7 +15,7 @@ class SysInstitucionTieneModulo
     /**
      * @var boolean
      */
-    private $esActivoSysUtm;
+    private $estatusSysUtm;
 
     /**
      * @var \DateTime
@@ -38,14 +38,14 @@ class SysInstitucionTieneModulo
     private $totalMesesSysUsuarioTieneModulo;
 
     /**
-     * @var \AppBundle\Entity\SysInstitucion
-     */
-    private $sysInstitucion;
-
-    /**
      * @var \AppBundle\Entity\SysModulos
      */
     private $sysModulo;
+
+    /**
+     * @var \AppBundle\Entity\SysInstitucion
+     */
+    private $sysInstitucion;
 
 
     /**
@@ -59,27 +59,27 @@ class SysInstitucionTieneModulo
     }
 
     /**
-     * Set esActivoSysUtm
+     * Set estatusSysUtm
      *
-     * @param boolean $esActivoSysUtm
+     * @param boolean $estatusSysUtm
      *
      * @return SysInstitucionTieneModulo
      */
-    public function setEsActivoSysUtm($esActivoSysUtm)
+    public function setEstatusSysUtm($estatusSysUtm)
     {
-        $this->esActivoSysUtm = $esActivoSysUtm;
+        $this->estatusSysUtm = $estatusSysUtm;
 
         return $this;
     }
 
     /**
-     * Get esActivoSysUtm
+     * Get estatusSysUtm
      *
      * @return boolean
      */
-    public function getEsActivoSysUtm()
+    public function getEstatusSysUtm()
     {
-        return $this->esActivoSysUtm;
+        return $this->estatusSysUtm;
     }
 
     /**
@@ -179,30 +179,6 @@ class SysInstitucionTieneModulo
     }
 
     /**
-     * Set sysInstitucion
-     *
-     * @param \AppBundle\Entity\SysInstitucion $sysInstitucion
-     *
-     * @return SysInstitucionTieneModulo
-     */
-    public function setSysInstitucion(\AppBundle\Entity\SysInstitucion $sysInstitucion = null)
-    {
-        $this->sysInstitucion = $sysInstitucion;
-
-        return $this;
-    }
-
-    /**
-     * Get sysInstitucion
-     *
-     * @return \AppBundle\Entity\SysInstitucion
-     */
-    public function getSysInstitucion()
-    {
-        return $this->sysInstitucion;
-    }
-
-    /**
      * Set sysModulo
      *
      * @param \AppBundle\Entity\SysModulos $sysModulo
@@ -225,4 +201,29 @@ class SysInstitucionTieneModulo
     {
         return $this->sysModulo;
     }
+
+    /**
+     * Set sysInstitucion
+     *
+     * @param \AppBundle\Entity\SysInstitucion $sysInstitucion
+     *
+     * @return SysInstitucionTieneModulo
+     */
+    public function setSysInstitucion(\AppBundle\Entity\SysInstitucion $sysInstitucion = null)
+    {
+        $this->sysInstitucion = $sysInstitucion;
+
+        return $this;
+    }
+
+    /**
+     * Get sysInstitucion
+     *
+     * @return \AppBundle\Entity\SysInstitucion
+     */
+    public function getSysInstitucion()
+    {
+        return $this->sysInstitucion;
+    }
 }
+

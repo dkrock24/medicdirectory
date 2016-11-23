@@ -28,9 +28,7 @@ AppBundle\Entity\SysNotificacion:
             type: datetime
             nullable: true
             column: fecha_creacion
-        estado:
-            type: integer
+        estatus:
+            type: boolean
             nullable: true
-            options:
-                unsigned: false
     lifecycleCallbacks: {  }

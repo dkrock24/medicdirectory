@@ -25,7 +25,7 @@ class SysUsuarioTieneEspecialidad
     /**
      * @var boolean
      */
-    private $esActivoSysUte;
+    private $estatusSysUte;
 
     /**
      * @var \AppBundle\Entity\SysEspecialidades
@@ -97,27 +97,27 @@ class SysUsuarioTieneEspecialidad
     }
 
     /**
-     * Set esActivoSysUte
+     * Set estatusSysUte
      *
-     * @param boolean $esActivoSysUte
+     * @param boolean $estatusSysUte
      *
      * @return SysUsuarioTieneEspecialidad
      */
-    public function setEsActivoSysUte($esActivoSysUte)
+    public function setEstatusSysUte($estatusSysUte)
     {
-        $this->esActivoSysUte = $esActivoSysUte;
+        $this->estatusSysUte = $estatusSysUte;
 
         return $this;
     }
 
     /**
-     * Get esActivoSysUte
+     * Get estatusSysUte
      *
      * @return boolean
      */
-    public function getEsActivoSysUte()
+    public function getEstatusSysUte()
     {
-        return $this->esActivoSysUte;
+        return $this->estatusSysUte;
     }
 
     /**
@@ -168,3 +168,4 @@ class SysUsuarioTieneEspecialidad
         return $this->sysUsuario;
     }
 }
+

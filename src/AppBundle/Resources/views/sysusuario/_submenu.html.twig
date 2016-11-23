@@ -1,0 +1,25 @@
+<!-- 
+<li class="dropdown content-nav-navbar-fw">
+            <a href="#" data-toggle="dropdown" class="dropdown-toggle">Demo<i class="dropdown-caret pe-7s-angle-down"></i></a>
+</li>
+-->
+{% block submenutop  %}
+    <ul class="nav navbar-nav">
+        <li class="">
+            <a href="{{ path('sysusuario_new')}}" data-toggle="" class="">Nuevo registro</a>
+        </li>
+        <li class="">
+            <a href="{{ path('sysusuario_index')}}" data-toggle="" class="">Listar</a>
+        </li>
+    </ul>
+    <!--
+    <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+            <a href="#" data-toggle="dropdown" class="dropdown-toggle">FeedBack<i class="dropdown-caret pe-7s-angle-down"></i></a>
+
+        </li>
+    </ul>
+    -->
+{% endblock %}
+
+

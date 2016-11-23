@@ -31,17 +31,15 @@ AppBundle\Entity\SysPais:
             options:
                 unsigned: false
             column: codigo_postal_sys_pais
-        contientePaisSysPais:
+        continentePaisSysPais:
             type: string
             nullable: true
             length: 45
             options:
                 fixed: false
-            column: contiente_pais_sys_pais
-        estadoSysPais:
-            type: integer
+            column: continente_pais_sys_pais
+        estatusSysPais:
+            type: boolean
             nullable: true
-            options:
-                unsigned: false
-            column: estado_sys_pais
+            column: estatus_sys_pais
     lifecycleCallbacks: {  }

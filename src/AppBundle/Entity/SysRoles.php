@@ -20,10 +20,10 @@ class SysRoles
     /**
      * @var boolean
      */
-    private $esActivoSysRoles;
+    private $estatusSysRoles;
 
     /**
-     * @var string
+     * @var \DateTime
      */
     private $fechaCreacionSysRoles;
 
@@ -63,33 +63,33 @@ class SysRoles
     }
 
     /**
-     * Set esActivoSysRoles
+     * Set estatusSysRoles
      *
-     * @param boolean $esActivoSysRoles
+     * @param boolean $estatusSysRoles
      *
      * @return SysRoles
      */
-    public function setEsActivoSysRoles($esActivoSysRoles)
+    public function setEstatusSysRoles($estatusSysRoles)
     {
-        $this->esActivoSysRoles = $esActivoSysRoles;
+        $this->estatusSysRoles = $estatusSysRoles;
 
         return $this;
     }
 
     /**
-     * Get esActivoSysRoles
+     * Get estatusSysRoles
      *
      * @return boolean
      */
-    public function getEsActivoSysRoles()
+    public function getEstatusSysRoles()
     {
-        return $this->esActivoSysRoles;
+        return $this->estatusSysRoles;
     }
 
     /**
      * Set fechaCreacionSysRoles
      *
-     * @param string $fechaCreacionSysRoles
+     * @param \DateTime $fechaCreacionSysRoles
      *
      * @return SysRoles
      */
@@ -103,10 +103,16 @@ class SysRoles
     /**
      * Get fechaCreacionSysRoles
      *
-     * @return string
+     * @return \DateTime
      */
     public function getFechaCreacionSysRoles()
     {
         return $this->fechaCreacionSysRoles;
     }
+	
+	public function __toString()
+    {
+        return $this->nombreRolSysRoles;
+    }
 }
+

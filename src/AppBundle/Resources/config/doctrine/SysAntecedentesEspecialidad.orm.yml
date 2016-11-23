@@ -34,7 +34,7 @@ AppBundle\Entity\SysAntecedentesEspecialidad:
             options:
                 fixed: false
         fechaCreacion:
-            type: date
+            type: datetime
             nullable: true
             column: fecha_creacion
     manyToOne:

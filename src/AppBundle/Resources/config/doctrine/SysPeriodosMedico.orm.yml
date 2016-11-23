@@ -6,13 +6,12 @@ AppBundle\Entity\SysPeriodosMedico:
             columns:
                 - sys_usuario_id
     id:
-        idSysPeriodosMedico:
+        id:
             type: integer
             nullable: false
             options:
                 unsigned: false
             id: true
-            column: id_sys_periodos_medico
             generator:
                 strategy: IDENTITY
     fields:

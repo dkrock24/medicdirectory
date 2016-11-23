@@ -5,10 +5,11 @@
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('bundles/admin/css/bootstrap.min.css') }}" type="text/css" id="link-bootstrap" />
     <link rel="stylesheet" href="{{ asset('bundles/admin/css/animate.min.css') }}" type="text/css" />
-    <link rel="stylesheet" href="{{ asset('bundles/admin/css/app.min.css') }}" type="text/css" id="link-app" />
+    <link rel="stylesheet" href="{{ asset('bundles/admin/css/app.css') }}" type="text/css" id="link-app" />
     <link rel="stylesheet" href="{{ asset('bundles/admin/css/demo.min.css') }}" type="text/css" />
     <link rel="stylesheet" href="{{ asset('bundles/admin/css/font-awesome.min.css') }}" type="text/css" />
     <link rel="stylesheet" href="{{ asset('bundles/admin/css/pe-icon-7-stroke.css') }} " type="text/css" />
+    <link rel="stylesheet" href="{{ asset('bundles/admin/css/custom-emr.css') }} " type="text/css" />
    
 {% endblock %}
 
@@ -49,6 +50,10 @@
 {% endblock %}
  
 {% block body_page %}
+    
+    <div id="emrloading">
+        <div class="cssload-speeding-wheel"></div>
+    </div>
     <!--
     <section id="layout-body" class="container">
         
@@ -124,40 +129,73 @@
             [5.1. Page Header]
             -->
             <div class="content-header">
-                <!--
-                [5.1.1. BreadCrumb]
-                -->
-                <ul class="breadcrumb">
-                    <li>
-                        <a href="#">
-                            <i class="pe-7s-home"></i>
-                            <span>Home</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="pe-7s-monitor"></i>
-                            <span>Dashboards</span>
-                        </a>
-                    </li>
-                    <li class="active">
-                        <i class="pe-7s-graph1"></i>
-                        <span>Minimal</span>
-                    </li>
-                </ul>
-                <!--
-                [5.1.2. Header Buttons]
-                -->
-                
-                <!-- Iconos top lado derecho ================================-->
-                {{ include('_menu.top.right.html.twig')  }}
-                <!-- Fin iconos menu rerecho ===============================-- >
-            </div>
+                {% block header %}
+                        <!--
+                        [5.1.1. BreadCrumb]
+                        -->
+                    {% block breadcrumb %}{% endblock %}
 
-            <!--
-            Sub menu top
-            -->
-            {{ include('_sub.menu.top.html.twig')  }}
+                    <!--
+                    [5.1.2. Header Buttons]
+                    -->
+
+                    <!-- Iconos top lado derecho ================================-->
+                    {{ include('_menu.top.right.html.twig')  }}
+                    <!-- Fin iconos menu rerecho ===============================-- >
+                    </div>
+
+                    <!--
+                    Sub menu top
+                    -->
+                    <div class="content-nav">
+                        <div class="navbar navbar-default content-nav-navbar">
+                            <!--
+                                <div class="navbar-header">
+                                    <a data-toggle="collapse" data-target="#navbar-collapse-2" class="navbar-toggle collapsed">
+                                        <div class="icon"></div>
+                                    </a>
+                                    <a href="#" class="navbar-brand">Minimal</a>
+                                </div> 
+                            -->
+                            <div id="navbar-collapse-2" class="navbar-collapse collapse">
+                                {% block submenutop %}
+
+                                {% endblock %}
+                                <!--
+                                    <ul class="nav navbar-nav navbar-right">
+                                        <li class="dropdown">
+                                            <a href="#" data-toggle="dropdown" class="dropdown-toggle">FeedBack<i class="dropdown-caret pe-7s-angle-down"></i></a>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <div class="content-nav-navbar-content">
+                                                        <form style="min-width: 400px;">
+                                                            <div class="form-group">
+                                                                <input id="inputName" type="text" placeholder="Name" class="form-control">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <input id="inputEmail" type="password" placeholder="Email" class="form-control">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <textarea placeholder="Write your message.." rows="5" class="form-control"></textarea>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <button type="submit" class="btn btn-primary">Send</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </li>
+                                            </ul>
+
+                                        </li>
+                                    </ul>
+                                -->
+                            </div>
+                        </div>
+                    </div>
+                    {# {{ include('_sub.menu.top.html.twig')  }} #}
+            
+                {% endblock %}
+            </div>    
             <!--
             [5.3. Page Body]
             -->
@@ -167,5 +205,7 @@
                 {% endblock %}    
                 
             </div>
-        </div>    
+        </div>        
+  </div>          
 {% endblock %}
+

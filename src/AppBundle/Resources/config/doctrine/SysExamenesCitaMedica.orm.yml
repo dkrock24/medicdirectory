@@ -15,17 +15,15 @@ AppBundle\Entity\SysExamenesCitaMedica:
             options:
                 unsigned: false
             id: true
-            generator:
-                strategy: IDENTITY
     fields:
         date:
             type: date
             nullable: true
-        estado:
-            type: integer
+        estatus:
+            type: boolean
             nullable: true
             options:
-                unsigned: false
+                comment: '1 = Pendiente, 2 = Entregado'
     manyToOne:
         idCita:
             targetEntity: SysCita
@@ -37,6 +35,7 @@ AppBundle\Entity\SysExamenesCitaMedica:
                 id_cita:
                     referencedColumnName: id
             orphanRemoval: false
+    oneToOne:
         idExamenMedico:
             targetEntity: SysExamenesCitaMedica
             cascade: {  }

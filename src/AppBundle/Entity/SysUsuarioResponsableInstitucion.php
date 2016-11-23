@@ -10,7 +10,7 @@ class SysUsuarioResponsableInstitucion
     /**
      * @var integer
      */
-    private $idSysUsuarioResponsableInstitucion;
+    private $id;
 
     /**
      * @var \AppBundle\Entity\SysInstitucion
@@ -24,13 +24,13 @@ class SysUsuarioResponsableInstitucion
 
 
     /**
-     * Get idSysUsuarioResponsableInstitucion
+     * Get id
      *
      * @return integer
      */
-    public function getIdSysUsuarioResponsableInstitucion()
+    public function getId()
     {
-        return $this->idSysUsuarioResponsableInstitucion;
+        return $this->id;
     }
 
     /**
@@ -81,3 +81,4 @@ class SysUsuarioResponsableInstitucion
         return $this->sysUsuario;
     }
 }
+

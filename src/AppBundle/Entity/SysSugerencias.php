@@ -25,7 +25,7 @@ class SysSugerencias
     /**
      * @var boolean
      */
-    private $esActivoSugerencia;
+    private $estatusSugerencia;
 
     /**
      * @var \AppBundle\Entity\SysArea
@@ -97,27 +97,27 @@ class SysSugerencias
     }
 
     /**
-     * Set esActivoSugerencia
+     * Set estatusSugerencia
      *
-     * @param boolean $esActivoSugerencia
+     * @param boolean $estatusSugerencia
      *
      * @return SysSugerencias
      */
-    public function setEsActivoSugerencia($esActivoSugerencia)
+    public function setEstatusSugerencia($estatusSugerencia)
     {
-        $this->esActivoSugerencia = $esActivoSugerencia;
+        $this->estatusSugerencia = $estatusSugerencia;
 
         return $this;
     }
 
     /**
-     * Get esActivoSugerencia
+     * Get estatusSugerencia
      *
      * @return boolean
      */
-    public function getEsActivoSugerencia()
+    public function getEstatusSugerencia()
     {
-        return $this->esActivoSugerencia;
+        return $this->estatusSugerencia;
     }
 
     /**
@@ -168,3 +168,4 @@ class SysSugerencias
         return $this->sysInstitucion;
     }
 }
+

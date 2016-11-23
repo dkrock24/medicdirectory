@@ -18,11 +18,6 @@ class SysDepartamentos
     private $nombreSysDepartamento;
 
     /**
-     * @var boolean
-     */
-    private $estadoSysDepartamento;
-
-    /**
      * @var string
      */
     private $codigoZonaSysDepartamento;
@@ -36,6 +31,11 @@ class SysDepartamentos
      * @var string
      */
     private $prefijoSysDepartamento;
+
+    /**
+     * @var boolean
+     */
+    private $estatusSysDepartamento;
 
     /**
      * @var \AppBundle\Entity\SysPais
@@ -75,30 +75,6 @@ class SysDepartamentos
     public function getNombreSysDepartamento()
     {
         return $this->nombreSysDepartamento;
-    }
-
-    /**
-     * Set estadoSysDepartamento
-     *
-     * @param boolean $estadoSysDepartamento
-     *
-     * @return SysDepartamentos
-     */
-    public function setEstadoSysDepartamento($estadoSysDepartamento)
-    {
-        $this->estadoSysDepartamento = $estadoSysDepartamento;
-
-        return $this;
-    }
-
-    /**
-     * Get estadoSysDepartamento
-     *
-     * @return boolean
-     */
-    public function getEstadoSysDepartamento()
-    {
-        return $this->estadoSysDepartamento;
     }
 
     /**
@@ -174,6 +150,30 @@ class SysDepartamentos
     }
 
     /**
+     * Set estatusSysDepartamento
+     *
+     * @param boolean $estatusSysDepartamento
+     *
+     * @return SysDepartamentos
+     */
+    public function setEstatusSysDepartamento($estatusSysDepartamento)
+    {
+        $this->estatusSysDepartamento = $estatusSysDepartamento;
+
+        return $this;
+    }
+
+    /**
+     * Get estatusSysDepartamento
+     *
+     * @return boolean
+     */
+    public function getEstatusSysDepartamento()
+    {
+        return $this->estatusSysDepartamento;
+    }
+
+    /**
      * Set pais
      *
      * @param \AppBundle\Entity\SysPais $pais
@@ -196,4 +196,10 @@ class SysDepartamentos
     {
         return $this->pais;
     }
+	
+	public function __toString()
+    {
+        return $this->nombreSysDepartamento;
+    }
 }
+

@@ -43,10 +43,10 @@ AppBundle\Entity\SysDepartamentos:
             options:
                 fixed: false
             column: prefijo_sys_departamento
-        estadoSysDepartamento:
+        estatusSysDepartamento:
             type: boolean
             nullable: true
-            column: estado_sys_departamento
+            column: estatus_sys_departamento
     manyToOne:
         pais:
             targetEntity: SysPais

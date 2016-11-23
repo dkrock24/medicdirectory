@@ -1,34 +1,64 @@
-{% extends "::base.html.twig" %}
-  
+{% extends 'base.html.twig' %}
+
+{% block breadcrumb %}
+    {{ include('AppBundle:systipoinstitucion:_breadcrumb.html.twig' )  }}
+{% endblock %} 
+
+{% block submenutop %}
+    {{ include('AppBundle:systipoinstitucion:_submenu.html.twig' )  }}
+{% endblock %} 
+
 {% block body %}
+    <h1>SysTipoInstitucion edit</h1>
+    {% for flashMessage in app.session.flashbag.get('success') %}
+        <div class="alert alert-dismissible alert-success"><span class="glyphicon glyphicon-ok-sign"></span> {{ flashMessage }}</div>
+    {% endfor %}
+    {% for flashMessage in app.session.flashbag.get('error') %}
+        <div class="alert alert-dismissible alert-danger"><span class="glyphicon glyphicon-exclamation-sign"></span> {{ flashMessage }}</div>
+    {% endfor %}
     <div class="row">
-        <div class="col-lg-12">
-            <h1>Editar Tipo de Institucion</h1>
+        <div class="col-lg-6 col-md-6 col-sm-12">
+    {{ form_start(edit_form) }}
+            {# {{ form_widget(edit_form) }} #}
 
-            {{ form_start(edit_form) }}
-                {{ form_widget(edit_form) }}
-                <input type="submit" value="Edit" />
-            {{ form_end(edit_form) }}
+            <div class="form_error">{{ form_errors(edit_form)}}</div>
+            <div class="form-group">
 
-            <ul>
-                <li>
-                    <a href="{{ path('systipoinstitucion_index') }}">Back to the list</a>
-                </li>
-                <li>
-                    {{ form_start(delete_form) }}
-                        <input type="submit" value="Delete">
-                    {{ form_end(delete_form) }}
-                </li>
-            </ul>
-        
+                <div class="form_error">{{ form_errors(edit_form.nombreTipoSysInstitucion)}}</div>
+                <div><label for="">Tipo</label></div>
+                {{ form_widget(edit_form.nombreTipoSysInstitucion) }}
+            </div>
+            <div class="form-group">
+                <div class="form_error">{{ form_errors(edit_form.descripcionSysTipoInstitucion)}}</div>
+                <div><label for="" class="">Descripción</label></div>
+                {{ form_widget(edit_form.descripcionSysTipoInstitucion) }}
+            </div>
+            <div class="form-group">
+                <div class="form_error">{{ form_errors(edit_form.codigoSysTipoInstitucion)}}</div>
+                <label for="" class=" control-label">Código</label>
+                {{ form_widget(edit_form.codigoSysTipoInstitucion) }}
+            </div>
+
+
+            <input type="submit" value="Editar" class="btn btn-info" />
+        {{ form_end(edit_form) }}
         </div>
     </div>
+    <hr>
+    <ul class="btn-option-emr">
+        
+        
+        <li>
+            <a href="{{ path('systipoinstitucion_index') }}" class="btn btn-default"><i class="glyphicon glyphicon-th-list"></i> Regresar a la lista</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Eliminar" class="btn btn-danger">
+            {{ form_end(delete_form) }}
+        </li>
+        <li>
+            <a href="{{ path('systipoinstitucion_new')}}" class="btn btn-inverse"><i class="fa fa-plus"></i> Nuevo </a>
+        </li>
+        
+    </ul>        
 {% endblock %}
-
-{% block codejs %}
-    <script>
-        $(function(){
-
-          });
-    </script>
-{% endblock %} 

@@ -27,16 +27,6 @@ AppBundle\Entity\SysInstitucionDetalle:
                 fixed: false
             column: valor_sys_institucion_detalle
     manyToOne:
-        sysInstitucion:
-            targetEntity: SysInstitucion
-            cascade: {  }
-            fetch: LAZY
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                sys_institucion_id:
-                    referencedColumnName: id
-            orphanRemoval: false
         sysInstitucionPropiedad:
             targetEntity: SysInstitucionPropiedad
             cascade: {  }
@@ -46,5 +36,15 @@ AppBundle\Entity\SysInstitucionDetalle:
             joinColumns:
                 sys_institucion_propiedad:
                     referencedColumnName: id_sys_institucion_propiedad
+            orphanRemoval: false
+        sysInstitucion:
+            targetEntity: SysInstitucion
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                sys_institucion_id:
+                    referencedColumnName: id
             orphanRemoval: false
     lifecycleCallbacks: {  }

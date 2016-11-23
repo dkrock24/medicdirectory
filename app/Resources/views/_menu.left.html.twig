@@ -3,68 +3,71 @@
         <li class="active open">
             <a>
                 <i class="pe-7s-monitor"></i>
-                <span>Dashboards </span>
+                <span>Admin </span>
             </a>
             <ul>
                 <li class="submenu-title">
-                    <span>Data</span>
+                    <span>Ubicaciones</span>
                 </li>
                 <li >
-                    <a href="DashboardMultipleBox.html">
-                        <i class="pe-7s-box2"></i>
-                        <span>Multiple Box</span>
+                    <a href="{{ path('syspais_index')}}">
+                        <i class="pe-7s-global"></i>
+                        <span>Paises</span>
                     </a>
                 </li>
-                <li class="active">
-                    <a href="DashboardMinimal.html">
+                <li class="activex">
+                    <a href="{{ path('sysdepartamentos_index')}}">
                         <i class="pe-7s-graph1"></i>
-                        <span>Minimal</span>
+                        <span>Departamentos</span>
                     </a>
                 </li>
                 <li >
-                    <a href="DashboardRealtime.html">
-                        <i class="pe-7s-refresh-2"></i>
-                        <span>Real-time</span>
+                    <a href="{{ path('sysmunicipio_index')}}">
+                        <i class="pe-7s-shuffle"></i>
+                        <span>Municipios</span>
                     </a>
                 </li>
                 <li >
-                    <a href=DashboardMultipleBoxContrast.html>
-                        <i class="pe-7s-sun"></i>
-                        <span>High Contrast</span>
+                    <a href="{{ path('systipoinstitucion_index')}}">
+                        <i class="pe-7s-culture"></i>
+                        <span>Instituciones</span>
                     </a>
                 </li>
                 <li class="submenu-title">
-                    <span>Social (Soon)</span>
+                    <span>Permisos</span>
                 </li>
                 <li>
-                    <a>
-                        <i class="pe-7s-photo"></i>
-                        <span>Gallery</span>
+                    <a href="{{ path('sysroles_index')}}">
+                        <i class="pe-7s-edit"></i>
+                        <span>Roles</span>
                     </a>
                 </li>
                 <li>
-                    <a>
+                    <a href="{{ path('sysusuario_index')}}">
                         <i class="pe-7s-add-user"></i>
-                        <span>Social Profile</span>
+                        <span>Usuarios</span>
                     </a>
                 </li>
-                <li class="submenu-title">
-                    <span>Management (Soon)</span>
-                </li>
-                <li>
-                    <a>
-                        <i class="pe-7s-bookmarks"></i>
-                        <span>Kanban</span>
-                    </a>
-                </li>
-                <li>
-                    <a>
-                        <i class="pe-7s-ribbon"></i>
-                        <span>Projects</span>
-                    </a>
-                </li>
+                <!--
+                    <li class="submenu-title">
+                        <span>Management (Soon)</span>
+                    </li>
+                    <li>
+                        <a>
+                            <i class="pe-7s-bookmarks"></i>
+                            <span>Kanban</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <i class="pe-7s-ribbon"></i>
+                            <span>Projects</span>
+                        </a>
+                    </li>
+                -->
             </ul>
         </li>
+        <!--
         <li >
             <a>
                 <i class="pe-7s-box2"></i>
@@ -655,5 +658,6 @@
                 </li>
             </ul>
         </li>
+        -->
     </ul>
 </div>

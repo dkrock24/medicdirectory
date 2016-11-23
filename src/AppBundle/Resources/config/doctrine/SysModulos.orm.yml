@@ -1,18 +1,13 @@
 AppBundle\Entity\SysModulos:
     type: entity
     table: sys_modulos
-    indexes:
-        FK_sys_modulos_sys_especialidades:
-            columns:
-                - id_especialidad
     id:
-        idSysModulo:
+        id:
             type: integer
             nullable: false
             options:
                 unsigned: false
             id: true
-            column: id_sys_modulo
             generator:
                 strategy: IDENTITY
     fields:
@@ -36,10 +31,10 @@ AppBundle\Entity\SysModulos:
             precision: 10
             scale: 0
             column: precio_sys_modulo
-        esActivoSysModulo:
+        estatusSysModulo:
             type: boolean
             nullable: true
-            column: es_activo_sys_modulo
+            column: estatus_sys_modulo
         codigoSysModulo:
             type: string
             nullable: true
@@ -48,7 +43,7 @@ AppBundle\Entity\SysModulos:
                 fixed: false
             column: codigo_sys_modulo
         fechaCreacionSysModulo:
-            type: date
+            type: datetime
             nullable: true
             column: fecha_creacion_sys_modulo
         imagenModulo:
@@ -58,15 +53,4 @@ AppBundle\Entity\SysModulos:
             options:
                 fixed: false
             column: imagen_modulo
-    manyToOne:
-        idEspecialidad:
-            targetEntity: SysEspecialidades
-            cascade: {  }
-            fetch: LAZY
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                id_especialidad:
-                    referencedColumnName: id
-            orphanRemoval: false
     lifecycleCallbacks: {  }

@@ -31,16 +31,6 @@ AppBundle\Entity\SysAntecedetenUsuario:
             nullable: true
             column: fecha_creacion
     manyToOne:
-        idAntecedenteEspecialidad:
-            targetEntity: SysAntecedentesEspecialidad
-            cascade: {  }
-            fetch: LAZY
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                id_antecedente_especialidad:
-                    referencedColumnName: id
-            orphanRemoval: false
         idCita:
             targetEntity: SysCita
             cascade: {  }
@@ -49,6 +39,16 @@ AppBundle\Entity\SysAntecedetenUsuario:
             inversedBy: null
             joinColumns:
                 id_cita:
+                    referencedColumnName: id
+            orphanRemoval: false
+        idAntecedenteEspecialidad:
+            targetEntity: SysAntecedentesEspecialidad
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_antecedente_especialidad:
                     referencedColumnName: id
             orphanRemoval: false
         idUsuario:

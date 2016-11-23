@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="SysExamenesCitaMedica" table="sys_examenes_cita_medica">
+    <indexes>
+      <index name="FK_sys_examenes_cita_medica_sys_cita" columns="id_cita"/>
+      <index name="FK_sys_examenes_cita_medica_sys_examenes_cita_medica" columns="id_examen_medico"/>
+    </indexes>
+    <id name="id" type="integer" column="id"/>
+    <id name="idExamenMedico" association-key="true"/>
+    <field name="date" type="date" column="date" nullable="true"/>
+    <field name="estatus" type="boolean" column="estatus" nullable="true">
+      <options>
+        <option name="comment">1 = Pendiente, 2 = Entregado</option>
+      </options>
+    </field>
+    <one-to-one field="idExamenMedico" target-entity="SysExamenesCitaMedica" fetch="LAZY">
+      <join-columns>
+        <join-column name="id_examen_medico" referenced-column-name="id"/>
+      </join-columns>
+    </one-to-one>
+    <many-to-one field="idCita" target-entity="SysCita" fetch="LAZY">
+      <join-columns>
+        <join-column name="id_cita" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

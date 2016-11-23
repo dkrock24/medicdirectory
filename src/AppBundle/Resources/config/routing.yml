@@ -20,5 +20,5 @@ app_sysusuario:
     
 app_systipoinstitucion:
     resource: "@AppBundle/Resources/config/routing/systipoinstitucion.yml"
-    prefix:   /sysusuario
+    prefix:   /systipoinstitucion
 

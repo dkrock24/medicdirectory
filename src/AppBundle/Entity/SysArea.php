@@ -25,7 +25,7 @@ class SysArea
     /**
      * @var boolean
      */
-    private $estadoSysArea;
+    private $estatusSysArea;
 
     /**
      * @var string
@@ -97,27 +97,27 @@ class SysArea
     }
 
     /**
-     * Set estadoSysArea
+     * Set estatusSysArea
      *
-     * @param boolean $estadoSysArea
+     * @param boolean $estatusSysArea
      *
      * @return SysArea
      */
-    public function setEstadoSysArea($estadoSysArea)
+    public function setEstatusSysArea($estatusSysArea)
     {
-        $this->estadoSysArea = $estadoSysArea;
+        $this->estatusSysArea = $estatusSysArea;
 
         return $this;
     }
 
     /**
-     * Get estadoSysArea
+     * Get estatusSysArea
      *
      * @return boolean
      */
-    public function getEstadoSysArea()
+    public function getEstatusSysArea()
     {
-        return $this->estadoSysArea;
+        return $this->estatusSysArea;
     }
 
     /**
@@ -167,9 +167,5 @@ class SysArea
     {
         return $this->fechaCreacion;
     }
-	
-	public function __toString()
-    {
-        return $this->nombreSysArea;
-    }
 }
+

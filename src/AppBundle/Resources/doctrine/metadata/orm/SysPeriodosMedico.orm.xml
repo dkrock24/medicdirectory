@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="SysPeriodosMedico" table="sys_periodos_medico">
+    <indexes>
+      <index name="fk_sys_periodos_medico_sys_usuario1_idx" columns="sys_usuario_id"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="fechaContratoInico" type="date" column="fecha_contrato_inico" nullable="true"/>
+    <field name="fechaContratoFin" type="date" column="fecha_contrato_fin" nullable="true"/>
+    <field name="montoSysPeriodosMedico" type="float" column="monto_sys_periodos_medico" precision="10" scale="0" nullable="true"/>
+    <many-to-one field="sysUsuario" target-entity="SysUsuario" fetch="LAZY">
+      <join-columns>
+        <join-column name="sys_usuario_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

@@ -1,22 +1,69 @@
 {% extends "::base.html.twig" %}
-  
-{% block body %}
-    <div class="row">
-        <div class="col-lg-12">
-            <h1>Nueva entrada</h1>
 
-            {{ form_start(form) }}
-                {{ form_widget(form) }}
-                <input type="submit" value="Create" />
+{% block breadcrumb %}
+    {{ include('AppBundle:syspais:_breadcrumb.html.twig' )  }}
+{% endblock %} 
+
+{% block submenutop %}
+    {{ include('AppBundle:syspais:_submenu.html.twig' )  }}
+{% endblock %} 
+
+
+{% block body %}
+    <h1>Nueva entrada</h1>
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            {# {{ dump( form_widget(form) )}} #}
+            <div class="panel-bodyx">
+            {{ form_start(form, {'attr': {'class': ''}}) }}    
+            
+                {# {{ form_widget(form) }} #}
+                <div class="form_error">{{ form_errors(form)}}</div>
+                <div class="form-group">
+                    
+                    <div class="form_error">{{ form_errors(form.nombreSysPais)}}</div>
+                    <div><label for="">Pais</label></div>
+                    {{ form_widget(form.nombreSysPais) }}
+                </div>
+                <div class="form-group">
+                    <div class="form_error">{{ form_errors(form.prefijoSysPais)}}</div>
+                    <div><label for="" class="">Prefijo</label></div>
+                    {{ form_widget(form.prefijoSysPais) }}
+                </div>
+                <div class="form-group">
+                    <div class="form_error">{{ form_errors(form.codigoPostalSysPais)}}</div>
+                    <label for="" class=" control-label">Código postal</label>
+                    {{ form_widget(form.codigoPostalSysPais) }}
+                </div>
+                <div class="form-group">
+                    <div class="form_error">{{ form_errors(form.continentePaisSysPais)}}</div>
+                    <label for="" class=" control-label">Continente</label>
+                    {{ form_widget(form.continentePaisSysPais) }}
+                </div>
+                <div class="form-group">
+                    <div class="form_error">{{ form_errors(form.estatusSysPais)}}</div>
+                    <div>Estatus</div>
+                    <div class="checkbox">
+                            <label>
+                                {{ form_widget(form.estatusSysPais) }}
+                                <span class="text"></span>
+                            </label>
+                    </div>   
+                </div>
+            
+                                
+                <input type="submit" value="Crear" class="btn btn-primary" />
             {{ form_end(form) }}
 
+                        
+            {#
             <ul>
                 <li>
                     <a href="{{ path('syspais_index') }}">Regresar a la lista</a>
                 </li>
-            </ul>
-        
-        </div>
+            </ul> #}
+        </div>    
+            
     </div>
 {% endblock %}
 

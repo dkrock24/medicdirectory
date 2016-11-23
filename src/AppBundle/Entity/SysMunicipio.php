@@ -20,7 +20,7 @@ class SysMunicipio
     /**
      * @var boolean
      */
-    private $esActivoSysMunicipo;
+    private $estatusSysMunicipo;
 
     /**
      * @var string
@@ -68,27 +68,27 @@ class SysMunicipio
     }
 
     /**
-     * Set esActivoSysMunicipo
+     * Set estatusSysMunicipo
      *
-     * @param boolean $esActivoSysMunicipo
+     * @param boolean $estatusSysMunicipo
      *
      * @return SysMunicipio
      */
-    public function setEsActivoSysMunicipo($esActivoSysMunicipo)
+    public function setEstatusSysMunicipo($estatusSysMunicipo)
     {
-        $this->esActivoSysMunicipo = $esActivoSysMunicipo;
+        $this->estatusSysMunicipo = $estatusSysMunicipo;
 
         return $this;
     }
 
     /**
-     * Get esActivoSysMunicipo
+     * Get estatusSysMunicipo
      *
      * @return boolean
      */
-    public function getEsActivoSysMunicipo()
+    public function getEstatusSysMunicipo()
     {
-        return $this->esActivoSysMunicipo;
+        return $this->estatusSysMunicipo;
     }
 
     /**
@@ -138,4 +138,10 @@ class SysMunicipio
     {
         return $this->sysDepartamentos;
     }
+	
+	public function __toString()
+    {
+        return $this->nombreSysMunicipo;
+    }
 }
+

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="SysModuloTieneEspecialid" table="sys_modulo_tiene_especialid">
+    <indexes>
+      <index name="fk_sys_modulo_tiene_especialid_sys_especialidades1_idx" columns="sys_especialidades_id"/>
+      <index name="fk_sys_modulo_tiene_especialid_sys_modulos1_idx" columns="sys_modulos_id"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <many-to-one field="sysModulos" target-entity="SysModulos" fetch="LAZY">
+      <join-columns>
+        <join-column name="sys_modulos_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="sysEspecialidades" target-entity="SysEspecialidades" fetch="LAZY">
+      <join-columns>
+        <join-column name="sys_especialidades_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

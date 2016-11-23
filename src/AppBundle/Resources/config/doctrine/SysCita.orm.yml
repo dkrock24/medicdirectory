@@ -31,12 +31,10 @@ AppBundle\Entity\SysCita:
             length: 65535
             options:
                 fixed: false
-        estadoCita:
-            type: integer
+        estatusCita:
+            type: boolean
             nullable: false
-            options:
-                unsigned: false
-            column: estado_cita
+            column: estatus_cita
         fechaCita:
             type: datetime
             nullable: false

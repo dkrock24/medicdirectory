@@ -19,8 +19,8 @@ AppBundle\Entity\SysInstitucionPropiedad:
             options:
                 fixed: false
             column: nombre_sys_institucion_propiedad
-        esActivoSysInstitucionPropiedad:
+        estatusSysInstitucionPropiedad:
             type: boolean
             nullable: true
-            column: es_activo_sys_institucion_propiedad
+            column: estatus_sys_institucion_propiedad
     lifecycleCallbacks: {  }

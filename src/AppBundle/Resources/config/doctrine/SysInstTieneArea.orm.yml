@@ -18,10 +18,10 @@ AppBundle\Entity\SysInstTieneArea:
             generator:
                 strategy: IDENTITY
     fields:
-        esActivoIta:
+        estatusIta:
             type: boolean
             nullable: true
-            column: es_activo_ita
+            column: estatus_ita
     manyToOne:
         sysArea:
             targetEntity: SysArea

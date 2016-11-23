@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="SysUsuario" table="sys_usuario">
+    <indexes>
+      <index name="FK_sys_usuario_sys_municipio" columns="id_municipio_sys_usuario"/>
+      <index name="FK_sys_usuario_sys_roles" columns="id_rol"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="nombreSysUsuario" type="string" column="nombre_sys_usuario" length="45" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="apellidoSysUsuario" type="string" column="apellido_sys_usuario" length="45" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="emailSysUsuario" type="string" column="email_sys_usuario" length="60" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="estatusSysUsuario" type="boolean" column="estatus_sys_usuario" nullable="true"/>
+    <field name="passwordSysUsuario" type="string" column="password_sys_usuario" length="75" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="fechaNacimientoSysUsuario" type="date" column="fecha_nacimiento_sys_usuario" nullable="true"/>
+    <field name="telefonoSysUsuario" type="string" column="telefono_sys_usuario" length="50" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="celularSysUsuario" type="string" column="celular_sys_usuario" length="45" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="jvrmSysUsuario" type="string" column="jvrm_sys_usuario" length="45" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="tarjetaCreditoSysUsuario" type="string" column="tarjeta_credito_sys_usuario" length="100" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="sysUsuario" type="string" column="sys_usuario" length="45" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="codigoPostalSysUsuario" type="integer" column="codigo_postal_sys_usuario" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="duiSysUsuario" type="string" column="dui_sys_usuario" length="45" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="fechaCreacionSysUsuario" type="date" column="fecha_creacion_sys_usuario" nullable="true"/>
+    <field name="fechaActualizacionSysUsuario" type="datetime" column="fecha_actualizacion_sys_usuario" nullable="true"/>
+    <field name="genero" type="string" column="genero" length="50" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="ocupacion" type="string" column="ocupacion" length="50" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="direccion" type="string" column="direccion" length="50" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="responsableDePaciente" type="string" column="responsable_de_paciente" length="50" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="numeroAfp" type="integer" column="numero_afp" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="numeroNup" type="integer" column="numero_nup" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <many-to-one field="idRol" target-entity="SysRoles" fetch="LAZY">
+      <join-columns>
+        <join-column name="id_rol" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idMunicipioSysUsuario" target-entity="SysMunicipio" fetch="LAZY">
+      <join-columns>
+        <join-column name="id_municipio_sys_usuario" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

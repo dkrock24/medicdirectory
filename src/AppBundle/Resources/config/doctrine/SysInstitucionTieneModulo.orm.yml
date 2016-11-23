@@ -18,10 +18,10 @@ AppBundle\Entity\SysInstitucionTieneModulo:
             generator:
                 strategy: IDENTITY
     fields:
-        esActivoSysUtm:
+        estatusSysUtm:
             type: boolean
             nullable: true
-            column: es_activo_sys_utm
+            column: estatus_sys_utm
         fechaInicioSysUtm:
             type: date
             nullable: false
@@ -44,6 +44,16 @@ AppBundle\Entity\SysInstitucionTieneModulo:
                 fixed: false
             column: total_meses_sys_usuario_tiene_modulo
     manyToOne:
+        sysModulo:
+            targetEntity: SysModulos
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                sys_modulo_id:
+                    referencedColumnName: id
+            orphanRemoval: false
         sysInstitucion:
             targetEntity: SysInstitucion
             cascade: {  }
@@ -53,15 +63,5 @@ AppBundle\Entity\SysInstitucionTieneModulo:
             joinColumns:
                 sys_institucion_id:
                     referencedColumnName: id
-            orphanRemoval: false
-        sysModulo:
-            targetEntity: SysModulos
-            cascade: {  }
-            fetch: LAZY
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                sys_modulo_id:
-                    referencedColumnName: id_sys_modulo
             orphanRemoval: false
     lifecycleCallbacks: {  }

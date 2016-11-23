@@ -15,7 +15,7 @@ class SysInstTieneArea
     /**
      * @var boolean
      */
-    private $esActivoIta;
+    private $estatusIta;
 
     /**
      * @var \AppBundle\Entity\SysArea
@@ -39,27 +39,27 @@ class SysInstTieneArea
     }
 
     /**
-     * Set esActivoIta
+     * Set estatusIta
      *
-     * @param boolean $esActivoIta
+     * @param boolean $estatusIta
      *
      * @return SysInstTieneArea
      */
-    public function setEsActivoIta($esActivoIta)
+    public function setEstatusIta($estatusIta)
     {
-        $this->esActivoIta = $esActivoIta;
+        $this->estatusIta = $estatusIta;
 
         return $this;
     }
 
     /**
-     * Get esActivoIta
+     * Get estatusIta
      *
      * @return boolean
      */
-    public function getEsActivoIta()
+    public function getEstatusIta()
     {
-        return $this->esActivoIta;
+        return $this->estatusIta;
     }
 
     /**
@@ -109,9 +109,5 @@ class SysInstTieneArea
     {
         return $this->sysInstitucion;
     }
-	
-	public function __toString()
-    {
-        return (string)$this->sysArea;
-    }
 }
+

@@ -9,13 +9,12 @@ AppBundle\Entity\SysUsuarioResponsableInstitucion:
             columns:
                 - sys_usuario_id
     id:
-        idSysUsuarioResponsableInstitucion:
+        id:
             type: integer
             nullable: false
             options:
                 unsigned: false
             id: true
-            column: id_sys_usuario_responsable_institucion
             generator:
                 strategy: IDENTITY
     manyToOne:

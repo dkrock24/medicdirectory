@@ -23,14 +23,14 @@ class SysExamenesMedicosTipos
     private $fechaCreacion;
 
     /**
-     * @var \AppBundle\Entity\SysExamenesMedicos
-     */
-    private $idExamenMedico;
-
-    /**
      * @var \AppBundle\Entity\SysUsuario
      */
     private $idMedico;
+
+    /**
+     * @var \AppBundle\Entity\SysExamenesMedicos
+     */
+    private $idExamenMedico;
 
 
     /**
@@ -92,30 +92,6 @@ class SysExamenesMedicosTipos
     }
 
     /**
-     * Set idExamenMedico
-     *
-     * @param \AppBundle\Entity\SysExamenesMedicos $idExamenMedico
-     *
-     * @return SysExamenesMedicosTipos
-     */
-    public function setIdExamenMedico(\AppBundle\Entity\SysExamenesMedicos $idExamenMedico = null)
-    {
-        $this->idExamenMedico = $idExamenMedico;
-
-        return $this;
-    }
-
-    /**
-     * Get idExamenMedico
-     *
-     * @return \AppBundle\Entity\SysExamenesMedicos
-     */
-    public function getIdExamenMedico()
-    {
-        return $this->idExamenMedico;
-    }
-
-    /**
      * Set idMedico
      *
      * @param \AppBundle\Entity\SysUsuario $idMedico
@@ -137,6 +113,30 @@ class SysExamenesMedicosTipos
     public function getIdMedico()
     {
         return $this->idMedico;
+    }
+
+    /**
+     * Set idExamenMedico
+     *
+     * @param \AppBundle\Entity\SysExamenesMedicos $idExamenMedico
+     *
+     * @return SysExamenesMedicosTipos
+     */
+    public function setIdExamenMedico(\AppBundle\Entity\SysExamenesMedicos $idExamenMedico = null)
+    {
+        $this->idExamenMedico = $idExamenMedico;
+
+        return $this;
+    }
+
+    /**
+     * Get idExamenMedico
+     *
+     * @return \AppBundle\Entity\SysExamenesMedicos
+     */
+    public function getIdExamenMedico()
+    {
+        return $this->idExamenMedico;
     }
 }
 

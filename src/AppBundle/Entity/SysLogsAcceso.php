@@ -110,3 +110,4 @@ class SysLogsAcceso
         return $this->sysUsuario;
     }
 }
+

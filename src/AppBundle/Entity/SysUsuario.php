@@ -28,9 +28,9 @@ class SysUsuario
     private $emailSysUsuario;
 
     /**
-     * @var integer
+     * @var boolean
      */
-    private $esActivoSysUsuario;
+    private $estatusSysUsuario;
 
     /**
      * @var string
@@ -45,7 +45,7 @@ class SysUsuario
     /**
      * @var string
      */
-    private $telefonoSysUsuariocol;
+    private $telefonoSysUsuario;
 
     /**
      * @var string
@@ -88,9 +88,44 @@ class SysUsuario
     private $fechaActualizacionSysUsuario;
 
     /**
+     * @var string
+     */
+    private $genero;
+
+    /**
+     * @var string
+     */
+    private $ocupacion;
+
+    /**
+     * @var string
+     */
+    private $direccion;
+
+    /**
+     * @var string
+     */
+    private $responsableDePaciente;
+
+    /**
+     * @var integer
+     */
+    private $numeroAfp;
+
+    /**
+     * @var integer
+     */
+    private $numeroNup;
+
+    /**
      * @var \AppBundle\Entity\SysMunicipio
      */
     private $idMunicipioSysUsuario;
+
+    /**
+     * @var \AppBundle\Entity\SysRoles
+     */
+    private $idRol;
 
 
     /**
@@ -176,27 +211,27 @@ class SysUsuario
     }
 
     /**
-     * Set esActivoSysUsuario
+     * Set estatusSysUsuario
      *
-     * @param integer $esActivoSysUsuario
+     * @param boolean $estatusSysUsuario
      *
      * @return SysUsuario
      */
-    public function setEsActivoSysUsuario($esActivoSysUsuario)
+    public function setEstatusSysUsuario($estatusSysUsuario)
     {
-        $this->esActivoSysUsuario = $esActivoSysUsuario;
+        $this->estatusSysUsuario = $estatusSysUsuario;
 
         return $this;
     }
 
     /**
-     * Get esActivoSysUsuario
+     * Get estatusSysUsuario
      *
-     * @return integer
+     * @return boolean
      */
-    public function getEsActivoSysUsuario()
+    public function getEstatusSysUsuario()
     {
-        return $this->esActivoSysUsuario;
+        return $this->estatusSysUsuario;
     }
 
     /**
@@ -248,27 +283,27 @@ class SysUsuario
     }
 
     /**
-     * Set telefonoSysUsuariocol
+     * Set telefonoSysUsuario
      *
-     * @param string $telefonoSysUsuariocol
+     * @param string $telefonoSysUsuario
      *
      * @return SysUsuario
      */
-    public function setTelefonoSysUsuariocol($telefonoSysUsuariocol)
+    public function setTelefonoSysUsuario($telefonoSysUsuario)
     {
-        $this->telefonoSysUsuariocol = $telefonoSysUsuariocol;
+        $this->telefonoSysUsuario = $telefonoSysUsuario;
 
         return $this;
     }
 
     /**
-     * Get telefonoSysUsuariocol
+     * Get telefonoSysUsuario
      *
      * @return string
      */
-    public function getTelefonoSysUsuariocol()
+    public function getTelefonoSysUsuario()
     {
-        return $this->telefonoSysUsuariocol;
+        return $this->telefonoSysUsuario;
     }
 
     /**
@@ -464,65 +499,6 @@ class SysUsuario
     }
 
     /**
-     * Set idMunicipioSysUsuario
-     *
-     * @param \AppBundle\Entity\SysMunicipio $idMunicipioSysUsuario
-     *
-     * @return SysUsuario
-     */
-    public function setIdMunicipioSysUsuario(\AppBundle\Entity\SysMunicipio $idMunicipioSysUsuario = null)
-    {
-        $this->idMunicipioSysUsuario = $idMunicipioSysUsuario;
-
-        return $this;
-    }
-
-    /**
-     * Get idMunicipioSysUsuario
-     *
-     * @return \AppBundle\Entity\SysMunicipio
-     */
-    public function getIdMunicipioSysUsuario()
-    {
-        return $this->idMunicipioSysUsuario;
-    }
-    /**
-     * @var string
-     */
-    private $genero;
-
-    /**
-     * @var string
-     */
-    private $ocupacion;
-
-    /**
-     * @var string
-     */
-    private $direccion;
-
-    /**
-     * @var string
-     */
-    private $responsableDePaciente;
-
-    /**
-     * @var integer
-     */
-    private $numeroAfp;
-
-    /**
-     * @var integer
-     */
-    private $numeroNup;
-
-    /**
-     * @var \AppBundle\Entity\SysRoles
-     */
-    private $idRol;
-
-
-    /**
      * Set genero
      *
      * @param string $genero
@@ -667,6 +643,30 @@ class SysUsuario
     }
 
     /**
+     * Set idMunicipioSysUsuario
+     *
+     * @param \AppBundle\Entity\SysMunicipio $idMunicipioSysUsuario
+     *
+     * @return SysUsuario
+     */
+    public function setIdMunicipioSysUsuario(\AppBundle\Entity\SysMunicipio $idMunicipioSysUsuario = null)
+    {
+        $this->idMunicipioSysUsuario = $idMunicipioSysUsuario;
+
+        return $this;
+    }
+
+    /**
+     * Get idMunicipioSysUsuario
+     *
+     * @return \AppBundle\Entity\SysMunicipio
+     */
+    public function getIdMunicipioSysUsuario()
+    {
+        return $this->idMunicipioSysUsuario;
+    }
+
+    /**
      * Set idRol
      *
      * @param \AppBundle\Entity\SysRoles $idRol
@@ -689,9 +689,5 @@ class SysUsuario
     {
         return $this->idRol;
     }
-	
-	
-	public function __toString() {
-		return $this->nombreSysUsuario;
-	}
 }
+

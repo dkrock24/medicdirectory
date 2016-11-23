@@ -22,10 +22,10 @@ AppBundle\Entity\SysMunicipio:
             options:
                 fixed: false
             column: nombre_sys_municipo
-        esActivoSysMunicipo:
+        estatusSysMunicipo:
             type: boolean
             nullable: true
-            column: es_activo_sys_municipo
+            column: estatus_sys_municipo
         descripcionSysMunicipio:
             type: string
             nullable: true

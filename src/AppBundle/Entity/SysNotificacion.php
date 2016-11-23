@@ -28,9 +28,9 @@ class SysNotificacion
     private $fechaCreacion;
 
     /**
-     * @var integer
+     * @var boolean
      */
-    private $estado;
+    private $estatus;
 
 
     /**
@@ -116,27 +116,27 @@ class SysNotificacion
     }
 
     /**
-     * Set estado
+     * Set estatus
      *
-     * @param integer $estado
+     * @param boolean $estatus
      *
      * @return SysNotificacion
      */
-    public function setEstado($estado)
+    public function setEstatus($estatus)
     {
-        $this->estado = $estado;
+        $this->estatus = $estatus;
 
         return $this;
     }
 
     /**
-     * Get estado
+     * Get estatus
      *
-     * @return integer
+     * @return boolean
      */
-    public function getEstado()
+    public function getEstatus()
     {
-        return $this->estado;
+        return $this->estatus;
     }
 }
 

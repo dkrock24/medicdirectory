@@ -28,16 +28,6 @@ AppBundle\Entity\SysExamenesMedicosTipos:
             nullable: true
             column: fecha_creacion
     manyToOne:
-        idExamenMedico:
-            targetEntity: SysExamenesMedicos
-            cascade: {  }
-            fetch: LAZY
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                id_examen_medico:
-                    referencedColumnName: id
-            orphanRemoval: false
         idMedico:
             targetEntity: SysUsuario
             cascade: {  }
@@ -46,6 +36,16 @@ AppBundle\Entity\SysExamenesMedicosTipos:
             inversedBy: null
             joinColumns:
                 id_medico:
+                    referencedColumnName: id
+            orphanRemoval: false
+        idExamenMedico:
+            targetEntity: SysExamenesMedicos
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_examen_medico:
                     referencedColumnName: id
             orphanRemoval: false
     lifecycleCallbacks: {  }

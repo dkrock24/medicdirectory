@@ -1,29 +1,75 @@
-{% extends "::base.html.twig" %}
-  
-{% block body %}
-    <div class="row">
-        <div class="col-lg-12">
-            <h1>Tipo de Institucion creation</h1>
+{% extends 'base.html.twig' %}
 
-            {{ form_start(form) }}
-            {{ form_widget(form) }}
-            <input type="submit" value="Create" />
+{% block breadcrumb %}
+    {{ include('AppBundle:systipoinstitucion:_breadcrumb.html.twig' )  }}
+{% endblock %} 
+
+{% block submenutop %}
+    {{ include('AppBundle:systipoinstitucion:_submenu.html.twig' )  }}
+{% endblock %} 
+
+{% block body %}
+    <h1>Nuevo tipo de Institución</h1>
+    {#
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <input type="submit" value="Create" />
+    {{ form_end(form) }}
+    #}
+    {% for flashMessage in app.session.flashbag.get('success') %}
+        <div class="alert alert-dismissible alert-success"><span class="glyphicon glyphicon-ok-sign"></span> {{ flashMessage }}</div>
+    {% endfor %}
+    {% for flashMessage in app.session.flashbag.get('error') %}
+        <div class="alert alert-dismissible alert-danger"><span class="glyphicon glyphicon-exclamation-sign"></span> {{ flashMessage }}</div>
+    {% endfor %}
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12">
+    <div class="panel-bodyx">
+            {{ form_start(form, {'attr': {'class': ''}}) }}    
+            
+                {# {{ form_widget(form) }} #}
+                <div class="form_error">{{ form_errors(form)}}</div>
+                <div class="form-group">
+                    
+                    <div class="form_error">{{ form_errors(form.nombreTipoSysInstitucion)}}</div>
+                    <div><label for="">Tipo</label></div>
+                    {{ form_widget(form.nombreTipoSysInstitucion) }}
+                </div>
+                <div class="form-group">
+                    <div class="form_error">{{ form_errors(form.descripcionSysTipoInstitucion)}}</div>
+                    <div><label for="" class="">Descripción</label></div>
+                    {{ form_widget(form.descripcionSysTipoInstitucion) }}
+                </div>
+                <div class="form-group">
+                    <div class="form_error">{{ form_errors(form.codigoSysTipoInstitucion)}}</div>
+                    <label for="" class=" control-label">Código</label>
+                    {{ form_widget(form.codigoSysTipoInstitucion) }}
+                </div>
+                {#
+                <div class="form-group">
+                    <div class="form_error">{{ form_errors(form.estadoSysTipoInstitucion)}}</div>
+                    <div>Estatus</div>
+                    <div class="checkbox">
+                            <label>
+                                {{ form_widget(form.estadoSysTipoInstitucion) }}
+                                <span class="text"></span>
+                            </label>
+                    </div>   
+                </div>
+                #}
+            
+                                
+                <input type="submit" value="Crear" class="btn btn-primary" />
             {{ form_end(form) }}
 
-            <ul>
-                <li>
-                    <a href="{{ path('systipoinstitucion_index') }}">Back to the list</a>
-                </li>
-            </ul>
-        
+            {#
+    <ul>
+        <li>
+            <a href="{{ path('systipoinstitucion_index') }}">Back to the list</a>
+        </li>
+    </ul>
+            #}
+            </div>
         </div>
     </div>
 {% endblock %}
-
-{% block codejs %}
-    <script>
-        $(function(){
-
-          });
-    </script>
-{% endblock %} 

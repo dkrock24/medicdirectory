@@ -8,6 +8,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AppBundle\Entity\SysPais;
 use AppBundle\Form\SysPaisType;
 
+use Symfony\Component\HttpKernel\Exception\HttpNotFoundException;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Response;
+use AppBundle\Controller\Symfony\Component\HttpFoundation;
+use Symfony\Component\HttpFoundation\JsonResponse;
+
 /**
  * SysPais controller.
  *
@@ -42,7 +48,13 @@ class SysPaisController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($sysPai);
-            $em->flush();
+            $flush = $em->flush();
+			
+			if ($flush == null) {
+				$this->get('session')->getFlashBag()->add('success', "Regístro creado exitosamente");
+			} else {
+				$this->get('session')->getFlashBag()->add('error', "No se ha podido crear el regístro");
+			}
 
             return $this->redirectToRoute('syspais_show', array('id' => $sysPai->getId()));
         }
@@ -80,7 +92,13 @@ class SysPaisController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($sysPai);
-            $em->flush();
+            $flush = $em->flush();
+			
+			if ($flush == null) {
+				$this->get('session')->getFlashBag()->add('success', "Regístro creado exitosamente");
+			} else {
+				$this->get('session')->getFlashBag()->add('error', "No se ha podido crear el regístro");
+			}
 
             return $this->redirectToRoute('syspais_edit', array('id' => $sysPai->getId()));
         }

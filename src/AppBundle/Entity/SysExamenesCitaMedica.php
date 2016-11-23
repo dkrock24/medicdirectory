@@ -18,20 +18,34 @@ class SysExamenesCitaMedica
     private $date;
 
     /**
-     * @var integer
+     * @var boolean
      */
-    private $estado;
-
-    /**
-     * @var \AppBundle\Entity\SysCita
-     */
-    private $idCita;
+    private $estatus;
 
     /**
      * @var \AppBundle\Entity\SysExamenesCitaMedica
      */
     private $idExamenMedico;
 
+    /**
+     * @var \AppBundle\Entity\SysCita
+     */
+    private $idCita;
+
+
+    /**
+     * Set id
+     *
+     * @param integer $id
+     *
+     * @return SysExamenesCitaMedica
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
 
     /**
      * Get id
@@ -68,51 +82,27 @@ class SysExamenesCitaMedica
     }
 
     /**
-     * Set estado
+     * Set estatus
      *
-     * @param integer $estado
+     * @param boolean $estatus
      *
      * @return SysExamenesCitaMedica
      */
-    public function setEstado($estado)
+    public function setEstatus($estatus)
     {
-        $this->estado = $estado;
+        $this->estatus = $estatus;
 
         return $this;
     }
 
     /**
-     * Get estado
+     * Get estatus
      *
-     * @return integer
+     * @return boolean
      */
-    public function getEstado()
+    public function getEstatus()
     {
-        return $this->estado;
-    }
-
-    /**
-     * Set idCita
-     *
-     * @param \AppBundle\Entity\SysCita $idCita
-     *
-     * @return SysExamenesCitaMedica
-     */
-    public function setIdCita(\AppBundle\Entity\SysCita $idCita = null)
-    {
-        $this->idCita = $idCita;
-
-        return $this;
-    }
-
-    /**
-     * Get idCita
-     *
-     * @return \AppBundle\Entity\SysCita
-     */
-    public function getIdCita()
-    {
-        return $this->idCita;
+        return $this->estatus;
     }
 
     /**
@@ -137,6 +127,30 @@ class SysExamenesCitaMedica
     public function getIdExamenMedico()
     {
         return $this->idExamenMedico;
+    }
+
+    /**
+     * Set idCita
+     *
+     * @param \AppBundle\Entity\SysCita $idCita
+     *
+     * @return SysExamenesCitaMedica
+     */
+    public function setIdCita(\AppBundle\Entity\SysCita $idCita = null)
+    {
+        $this->idCita = $idCita;
+
+        return $this;
+    }
+
+    /**
+     * Get idCita
+     *
+     * @return \AppBundle\Entity\SysCita
+     */
+    public function getIdCita()
+    {
+        return $this->idCita;
     }
 }
 

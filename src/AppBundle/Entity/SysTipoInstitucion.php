@@ -10,7 +10,7 @@ class SysTipoInstitucion
     /**
      * @var integer
      */
-    private $idSysInstitucion;
+    private $id;
 
     /**
      * @var string
@@ -37,20 +37,15 @@ class SysTipoInstitucion
      */
     private $fechaCrecionSysTipoInstitucion;
 
-    /**
-     * @var integer
-     */
-    private $idMunicipio;
-
 
     /**
-     * Get idSysInstitucion
+     * Get id
      *
      * @return integer
      */
-    public function getIdSysInstitucion()
+    public function getId()
     {
-        return $this->idSysInstitucion;
+        return $this->id;
     }
 
     /**
@@ -172,28 +167,5 @@ class SysTipoInstitucion
     {
         return $this->fechaCrecionSysTipoInstitucion;
     }
-
-    /**
-     * Set idMunicipio
-     *
-     * @param integer $idMunicipio
-     *
-     * @return SysTipoInstitucion
-     */
-    public function setIdMunicipio($idMunicipio)
-    {
-        $this->idMunicipio = $idMunicipio;
-
-        return $this;
-    }
-
-    /**
-     * Get idMunicipio
-     *
-     * @return integer
-     */
-    public function getIdMunicipio()
-    {
-        return $this->idMunicipio;
-    }
 }
+

@@ -32,10 +32,10 @@ AppBundle\Entity\SysUsuarioTieneEspecialidad:
             options:
                 fixed: false
             column: descripcion_sys_ute
-        esActivoSysUte:
+        estatusSysUte:
             type: boolean
             nullable: true
-            column: es_activo_sys_ute
+            column: estatus_sys_ute
     manyToOne:
         sysEspecialidades:
             targetEntity: SysEspecialidades

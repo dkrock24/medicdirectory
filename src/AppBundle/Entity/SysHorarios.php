@@ -139,3 +139,4 @@ class SysHorarios
         return $this->sysUsuario;
     }
 }
+

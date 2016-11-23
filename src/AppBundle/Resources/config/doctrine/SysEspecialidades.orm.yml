@@ -1,10 +1,6 @@
 AppBundle\Entity\SysEspecialidades:
     type: entity
     table: sys_especialidades
-    indexes:
-        fk_sys_especialidades_sys_modulos1_idx:
-            columns:
-                - sys_modulos_id_sys_modulo
     id:
         id:
             type: integer
@@ -43,19 +39,8 @@ AppBundle\Entity\SysEspecialidades:
             options:
                 fixed: false
             column: codigo_sys_especialidades
-        esActivoSysEspecialidad:
+        estatusSysEspecialidad:
             type: boolean
             nullable: true
-            column: es_activo_sys_especialidad
-    manyToOne:
-        sysModulosSysModulo:
-            targetEntity: SysModulos
-            cascade: {  }
-            fetch: LAZY
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                sys_modulos_id_sys_modulo:
-                    referencedColumnName: id_sys_modulo
-            orphanRemoval: false
+            column: estatus_sys_especialidad
     lifecycleCallbacks: {  }

@@ -8,6 +8,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AppBundle\Entity\SysDepartamentos;
 use AppBundle\Form\SysDepartamentosType;
 
+
+use Symfony\Component\HttpKernel\Exception\HttpNotFoundException;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Response;
+use AppBundle\Controller\Symfony\Component\HttpFoundation;
+use Symfony\Component\HttpFoundation\JsonResponse;
+
 /**
  * SysDepartamentos controller.
  *
@@ -42,9 +49,14 @@ class SysDepartamentosController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($sysDepartamento);
-            $em->flush();
-
-            return $this->redirectToRoute('sysdepartamentos_show', array('id' => $sysDepartamento->getId()));
+            $flush = $em->flush();
+			
+			if ($flush == null) {
+				$this->get('session')->getFlashBag()->add('success', "Regístro creado exitosamente");
+			} else {
+				$this->get('session')->getFlashBag()->add('error', "No se ha podido crear el regístro");
+			}
+			return $this->redirectToRoute('sysdepartamentos_show', array('id' => $sysDepartamento->getId()));
         }
 
         return $this->render('AppBundle:sysdepartamentos:new.html.twig', array(
@@ -80,7 +92,13 @@ class SysDepartamentosController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($sysDepartamento);
-            $em->flush();
+            $flush = $em->flush();
+			
+			if ($flush == null) {
+				$this->get('session')->getFlashBag()->add('success', "Regístro creado exitosamente");
+			} else {
+				$this->get('session')->getFlashBag()->add('error', "No se ha podido crear el regístro");
+			}
 
             return $this->redirectToRoute('sysdepartamentos_edit', array('id' => $sysDepartamento->getId()));
         }
@@ -125,4 +143,22 @@ class SysDepartamentosController extends Controller
             ->getForm()
         ;
     }
+	
+	
+	public function getDepartmentsPerCountryAction( Request $request )
+	{
+		$id = $request->get("countryID");
+		$res = array();
+		if( isset($id) && !empty($id) )
+		{
+			$em = $this->getDoctrine()->getManager();
+            
+			$res = $em->createQuery("SELECT d.id, d.nombreSysDepartamento FROM AppBundle:SysDepartamentos d WHERE d.estatusSysDepartamento = 1 AND d.pais=$id")
+						//->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+						->getResult();
+		}
+		
+		//var_dump($res);
+		return new JsonResponse(array("res"=>$res));
+	}
 }

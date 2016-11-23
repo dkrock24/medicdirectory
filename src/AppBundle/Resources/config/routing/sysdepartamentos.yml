@@ -22,3 +22,8 @@ sysdepartamentos_delete:
     path:     /{id}/delete
     defaults: { _controller: "AppBundle:SysDepartamentos:delete" }
     methods:  DELETE
+    
+sysdepartamentos_per_country:
+    path:     /country/department
+    defaults: { _controller: "AppBundle:SysDepartamentos:getDepartmentsPerCountry" }
+    methods:  [GET, POST]

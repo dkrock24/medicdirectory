@@ -8,6 +8,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AppBundle\Entity\SysMunicipio;
 use AppBundle\Form\SysMunicipioType;
 
+use Symfony\Component\HttpKernel\Exception\HttpNotFoundException;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Response;
+use AppBundle\Controller\Symfony\Component\HttpFoundation;
+use Symfony\Component\HttpFoundation\JsonResponse;
+
 /**
  * SysMunicipio controller.
  *
@@ -42,7 +48,13 @@ class SysMunicipioController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($sysMunicipio);
-            $em->flush();
+            $flush = $em->flush();
+			
+			if ($flush == null) {
+				$this->get('session')->getFlashBag()->add('success', "Regístro creado exitosamente");
+			} else {
+				$this->get('session')->getFlashBag()->add('error', "No se ha podido crear el regístro");
+			}
 
             return $this->redirectToRoute('sysmunicipio_show', array('id' => $sysMunicipio->getId()));
         }
@@ -80,7 +92,13 @@ class SysMunicipioController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($sysMunicipio);
-            $em->flush();
+            $flush = $em->flush();
+			
+			if ($flush == null) {
+				$this->get('session')->getFlashBag()->add('success', "Regístro creado exitosamente");
+			} else {
+				$this->get('session')->getFlashBag()->add('error', "No se ha podido crear el regístro");
+			}
 
             return $this->redirectToRoute('sysmunicipio_edit', array('id' => $sysMunicipio->getId()));
         }

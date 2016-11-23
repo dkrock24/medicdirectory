@@ -2,13 +2,12 @@ AppBundle\Entity\SysTipoInstitucion:
     type: entity
     table: sys_tipo_institucion
     id:
-        idSysInstitucion:
+        id:
             type: integer
             nullable: false
             options:
                 unsigned: false
             id: true
-            column: id_sys_institucion
             generator:
                 strategy: IDENTITY
     fields:
@@ -43,10 +42,4 @@ AppBundle\Entity\SysTipoInstitucion:
             type: date
             nullable: true
             column: fecha_crecion_sys_tipo_institucion
-        idMunicipio:
-            type: integer
-            nullable: false
-            options:
-                unsigned: false
-            column: id_municipio
     lifecycleCallbacks: {  }

@@ -10,7 +10,7 @@ class SysModulos
     /**
      * @var integer
      */
-    private $idSysModulo;
+    private $id;
 
     /**
      * @var string
@@ -30,7 +30,7 @@ class SysModulos
     /**
      * @var boolean
      */
-    private $esActivoSysModulo;
+    private $estatusSysModulo;
 
     /**
      * @var string
@@ -47,20 +47,15 @@ class SysModulos
      */
     private $imagenModulo;
 
-    /**
-     * @var \AppBundle\Entity\SysEspecialidades
-     */
-    private $idEspecialidad;
-
 
     /**
-     * Get idSysModulo
+     * Get id
      *
      * @return integer
      */
-    public function getIdSysModulo()
+    public function getId()
     {
-        return $this->idSysModulo;
+        return $this->id;
     }
 
     /**
@@ -136,27 +131,27 @@ class SysModulos
     }
 
     /**
-     * Set esActivoSysModulo
+     * Set estatusSysModulo
      *
-     * @param boolean $esActivoSysModulo
+     * @param boolean $estatusSysModulo
      *
      * @return SysModulos
      */
-    public function setEsActivoSysModulo($esActivoSysModulo)
+    public function setEstatusSysModulo($estatusSysModulo)
     {
-        $this->esActivoSysModulo = $esActivoSysModulo;
+        $this->estatusSysModulo = $estatusSysModulo;
 
         return $this;
     }
 
     /**
-     * Get esActivoSysModulo
+     * Get estatusSysModulo
      *
      * @return boolean
      */
-    public function getEsActivoSysModulo()
+    public function getEstatusSysModulo()
     {
-        return $this->esActivoSysModulo;
+        return $this->estatusSysModulo;
     }
 
     /**
@@ -230,28 +225,5 @@ class SysModulos
     {
         return $this->imagenModulo;
     }
-
-    /**
-     * Set idEspecialidad
-     *
-     * @param \AppBundle\Entity\SysEspecialidades $idEspecialidad
-     *
-     * @return SysModulos
-     */
-    public function setIdEspecialidad(\AppBundle\Entity\SysEspecialidades $idEspecialidad = null)
-    {
-        $this->idEspecialidad = $idEspecialidad;
-
-        return $this;
-    }
-
-    /**
-     * Get idEspecialidad
-     *
-     * @return \AppBundle\Entity\SysEspecialidades
-     */
-    public function getIdEspecialidad()
-    {
-        return $this->idEspecialidad;
-    }
 }
+

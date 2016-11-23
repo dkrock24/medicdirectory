@@ -23,14 +23,14 @@ class SysAntecedetenUsuario
     private $fechaCreacion;
 
     /**
-     * @var \AppBundle\Entity\SysAntecedentesEspecialidad
-     */
-    private $idAntecedenteEspecialidad;
-
-    /**
      * @var \AppBundle\Entity\SysCita
      */
     private $idCita;
+
+    /**
+     * @var \AppBundle\Entity\SysAntecedentesEspecialidad
+     */
+    private $idAntecedenteEspecialidad;
 
     /**
      * @var \AppBundle\Entity\SysUsuario
@@ -97,30 +97,6 @@ class SysAntecedetenUsuario
     }
 
     /**
-     * Set idAntecedenteEspecialidad
-     *
-     * @param \AppBundle\Entity\SysAntecedentesEspecialidad $idAntecedenteEspecialidad
-     *
-     * @return SysAntecedetenUsuario
-     */
-    public function setIdAntecedenteEspecialidad(\AppBundle\Entity\SysAntecedentesEspecialidad $idAntecedenteEspecialidad = null)
-    {
-        $this->idAntecedenteEspecialidad = $idAntecedenteEspecialidad;
-
-        return $this;
-    }
-
-    /**
-     * Get idAntecedenteEspecialidad
-     *
-     * @return \AppBundle\Entity\SysAntecedentesEspecialidad
-     */
-    public function getIdAntecedenteEspecialidad()
-    {
-        return $this->idAntecedenteEspecialidad;
-    }
-
-    /**
      * Set idCita
      *
      * @param \AppBundle\Entity\SysCita $idCita
@@ -142,6 +118,30 @@ class SysAntecedetenUsuario
     public function getIdCita()
     {
         return $this->idCita;
+    }
+
+    /**
+     * Set idAntecedenteEspecialidad
+     *
+     * @param \AppBundle\Entity\SysAntecedentesEspecialidad $idAntecedenteEspecialidad
+     *
+     * @return SysAntecedetenUsuario
+     */
+    public function setIdAntecedenteEspecialidad(\AppBundle\Entity\SysAntecedentesEspecialidad $idAntecedenteEspecialidad = null)
+    {
+        $this->idAntecedenteEspecialidad = $idAntecedenteEspecialidad;
+
+        return $this;
+    }
+
+    /**
+     * Get idAntecedenteEspecialidad
+     *
+     * @return \AppBundle\Entity\SysAntecedentesEspecialidad
+     */
+    public function getIdAntecedenteEspecialidad()
+    {
+        return $this->idAntecedenteEspecialidad;
     }
 
     /**

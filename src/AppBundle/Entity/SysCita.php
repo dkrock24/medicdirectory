@@ -18,9 +18,14 @@ class SysCita
     private $fechaCitaSysCita;
 
     /**
-     * @var integer
+     * @var string
      */
-    private $estadoCita;
+    private $comentario;
+
+    /**
+     * @var boolean
+     */
+    private $estatusCita;
 
     /**
      * @var \DateTime
@@ -78,27 +83,51 @@ class SysCita
     }
 
     /**
-     * Set estadoCita
+     * Set comentario
      *
-     * @param integer $estadoCita
+     * @param string $comentario
      *
      * @return SysCita
      */
-    public function setEstadoCita($estadoCita)
+    public function setComentario($comentario)
     {
-        $this->estadoCita = $estadoCita;
+        $this->comentario = $comentario;
 
         return $this;
     }
 
     /**
-     * Get estadoCita
+     * Get comentario
      *
-     * @return integer
+     * @return string
      */
-    public function getEstadoCita()
+    public function getComentario()
     {
-        return $this->estadoCita;
+        return $this->comentario;
+    }
+
+    /**
+     * Set estatusCita
+     *
+     * @param boolean $estatusCita
+     *
+     * @return SysCita
+     */
+    public function setEstatusCita($estatusCita)
+    {
+        $this->estatusCita = $estatusCita;
+
+        return $this;
+    }
+
+    /**
+     * Get estatusCita
+     *
+     * @return boolean
+     */
+    public function getEstatusCita()
+    {
+        return $this->estatusCita;
     }
 
     /**
@@ -196,33 +225,5 @@ class SysCita
     {
         return $this->sysUsuarioPaciente;
     }
-    /**
-     * @var string
-     */
-    private $comentario;
-
-
-    /**
-     * Set comentario
-     *
-     * @param string $comentario
-     *
-     * @return SysCita
-     */
-    public function setComentario($comentario)
-    {
-        $this->comentario = $comentario;
-
-        return $this;
-    }
-
-    /**
-     * Get comentario
-     *
-     * @return string
-     */
-    public function getComentario()
-    {
-        return $this->comentario;
-    }
 }
+

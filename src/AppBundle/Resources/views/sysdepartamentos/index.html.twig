@@ -1,19 +1,28 @@
 {% extends "::base.html.twig" %}
-  
+
+{% block breadcrumb %}
+    {{ include('AppBundle:sysdepartamentos:_breadcrumb.html.twig' )  }}
+{% endblock %} 
+
+{% block submenutop %}
+    {{ include('AppBundle:sysdepartamentos:_submenu.html.twig' )  }}
+{% endblock %} 
+
 {% block body %}
     <div class="row">
         <div class="col-lg-12">
-            <h1>SysDepartamentos list</h1>
+            <h1>Lista de Departamentos</h1>
 
-            <table>
+            <table class="table table-striped">
                 <thead>
                     <tr>
                         <th>Id</th>
-                        <th>Nombresysdepartamento</th>
-                        <th>Codigozonasysdepartamento</th>
-                        <th>Descripcionsysdepartamento</th>
-                        <th>Prefijosysdepartamento</th>
-                        <th>Estadosysdepartamento</th>
+                        <th>Nombres</th>
+                        <th>Código zona</th>
+                        <th>Descripcion</th>
+                        <th>Prefijo</th>
+                        <th>País</th>
+                        <th>Estatus</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -25,27 +34,29 @@
                             <td>{{ sysDepartamento.codigoZonaSysDepartamento }}</td>
                             <td>{{ sysDepartamento.descripcionSysDepartamento }}</td>
                             <td>{{ sysDepartamento.prefijoSysDepartamento }}</td>
-                            <td>{% if sysDepartamento.estadoSysDepartamento %}Yes{% else %}No{% endif %}</td>
+                            <td>{{ sysDepartamento.pais }}</td>
+                            <td>{% if sysDepartamento.estatusSysDepartamento %}<span class="label label-success">Activo</span>{% else %}<span class="label label-danger">Inactivo</span>{% endif %}</td>
                             <td>
-                                <ul>
+                                <ul class="btn-option-emr">
                                     <li>
-                                        <a href="{{ path('sysdepartamentos_show', { 'id': sysDepartamento.id }) }}">show</a>
+                                        <a href="{{ path('sysdepartamentos_show', { 'id': sysDepartamento.id }) }}" class="btn btn-default"><i class="glyphicon glyphicon-eye-open"></i> Ver</a>
                                     </li>
                                     <li>
-                                        <a href="{{ path('sysdepartamentos_edit', { 'id': sysDepartamento.id }) }}">edit</a>
+                                        <a href="{{ path('sysdepartamentos_edit', { 'id': sysDepartamento.id }) }}" class="btn btn-info"><i class="glyphicon glyphicon-pencil"></i> Editar</a>
                                     </li>
-                                </ul>
+                                </ul>    
                             </td>
                         </tr>
                     {% endfor %}
                 </tbody>
             </table>
-
+            {#    
             <ul>
                 <li>
                     <a href="{{ path('sysdepartamentos_new') }}">Create a new entry</a>
                 </li>
             </ul>
+            #}    
         
         </div>
     </div>

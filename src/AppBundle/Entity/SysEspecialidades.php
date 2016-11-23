@@ -18,11 +18,6 @@ class SysEspecialidades
     private $categoriaSysEspecialidad;
 
     /**
-     * @var boolean
-     */
-    private $esActivoSysEspecialidad;
-
-    /**
      * @var string
      */
     private $nombreSysEspecialidades;
@@ -38,9 +33,9 @@ class SysEspecialidades
     private $codigoSysEspecialidades;
 
     /**
-     * @var \AppBundle\Entity\SysModulos
+     * @var boolean
      */
-    private $sysModulosSysModulo;
+    private $estatusSysEspecialidad;
 
 
     /**
@@ -75,30 +70,6 @@ class SysEspecialidades
     public function getCategoriaSysEspecialidad()
     {
         return $this->categoriaSysEspecialidad;
-    }
-
-    /**
-     * Set esActivoSysEspecialidad
-     *
-     * @param boolean $esActivoSysEspecialidad
-     *
-     * @return SysEspecialidades
-     */
-    public function setEsActivoSysEspecialidad($esActivoSysEspecialidad)
-    {
-        $this->esActivoSysEspecialidad = $esActivoSysEspecialidad;
-
-        return $this;
-    }
-
-    /**
-     * Get esActivoSysEspecialidad
-     *
-     * @return boolean
-     */
-    public function getEsActivoSysEspecialidad()
-    {
-        return $this->esActivoSysEspecialidad;
     }
 
     /**
@@ -174,26 +145,27 @@ class SysEspecialidades
     }
 
     /**
-     * Set sysModulosSysModulo
+     * Set estatusSysEspecialidad
      *
-     * @param \AppBundle\Entity\SysModulos $sysModulosSysModulo
+     * @param boolean $estatusSysEspecialidad
      *
      * @return SysEspecialidades
      */
-    public function setSysModulosSysModulo(\AppBundle\Entity\SysModulos $sysModulosSysModulo = null)
+    public function setEstatusSysEspecialidad($estatusSysEspecialidad)
     {
-        $this->sysModulosSysModulo = $sysModulosSysModulo;
+        $this->estatusSysEspecialidad = $estatusSysEspecialidad;
 
         return $this;
     }
 
     /**
-     * Get sysModulosSysModulo
+     * Get estatusSysEspecialidad
      *
-     * @return \AppBundle\Entity\SysModulos
+     * @return boolean
      */
-    public function getSysModulosSysModulo()
+    public function getEstatusSysEspecialidad()
     {
-        return $this->sysModulosSysModulo;
+        return $this->estatusSysEspecialidad;
     }
 }
+

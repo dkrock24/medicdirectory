@@ -29,10 +29,10 @@ AppBundle\Entity\SysSugerencias:
             type: datetime
             nullable: true
             column: fecha_creacion_sys_sugerencia
-        esActivoSugerencia:
+        estatusSugerencia:
             type: boolean
             nullable: true
-            column: es_activo_sugerencia
+            column: estatus_sugerencia
     manyToOne:
         sysArea:
             targetEntity: SysArea

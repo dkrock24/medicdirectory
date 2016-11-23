@@ -10,7 +10,7 @@ class SysPeriodosMedico
     /**
      * @var integer
      */
-    private $idSysPeriodosMedico;
+    private $id;
 
     /**
      * @var \DateTime
@@ -34,13 +34,13 @@ class SysPeriodosMedico
 
 
     /**
-     * Get idSysPeriodosMedico
+     * Get id
      *
      * @return integer
      */
-    public function getIdSysPeriodosMedico()
+    public function getId()
     {
-        return $this->idSysPeriodosMedico;
+        return $this->id;
     }
 
     /**
@@ -139,3 +139,4 @@ class SysPeriodosMedico
         return $this->sysUsuario;
     }
 }
+

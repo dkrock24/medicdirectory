@@ -30,12 +30,12 @@ class SysPais
     /**
      * @var string
      */
-    private $contientePaisSysPais;
+    private $continentePaisSysPais;
 
     /**
-     * @var integer
+     * @var boolean
      */
-    private $estadoSysPais;
+    private $estatusSysPais;
 
 
     /**
@@ -121,50 +121,56 @@ class SysPais
     }
 
     /**
-     * Set contientePaisSysPais
+     * Set continentePaisSysPais
      *
-     * @param string $contientePaisSysPais
+     * @param string $continentePaisSysPais
      *
      * @return SysPais
      */
-    public function setContientePaisSysPais($contientePaisSysPais)
+    public function setContinentePaisSysPais($continentePaisSysPais)
     {
-        $this->contientePaisSysPais = $contientePaisSysPais;
+        $this->continentePaisSysPais = $continentePaisSysPais;
 
         return $this;
     }
 
     /**
-     * Get contientePaisSysPais
+     * Get continentePaisSysPais
      *
      * @return string
      */
-    public function getContientePaisSysPais()
+    public function getContinentePaisSysPais()
     {
-        return $this->contientePaisSysPais;
+        return $this->continentePaisSysPais;
     }
 
     /**
-     * Set estadoSysPais
+     * Set estatusSysPais
      *
-     * @param integer $estadoSysPais
+     * @param boolean $estatusSysPais
      *
      * @return SysPais
      */
-    public function setEstadoSysPais($estadoSysPais)
+    public function setEstatusSysPais($estatusSysPais)
     {
-        $this->estadoSysPais = $estadoSysPais;
+        $this->estatusSysPais = $estatusSysPais;
 
         return $this;
     }
 
     /**
-     * Get estadoSysPais
+     * Get estatusSysPais
      *
-     * @return integer
+     * @return boolean
      */
-    public function getEstadoSysPais()
+    public function getEstatusSysPais()
     {
-        return $this->estadoSysPais;
+        return $this->estatusSysPais;
+    }
+	
+	public function __toString()
+    {
+        return $this->nombreSysPais;
     }
 }
+

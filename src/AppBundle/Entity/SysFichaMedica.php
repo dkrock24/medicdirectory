@@ -25,7 +25,7 @@ class SysFichaMedica
     /**
      * @var \AppBundle\Entity\SysUsuario
      */
-    private $sysUsuarioPaciente;
+    private $sysUsuarioPacienteDi;
 
 
     /**
@@ -87,26 +87,27 @@ class SysFichaMedica
     }
 
     /**
-     * Set sysUsuarioPaciente
+     * Set sysUsuarioPacienteDi
      *
-     * @param \AppBundle\Entity\SysUsuario $sysUsuarioPaciente
+     * @param \AppBundle\Entity\SysUsuario $sysUsuarioPacienteDi
      *
      * @return SysFichaMedica
      */
-    public function setSysUsuarioPaciente(\AppBundle\Entity\SysUsuario $sysUsuarioPaciente = null)
+    public function setSysUsuarioPacienteDi(\AppBundle\Entity\SysUsuario $sysUsuarioPacienteDi = null)
     {
-        $this->sysUsuarioPaciente = $sysUsuarioPaciente;
+        $this->sysUsuarioPacienteDi = $sysUsuarioPacienteDi;
 
         return $this;
     }
 
     /**
-     * Get sysUsuarioPaciente
+     * Get sysUsuarioPacienteDi
      *
      * @return \AppBundle\Entity\SysUsuario
      */
-    public function getSysUsuarioPaciente()
+    public function getSysUsuarioPacienteDi()
     {
-        return $this->sysUsuarioPaciente;
+        return $this->sysUsuarioPacienteDi;
     }
 }
+
