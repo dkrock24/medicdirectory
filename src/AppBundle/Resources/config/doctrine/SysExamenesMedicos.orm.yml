@@ -26,7 +26,7 @@ AppBundle\Entity\SysExamenesMedicos:
                 fixed: false
             column: tipo_examen
         estadoExamen:
-            type: integer
+            type: boolean
             nullable: true
             options:
                 unsigned: false

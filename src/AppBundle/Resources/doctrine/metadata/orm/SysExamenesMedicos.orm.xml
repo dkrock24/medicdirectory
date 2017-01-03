@@ -14,7 +14,7 @@
         <option name="fixed"/>
       </options>
     </field>
-    <field name="estadoExamen" type="integer" column="estado_examen" nullable="true">
+    <field name="estadoExamen" type="boolean" column="estado_examen" nullable="true">
       <options>
         <option name="unsigned"/>
       </options>

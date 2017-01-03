@@ -34,4 +34,8 @@ app_sysespecialidades:
         resource: "@AppBundle/Resources/config/routing/sysespecialidades.yml"
         prefix:   /sysespecialidades
 
+app_sysexamenesmedicos:
+        resource: "@AppBundle/Resources/config/routing/sysexamenesmedicos.yml"
+        prefix:   /sysexamenesmedicos
+
 
