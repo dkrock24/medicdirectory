@@ -30,4 +30,8 @@ app_sysarea:
         resource: "@AppBundle/Resources/config/routing/sysarea.yml"
         prefix:   /sysarea
 
+app_sysespecialidades:
+        resource: "@AppBundle/Resources/config/routing/sysespecialidades.yml"
+        prefix:   /sysespecialidades
+
 
