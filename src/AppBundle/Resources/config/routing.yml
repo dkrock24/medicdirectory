@@ -22,3 +22,12 @@ app_systipoinstitucion:
     resource: "@AppBundle/Resources/config/routing/systipoinstitucion.yml"
     prefix:   /systipoinstitucion
 
+app_sysmodulos:
+        resource: "@AppBundle/Resources/config/routing/sysmodulos.yml"
+        prefix:   /sysmodulos
+        
+app_sysarea:
+        resource: "@AppBundle/Resources/config/routing/sysarea.yml"
+        prefix:   /sysarea
+
+

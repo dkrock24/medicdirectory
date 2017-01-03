@@ -16,7 +16,8 @@
     {% for flashMessage in app.session.flashbag.get('error') %}
         <div class="alert alert-dismissible alert-danger"><span class="glyphicon glyphicon-exclamation-sign"></span> {{ flashMessage }}</div>
     {% endfor %}
-    <div class="row">
+
+<div class="row">
         <div class="col-lg-6 col-md-6 col-sm-12">
             <table class="table table-striped">
                 <tbody>

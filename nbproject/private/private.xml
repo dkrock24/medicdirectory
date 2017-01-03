@@ -2,18 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/xampp/htdocs/symfony3/emr/src/AppBundle/Resources/views/syspais/edit.html.twig</file>
-            <file>file:/C:/xampp/htdocs/symfony3/emr/src/AppBundle/Resources/views/sysusuario/index.html.twig</file>
-            <file>file:/C:/xampp/htdocs/symfony3/emr/src/AppBundle/Resources/views/sysusuario/_submenu.html.twig</file>
-            <file>file:/C:/xampp/htdocs/symfony3/emr/src/AppBundle/Form/SysUsuarioType.php</file>
-            <file>file:/C:/xampp/htdocs/symfony3/emr/src/AppBundle/Resources/views/sysdepartamentos/new.html.twig</file>
-            <file>file:/C:/xampp/htdocs/symfony3/emr/src/AppBundle/Entity/SysRoles.php</file>
-            <file>file:/C:/xampp/htdocs/symfony3/emr/src/AppBundle/Form/SysMunicipioType.php</file>
-            <file>file:/C:/xampp/htdocs/symfony3/emr/src/AdminBundle/Resources/Public/css/custom-emr.css</file>
-            <file>file:/C:/xampp/htdocs/symfony3/emr/src/AppBundle/Resources/views/sysroles/index.html.twig</file>
-            <file>file:/C:/xampp/htdocs/symfony3/emr/src/AppBundle/Controller/SysUsuarioController.php</file>
-            <file>file:/C:/xampp/htdocs/symfony3/emr/src/AppBundle/Resources/views/sysusuario/new.html.twig</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

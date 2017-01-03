@@ -1,0 +1,80 @@
+{% extends "::base.html.twig" %}
+
+{% block breadcrumb %}
+    {{ include('AppBundle:sysmodulos:_breadcrumb.html.twig' )  }}
+{% endblock %} 
+
+{% block submenutop %}
+    {{ include('AppBundle:sysmodulos:_submenu.html.twig' )  }}
+{% endblock %} 
+
+{% block body %}
+    <h1>Nueva entrada</h1>
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            {# {{ dump( form_widget(form) )}} #}
+            <div class="panel-bodyx">
+            {{ form_start(form, {'attr': {'class': ''}} , {'enctype':'multipart/form-data'}) }}    
+            
+                {# {{ form_widget(form) }} #}
+                <div class="form_error">{{ form_errors(form)}}</div>
+                <div class="form-group">
+                    
+                    <div class="form_error">{{ form_errors(form.nombreSysModulo)}}</div>
+                    <div><label for="">Nombre</label></div>
+                    {{ form_widget(form.nombreSysModulo) }}
+                </div>
+                <div class="form-group">
+                    <div class="form_error">{{ form_errors(form.descripcionSysModulo)}}</div>
+                    <div><label for="" class="">Descripcion</label></div>
+                    {{ form_widget(form.descripcionSysModulo) }}
+                </div>
+                <div class="form-group">
+                    <div class="form_error">{{ form_errors(form.precioSysModulo)}}</div>
+                    <label for="" class=" control-label">Precio</label>
+                    {{ form_widget(form.precioSysModulo) }}
+                </div>
+                <div class="form-group">
+                    <div class="form_error">{{ form_errors(form.codigoSysModulo)}}</div>
+                    <label for="" class=" control-label">Codigo</label>
+                    {{ form_widget(form.codigoSysModulo) }}
+                </div>
+                <div class="form-group">
+                    <div class="form_error">{{ form_errors(form.imagenModulo)}}</div>
+                    <label for="" class=" control-label">Imagen</label>
+                    {{ form_widget(form.imagenModulo) }}
+                </div>
+                <div class="form-group">
+                    <div class="form_error">{{ form_errors(form.estatusSysModulo)}}</div>
+                    <div>Estatus</div>
+                    <div class="checkbox">
+                            <label>
+                                {{ form_widget(form.estatusSysModulo) }}
+                                <span class="text"></span>
+                            </label>
+                    </div>   
+                </div>
+            
+                                
+                <input type="submit" value="Crear" class="btn btn-primary" />
+            {{ form_end(form) }}
+
+                        
+            {#
+            <ul>
+                <li>
+                    <a href="{{ path('sysmodulos_index') }}">Regresar a la lista</a>
+                </li>
+            </ul> #}
+        </div>    
+            
+    </div>
+{% endblock %}
+
+{% block codejs %}
+    <script>
+        $(function(){
+
+          });
+    </script>
+{% endblock %}  
