@@ -312,5 +312,10 @@ class SysInstitucion
     {
         return $this->sysUsuario;
     }
+
+    public function __toString()
+    {
+        return $this->nombreSysInstitucion;
+    }
 }
 

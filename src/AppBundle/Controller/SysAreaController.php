@@ -49,7 +49,13 @@ class SysAreaController extends Controller
             $em = $this->getDoctrine()->getManager();            
             $sysArea->setfechaCreacion( new \DateTime(date('Y-m-d H:i:s')) );
             $em->persist($sysArea);
-            $em->flush();
+            $flush = $em->flush();
+            
+            if ($flush == null) {
+                $this->get('session')->getFlashBag()->add('success', "Regístro creado exitosamente");
+            } else {
+                $this->get('session')->getFlashBag()->add('error', "No se ha podido crear el regístro");
+            }
 
             return $this->redirectToRoute('sysarea_show', array('id' => $sysArea->getId()));
         }

@@ -1,0 +1,24 @@
+sysinstituciontienemodulo_index:
+    path:     /
+    defaults: { _controller: "AppBundle:SysInstitucionTieneModulo:index" }
+    methods:  GET
+
+sysinstituciontienemodulo_show:
+    path:     /{id}/show
+    defaults: { _controller: "AppBundle:SysInstitucionTieneModulo:show" }
+    methods:  GET
+
+sysinstituciontienemodulo_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:SysInstitucionTieneModulo:new" }
+    methods:  [GET, POST]
+
+sysinstituciontienemodulo_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AppBundle:SysInstitucionTieneModulo:edit" }
+    methods:  [GET, POST]
+
+sysinstituciontienemodulo_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AppBundle:SysInstitucionTieneModulo:delete" }
+    methods:  DELETE

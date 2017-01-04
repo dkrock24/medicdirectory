@@ -167,5 +167,10 @@ class SysAntecedentesEspecialidad
     {
         return $this->idEspecialidad;
     }
+
+    public function __toString()
+    {
+        return $this->antecedente;
+    }
 }
 
