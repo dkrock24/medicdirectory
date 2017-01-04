@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block breadcrumb %}
+    {{ include('AppBundle:syssugerencias:_breadcrumb.html.twig' )  }}
+{% endblock %} 
+
+{% block submenutop %}
+    {{ include('AppBundle:syssugerencias:_submenu.html.twig' )  }}
+{% endblock %} 
+
+{% block body %}
+    <h1>Lista Sugerencias</h1>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Area</th>
+                <th>Institucion</th>
+                <th>Comentarios</th>
+                <th>Fecha Creacion</th>
+                <th>Estado</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for sysSugerencia in sysSugerencias %}
+            <tr>
+                <td><a href="{{ path('syssugerencias_show', { 'id': sysSugerencia.id }) }}">{{ sysSugerencia.id }}</a></td>
+                <td>{{ sysSugerencia.sysArea }}</td>
+                <td>{{ sysSugerencia.sysInstitucion }}</td>
+
+                <td>{{ sysSugerencia.comentarioSysSugerencia }}</td>                
+                
+
+                <td>{% if sysSugerencia.fechaCreacionSysSugerencia %}{{ sysSugerencia.fechaCreacionSysSugerencia|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if sysSugerencia.estatusSugerencia %}Yes{% else %}No{% endif %}</td>
+                <td>
+                    <ul class="btn-option-emr">
+                        <li>
+                            <a href="{{ path('syssugerencias_show', { 'id': sysSugerencia.id }) }}" class="btn btn-default"><i class="glyphicon glyphicon-eye-open"></i>Ver</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('syssugerencias_edit', { 'id': sysSugerencia.id }) }}" class="btn btn-info"><i class="glyphicon glyphicon-pencil"></i>editar</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

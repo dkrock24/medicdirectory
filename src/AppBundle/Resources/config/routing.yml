@@ -46,4 +46,9 @@ app_sysinstituciontienemodulo:
         resource: "@AppBundle/Resources/config/routing/sysinstituciontienemodulo.yml"
         prefix:   /sysinstituciontienemodulo
 
+app_syssugerencias:
+        resource: "@AppBundle/Resources/config/routing/syssugerencias.yml"
+        prefix:   /syssugerencias
+
+
 
