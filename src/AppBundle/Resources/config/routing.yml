@@ -50,5 +50,8 @@ app_syssugerencias:
         resource: "@AppBundle/Resources/config/routing/syssugerencias.yml"
         prefix:   /syssugerencias
 
+app_sysmodulotieneespecialidad:
+        resource: "@AppBundle/Resources/config/routing/sysmodulotieneespecialidad.yml"
+        prefix:   /sysmodulotieneespecialidad
 
 

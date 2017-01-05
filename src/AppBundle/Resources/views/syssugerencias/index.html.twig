@@ -34,7 +34,8 @@
                 
 
                 <td>{% if sysSugerencia.fechaCreacionSysSugerencia %}{{ sysSugerencia.fechaCreacionSysSugerencia|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if sysSugerencia.estatusSugerencia %}Yes{% else %}No{% endif %}</td>
+                
+                <td>{% if sysSugerencia.estatusSugerencia %}<span class="label label-success">Activo</span>{% else %}<span class="label label-danger">Inactivo</span>{% endif %}</td>
                 <td>
                     <ul class="btn-option-emr">
                         <li>

@@ -15,7 +15,7 @@ class SysModuloTieneEspecialidad
     /**
      * @var boolean
      */
-    private $sysEstatus = '1';
+    private $sysEstatus;
 
     /**
      * @var \AppBundle\Entity\SysEspecialidades

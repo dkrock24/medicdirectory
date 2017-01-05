@@ -35,7 +35,10 @@
                 <td>{% if sysInstitucionTieneModulo.fechaFinSysUtm %}{{ sysInstitucionTieneModulo.fechaFinSysUtm|date('Y-m-d') }}{% endif %}</td>
                 <td>{{ sysInstitucionTieneModulo.totalCostoEspecialSysUtm }}</td>
                 <td>{{ sysInstitucionTieneModulo.totalMesesSysUsuarioTieneModulo }}</td>
-                <td>{% if sysInstitucionTieneModulo.estatusSysUtm %}Yes{% else %}No{% endif %}</td>
+    
+
+                <td>{% if sysInstitucionTieneModulo.estatusSysUtm %}<span class="label label-success">Activo</span>{% else %}<span class="label label-danger">Inactivo</span>{% endif %}</td>
+
                 <td>
                     <ul class="btn-option-emr">
                         <li>

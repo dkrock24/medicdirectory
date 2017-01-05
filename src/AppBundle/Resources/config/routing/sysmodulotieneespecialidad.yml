@@ -1,0 +1,24 @@
+sysmodulotieneespecialidad_index:
+    path:     /
+    defaults: { _controller: "AppBundle:SysModuloTieneEspecialidad:index" }
+    methods:  GET
+
+sysmodulotieneespecialidad_show:
+    path:     /{id}/show
+    defaults: { _controller: "AppBundle:SysModuloTieneEspecialidad:show" }
+    methods:  GET
+
+sysmodulotieneespecialidad_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:SysModuloTieneEspecialidad:new" }
+    methods:  [GET, POST]
+
+sysmodulotieneespecialidad_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AppBundle:SysModuloTieneEspecialidad:edit" }
+    methods:  [GET, POST]
+
+sysmodulotieneespecialidad_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AppBundle:SysModuloTieneEspecialidad:delete" }
+    methods:  DELETE
