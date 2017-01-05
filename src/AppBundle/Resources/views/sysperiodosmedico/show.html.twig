@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block breadcrumb %}
+    {{ include('AppBundle:sysperiodosmedico:_breadcrumb.html.twig' )  }}
+{% endblock %} 
+
+{% block submenutop %}
+    {{ include('AppBundle:sysperiodosmedico:_submenu.html.twig' )  }}
+{% endblock %} 
+
+{% block body %}
+    <h1>Lista Periodos Medico</h1>
+    {% for flashMessage in app.session.flashbag.get('success') %}
+    <div class="alert alert-dismissible alert-success"><span class="glyphicon glyphicon-ok-sign"></span> {{ flashMessage }}</div>
+    {% endfor %}
+    {% for flashMessage in app.session.flashbag.get('error') %}
+        <div class="alert alert-dismissible alert-danger"><span class="glyphicon glyphicon-exclamation-sign"></span> {{ flashMessage }}</div>
+    {% endfor %}
+
+
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-12">
+    <table class="table table-striped">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ sysPeriodosMedico.id }}</td>
+            </tr>
+            <tr>
+                <th>Usuario</th>
+                <td>{{ sysPeriodosMedico.sysUsuario }}</td>
+            </tr>
+            <tr>
+                 <th>Fecha Contrato Inico</th>
+                <td>{% if sysPeriodosMedico.fechaContratoInico %}{{ sysPeriodosMedico.fechaContratoInico|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Fecha Contrato Fin</th>
+                <td>{% if sysPeriodosMedico.fechaContratoFin %}{{ sysPeriodosMedico.fechaContratoFin|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Monto Periodo Medico</th>
+                <td>${{ sysPeriodosMedico.montoSysPeriodosMedico }}</td>
+            </tr>
+        </tbody>
+    </table>
+ <hr>         
+        </div>
+    </div>
+
+    <ul class="btn-option-emr">
+        <li>
+            <a href="{{ path('sysperiodosmedico_index') }}" class="btn btn-default"><i class="glyphicon glyphicon-th-list"></i> Regresar a la lista</a>
+        </li>
+        <li>
+            <a href="{{ path('sysperiodosmedico_edit', { 'id': sysPeriodosMedico.id }) }}"  class="btn btn-info"><i class="glyphicon glyphicon-pencil"></i> Editar</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Eliminar" class="btn btn-danger">
+            {{ form_end(delete_form) }}
+        </li>
+        <li>
+            <a href="{{ path('sysperiodosmedico_new')}}" class="btn btn-inverse"><i class="fa fa-plus"></i> Nuevo </a>
+        </li>
+    </ul>
+{% endblock %}

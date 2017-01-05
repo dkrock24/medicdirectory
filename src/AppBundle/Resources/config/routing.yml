@@ -54,4 +54,8 @@ app_sysmodulotieneespecialidad:
         resource: "@AppBundle/Resources/config/routing/sysmodulotieneespecialidad.yml"
         prefix:   /sysmodulotieneespecialidad
 
+app_sysperiodosmedico:
+        resource: "@AppBundle/Resources/config/routing/sysperiodosmedico.yml"
+        prefix:   /sysperiodosmedico
+
 
