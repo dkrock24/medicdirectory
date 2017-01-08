@@ -49,8 +49,20 @@ class SysUsuarioType extends AbstractType
                                 'class'   => 'form-control')))
             //->add('fechaCreacionSysUsuario', 'date')
             //->add('fechaActualizacionSysUsuario', 'datetime')
-            ->add('genero',TextType::class, array("required"=>true,"label"=>"Genero", 'attr'   =>  array(
+            /*
+			->add('genero',TextType::class, array("required"=>true,"label"=>"Genero", 'attr'   =>  array(
                                 'class'   => 'form-control')))
+			*/	
+			->add('genero', ChoiceType::class, array(
+				'attr'   =>  array(
+                'class'   => 'form-control'),
+				'choices'  => array(
+					//'Maybe' => null,
+					'Masculino' => "M",
+					'Femenino' => "F",
+				),
+			))
+				
             ->add('ocupacion',TextType::class, array("required"=>false,"label"=>"Ocupacion", 'attr'   =>  array(
                                 'class'   => 'form-control')))
             ->add('direccion',TextType::class, array("required"=>false,"label"=>"Dirección", 'attr'   =>  array(

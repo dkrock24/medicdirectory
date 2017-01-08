@@ -1,7 +1,7 @@
 {% extends "::base.html.twig" %}
   
 {% block body %}
-    <h1>Edicón de Roles</h1>
+    <h1>Edición de Rol</h1>
     {% for flashMessage in app.session.flashbag.get('success') %}
         <div class="alert alert-dismissible alert-success"><span class="glyphicon glyphicon-ok-sign"></span> {{ flashMessage }}</div>
     {% endfor %}

@@ -1,112 +1,126 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>SysUsuario</h1>
-
-    <table>
+    <h1>Usuario</h1>
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-12">
+    <table class="table table-striped">
         <tbody>
             <tr>
                 <th>Id</th>
                 <td>{{ sysUsuario.id }}</td>
             </tr>
             <tr>
-                <th>Nombresysusuario</th>
+                <th>Nombres</th>
                 <td>{{ sysUsuario.nombreSysUsuario }}</td>
             </tr>
             <tr>
-                <th>Apellidosysusuario</th>
-                <td>{{ sysUsuario.apellidoSysUsuario }}</td>
+                <th>Apellidos</th>
+                <td>
+                    {{ sysUsuario.apellidoSysUsuario }}
+                </td>
             </tr>
             <tr>
-                <th>Emailsysusuario</th>
+                <th>Email</th>
                 <td>{{ sysUsuario.emailSysUsuario }}</td>
             </tr>
             <tr>
-                <th>Estatussysusuario</th>
-                <td>{% if sysUsuario.estatusSysUsuario %}Yes{% else %}No{% endif %}</td>
+                <th>Estatus</th>
+                <td>
+                    {% if sysUsuario.estatusSysUsuario %}<span class="label label-success">Activo</span>{% else %}<span class="label label-danger">Inactivo</span>{% endif %}
+                </td>
             </tr>
+            {#
             <tr>
                 <th>Passwordsysusuario</th>
                 <td>{{ sysUsuario.passwordSysUsuario }}</td>
             </tr>
+            #}
             <tr>
-                <th>Fechanacimientosysusuario</th>
+                <th>Fecha nacimiento</th>
                 <td>{% if sysUsuario.fechaNacimientoSysUsuario %}{{ sysUsuario.fechaNacimientoSysUsuario|date('Y-m-d') }}{% endif %}</td>
             </tr>
             <tr>
-                <th>Telefonosysusuario</th>
+                <th>Teléfono</th>
                 <td>{{ sysUsuario.telefonoSysUsuario }}</td>
             </tr>
             <tr>
-                <th>Celularsysusuario</th>
+                <th>Celular</th>
                 <td>{{ sysUsuario.celularSysUsuario }}</td>
             </tr>
             <tr>
-                <th>Jvrmsysusuario</th>
+                <th>Jvrm</th>
                 <td>{{ sysUsuario.jvrmSysUsuario }}</td>
             </tr>
             <tr>
-                <th>Tarjetacreditosysusuario</th>
+                <th>Tarjeta de credito</th>
                 <td>{{ sysUsuario.tarjetaCreditoSysUsuario }}</td>
             </tr>
             <tr>
-                <th>Sysusuario</th>
+                <th>Username</th>
                 <td>{{ sysUsuario.sysUsuario }}</td>
             </tr>
             <tr>
-                <th>Codigopostalsysusuario</th>
+                <th>Código postal</th>
                 <td>{{ sysUsuario.codigoPostalSysUsuario }}</td>
             </tr>
             <tr>
-                <th>Duisysusuario</th>
+                <th>DUI</th>
                 <td>{{ sysUsuario.duiSysUsuario }}</td>
             </tr>
             <tr>
-                <th>Fechacreacionsysusuario</th>
+                <th>Fecha creación</th>
                 <td>{% if sysUsuario.fechaCreacionSysUsuario %}{{ sysUsuario.fechaCreacionSysUsuario|date('Y-m-d') }}{% endif %}</td>
             </tr>
             <tr>
-                <th>Fechaactualizacionsysusuario</th>
+                <th>Fecha actualización</th>
                 <td>{% if sysUsuario.fechaActualizacionSysUsuario %}{{ sysUsuario.fechaActualizacionSysUsuario|date('Y-m-d H:i:s') }}{% endif %}</td>
             </tr>
             <tr>
                 <th>Genero</th>
-                <td>{{ sysUsuario.genero }}</td>
+                <td>
+                    {% if sysUsuario.genero|upper == "M" %}Masculino{% else %}Femenino{% endif %}
+                </td>
             </tr>
             <tr>
-                <th>Ocupacion</th>
+                <th>Ocupación</th>
                 <td>{{ sysUsuario.ocupacion }}</td>
             </tr>
             <tr>
-                <th>Direccion</th>
+                <th>Dirección</th>
                 <td>{{ sysUsuario.direccion }}</td>
             </tr>
             <tr>
-                <th>Responsabledepaciente</th>
+                <th>Responsable del depaciente</th>
                 <td>{{ sysUsuario.responsableDePaciente }}</td>
             </tr>
             <tr>
-                <th>Numeroafp</th>
+                <th>Número AFP</th>
                 <td>{{ sysUsuario.numeroAfp }}</td>
             </tr>
             <tr>
-                <th>Numeronup</th>
+                <th>Numero NUP</th>
                 <td>{{ sysUsuario.numeroNup }}</td>
             </tr>
         </tbody>
     </table>
-
-    <ul>
+    </div></div>
+    
+    <hr>       
+    <ul class="btn-option-emr">
         <li>
-            <a href="{{ path('sysusuario_index') }}">Back to the list</a>
+            <a href="{{ path('sysusuario_index') }}" class="btn btn-default"> <i class="glyphicon glyphicon-th-list"></i> Regresar a la lista</a>
         </li>
         <li>
-            <a href="{{ path('sysusuario_edit', { 'id': sysUsuario.id }) }}">Edit</a>
+            <a href="{{ path('sysusuario_edit', { 'id': sysUsuario.id }) }}" class="btn btn-info"><i class="glyphicon glyphicon-pencil"></i> Editar</a>
         </li>
         <li>
             {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
+                <input type="submit" value="Eliminar" class="btn btn-danger">
             {{ form_end(delete_form) }}
+        </li>
+        <li>
+            <a href="{{ path('sysusuario_new')}}" class="btn btn-inverse"><i class="fa fa-plus"></i> Nuevo </a>
         </li>
     </ul>
 {% endblock %}
