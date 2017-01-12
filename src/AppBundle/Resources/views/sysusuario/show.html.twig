@@ -1,5 +1,13 @@
 {% extends 'base.html.twig' %}
 
+{% block breadcrumb %}
+    {{ include('AppBundle:sysusuario:_breadcrumb.html.twig' )  }}
+{% endblock %} 
+
+{% block submenutop %}
+    {{ include('AppBundle:sysusuario:_submenu.html.twig' )  }}
+{% endblock %}
+
 {% block body %}
     <h1>Usuario</h1>
 <div class="row">

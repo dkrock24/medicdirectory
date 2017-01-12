@@ -87,7 +87,7 @@ class SysUsuarioType extends AbstractType
 								'mapped' => true
 								))
 			->add('estatusSysUsuario',CheckboxType::class, array("required"=>false,"label"=>"Es activo?", 'attr'   =>  array(
-                                'class'   => 'switch switch-success')))	
+                                'class'   => '')))	
         ;
     }
     

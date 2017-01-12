@@ -4699,11 +4699,9 @@ hr {
   right: 175px;
   top: 0;
 }
-/*
 .dahsboard-realtime .realtime-chart .chart-switch input[type=checkbox].switch:not(:checked) ~ .text:before {
   border: 1px solid #fff;
 }
-*/
 .dahsboard-realtime .realtime-table {
   margin-top: -10px;
 }
@@ -10081,7 +10079,6 @@ fieldset[disabled] .form-control {
 .has-success .form-control:-ms-input-placeholder {
   color: #1dbc9c;
 }
-/*
 .has-success .checkbox,
 .has-success .checkbox-inline,
 .has-success .control-label,
@@ -10095,7 +10092,6 @@ fieldset[disabled] .form-control {
 .has-success.radio-inline label {
   color: #1dbc9c;
 }
-*/
 .has-success .input-group-addon {
   border-color: #1dbc9c;
   color: #1dbc9c;
@@ -10121,7 +10117,6 @@ fieldset[disabled] .form-control {
 .has-warning .form-control:-ms-input-placeholder {
   color: #ffc107;
 }
-/*
 .has-warning .checkbox,
 .has-warning .checkbox-inline,
 .has-warning .control-label,
@@ -10135,7 +10130,6 @@ fieldset[disabled] .form-control {
 .has-warning.radio-inline label {
   color: #ffc107;
 }
-*/
 .has-warning .input-group-addon {
   border-color: #ffc107;
   color: #ffc107;
@@ -10405,7 +10399,6 @@ label {
 /*------------------------------------------------------------------
 [4.1.3. Checkboxes and Radiobuttons]
 */
-/*
 input[type=checkbox],
 input[type=radio] {
   cursor: pointer;
@@ -10416,7 +10409,6 @@ input[type=radio] {
   width: 18px;
   z-index: 12;
 }
-
 input[type=checkbox]:checked,
 input[type=radio]:checked,
 input[type=checkbox]:focus,
@@ -10506,8 +10498,6 @@ input[type=radio] ~ .text:active:before {
   -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0 1px 3px rgba(0, 0, 0, 0.1);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0 1px 3px rgba(0, 0, 0, 0.1);
 }
-*/
-/*
 input[type=radio] ~ .text:before {
   border-radius: 100%;
   font-family: FontAwesome;
@@ -10652,8 +10642,6 @@ input[type=radio].radio-white ~ .text:before {
   border-color: #292929;
   color: #292929;
 }
-*/
-/*
 .radio label,
 .checkbox label {
   padding-left: 0;
@@ -10801,12 +10789,9 @@ input[type=checkbox].checkbox-white ~ .text:before {
 .radio-inline {
   margin-top: 0;
 }
-*/
-
 /*------------------------------------------------------------------
 [4.1.4. Switches]
 */
-/*
 input[type=checkbox].switch {
   width: 55px;
   height: 25px;
@@ -10848,10 +10833,10 @@ input[type=checkbox].switch.toggle ~ .text:after {
 }
 input[type=checkbox].switch.yesno ~ .text:before {
   font-family: 'Roboto', sans-serif, tahoma;
-  content: "YES\a0\a0\a0\a0\a0\a0\a0\a0\a0\a0\a0NO" ;
+  content: "YES\a0\a0\a0\a0\a0\a0\a0\a0\a0\a0\a0NO" /*rtl:"NO\a0\a0\a0\a0\a0\a0\a0\a0\a0YES"*/;
 }
 input[type=checkbox].switch ~ .text {
-  
+  /*margin: 0 4px;*/
   min-height: 24px;
 }
 input[type=checkbox].switch ~ .text:before {
@@ -10868,7 +10853,7 @@ input[type=checkbox].switch ~ .text:before {
   background-color: #fff;
   border: 1px solid #ccc;
   color: #999;
-  content: "ON\a0\a0\a0\a0\a0\a0\a0\a0\a0\a0OFF";
+  content: "ON\a0\a0\a0\a0\a0\a0\a0\a0\a0\a0OFF" /*rtl:"OFF\a0\a0\a0\a0\a0\a0\a0\a0\a0ON"*/;
   float: left;
   font-family: 'Roboto', sans-serif, tahoma;
   font-size: 13px;
@@ -11113,7 +11098,6 @@ input[type=checkbox].switch.switch-white.toggle:checked ~ .text:after {
 input[type=checkbox].switch.switch-white.toggle ~ .text:after {
   background-color: #ffffff;
 }
-*/
 /*------------------------------------------------------------------
 [4.2. Form Advanced Inputs]
 */
@@ -14076,18 +14060,18 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
 .editable-error {
   color: red;
 }
-
+/* ---- For specific types ---- */
 .editableform .editable-date {
   padding: 0;
   margin: 0;
   float: left;
 }
-
+/* move datepicker icon to center of add-on button. See https://github.com/vitalets/x-editable/issues/183 */
 .editable-inline .add-on .icon-th {
   margin-top: 3px;
   margin-left: 1px;
 }
-
+/* checklist vertical alignment */
 .editable-checklist label input[type="checkbox"],
 .editable-checklist label span {
   vertical-align: middle;
@@ -14096,19 +14080,19 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
 .editable-checklist label {
   white-space: nowrap;
 }
-
+/* set exact width of textarea to fit buttons toolbar */
 .editable-wysihtml5 {
   width: 566px;
   height: 250px;
 }
-
+/* clear button shown as link in date inputs */
 .editable-clear {
   clear: both;
   font-size: 0.9em;
   text-decoration: none;
   text-align: right;
 }
-
+/* IOS-style clear button for text inputs */
 .editable-clear-x {
   background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAANCAQAAADY4iz3AAAAAmJLR0QA/4ePzL8AAAAJcEhZcwAAAEgAAABIAEbJaz4AAAAJdnBBZwAAAA0AAAANABzi0JoAAAEFSURBVBjTNdC/alNhAIbx3/edpGeQlJqElIihpqKYpfYPyRXoUEe33pdXUOjolqXQG2glUnDQkkKVgIRoIDQIpsnJ6ZD2Wd/lfZ5gxYZXqgrmxq7cQkDijabgkaW+vjzBri0hlYFUFlQVjaJNzzmu/D5oBFrJqPNpA03laItS+Pi6XL/cf1c8b6/Xjl6m8CI4VKCVfOk8qViKk+FOb5Djf1SA79lRz1JcLj5cDnKwFi2glZzsi8RC921j9fUuGlMK5+1SdTJ8f/pvXK5/3UthHP1imnevJ8Od3tm8fTH9+/lmBj8DDjwjNXvwWg2+JRhJPM0eUmTkrv2QP+ap2FYTZf7om8A9PrJPoYpSXtIAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTEtMDItMTRUMTE6MTI6MTUrMDI6MDD7C2qGAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDExLTAyLTE0VDExOjEyOjE1KzAyOjAwilbSOgAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAAASUVORK5CYII=') /*/assets/img/xeditable/clear.png*/ center center no-repeat;
   display: block;
@@ -15928,13 +15912,11 @@ flot-donut-caption .legendLabel span {
   height: 33px;
   width: calc(98%);
 }
-/*
 .table > thead > tr > th input[type=checkbox] + .text:before,
 .table > tfoot > tr > th input[type=checkbox] + .text:before {
   margin-top: 10px;
   margin-bottom: -2px;
 }
-*/
 .table > thead > tr > th[colspan]:not([colspan="1"]),
 .table > tfoot > tr > th[colspan]:not([colspan="1"]) {
   border-bottom: 1px solid #eeeeee;
@@ -16041,12 +16023,10 @@ flot-donut-caption .legendLabel span {
 .table > tbody > tr > th .btn:first-child {
   margin-left: -6px;
 }
-/*
 .table > tbody > tr > td input[type=checkbox] + .text:before,
 .table > tbody > tr > th input[type=checkbox] + .text:before {
   margin-top: -3px;
 }
-*/
 .table > tbody > tr > td:first-child,
 .table > tbody > tr > th:first-child {
   padding-left: 24px;
