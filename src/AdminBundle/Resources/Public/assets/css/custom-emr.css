@@ -1,0 +1,8 @@
+.btn-option-emr{
+    padding-left: 0px;
+}
+.btn-option-emr li{
+    list-style: none;
+    display: inline-block;
+    margin-right:8px; 
+}

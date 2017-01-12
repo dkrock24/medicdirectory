@@ -3,209 +3,100 @@
 {% block title %}EMR{% endblock %}
  
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('bundles/admin/css/bootstrap.min.css') }}" type="text/css" id="link-bootstrap" />
-    <link rel="stylesheet" href="{{ asset('bundles/admin/css/animate.min.css') }}" type="text/css" />
-    <link rel="stylesheet" href="{{ asset('bundles/admin/css/app.css') }}" type="text/css" id="link-app" />
-    <link rel="stylesheet" href="{{ asset('bundles/admin/css/demo.min.css') }}" type="text/css" />
-    <link rel="stylesheet" href="{{ asset('bundles/admin/css/font-awesome.min.css') }}" type="text/css" />
-    <link rel="stylesheet" href="{{ asset('bundles/admin/css/pe-icon-7-stroke.css') }} " type="text/css" />
-    <link rel="stylesheet" href="{{ asset('bundles/admin/css/custom-emr.css') }} " type="text/css" />
+    
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
+	<link href="{{ asset('bundles/admin/assets/css/icons/icomoon/styles.css') }}" rel="stylesheet" type="text/css">
+	<link href="{{ asset('bundles/admin/assets/css/bootstrap.css') }} " rel="stylesheet" type="text/css">
+	<link href="{{ asset('bundles/admin/assets/css/core.css') }}" rel="stylesheet" type="text/css">
+	<link href="{{ asset('bundles/admin/assets/css/components.css') }}" rel="stylesheet" type="text/css">
+	<link href="{{ asset('bundles/admin/assets/css/colors.css') }}" rel="stylesheet" type="text/css">
+	<link href="{{ asset('bundles/admin/assets/css/custom-emr.css') }}" rel="stylesheet" type="text/css">
    
 {% endblock %}
 
 {% block javascripts %}
-     <!-- [6. JavaScript References] -->
-    <script src="{{ asset('bundles/admin/js/jquery.min.js') }}"></script>
-    <script src="{{ asset('bundles/admin/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('bundles/admin/js/modernizr.custom.js') }}"></script>
-    <script src="{{ asset('bundles/admin/js/lib/slimscroll/jquery.slimscroll.min.js') }}"></script>
-    <script src="{{ asset('bundles/admin/js/lib/animsition/animsition.min.js') }}"></script>
-    <script src="{{ asset('bundles/admin/js/main.js') }}"></script>
 
-    <!-- [7. Page Related Scripts] -->
-      {#  
-    <script src="{{ asset('bundles/admin/js/lib/easypiechart/jquery.easypiechart.min.js') }}"></script>
-    <script src="{{ asset('bundles/admin/js/lib/easypiechart/easypiechart-init.js') }}"></script>
-    <script src="{{ asset('bundles/admin/js/lib/sparkline/jquery.sparkline.min.js') }}"></script>
-    <script src="{{ asset('bundles/admin/js/lib/sparkline/sparkline-init.js') }}"></script>
+    <!-- Core JS files -->
+	<script type="text/javascript" src="{{ asset('bundles/admin/assets/js/plugins/loaders/pace.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/admin/assets/js/core/libraries/jquery.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/admin/assets/js/core/libraries/bootstrap.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/admin/assets/js/plugins/loaders/blockui.min.js') }}"></script>
+	<!-- /core JS files -->
     
-    <script src="{{ asset('bundles/admin/js/lib/flot/jquery.flot.min.js') }}"></script>
-    <script src="{{ asset('bundles/admin/js/lib/flot/jquery.flot.orderBars.min.js') }} "></script>
-    <script src="{{ asset('bundles/admin/js/lib/flot/jquery.flot.tooltip.min.js') }} "></script>
-    <script src="{{ asset('bundles/admin/js/lib/flot/jquery.flot.resize.min.js') }} "></script>
-    <script src="{{ asset('bundles/admin/js/lib/flot/jquery.flot.selection.min.js') }} "></script>
-    <script src="{{ asset('bundles/admin/js/lib/flot/jquery.flot.crosshair.min.js') }} "></script>
-    <script src="{{ asset('bundles/admin/js/lib/flot/jquery.flot.stack.min.js') }} "></script>
-    <script src="{{ asset('bundles/admin/js/lib/flot/jquery.flot.time.min.js') }} "></script>
-    <script src="{{ asset('bundles/admin/js/lib/flot/jquery.flot.pie.min.js') }} "></script>
+    <!-- Theme JS files -->
     
-    <script src="{{ asset('bundles/admin/js/lib/flot/curvedLines.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/admin/assets/js/plugins/visualization/d3/d3.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/admin/assets/js/plugins/visualization/d3/d3_tooltip.js') }}"></script>
     
-    <script src="{{ asset('bundles/admin/js/lib/echarts/echarts-all.js') }}"></script>
-    <script src="{{ asset('bundles/admin/js/lib/echarts/theme.js') }}"></script>
-    <script src="{{ asset('bundles/admin/js/pages/dashboard-minimal.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/admin/assets/js/plugins/forms/styling/uniform.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/admin/assets/js/plugins/forms/styling/switchery.min.js') }}"></script>
+	
+	<script type="text/javascript" src="{{ asset('bundles/admin/assets/js/plugins/forms/selects/bootstrap_multiselect.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/admin/assets/js/plugins/ui/moment/moment.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/admin/assets/js/plugins/pickers/daterangepicker.js') }}"></script>
+
+	<script type="text/javascript" src="{{ asset('bundles/admin/assets/js/core/app.js') }}"></script>
+	{#<script type="text/javascript" src="{{ asset('bundles/admin/assets/js/pages/dashboard.js') }}"></script> #}
+	<script type="text/javascript" src="{{ asset('bundles/admin/assets/js/pages/layout_fixed_native.js') }}"></script>
+    
+	<script type="text/javascript" src="{{ asset('bundles/admin/assets/js/pages/form_checkboxes_radios.js') }}"></script>
+	<!-- /theme JS files -->
+    
+    {#
+    <!-- Core JS files -->
+	<script type="text/javascript" src="{{ asset('bundles/admin/assets/js/plugins/loaders/pace.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/admin/assets/js/core/libraries/jquery.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/admin/assets/js/core/libraries/bootstrap.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/admin/assets/js/plugins/loaders/blockui.min.js') }}"></script>
+	<!-- /core JS files -->
+
+	<!-- Theme JS files -->
+	<script type="text/javascript" src="{{ asset('bundles/admin/assets/js/plugins/forms/styling/uniform.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/admin/assets/js/plugins/forms/styling/switchery.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/admin/assets/js/plugins/forms/styling/switch.min.js') }}"></script>
+
+	<script type="text/javascript" src="{{ asset('bundles/admin/assets/js/core/app.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/admin/assets/js/pages/form_checkboxes_radios.js') }}"></script>
     #}
-    
     
 {% endblock %}
  
 {% block body_page %}
     
-    <div id="emrloading">
-        <div class="cssload-speeding-wheel"></div>
-    </div>
-    <!--
-    <section id="layout-body" class="container">
-        
-        <section id="layout-body-right" class="layout-body-right">
-            {#
-            {% block right_block %}
-            {% endblock %} #}
-        </section>
-    </section>
-        -->
-      
-   <div class="animsition">
-        <!--
-        [3. Sidebar Menu]
-        -->
-        
-        <div class="sidebar menu">
-            <!-- Header lateral izquierdo ====================================== -->
-            <div class="sidebar-header">
-                <div class="header-brand">
-                    <div class="brand-logo">
-                        <img src="{{ asset('bundles/admin/img/logo.png') }}" alt="Yima - Admin Web App" />
-                    </div>
-                    <div class="brand-slogan">
-                        <div class="slogan-title">EMR</div>
-                    </div>
-                </div>
-                <div class="header-notification">
-                    <a class="notification" href="Inbox.html">
-                        <i class="icon pe-7s-mail"></i>
-                        <span class="text">You've Got 3 New Mails!</span>
-                        <div class="more">
-                            <span class="more-text">Go to Inbox</span>
-                            <i class="more-icon pe-7s-right-arrow"></i>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <!-- Fin Header lateral izquierdo ===============================-->
-            
-            
-            <!-- Menu lateral izquierdo ==================================== -->
+    {{ include('_menu.top.main.html.twig')  }}
+    
+    <!-- Page container -->
+	<div class="page-container">
+        <!-- Page content -->
+        <div class="page-content">
             {{ include('_menu.left.html.twig')  }}
-            <!-- fin del menú lateral izquierdo ============================ -->
             
-            <!-- Footer lateral izquierdo ================================== -->
-            <div class="sidebar-footer">
-                <div class="footer-avatar">
-                    <img src="{{ asset('bundles/admin/img/avatars/andy.jpg') }}" alt="Fabian Mellan Jr." />
+            <!-- Main content -->
+            <div class="content-wrapper">
+                
+                <!-- Page header -->
+				<div class="page-header page-header-default">
+                    
+					<div class="page-header-content">
+                        {% block submenutop %} {% endblock %}
+					</div>
+                    
+                    <div class="breadcrumb-line">
+                        {% block breadcrumb %}{% endblock %}
+                    </div>
+				</div>
+				<!-- /page header -->
+                
+                <!-- Content area -->
+                <div class="content">
+                    {% block body %}
+                    {% endblock %}
                 </div>
-                <div class="footer-user">
-                    <a href="Profile.html">Fabian Mellan Jr.</a>
-                </div>
-                <div class="footer-links">
-                    <a href="Login.html" class="links-logout">
-                        <i class="pe-7s-power"></i>
-                        <span>Sign Out</span>
-                    </a>
-                </div>
+                <!-- end content -->
             </div>
-            <!-- Fin Footer lateral izquierdo ============================== -->
-        </div>
-        <!--
-        [4. Sidebar Form]
-        -->
-        <div class="sidebar form collapsed">
-        </div>
-        <!--
-        [5. Main Page Content]
-        -->
-        <div class="main-content">
-            <!--
-            [5.1. Page Header]
-            -->
-            <div class="content-header">
-                {% block header %}
-                        <!--
-                        [5.1.1. BreadCrumb]
-                        -->
-                    {% block breadcrumb %}{% endblock %}
-
-                    <!--
-                    [5.1.2. Header Buttons]
-                    -->
-
-                    <!-- Iconos top lado derecho ================================-->
-                    {{ include('_menu.top.right.html.twig')  }}
-                    <!-- Fin iconos menu rerecho ===============================-- >
-                    </div>
-
-                    <!--
-                    Sub menu top
-                    -->
-                    <div class="content-nav">
-                        <div class="navbar navbar-default content-nav-navbar">
-                            <!--
-                                <div class="navbar-header">
-                                    <a data-toggle="collapse" data-target="#navbar-collapse-2" class="navbar-toggle collapsed">
-                                        <div class="icon"></div>
-                                    </a>
-                                    <a href="#" class="navbar-brand">Minimal</a>
-                                </div> 
-                            -->
-                            <div id="navbar-collapse-2" class="navbar-collapse collapse">
-                                {% block submenutop %}
-
-                                {% endblock %}
-                                <!--
-                                    <ul class="nav navbar-nav navbar-right">
-                                        <li class="dropdown">
-                                            <a href="#" data-toggle="dropdown" class="dropdown-toggle">FeedBack<i class="dropdown-caret pe-7s-angle-down"></i></a>
-                                            <ul class="dropdown-menu">
-                                                <li>
-                                                    <div class="content-nav-navbar-content">
-                                                        <form style="min-width: 400px;">
-                                                            <div class="form-group">
-                                                                <input id="inputName" type="text" placeholder="Name" class="form-control">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <input id="inputEmail" type="password" placeholder="Email" class="form-control">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <textarea placeholder="Write your message.." rows="5" class="form-control"></textarea>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <button type="submit" class="btn btn-primary">Send</button>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </li>
-                                            </ul>
-
-                                        </li>
-                                    </ul>
-                                -->
-                            </div>
-                        </div>
-                    </div>
-                    {# {{ include('_sub.menu.top.html.twig')  }} #}
             
-                {% endblock %}
-            </div>    
-            <!--
-            [5.3. Page Body]
-            -->
-            <div class="content-body">
-                
-                {% block body %}
-                {% endblock %}    
-                
-            </div>
-        </div>        
-  </div>          
+        </div>
+    </div>    
+
 {% endblock %}
 

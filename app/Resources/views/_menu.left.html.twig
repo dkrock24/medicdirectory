@@ -1,717 +1,144 @@
-<div class="sidebar-menu">
-    <ul class="menu">
-        <li class="active open">
-            <a>
-                <i class="pe-7s-monitor"></i>
-                <span>Admin </span>
-            </a>
-            <ul>
-                <li class="submenu-title">
-                    <span>Ubicaciones</span>
-                </li>
-                <li >
-                    <a href="{{ path('syspais_index')}}">
-                        <i class="pe-7s-global"></i>
-                        <span>Paises</span>
-                    </a>
-                </li>
-                <li class="activex">
-                    <a href="{{ path('sysdepartamentos_index')}}">
-                        <i class="pe-7s-graph1"></i>
-                        <span>Departamentos</span>
-                    </a>
-                </li>
-                <li >
-                    <a href="{{ path('sysmunicipio_index')}}">
-                        <i class="pe-7s-shuffle"></i>
-                        <span>Municipios</span>
-                    </a>
-                </li>
-                <li >
-                    <a href="{{ path('systipoinstitucion_index')}}">
-                        <i class="pe-7s-culture"></i>
-                        <span>Instituciones</span>
-                    </a>
-                </li>
-                <li >
-                    <a href="{{ path('sysmodulos_index')}}">
-                        <i class="pe-7s-home"></i>
-                        <span>Modulos</span>
-                    </a>
-                </li>
-                <li >
-                    <a href="{{ path('sysinstituciontienemodulo_index')}}">
-                        <i class="pe-7s-home"></i>
-                        <span>Modulos Institucion</span>
-                    </a>
-                </li>
-                <li >
-                    <a href="{{ path('sysmodulotieneespecialidad_index')}}">
-                        <i class="pe-7s-home"></i>
-                        <span>Modulos Por Especialidad</span>
-                    </a>
-                </li>
-                <li >
-                    <a href="{{ path('sysarea_index')}}">
-                        <i class="pe-7s-pen"></i>
-                        <span>Areas</span>
-                    </a>
-                </li>
-                <li >
-                    <a href="{{ path('sysespecialidades_index')}}">
-                        <i class="pe-7s-car"></i>
-                        <span>Especialidades</span>
-                    </a>
-                </li>
-                <li >
-                    <a href="{{ path('sysantecedentesespecialidad_index')}}">
-                        <i class="pe-7s-car"></i>
-                        <span>Antecedentes Especialidades</span>
-                    </a>
-                </li>
-                <li >
-                    <a href="{{ path('sysexamenesmedicos_index')}}">
-                        <i class="pe-7s-file"></i>
-                        <span>Examenes Medicos</span>
-                    </a>
-                </li>
-                <li >
-                    <a href="{{ path('syssugerencias_index')}}">
-                        <i class="pe-7s-file"></i>
-                        <span>Sugerencias</span>
-                    </a>
-                </li>
-                <li >
-                    <a href="{{ path('sysperiodosmedico_index')}}">
-                        <i class="pe-7s-file"></i>
-                        <span>Perioo Medico</span>
-                    </a>
-                </li>                
-                <li class="submenu-title">
-                    <span>Permisos</span>
-                </li>
-                <li>
-                    <a href="{{ path('sysroles_index')}}">
-                        <i class="pe-7s-edit"></i>
-                        <span>Roles</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ path('sysusuario_index')}}">
-                        <i class="pe-7s-add-user"></i>
-                        <span>Usuarios</span>
-                    </a>
-                </li>
-                <!--
-                    <li class="submenu-title">
-                        <span>Management (Soon)</span>
-                    </li>
-                    <li>
-                        <a>
-                            <i class="pe-7s-bookmarks"></i>
-                            <span>Kanban</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a>
-                            <i class="pe-7s-ribbon"></i>
-                            <span>Projects</span>
-                        </a>
-                    </li>
-                -->
-            </ul>
-        </li>
-        <!--
-        <li >
-            <a>
-                <i class="pe-7s-box2"></i>
-                <span>Widgets</span>
-            </a>
-            <ul>
-                <li class="submenu-title">
-                    <span>Widget Types</span>
-                </li>
-                <li >
-                    <a href=WidgetBox.html>
-                        <i class="fa fa-bar-chart"></i>
-                        <span>Boxes</span>
-                    </a>
+<!-- Main sidebar -->
+			<div class="sidebar sidebar-main sidebar-fixed">
+				<div class="sidebar-content">
 
-                </li>
-                <li >
-                    <a href=WidgetPanel.html>
-                        <i class="pe-7s-box2"></i>
-                        <span>Panels</span>
-                    </a>
-                </li>
-                <li >
-                    <a href=WidgetComplex.html>
-                        <i class="fa fa-line-chart"></i>
-                        <span>Complex Widgets</span>
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <li >
-            <a href="Inbox.html">
-                <i class="pe-7s-mail"></i>
-                <span>Mail</span>
-            </a>
-            <ul>
-                <li >
-                    <a href="Inbox.html">
-                        <span>Inbox (3)</span>
-                    </a>
-                </li>
-                <li>
-                    <a>
-                        <span>Important</span>
-                    </a>
-                </li>
-                <li>
-                    <a>
-                        <span>Sent</span>
-                    </a>
-                </li>
-                <li>
-                    <a>
-                        <span>Drafts</span>
-                    </a>
-                </li>
-                <li>
-                    <a>
-                        <span>Trash</span>
-                    </a>
-                </li>
-                <li class="submenu-divider"></li>
-                <li class="submenu-title">
-                    <span>Labels</span>
-                </li>
-                <li>
-                    <a>
-                        <span>Dribbble</span>
-                        <span class="mail-label pink"></span>
-                    </a>
-                </li>
-                <li>
-                    <a>
-                        <span>Work</span>
-                        <span class="mail-label blue"></span>
-                    </a>
-                </li>
-                <li>
-                    <a>
-                        <span>University Docs</span>
-                        <span class="mail-label green"></span>
-                    </a>
-                </li>
-                <li class="submenu-divider"></li>
-                <li class="submenu-title">
-                    <span>Contacts</span>
-                </li>
-                <li>
-                    <a>
-                        <img class="contact-avatar online" src="assets/img/avatars/jsa.jpg" alt="Adam King" />
-                        <span>Adam King</span>
-                    </a>
-                </li>
-                <li>
-                    <a>
-                        <img class="contact-avatar online" src="assets/img/avatars/adelle.jpg" alt="Adelle Donsmerak" />
-                        <span>Adelle Donsmerak</span>
-                    </a>
-                </li>
-                <li>
-                    <a>
-                        <img class="contact-avatar online" src="assets/img/avatars/andy.jpg" alt="Andy Allen" />
-                        <span>Andy Allen</span>
-                    </a>
-                </li>
-                <li>
-                    <a>
-                        <img class="contact-avatar away" src="assets/img/avatars/allison.jpg" alt="Allison McArthur" />
-                        <span>Allison McArthur</span>
-                    </a>
-                </li>
-                <li>
-                    <a>
-                        <img class="contact-avatar away" src="assets/img/avatars/jared.jpg" alt="David Cronenberg" />
-                        <span>David Cronenberg</span>
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <li >
-            <a href=Calendar.html>
-                <i class="pe-7s-date"></i>
-                <span>Calendar</span>
-            </a>
-            <ul>
-                <li class="submenu-title">
-                    <span class="p-l-0 align-center">Current Month Overview</span>
-                </li>
-                <li class="mini-calendar-container">
-                    <div class="mini-calendar"></div>
-                </li>
-                <li class="submenu-title">
-                    <span>Remove Event After Drag</span>
-                </li>
-                <li>
-                    <label class="p-l-30">
-                        <input class="switch toggle switch-primary" id="drop-remove" checked="checked" type="checkbox">
-                        <span class="text"></span>
-                    </label>
-                </li>
-                <li class="calendar-event">
-                    <a>
-                        <span>Lunch with Mary</span>
-                    </a>
-                </li>
-                <li class="calendar-event event-warning">
-                    <a>
-                        <span>Session in Office</span>
-                    </a>
-                </li>
-                <li class="calendar-event event-info">
-                    <a>
-                        <span>Jane's Birthday</span>
-                    </a>
-                </li>
-                <li class="calendar-event event-danger">
-                    <a>
-                        <span>Shopping Time</span>
-                    </a>
-                </li>
+					<!-- User menu -->
+					<div class="sidebar-user">
+						<div class="category-content">
+							<div class="media">
+								<a href="#" class="media-left"><img src="{{ asset('bundles/admin/img/placeholder.jpg') }}" class="img-circle img-sm" alt=""></a>
+								<div class="media-body">
+									<span class="media-heading text-semibold">Victoria Baker</span>
+									<div class="text-size-mini text-muted">
+										<i class="icon-pin text-size-small"></i> &nbsp;Santa Ana, CA
+									</div>
+								</div>
 
-            </ul>
-        </li>
-        <li >
-            <a href=Profile.html>
-                <i class="pe-7s-id"></i>
-                <span>Profile</span>
-            </a>
-            <ul>
-                <li class="profile-picture">
-                    <a href="">
-                        <img src="assets/img/profile/profile-cover.jpg" alt="Andrea LeFeave" />
-                    </a>
-                </li>
-                <li class="profile-name">
-                    <a href="">
-                        <span>Andrea LeFeave</span>
-                    </a>
+								<div class="media-right media-middle">
+									<ul class="icons-list">
+										<li>
+											<a href="#"><i class="icon-cog3"></i></a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- /user menu -->
 
-                </li>
-                <li class="profile-title">
-                    <a href="">
-                        <span>UX/UI Designer</span>
-                    </a>
-                </li>
 
-                <li class="profile-percent">
-                    <div class="progress progress-xxs">
-                        <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 73%">
-                        </div>
-                    </div>
-                    <span>
-                        Activity Level: <strong>73%</strong>
-                    </span>
-                </li>
-                <li class="submenu-divider"></li>
-                <li>
-                    <a href="">
-                        <i class="pe-7s-bicycle"></i>
-                        <span>Activities</span>
-                    </a>
+					<!-- Main navigation -->
+					<div class="sidebar-category sidebar-category-visible">
+						<div class="category-content no-padding">
+							<ul class="navigation navigation-main navigation-accordion">
 
-                </li>
-                <li>
-                    <a href="">
-                        <i class="pe-7s-graph2"></i>
-                        <span>Profile Views</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <i class="pe-7s-users"></i>
-                        <span>Friends</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <i class="pe-7s-comment"></i>
-                        <span>Messages</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <i class="pe-7s-photo"></i>
-                        <span>Pictures</span>
-                    </a>
-                </li>
-                <li class="submenu-divider"></li>
-                <li class="profile-links">
-                    <div class="row">
-                        <div class="col-xs-3">
-                            <a href="">
-                                <i class="fa fa-facebook"></i>
-                            </a>
-                        </div>
-                        <div class="col-xs-3">
-                            <a href="">
-                                <i class="fa fa-twitter"></i>
-                            </a>
-                        </div>
-                        <div class="col-xs-3">
-                            <a href="">
-                                <i class="fa fa-dribbble"></i>
-                            </a>
-                        </div>
-                        <div class="col-xs-3">
-                            <a href="">
-                                <i class="fa fa-instagram"></i>
-                            </a>
-                        </div>
-                    </div>
-                </li>
-                <li class="profile-follow">
-                    <button class="btn btn-primary btn-block">
-                        Follow
-                    </button>
-                </li>
+                                {#
+								<li>
+									<a href="#"><i class="icon-tree5"></i> <span>Menu levels</span></a>
+									<ul>
+										<li><a href="#"><i class="icon-IE"></i> Second level</a></li>
+										<li>
+											<a href="#"><i class="icon-firefox"></i> Second level with child</a>
+											<ul>
+												<li><a href="#"><i class="icon-android"></i> Third level</a></li>
+												<li>
+													<a href="#"><i class="icon-apple2"></i> Third level with child</a>
+													<ul>
+														<li><a href="#"><i class="icon-html5"></i> Fourth level</a></li>
+														<li><a href="#"><i class="icon-css3"></i> Fourth level</a></li>
+													</ul>
+												</li>
+												<li><a href="#"><i class="icon-windows"></i> Third level</a></li>
+											</ul>
+										</li>
+										<li><a href="#"><i class="icon-chrome"></i> Second level</a></li>
+									</ul>
+								</li>
+                                #}
+								<li>
+									<a href="#"><i class="icon-task"></i> <span>Administración</span></a>
+									<ul>
+                                        <li>
+                                            <a href="{{ path('syspais_index')}}">
+                                                <i class="pe-7s-global"></i>
+                                                <span>Paises</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ path('sysdepartamentos_index')}}">
+                                                <i class="pe-7s-graph1"></i>
+                                                <span>Departamentos</span>
+                                            </a>
+                                        </li>
+                                        <li >
+                                            <a href="{{ path('sysmunicipio_index')}}">
+                                                <i class="pe-7s-shuffle"></i>
+                                                <span>Municipios</span>
+                                            </a>
+                                        </li>
+                                        <li >
+                                            <a href="{{ path('systipoinstitucion_index')}}">
+                                                <i class="pe-7s-culture"></i>
+                                                <span>Instituciones</span>
+                                            </a>
+                                        </li>
+                                        <li class="navigation-divider">
+                                        </li>
+                                        <li>
+                                            <a href="{{ path('sysroles_index')}}">
+                                                <i class="pe-7s-edit"></i>
+                                                <span>Roles</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ path('sysusuario_index')}}">
+                                                <i class="pe-7s-add-user"></i>
+                                                <span>Usuarios</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                {#
+                                <li>
+                                    <a href="#"><i class="icon-user-plus"></i> <span>Usuarios y permisos</span></a>
+                                    <ul>
+                                        <li class="submenu-title">
+                                            <span>Permisos</span>
+                                        </li>
+                                        <li>
+                                            <a href="{{ path('sysroles_index')}}">
+                                                <i class="pe-7s-edit"></i>
+                                                <span>Roles</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ path('sysusuario_index')}}">
+                                                <i class="pe-7s-add-user"></i>
+                                                <span>Usuarios</span>
+                                            </a>
+                                        </li>
+                                        
+									</ul>
+								</li>
+                                #}
+                                {#
+								<li>
+									<a href="#"><i class="icon-magazine"></i> <span>Timelines</span></a>
+									<ul>
+										<li><a href="timelines_left.html">Left timeline</a></li>
+										<li><a href="timelines_right.html">Right timeline</a></li>
+										<li><a href="timelines_center.html">Centered timeline</a></li>
+									</ul>
+								</li>
+                                #}
 
-            </ul>
-        </li>
-        <li >
-            <a>
-                <i class="pe-7s-graph1"></i>
-                <span>Charts</span>
-            </a>
-            <ul>
-                <li class="submenu-title">
-                    <span>Charts</span>
-                </li>
-                <li >
-                    <a href=FlotChart.html>
-                        <i class="fa fa-bar-chart"></i>
-                        <span>Flot Charts</span>
-                    </a>
+								<!-- /page kits -->
 
-                </li>
-                <li >
-                    <a href=Chartist.html>
-                        <i class="pe-7s-graph2"></i>
-                        <span>Chartist</span>
-                    </a>
-                </li>
-                <li >
-                    <a href=ChartJs.html>
-                        <i class="fa fa-line-chart"></i>
-                        <span>Chart.js</span>
-                    </a>
-                </li>
-                <li class="submenu-title">
-                    <span>Inline Charts</span>
-                </li>
-                <li >
-                    <a href=Sparkline.html>
-                        <i class="fa fa-area-chart"></i>
-                        <span>Sparkline Charts</span>
-                    </a>
-                </li>
-                <li >
-                    <a href=EasyPieChart.html>
-                        <i class="pe-7s-graph"></i>
-                        <span>Easy Pie Chart</span>
-                    </a>
-                </li>
-                <li class="submenu-title">
-                    <span>Big Data Charts</span>
-                </li>
-                <li >
-                    <a href=ECharts.html>
-                        <i class="pe-7s-graph3"></i>
-                        <span>E-Charts</span>
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <li >
-            <a>
-                <i class="pe-7s-paint-bucket"></i>
-                <span>UI Elements</span>
-            </a>
-            <ul>
-                <li class="submenu-title">
-                    <span>‌Elements</span>
-                </li>
-                <li >
-                    <a href=Elements.html>
-                        <i class="pe-7s-ticket"></i>
-                        <span>Basic Elements</span>
-                    </a>
-                </li>
-                <li >
-                    <a href=Buttons.html>
-                        <i class="pe-7s-plus"></i>
-                        <span>Buttons</span>
-                    </a>
-                </li>
-                <li >
-                    <a href=Notifications.html>
-                        <i class="pe-7s-bell"></i>
-                        <span>Notifications</span>
-                    </a>
-                </li>
-                <li class="submenu-title">
-                    <span>‌Icons</span>
-                </li>
-                <li >
-                    <a href=StrokeIcons.html>
-                        <i class="pe-7s-arc"></i>
-                        <span>7 Stroke Icons</span>
-                    </a>
-                </li>
-                <li >
-                    <a href=FontAwesome.html>
-                        <i class="fa fa-rocket"></i>
-                        <span>FontAwesome Icons</span>
-                    </a>
-                </li>
-                <li >
-                    <a href=Glyphicons.html>
-                        <i class="glyphicon glyphicon-apple"></i>
-                        <span>Glyphicons</span>
-                    </a>
-                </li>
+							</ul>
+						</div>
+					</div>
+					<!-- /main navigation -->
 
-                <li class="submenu-title">
-                    <span>‌Containers</span>
-                </li>
-                <li >
-                    <a href=Panels.html>
-                        <i class="pe-7s-browser"></i>
-                        <span>Panels &amp; Accordions</span>
-                    </a>
-                </li>
-                <li >
-                    <a href=Tabs.html>
-                        <i class="pe-7s-folder"></i>
-                        <span>Tabs</span>
-                    </a>
-                </li>
-                <li >
-                    <a href=Modals.html>
-                        <i class="pe-7s-chat"></i>
-                        <span>Modals</span>
-                    </a>
-                </li>
-                <li class="submenu-title">
-                    <span>‌Hierarchy</span>
-                </li>
-                <li >
-                    <a href=NestableList.html>
-                        <i class="pe-7s-menu"></i>
-                        <span>Nestable Lists</span>
-                    </a>
-                </li>
-                <li >
-                    <a href=Tree.html>
-                        <i class="pe-7s-plus"></i>
-                        <span>Tree</span>
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <li >
-            <a>
-                <i class="pe-7s-note"></i>
-                <span>Forms</span>
-            </a>
-            <ul>
-                <li class="submenu-title">
-                    <span>‌Form Elements</span>
-                </li>
-                <li >
-                    <a href=FormInputs.html>
-                        <i class="pe-7s-ticket"></i>
-                        <span>Form Inputs</span>
-                    </a>
-                </li>
-                <li >
-                    <a href=FormAdvancedInputs.html>
-                        <i class="pe-7s-plus"></i>
-                        <span>Advanced Inputs</span>
-                    </a>
-                </li>
-                <li >
-                    <a href=FormInputMask.html>
-                        <i class="pe-7s-bell"></i>
-                        <span>Input Masks</span>
-                    </a>
-                </li>
-                <li >
-                    <a href=FormEditors.html>
-                        <i class="pe-7s-edit"></i>
-                        <span>Editors</span>
-                    </a>
-                </li>
-                <li class="submenu-title">
-                    <span>‌Form Structures</span>
-                </li>
-                <li >
-                    <a href=FormLayouts.html>
-                        <i class="pe-7s-photo-gallery"></i>
-                        <span>Form Layouts</span>
-                    </a>
-                </li>
-                <li >
-                    <a href=FormValidation.html>
-                        <i class="pe-7s-shield"></i>
-                        <span>Form Validation</span>
-                    </a>
-                </li>
-                <li >
-                    <a href=FormWizard.html>
-                        <i class="pe-7s-play"></i>
-                        <span>Form Wizard</span>
-                    </a>
-                </li>
-
-            </ul>
-        </li>
-        <li >
-            <a>
-                <i class="pe-7s-keypad"></i>
-                <span>Tables</span>
-            </a>
-            <ul>
-                <li class="submenu-title">
-                    <span>‌Table Look</span>
-                </li>
-                <li >
-                    <a href=Tables.html>
-                        <i class="pe-7s-paint-bucket"></i>
-                        <span>Tables Styles</span>
-                    </a>
-                </li>
-                <li >
-                    <a href=ResponsiveTables.html>
-                        <i class="pe-7s-exapnd2"></i>
-                        <span>Responsive Tables</span>
-                    </a>
-                </li>
-                <li class="submenu-title">
-                    <span>‌Data Tables</span>
-                </li>
-                <li >
-                    <a href=DatatablesInit.html>
-                        <i class="pe-7s-display2"></i>
-                        <span>Layouts</span>
-                    </a>
-                </li>
-                <li >
-                    <a href=DatatablesSearch.html>
-                        <i class="pe-7s-search"></i>
-                        <span>Search</span>
-                    </a>
-                </li>
-                <li >
-                    <a href=DatatablesExport.html>
-                        <i class="pe-7s-print"></i>
-                        <span>Export and Print</span>
-                    </a>
-                </li>
-                <li >
-                    <a href=DatatablesCrud.html>
-                        <i class="pe-7s-pen"></i>
-                        <span>Data Manipulation</span>
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <li >
-            <a>
-                <i class="pe-7s-map-marker"></i>
-                <span>Maps</span>
-            </a>
-            <ul>
-                <li class="submenu-title">
-                    <span>‌Google Maps</span>
-                </li>
-                <li >
-                    <a href=GMaps.html>
-                        <i class="pe-7s-map-2"></i>
-                        <span>GMaps</span>
-                    </a>
-                </li>
-                <li class="submenu-title">
-                    <span>‌Vector Maps</span>
-                </li>
-                <li >
-                    <a href=JqvMap.html>
-                        <i class="pe-7s-world"></i>
-                        <span>JQV Map</span>
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <li >
-            <a>
-                <i class="pe-7s-display1"></i>
-                <span>Pages</span>
-            </a>
-            <ul>
-                <li class="submenu-title">
-                    <span>‌Social</span>
-                </li>
-                <li >
-                    <a href=Timeline.html>
-                        <i class="pe-7s-clock"></i>
-                        <span>Timeline</span>
-                    </a>
-                </li>
-                <li class="submenu-title">
-                    <span>‌Membership</span>
-                </li>
-                <li >
-                    <a href=Login.html>
-                        <i class="pe-7s-users"></i>
-                        <span>Login/Register</span>
-                    </a>
-                </li>
-                <li class="submenu-title">
-                    <span>‌Errors</span>
-                </li>
-                <li >
-                    <a href=Error500.html>
-                        <i class="pe-7s-server"></i>
-                        <span>500</span>
-                    </a>
-                </li>
-                <li >
-                    <a href=Error404.html>
-                        <i class="pe-7s-attention"></i>
-                        <span>404</span>
-                    </a>
-                </li>
-                <li >
-                    <a href=Error401.html>
-                        <i class="pe-7s-user"></i>
-                        <span>401</span>
-                    </a>
-                </li>
-                <li class="submenu-title">
-                    <span>‌Miscellaneous</span>
-                </li>
-                <li >
-                    <a href=Blank.html>
-                        <i class="pe-7s-browser"></i>
-                        <span>Blank Page</span>
-                    </a>
-                </li>
-            </ul>
-        </li>
-        -->
-    </ul>
-</div>
+				</div>
+			</div>
+			<!-- /main sidebar -->

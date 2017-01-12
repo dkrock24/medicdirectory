@@ -31,29 +31,31 @@
                         <td><a href="{{ path('sysusuario_show', { 'id': sysUsuario.id }) }}">{{ sysUsuario.id }}</a></td>
                         <td>{{ sysUsuario.nombreSysUsuario }}</td>
                         <td>{{ sysUsuario.emailSysUsuario }}</td>
-                        <td>{{ sysUsuario.esActivoSysUsuario }}</td>
-                        <td>{{ sysUsuario.telefonoSysUsuariocol }}</td> 
+                        <td>{{ sysUsuario.estatusSysUsuario }}</td>
+                        <td>{{ sysUsuario.telefonoSysUsuario }}</td> 
                         <td>{% if sysUsuario.fechaCreacionSysUsuario %}{{ sysUsuario.fechaCreacionSysUsuario|date('Y-m-d') }}{% endif %}</td>
                         <td>
-                            <ul>
+                            <ul class="btn-option-emr">
                                 <li>
-                                    <a href="{{ path('sysusuario_show', { 'id': sysUsuario.id }) }}">show</a>
+                                    <a href="{{ path('sysusuario_show', { 'id': sysUsuario.id }) }}" class="btn btn-default"><i class="glyphicon glyphicon-eye-open"></i> Ver</a>
                                 </li>
                                 <li>
-                                    <a href="{{ path('sysusuario_edit', { 'id': sysUsuario.id }) }}">edit</a>
+                                    <a href="{{ path('sysusuario_edit', { 'id': sysUsuario.id }) }}" class="btn btn-info"><i class="glyphicon glyphicon-pencil"></i> Editar</a>
                                 </li>
-                            </ul>
+                            </ul>  
                         </td>
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
 
+             {#   
             <ul>
                 <li>
                     <a href="{{ path('sysusuario_new') }}">Create a new entry</a>
                 </li>
             </ul>
+                #}
         
         </div>
     </div>

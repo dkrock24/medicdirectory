@@ -33,14 +33,14 @@
                 <td>{{ sysTipoInstitucion.codigoSysTipoInstitucion }}</td>
                 <td>{% if sysTipoInstitucion.fechaCrecionSysTipoInstitucion %}{{ sysTipoInstitucion.fechaCrecionSysTipoInstitucion|date('Y-m-d') }}{% endif %}</td>
                 <td>
-                    <ul>
+                    <ul class="btn-option-emr">
                         <li>
-                            <a href="{{ path('systipoinstitucion_show', { 'id': sysTipoInstitucion.id }) }}">show</a>
+                            <a href="{{ path('systipoinstitucion_show', { 'id': sysTipoInstitucion.id }) }}" class="btn btn-default"><i class="glyphicon glyphicon-eye-open"></i> Ver</a>
                         </li>
                         <li>
-                            <a href="{{ path('systipoinstitucion_edit', { 'id': sysTipoInstitucion.id }) }}">edit</a>
+                            <a href="{{ path('systipoinstitucion_edit', { 'id': sysTipoInstitucion.id }) }}" class="btn btn-info"><i class="glyphicon glyphicon-pencil"></i> Editar</a>
                         </li>
-                    </ul>
+                    </ul>   
                 </td>
             </tr>
         {% endfor %}

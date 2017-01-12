@@ -38,15 +38,25 @@ class SysUsuarioController extends Controller
         $sysUsuario = new SysUsuario();
         $form = $this->createForm('AppBundle\Form\SysUsuarioType', $sysUsuario);
         $form->handleRequest($request);
-
+		//echo $form->get('genero');
+		$genero = $form->get("genero")->getData();
+		$pass = $form->get("passwordSysUsuario")->getData();
+		
+		$password = md5($pass);
+		//echo "zzzzzzz";
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+			
+			$sysUsuario->setFechaCreacionSysUsuario( new \DateTime(date('Y-m-d H:i:s')) );
+			$sysUsuario->setGenero( $genero );
+			$sysUsuario->setPasswordSysUsuario( $password );
+
             $em->persist($sysUsuario);
             $em->flush();
 
             return $this->redirectToRoute('sysusuario_show', array('id' => $sysUsuario->getId()));
         }
-
+		//exit();
         return $this->render('AppBundle:sysusuario:new.html.twig', array(
             'sysUsuario' => $sysUsuario,
             'form' => $form->createView(),

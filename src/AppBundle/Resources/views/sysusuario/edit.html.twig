@@ -1,21 +1,178 @@
 {% extends 'base.html.twig' %}
 
+{% block breadcrumb %}
+    {{ include('AppBundle:sysusuario:_breadcrumb.html.twig' )  }}
+{% endblock %} 
+
+{% block submenutop %}
+    {{ include('AppBundle:sysusuario:_submenu.html.twig' )  }}
+{% endblock %}
+
 {% block body %}
-    <h1>SysUsuario edit</h1>
-
-    {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
-    {{ form_end(edit_form) }}
-
-    <ul>
+    <h1>Edición de Usuario</h1>
+    {% for flashMessage in app.session.flashbag.get('success') %}
+        <div class="alert alert-dismissible alert-success"><span class="glyphicon glyphicon-ok-sign"></span> {{ flashMessage }}</div>
+    {% endfor %}
+    {% for flashMessage in app.session.flashbag.get('error') %}
+        <div class="alert alert-dismissible alert-danger"><span class="glyphicon glyphicon-exclamation-sign"></span> {{ flashMessage }}</div>
+    {% endfor %}
+    <div class="row">
+       <div class="col-lg-12 col-md-6 col-sm-12">
+    
+        {{ form_start(edit_form) }}
+            {#{{ form_widget(edit_form) }}#}
+            <div class="form_error">{{ form_errors(edit_form)}}</div>
+                <div class="row magin-bottom10">
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="form_error">{{ form_errors(edit_form.nombreSysUsuario)}}</div>
+                        <div><label for="">Nombres</label></div>
+                        {{ form_widget(edit_form.nombreSysUsuario) }}
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="form_error">{{ form_errors(edit_form.apellidoSysUsuario)}}</div>
+                        <div><label for="" class="">Apellidos</label></div>
+                        {{ form_widget(edit_form.apellidoSysUsuario) }}
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="form_error">{{ form_errors(edit_form.emailSysUsuario)}}</div>
+                        <label for="" class=" control-label">Email</label>
+                        {{ form_widget(edit_form.emailSysUsuario) }}
+                    </div>
+                </div>
+                
+                <div class="row magin-bottom10">
+                    
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="form_error">{{ form_errors(edit_form.genero)}}</div>
+                        <label for="" class=" control-label">Genero</label>
+                        {{ form_widget(edit_form.genero) }}
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="form_error">{{ form_errors(edit_form.telefonoSysUsuario)}}</div>
+                        <div><label for="" class="">Teléfono</label></div>
+                        {{ form_widget(edit_form.telefonoSysUsuario) }}
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="form_error">{{ form_errors(edit_form.celularSysUsuario)}}</div>
+                        <label for="" class=" control-label">Celular</label>
+                        {{ form_widget(edit_form.celularSysUsuario) }}
+                    </div>
+                </div>
+                    
+                <div class="row magin-bottom10">
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="form_error">{{ form_errors(edit_form.jvrmSysUsuario)}}</div>
+                        <div><label for="">JVRM</label></div>
+                        {{ form_widget(edit_form.jvrmSysUsuario) }}
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="form_error">{{ form_errors(edit_form.numeroNup)}}</div>
+                        <div><label for="">NUP</label></div>
+                        {{ form_widget(edit_form.numeroNup) }}
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="form_error">{{ form_errors(edit_form.duiSysUsuario)}}</div>
+                        <div><label for="" class="">DUI</label></div>
+                        {{ form_widget(edit_form.duiSysUsuario) }}
+                    </div>
+                    
+                </div>
+                    
+                <div class="row magin-bottom10">
+                    
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="form_error">{{ form_errors(edit_form.numeroAfp)}}</div>
+                        <label for="" class=" control-label">AFP</label>
+                        {{ form_widget(edit_form.numeroAfp) }}
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="form_error">{{ form_errors(edit_form.ocupacion)}}</div>
+                        <div><label for="">Ocupacion</label></div>
+                        {{ form_widget(edit_form.ocupacion) }}
+                    </div>
+                    
+                    
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="form_error">{{ form_errors(edit_form.direccion)}}</div>
+                        <div><label for="" class="">Direccíon</label></div>
+                        {{ form_widget(edit_form.direccion) }}
+                    </div>
+                    
+                </div> 
+                
+                <div class="row magin-bottom10">
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="form_error">{{ form_errors(edit_form.codigoPostalSysUsuario)}}</div>
+                        <div><label for="">Código postal</label></div>
+                        {{ form_widget(edit_form.codigoPostalSysUsuario) }}
+                    </div>
+                    
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="form_error">{{ form_errors(edit_form.idMunicipioSysUsuario)}}</div>
+                        <div><label for="" class="">Municipio</label></div>
+                        {{ form_widget(edit_form.idMunicipioSysUsuario) }}
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="form_error">{{ form_errors(edit_form.tarjetaCreditoSysUsuario)}}</div>
+                        <div><label for="" class="">Tarjeta de crédito</label></div>
+                        {{ form_widget(edit_form.tarjetaCreditoSysUsuario) }}
+                    </div>
+                    
+                    
+                    
+                </div>
+                    
+                <div class="row magin-bottom10">
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="form_error">{{ form_errors(edit_form.idRol)}}</div>
+                        <label for="" class=" control-label">Typo de Role</label>
+                        {{ form_widget(edit_form.idRol) }}
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="form_error">{{ form_errors(edit_form.sysUsuario)}}</div>
+                        <label for="" class=" control-label">Usuario</label>
+                        {{ form_widget(edit_form.sysUsuario) }}
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="form_error">{{ form_errors(edit_form.passwordSysUsuario)}}</div>
+                        <div><label for="">Password</label></div>
+                        {{ form_widget(edit_form.passwordSysUsuario) }}
+                    </div>
+                    
+                </div>
+                    
+                <div class="row magin-bottom10">
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="form_error">{{ form_errors(edit_form.estatusSysUsuario)}}</div>
+                        <div class="checkbox">
+                                <label>
+                                    {{ form_widget(edit_form.estatusSysUsuario) }}
+                                    <span class="text">Estatus</span>
+                                </label>
+                        </div> 
+                                    
+                    </div>
+                </div> 
+            
+            <input type="submit" value="Editar" class="btn btn-info" />
+        {{ form_end(edit_form) }}
+       </div>
+    </div>
+    <hr>
+    <ul class="btn-option-emr">
         <li>
-            <a href="{{ path('sysusuario_index') }}">Back to the list</a>
+            <a href="{{ path('sysusuario_index') }}" class="btn btn-default"><i class="glyphicon glyphicon-th-list"></i> Regresar a la lista</a>
         </li>
         <li>
             {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
+                 <input type="submit" value="Eliminar" class="btn btn-danger">
             {{ form_end(delete_form) }}
         </li>
-    </ul>
+        <li>
+            <a href="{{ path('sysusuario_new')}}" class="btn btn-inverse"><i class="fa fa-plus"></i> Nuevo </a>
+        </li>
+    </ul>     
+            
 {% endblock %}
+
+
