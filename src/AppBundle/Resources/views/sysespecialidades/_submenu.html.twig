@@ -1,25 +1,17 @@
-<!-- 
-<li class="dropdown content-nav-navbar-fw">
-            <a href="#" data-toggle="dropdown" class="dropdown-toggle">Demo<i class="dropdown-caret pe-7s-angle-down"></i></a>
-</li>
--->
-{% block submenutop  %}
-    <ul class="nav navbar-nav">
-        <li class="">
-            <a href="{{ path('sysespecialidades_new')}}" data-toggle="" class="">Nuevo registro</a>
-        </li>
-        <li class="">
-            <a href="{{ path('sysespecialidades_index')}}" data-toggle="" class="">Listar</a>
-        </li>
-    </ul>
-    <!--
-    <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
-            <a href="#" data-toggle="dropdown" class="dropdown-toggle">FeedBack<i class="dropdown-caret pe-7s-angle-down"></i></a>
 
-        </li>
-    </ul>
-    -->
+{% block submenutop  %}
+    <div class="page-title">
+        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Especialidades</span> </h4>
+    </div>
+
+    <div class="heading-elements">
+        <div class="heading-btn-group">
+            <a href="#" class="btn btn-link btn-float has-text"><i class="icon-bars-alt text-primary"></i><span>Statistics</span></a>
+            <a href="#" class="btn btn-link btn-float has-text"><i class="icon-calculator text-primary"></i> <span>Invoices</span></a>
+            <a href="#" class="btn btn-link btn-float has-text"><i class="icon-calendar5 text-primary"></i> <span>Schedule</span></a>
+        </div>
+    </div>
+
 {% endblock %}
 
 
