@@ -8,4 +8,11 @@ use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
 {
+	
+	public function indexAction( Request $request )
+    {
+        $em = $this->getDoctrine()->getManager();
+        return $this->render('AppBundle:syslogin:login.html.twig', array(
+        ));
+    }
 }
