@@ -1,10 +1,15 @@
 emr_homepage:
     path:     /
-    defaults: { _controller: EmrBundle:Default:index }
+    defaults: { _controller: EmrBundle:Session:login }
 
+emr_dashboard:
+    path:     /dashboard
+    defaults: { _controller: EmrBundle:Dashboard:dashboard  }
+    
 emr_cita_add:
     path:     /nueva/cita
-    defaults: { _controller: EmrBundle:Cita:add  }
+    defaults: { _controller: EmrBundle:Cita:add  }    
+    
     
 emr_cita_list:
     path:     /list/cita

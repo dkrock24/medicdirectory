@@ -28,48 +28,48 @@ app_systipoinstitucion:
     host:     "%admin_domain%"
 
 app_sysmodulos:
-        resource: "@AppBundle/Resources/config/routing/sysmodulos.yml"
-        prefix:   /sysmodulos
-        host:     "%admin_domain%"
+    resource: "@AppBundle/Resources/config/routing/sysmodulos.yml"
+    prefix:   /sysmodulos
+    host:     "%admin_domain%"
         
 app_sysarea:
-        resource: "@AppBundle/Resources/config/routing/sysarea.yml"
-        prefix:   /sysarea
-        host:     "%admin_domain%"
+    resource: "@AppBundle/Resources/config/routing/sysarea.yml"
+    prefix:   /sysarea
+    host:     "%admin_domain%"
 
 app_sysespecialidades:
-        resource: "@AppBundle/Resources/config/routing/sysespecialidades.yml"
-        prefix:   /sysespecialidades
-        host:     "%admin_domain%"
+    resource: "@AppBundle/Resources/config/routing/sysespecialidades.yml"
+    prefix:   /sysespecialidades
+    host:     "%admin_domain%"
 
 app_sysexamenesmedicos:
-        resource: "@AppBundle/Resources/config/routing/sysexamenesmedicos.yml"
-        prefix:   /sysexamenesmedicos
-        host:     "%admin_domain%"
+    resource: "@AppBundle/Resources/config/routing/sysexamenesmedicos.yml"
+    prefix:   /sysexamenesmedicos
+    host:     "%admin_domain%"
 
 app_sysantecedentesespecialidad:
-        resource: "@AppBundle/Resources/config/routing/sysantecedentesespecialidad.yml"
-        prefix:   /sysantecedentesespecialidad
-        host:     "%admin_domain%"
+    resource: "@AppBundle/Resources/config/routing/sysantecedentesespecialidad.yml"
+    prefix:   /sysantecedentesespecialidad
+    host:     "%admin_domain%"
 
 app_sysinstituciontienemodulo:
-        resource: "@AppBundle/Resources/config/routing/sysinstituciontienemodulo.yml"
-        prefix:   /sysinstituciontienemodulo
-        host:     "%admin_domain%"
+    resource: "@AppBundle/Resources/config/routing/sysinstituciontienemodulo.yml"
+    prefix:   /sysinstituciontienemodulo
+    host:     "%admin_domain%"
 
 app_syssugerencias:
-        resource: "@AppBundle/Resources/config/routing/syssugerencias.yml"
-        prefix:   /syssugerencias
-        host:     "%admin_domain%"
+    resource: "@AppBundle/Resources/config/routing/syssugerencias.yml"
+    prefix:   /syssugerencias
+    host:     "%admin_domain%"
 
 app_sysmodulotieneespecialidad:
-        resource: "@AppBundle/Resources/config/routing/sysmodulotieneespecialidad.yml"
-        prefix:   /sysmodulotieneespecialidad
-        host:     "%admin_domain%"
+    resource: "@AppBundle/Resources/config/routing/sysmodulotieneespecialidad.yml"
+    prefix:   /sysmodulotieneespecialidad
+    host:     "%admin_domain%"
 
 app_sysperiodosmedico:
-        resource: "@AppBundle/Resources/config/routing/sysperiodosmedico.yml"
-        prefix:   /sysperiodosmedico
-        host:     "%admin_domain%"
+    resource: "@AppBundle/Resources/config/routing/sysperiodosmedico.yml"
+    prefix:   /sysperiodosmedico
+    host:     "%admin_domain%"
 
 
