@@ -167,10 +167,4 @@ class SysEspecialidades
     {
         return $this->estatusSysEspecialidad;
     }
-
-    public function __toString()
-    {
-        return $this->nombreSysEspecialidades;
-    }
 }
-

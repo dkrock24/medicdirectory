@@ -110,4 +110,3 @@ class SysUsuarioTieneRol
         return $this->sysUsuario;
     }
 }
-

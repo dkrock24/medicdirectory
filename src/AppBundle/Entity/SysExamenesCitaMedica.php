@@ -23,29 +23,15 @@ class SysExamenesCitaMedica
     private $estatus;
 
     /**
-     * @var \AppBundle\Entity\SysExamenesCitaMedica
-     */
-    private $idExamenMedico;
-
-    /**
      * @var \AppBundle\Entity\SysCita
      */
     private $idCita;
 
-
     /**
-     * Set id
-     *
-     * @param integer $id
-     *
-     * @return SysExamenesCitaMedica
+     * @var \AppBundle\Entity\SysExamenesCitaMedica
      */
-    public function setId($id)
-    {
-        $this->id = $id;
+    private $idExamenMedico;
 
-        return $this;
-    }
 
     /**
      * Get id
@@ -106,30 +92,6 @@ class SysExamenesCitaMedica
     }
 
     /**
-     * Set idExamenMedico
-     *
-     * @param \AppBundle\Entity\SysExamenesCitaMedica $idExamenMedico
-     *
-     * @return SysExamenesCitaMedica
-     */
-    public function setIdExamenMedico(\AppBundle\Entity\SysExamenesCitaMedica $idExamenMedico = null)
-    {
-        $this->idExamenMedico = $idExamenMedico;
-
-        return $this;
-    }
-
-    /**
-     * Get idExamenMedico
-     *
-     * @return \AppBundle\Entity\SysExamenesCitaMedica
-     */
-    public function getIdExamenMedico()
-    {
-        return $this->idExamenMedico;
-    }
-
-    /**
      * Set idCita
      *
      * @param \AppBundle\Entity\SysCita $idCita
@@ -152,5 +114,28 @@ class SysExamenesCitaMedica
     {
         return $this->idCita;
     }
-}
 
+    /**
+     * Set idExamenMedico
+     *
+     * @param \AppBundle\Entity\SysExamenesCitaMedica $idExamenMedico
+     *
+     * @return SysExamenesCitaMedica
+     */
+    public function setIdExamenMedico(\AppBundle\Entity\SysExamenesCitaMedica $idExamenMedico = null)
+    {
+        $this->idExamenMedico = $idExamenMedico;
+
+        return $this;
+    }
+
+    /**
+     * Get idExamenMedico
+     *
+     * @return \AppBundle\Entity\SysExamenesCitaMedica
+     */
+    public function getIdExamenMedico()
+    {
+        return $this->idExamenMedico;
+    }
+}

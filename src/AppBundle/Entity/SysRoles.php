@@ -109,10 +109,4 @@ class SysRoles
     {
         return $this->fechaCreacionSysRoles;
     }
-	
-	public function __toString()
-    {
-        return $this->nombreRolSysRoles;
-    }
 }
-

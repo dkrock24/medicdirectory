@@ -168,4 +168,3 @@ class SysTratamiento
         return $this->tipoTratamiento;
     }
 }
-

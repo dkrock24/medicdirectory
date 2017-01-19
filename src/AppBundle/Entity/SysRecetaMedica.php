@@ -168,4 +168,3 @@ class SysRecetaMedica
         return $this->sysUsuarioPaciente;
     }
 }
-

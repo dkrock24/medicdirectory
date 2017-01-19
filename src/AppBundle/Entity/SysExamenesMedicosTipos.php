@@ -139,4 +139,3 @@ class SysExamenesMedicosTipos
         return $this->idExamenMedico;
     }
 }
-

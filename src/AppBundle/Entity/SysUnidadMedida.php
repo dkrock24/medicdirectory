@@ -110,4 +110,3 @@ class SysUnidadMedida
         return $this->idCategoriaUnidadMedida;
     }
 }
-

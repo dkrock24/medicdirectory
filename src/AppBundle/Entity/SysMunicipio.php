@@ -138,10 +138,4 @@ class SysMunicipio
     {
         return $this->sysDepartamentos;
     }
-	
-	public function __toString()
-    {
-        return $this->nombreSysMunicipo;
-    }
 }
-

@@ -110,4 +110,3 @@ class SysInstTieneArea
         return $this->sysInstitucion;
     }
 }
-

@@ -167,10 +167,4 @@ class SysArea
     {
         return $this->fechaCreacion;
     }
-
-    public function __toString()
-    {
-        return $this->nombreSysArea;
-    }
 }
-

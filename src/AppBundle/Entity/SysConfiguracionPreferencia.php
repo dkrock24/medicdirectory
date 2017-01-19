@@ -110,4 +110,3 @@ class SysConfiguracionPreferencia
         return $this->idUnidad;
     }
 }
-

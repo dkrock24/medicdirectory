@@ -23,7 +23,7 @@ class SysExamenesMedicos
     private $tipoExamen;
 
     /**
-     * @var integer
+     * @var boolean
      */
     private $estadoExamen;
 
@@ -94,7 +94,7 @@ class SysExamenesMedicos
     /**
      * Set estadoExamen
      *
-     * @param integer $estadoExamen
+     * @param boolean $estadoExamen
      *
      * @return SysExamenesMedicos
      */
@@ -108,7 +108,7 @@ class SysExamenesMedicos
     /**
      * Get estadoExamen
      *
-     * @return integer
+     * @return boolean
      */
     public function getEstadoExamen()
     {
@@ -139,4 +139,3 @@ class SysExamenesMedicos
         return $this->fechaCreacion;
     }
 }
-

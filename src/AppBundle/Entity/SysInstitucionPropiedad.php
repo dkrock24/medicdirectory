@@ -81,4 +81,3 @@ class SysInstitucionPropiedad
         return $this->estatusSysInstitucionPropiedad;
     }
 }
-

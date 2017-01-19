@@ -139,4 +139,3 @@ class SysNotificacion
         return $this->estatus;
     }
 }
-

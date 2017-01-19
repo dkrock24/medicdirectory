@@ -168,4 +168,3 @@ class SysSugerencias
         return $this->sysInstitucion;
     }
 }
-

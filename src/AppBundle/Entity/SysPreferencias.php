@@ -81,4 +81,3 @@ class SysPreferencias
         return $this->sysUsuario;
     }
 }
-

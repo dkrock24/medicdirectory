@@ -2,11 +2,14 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+
 /**
  * SysUsuario
  */
-class SysUsuario
-{
+class SysUsuario implements UserInterface, \Serializable {
+
     /**
      * @var integer
      */
@@ -15,77 +18,37 @@ class SysUsuario
     /**
      * @var string
      */
-    private $nombreSysUsuario;
-
-    /**
-     * @var string
-     */
-    private $apellidoSysUsuario;
-
-    /**
-     * @var string
-     */
-    private $emailSysUsuario;
+    private $email;
 
     /**
      * @var boolean
      */
-    private $estatusSysUsuario;
+    private $activo;
 
     /**
      * @var string
      */
-    private $passwordSysUsuario;
+    private $password;
+
+    /**
+     * @var string
+     */
+    private $telefono;
+
+    /**
+     * @var string
+     */
+    private $tarjetaCredito;
+
+    /**
+     * @var string
+     */
+    private $usuario;
 
     /**
      * @var \DateTime
      */
-    private $fechaNacimientoSysUsuario;
-
-    /**
-     * @var string
-     */
-    private $telefonoSysUsuario;
-
-    /**
-     * @var string
-     */
-    private $celularSysUsuario;
-
-    /**
-     * @var string
-     */
-    private $jvrmSysUsuario;
-
-    /**
-     * @var string
-     */
-    private $tarjetaCreditoSysUsuario;
-
-    /**
-     * @var string
-     */
-    private $sysUsuario;
-
-    /**
-     * @var integer
-     */
-    private $codigoPostalSysUsuario;
-
-    /**
-     * @var string
-     */
-    private $duiSysUsuario;
-
-    /**
-     * @var \DateTime
-     */
-    private $fechaCreacionSysUsuario;
-
-    /**
-     * @var \DateTime
-     */
-    private $fechaActualizacionSysUsuario;
+    private $fechaActualizacion;
 
     /**
      * @var string
@@ -118,384 +81,216 @@ class SysUsuario
     private $numeroNup;
 
     /**
+     * @var string
+     */
+    private $nombre;
+
+    /**
+     * @var string
+     */
+    private $apellido;
+
+    /**
+     * @var \DateTime
+     */
+    private $fechaNacimiento;
+
+    /**
+     * @var string
+     */
+    private $celular;
+
+    /**
+     * @var string
+     */
+    private $jvrm;
+
+    /**
+     * @var integer
+     */
+    private $codigoPostal;
+
+    /**
+     * @var string
+     */
+    private $dui;
+
+    /**
+     * @var \DateTime
+     */
+    private $fechaCreacion;
+
+    /**
      * @var \AppBundle\Entity\SysMunicipio
      */
-    private $idMunicipioSysUsuario;
+    private $idMunicipio;
 
     /**
      * @var \AppBundle\Entity\SysRoles
      */
     private $idRol;
 
-
     /**
      * Get id
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
     /**
-     * Set nombreSysUsuario
+     * Set email
      *
-     * @param string $nombreSysUsuario
+     * @param string $email
      *
      * @return SysUsuario
      */
-    public function setNombreSysUsuario($nombreSysUsuario)
-    {
-        $this->nombreSysUsuario = $nombreSysUsuario;
+    public function setEmail($email) {
+        $this->email = $email;
 
         return $this;
     }
 
     /**
-     * Get nombreSysUsuario
+     * Get email
      *
      * @return string
      */
-    public function getNombreSysUsuario()
-    {
-        return $this->nombreSysUsuario;
+    public function getEmail() {
+        return $this->email;
     }
 
     /**
-     * Set apellidoSysUsuario
+     * Set activo
      *
-     * @param string $apellidoSysUsuario
+     * @param boolean $activo
      *
      * @return SysUsuario
      */
-    public function setApellidoSysUsuario($apellidoSysUsuario)
-    {
-        $this->apellidoSysUsuario = $apellidoSysUsuario;
+    public function setActivo($activo) {
+        $this->activo = $activo;
 
         return $this;
     }
 
     /**
-     * Get apellidoSysUsuario
-     *
-     * @return string
-     */
-    public function getApellidoSysUsuario()
-    {
-        return $this->apellidoSysUsuario;
-    }
-
-    /**
-     * Set emailSysUsuario
-     *
-     * @param string $emailSysUsuario
-     *
-     * @return SysUsuario
-     */
-    public function setEmailSysUsuario($emailSysUsuario)
-    {
-        $this->emailSysUsuario = $emailSysUsuario;
-
-        return $this;
-    }
-
-    /**
-     * Get emailSysUsuario
-     *
-     * @return string
-     */
-    public function getEmailSysUsuario()
-    {
-        return $this->emailSysUsuario;
-    }
-
-    /**
-     * Set estatusSysUsuario
-     *
-     * @param boolean $estatusSysUsuario
-     *
-     * @return SysUsuario
-     */
-    public function setEstatusSysUsuario($estatusSysUsuario)
-    {
-        $this->estatusSysUsuario = $estatusSysUsuario;
-
-        return $this;
-    }
-
-    /**
-     * Get estatusSysUsuario
+     * Get activo
      *
      * @return boolean
      */
-    public function getEstatusSysUsuario()
-    {
-        return $this->estatusSysUsuario;
+    public function getActivo() {
+        return $this->activo;
     }
 
     /**
-     * Set passwordSysUsuario
+     * Set password
      *
-     * @param string $passwordSysUsuario
+     * @param string $password
      *
      * @return SysUsuario
      */
-    public function setPasswordSysUsuario($passwordSysUsuario)
-    {
-        $this->passwordSysUsuario = $passwordSysUsuario;
+    public function setPassword($password) {
+        $this->password = $password;
 
         return $this;
     }
 
     /**
-     * Get passwordSysUsuario
+     * Get password
      *
      * @return string
      */
-    public function getPasswordSysUsuario()
-    {
-        return $this->passwordSysUsuario;
+    public function getPassword() {
+        return $this->password;
     }
 
     /**
-     * Set fechaNacimientoSysUsuario
+     * Set telefono
      *
-     * @param \DateTime $fechaNacimientoSysUsuario
+     * @param string $telefono
      *
      * @return SysUsuario
      */
-    public function setFechaNacimientoSysUsuario($fechaNacimientoSysUsuario)
-    {
-        $this->fechaNacimientoSysUsuario = $fechaNacimientoSysUsuario;
+    public function setTelefono($telefono) {
+        $this->telefono = $telefono;
 
         return $this;
     }
 
     /**
-     * Get fechaNacimientoSysUsuario
+     * Get telefono
+     *
+     * @return string
+     */
+    public function getTelefono() {
+        return $this->telefono;
+    }
+
+    /**
+     * Set tarjetaCredito
+     *
+     * @param string $tarjetaCredito
+     *
+     * @return SysUsuario
+     */
+    public function setTarjetaCredito($tarjetaCredito) {
+        $this->tarjetaCredito = $tarjetaCredito;
+
+        return $this;
+    }
+
+    /**
+     * Get tarjetaCredito
+     *
+     * @return string
+     */
+    public function getTarjetaCredito() {
+        return $this->tarjetaCredito;
+    }
+
+    /**
+     * Set usuario
+     *
+     * @param string $usuario
+     *
+     * @return SysUsuario
+     */
+    public function setUsuario($usuario) {
+        $this->usuario = $usuario;
+
+        return $this;
+    }
+
+    /**
+     * Get usuario
+     *
+     * @return string
+     */
+    public function getUsuario() {
+        return $this->usuario;
+    }
+
+    /**
+     * Set fechaActualizacion
+     *
+     * @param \DateTime $fechaActualizacion
+     *
+     * @return SysUsuario
+     */
+    public function setFechaActualizacion($fechaActualizacion) {
+        $this->fechaActualizacion = $fechaActualizacion;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaActualizacion
      *
      * @return \DateTime
      */
-    public function getFechaNacimientoSysUsuario()
-    {
-        return $this->fechaNacimientoSysUsuario;
-    }
-
-    /**
-     * Set telefonoSysUsuario
-     *
-     * @param string $telefonoSysUsuario
-     *
-     * @return SysUsuario
-     */
-    public function setTelefonoSysUsuario($telefonoSysUsuario)
-    {
-        $this->telefonoSysUsuario = $telefonoSysUsuario;
-
-        return $this;
-    }
-
-    /**
-     * Get telefonoSysUsuario
-     *
-     * @return string
-     */
-    public function getTelefonoSysUsuario()
-    {
-        return $this->telefonoSysUsuario;
-    }
-
-    /**
-     * Set celularSysUsuario
-     *
-     * @param string $celularSysUsuario
-     *
-     * @return SysUsuario
-     */
-    public function setCelularSysUsuario($celularSysUsuario)
-    {
-        $this->celularSysUsuario = $celularSysUsuario;
-
-        return $this;
-    }
-
-    /**
-     * Get celularSysUsuario
-     *
-     * @return string
-     */
-    public function getCelularSysUsuario()
-    {
-        return $this->celularSysUsuario;
-    }
-
-    /**
-     * Set jvrmSysUsuario
-     *
-     * @param string $jvrmSysUsuario
-     *
-     * @return SysUsuario
-     */
-    public function setJvrmSysUsuario($jvrmSysUsuario)
-    {
-        $this->jvrmSysUsuario = $jvrmSysUsuario;
-
-        return $this;
-    }
-
-    /**
-     * Get jvrmSysUsuario
-     *
-     * @return string
-     */
-    public function getJvrmSysUsuario()
-    {
-        return $this->jvrmSysUsuario;
-    }
-
-    /**
-     * Set tarjetaCreditoSysUsuario
-     *
-     * @param string $tarjetaCreditoSysUsuario
-     *
-     * @return SysUsuario
-     */
-    public function setTarjetaCreditoSysUsuario($tarjetaCreditoSysUsuario)
-    {
-        $this->tarjetaCreditoSysUsuario = $tarjetaCreditoSysUsuario;
-
-        return $this;
-    }
-
-    /**
-     * Get tarjetaCreditoSysUsuario
-     *
-     * @return string
-     */
-    public function getTarjetaCreditoSysUsuario()
-    {
-        return $this->tarjetaCreditoSysUsuario;
-    }
-
-    /**
-     * Set sysUsuario
-     *
-     * @param string $sysUsuario
-     *
-     * @return SysUsuario
-     */
-    public function setSysUsuario($sysUsuario)
-    {
-        $this->sysUsuario = $sysUsuario;
-
-        return $this;
-    }
-
-    /**
-     * Get sysUsuario
-     *
-     * @return string
-     */
-    public function getSysUsuario()
-    {
-        return $this->sysUsuario;
-    }
-
-    /**
-     * Set codigoPostalSysUsuario
-     *
-     * @param integer $codigoPostalSysUsuario
-     *
-     * @return SysUsuario
-     */
-    public function setCodigoPostalSysUsuario($codigoPostalSysUsuario)
-    {
-        $this->codigoPostalSysUsuario = $codigoPostalSysUsuario;
-
-        return $this;
-    }
-
-    /**
-     * Get codigoPostalSysUsuario
-     *
-     * @return integer
-     */
-    public function getCodigoPostalSysUsuario()
-    {
-        return $this->codigoPostalSysUsuario;
-    }
-
-    /**
-     * Set duiSysUsuario
-     *
-     * @param string $duiSysUsuario
-     *
-     * @return SysUsuario
-     */
-    public function setDuiSysUsuario($duiSysUsuario)
-    {
-        $this->duiSysUsuario = $duiSysUsuario;
-
-        return $this;
-    }
-
-    /**
-     * Get duiSysUsuario
-     *
-     * @return string
-     */
-    public function getDuiSysUsuario()
-    {
-        return $this->duiSysUsuario;
-    }
-
-    /**
-     * Set fechaCreacionSysUsuario
-     *
-     * @param \DateTime $fechaCreacionSysUsuario
-     *
-     * @return SysUsuario
-     */
-    public function setFechaCreacionSysUsuario($fechaCreacionSysUsuario)
-    {
-        $this->fechaCreacionSysUsuario = $fechaCreacionSysUsuario;
-
-        return $this;
-    }
-
-    /**
-     * Get fechaCreacionSysUsuario
-     *
-     * @return \DateTime
-     */
-    public function getFechaCreacionSysUsuario()
-    {
-        return $this->fechaCreacionSysUsuario;
-    }
-
-    /**
-     * Set fechaActualizacionSysUsuario
-     *
-     * @param \DateTime $fechaActualizacionSysUsuario
-     *
-     * @return SysUsuario
-     */
-    public function setFechaActualizacionSysUsuario($fechaActualizacionSysUsuario)
-    {
-        $this->fechaActualizacionSysUsuario = $fechaActualizacionSysUsuario;
-
-        return $this;
-    }
-
-    /**
-     * Get fechaActualizacionSysUsuario
-     *
-     * @return \DateTime
-     */
-    public function getFechaActualizacionSysUsuario()
-    {
-        return $this->fechaActualizacionSysUsuario;
+    public function getFechaActualizacion() {
+        return $this->fechaActualizacion;
     }
 
     /**
@@ -505,8 +300,7 @@ class SysUsuario
      *
      * @return SysUsuario
      */
-    public function setGenero($genero)
-    {
+    public function setGenero($genero) {
         $this->genero = $genero;
 
         return $this;
@@ -517,8 +311,7 @@ class SysUsuario
      *
      * @return string
      */
-    public function getGenero()
-    {
+    public function getGenero() {
         return $this->genero;
     }
 
@@ -529,8 +322,7 @@ class SysUsuario
      *
      * @return SysUsuario
      */
-    public function setOcupacion($ocupacion)
-    {
+    public function setOcupacion($ocupacion) {
         $this->ocupacion = $ocupacion;
 
         return $this;
@@ -541,8 +333,7 @@ class SysUsuario
      *
      * @return string
      */
-    public function getOcupacion()
-    {
+    public function getOcupacion() {
         return $this->ocupacion;
     }
 
@@ -553,8 +344,7 @@ class SysUsuario
      *
      * @return SysUsuario
      */
-    public function setDireccion($direccion)
-    {
+    public function setDireccion($direccion) {
         $this->direccion = $direccion;
 
         return $this;
@@ -565,8 +355,7 @@ class SysUsuario
      *
      * @return string
      */
-    public function getDireccion()
-    {
+    public function getDireccion() {
         return $this->direccion;
     }
 
@@ -577,8 +366,7 @@ class SysUsuario
      *
      * @return SysUsuario
      */
-    public function setResponsableDePaciente($responsableDePaciente)
-    {
+    public function setResponsableDePaciente($responsableDePaciente) {
         $this->responsableDePaciente = $responsableDePaciente;
 
         return $this;
@@ -589,8 +377,7 @@ class SysUsuario
      *
      * @return string
      */
-    public function getResponsableDePaciente()
-    {
+    public function getResponsableDePaciente() {
         return $this->responsableDePaciente;
     }
 
@@ -601,8 +388,7 @@ class SysUsuario
      *
      * @return SysUsuario
      */
-    public function setNumeroAfp($numeroAfp)
-    {
+    public function setNumeroAfp($numeroAfp) {
         $this->numeroAfp = $numeroAfp;
 
         return $this;
@@ -613,8 +399,7 @@ class SysUsuario
      *
      * @return integer
      */
-    public function getNumeroAfp()
-    {
+    public function getNumeroAfp() {
         return $this->numeroAfp;
     }
 
@@ -625,8 +410,7 @@ class SysUsuario
      *
      * @return SysUsuario
      */
-    public function setNumeroNup($numeroNup)
-    {
+    public function setNumeroNup($numeroNup) {
         $this->numeroNup = $numeroNup;
 
         return $this;
@@ -637,33 +421,206 @@ class SysUsuario
      *
      * @return integer
      */
-    public function getNumeroNup()
-    {
+    public function getNumeroNup() {
         return $this->numeroNup;
     }
 
     /**
-     * Set idMunicipioSysUsuario
+     * Set nombre
      *
-     * @param \AppBundle\Entity\SysMunicipio $idMunicipioSysUsuario
+     * @param string $nombre
      *
      * @return SysUsuario
      */
-    public function setIdMunicipioSysUsuario(\AppBundle\Entity\SysMunicipio $idMunicipioSysUsuario = null)
-    {
-        $this->idMunicipioSysUsuario = $idMunicipioSysUsuario;
+    public function setNombre($nombre) {
+        $this->nombre = $nombre;
 
         return $this;
     }
 
     /**
-     * Get idMunicipioSysUsuario
+     * Get nombre
+     *
+     * @return string
+     */
+    public function getNombre() {
+        return $this->nombre;
+    }
+
+    /**
+     * Set apellido
+     *
+     * @param string $apellido
+     *
+     * @return SysUsuario
+     */
+    public function setApellido($apellido) {
+        $this->apellido = $apellido;
+
+        return $this;
+    }
+
+    /**
+     * Get apellido
+     *
+     * @return string
+     */
+    public function getApellido() {
+        return $this->apellido;
+    }
+
+    /**
+     * Set fechaNacimiento
+     *
+     * @param \DateTime $fechaNacimiento
+     *
+     * @return SysUsuario
+     */
+    public function setFechaNacimiento($fechaNacimiento) {
+        $this->fechaNacimiento = $fechaNacimiento;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaNacimiento
+     *
+     * @return \DateTime
+     */
+    public function getFechaNacimiento() {
+        return $this->fechaNacimiento;
+    }
+
+    /**
+     * Set celular
+     *
+     * @param string $celular
+     *
+     * @return SysUsuario
+     */
+    public function setCelular($celular) {
+        $this->celular = $celular;
+
+        return $this;
+    }
+
+    /**
+     * Get celular
+     *
+     * @return string
+     */
+    public function getCelular() {
+        return $this->celular;
+    }
+
+    /**
+     * Set jvrm
+     *
+     * @param string $jvrm
+     *
+     * @return SysUsuario
+     */
+    public function setJvrm($jvrm) {
+        $this->jvrm = $jvrm;
+
+        return $this;
+    }
+
+    /**
+     * Get jvrm
+     *
+     * @return string
+     */
+    public function getJvrm() {
+        return $this->jvrm;
+    }
+
+    /**
+     * Set codigoPostal
+     *
+     * @param integer $codigoPostal
+     *
+     * @return SysUsuario
+     */
+    public function setCodigoPostal($codigoPostal) {
+        $this->codigoPostal = $codigoPostal;
+
+        return $this;
+    }
+
+    /**
+     * Get codigoPostal
+     *
+     * @return integer
+     */
+    public function getCodigoPostal() {
+        return $this->codigoPostal;
+    }
+
+    /**
+     * Set dui
+     *
+     * @param string $dui
+     *
+     * @return SysUsuario
+     */
+    public function setDui($dui) {
+        $this->dui = $dui;
+
+        return $this;
+    }
+
+    /**
+     * Get dui
+     *
+     * @return string
+     */
+    public function getDui() {
+        return $this->dui;
+    }
+
+    /**
+     * Set fechaCreacion
+     *
+     * @param \DateTime $fechaCreacion
+     *
+     * @return SysUsuario
+     */
+    public function setFechaCreacion($fechaCreacion) {
+        $this->fechaCreacion = $fechaCreacion;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaCreacion
+     *
+     * @return \DateTime
+     */
+    public function getFechaCreacion() {
+        return $this->fechaCreacion;
+    }
+
+    /**
+     * Set idMunicipio
+     *
+     * @param \AppBundle\Entity\SysMunicipio $idMunicipio
+     *
+     * @return SysUsuario
+     */
+    public function setIdMunicipio(\AppBundle\Entity\SysMunicipio $idMunicipio = null) {
+        $this->idMunicipio = $idMunicipio;
+
+        return $this;
+    }
+
+    /**
+     * Get idMunicipio
      *
      * @return \AppBundle\Entity\SysMunicipio
      */
-    public function getIdMunicipioSysUsuario()
-    {
-        return $this->idMunicipioSysUsuario;
+    public function getIdMunicipio() {
+        return $this->idMunicipio;
     }
 
     /**
@@ -673,8 +630,7 @@ class SysUsuario
      *
      * @return SysUsuario
      */
-    public function setIdRol(\AppBundle\Entity\SysRoles $idRol = null)
-    {
+    public function setIdRol(\AppBundle\Entity\SysRoles $idRol = null) {
         $this->idRol = $idRol;
 
         return $this;
@@ -685,14 +641,40 @@ class SysUsuario
      *
      * @return \AppBundle\Entity\SysRoles
      */
-    public function getIdRol()
-    {
+    public function getIdRol() {
         return $this->idRol;
     }
 
-    public function __toString()
-    {
-        return $this->nombreSysUsuario." ".$this->apellidoSysUsuario;
+    public function eraseCredentials() {
+        
     }
-}
 
+    public function getRoles() {
+        return array('ROLE_USER');
+    }
+
+    public function getSalt() {
+        return null;
+    }
+
+    public function getUsername() {
+        return $this->usuario;
+    }
+
+    public function serialize() {
+        return serialize(array(
+            $this->id,
+            $this->usuario,
+            $this->password
+        ));
+    }
+
+    public function unserialize(string $serialized) {
+        list (
+            $this->id,
+            $this->usuario,
+            $this->password
+        ) = unserialize($serialized);
+    }
+
+}

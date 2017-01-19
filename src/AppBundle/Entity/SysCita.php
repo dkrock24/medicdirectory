@@ -226,4 +226,3 @@ class SysCita
         return $this->sysUsuarioPaciente;
     }
 }
-

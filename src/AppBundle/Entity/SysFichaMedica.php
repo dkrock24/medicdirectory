@@ -110,4 +110,3 @@ class SysFichaMedica
         return $this->sysUsuarioPacienteDi;
     }
 }
-

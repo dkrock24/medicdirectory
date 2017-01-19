@@ -167,10 +167,4 @@ class SysPais
     {
         return $this->estatusSysPais;
     }
-	
-	public function __toString()
-    {
-        return $this->nombreSysPais;
-    }
 }
-

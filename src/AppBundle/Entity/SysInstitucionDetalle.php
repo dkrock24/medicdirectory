@@ -110,4 +110,3 @@ class SysInstitucionDetalle
         return $this->sysInstitucion;
     }
 }
-

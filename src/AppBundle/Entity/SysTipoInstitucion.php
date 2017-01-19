@@ -168,4 +168,3 @@ class SysTipoInstitucion
         return $this->fechaCrecionSysTipoInstitucion;
     }
 }
-

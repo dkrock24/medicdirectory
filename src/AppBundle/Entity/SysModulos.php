@@ -225,10 +225,4 @@ class SysModulos
     {
         return $this->imagenModulo;
     }
-
-    public function __toString()
-    {
-        return $this->nombreSysModulo;
-    }
 }
-

@@ -28,8 +28,6 @@ AppBundle\Entity\SysExamenesMedicos:
         estadoExamen:
             type: boolean
             nullable: true
-            options:
-                unsigned: false
             column: estado_examen
         fechaCreacion:
             type: datetime

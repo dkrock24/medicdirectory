@@ -168,4 +168,3 @@ class SysAntecedetenUsuario
         return $this->idUsuario;
     }
 }
-

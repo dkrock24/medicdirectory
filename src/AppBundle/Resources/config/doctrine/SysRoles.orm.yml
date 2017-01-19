@@ -17,13 +17,13 @@ AppBundle\Entity\SysRoles:
             length: 45
             options:
                 fixed: false
-            column: nombre_rol_sys_roles
+            column: nombre_rol
         estatusSysRoles:
             type: boolean
             nullable: true
-            column: estatus_sys_roles
+            column: estatus
         fechaCreacionSysRoles:
             type: datetime
             nullable: true
-            column: fecha_creacion_sys_roles
+            column: fecha_creacion
     lifecycleCallbacks: {  }

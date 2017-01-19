@@ -225,10 +225,4 @@ class SysInstitucionTieneModulo
     {
         return $this->sysInstitucion;
     }
-
-    public function __toString()
-    {
-        return $this->sysModulo;
-    }
 }
-

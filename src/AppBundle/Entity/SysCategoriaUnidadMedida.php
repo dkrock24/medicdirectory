@@ -81,4 +81,3 @@ class SysCategoriaUnidadMedida
         return $this->fechaCreacion;
     }
 }
-

@@ -15,7 +15,7 @@ class SysModuloTieneEspecialidad
     /**
      * @var boolean
      */
-    private $sysEstatus;
+    private $sysEstatus = '1';
 
     /**
      * @var \AppBundle\Entity\SysEspecialidades
@@ -110,4 +110,3 @@ class SysModuloTieneEspecialidad
         return $this->sysModulos;
     }
 }
-
