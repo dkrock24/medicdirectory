@@ -669,7 +669,7 @@ class SysUsuario implements UserInterface, \Serializable {
         ));
     }
 
-    public function unserialize(string $serialized) {
+    public function unserialize($serialized) {
         list (
             $this->id,
             $this->usuario,

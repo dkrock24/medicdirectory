@@ -2,75 +2,78 @@
 
 {% block body %}
     <!-- Page container -->
-	<div class="page-container">
+    <div class="page-container">
 
-		<!-- Page content -->
-		<div class="page-content">
+        <!-- Page content -->
+        <div class="page-content">
 
-			<!-- Main content -->
-			<div class="content-wrapper">
+            <!-- Main content -->
+            <div class="content-wrapper">
 
-				<!-- Content area -->
-				<div class="content">
-
-					<!-- Simple login form -->
-                    <form action="{{ path("sysusuario_index") }}">
-						<div class="panel panel-body login-form">
-							<div class="text-center">
-								{# <div class="icon-object border-slate-300 text-slate-300"><i class="icon-reading"></i></div> #}
+                <!-- Content area -->
+                <div class="content">
+                    <!-- Simple login form -->
+                    <form action="{{ path("login") }}" method="post">
+                        <div class="panel panel-body login-form">
+                            <div class="text-center">
+                                {# <div class="icon-object border-slate-300 text-slate-300"><i class="icon-reading"></i></div> #}
                                 <img src="{{ asset('bundles/admin/img/logo.png') }}" class="img-circle" style="max-width:110px;" alt="">
-								<h5 class="content-group">Login para acceder a tu cuenta <small class="display-block">Ingresa tus credenciales abajo</small></h5>
-                                
-							</div>
+                                <h5 class="content-group">Login para acceder a tu cuenta <small class="display-block">Ingresa tus credenciales abajo</small></h5>
 
-							<div class="form-group has-feedback has-feedback-left">
-								<input type="text" class="form-control" placeholder="Username">
-								<div class="form-control-feedback">
-									<i class="icon-user text-muted"></i>
-								</div>
-							</div>
+                            </div>
 
-							<div class="form-group has-feedback has-feedback-left">
-								<input type="text" class="form-control" placeholder="Password">
-								<div class="form-control-feedback">
-									<i class="icon-lock2 text-muted"></i>
-								</div>
-							</div>
+                            <div class="form-group has-feedback has-feedback-left">
+                                <input type="text" name="_username" class="form-control" placeholder="Username" value="{{ last_username }}">
+                                <div class="form-control-feedback">
+                                    <i class="icon-user text-muted"></i>
+                                </div>
+                            </div>
 
-							<div class="form-group">
-								<button type="submit" class="btn btn-primary btn-block">Sign in <i class="icon-circle-right2 position-right"></i></button>
-							</div>
+                            <div class="form-group has-feedback has-feedback-left">
+                                <input type="text" name="_password" class="form-control" placeholder="Password">
+                                <div class="form-control-feedback">
+                                    <i class="icon-lock2 text-muted"></i>
+                                </div>
+                            </div>
 
-							<div class="text-center">
-								<a href="login_password_recover.html">Forgot password?</a>
-							</div>
-						</div>
-					</form>
-					<!-- /simple login form -->
+                            {% if error %}
+                                <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                            {% endif %}
+
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary btn-block">Sign in <i class="icon-circle-right2 position-right"></i></button>
+                            </div>
+
+                            <div class="text-center">
+                                <a href="login_password_recover.html">Forgot password?</a>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- /simple login form -->
 
 
-					<!-- Footer -->
-					<div class="footer text-muted text-center">
-						&copy; 2017. <a href="#">EMR </a> </a>
-					</div>
-					<!-- /footer -->
+                    <!-- Footer -->
+                    <div class="footer text-muted text-center">
+                        &copy; 2017. <a href="#">EMR </a> </a>
+                    </div>
+                    <!-- /footer -->
 
-				</div>
-				<!-- /content area -->
+                </div>
+                <!-- /content area -->
 
-			</div>
-			<!-- /main content -->
+            </div>
+            <!-- /main content -->
 
-		</div>
-		<!-- /page content -->
+        </div>
+        <!-- /page content -->
 
-	</div>
+    </div>
 {% endblock %}
 
 {% block codejs %}
     <script>
-        $(function(){
+        $(function () {
 
-          });
+        });
     </script>
 {% endblock %} 
