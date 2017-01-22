@@ -11,7 +11,7 @@ security:
         doctrine_db_provider:
             entity:
                 class: AppBundle:SysUsuario
-                property: usuario
+                # property: usuario -- not used so it utilizes SysUsuarioRepository:loadUserByUsername
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -22,7 +22,10 @@ security:
         main:
             provider: doctrine_db_provider
             anonymous: ~
+            logout:
+                path: /logout
             form_login:
+                use_referer: true
                 login_path: login
                 check_path: login
 

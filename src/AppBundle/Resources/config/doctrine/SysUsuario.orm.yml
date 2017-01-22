@@ -1,6 +1,7 @@
 AppBundle\Entity\SysUsuario:
     type: entity
     table: sys_usuario
+    repositoryClass: AppBundle\Repository\SysUsuarioRepository
     indexes:
         FK_sys_roles:
             columns:

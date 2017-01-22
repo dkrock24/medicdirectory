@@ -9,8 +9,8 @@ class SysUsuarioRepository extends EntityRepository implements UserLoaderInterfa
     public function loadUserByUsername($username)
     {
         return $this->createQueryBuilder('u')
-            ->where('u.username = :username OR u.email = :email')
-            ->setParameter('username', $username)
+            ->where('u.usuario = :usuario OR u.email = :email')
+            ->setParameter('usuario', $username)
             ->setParameter('email', $username)
             ->getQuery()
             ->getOneOrNullResult();
