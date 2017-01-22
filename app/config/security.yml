@@ -3,12 +3,15 @@
 security:
     encoders:
         AppBundle\Entity\SysUsuario:
-            algorithm: sha1
+            #algorithm: sha1
+            algorithm: bcrypt
+            cost: 4
     
     providers:
         doctrine_db_provider:
             entity:
                 class: AppBundle:SysUsuario
+                property: email
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -22,6 +25,9 @@ security:
             form_login:
                 login_path: login
                 check_path: login
+            logout:
+                path: /logout
+                target: /login    
 
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
