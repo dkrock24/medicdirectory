@@ -2,26 +2,18 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 use AppBundle\Entity\SysPais;
-use AppBundle\Form\SysPaisType;
-
-use Symfony\Component\HttpKernel\Exception\HttpNotFoundException;
-use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\HttpFoundation\Response;
-use AppBundle\Controller\Symfony\Component\HttpFoundation;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
- * SysPais controller.
+ * Syspai controller.
  *
  */
 class SysPaisController extends Controller
 {
     /**
-     * Lists all SysPais entities.
+     * Lists all sysPai entities.
      *
      */
     public function indexAction()
@@ -30,57 +22,51 @@ class SysPaisController extends Controller
 
         $sysPais = $em->getRepository('AppBundle:SysPais')->findAll();
 
-        return $this->render('AppBundle:syspais:index.html.twig', array(
+        return $this->render('Admin/syspais/index.html.twig', array(
             'sysPais' => $sysPais,
         ));
     }
 
     /**
-     * Creates a new SysPais entity.
+     * Creates a new sysPai entity.
      *
      */
     public function newAction(Request $request)
     {
-        $sysPai = new SysPais();
+        $sysPai = new Syspai();
         $form = $this->createForm('AppBundle\Form\SysPaisType', $sysPai);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($sysPai);
-            $flush = $em->flush();
-			
-			if ($flush == null) {
-				$this->get('session')->getFlashBag()->add('success', "Regístro creado exitosamente");
-			} else {
-				$this->get('session')->getFlashBag()->add('error', "No se ha podido crear el regístro");
-			}
+            $em->flush($sysPai);
 
-            return $this->redirectToRoute('syspais_show', array('id' => $sysPai->getId()));
+            return $this->redirectToRoute('sys_pais_show', array('id' => $sysPai->getId()));
         }
 
-        return $this->render('AppBundle:syspais:new.html.twig', array(
+        return $this->render('Admin/syspais/new.html.twig', array(
             'sysPai' => $sysPai,
             'form' => $form->createView(),
         ));
     }
 
     /**
-     * Finds and displays a SysPais entity.
+     * Finds and displays a sysPai entity.
      *
      */
     public function showAction(SysPais $sysPai)
     {
         $deleteForm = $this->createDeleteForm($sysPai);
 
-        return $this->render('AppBundle:syspais:show.html.twig', array(
+        return $this->render('Admin/syspais/show.html.twig', array(
             'sysPai' => $sysPai,
             'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-     * Displays a form to edit an existing SysPais entity.
+     * Displays a form to edit an existing sysPai entity.
      *
      */
     public function editAction(Request $request, SysPais $sysPai)
@@ -90,20 +76,12 @@ class SysPaisController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($sysPai);
-            $flush = $em->flush();
-			
-			if ($flush == null) {
-				$this->get('session')->getFlashBag()->add('success', "Regístro creado exitosamente");
-			} else {
-				$this->get('session')->getFlashBag()->add('error', "No se ha podido crear el regístro");
-			}
+            $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('syspais_edit', array('id' => $sysPai->getId()));
+            return $this->redirectToRoute('sys_pais_edit', array('id' => $sysPai->getId()));
         }
 
-        return $this->render('AppBundle:syspais:edit.html.twig', array(
+        return $this->render('Admin/syspais/edit.html.twig', array(
             'sysPai' => $sysPai,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -111,7 +89,7 @@ class SysPaisController extends Controller
     }
 
     /**
-     * Deletes a SysPais entity.
+     * Deletes a sysPai entity.
      *
      */
     public function deleteAction(Request $request, SysPais $sysPai)
@@ -122,23 +100,23 @@ class SysPaisController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($sysPai);
-            $em->flush();
+            $em->flush($sysPai);
         }
 
-        return $this->redirectToRoute('syspais_index');
+        return $this->redirectToRoute('sys_pais_index');
     }
 
     /**
-     * Creates a form to delete a SysPais entity.
+     * Creates a form to delete a sysPai entity.
      *
-     * @param SysPais $sysPai The SysPais entity
+     * @param SysPais $sysPai The sysPai entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
     private function createDeleteForm(SysPais $sysPai)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('syspais_delete', array('id' => $sysPai->getId())))
+            ->setAction($this->generateUrl('sys_pais_delete', array('id' => $sysPai->getId())))
             ->setMethod('DELETE')
             ->getForm()
         ;

@@ -9,78 +9,9 @@ login:
 logout:
     path:   /logout
 
-app_sysroles:
-    resource: "@AppBundle/Resources/config/routing/sysroles.yml"
-    prefix:   /sysroles
-    host:     "%admin_domain%"
-    
+   
 app_syspais:
     resource: "@AppBundle/Resources/config/routing/syspais.yml"
-    prefix:   /syspais
+    prefix:   /pais
     host:     "%admin_domain%"
-    
-app_sysdepartamentos:
-    resource: "@AppBundle/Resources/config/routing/sysdepartamentos.yml"
-    prefix:   /sysdepartamentos
-    host:     "%admin_domain%"
-    
-app_sysmunicipio:
-    resource: "@AppBundle/Resources/config/routing/sysmunicipio.yml"
-    prefix:   /sysmunicipio
-    
-app_sysusuario:
-    resource: "@AppBundle/Resources/config/routing/sysusuario.yml"
-    prefix:   /sysusuario
-    host:     "%admin_domain%"
-    
-app_systipoinstitucion:
-    resource: "@AppBundle/Resources/config/routing/systipoinstitucion.yml"
-    prefix:   /systipoinstitucion
-    host:     "%admin_domain%"
-
-app_sysmodulos:
-    resource: "@AppBundle/Resources/config/routing/sysmodulos.yml"
-    prefix:   /sysmodulos
-    host:     "%admin_domain%"
-        
-app_sysarea:
-    resource: "@AppBundle/Resources/config/routing/sysarea.yml"
-    prefix:   /sysarea
-    host:     "%admin_domain%"
-
-app_sysespecialidades:
-    resource: "@AppBundle/Resources/config/routing/sysespecialidades.yml"
-    prefix:   /sysespecialidades
-    host:     "%admin_domain%"
-
-app_sysexamenesmedicos:
-    resource: "@AppBundle/Resources/config/routing/sysexamenesmedicos.yml"
-    prefix:   /sysexamenesmedicos
-    host:     "%admin_domain%"
-
-app_sysantecedentesespecialidad:
-    resource: "@AppBundle/Resources/config/routing/sysantecedentesespecialidad.yml"
-    prefix:   /sysantecedentesespecialidad
-    host:     "%admin_domain%"
-
-app_sysinstituciontienemodulo:
-    resource: "@AppBundle/Resources/config/routing/sysinstituciontienemodulo.yml"
-    prefix:   /sysinstituciontienemodulo
-    host:     "%admin_domain%"
-
-app_syssugerencias:
-    resource: "@AppBundle/Resources/config/routing/syssugerencias.yml"
-    prefix:   /syssugerencias
-    host:     "%admin_domain%"
-
-app_sysmodulotieneespecialidad:
-    resource: "@AppBundle/Resources/config/routing/sysmodulotieneespecialidad.yml"
-    prefix:   /sysmodulotieneespecialidad
-    host:     "%admin_domain%"
-
-app_sysperiodosmedico:
-    resource: "@AppBundle/Resources/config/routing/sysperiodosmedico.yml"
-    prefix:   /sysperiodosmedico
-    host:     "%admin_domain%"
-
 

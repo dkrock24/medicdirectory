@@ -5,12 +5,9 @@ emr_homepage:
 emr_dashboard:
     path:     /dashboard
     defaults: { _controller: EmrBundle:Dashboard:dashboard  }
+    host:     "%emr_domain%"
     
-emr_cita_add:
-    path:     /nueva/cita
-    defaults: { _controller: EmrBundle:Cita:add  }    
-    
-    
-emr_cita_list:
-    path:     /list/cita
-    defaults: { _controller: EmrBundle:Cita:list  }
+emr_paciente:
+    resource: "@EmrBundle/Resources/config/routing/sysusuario.yml"
+    prefix:   /usuario
+    host:     "%emr_domain%"

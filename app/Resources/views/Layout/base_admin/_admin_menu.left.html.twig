@@ -1,0 +1,113 @@
+<!-- Main sidebar -->
+			<div class="sidebar sidebar-main sidebar-fixed">
+				<div class="sidebar-content">
+
+					<!-- User menu -->
+					<div class="sidebar-user">
+						<div class="category-content">
+							<div class="media">
+								<a href="#" class="media-left"><img src="{{ asset('bundles/admin/img/placeholder.jpg') }}" class="img-circle img-sm" alt=""></a>
+								<div class="media-body">
+									<span class="media-heading text-semibold">Victoria Baker</span>
+									<div class="text-size-mini text-muted">
+										<i class="icon-pin text-size-small"></i> &nbsp;Santa Ana, CA
+									</div>
+								</div>
+
+								<div class="media-right media-middle">
+									<ul class="icons-list">
+										<li>
+											<a href="#"><i class="icon-cog3"></i></a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- /user menu -->
+
+
+					<!-- Main navigation -->
+					<div class="sidebar-category sidebar-category-visible">
+						<div class="category-content no-padding">
+							<ul class="navigation navigation-main navigation-accordion">
+
+                                {#
+								<li>
+									<a href="#"><i class="icon-tree5"></i> <span>Menu levels</span></a>
+									<ul>
+										<li><a href="#"><i class="icon-IE"></i> Second level</a></li>
+										<li>
+											<a href="#"><i class="icon-firefox"></i> Second level with child</a>
+											<ul>
+												<li><a href="#"><i class="icon-android"></i> Third level</a></li>
+												<li>
+													<a href="#"><i class="icon-apple2"></i> Third level with child</a>
+													<ul>
+														<li><a href="#"><i class="icon-html5"></i> Fourth level</a></li>
+														<li><a href="#"><i class="icon-css3"></i> Fourth level</a></li>
+													</ul>
+												</li>
+												<li><a href="#"><i class="icon-windows"></i> Third level</a></li>
+											</ul>
+										</li>
+										<li><a href="#"><i class="icon-chrome"></i> Second level</a></li>
+									</ul>
+								</li>
+                                #}
+								<li>
+									<a href="#"><i class="icon-task"></i> <span>Administración</span></a>
+									<ul>
+                                        <li>
+                                            <a href="{{ path('sys_pais_index')}}">
+                                                <i class="pe-7s-global"></i>
+                                                <span>Paises</span>
+                                            </a>
+                                        </li>
+                                       
+                                    </ul>
+                                </li>
+                                {#
+                                <li>
+                                    <a href="#"><i class="icon-user-plus"></i> <span>Usuarios y permisos</span></a>
+                                    <ul>
+                                        <li class="submenu-title">
+                                            <span>Permisos</span>
+                                        </li>
+                                        <li>
+                                            <a href="{{ path('sysroles_index')}}">
+                                                <i class="pe-7s-edit"></i>
+                                                <span>Roles</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ path('sysusuario_index')}}">
+                                                <i class="pe-7s-add-user"></i>
+                                                <span>Usuarios</span>
+                                            </a>
+                                        </li>
+                                        
+									</ul>
+								</li>
+                                #}
+                                {#
+								<li>
+									<a href="#"><i class="icon-magazine"></i> <span>Timelines</span></a>
+									<ul>
+										<li><a href="timelines_left.html">Left timeline</a></li>
+										<li><a href="timelines_right.html">Right timeline</a></li>
+										<li><a href="timelines_center.html">Centered timeline</a></li>
+									</ul>
+								</li>
+                                #}
+
+								<!-- /page kits -->
+
+							</ul>
+						</div>
+					</div>
+					<!-- /main navigation -->
+
+				</div>
+			</div>
+			<!-- /main sidebar -->

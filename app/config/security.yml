@@ -3,15 +3,15 @@
 security:
     encoders:
         AppBundle\Entity\SysUsuario:
-            #algorithm: sha1
-            algorithm: bcrypt
-            cost: 4
+            algorithm: sha1
+            encode_as_base64: false
+            iterations: 1
     
     providers:
         doctrine_db_provider:
             entity:
                 class: AppBundle:SysUsuario
-                property: email
+                property: usuario
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs

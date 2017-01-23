@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>cropit</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+	
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+	
+	
+	<script src="https://use.fontawesome.com/93f697ba3e.js"></script>
+
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+	
+    <script src="../dist/jquery.cropit.js"></script>
+
+    <style>
+      .cropit-preview {
+        background-color: #f8f8f8;
+        background-size: cover;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        margin-top: 7px;
+        width: 250px;
+        height: 250px;
+      }
+
+      .cropit-preview-image-container {
+        cursor: move;
+      }
+
+      .image-size-label {
+        margin-top: 10px;
+      }
+
+      input, .export {
+        display: block;
+      }
+
+      button {
+        margin-top: 10px;
+      }
+	  
+	  #holder-range{
+		position: relative;
+	  }
+	  #input-range{
+		width: 130px;
+		display: inline-block !important;
+		position: relative;
+		top:5px;
+	  }
+	  .icon-img-lg{
+		font-size: 24px;
+		position:relative;
+		top:5px;
+	  }
+	  #btn-cut{
+		display:inline-block;
+	  }
+	  
+	  .btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+    </style>
+  </head>
+  <body>
+    <div class="image-editor">
+		<label class="btn btn-default btn-file">
+			Buscar Imagen  <input type="file" class="cropit-image-input ">
+		</label>
+      <div class="cropit-preview"></div>
+      <div class="image-size-label">
+        Cambiar el tama&ntilde;o de la imagen
+      </div>
+      <div id="holder-range">
+		<span class="glyphicon glyphicon-picture small-image"></span>
+		<input type="range" class="cropit-image-zoom-input" id="input-range">
+		<span class="glyphicon glyphicon-picture icon-img-lg"></span>
+	  </div>
+      <button class="rotate-ccw btn btn-default"><i class="fa fa-rotate-left"></i></button>
+      <button class="rotate-cw btn btn-default"><i class="fa fa-rotate-right"></i></button>
+
+      <button class="export btn btn-primary" id="btn-cut"><i class="fa fa-scissors" id="status-cut"></i> Recortar</button>
+	  
+	  <div id="loading"></div>
+    </div>
+	
+	<div>
+		<div id="crop-img"></div>	
+	</div>
+	
+	
+	<!-- Button trigger modal -->
+	<!--
+	<button data-target="#myModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">
+    Launch demo modal
+ </button> -->
+	
+	<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+	  Cargar Imagen
+	</button>
+	
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	  <div class="modal-dialog" role="document">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+		  </div>
+		  <div class="modal-body">
+			...
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			<button type="button" class="btn btn-primary">Save changes</button>
+		  </div>
+		</div>
+	  </div>
+	</div>
+
+    <script>
+      $(function() {
+	  
+	  $('#myModal').modal({backdrop: 'static', keyboard: false})  
+	  
+	   var btn_loading = "fa fa-spinner fa-spin";
+	   var btn_default = "fa fa-scissors";
+	   
+        $('.image-editor').cropit({
+          imageState: {
+            //src: 'http://lorempixel.com/500/400/',
+          },
+		  
+		  onImageLoading: function(){ // Called when image starts to be loaded.
+				$("#status-cut").removeClass(btn_default).addClass(btn_loading);
+				//$("#loading").html("Cargando Imagen");
+			},
+			
+			onImageLoaded: function(){ // Called when image is loaded.
+				$("#status-cut").removeClass(btn_loading).addClass(btn_default);
+				//$("#loading").html("Ok");
+			},
+			onFileReaderError: function(){ // Called when FileReader encounters an error while loading the image file.
+				alert("A ocurrido un error al tratar de leer el archivo");
+			},
+			
+			onFileChange: function(){ // Called when user selects a file in the select file input.
+				$("#crop-img").empty();
+			},
+		  
+        });
+
+        $('.rotate-cw').click(function() {
+          $('.image-editor').cropit('rotateCW');
+        });
+        $('.rotate-ccw').click(function() {
+          $('.image-editor').cropit('rotateCCW');
+        });
+
+        $('.export').click(function() {
+			$("#loading").html("antes");	
+			var imageData = $('.image-editor').cropit('export');
+			
+			if( imageData == undefined || imageData == "" || imageData == null )
+			{
+			}
+			else
+			{
+				$('#crop-img').html("<img src='"+imageData+"'>");
+				//var imageData = $('.image-editor').cropit('export');
+				
+				//console.log( imageData );
+				$("#loading").html("despues");	
+				//window.open(imageData);
+			}
+			
+			 
+        });
+      });
+    </script>
+  </body>
+</html>

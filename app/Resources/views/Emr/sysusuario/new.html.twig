@@ -1,0 +1,297 @@
+{% extends 'Layout/base_emr/_clients_base.html.twig' %}
+
+{% block body %}
+    
+    <style>
+      .cropit-preview, #crop-img {
+        background-color: #f8f8f8;
+        background-size: cover;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        margin-top: 7px;
+        width: 250px;
+        height: 250px;
+      }
+
+      .cropit-preview-image-container {
+        cursor: move;
+      }
+
+      .image-size-label {
+        margin-top: 10px;
+      }
+
+      input, .export {
+        display: block;
+      }
+
+      button {
+        margin-top: 10px;
+      }
+	  
+	  #holder-range{
+		position: relative;
+	  }
+	  #input-range{
+		width: 130px;
+		display: inline-block !important;
+		position: relative;
+		top:5px;
+	  }
+	  .icon-img-lg{
+		font-size: 24px;
+		position:relative;
+		top:-5px;
+	  }
+	  #btn-cut{
+		display:inline-block;
+	  }
+	  
+	.btn-file {
+        position: relative;
+        overflow: hidden;
+    }
+    .btn-file input[type=file] {
+        position: absolute;
+        top: 0;
+        right: 0;
+        min-width: 100%;
+        min-height: 100%;
+        font-size: 100px;
+        text-align: right;
+        filter: alpha(opacity=0);
+        opacity: 0;
+        outline: none;
+        background: white;
+        cursor: inherit;
+        display: block;
+    }
+    </style>
+    
+    <h1>Nuevo paciente</h1>
+    <div class="panel panel-body">
+
+
+    {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+        {# {{ form_widget(form) }} #}
+        <div class="row">
+            <div class="col-lg-7 col-md-7 col-sm-12">
+                
+                <div class="form_error">{{ form_errors(form)}}</div> 
+                <h4>Datos Generales</h4><hr>
+                <div class="form-group">
+                  <div class="form_error">{{ form_errors(form.nombre)}}</div>
+                  <label for="inputName" class="col-sm-2 control-label text-right">Nombre</label>
+                  <div class="col-sm-10">
+                    {{ form_widget(form.nombre) }}
+                  </div>
+                </div>
+                  
+                <div class="form-group">
+                  <div class="form_error">{{ form_errors(form.apellido)}}</div>
+                  <label for="inputName" class="col-sm-2 control-label text-right">Apellido</label>
+                  <div class="col-sm-10">
+                    {{ form_widget(form.apellido) }}
+                  </div>
+                </div>
+                  
+                <div class="form-group">
+                  <div class="form_error">{{ form_errors(form.dui)}}</div>
+                  <label for="inputName" class="col-sm-2 control-label text-right">DUI</label>
+                  <div class="col-sm-10">
+                    {{ form_widget(form.dui) }}
+                  </div>
+                </div>   
+                  
+                <div class="form-group">
+                  <div class="form_error">{{ form_errors(form.genero)}}</div>
+                  <label for="inputName" class="col-sm-2 control-label text-right">Genero</label>
+                  <div class="col-sm-10">
+                    {{ form_widget(form.genero) }}
+                  </div>
+                </div>  
+
+                <div class="form-group">
+                  <div class="form_error">{{ form_errors(form.email)}}</div>
+                  <label for="inputName" class="col-sm-2 control-label text-right">Email</label>
+                  <div class="col-sm-10">
+                    {{ form_widget(form.email) }}
+                  </div>
+                </div>
+                  
+                <div class="form-group">
+                  <div class="form_error">{{ form_errors(form.ocupacion)}}</div>
+                  <label for="inputName" class="col-sm-2 control-label text-right">ocupacion</label>
+                  <div class="col-sm-10">
+                    {{ form_widget(form.ocupacion) }}
+                  </div>
+                </div>  
+                  
+                <h4>Telefenos</h4><hr>
+                <div class="form-group">
+                  <div class="form_error">{{ form_errors(form.telefono)}}</div>
+                  <label for="inputName" class="col-sm-2 control-label text-right">Telefono</label>
+                  <div class="col-sm-10">
+                    {{ form_widget(form.telefono) }}
+                  </div>
+                </div>
+                  
+                <div class="form-group">
+                  <div class="form_error">{{ form_errors(form.celular)}}</div>
+                  <label for="inputName" class="col-sm-2 control-label text-right">celular</label>
+                  <div class="col-sm-10">
+                    {{ form_widget(form.celular) }}
+                  </div>
+                </div> 
+                  
+                <h4>Dirección</h4><hr>
+                <div class="form-group">
+                  <div class="form_error">{{ form_errors(form.direccion)}}</div>
+                  <label for="inputName" class="col-sm-2 control-label text-right">direccion</label>
+                  <div class="col-sm-10">
+                    {{ form_widget(form.direccion) }}
+                  </div>
+                </div>
+                  
+                <div class="form-group">
+                  <div class="form_error">{{ form_errors(form.codigoPostal)}}</div>
+                  <label for="inputName" class="col-sm-2 control-label text-right">Codigo postal</label>
+                  <div class="col-sm-10">
+                    {{ form_widget(form.codigoPostal) }}
+                  </div>
+                </div>  
+                
+                <h4>Datos adicionales</h4><hr> 
+                <div class="form-group">
+                  <div class="form_error">{{ form_errors(form.responsableDePaciente)}}</div>
+                  <label for="inputName" class="col-sm-2 control-label text-right">responsable</label>
+                  <div class="col-sm-10">
+                    {{ form_widget(form.responsableDePaciente) }}
+                  </div>
+                </div>
+                  
+
+                <div class="form-group">
+                  <div class="col-sm-offset-2 col-sm-10">
+                    <div class="checkbox">
+                      <label>
+                        {{ form_widget(form.activo) }} Es activo
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-sm-offset-2 col-sm-10">
+                    {# <button type="submit" class="btn btn-default">Sign in</button> #}
+                    <input type="submit" value="Crear" class="btn btn-success" />
+                  </div>
+                </div>
+          
+            </div>
+            <div class="col-lg-5 col-md-5 col-sm-12">
+                <div>
+                    <h4>Foto del paciente</h4><hr>
+                     <img src="{{ asset("bundles/admin/img/avatar.jpg") }}" data-toggle="modal" data-target="#myModalPicture" data-backdrop="static" data-keyboard="false" id="avatar-img" style="cursor:pointer">
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+    {{ form_end(form) }}
+    
+    <!-- Modal -->
+                    <div class="modal fade" id="myModalPicture" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Foto del paciente</h4>
+                          </div>
+                            <div class="modal-body">
+                                
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" role="tablist">
+                                  <li role="presentation" class="active"><a href="#upload" aria-controls="home" role="tab" data-toggle="tab">Subir Foto</a></li>
+                                  <li role="presentation"><a href="#webcam" aria-controls="profile" role="tab" data-toggle="tab">Camara web</a></li>
+                                </ul>
+
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <div role="tabpanel" class="tab-pane active" id="upload">
+                                        <div class="">
+                                            <div class="">
+                                                <div class="image-editor ">
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <label class="btn btn-default btn-file">
+                                                            Buscar Imagen  <input type="file" class="cropit-image-input ">
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                                            <div class="cropit-preview "></div>
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-6 col-sm-12 ">
+                                                              <div id="crop-img"></div>	
+                                                        </div>
+                                                    </div>
+                                                  <div class="image-size-label">
+                                                    Cambiar el tama&ntilde;o de la imagen
+                                                  </div>
+                                                  <div id="holder-range">
+                                                    <span class="glyphicon glyphicon-picture small-image"></span>
+                                                    <input type="range" class="cropit-image-zoom-input" id="input-range">
+                                                    <span class="glyphicon glyphicon-picture icon-img-lg"></span>
+                                                  </div>
+                                                    <hr>  
+                                                  <button class="rotate-ccw btn btn-default"><i class="fa fa-rotate-left"></i></button>
+                                                  <button class="rotate-cw btn btn-default"><i class="fa fa-rotate-right"></i></button>
+                                                  <button class="export btn btn-primary" id="btn-cut"><i class="fa fa-scissors" id="status-cut"></i> Recortar</button>
+                                                </div>
+                                            </div>
+                                        </div>  
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="webcam">
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                                Debes habilitar la webcam
+                                            <div id="my_camera"></div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                            <div id="results">La imagen capturada aparecerá aquí...</div>
+                                        </div>
+                                      </div>                                      
+                                      <hr>
+                                      <span id="take_snapshot" class="btn btn-info"><i class="glyphicon glyphicon-camera"></i> Tomar foto</span>
+                                    </div>
+                                </div>
+                            </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn btn-primary" id="btn-save-crop">Guardar foto</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+    
+    <hr>
+        <ul>
+            <li>
+                <a href="{{ path('sys_usuario_index') }}" class="btn btn-info">Listar Usuario</a>
+            </li>
+        </ul>
+        
+    </div>
+    
+     {% block codejs %}
+         <script>
+             
+
+         </script>    
+         
+     {% endblock %}    
+    
+{% endblock %}

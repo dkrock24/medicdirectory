@@ -1,24 +1,24 @@
-syspais_index:
+sys_pais_index:
     path:     /
     defaults: { _controller: "AppBundle:SysPais:index" }
     methods:  GET
 
-syspais_show:
+sys_pais_show:
     path:     /{id}/show
     defaults: { _controller: "AppBundle:SysPais:show" }
     methods:  GET
 
-syspais_new:
+sys_pais_new:
     path:     /new
     defaults: { _controller: "AppBundle:SysPais:new" }
     methods:  [GET, POST]
 
-syspais_edit:
+sys_pais_edit:
     path:     /{id}/edit
     defaults: { _controller: "AppBundle:SysPais:edit" }
     methods:  [GET, POST]
 
-syspais_delete:
+sys_pais_delete:
     path:     /{id}/delete
     defaults: { _controller: "AppBundle:SysPais:delete" }
     methods:  DELETE
