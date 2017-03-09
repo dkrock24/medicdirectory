@@ -1,0 +1,184 @@
+AppBundle\Entity\Paciente:
+    type: entity
+    table: paciente
+    indexes:
+        FK_usuarios_idx:
+            columns:
+                - pac_usu_id
+        FK_clientes_idx:
+            columns:
+                - pac_cli_id
+        FK_pac_ciudad_idx:
+            columns:
+                - pac_ciu_id
+        IDX_pac_dui:
+            columns:
+                - pac_dui
+        IDX_pac_telefono:
+            columns:
+                - pac_tel_celular
+        IDX_pac_nombre:
+            columns:
+                - pac_nombre
+                - pac_apellido
+    id:
+        pacId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            id: true
+            column: pac_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        pacNombre:
+            type: string
+            nullable: false
+            length: 25
+            options:
+                fixed: false
+            column: pac_nombre
+        pacSegNombre:
+            type: string
+            nullable: true
+            length: 25
+            options:
+                fixed: false
+            column: pac_seg_nombre
+        pacFechaMod:
+            type: datetime
+            nullable: true
+            column: pac_fecha_mod
+        pacApellido:
+            type: string
+            nullable: false
+            length: 25
+            options:
+                fixed: false
+            column: pac_apellido
+        pacSegApellido:
+            type: string
+            nullable: true
+            length: 25
+            options:
+                fixed: false
+            column: pac_seg_apellido
+        pacGenero:
+            type: string
+            nullable: false
+            length: 1
+            options:
+                fixed: true
+            column: pac_genero
+        pacEmail:
+            type: string
+            nullable: true
+            length: 60
+            options:
+                fixed: false
+            column: pac_email
+        pacDui:
+            type: string
+            nullable: false
+            length: 9
+            options:
+                fixed: false
+            column: pac_dui
+        pacEstadoCivil:
+            type: string
+            nullable: true
+            length: 12
+            options:
+                fixed: false
+            column: pac_estado_civil
+        pacTipSangre:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+            column: pac_tip_sangre
+        pacTelTrabajo:
+            type: string
+            nullable: true
+            length: 9
+            options:
+                fixed: false
+            column: pac_tel_trabajo
+        pacTelCelular:
+            type: string
+            nullable: true
+            length: 9
+            options:
+                fixed: false
+            column: pac_tel_celular
+        pacTelCasa:
+            type: string
+            nullable: true
+            length: 9
+            options:
+                fixed: false
+            column: pac_tel_casa
+        pacDireccion:
+            type: string
+            nullable: false
+            length: 150
+            options:
+                fixed: false
+            column: pac_direccion
+        pacFechaNacimiento:
+            type: date
+            nullable: false
+            column: pac_fecha_nacimiento
+        pacFoto:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: pac_foto
+        pacFechaCrea:
+            type: datetime
+            nullable: false
+            options:
+                default: CURRENT_TIMESTAMP
+            column: pac_fecha_crea
+        pacActivo:
+            type: boolean
+            nullable: false
+            options:
+                default: '1'
+            column: pac_activo
+    manyToOne:
+        pacCiu:
+            targetEntity: Ciudad
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                pac_ciu_id:
+                    referencedColumnName: ciu_id
+            orphanRemoval: false
+        pacCli:
+            targetEntity: Cliente
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                pac_cli_id:
+                    referencedColumnName: cli_id
+            orphanRemoval: false
+        pacUsu:
+            targetEntity: Usuario
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                pac_usu_id:
+                    referencedColumnName: usu_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }
