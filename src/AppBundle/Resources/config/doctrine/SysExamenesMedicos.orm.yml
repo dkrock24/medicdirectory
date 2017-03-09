@@ -1,0 +1,36 @@
+AppBundle\Entity\SysExamenesMedicos:
+    type: entity
+    table: sys_examenes_medicos
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombreExamen:
+            type: string
+            nullable: true
+            length: 50
+            options:
+                fixed: false
+            column: nombre_examen
+        tipoExamen:
+            type: string
+            nullable: true
+            length: 50
+            options:
+                fixed: false
+            column: tipo_examen
+        estadoExamen:
+            type: boolean
+            nullable: true
+            column: estado_examen
+        fechaCreacion:
+            type: datetime
+            nullable: true
+            column: fecha_creacion
+    lifecycleCallbacks: {  }

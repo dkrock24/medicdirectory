@@ -1,0 +1,26 @@
+AppBundle\Entity\SysInstitucionPropiedad:
+    type: entity
+    table: sys_institucion_propiedad
+    id:
+        idSysInstitucionPropiedad:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_sys_institucion_propiedad
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombreSysInstitucionPropiedad:
+            type: string
+            nullable: true
+            length: 60
+            options:
+                fixed: false
+            column: nombre_sys_institucion_propiedad
+        estatusSysInstitucionPropiedad:
+            type: boolean
+            nullable: true
+            column: estatus_sys_institucion_propiedad
+    lifecycleCallbacks: {  }

@@ -1,0 +1,57 @@
+AppBundle\Entity\SysSugerencias:
+    type: entity
+    table: sys_sugerencias
+    indexes:
+        fk_sys_sugerencias_sys_institucion1_idx:
+            columns:
+                - sys_institucion_id
+        fk_sys_sugerencias_sys_area1_idx:
+            columns:
+                - sys_area_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        comentarioSysSugerencia:
+            type: text
+            nullable: true
+            length: 65535
+            options:
+                fixed: false
+            column: comentario_sys_sugerencia
+        fechaCreacionSysSugerencia:
+            type: datetime
+            nullable: true
+            column: fecha_creacion_sys_sugerencia
+        estatusSugerencia:
+            type: boolean
+            nullable: true
+            column: estatus_sugerencia
+    manyToOne:
+        sysArea:
+            targetEntity: SysArea
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                sys_area_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        sysInstitucion:
+            targetEntity: SysInstitucion
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                sys_institucion_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

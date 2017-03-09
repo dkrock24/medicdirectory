@@ -1,0 +1,51 @@
+AppBundle\Entity\SysExamenesMedicosTipos:
+    type: entity
+    table: sys_examenes_medicos_tipos
+    indexes:
+        FK_sys_examenes_medicos_tipos_sys_usuario:
+            columns:
+                - id_medico
+        FK_sys_examenes_medicos_tipos_sys_examenes_medicos:
+            columns:
+                - id_examen_medico
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        estado:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+        fechaCreacion:
+            type: datetime
+            nullable: true
+            column: fecha_creacion
+    manyToOne:
+        idMedico:
+            targetEntity: SysUsuario
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_medico:
+                    referencedColumnName: id
+            orphanRemoval: false
+        idExamenMedico:
+            targetEntity: SysExamenesMedicos
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_examen_medico:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

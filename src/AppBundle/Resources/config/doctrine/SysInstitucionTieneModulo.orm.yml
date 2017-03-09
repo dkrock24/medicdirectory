@@ -1,0 +1,67 @@
+AppBundle\Entity\SysInstitucionTieneModulo:
+    type: entity
+    table: sys_institucion_tiene_modulo
+    indexes:
+        FK_sys_institucion_tiene_modulo_sys_modulos:
+            columns:
+                - sys_modulo_id
+        FK_sys_institucion_tiene_modulo_sys_institucion:
+            columns:
+                - sys_institucion_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        estatusSysUtm:
+            type: boolean
+            nullable: true
+            column: estatus_sys_utm
+        fechaInicioSysUtm:
+            type: date
+            nullable: false
+            column: fecha_inicio_sys_utm
+        fechaFinSysUtm:
+            type: date
+            nullable: false
+            column: fecha_fin_sys_utm
+        totalCostoEspecialSysUtm:
+            type: float
+            nullable: false
+            precision: 10
+            scale: 0
+            column: total_costo_especial_sys_utm
+        totalMesesSysUsuarioTieneModulo:
+            type: string
+            nullable: false
+            length: 45
+            options:
+                fixed: false
+            column: total_meses_sys_usuario_tiene_modulo
+    manyToOne:
+        sysModulo:
+            targetEntity: SysModulos
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                sys_modulo_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        sysInstitucion:
+            targetEntity: SysInstitucion
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                sys_institucion_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

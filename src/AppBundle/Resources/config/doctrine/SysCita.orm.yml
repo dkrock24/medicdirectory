@@ -1,0 +1,73 @@
+AppBundle\Entity\SysCita:
+    type: entity
+    table: sys_cita
+    indexes:
+        fk_sys_cita_sys_usuario1_idx:
+            columns:
+                - sys_usuario_medico
+        fk_sys_cita_sys_usuario2_idx:
+            columns:
+                - sys_usuario_paciente
+        fk_sys_cita_sys_inst_tiene_area1_idx:
+            columns:
+                - sys_inst_tiene_area_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        fechaCitaSysCita:
+            type: datetime
+            nullable: true
+            column: fecha_cita_sys_cita
+        comentario:
+            type: text
+            nullable: false
+            length: 65535
+            options:
+                fixed: false
+        estatusCita:
+            type: boolean
+            nullable: false
+            column: estatus_cita
+        fechaCita:
+            type: datetime
+            nullable: false
+            column: fecha_cita
+    manyToOne:
+        sysInstTieneArea:
+            targetEntity: SysInstTieneArea
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                sys_inst_tiene_area_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        sysUsuarioMedico:
+            targetEntity: SysUsuario
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                sys_usuario_medico:
+                    referencedColumnName: id
+            orphanRemoval: false
+        sysUsuarioPaciente:
+            targetEntity: SysUsuario
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                sys_usuario_paciente:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }
