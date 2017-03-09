@@ -1,0 +1,45 @@
+AppBundle\Entity\InvTipoMovimiento:
+    type: entity
+    table: 'inv_ tipo_movimiento'
+    id:
+        itmId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            id: true
+            column: itm_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        itmTipo:
+            type: string
+            nullable: false
+            length: 45
+            options:
+                fixed: false
+            column: itm_tipo
+        itmDescripcion:
+            type: string
+            nullable: true
+            length: 150
+            options:
+                fixed: false
+            column: itm_descripcion
+        itmFechaCrea:
+            type: datetime
+            nullable: false
+            options:
+                default: CURRENT_TIMESTAMP
+            column: itm_fecha_crea
+        itmFechaMod:
+            type: datetime
+            nullable: true
+            column: itm_fecha_mod
+        itmActivo:
+            type: boolean
+            nullable: false
+            options:
+                default: '1'
+            column: itm_activo
+    lifecycleCallbacks: {  }

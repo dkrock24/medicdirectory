@@ -1,0 +1,38 @@
+AppBundle\Entity\TipoCliente:
+    type: entity
+    table: tipo_cliente
+    id:
+        tipCliId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            id: true
+            column: tip_cli_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        tipCliTipo:
+            type: string
+            nullable: false
+            length: 45
+            options:
+                fixed: false
+            column: tip_cli_tipo
+        tipCliFechaCrea:
+            type: datetime
+            nullable: false
+            options:
+                default: CURRENT_TIMESTAMP
+            column: tip_cli_fecha_crea
+        tipCliFechaMod:
+            type: datetime
+            nullable: true
+            column: tip_cli_fecha_mod
+        tipCliActivo:
+            type: boolean
+            nullable: false
+            options:
+                default: '1'
+            column: tip_cli_activo
+    lifecycleCallbacks: {  }

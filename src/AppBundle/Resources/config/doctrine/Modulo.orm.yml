@@ -1,0 +1,65 @@
+AppBundle\Entity\Modulo:
+    type: entity
+    table: modulo
+    indexes:
+        FK_mod_especialidad_idx:
+            columns:
+                - mod_esp_id
+    id:
+        modId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            id: true
+            column: mod_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        modModulo:
+            type: string
+            nullable: false
+            length: 45
+            options:
+                fixed: false
+            column: mod_modulo
+        modOrden:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: mod_orden
+        modCosto:
+            type: decimal
+            nullable: false
+            precision: 4
+            scale: 2
+            column: mod_costo
+        modFechaCrea:
+            type: datetime
+            nullable: false
+            options:
+                default: CURRENT_TIMESTAMP
+            column: mod_fecha_crea
+        modFechaMod:
+            type: datetime
+            nullable: true
+            column: mod_fecha_mod
+        modActivo:
+            type: boolean
+            nullable: false
+            options:
+                default: '1'
+            column: mod_activo
+    manyToOne:
+        modEsp:
+            targetEntity: Especialidad
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                mod_esp_id:
+                    referencedColumnName: esp_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

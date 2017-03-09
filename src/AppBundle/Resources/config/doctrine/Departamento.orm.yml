@@ -1,0 +1,67 @@
+AppBundle\Entity\Departamento:
+    type: entity
+    table: departamento
+    indexes:
+        FK_dep_pais_idx:
+            columns:
+                - dep_pai_id
+    id:
+        depId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            id: true
+            column: dep_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        depDepartamento:
+            type: string
+            nullable: false
+            length: 45
+            options:
+                fixed: false
+            column: dep_departamento
+        depCodigo:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+            column: dep_codigo
+        depAbreviatura:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+            column: dep_abreviatura
+        depFechaCrea:
+            type: datetime
+            nullable: false
+            options:
+                default: CURRENT_TIMESTAMP
+            column: dep_fecha_crea
+        depFechaMod:
+            type: datetime
+            nullable: true
+            column: dep_fecha_mod
+        depActivo:
+            type: boolean
+            nullable: false
+            options:
+                default: '1'
+            column: dep_activo
+    manyToOne:
+        depPai:
+            targetEntity: Pais
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                dep_pai_id:
+                    referencedColumnName: pai_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

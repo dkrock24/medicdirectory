@@ -1,0 +1,130 @@
+AppBundle\Entity\Cliente:
+    type: entity
+    table: cliente
+    indexes:
+        FK_cli_tipo_cliente_idx:
+            columns:
+                - cli_tip_cli_id
+        FK_cli_especialidad_idx:
+            columns:
+                - cli_esp_id
+        FK_cli_ciudad_idx:
+            columns:
+                - cli_ciu_id
+        IDX_cli_nit:
+            columns:
+                - cli_nit
+        IDX_cli_nombre_fiscal:
+            columns:
+                - cli_nombre_fiscal
+    id:
+        cliId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            id: true
+            column: cli_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        cliNombre:
+            type: string
+            nullable: false
+            length: 25
+            options:
+                fixed: false
+            column: cli_nombre
+        cliNombreFiscal:
+            type: string
+            nullable: false
+            length: 50
+            options:
+                fixed: false
+            column: cli_nombre_fiscal
+        cliNit:
+            type: string
+            nullable: false
+            length: 20
+            options:
+                fixed: false
+            column: cli_nit
+        cliTelefono1:
+            type: string
+            nullable: false
+            length: 9
+            options:
+                fixed: false
+            column: cli_telefono1
+        cliTelefono2:
+            type: string
+            nullable: true
+            length: 9
+            options:
+                fixed: false
+            column: cli_telefono2
+        cliDireccion:
+            type: string
+            nullable: false
+            length: 150
+            options:
+                fixed: false
+            column: cli_direccion
+        cliFechaRegistro:
+            type: date
+            nullable: false
+            column: cli_fecha_registro
+        cliIdVendedor:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: cli_id_vendedor
+        cliFechaCrea:
+            type: datetime
+            nullable: false
+            options:
+                default: CURRENT_TIMESTAMP
+            column: cli_fecha_crea
+        cliFechaMod:
+            type: datetime
+            nullable: true
+            column: cli_fecha_mod
+        cliActivo:
+            type: boolean
+            nullable: true
+            options:
+                default: '1'
+            column: cli_activo
+    manyToOne:
+        cliCiu:
+            targetEntity: Ciudad
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                cli_ciu_id:
+                    referencedColumnName: ciu_id
+            orphanRemoval: false
+        cliEsp:
+            targetEntity: Especialidad
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                cli_esp_id:
+                    referencedColumnName: esp_id
+            orphanRemoval: false
+        cliTipCli:
+            targetEntity: TipoCliente
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                cli_tip_cli_id:
+                    referencedColumnName: tip_cli_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

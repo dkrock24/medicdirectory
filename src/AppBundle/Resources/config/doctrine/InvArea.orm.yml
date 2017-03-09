@@ -1,0 +1,38 @@
+AppBundle\Entity\InvArea:
+    type: entity
+    table: inv_area
+    id:
+        iarId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            id: true
+            column: iar_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        iarArea:
+            type: string
+            nullable: false
+            length: 45
+            options:
+                fixed: false
+            column: iar_area
+        iarFechaCrea:
+            type: datetime
+            nullable: false
+            options:
+                default: CURRENT_TIMESTAMP
+            column: iar_fecha_crea
+        iarFechaMod:
+            type: datetime
+            nullable: true
+            column: iar_fecha_mod
+        iarActivo:
+            type: boolean
+            nullable: false
+            options:
+                default: '1'
+            column: iar_activo
+    lifecycleCallbacks: {  }

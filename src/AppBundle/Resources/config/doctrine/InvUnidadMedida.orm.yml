@@ -1,0 +1,38 @@
+AppBundle\Entity\InvUnidadMedida:
+    type: entity
+    table: inv_unidad_medida
+    id:
+        iumId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            id: true
+            column: ium_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        iumUnidad:
+            type: string
+            nullable: false
+            length: 45
+            options:
+                fixed: false
+            column: ium_unidad
+        iumFechaCrea:
+            type: datetime
+            nullable: false
+            options:
+                default: CURRENT_TIMESTAMP
+            column: ium_fecha_crea
+        iumFechaMod:
+            type: datetime
+            nullable: true
+            column: ium_fecha_mod
+        iumActivo:
+            type: boolean
+            nullable: false
+            options:
+                default: '1'
+            column: ium_activo
+    lifecycleCallbacks: {  }

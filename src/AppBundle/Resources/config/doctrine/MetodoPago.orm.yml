@@ -1,0 +1,36 @@
+AppBundle\Entity\MetodoPago:
+    type: entity
+    table: metodo_pago
+    id:
+        mepId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            id: true
+            column: mep_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        mepMetodoPago:
+            type: string
+            nullable: false
+            length: 45
+            options:
+                fixed: false
+            column: mep_metodo_pago
+        mepFechaCrea:
+            type: datetime
+            nullable: false
+            options:
+                default: CURRENT_TIMESTAMP
+            column: mep_fecha_crea
+        mepFechaMod:
+            type: datetime
+            nullable: true
+            column: mep_fecha_mod
+        mepActivo:
+            type: boolean
+            nullable: false
+            column: mep_activo
+    lifecycleCallbacks: {  }

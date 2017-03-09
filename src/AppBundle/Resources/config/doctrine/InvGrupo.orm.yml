@@ -1,0 +1,38 @@
+AppBundle\Entity\InvGrupo:
+    type: entity
+    table: inv_grupo
+    id:
+        igrId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            id: true
+            column: igr_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        igrGrupo:
+            type: string
+            nullable: false
+            length: 45
+            options:
+                fixed: false
+            column: igr_grupo
+        igrFechaCreacion:
+            type: datetime
+            nullable: false
+            options:
+                default: CURRENT_TIMESTAMP
+            column: igr_fecha_creacion
+        igrFechaMod:
+            type: datetime
+            nullable: true
+            column: igr_fecha_mod
+        igrActivo:
+            type: boolean
+            nullable: false
+            options:
+                default: '1'
+            column: igr_activo
+    lifecycleCallbacks: {  }

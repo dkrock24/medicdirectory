@@ -1,0 +1,71 @@
+AppBundle\Entity\LogsAuditoria:
+    type: entity
+    table: logs_auditoria
+    indexes:
+        FK_log_usuario_idx:
+            columns:
+                - log_usu_accion
+    id:
+        logId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            id: true
+            column: log_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        logAccion:
+            type: string
+            nullable: true
+            length: 10
+            options:
+                fixed: false
+            column: log_accion
+        logTabla:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+            column: log_tabla
+        logCampo:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+            column: log_campo
+        logValorPrevio:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: log_valor_previo
+        logValorNuevo:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: log_valor_nuevo
+        logFechaEjecucion:
+            type: datetime
+            nullable: true
+            options:
+                default: CURRENT_TIMESTAMP
+            column: log_fecha_ejecucion
+    manyToOne:
+        logUsuAccion:
+            targetEntity: Usuario
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                log_usu_accion:
+                    referencedColumnName: usu_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

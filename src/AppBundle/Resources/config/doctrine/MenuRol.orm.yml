@@ -1,0 +1,59 @@
+AppBundle\Entity\MenuRol:
+    type: entity
+    table: menu_rol
+    indexes:
+        men_rol_menu_idx:
+            columns:
+                - men_rol_men_id
+        men_rol_men_rol_idx:
+            columns:
+                - men_rol_mrol_id
+    id:
+        menRolId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            id: true
+            column: men_rol_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        menRolFechaCrea:
+            type: datetime
+            nullable: true
+            options:
+                default: CURRENT_TIMESTAMP
+            column: men_rol_fecha_crea
+        menRolFechaMod:
+            type: datetime
+            nullable: true
+            column: men_rol_fecha_mod
+        menRolActivo:
+            type: boolean
+            nullable: false
+            options:
+                default: '1'
+            column: men_rol_activo
+    manyToOne:
+        menRolMrol:
+            targetEntity: MenRol
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                men_rol_mrol_id:
+                    referencedColumnName: mrol_id
+            orphanRemoval: false
+        menRolMen:
+            targetEntity: Menu
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                men_rol_men_id:
+                    referencedColumnName: men_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }
