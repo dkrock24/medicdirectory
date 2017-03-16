@@ -230,7 +230,7 @@ class Usuario implements \Symfony\Component\Security\Core\User\UserInterface
 
     }
 
-    public function getPassword(): string {
+    public function getPassword() {
         return $this->usuClave;
     }
 
@@ -242,7 +242,7 @@ class Usuario implements \Symfony\Component\Security\Core\User\UserInterface
         
     }
 
-    public function getUsername(): string {
+    public function getUsername() {
         return $this->usuUsuario;
     }
 }
