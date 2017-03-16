@@ -255,4 +255,3 @@ class InvMovimientoDetalle
         return $this->imdImo;
     }
 }
-

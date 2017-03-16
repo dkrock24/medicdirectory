@@ -284,4 +284,3 @@ class HistorialPago
         return $this->hpaUsuVerificado;
     }
 }
-

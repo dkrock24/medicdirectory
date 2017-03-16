@@ -139,4 +139,3 @@ class MetodoPago
         return $this->mepActivo;
     }
 }
-

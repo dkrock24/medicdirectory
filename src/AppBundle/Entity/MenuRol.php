@@ -168,4 +168,3 @@ class MenuRol
         return $this->menRolMen;
     }
 }
-

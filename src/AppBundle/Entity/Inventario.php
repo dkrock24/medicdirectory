@@ -835,4 +835,3 @@ class Inventario
         return $this->invUmeInv;
     }
 }
-

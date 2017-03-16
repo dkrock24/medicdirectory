@@ -226,4 +226,3 @@ class InvMovimiento
         return $this->imoItm;
     }
 }
-

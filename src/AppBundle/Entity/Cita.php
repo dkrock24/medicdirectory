@@ -313,4 +313,3 @@ class Cita
         return $this->citUsu;
     }
 }
-

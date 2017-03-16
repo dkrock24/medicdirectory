@@ -23,6 +23,13 @@ AppBundle\Entity\Menu:
             options:
                 fixed: false
             column: men_nombre
+        menIcono:
+            type: string
+            nullable: false
+            length: 75
+            options:
+                fixed: false
+            column: men_icono
         menEnlace:
             type: string
             nullable: false

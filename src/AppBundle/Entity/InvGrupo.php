@@ -139,4 +139,3 @@ class InvGrupo
         return $this->igrActivo;
     }
 }
-

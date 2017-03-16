@@ -26,9 +26,9 @@ AppBundle\Entity\Usuario:
         usuClave:
             type: string
             nullable: false
-            length: 255
+            length: 40
             options:
-                fixed: false
+                fixed: true
             column: usu_clave
         usuFechaRegistro:
             type: datetime
@@ -36,7 +36,7 @@ AppBundle\Entity\Usuario:
             column: usu_fecha_registro
         usuIdVendedor:
             type: integer
-            nullable: false
+            nullable: true
             options:
                 unsigned: false
             column: usu_id_vendedor

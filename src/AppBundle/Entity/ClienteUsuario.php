@@ -197,4 +197,3 @@ class ClienteUsuario
         return $this->cliUsuUsu;
     }
 }
-

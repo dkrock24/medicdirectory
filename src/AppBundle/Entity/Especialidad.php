@@ -197,4 +197,3 @@ class Especialidad
         return $this->espActivo;
     }
 }
-

@@ -139,4 +139,3 @@ class InvArea
         return $this->iarActivo;
     }
 }
-

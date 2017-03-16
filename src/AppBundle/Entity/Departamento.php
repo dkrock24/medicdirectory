@@ -226,4 +226,3 @@ class Departamento
         return $this->depPai;
     }
 }
-

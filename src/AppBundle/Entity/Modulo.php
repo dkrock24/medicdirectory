@@ -226,4 +226,3 @@ class Modulo
         return $this->modEsp;
     }
 }
-

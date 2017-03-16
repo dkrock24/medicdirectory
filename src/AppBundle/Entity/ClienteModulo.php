@@ -168,4 +168,3 @@ class ClienteModulo
         return $this->cliModMod;
     }
 }
-

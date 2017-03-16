@@ -139,4 +139,3 @@ class Rol
         return $this->rolActivo;
     }
 }
-

@@ -226,4 +226,3 @@ class LogsAuditoria
         return $this->logUsuAccion;
     }
 }
-

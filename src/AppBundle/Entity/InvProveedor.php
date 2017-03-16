@@ -371,4 +371,3 @@ class InvProveedor
         return $this->iprItpr;
     }
 }
-

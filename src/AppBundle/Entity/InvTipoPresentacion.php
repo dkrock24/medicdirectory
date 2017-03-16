@@ -168,4 +168,3 @@ class InvTipoPresentacion
         return $this->itpActivo;
     }
 }
-

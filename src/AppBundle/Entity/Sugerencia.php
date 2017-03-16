@@ -168,4 +168,3 @@ class Sugerencia
         return $this->sugMod;
     }
 }
-

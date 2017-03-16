@@ -139,4 +139,3 @@ class InvUnidadMedida
         return $this->iumActivo;
     }
 }
-

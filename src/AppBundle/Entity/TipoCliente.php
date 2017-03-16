@@ -139,4 +139,3 @@ class TipoCliente
         return $this->tipCliActivo;
     }
 }
-

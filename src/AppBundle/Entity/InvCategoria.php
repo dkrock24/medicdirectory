@@ -168,4 +168,3 @@ class InvCategoria
         return $this->icaActivo;
     }
 }
-

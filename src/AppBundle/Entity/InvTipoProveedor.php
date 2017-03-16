@@ -168,4 +168,3 @@ class InvTipoProveedor
         return $this->itprActivo;
     }
 }
-

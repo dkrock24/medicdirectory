@@ -168,4 +168,3 @@ class InvTipoMovimiento
         return $this->itmActivo;
     }
 }
-

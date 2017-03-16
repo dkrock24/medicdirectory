@@ -139,4 +139,3 @@ class MenRol
         return $this->mrolActivo;
     }
 }
-

@@ -254,5 +254,34 @@ class Menu
     {
         return $this->menPadre;
     }
-}
 
+    /**
+     * @var string
+     */
+    private $menIcono;
+
+
+    /**
+     * Set menIcono
+     *
+     * @param string $menIcono
+     *
+     * @return Menu
+     */
+    public function setMenIcono($menIcono)
+    {
+        $this->menIcono = $menIcono;
+
+        return $this;
+    }
+
+    /**
+     * Get menIcono
+     *
+     * @return string
+     */
+    public function getMenIcono()
+    {
+        return $this->menIcono;
+    }
+}

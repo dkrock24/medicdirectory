@@ -168,4 +168,3 @@ class Municipio
         return $this->munDep;
     }
 }
-

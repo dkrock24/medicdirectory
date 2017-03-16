@@ -197,4 +197,3 @@ class Pais
         return $this->paiActivo;
     }
 }
-

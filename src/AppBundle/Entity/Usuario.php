@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 /**
  * Usuario
  */
-class Usuario
+class Usuario implements \Symfony\Component\Security\Core\User\UserInterface
 {
     /**
      * @var integer
@@ -225,5 +225,24 @@ class Usuario
     {
         return $this->usuActivo;
     }
-}
 
+    public function eraseCredentials() {
+
+    }
+
+    public function getPassword(): string {
+        return $this->usuClave;
+    }
+
+    public function getRoles() {
+        return array('ROLE_USER');
+    }
+
+    public function getSalt() {
+        
+    }
+
+    public function getUsername(): string {
+        return $this->usuUsuario;
+    }
+}
