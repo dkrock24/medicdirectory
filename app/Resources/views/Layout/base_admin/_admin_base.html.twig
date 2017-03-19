@@ -1,11 +1,12 @@
 {% extends "Layout/base_admin/admin_estructura.html.twig" %}
 
-{% block title %}EMR{% endblock %}
+{% block title_page %}EMR{% endblock %}
  
 {% block stylesheets %}
     
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
 	<link href="{{ asset('bundles/admin/template_admin/assets/css/icons/icomoon/styles.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('bundles/admin/template_admin/assets/css/icons/fontawesome/styles.min.css') }}" rel="stylesheet" type="text/css">
 	<link href="{{ asset('bundles/admin/template_admin/assets/css/bootstrap.css') }} " rel="stylesheet" type="text/css">
 	<link href="{{ asset('bundles/admin/template_admin/assets/css/core.css') }}" rel="stylesheet" type="text/css">
 	<link href="{{ asset('bundles/admin/template_admin/assets/css/components.css') }}" rel="stylesheet" type="text/css">
@@ -31,6 +32,15 @@
     <script type="text/javascript" src="{{ asset('bundles/admin/template_admin/assets/js/plugins/forms/styling/uniform.min.js') }}"></script>
 	{#<script type="text/javascript" src="{{ asset('bundles/admin/template_admin/assets/js/plugins/forms/styling/switchery.min.js') }}"></script>#}
 	
+   
+    <script type="text/javascript" src="{{ asset('bundles/admin/template_admin/assets/js/plugins/tables/datatables/datatables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/admin/template_admin/assets/js/plugins/tables/datatables/extensions/col_reorder.min.js') }}"></script>
+    
+
+    <script type="text/javascript" src="{{ asset('bundles/admin/template_admin/assets/js/plugins/forms/selects/select2.min.js') }}"></script>
+    
+    <script type="text/javascript" src="{{ asset('bundles/admin/template_admin/assets/js/pages/datatables_extension_reorder.js') }}"></script>
+    
 	<script type="text/javascript" src="{{ asset('bundles/admin/template_admin/assets/js/plugins/forms/selects/bootstrap_multiselect.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('bundles/admin/template_admin/assets/js/plugins/ui/moment/moment.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('bundles/admin/template_admin/assets/js/plugins/pickers/daterangepicker.js') }}"></script>
@@ -79,7 +89,11 @@
             </div>
             
         </div>
-    </div>    
-
+    </div>          
+        
+                  
 {% endblock %}
+
+{% block codejs %}{% endblock %}  
+
 

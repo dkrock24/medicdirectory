@@ -36,3 +36,4 @@ AppBundle\Entity\Parametros:
             options:
                 default: CURRENT_TIMESTAMP
             column: par_fecha_mod
+    lifecycleCallbacks: {  }

@@ -1,0 +1,77 @@
+{% extends "Layout/base_admin/_admin_base.html.twig" %}
+
+{% block title_page %}
+        EMR || Listado de países
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('AdminBundle:pais:_breadcrumb.html.twig' )  }}
+{% endblock %} 
+
+{% block submenutop %}
+    {{ include('AdminBundle:pais:_submenu.html.twig' )  }}
+{% endblock %}
+
+{% block body %}
+    <h1>Pais list</h1>
+    
+    <!-- Check the notifications -->
+    {% for message in app.session.flashbag().get("success") %}
+        <div class="alert alert-success"><i class="fa fa-check-circle"></i> {{message}}</div>
+    {% endfor %}
+    {% for message in app.session.flashbag().get("error") %}
+        <div class="alert alert-danger"><i class="fa fa-close"></i> {{message}}</div>
+    {% endfor %}
+    <!-- End notifications -->
+    
+    {% if pais|length > 0%}
+    
+    <table class="table table-striped datatable-reorder">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Pais</th>
+                <th>Código</th>
+                <th>Abreviatura</th>
+                <th>Fecha creaación</th>
+                <th>Fecha modificado</th>
+                <th>Activo</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for pai in pais %}
+            <tr>
+                <td><a href="{{ path('pais_show', { 'id': pai.paiId }) }}">{{ pai.paiId }}</a></td>
+                <td>{{ pai.paiPais }}</td>
+                <td>{{ pai.paiCodigo }}</td>
+                <td>{{ pai.paiAbreviatura }}</td>
+                <td>{% if pai.paiFechaCrea %}{{ pai.paiFechaCrea|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if pai.paiFechaMod %}{{ pai.paiFechaMod|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if pai.paiActivo %}<span class="label label-success">Si</span>{% else %}<span class="label label-danger">No</span>{% endif %}</td>
+                <td>
+                    <ul class="list-inline">
+                        <li>
+                            <a href="{{ path('pais_show', { 'id': pai.paiId }) }}" class="btn btn-default"><i class="fa fa-folder-open"></i> Ver</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('pais_edit', { 'id': pai.paiId }) }}" class="btn bg-teal-400"><i class="fa fa-edit"></i> Editar</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('pais_delete_from_list', { 'id': pai.paiId }) }}" class="btn btn-danger"><i class="fa fa-remove"></i> Eliminar</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <div class="alert alert-info" role=""><i class="fa fa-info-circle"></i> No hay regístros creados</div>
+    {% endif %}    
+    <ul class="list-inline">
+        <li>
+            <a href="{{ path('pais_new') }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Nuevo</a>
+        </li>
+    </ul>
+{% endblock %}

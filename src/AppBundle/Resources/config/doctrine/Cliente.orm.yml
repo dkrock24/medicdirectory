@@ -97,16 +97,6 @@ AppBundle\Entity\Cliente:
                 default: '1'
             column: cli_activo
     manyToOne:
-        cliCiu:
-            targetEntity: Ciudad
-            cascade: {  }
-            fetch: LAZY
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                cli_ciu_id:
-                    referencedColumnName: ciu_id
-            orphanRemoval: false
         cliEsp:
             targetEntity: Especialidad
             cascade: {  }
@@ -126,5 +116,15 @@ AppBundle\Entity\Cliente:
             joinColumns:
                 cli_tip_cli_id:
                     referencedColumnName: tip_cli_id
+            orphanRemoval: false
+        cliCiu:
+            targetEntity: Ciudad
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                cli_ciu_id:
+                    referencedColumnName: ciu_id
             orphanRemoval: false
     lifecycleCallbacks: {  }

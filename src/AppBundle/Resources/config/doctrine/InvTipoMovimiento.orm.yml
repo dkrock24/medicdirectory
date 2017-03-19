@@ -1,6 +1,6 @@
 AppBundle\Entity\InvTipoMovimiento:
     type: entity
-    table: 'inv_tipo_movimiento'
+    table: inv_tipo_movimiento
     id:
         itmId:
             type: integer

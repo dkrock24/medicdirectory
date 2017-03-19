@@ -61,16 +61,6 @@ AppBundle\Entity\Cita:
                 default: '1'
             column: cit_activo
     manyToOne:
-        citCli:
-            targetEntity: Cliente
-            cascade: {  }
-            fetch: LAZY
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                cit_cli_id:
-                    referencedColumnName: cli_id
-            orphanRemoval: false
         citPac:
             targetEntity: Paciente
             cascade: {  }
@@ -80,6 +70,16 @@ AppBundle\Entity\Cita:
             joinColumns:
                 cit_pac_id:
                     referencedColumnName: pac_id
+            orphanRemoval: false
+        citCli:
+            targetEntity: Cliente
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                cit_cli_id:
+                    referencedColumnName: cli_id
             orphanRemoval: false
         citUsu:
             targetEntity: Usuario

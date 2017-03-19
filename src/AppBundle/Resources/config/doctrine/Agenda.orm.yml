@@ -58,15 +58,15 @@ AppBundle\Entity\Agenda:
                 default: '1'
             column: age_activo
     manyToOne:
-        ageCit:
-            targetEntity: Cita
+        ageUsu:
+            targetEntity: Usuario
             cascade: {  }
             fetch: LAZY
             mappedBy: null
             inversedBy: null
             joinColumns:
-                age_cit_id:
-                    referencedColumnName: cit_id
+                age_usu_id:
+                    referencedColumnName: usu_id
             orphanRemoval: false
         ageCli:
             targetEntity: Cliente
@@ -88,14 +88,14 @@ AppBundle\Entity\Agenda:
                 age_pac_id:
                     referencedColumnName: pac_id
             orphanRemoval: false
-        ageUsu:
-            targetEntity: Usuario
+        ageCit:
+            targetEntity: Cita
             cascade: {  }
             fetch: LAZY
             mappedBy: null
             inversedBy: null
             joinColumns:
-                age_usu_id:
-                    referencedColumnName: usu_id
+                age_cit_id:
+                    referencedColumnName: cit_id
             orphanRemoval: false
     lifecycleCallbacks: {  }

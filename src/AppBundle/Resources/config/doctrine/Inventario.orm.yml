@@ -173,16 +173,6 @@ AppBundle\Entity\Inventario:
                 default: '1'
             column: inv_activo
     manyToOne:
-        invAreaInv:
-            targetEntity: InvArea
-            cascade: {  }
-            fetch: LAZY
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                inv_area_inv:
-                    referencedColumnName: iar_id
-            orphanRemoval: false
         invCatInv:
             targetEntity: InvCategoria
             cascade: {  }
@@ -193,35 +183,25 @@ AppBundle\Entity\Inventario:
                 inv_cat_inv_id:
                     referencedColumnName: ica_id
             orphanRemoval: false
-        invCli:
-            targetEntity: Cliente
+        invUmeInv:
+            targetEntity: InvUnidadMedida
             cascade: {  }
             fetch: LAZY
             mappedBy: null
             inversedBy: null
             joinColumns:
-                inv_cli_id:
-                    referencedColumnName: cli_id
+                inv_ume_inv_id:
+                    referencedColumnName: ium_id
             orphanRemoval: false
-        invGrpInv:
-            targetEntity: InvGrupo
+        invAreaInv:
+            targetEntity: InvArea
             cascade: {  }
             fetch: LAZY
             mappedBy: null
             inversedBy: null
             joinColumns:
-                inv_grp_inv:
-                    referencedColumnName: igr_id
-            orphanRemoval: false
-        invProInv:
-            targetEntity: InvProveedor
-            cascade: {  }
-            fetch: LAZY
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                inv_pro_inv_id:
-                    referencedColumnName: ipr_id
+                inv_area_inv:
+                    referencedColumnName: iar_id
             orphanRemoval: false
         invTipPre:
             targetEntity: InvTipoPresentacion
@@ -233,14 +213,34 @@ AppBundle\Entity\Inventario:
                 inv_tip_pre:
                     referencedColumnName: itp_id
             orphanRemoval: false
-        invUmeInv:
-            targetEntity: InvUnidadMedida
+        invProInv:
+            targetEntity: InvProveedor
             cascade: {  }
             fetch: LAZY
             mappedBy: null
             inversedBy: null
             joinColumns:
-                inv_ume_inv_id:
-                    referencedColumnName: ium_id
+                inv_pro_inv_id:
+                    referencedColumnName: ipr_id
+            orphanRemoval: false
+        invGrpInv:
+            targetEntity: InvGrupo
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                inv_grp_inv:
+                    referencedColumnName: igr_id
+            orphanRemoval: false
+        invCli:
+            targetEntity: Cliente
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                inv_cli_id:
+                    referencedColumnName: cli_id
             orphanRemoval: false
     lifecycleCallbacks: {  }
