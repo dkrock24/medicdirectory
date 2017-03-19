@@ -1,0 +1,246 @@
+AppBundle\Entity\Inventario:
+    type: entity
+    table: inventario
+    indexes:
+        FK_inv_cliente_idx:
+            columns:
+                - inv_cli_id
+        FK_inv_proveedor_idx:
+            columns:
+                - inv_pro_inv_id
+        FK_inv_categoria_inv_idx:
+            columns:
+                - inv_cat_inv_id
+        FK_inv_tip_pre_inv_idx:
+            columns:
+                - inv_tip_pre
+        FK_inv_ume_inv_idx:
+            columns:
+                - inv_ume_inv_id
+        FK_inv_are_inv_idx:
+            columns:
+                - inv_area_inv
+        FK_inv_grp_inv_idx:
+            columns:
+                - inv_grp_inv
+        IDX_inv_nombre_comercial:
+            columns:
+                - inv_nombre_comercial
+        IDX_inv_cod_prod:
+            columns:
+                - inv_codigo_producto
+    id:
+        invId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            id: true
+            column: inv_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        invNombreComercial:
+            type: string
+            nullable: false
+            length: 50
+            options:
+                fixed: false
+            column: inv_nombre_comercial
+        invNombreComponente:
+            type: string
+            nullable: true
+            length: 50
+            options:
+                fixed: false
+            column: inv_nombre_componente
+        invContenido:
+            type: string
+            nullable: true
+            length: 50
+            options:
+                fixed: false
+            column: inv_contenido
+        invLote:
+            type: string
+            nullable: true
+            length: 50
+            options:
+                fixed: false
+            column: inv_lote
+        invMgs:
+            type: string
+            nullable: true
+            length: 50
+            options:
+                fixed: false
+            column: inv_mgs
+        invCodigoProducto:
+            type: string
+            nullable: true
+            length: 50
+            options:
+                fixed: false
+            column: inv_codigo_producto
+        invFechaVencimiento:
+            type: date
+            nullable: false
+            column: inv_fecha_vencimiento
+        invImagenProducto:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: inv_imagen_producto
+        invDescripcionProducto:
+            type: string
+            nullable: false
+            length: 150
+            options:
+                fixed: false
+            column: inv_descripcion_producto
+        invNotasProducto:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: inv_notas_producto
+        invEtiquetaAlmacenaje:
+            type: string
+            nullable: true
+            length: 50
+            options:
+                fixed: false
+            column: inv_etiqueta_almacenaje
+        invPrecioUnitario:
+            type: decimal
+            nullable: false
+            precision: 4
+            scale: 2
+            column: inv_precio_unitario
+        invTotalUnidades:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: inv_total_unidades
+        invPrecioVenta:
+            type: decimal
+            nullable: true
+            precision: 4
+            scale: 2
+            column: inv_precio_venta
+        invPrecioMedioMayoreo:
+            type: decimal
+            nullable: true
+            precision: 4
+            scale: 2
+            column: inv_precio_medio_mayoreo
+        invPrecioVentaMayoreo:
+            type: decimal
+            nullable: true
+            precision: 4
+            scale: 2
+            column: inv_precio_venta_mayoreo
+        invPrecioEspecial:
+            type: decimal
+            nullable: true
+            precision: 4
+            scale: 2
+            column: inv_precio_especial
+        invPrecioDescuento:
+            type: decimal
+            nullable: true
+            precision: 4
+            scale: 2
+            column: inv_precio_descuento
+        invFechaCrea:
+            type: datetime
+            nullable: false
+            options:
+                default: CURRENT_TIMESTAMP
+            column: inv_fecha_crea
+        invFechaMod:
+            type: datetime
+            nullable: true
+            column: inv_fecha_mod
+        invActivo:
+            type: boolean
+            nullable: false
+            options:
+                default: '1'
+            column: inv_activo
+    manyToOne:
+        invAreaInv:
+            targetEntity: InvArea
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                inv_area_inv:
+                    referencedColumnName: iar_id
+            orphanRemoval: false
+        invCatInv:
+            targetEntity: InvCategoria
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                inv_cat_inv_id:
+                    referencedColumnName: ica_id
+            orphanRemoval: false
+        invCli:
+            targetEntity: Cliente
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                inv_cli_id:
+                    referencedColumnName: cli_id
+            orphanRemoval: false
+        invGrpInv:
+            targetEntity: InvGrupo
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                inv_grp_inv:
+                    referencedColumnName: igr_id
+            orphanRemoval: false
+        invProInv:
+            targetEntity: InvProveedor
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                inv_pro_inv_id:
+                    referencedColumnName: ipr_id
+            orphanRemoval: false
+        invTipPre:
+            targetEntity: InvTipoPresentacion
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                inv_tip_pre:
+                    referencedColumnName: itp_id
+            orphanRemoval: false
+        invUmeInv:
+            targetEntity: InvUnidadMedida
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                inv_ume_inv_id:
+                    referencedColumnName: ium_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

@@ -1,0 +1,75 @@
+AppBundle\Entity\Menu:
+    type: entity
+    table: menu
+    indexes:
+        FK_men_menu_idx:
+            columns:
+                - men_padre_id
+    id:
+        menId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            id: true
+            column: men_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        menNombre:
+            type: string
+            nullable: false
+            length: 50
+            options:
+                fixed: false
+            column: men_nombre
+        menIcono:
+            type: string
+            nullable: false
+            length: 75
+            options:
+                fixed: false
+            column: men_icono
+        menEnlace:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+            column: men_enlace
+        menOrden:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: men_orden
+        menBackend:
+            type: boolean
+            nullable: true
+            column: men_backend
+        menFechaCrea:
+            type: datetime
+            nullable: false
+            options:
+                default: CURRENT_TIMESTAMP
+            column: men_fecha_crea
+        menFechaMod:
+            type: datetime
+            nullable: true
+            column: men_fecha_mod
+        menActivo:
+            type: boolean
+            nullable: false
+            column: men_activo
+    manyToOne:
+        menPadre:
+            targetEntity: Menu
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                men_padre_id:
+                    referencedColumnName: men_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

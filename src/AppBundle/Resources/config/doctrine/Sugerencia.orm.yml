@@ -1,0 +1,52 @@
+AppBundle\Entity\Sugerencia:
+    type: entity
+    table: sugerencia
+    indexes:
+        FK_sug_modulo_idx:
+            columns:
+                - sug_mod_id
+    id:
+        sugId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            id: true
+            column: sug_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        sugerencia:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        sugFechaCrea:
+            type: datetime
+            nullable: false
+            options:
+                default: CURRENT_TIMESTAMP
+            column: sug_fecha_crea
+        sugFechaMod:
+            type: datetime
+            nullable: true
+            column: sug_fecha_mod
+        sugActivo:
+            type: boolean
+            nullable: false
+            options:
+                default: '1'
+            column: sug_activo
+    manyToOne:
+        sugMod:
+            targetEntity: Modulo
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                sug_mod_id:
+                    referencedColumnName: mod_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

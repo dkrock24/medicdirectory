@@ -1,0 +1,72 @@
+AppBundle\Entity\InvMovimiento:
+    type: entity
+    table: inv_movimiento
+    indexes:
+        FK_moi_inventario_idx:
+            columns:
+                - imo_inv_id
+        FK_moi_tip_mov_inventario_idx:
+            columns:
+                - imo_itm_id
+    id:
+        imoId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            id: true
+            column: imo_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        imoValor:
+            type: decimal
+            nullable: false
+            precision: 4
+            scale: 2
+            column: imo_valor
+        imoDescripcion:
+            type: string
+            nullable: true
+            length: 150
+            options:
+                fixed: false
+            column: imo_descripcion
+        imoFechaCrea:
+            type: datetime
+            nullable: false
+            options:
+                default: CURRENT_TIMESTAMP
+            column: imo_fecha_crea
+        imoFechaMod:
+            type: datetime
+            nullable: true
+            column: imo_fecha_mod
+        imoActivo:
+            type: boolean
+            nullable: false
+            options:
+                default: '1'
+            column: imo_activo
+    manyToOne:
+        imoInv:
+            targetEntity: Inventario
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                imo_inv_id:
+                    referencedColumnName: inv_id
+            orphanRemoval: false
+        imoItm:
+            targetEntity: InvTipoMovimiento
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                imo_itm_id:
+                    referencedColumnName: itm_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

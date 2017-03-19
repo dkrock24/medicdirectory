@@ -1,0 +1,59 @@
+AppBundle\Entity\ClienteModulo:
+    type: entity
+    table: cliente_modulo
+    indexes:
+        FK_cli_mod_clientes_idx:
+            columns:
+                - cli_mod_cli_id
+        FK_cli_mod_modulos_idx:
+            columns:
+                - cli_mod_mod_id
+    id:
+        cliMod:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            id: true
+            column: cli_mod
+            generator:
+                strategy: IDENTITY
+    fields:
+        cliModFechaCrea:
+            type: datetime
+            nullable: false
+            options:
+                default: CURRENT_TIMESTAMP
+            column: cli_mod_fecha_crea
+        cliModFechaMod:
+            type: datetime
+            nullable: true
+            column: cli_mod_fecha_mod
+        cliModActivo:
+            type: boolean
+            nullable: false
+            options:
+                default: '1'
+            column: cli_mod_activo
+    manyToOne:
+        cliModCli:
+            targetEntity: Cliente
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                cli_mod_cli_id:
+                    referencedColumnName: cli_id
+            orphanRemoval: false
+        cliModMod:
+            targetEntity: Modulo
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                cli_mod_mod_id:
+                    referencedColumnName: mod_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

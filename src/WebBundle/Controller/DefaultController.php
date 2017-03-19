@@ -8,7 +8,12 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('WebBundle:Sections:index.html.twig');
+        /* @var $sParametros AppBundle\Services\servicioParametros */
+        $sParametros = $this->get('parametros');
+
+        $NombreProyecto = $sParametros->getParametro("nombreProyecto");
+
+        return $this->render('WebBundle:Sections:index.html.twig', array('NombreProyecto' => $NombreProyecto));
     }
     
     public function indexDoctoresAction()

@@ -1,0 +1,45 @@
+AppBundle\Entity\InvTipoPresentacion:
+    type: entity
+    table: inv_tipo_presentacion
+    id:
+        itpId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            id: true
+            column: itp_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        itpTipo:
+            type: string
+            nullable: false
+            length: 45
+            options:
+                fixed: false
+            column: itp_tipo
+        itpDescripcion:
+            type: string
+            nullable: true
+            length: 150
+            options:
+                fixed: false
+            column: itp_descripcion
+        itpFechaCrea:
+            type: datetime
+            nullable: false
+            options:
+                default: CURRENT_TIMESTAMP
+            column: itp_fecha_crea
+        itpFechaMod:
+            type: datetime
+            nullable: true
+            column: itp_fecha_mod
+        itpActivo:
+            type: boolean
+            nullable: false
+            options:
+                default: '1'
+            column: itp_activo
+    lifecycleCallbacks: {  }

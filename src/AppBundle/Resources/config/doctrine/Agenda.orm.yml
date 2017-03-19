@@ -1,0 +1,101 @@
+AppBundle\Entity\Agenda:
+    type: entity
+    table: agenda
+    indexes:
+        FK_age_cliente_idx:
+            columns:
+                - age_cli_id
+        FK_age_usuario_idx:
+            columns:
+                - age_usu_id
+        FK_age_paciente_idx:
+            columns:
+                - age_pac_id
+        FK_age_cita_idx:
+            columns:
+                - age_cit_id
+    id:
+        ageId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            id: true
+            column: age_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        ageFechaInicio:
+            type: date
+            nullable: true
+            column: age_fecha_inicio
+        ageFechaFin:
+            type: date
+            nullable: true
+            column: age_fecha_fin
+        ageHoraInicio:
+            type: time
+            nullable: true
+            column: age_hora_inicio
+        ageHoraFin:
+            type: time
+            nullable: true
+            column: age_hora_fin
+        ageFechaCrea:
+            type: datetime
+            nullable: true
+            options:
+                default: CURRENT_TIMESTAMP
+            column: age_fecha_crea
+        ageFechaMod:
+            type: datetime
+            nullable: true
+            column: age_fecha_mod
+        ageActivo:
+            type: boolean
+            nullable: true
+            options:
+                default: '1'
+            column: age_activo
+    manyToOne:
+        ageCit:
+            targetEntity: Cita
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                age_cit_id:
+                    referencedColumnName: cit_id
+            orphanRemoval: false
+        ageCli:
+            targetEntity: Cliente
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                age_cli_id:
+                    referencedColumnName: cli_id
+            orphanRemoval: false
+        agePac:
+            targetEntity: Paciente
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                age_pac_id:
+                    referencedColumnName: pac_id
+            orphanRemoval: false
+        ageUsu:
+            targetEntity: Usuario
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                age_usu_id:
+                    referencedColumnName: usu_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

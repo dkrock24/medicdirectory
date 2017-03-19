@@ -1,3 +1,12 @@
+# no tocar ni ponerle host
+login:
+    path:     /login
+    defaults: { _controller: AppBundle:Security:login }
+logout:
+   path: /logout
+
+##########################
+
 app:
     resource: "@AppBundle/Resources/config/routing.yml"
     prefix:   /

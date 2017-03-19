@@ -1,0 +1,105 @@
+AppBundle\Entity\InvProveedor:
+    type: entity
+    table: inv_proveedor
+    indexes:
+        FK_pro_inv_tipo_proveedor_idx:
+            columns:
+                - ipr_itpr_id
+        IDX_ipr_nombre:
+            columns:
+                - ipr_nombre
+    id:
+        iprId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            id: true
+            column: ipr_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        iprNombre:
+            type: string
+            nullable: true
+            length: 50
+            options:
+                fixed: false
+            column: ipr_nombre
+        iprNombreLegal:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+            column: ipr_nombre_legal
+        iprNombreAbreviado:
+            type: string
+            nullable: true
+            length: 25
+            options:
+                fixed: false
+            column: ipr_nombre_abreviado
+        iprTelefono1:
+            type: string
+            nullable: true
+            length: 9
+            options:
+                fixed: false
+            column: ipr_telefono1
+        iprTelefono2:
+            type: string
+            nullable: true
+            length: 9
+            options:
+                fixed: false
+            column: ipr_telefono2
+        iprEmail:
+            type: string
+            nullable: true
+            length: 60
+            options:
+                fixed: false
+            column: ipr_email
+        iprDireccion:
+            type: string
+            nullable: true
+            length: 150
+            options:
+                fixed: false
+            column: ipr_direccion
+        iprDescripcion:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: ipr_descripcion
+        iprFechaCrea:
+            type: datetime
+            nullable: true
+            options:
+                default: CURRENT_TIMESTAMP
+            column: ipr_fecha_crea
+        iprFechaMod:
+            type: datetime
+            nullable: true
+            column: ipr_fecha_mod
+        iprActivo:
+            type: boolean
+            nullable: true
+            options:
+                default: '1'
+            column: ipr_activo
+    manyToOne:
+        iprItpr:
+            targetEntity: InvTipoProveedor
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                ipr_itpr_id:
+                    referencedColumnName: itpr_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

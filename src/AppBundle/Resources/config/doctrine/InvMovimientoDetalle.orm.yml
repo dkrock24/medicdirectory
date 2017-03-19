@@ -1,0 +1,68 @@
+AppBundle\Entity\InvMovimientoDetalle:
+    type: entity
+    table: inv_movimiento_detalle
+    indexes:
+        FK_mid_mov_inventario_idx:
+            columns:
+                - imd_imo_id
+    id:
+        imdId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            id: true
+            column: imd_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        imdUsuId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            column: imd_usu_id
+        imdCantidad:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: imd_cantidad
+        imdPrecioEmitidio:
+            type: decimal
+            nullable: false
+            precision: 4
+            scale: 2
+            column: imd_precio_emitidio
+        imdFechaIngreso:
+            type: date
+            nullable: false
+            column: imd_fecha_ingreso
+        imdFechaCrea:
+            type: datetime
+            nullable: false
+            options:
+                default: CURRENT_TIMESTAMP
+            column: imd_fecha_crea
+        imdFechaMod:
+            type: datetime
+            nullable: true
+            column: imd_fecha_mod
+        imdActivo:
+            type: boolean
+            nullable: false
+            options:
+                default: '1'
+            column: imd_activo
+    manyToOne:
+        imdImo:
+            targetEntity: InvMovimiento
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                imd_imo_id:
+                    referencedColumnName: imo_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

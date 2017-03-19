@@ -1,0 +1,59 @@
+AppBundle\Entity\Usuario:
+    type: entity
+    table: usuario
+    indexes:
+        IDX_usuario:
+            columns:
+                - usu_usuario
+    id:
+        usuId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            id: true
+            column: usu_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        usuUsuario:
+            type: string
+            nullable: false
+            length: 30
+            options:
+                fixed: false
+            column: usu_usuario
+        usuClave:
+            type: string
+            nullable: false
+            length: 40
+            options:
+                fixed: true
+            column: usu_clave
+        usuFechaRegistro:
+            type: datetime
+            nullable: false
+            column: usu_fecha_registro
+        usuIdVendedor:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: usu_id_vendedor
+        usuFechaCrea:
+            type: datetime
+            nullable: false
+            options:
+                default: CURRENT_TIMESTAMP
+            column: usu_fecha_crea
+        usuFechaMod:
+            type: datetime
+            nullable: true
+            column: usu_fecha_mod
+        usuActivo:
+            type: boolean
+            nullable: false
+            options:
+                default: '1'
+            column: usu_activo
+    lifecycleCallbacks: {  }

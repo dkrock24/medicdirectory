@@ -1,0 +1,52 @@
+AppBundle\Entity\Pais:
+    type: entity
+    table: pais
+    id:
+        paiId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            id: true
+            column: pai_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        paiPais:
+            type: string
+            nullable: false
+            length: 45
+            options:
+                fixed: false
+            column: pai_pais
+        paiCodigo:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+            column: pai_codigo
+        paiAbreviatura:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+            column: pai_abreviatura
+        paiFechaCrea:
+            type: datetime
+            nullable: false
+            options:
+                default: CURRENT_TIMESTAMP
+            column: pai_fecha_crea
+        paiFechaMod:
+            type: datetime
+            nullable: true
+            column: pai_fecha_mod
+        paiActivo:
+            type: boolean
+            nullable: false
+            options:
+                default: '1'
+            column: pai_activo
+    lifecycleCallbacks: {  }

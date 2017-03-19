@@ -1,0 +1,58 @@
+AppBundle\Entity\Municipio:
+    type: entity
+    table: municipio
+    indexes:
+        FK_mun_departamento_idx:
+            columns:
+                - mun_dep_id
+    id:
+        munId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            id: true
+            column: mun_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        munNombre:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+            column: mun_nombre
+        munFechaCrea:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+            column: mun_fecha_crea
+        munFechaMod:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+            column: mun_fecha_mod
+        munActivo:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+            column: mun_activo
+    manyToOne:
+        munDep:
+            targetEntity: Departamento
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                mun_dep_id:
+                    referencedColumnName: dep_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }
