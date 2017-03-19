@@ -11,7 +11,10 @@
 	<link href="{{ asset('bundles/admin/template_admin/assets/css/core.css') }}" rel="stylesheet" type="text/css">
 	<link href="{{ asset('bundles/admin/template_admin/assets/css/components.css') }}" rel="stylesheet" type="text/css">
 	<link href="{{ asset('bundles/admin/template_admin/assets/css/colors.css') }}" rel="stylesheet" type="text/css">
-	<link href="{{ asset('bundles/admin/template_admin/assets/css/custom-emr.css') }}" rel="stylesheet" type="text/css">
+    
+    <link href="{{ asset('bundles/admin/add-on/jquery-confirm-v3.0.3/css/jquery-confirm.css') }}" rel="stylesheet" type="text/css">
+    
+	<link href="{{ asset('bundles/admin/css/custom-emr.css') }}" rel="stylesheet" type="text/css">
    
 {% endblock %}
 
@@ -23,6 +26,9 @@
 	<script type="text/javascript" src="{{ asset('bundles/admin/template_admin/assets/js/core/libraries/bootstrap.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('bundles/admin/template_admin/assets/js/plugins/loaders/blockui.min.js') }}"></script>
 	<!-- /core JS files -->
+    
+    <!-- Alert -->
+    <script type="text/javascript" src="{{ asset('bundles/admin/add-on/jquery-confirm-v3.0.3/js/jquery-confirm.js') }}"></script>
     
     <!-- Theme JS files -->
     
@@ -90,10 +96,10 @@
             
         </div>
     </div>          
-        
+    {% block codejs %}{% endblock %}     
                   
 {% endblock %}
 
-{% block codejs %}{% endblock %}  
+ 
 
 

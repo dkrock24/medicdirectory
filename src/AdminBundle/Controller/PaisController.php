@@ -152,31 +152,28 @@ class PaisController extends Controller
         return $this->redirectToRoute('pais_index');
     }
 	
-	public function deleteCustomAction( Request $request, $id )
+	public function deleteCustomAction( Request $request )
 	{
-		//$iId = $request->request->get('id');
+		$iId = $request->request->get('id');
 		//$iId = $request->query->get('id');
-		if( isset($id) && $id > 0 )
+		
+		if( isset($iId) && $iId > 0 )
 		{
 			$em = $this->getDoctrine()->getManager();
 			$repo = $em->getRepository("AppBundle:Pais");	
-			$item = $repo->find($id);
+			$item = $repo->find($iId);
 			$em->remove($item);
 			$flush = $em->flush();
 			
 			if ($flush == null)
 			{
-				$msgBox = "El registro fue eliminado con éxito";
-				$status = "success";
+				echo 1;
 			} else {
-				$msgBox = "No se ha podido eliminar el registro ";
-				$status = "error";
+				echo 0;
 			}
-			
-			$this->session->getFlashBag()->add($status,$msgBox);
-			
-			return $this->redirectToRoute('pais_index');
 		}
+		
+		exit();
 	}
 
     /**
