@@ -194,6 +194,6 @@ class Pais
      */
     public function getPaiActivo()
     {
-        return $this->paiActivo;
+        return (boolean)$this->paiActivo;
     }
 }

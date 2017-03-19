@@ -1,0 +1,125 @@
+{% extends "Layout/base_admin/_admin_base.html.twig" %}
+
+{% block title_page %}
+        EMR || Asignación de un orden al menú
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('menu/_breadcrumb.html.twig' )  }}
+{% endblock %} 
+
+{% block submenutop %}
+    {{ include('menu/_submenu.html.twig' )  }}
+{% endblock %}
+
+{% block body %}
+        <h3>Árbol de menú</h3>
+        <p class="alert alert-info">Para ordernar el menu puede arrastrar y soltal cada item en el orden que desea.</p>
+        {% for message in app.session.flashbag().get("updated") %}
+            <div class="alert alert-success">{{message}}</div>
+        {% endfor %}
+        
+        <div class="row">
+            <div class="col-lg-6" id="">
+                {{ dinamicMenu | raw }}
+                <hr>
+                
+                <ul class="list-inline">
+                    <li>
+                        <button class="btn btn-success" id="serialize"><i class="fa fa-save"></i> Guardar</button>
+                    </li>
+                    <li>
+                        <a href="{{ path('menu_index') }}" class="btn btn-default"><i class="fa fa-list"></i> Lista general</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    <style>
+
+        body.dragging, body.dragging * {
+            cursor: move !important;
+        }
+
+        .dragged {
+            position: absolute;
+            opacity: 0.5;
+            z-index: 2000;
+        }
+
+        .sortable li.placeholder {
+            position: relative;
+
+        }
+        .sortable li.placeholder:before {
+            position: absolute;
+
+        }
+        .sortable li, .x{
+            background: #EEEEEE;
+            padding: 6px;
+            margin-bottom: 4px !important;
+            border: 1px solid #fff;
+            cursor: move;
+
+        }
+
+    </style>
+    <script>
+        $(document).on("ready", function () {
+
+            $('ol.sortable').nestedSortable({
+                forcePlaceholderSize: true,
+                handle: 'div',
+                helper: 'clone',
+                items: 'li',
+                opacity: .6,
+                placeholder: 'placeholder',
+                revert: 250,
+                tabSize: 25,
+                tolerance: 'pointer',
+                toleranceElement: '> div',
+                maxLevels: 6,
+                isTree: true,
+                expandOnHover: 700,
+                startCollapsed: true
+            });
+            $('.disclose').on('click', function () {
+                $(this).closest('li').toggleClass('mjs-nestedSortable-collapsed').toggleClass('mjs-nestedSortable-expanded');
+            });
+            $('#serialize').click(function () {
+                serialized = $('ol.sortable').nestedSortable('serialize');
+                sendAjax(serialized);
+                //$('#serializeOutput').text(serialized+'\n\n');
+                //console.log(serialized);
+            });
+
+            function sendAjax(parameters) {
+                $.ajax({
+		            type: "post",
+                    url: "{{ path('menu_order') }}",
+                    data: parameters,
+                    error: function (returnval) {
+                        $.alert({
+                            icon: 'fa fa-check-circle',
+                            title: 'Ok!',
+                            content: 'El registro fue eliminado con éxito',
+                            type: 'green',
+                            typeAnimated: true,
+                        });
+                    },
+                    success: function (returnval) {
+                        //location.reload();
+                        alert("Menu actualizado");
+                        //$(".message").text(returnval + " success");
+                        //$(".message").fadeIn("slow");
+                        //$(".message").delay(2000).fadeOut(1000);    
+                        //setTimeout( function() { top.location.href="view.php" }, 3000 );  
+                    }
+                });
+            }
+            //$( "#sortable" ).sortable();
+            //$( "#sortable" ).disableSelection();
+        });
+    </script> 
+{% endblock %}

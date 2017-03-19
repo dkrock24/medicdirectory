@@ -35,7 +35,7 @@ AppBundle\Entity\Pais:
             column: pai_abreviatura
         paiFechaCrea:
             type: datetime
-            nullable: false
+            nullable: true
             options:
                 default: CURRENT_TIMESTAMP
             column: pai_fecha_crea
@@ -45,7 +45,7 @@ AppBundle\Entity\Pais:
             column: pai_fecha_mod
         paiActivo:
             type: boolean
-            nullable: false
+            nullable: true
             options:
                 default: '1'
             column: pai_activo

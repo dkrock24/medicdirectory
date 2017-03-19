@@ -20,6 +20,11 @@ class Menu
     /**
      * @var string
      */
+    private $menIcono;
+
+    /**
+     * @var string
+     */
     private $menEnlace;
 
     /**
@@ -85,6 +90,30 @@ class Menu
     public function getMenNombre()
     {
         return $this->menNombre;
+    }
+
+    /**
+     * Set menIcono
+     *
+     * @param string $menIcono
+     *
+     * @return Menu
+     */
+    public function setMenIcono($menIcono)
+    {
+        $this->menIcono = $menIcono;
+
+        return $this;
+    }
+
+    /**
+     * Get menIcono
+     *
+     * @return string
+     */
+    public function getMenIcono()
+    {
+        return $this->menIcono;
     }
 
     /**
@@ -254,34 +283,9 @@ class Menu
     {
         return $this->menPadre;
     }
-
-    /**
-     * @var string
-     */
-    private $menIcono;
-
-
-    /**
-     * Set menIcono
-     *
-     * @param string $menIcono
-     *
-     * @return Menu
-     */
-    public function setMenIcono($menIcono)
-    {
-        $this->menIcono = $menIcono;
-
-        return $this;
-    }
-
-    /**
-     * Get menIcono
-     *
-     * @return string
-     */
-    public function getMenIcono()
-    {
-        return $this->menIcono;
-    }
+	
+	
+	public function __toString() {
+		return $this->menNombre;
+	}
 }

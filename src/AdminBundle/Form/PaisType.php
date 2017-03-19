@@ -25,8 +25,7 @@ class PaisType extends AbstractType
 				->add('paiAbreviatura',TextType::class, array("label"=>"Abreaviatura:"))
 				//->add('paiFechaCrea')
 				//->add('paiFechaMod')
-				//->add('paiActivo', CheckboxType::class, array("label"=>"Activo", "value"=>true ))
-				//->add('paiActivo')
+				->add('paiActivo', CheckboxType::class, array("label"=>"Activo", "required"=>false))
 				;
     }
     
