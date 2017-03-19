@@ -15,6 +15,17 @@
 
 {% block body %}
     <h1>Catálogo de menú</h1>
+    <!-- Check the notifications -->
+    <div id="holder_msg">
+        {% for message in app.session.flashbag().get("success") %}
+            <div class="alert alert-success"><i class="fa fa-check-circle"></i> {{message}}</div>
+        {% endfor %}
+        {% for message in app.session.flashbag().get("error") %}
+            <div class="alert alert-danger"><i class="fa fa-close"></i> {{message}}</div>
+        {% endfor %}
+    </div>
+    <!-- End notifications -->
+    
     {% if menus|length > 0%}
         <table class="table table-striped datatable-reorder">
             <thead>
@@ -33,7 +44,7 @@
             </thead>
             <tbody>
             {% for menu in menus %}
-                <tr>
+                <tr id="tr_{{ menu.menId }}">
                     <td><a href="{{ path('menu_show', { 'id': menu.menId }) }}">{{ menu.menId }}</a></td>
                     <td>{{ menu.menNombre }}</td>
                     <td>{{ menu.menIcono }}</td>
@@ -51,6 +62,9 @@
                             <li>
                                 <a href="{{ path('menu_edit', { 'id': menu.menId }) }}" class="btn bg-teal-400"><i class="fa fa-edit"></i> Editar</a>
                             </li>
+                            <li>
+                                <button value="{{ menu.menId }}" class="btn btn-danger delete"><i class="fa fa-remove"></i> Eliminar</button>
+                            </li>
                         </ul>
                     </td>
                 </tr>
@@ -65,4 +79,93 @@
             <a href="{{ path('menu_new') }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Nuevo</a>
         </li>
     </ul>
+{% endblock %}
+
+{% block codejs %}
+    <script>
+        $(document).on("ready",function(){
+            
+            /*
+             * This works if you want to use datatable plugin 
+            */
+            var table = $('.datatable-reorder').DataTable({});
+            // Add placeholder to the datatable filter option
+            $('.dataTables_filter input[type=search]').attr('placeholder','Escribar para filtrar...');
+            // Enable Select2 select for the length option
+            $('.dataTables_length select').select2({
+                minimumResultsForSearch: Infinity,
+                width: 'auto'
+            });
+            //End
+            
+            
+            $('body').on("click",".delete",function () {
+                var id = $(this).val();
+                if( id > 0 )
+                {
+                    sendAjax(id);
+                }
+            });
+            
+            function sendAjax(id) {
+                $("#holder_loading").show(); 
+                $.ajax({
+		            type: "post",
+                    url: "{{ path('menu_delete_from_list') }}",
+                    data: {id:id},
+                    error: function (data) {
+                       $("#holder_loading").hide();
+                       $.confirm({
+                            icon: 'fa fa-remove',
+                            title: 'Error!',
+                            content: 'Ha ocurrido un error al tratar de enviar la petición',
+                            type: 'red',
+                            typeAnimated: true,
+                            buttons: {
+                                tryAgain: {
+                                    text: 'Intentar de nuevo',
+                                    btnClass: 'btn-red',
+                                    action: function(){
+                                        sendAjax(id);
+                                    }
+                                },
+                                close: function () {
+                                }
+                            }
+                        });
+                        
+                    },
+                    success: function (data) {
+                        $("#holder_loading").hide();
+                        if( data == 1)
+                        {
+                            $.alert({
+                                icon: 'fa fa-check-circle',
+                                title: 'Ok!',
+                                content: 'El registro fue eliminado con éxito',
+                                type: 'green',
+                                typeAnimated: true,
+                            });
+                            
+                            //$("#tr_"+id).remove();
+                            table.row("#tr_"+id).remove().draw( false );
+                        }
+                        else
+                        {
+                            var infoError = (data);
+                            $.alert({
+                                icon: 'fa fa-remove',
+                                title: 'Error!',
+                                content: 'No se ha podido eliminar el regístro <br>'+infoError,
+                                type: 'red',
+                                typeAnimated: true,
+                            });
+                        }
+                        
+                    }
+                });
+            }
+            
+        });
+    </script>
 {% endblock %}

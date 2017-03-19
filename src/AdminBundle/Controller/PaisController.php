@@ -159,18 +159,26 @@ class PaisController extends Controller
 		
 		if( isset($iId) && $iId > 0 )
 		{
-			$em = $this->getDoctrine()->getManager();
-			$repo = $em->getRepository("AppBundle:Pais");	
-			$item = $repo->find($iId);
-			$em->remove($item);
-			$flush = $em->flush();
 			
-			if ($flush == null)
+			try
 			{
-				echo 1;
-			} else {
-				echo 0;
+				$em = $this->getDoctrine()->getManager();
+				$repo = $em->getRepository("AppBundle:Pais");	
+				$item = $repo->find($iId);
+				$em->remove($item);
+				$flush = $em->flush();
+
+				if ($flush == null)
+				{
+					echo 1;
+				} else {
+					echo 0;
+				}
+				
+			}catch (\Exception $e){
+				echo ($e->getMessage());
 			}
+			
 		}
 		
 		exit();

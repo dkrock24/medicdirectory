@@ -7,7 +7,7 @@
         </ul>
 
         <ul class="breadcrumb-elements">
-            <li><a href="{{ path('menu_index') }}"><i class="glyphicon glyphicon-th-list position-left"></i> Listar</a></li>
+            {# <li><a href="{{ path('menu_index') }}"><i class="glyphicon glyphicon-th-list position-left"></i> Listar</a></li> #}
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     <i class="icon-gear position-left"></i>
@@ -16,11 +16,14 @@
                 </a>
 
                 <ul class="dropdown-menu dropdown-menu-right">
-                    <li><a href="#"><i class="icon-user-lock"></i> Account security</a></li>
-                    <li><a href="#"><i class="icon-statistics"></i> Analytics</a></li>
+                    <li><a href="{{ path('menu_new') }}"><i class="fa fa-plus-circle"></i> Crear nuevo menú</a></li>
+                    <li><a href="{{ path('menu_index') }}"><i class="glyphicon glyphicon-th-list"></i> Listar de menú</a></li>
+                    <li><a href="{{ path('menu_tree') }}"><i class="fa fa-sort-amount-asc"></i> Reorganizar menú</a></li>
+                    {#
                     <li><a href="#"><i class="icon-accessibility"></i> Accessibility</a></li>
                     <li class="divider"></li>
                     <li><a href="#"><i class="icon-gear"></i> All settings</a></li>
+                    #}
                 </ul>
             </li>
         </ul>

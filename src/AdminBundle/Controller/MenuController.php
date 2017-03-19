@@ -6,6 +6,7 @@ use AppBundle\Entity\Menu;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\MenuRol;
 /**
  * Menu controller.
@@ -64,7 +65,9 @@ class MenuController extends Controller
 			$flush = $em->flush();
 
 			if ($flush == null) {
-				$status = "Registro creado con éxito";
+
+				$msgBox = "Registro creado con éxito";
+				$status = "success";
 				
 				for($i=0; $i < count($permisos); $i++)
 				{
@@ -86,15 +89,17 @@ class MenuController extends Controller
 					$flush = $em->flush();
 					if ($flush != null)
 					{
-						$status = "No se pudieron crear los roles ";
+						$msgBox = "No se pudieron crear los roles ";
+						$status = "error";
 					}
 				}
 				
 			} else {
-				$status = "No se pudo crear el registro ";
+				$msgBox = "No se pudo crear el registro ";
+				$status = "error";
 			}
 			
-			$this->session->getFlashBag()->add("status",$status);
+			$this->session->getFlashBag()->add($status,$msgBox);
 			return $this->redirectToRoute('menu_show', array('id' => $menu->getMenId()));
         }
 
@@ -149,7 +154,18 @@ class MenuController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($menu);
-            $em->flush();
+            $flush = $em->flush();
+			
+			if ($flush == null)
+			{
+				$msgBox = "Registro actualizado con éxito";
+				$status = "success";
+			} else {
+				$msgBox = "No se ha podido actualizar el registro ";
+				$status = "error";
+			}
+			
+			$this->session->getFlashBag()->add($status,$msgBox);
 			
 			$oPermisos = $editForm->get("permisos")->getData();
 			//echo count($oPermisos);
@@ -188,12 +204,54 @@ class MenuController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->remove($menu);
-            $em->flush();
+            $em->remove($menu);			
+			$flush = $em->flush();
+			
+			if ($flush == null)
+			{
+				$msgBox = "El registro fue eliminado con éxito";
+				$status = "success";
+			} else {
+				$msgBox = "No se ha podido eliminar el registro ";
+				$status = "error";
+			}
         }
 
         return $this->redirectToRoute('menu_index');
     }
+	
+	
+	public function deleteCustomAction( Request $request )
+	{
+		$iId = $request->request->get('id');
+		//$iId = $request->query->get('id');
+		
+		if( isset($iId) && $iId > 0 )
+		{
+			
+			try
+			{
+				$em = $this->getDoctrine()->getManager();
+				$repo = $em->getRepository("AppBundle:Menu");	
+				$item = $repo->find($iId);
+				$em->remove($item);
+				$flush = $em->flush();
+				
+				if ($flush == null)
+				{
+					echo 1;
+				} else {
+					echo 0;
+				}
+				
+			}catch (\Exception $e){
+				echo ($e->getMessage());
+			}
+		}
+		
+		exit();
+	}
+	
 
     /**
      * Creates a form to delete a menu entity.

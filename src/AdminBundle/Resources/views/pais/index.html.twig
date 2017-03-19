@@ -151,11 +151,12 @@
                         }
                         else
                         {
+                            var infoError = (data);
                             $.alert({
                                 icon: 'fa fa-remove',
                                 title: 'Error!',
-                                content: 'No se ha podido eliminar el regístro',
-                                type: 'blue',
+                                content: 'No se ha podido eliminar el regístro <br>'+infoError,
+                                type: 'red',
                                 typeAnimated: true,
                             });
                         }
