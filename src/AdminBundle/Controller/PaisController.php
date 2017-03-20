@@ -101,7 +101,15 @@ class PaisController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
 			
-            $flush = $this->getDoctrine()->getManager()->flush();
+			$em = $this->getDoctrine()->getManager();
+			
+			//Update field pai_fecha_mod
+			$id = $editForm->getData()->getPaiId();
+			$item = $em->getRepository('AppBundle:Pais')->find($id);
+			$item->setPaiFechaMod(new \DateTime());
+			//end 
+			
+            $flush = $em->flush($item);
 			
 			if ($flush == null)
 			{

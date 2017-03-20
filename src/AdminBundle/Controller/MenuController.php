@@ -119,18 +119,8 @@ class MenuController extends Controller
 		$deleteForm = $this->createDeleteForm($menu);
 		
 		$em = $this->getDoctrine()->getManager();
-		/*
-		$permisosActuales = $this->getDoctrine()->getManager()->createQuery(
-							"SELECT z
-							FROM AppBundle:MenuRol z
-							WHERE z.menRolMen = :id and z.menRolActivo = 1"
-						)
-						->setParameter('id',$menu->getMenId())->getResult();
-		
-		*/
 
-		$permisosActuales = $this->getDoctrine()
-						->getRepository('AppBundle:MenuRol')
+		$permisosActuales = $em->getRepository('AppBundle:MenuRol')
 						->findByMenRolMen($menu->getMenId());
 
 		
@@ -152,9 +142,17 @@ class MenuController extends Controller
         $editForm->handleRequest($request);
 		
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            
+			$em = $this->getDoctrine()->getManager();
+			
+			//Update field pai_fecha_mod
+			$id = $editForm->getData()->getMenId();
+			$item = $em->getRepository('AppBundle:Menu')->find($id);
+			$item->setMenFechaMod(new \DateTime());
+			//end
+			
             $em->persist($menu);
-            $flush = $em->flush();
+            $flush = $em->flush($item);
 			
 			if ($flush == null)
 			{

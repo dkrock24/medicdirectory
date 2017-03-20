@@ -27,7 +27,7 @@ class MenuType extends AbstractType
 				//->add('menIcono', TextType::class, array("label"=>"Icono:"))
 				->add('menIcono', TextType::class, array( "label"=>"Icono", "required"=>"", "attr"=>array( "class"=>"form-name", 'data-toggle'=>"modal", 'data-target'=>".bs-example-modal-lg", "autocomplete"=>false ) ) )	
 				->add('menEnlace', TextType::class, array("label"=>"Enlace:"))
-				->add('menOrden', NumberType::class, array("label"=>"Orden:", 'scale' => 5))
+				->add('menOrden', TextType::class, array("label"=>"Orden:"))
 				->add('menBackend', CheckboxType::class, array("label"=>"Backend"))
 				//->add('menFechaCrea')
 				//->add('menFechaMod')
@@ -40,7 +40,7 @@ class MenuType extends AbstractType
 						'placeholder' => '',
 						'empty_data'  => null,
 						'multiple'=> false,
-						'data' => array()
+						//'data' => array()
 					)
 				)
 				//->add('menPadre')
