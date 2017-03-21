@@ -8,6 +8,6 @@ emr_dashboard:
     host:     "%emr_domain%"
     
 emr_paciente:
-    resource: "@EmrBundle/Resources/config/routing/sysusuario.yml"
-    prefix:   /usuario
+    resource: "@EmrBundle/Resources/config/routing/paciente.yml"
+    prefix:   /paciente
     host:     "%emr_domain%"

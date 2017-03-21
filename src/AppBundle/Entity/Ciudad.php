@@ -167,4 +167,9 @@ class Ciudad
     {
         return $this->ciuMun;
     }
+	
+	
+	public function __toString() {
+		return $this->ciuNombre;
+	}
 }

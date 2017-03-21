@@ -557,7 +557,7 @@ class Paciente
      */
     public function getPacActivo()
     {
-        return $this->pacActivo;
+        return (bool)$this->pacActivo;
     }
 
     /**
@@ -631,4 +631,6 @@ class Paciente
     {
         return $this->pacUsu;
     }
+	
+	
 }
