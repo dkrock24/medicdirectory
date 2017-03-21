@@ -2,6 +2,11 @@ emr_homepage:
     path:     /
     defaults: { _controller: EmrBundle:Session:login }
 
+emr_menu_top:
+    path:     /menutop
+    defaults: { _controller: EmrBundle:MenuTop:listShow  }
+    host:     "%emr_domain%"
+
 emr_dashboard:
     path:     /dashboard
     defaults: { _controller: EmrBundle:Dashboard:dashboard  }
@@ -11,3 +16,4 @@ emr_paciente:
     resource: "@EmrBundle/Resources/config/routing/paciente.yml"
     prefix:   /paciente
     host:     "%emr_domain%"
+    
