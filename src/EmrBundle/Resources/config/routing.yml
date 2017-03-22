@@ -1,6 +1,11 @@
 emr_homepage:
     path:     /
     defaults: { _controller: EmrBundle:Session:login }
+    
+emr_controller_url_menu_top:
+    path:     /module/parameter/{route}
+    defaults: { _controller: EmrBundle:Default:redirectMenu }
+    host:     "%emr_domain%"
 
 emr_menu_top:
     path:     /menutop

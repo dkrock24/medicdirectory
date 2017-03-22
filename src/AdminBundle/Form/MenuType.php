@@ -25,13 +25,13 @@ class MenuType extends AbstractType
     {
         $builder->add('menNombre', TextType::class, array("label"=>"Nombre:","required"=>true))
 				//->add('menIcono', TextType::class, array("label"=>"Icono:"))
-				->add('menIcono', TextType::class, array( "label"=>"Icono", "required"=>"", "attr"=>array( "class"=>"form-name", 'data-toggle'=>"modal", 'data-target'=>".bs-example-modal-lg", "autocomplete"=>false ) ) )	
-				->add('menEnlace', TextType::class, array("label"=>"Enlace:"))
-				->add('menOrden', TextType::class, array("label"=>"Orden:"))
-				->add('menBackend', CheckboxType::class, array("label"=>"Backend"))
+				->add('menIcono', TextType::class, array( "label"=>"Icono", "required"=>false, "attr"=>array( "class"=>"form-name", 'data-toggle'=>"modal", 'data-target'=>".bs-example-modal-lg", "autocomplete"=>false ) ) )	
+				->add('menEnlace', TextType::class, array("label"=>"route:", "required"=>false, "attr"=>array("placeholder"=>" pagina_index")))
+				->add('menOrden', TextType::class, array("label"=>"Orden:", "required"=>false))
+				->add('menBackend', CheckboxType::class, array("label"=>"Backend", "required"=>false))
 				//->add('menFechaCrea')
 				//->add('menFechaMod')
-				->add('menActivo', CheckboxType::class, array("label"=>"Activo"))
+				->add('menActivo', CheckboxType::class, array("label"=>"Activo", "required"=>false))
 				->add('menPadre', \Symfony\Bridge\Doctrine\Form\Type\EntityType::class, array(
 						//"label"=>"Menú padre:", "required"=>false
 						"class" => "AppBundle:Menu",
