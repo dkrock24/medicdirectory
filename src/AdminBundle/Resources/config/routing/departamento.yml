@@ -22,3 +22,7 @@ departamento_delete:
     path:     /{id}/delete
     defaults: { _controller: "AdminBundle:Departamento:delete" }
     methods:  DELETE
+    
+departamento_delete_from_list:
+    path:     /list/delete/depart
+    defaults: { _controller: "AdminBundle:Departamento:deleteCustom" }

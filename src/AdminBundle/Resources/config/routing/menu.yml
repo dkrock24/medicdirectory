@@ -32,5 +32,5 @@ menu_tree:
     defaults: { _controller: "AdminBundle:Menu:menuTree" }
     
 menu_delete_from_list:
-    path:     /list/delete/
+    path:     /list/delete/menu
     defaults: { _controller: "AdminBundle:Menu:deleteCustom" }

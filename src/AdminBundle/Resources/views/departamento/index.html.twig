@@ -43,7 +43,7 @@
             </thead>
             <tbody>
             {% for departamento in departamentos %}
-                <tr>
+                <tr id="tr_{{ departamento.depId }}">
                     <td><a href="{{ path('departamento_show', { 'id': departamento.depId }) }}">{{ departamento.depId }}</a></td>
                     <td>{{ departamento.depDepartamento }}</td>
                     {#
@@ -60,6 +60,9 @@
                             </li>
                             <li>
                                 <a href="{{ path('departamento_edit', { 'id': departamento.depId }) }}" class="btn bg-teal-400"><i class="fa fa-edit"></i> Editar</a>
+                            </li>
+                            <li>
+                                <button value="{{ departamento.depId }}" class="btn btn-danger delete"><i class="fa fa-remove"></i> Eliminar</button>
                             </li>
                         </ul>
                             
@@ -95,6 +98,73 @@
                 width: 'auto'
             });
             //End
+            
+            $('body').on("click",".delete",function () {
+                var id = $(this).val();
+                if( id > 0 )
+                {
+                    sendAjax(id);
+                }
+            });
+            
+            function sendAjax(id) {
+                $("#holder_loading").show(); 
+                $.ajax({
+		            type: "post",
+                    url: "{{ path('departamento_delete_from_list') }}",
+                    data: {id:id},
+                    error: function (data) {
+                       $("#holder_loading").hide();
+                       $.confirm({
+                            icon: 'fa fa-remove',
+                            title: 'Error!',
+                            content: 'Ha ocurrido un error al tratar de enviar la petición',
+                            type: 'red',
+                            typeAnimated: true,
+                            buttons: {
+                                tryAgain: {
+                                    text: 'Intentar de nuevo',
+                                    btnClass: 'btn-red',
+                                    action: function(){
+                                        sendAjax(id);
+                                    }
+                                },
+                                close: function () {
+                                }
+                            }
+                        });
+                        
+                    },
+                    success: function (data) {
+                        $("#holder_loading").hide();
+                        if( data == 1)
+                        {
+                            $.alert({
+                                icon: 'fa fa-check-circle',
+                                title: 'Ok!',
+                                content: 'El registro fue eliminado con éxito',
+                                type: 'green',
+                                typeAnimated: true,
+                            });
+                            
+                            //$("#tr_"+id).remove();
+                            table.row("#tr_"+id).remove().draw( false );
+                        }
+                        else
+                        {
+                            var infoError = (data);
+                            $.alert({
+                                icon: 'fa fa-remove',
+                                title: 'Error!',
+                                content: 'No se ha podido eliminar el regístro <br>'+infoError,
+                                type: 'red',
+                                typeAnimated: true,
+                            });
+                        }
+                        
+                    }
+                });
+            }
         });
     </script>
 {% endblock %}    
