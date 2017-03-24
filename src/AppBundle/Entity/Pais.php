@@ -196,4 +196,8 @@ class Pais
     {
         return (boolean)$this->paiActivo;
     }
+	
+	public function __toString() {
+		return $this->paiPais;
+	}
 }

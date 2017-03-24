@@ -1,0 +1,82 @@
+{% extends "Layout/base_admin/_admin_base.html.twig" %}
+
+{% block title_page %}
+        EMR || Listado de departamentos
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('AdminBundle:departamento:_breadcrumb.html.twig' )  }}
+{% endblock %} 
+
+{% block submenutop %}
+    {{ include('AdminBundle:departamento:_submenu.html.twig' )  }}
+{% endblock %}
+
+{% block body %}
+    <h1>Departamento</h1>
+    
+    <div class="row">
+        <div class="col-lg-6">
+            <!-- Check the notifications -->
+            {% for message in app.session.flashbag().get("success") %}
+                <div class="alert alert-success"><i class="fa fa-check-circle"></i> {{message}}</div>
+            {% endfor %}
+            {% for message in app.session.flashbag().get("error") %}
+                <div class="alert alert-danger"><i class="fa fa-close"></i> {{message}}</div>
+            {% endfor %}
+            <!-- End notifications -->
+    
+            <table class="table table-striped">
+                <tbody>
+                    <tr>
+                        <th>Id</th>
+                        <td>{{ departamento.depId }}</td>
+                    </tr>
+                    <tr>
+                        <th>Departamento</th>
+                        <td>{{ departamento.depDepartamento }}</td>
+                    </tr>
+                    <tr>
+                        <th>Código</th>
+                        <td>{{ departamento.depCodigo }}</td>
+                    </tr>
+                    <tr>
+                        <th>Abreviatura</th>
+                        <td>{{ departamento.depAbreviatura }}</td>
+                    </tr>
+                    <tr>
+                        <th>Fecha creación</th>
+                        <td>{% if departamento.depFechaCrea %}{{ departamento.depFechaCrea|date('Y-m-d H:i:s') }}{% endif %}</td>
+                    </tr>
+                    <tr>
+                        <th>Fecha actualizado</th>
+                        <td>{% if departamento.depFechaMod %}{{ departamento.depFechaMod|date('Y-m-d H:i:s') }}{% endif %}</td>
+                    </tr>
+                    <tr>
+                        <th>Activo</th>
+                        <td>{% if departamento.depActivo %}<span class="label label-success">Si</span>{% else %}<span class="label label-danger">No</span>{% endif %}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <hr> 
+        </div>
+    </div>
+
+            
+    <ul class="list-inline">
+        <li>
+            <a href="{{ path('departamento_index') }}" class="btn btn-info"><i class="fa fa-list"></i> Listar</a>
+        </li>
+        <li>
+            <a href="{{ path('departamento_new') }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Nuevo</a>
+        </li>
+        <li>
+            <a href="{{ path('departamento_edit', { 'id': departamento.depId }) }}" class="btn bg-teal-400"><i class="fa fa-edit"></i> Editar</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <button type="submit" class="btn btn-danger"><i class="fa fa-remove"></i> Eliminar</button>
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>        
+{% endblock %}

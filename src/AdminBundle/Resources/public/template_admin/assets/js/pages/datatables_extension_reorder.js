@@ -18,12 +18,14 @@ $(function() {
     // Setting datatable defaults
     $.extend( $.fn.dataTable.defaults, {
         autoWidth: false,
-        columnDefs: [{ 
+        /*
+		columnDefs: [{ 
             orderable: false,
             width: '100px',
             targets: [ 5 ]
         }],
-        colReorder: true,
+		*/
+        //colReorder: true,
         dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
         language: {
             search: '<span>Buscar:</span> _INPUT_',

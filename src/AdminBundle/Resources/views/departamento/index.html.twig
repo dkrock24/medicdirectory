@@ -1,0 +1,100 @@
+{% extends "Layout/base_admin/_admin_base.html.twig" %}
+
+{% block title_page %}
+        EMR || Listado de departamentos
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('AdminBundle:departamento:_breadcrumb.html.twig' )  }}
+{% endblock %} 
+
+{% block submenutop %}
+    {{ include('AdminBundle:departamento:_submenu.html.twig' )  }}
+{% endblock %}
+
+{% block body %}
+    <h1>Lista de departamentos</h1>
+    
+    <!-- Check the notifications -->
+    <div id="holder_msg">
+        {% for message in app.session.flashbag().get("success") %}
+            <div class="alert alert-success"><i class="fa fa-check-circle"></i> {{message}}</div>
+        {% endfor %}
+        {% for message in app.session.flashbag().get("error") %}
+            <div class="alert alert-danger"><i class="fa fa-close"></i> {{message}}</div>
+        {% endfor %}
+    </div>
+    <!-- End notifications -->
+    {% if departamentos|length > 0%}
+         <table class="table table-striped datatable-reorder">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Departamento</th>
+                    <!--
+                    <th>Código</th>
+                    <th>Depabreviatura</th>
+                    -->
+                    <th>Fecha creación</th>
+                    <th>Fecha actualizado</th>
+                    <th>Activo</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for departamento in departamentos %}
+                <tr>
+                    <td><a href="{{ path('departamento_show', { 'id': departamento.depId }) }}">{{ departamento.depId }}</a></td>
+                    <td>{{ departamento.depDepartamento }}</td>
+                    {#
+                    <td>{{ departamento.depCodigo }}</td>
+                    <td>{{ departamento.depAbreviatura }}</td>
+                    #}
+                    <td>{% if departamento.depFechaCrea %}{{ departamento.depFechaCrea|date('Y-m-d H:i:s') }}{% endif %}</td>
+                    <td>{% if departamento.depFechaMod %}{{ departamento.depFechaMod|date('Y-m-d H:i:s') }}{% endif %}</td>
+                    <td>{% if departamento.depActivo %}<span class="label label-success">Si</span>{% else %}<span class="label label-danger">No</span>{% endif %}</td>
+                    <td>
+                        <ul class="list-inline">
+                            <li>
+                                <a href="{{ path('departamento_show', { 'id': departamento.depId }) }}" class="btn btn-default"><i class="fa fa-folder-open"></i> Ver</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('departamento_edit', { 'id': departamento.depId }) }}" class="btn bg-teal-400"><i class="fa fa-edit"></i> Editar</a>
+                            </li>
+                        </ul>
+                            
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="alert alert-info" role=""><i class="fa fa-info-circle"></i> No hay regístros creados</div>
+    {% endif %}    
+
+    <ul class="list-inline">
+        <li>
+            <a href="{{ path('departamento_new') }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Nuevo</a>
+        </li>
+    </ul>
+{% endblock %}
+
+{% block codejs %}
+    <script>
+        $(document).on("ready",function(){
+            
+            /*
+             * This works if you want to use datatable plugin 
+            */
+            var table = $('.datatable-reorder').DataTable({ "autoWidth": false });
+            // Add placeholder to the datatable filter option
+            $('.dataTables_filter input[type=search]').attr('placeholder','Escribar para filtrar...');
+            // Enable Select2 select for the length option
+            $('.dataTables_length select').select2({
+                minimumResultsForSearch: Infinity,
+                width: 'auto'
+            });
+            //End
+        });
+    </script>
+{% endblock %}    
