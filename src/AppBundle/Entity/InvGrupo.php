@@ -138,4 +138,33 @@ class InvGrupo
     {
         return $this->igrActivo;
     }
+    /**
+     * @var \AppBundle\Entity\Cliente
+     */
+    private $igrCli;
+
+
+    /**
+     * Set igrCli
+     *
+     * @param \AppBundle\Entity\Cliente $igrCli
+     *
+     * @return InvGrupo
+     */
+    public function setIgrCli(\AppBundle\Entity\Cliente $igrCli = null)
+    {
+        $this->igrCli = $igrCli;
+
+        return $this;
+    }
+
+    /**
+     * Get igrCli
+     *
+     * @return \AppBundle\Entity\Cliente
+     */
+    public function getIgrCli()
+    {
+        return $this->igrCli;
+    }
 }

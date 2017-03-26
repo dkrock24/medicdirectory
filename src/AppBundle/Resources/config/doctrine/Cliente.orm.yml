@@ -10,7 +10,7 @@ AppBundle\Entity\Cliente:
                 - cli_esp_id
         FK_cli_ciudad_idx:
             columns:
-                - cli_ciu_id
+                - cli_mun_id
         IDX_cli_nit:
             columns:
                 - cli_nit
@@ -117,14 +117,14 @@ AppBundle\Entity\Cliente:
                 cli_tip_cli_id:
                     referencedColumnName: tip_cli_id
             orphanRemoval: false
-        cliCiu:
-            targetEntity: Ciudad
+        cliMun:
+            targetEntity: Municipio
             cascade: {  }
             fetch: LAZY
             mappedBy: null
             inversedBy: null
             joinColumns:
-                cli_ciu_id:
-                    referencedColumnName: ciu_id
+                cli_mun_id:
+                    referencedColumnName: mun_id
             orphanRemoval: false
     lifecycleCallbacks: {  }

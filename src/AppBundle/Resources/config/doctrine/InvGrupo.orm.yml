@@ -1,6 +1,10 @@
 AppBundle\Entity\InvGrupo:
     type: entity
     table: inv_grupo
+    indexes:
+        FK_inv_grupo_cliente:
+            columns:
+                - igr_cli_id
     id:
         igrId:
             type: integer
@@ -35,4 +39,15 @@ AppBundle\Entity\InvGrupo:
             options:
                 default: '1'
             column: igr_activo
+    manyToOne:
+        igrCli:
+            targetEntity: Cliente
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                igr_cli_id:
+                    referencedColumnName: cli_id
+            orphanRemoval: false
     lifecycleCallbacks: {  }

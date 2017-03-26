@@ -1,6 +1,10 @@
 AppBundle\Entity\InvArea:
     type: entity
     table: inv_area
+    indexes:
+        FK_inv_area_cliente:
+            columns:
+                - iar_cli_id
     id:
         iarId:
             type: integer
@@ -35,4 +39,15 @@ AppBundle\Entity\InvArea:
             options:
                 default: '1'
             column: iar_activo
+    manyToOne:
+        iarCli:
+            targetEntity: Cliente
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                iar_cli_id:
+                    referencedColumnName: cli_id
+            orphanRemoval: false
     lifecycleCallbacks: {  }
