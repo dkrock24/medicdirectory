@@ -22,6 +22,7 @@ emr_paciente:
     prefix:   /paciente
     host:     "%emr_domain%"
 
+<<<<<<< HEAD
 app_invarea:
     resource: "@EmrBundle/Resources/config/routing/invarea.yml"
     prefix:   /invarea
@@ -32,3 +33,8 @@ app_invcategoria:
     prefix:   /invcategoria
     host:     "%emr_domain%"
     
+=======
+emr_location_per_country:
+    path:     /state/municipality
+    defaults: { _controller: "EmrBundle:Paciente:getStatesFromCountry" }    
+>>>>>>> 62de60da494ba033e13f7633c69392690d86cd70

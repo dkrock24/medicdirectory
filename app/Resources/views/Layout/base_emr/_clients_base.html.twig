@@ -11,7 +11,16 @@
 	<link href="{{ asset('bundles/admin/template_clients/assets/css/components.css') }}" rel="stylesheet" type="text/css">
 	<link href="{{ asset('bundles/admin/template_clients/assets/css/colors.css') }}" rel="stylesheet" type="text/css">
     
+    <link href="{{ asset('bundles/admin/add-on/jquery-confirm-v3.0.3/css/jquery-confirm.css') }}" rel="stylesheet" type="text/css">
     
+    <link href="{{ asset('bundles/admin/css/custom-emr.css') }}" rel="stylesheet" type="text/css">
+    
+    
+     <!-- CROPPER -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/css/tether.min.css">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="{{ asset('bundles/admin/add-on/cropper/css/cropper.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/admin/add-on/cropper/css/main.css') }}">
    
 {% endblock %}
 
@@ -26,6 +35,10 @@
 	<script type="text/javascript" src="{{ asset('bundles/admin/template_clients/assets/js/plugins/ui/drilldown.js') }}"></script>
 	<!-- /core JS files -->
 
+    <!-- Alert -->
+    <script type="text/javascript" src="{{ asset('bundles/admin/add-on/jquery-confirm-v3.0.3/js/jquery-confirm.js') }}"></script>
+    
+    
 	<!-- Theme JS files -->
 	{#
     <script type="text/javascript" src="{{ asset('bundles/admin/template_clients/assets/js/plugins/visualization/d3/d3.min.js') }}"></script>
@@ -37,12 +50,43 @@
 	<script type="text/javascript" src="{{ asset('bundles/admin/template_clients/assets/js/plugins/ui/moment/moment.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('bundles/admin/template_clients/assets/js/plugins/pickers/daterangepicker.js') }}"></script>
 
+    
+    <!-- Theme JS files -->
+	<script type="text/javascript" src="{{ asset('bundles/admin/template_clients/assets/js/plugins/forms/wizards/steps.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/admin/template_clients/assets/js/plugins/forms/selects/select2.min.js') }} "></script>
+	<script type="text/javascript" src="{{ asset('bundles/admin/template_clients/assets/js/plugins/forms/styling/uniform.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/admin/template_clients/assets/js/core/libraries/jasny_bootstrap.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/admin/template_clients/assets/js/plugins/forms/validation/validate.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/admin/template_clients/assets/js/plugins/extensions/cookie.js') }}"></script>
+    
+    
+    <!-- Theme JS files -->
+	<script type="text/javascript" src="{{ asset('bundles/admin/template_clients/assets/js/plugins/notifications/jgrowl.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/admin/template_clients/assets/js/plugins/ui/moment/moment.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/admin/template_clients/assets/js/plugins/pickers/daterangepicker.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/admin/template_clients/assets/js/plugins/pickers/anytime.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/admin/template_clients/assets/js/plugins/pickers/pickadate/picker.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/admin/template_clients/assets/js/plugins/pickers/pickadate/picker.date.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/admin/template_clients/assets/js/plugins/pickers/pickadate/picker.time.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/admin/template_clients/assets/js/plugins/pickers/pickadate/legacy.js') }}"></script>
+    
+    
 	<script type="text/javascript" src="{{ asset('bundles/admin/template_clients/assets/js/core/app.js') }}"></script>
+    
+    <!-- CROPPER -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>-->
+    <script src="https://fengyuanchen.github.io/js/common.js"></script>
+    <script src="{{ asset('bundles/admin/add-on/cropper/js/cropper.js') }}"></script>
+    <!--<script src="{{ asset('bundles/admin/add-on/cropper/js/main.js') }} "></script>-->
+    
     
     <script src="https://use.fontawesome.com/93f697ba3e.js"></script>
     <script type="text/javascript" src="{{ asset('bundles/admin/add-on/cropit-master/dist/jquery.cropit.js') }} "></script>
     <script type="text/javascript" src="{{ asset('bundles/admin/add-on/webcamjs-master/webcam.js') }} "></script>
     <script src="{{ asset('bundles/admin/js/custom-site.js') }} "></script>
+    
+ 
     
 	{# <script type="text/javascript" src="{{ asset('bundles/admin/template_clients/assets/js/pages/dashboard.js') }}"></script> #}
 	<!-- /theme JS files -->
