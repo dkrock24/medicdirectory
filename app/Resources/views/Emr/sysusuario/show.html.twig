@@ -1,0 +1,112 @@
+{% extends 'Layout/base_emr/_clients_base.html.twig' %}
+
+{% block body %}
+    <h1>Sysusuario</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ sysUsuario.id }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ sysUsuario.email }}</td>
+            </tr>
+            <tr>
+                <th>Activo</th>
+                <td>{% if sysUsuario.activo %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Password</th>
+                <td>{{ sysUsuario.password }}</td>
+            </tr>
+            <tr>
+                <th>Telefono</th>
+                <td>{{ sysUsuario.telefono }}</td>
+            </tr>
+            <tr>
+                <th>Tarjetacredito</th>
+                <td>{{ sysUsuario.tarjetaCredito }}</td>
+            </tr>
+            <tr>
+                <th>Usuario</th>
+                <td>{{ sysUsuario.usuario }}</td>
+            </tr>
+            <tr>
+                <th>Fechaactualizacion</th>
+                <td>{% if sysUsuario.fechaActualizacion %}{{ sysUsuario.fechaActualizacion|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Genero</th>
+                <td>{{ sysUsuario.genero }}</td>
+            </tr>
+            <tr>
+                <th>Ocupacion</th>
+                <td>{{ sysUsuario.ocupacion }}</td>
+            </tr>
+            <tr>
+                <th>Direccion</th>
+                <td>{{ sysUsuario.direccion }}</td>
+            </tr>
+            <tr>
+                <th>Responsabledepaciente</th>
+                <td>{{ sysUsuario.responsableDePaciente }}</td>
+            </tr>
+            <tr>
+                <th>Numeroafp</th>
+                <td>{{ sysUsuario.numeroAfp }}</td>
+            </tr>
+            <tr>
+                <th>Numeronup</th>
+                <td>{{ sysUsuario.numeroNup }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ sysUsuario.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Apellido</th>
+                <td>{{ sysUsuario.apellido }}</td>
+            </tr>
+            <tr>
+                <th>Fechanacimiento</th>
+                <td>{% if sysUsuario.fechaNacimiento %}{{ sysUsuario.fechaNacimiento|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Celular</th>
+                <td>{{ sysUsuario.celular }}</td>
+            </tr>
+            <tr>
+                <th>Jvrm</th>
+                <td>{{ sysUsuario.jvrm }}</td>
+            </tr>
+            <tr>
+                <th>Codigopostal</th>
+                <td>{{ sysUsuario.codigoPostal }}</td>
+            </tr>
+            <tr>
+                <th>Dui</th>
+                <td>{{ sysUsuario.dui }}</td>
+            </tr>
+            <tr>
+                <th>Fechacreacion</th>
+                <td>{% if sysUsuario.fechaCreacion %}{{ sysUsuario.fechaCreacion|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('sys_usuario_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('sys_usuario_edit', { 'id': sysUsuario.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

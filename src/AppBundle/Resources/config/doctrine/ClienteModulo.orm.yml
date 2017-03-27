@@ -36,16 +36,6 @@ AppBundle\Entity\ClienteModulo:
                 default: '1'
             column: cli_mod_activo
     manyToOne:
-        cliModCli:
-            targetEntity: Cliente
-            cascade: {  }
-            fetch: LAZY
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                cli_mod_cli_id:
-                    referencedColumnName: cli_id
-            orphanRemoval: false
         cliModMod:
             targetEntity: Modulo
             cascade: {  }
@@ -55,5 +45,15 @@ AppBundle\Entity\ClienteModulo:
             joinColumns:
                 cli_mod_mod_id:
                     referencedColumnName: mod_id
+            orphanRemoval: false
+        cliModCli:
+            targetEntity: Cliente
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                cli_mod_cli_id:
+                    referencedColumnName: cli_id
             orphanRemoval: false
     lifecycleCallbacks: {  }

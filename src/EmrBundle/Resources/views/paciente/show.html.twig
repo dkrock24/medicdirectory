@@ -1,0 +1,126 @@
+{% extends "Layout/base_emr/_clients_base.html.twig" %}
+
+{% block title_page %}
+        EMR || Datos del paciente
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('EmrBundle:Dashboard:_breadcrumb.html.twig' )  }}
+{% endblock %} 
+
+{% block submenutop %}
+    {{ include('EmrBundle:Dashboard:_submenu.html.twig' )  }}
+{% endblock %} 
+
+{% block body %}
+    <h1>Datos del paciente</h1>
+    
+    <!-- Check the notifications -->
+    {% for message in app.session.flashbag().get("success") %}
+        <div class="alert alert-success"><i class="fa fa-check-circle"></i> {{message}}</div>
+    {% endfor %}
+    {% for message in app.session.flashbag().get("error") %}
+        <div class="alert alert-danger"><i class="fa fa-close"></i> {{message}}</div>
+    {% endfor %}
+    <!-- End notifications -->
+    
+    <table class="table table-striped">
+        <tbody>
+            <tr>
+                <th>Pacid</th>
+                <td>{{ paciente.pacId }}</td>
+            </tr>
+            <tr>
+                <th>Pacnombre</th>
+                <td>{{ paciente.pacNombre }}</td>
+            </tr>
+            <tr>
+                <th>Pacsegnombre</th>
+                <td>{{ paciente.pacSegNombre }}</td>
+            </tr>
+            <tr>
+                <th>Pacfechamod</th>
+                <td>{% if paciente.pacFechaMod %}{{ paciente.pacFechaMod|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Pacapellido</th>
+                <td>{{ paciente.pacApellido }}</td>
+            </tr>
+            <tr>
+                <th>Pacsegapellido</th>
+                <td>{{ paciente.pacSegApellido }}</td>
+            </tr>
+            <tr>
+                <th>Pacgenero</th>
+                <td>{{ paciente.pacGenero }}</td>
+            </tr>
+            <tr>
+                <th>Pacemail</th>
+                <td>{{ paciente.pacEmail }}</td>
+            </tr>
+            <tr>
+                <th>Pacdui</th>
+                <td>{{ paciente.pacDui }}</td>
+            </tr>
+            <tr>
+                <th>Pacestadocivil</th>
+                <td>{{ paciente.pacEstadoCivil }}</td>
+            </tr>
+            <tr>
+                <th>Pactipsangre</th>
+                <td>{{ paciente.pacTipSangre }}</td>
+            </tr>
+            <tr>
+                <th>Pacteltrabajo</th>
+                <td>{{ paciente.pacTelTrabajo }}</td>
+            </tr>
+            <tr>
+                <th>Pactelcelular</th>
+                <td>{{ paciente.pacTelCelular }}</td>
+            </tr>
+            <tr>
+                <th>Pactelcasa</th>
+                <td>{{ paciente.pacTelCasa }}</td>
+            </tr>
+            <tr>
+                <th>Pacdireccion</th>
+                <td>{{ paciente.pacDireccion }}</td>
+            </tr>
+            <tr>
+                <th>Pacfechanacimiento</th>
+                <td>{% if paciente.pacFechaNacimiento %}{{ paciente.pacFechaNacimiento|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Pacfoto</th>
+                <td>{{ paciente.pacFoto }}</td>
+            </tr>
+            <tr>
+                <th>Pacfechacrea</th>
+                <td>{% if paciente.pacFechaCrea %}{{ paciente.pacFechaCrea|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Pacactivo</th>
+                <td>{% if paciente.pacActivo %}Yes{% else %}No{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+    <hr>        
+
+                      
+    <ul class="list-inline">
+        <li>
+            <a href="{{ path('paciente_index') }}" class="btn btn-info"><i class="fa fa-list"></i> Listar</a>
+        </li>
+        <li>
+            <a href="{{ path('paciente_new') }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Nuevo</a>
+        </li>
+        <li>
+            <a href="{{ path('paciente_edit', { 'id': paciente.pacId }) }}" class="btn bg-teal-400"><i class="fa fa-edit"></i> Editar</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <button type="submit" class="btn btn-danger"><i class="fa fa-remove"></i> Eliminar</button>
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>        
+{% endblock %}

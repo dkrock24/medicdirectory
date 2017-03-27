@@ -1,0 +1,79 @@
+{% extends 'Layout/base_emr/_clients_base.html.twig' %}
+
+{% block body %}
+    <h1>Sysusuarios list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Email</th>
+                <th>Activo</th>
+                <th>Password</th>
+                <th>Telefono</th>
+                <th>Tarjetacredito</th>
+                <th>Usuario</th>
+                <th>Fechaactualizacion</th>
+                <th>Genero</th>
+                <th>Ocupacion</th>
+                <th>Direccion</th>
+                <th>Responsabledepaciente</th>
+                <th>Numeroafp</th>
+                <th>Numeronup</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Fechanacimiento</th>
+                <th>Celular</th>
+                <th>Jvrm</th>
+                <th>Codigopostal</th>
+                <th>Dui</th>
+                <th>Fechacreacion</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for sysUsuario in sysUsuarios %}
+            <tr>
+                <td><a href="{{ path('sys_usuario_show', { 'id': sysUsuario.id }) }}">{{ sysUsuario.id }}</a></td>
+                <td>{{ sysUsuario.email }}</td>
+                <td>{% if sysUsuario.activo %}Yes{% else %}No{% endif %}</td>
+                <td>{{ sysUsuario.password }}</td>
+                <td>{{ sysUsuario.telefono }}</td>
+                <td>{{ sysUsuario.tarjetaCredito }}</td>
+                <td>{{ sysUsuario.usuario }}</td>
+                <td>{% if sysUsuario.fechaActualizacion %}{{ sysUsuario.fechaActualizacion|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ sysUsuario.genero }}</td>
+                <td>{{ sysUsuario.ocupacion }}</td>
+                <td>{{ sysUsuario.direccion }}</td>
+                <td>{{ sysUsuario.responsableDePaciente }}</td>
+                <td>{{ sysUsuario.numeroAfp }}</td>
+                <td>{{ sysUsuario.numeroNup }}</td>
+                <td>{{ sysUsuario.nombre }}</td>
+                <td>{{ sysUsuario.apellido }}</td>
+                <td>{% if sysUsuario.fechaNacimiento %}{{ sysUsuario.fechaNacimiento|date('Y-m-d') }}{% endif %}</td>
+                <td>{{ sysUsuario.celular }}</td>
+                <td>{{ sysUsuario.jvrm }}</td>
+                <td>{{ sysUsuario.codigoPostal }}</td>
+                <td>{{ sysUsuario.dui }}</td>
+                <td>{% if sysUsuario.fechaCreacion %}{{ sysUsuario.fechaCreacion|date('Y-m-d') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('sys_usuario_show', { 'id': sysUsuario.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('sys_usuario_edit', { 'id': sysUsuario.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('sys_usuario_new') }}">Create a new sysUsuario</a>
+        </li>
+    </ul>
+{% endblock %}

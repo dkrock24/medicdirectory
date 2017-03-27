@@ -138,4 +138,33 @@ class InvArea
     {
         return $this->iarActivo;
     }
+    /**
+     * @var \AppBundle\Entity\Cliente
+     */
+    private $iarCli;
+
+
+    /**
+     * Set iarCli
+     *
+     * @param \AppBundle\Entity\Cliente $iarCli
+     *
+     * @return InvArea
+     */
+    public function setIarCli(\AppBundle\Entity\Cliente $iarCli = null)
+    {
+        $this->iarCli = $iarCli;
+
+        return $this;
+    }
+
+    /**
+     * Get iarCli
+     *
+     * @return \AppBundle\Entity\Cliente
+     */
+    public function getIarCli()
+    {
+        return $this->iarCli;
+    }
 }

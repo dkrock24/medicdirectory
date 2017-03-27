@@ -27,22 +27,30 @@ and open the template in the editor.
 Loading
 ============================
 */
-#emrloading {
-	width: 50px;
-	height: 50px;
-	text-align: center;
-    position: fixed;
-    z-index: 1000;
-    margin-left: -25px;
-    left: 50%;
+#holder_loading{
+    position:fixed;
+    width: 40px;
+    height: 38px;
+    left:50%;
+    margin-left: -20px;
+    margin-top: -19px;
     top: 50%;
-    margin-top: -25px;
-    display: none;
+    z-index: 1000;
+    background: #fff;
+    padding: 2px;
+    display:none;
+    border: solid 1px #000;
+    border-radius:4px;
+}
+.cssload-container {
+	width: 100%;
+	height: 31px;
+	text-align: center;
 }
 
 .cssload-speeding-wheel {
-	width: 41px;
-	height: 41px;
+	width: 31px;
+	height: 31px;
 	margin: 0 auto;
 	border: 2px solid rgb(0,0,0);
 	border-radius: 50%;
@@ -77,6 +85,6 @@ Loading
 	100%{ -moz-transform: rotate(360deg); transform: rotate(360deg); }
 }
 
-.magin-bottom10{
-    margin-bottom: 10px !important;
+.datatable-reorder td{
+    padding: 4px 8px !important;
 }

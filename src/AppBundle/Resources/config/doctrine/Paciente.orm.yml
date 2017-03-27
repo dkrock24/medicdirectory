@@ -10,7 +10,7 @@ AppBundle\Entity\Paciente:
                 - pac_cli_id
         FK_pac_ciudad_idx:
             columns:
-                - pac_ciu_id
+                - pac_mun_id
         IDX_pac_dui:
             columns:
                 - pac_dui
@@ -151,15 +151,15 @@ AppBundle\Entity\Paciente:
                 default: '1'
             column: pac_activo
     manyToOne:
-        pacCiu:
-            targetEntity: Ciudad
+        pacMun:
+            targetEntity: Municipio
             cascade: {  }
             fetch: LAZY
             mappedBy: null
             inversedBy: null
             joinColumns:
-                pac_ciu_id:
-                    referencedColumnName: ciu_id
+                pac_mun_id:
+                    referencedColumnName: mun_id
             orphanRemoval: false
         pacCli:
             targetEntity: Cliente

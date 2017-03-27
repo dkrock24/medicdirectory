@@ -428,4 +428,33 @@ class Cliente
     {
         return $this->cliTipCli;
     }
+    /**
+     * @var \AppBundle\Entity\Municipio
+     */
+    private $cliMun;
+
+
+    /**
+     * Set cliMun
+     *
+     * @param \AppBundle\Entity\Municipio $cliMun
+     *
+     * @return Cliente
+     */
+    public function setCliMun(\AppBundle\Entity\Municipio $cliMun = null)
+    {
+        $this->cliMun = $cliMun;
+
+        return $this;
+    }
+
+    /**
+     * Get cliMun
+     *
+     * @return \AppBundle\Entity\Municipio
+     */
+    public function getCliMun()
+    {
+        return $this->cliMun;
+    }
 }

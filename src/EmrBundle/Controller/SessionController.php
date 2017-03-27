@@ -11,6 +11,8 @@ class SessionController extends Controller
 	
 	public function loginAction( Request $request )
     {
-        return $this->render('EmrBundle:Session:login.html.twig', array());
+		//echo "xx";
+        //return $this->render('EmrBundle:Session:login.html.twig', array());
+		return $this->redirectToRoute('emr_dashboard');
     }
 }

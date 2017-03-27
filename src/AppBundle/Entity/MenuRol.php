@@ -28,14 +28,14 @@ class MenuRol
     private $menRolActivo = '1';
 
     /**
-     * @var \AppBundle\Entity\MenRol
-     */
-    private $menRolMrol;
-
-    /**
      * @var \AppBundle\Entity\Menu
      */
     private $menRolMen;
+
+    /**
+     * @var \AppBundle\Entity\Rol
+     */
+    private $menRolRol;
 
 
     /**
@@ -121,30 +121,6 @@ class MenuRol
     }
 
     /**
-     * Set menRolMrol
-     *
-     * @param \AppBundle\Entity\MenRol $menRolMrol
-     *
-     * @return MenuRol
-     */
-    public function setMenRolMrol(\AppBundle\Entity\MenRol $menRolMrol = null)
-    {
-        $this->menRolMrol = $menRolMrol;
-
-        return $this;
-    }
-
-    /**
-     * Get menRolMrol
-     *
-     * @return \AppBundle\Entity\MenRol
-     */
-    public function getMenRolMrol()
-    {
-        return $this->menRolMrol;
-    }
-
-    /**
      * Set menRolMen
      *
      * @param \AppBundle\Entity\Menu $menRolMen
@@ -166,5 +142,29 @@ class MenuRol
     public function getMenRolMen()
     {
         return $this->menRolMen;
+    }
+
+    /**
+     * Set menRolRol
+     *
+     * @param \AppBundle\Entity\Rol $menRolRol
+     *
+     * @return MenuRol
+     */
+    public function setMenRolRol(\AppBundle\Entity\Rol $menRolRol = null)
+    {
+        $this->menRolRol = $menRolRol;
+
+        return $this;
+    }
+
+    /**
+     * Get menRolRol
+     *
+     * @return \AppBundle\Entity\Rol
+     */
+    public function getMenRolRol()
+    {
+        return $this->menRolRol;
     }
 }

@@ -1,0 +1,793 @@
+{% extends "Layout/base_emr/_clients_base.html.twig" %}
+
+{% block title_page %}
+    EMR || Nuevo Paciente
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('EmrBundle:Dashboard:_breadcrumb.html.twig' )  }}
+{% endblock %} 
+
+{% block submenutop %}
+    {{ include('EmrBundle:Dashboard:_submenu.html.twig' )  }}
+{% endblock %} 
+
+{% block body %}
+    <h1>Nuevo Paciente</h1>
+    <div class="row">
+        <div class="col-lg-12">
+
+            <!-- Check the notifications -->
+            {% for message in app.session.flashbag().get("success") %}
+                <div class="alert alert-success"><i class="fa fa-check-circle"></i> {{message}}</div>
+            {% endfor %}
+            {% for message in app.session.flashbag().get("error") %}
+                <div class="alert alert-danger"><i class="fa fa-close"></i> {{message}}</div>
+            {% endfor %}
+            <!-- End notifications -->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-8">         
+            {#
+            {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <button type="submit" class="btn btn-success"><i class="icon-newspaper"></i> Crear</button>
+            {{ form_end(form) }}
+            #}
+            <div class="panel panel-white">
+                <div class="panel-heading">
+                    <h6 class="panel-title"><i class="fa fa-user"></i> Información del paciente</h6>
+                    <div class="heading-elements">
+                        <ul class="icons-list">
+                            <li><a data-action="collapse"></a></li>
+                            <li><a data-action="reload"></a></li>
+                            <li><a data-action="close"></a></li>
+                        </ul>
+                    </div>
+                </div>
+                {{ form_start(form, {'attr': {'class': 'steps-basic'}}) }}
+                <div class="form_error">{{ form_errors(form)}}</div>
+                <div class="panel-body">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active"><a href="#personal_date" aria-controls="home" role="tab" data-toggle="tab">Datos personales</a></li>
+                        <li role="presentation"><a href="#address" aria-controls="profile" role="tab" data-toggle="tab">Domicilio</a></li>
+                        <li role="presentation"><a href="#phones" aria-controls="messages" role="tab" data-toggle="tab">Telefónos</a></li>
+                        <li role="presentation"><a href="#picture" aria-controls="settings" role="tab" data-toggle="tab">Fotografía</a></li>
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="personal_date">
+                            <fieldset>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <div class="form_error">{{ form_errors(form.pacNombre)}}</div>
+                                            <label for="" class=" control-label">Primer Nombre:</label>
+                                            <div class="">{{ form_widget(form.pacNombre) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">    
+                                        <div class="form-group">
+                                            <div class="form_error">{{ form_errors(form.pacSegNombre)}}</div>
+                                            <label for="" class=" control-label">Segundo Nombre:</label>
+                                            <div class="">{{ form_widget(form.pacSegNombre) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <div class="form_error">{{ form_errors(form.pacApellido)}}</div>
+                                            <label for="" class=" control-label">Apellido Paterno:</label>
+                                            <div class="">{{ form_widget(form.pacApellido) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                        </div>
+                                    </div>    
+                                </div>
+                                <div class="row">
+
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <div class="form_error">{{ form_errors(form.pacSegApellido)}}</div>
+                                            <label for="" class=" control-label">Apellido Materno:</label>
+                                            <div class="">{{ form_widget(form.pacSegApellido) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <div class="form_error">{{ form_errors(form.pacGenero)}}</div>
+                                            <label for="" class="control-label">Genero:</label>
+                                            <div class="">{{ form_widget(form.pacGenero) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <div class="form_error">{{ form_errors(form.pacDui)}}</div>
+                                            <label for="" class=" control-label">DUI:</label>
+                                            <div class="">{{ form_widget(form.pacDui) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                        </div>
+                                    </div>   
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <div class="form_error">{{ form_errors(form.pacTipSangre)}}</div>
+                                            <label for="" class=" control-label">Tipo de Sangre:</label>
+                                            <div class="">{{ form_widget(form.pacTipSangre) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <div class="form_error">{{ form_errors(form.pacEmail)}}</div>
+                                            <label for="" class=" control-label">Email:</label>
+                                            <div class="">{{ form_widget(form.pacEmail) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                        </div>
+                                    </div>    
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <div class="form_error">{{ form_errors(form.pacEstadoCivil)}}</div>
+                                            <label for="" class=" control-label">Estado Civil:</label>
+                                            <div class="">{{ form_widget(form.pacEstadoCivil) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <div class="form_error">{{ form_errors(form.pacFechaNacimiento)}}</div>
+                                            <label for="" class=" control-label">Fecha de nacimiento:</label>
+                                            <div class="">{{ form_widget(form.pacFechaNacimiento) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                        </div>
+                                    </div>
+                                </div>       
+                            </fieldset>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="address">
+
+                            <fieldset>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <div class="form_error">{{ form_errors(form.pais)}}</div>
+                                            <label for="" class=" control-label">Pais:</label>
+                                            <div class="">{{ form_widget(form.pais) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <div class="form_error">{{ form_errors(form.pacMun)}}</div>
+                                            <label for="" class=" control-label">Municipio/departamento:</label>
+                                            <div class="">{{ form_widget(form.pacMun) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                        </div>
+                                    </div>    
+                                    <div class="col-md-4">    
+                                        <div class="form-group">
+                                            <div class="form_error">{{ form_errors(form.pacDireccion)}}</div>
+                                            <label for="" class=" control-label">Dirección:</label>
+                                            <div class="">{{ form_widget(form.pacDireccion) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                        </div>
+                                    </div>    
+                                </div>
+                            </fieldset>
+
+
+
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="phones">
+                            <fieldset>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <div class="form_error">{{ form_errors(form.pacTelCasa)}}</div>
+                                            <label for="" class=" control-label">Telefóno Casa:</label>
+                                            <div class="">{{ form_widget(form.pacTelCasa) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">    
+                                        <div class="form-group">
+                                            <div class="form_error">{{ form_errors(form.pacTelCelular)}}</div>
+                                            <label for="" class=" control-label">Celular:</label>
+                                            <div class="">{{ form_widget(form.pacTelCelular) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <div class="form_error">{{ form_errors(form.pacTelTrabajo)}}</div>
+                                            <label for="" class=" control-label">Teléfono Trabajo:</label>
+                                            <div class="">{{ form_widget(form.pacTelTrabajo) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                        </div>
+                                    </div>    
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="picture">
+                            <fieldset>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <div class="form_error">{{ form_errors(form.pacFoto)}}</div>
+                                            <label for="" class=" control-label">Fotografía:</label>
+                                            <div class="">{{ form_widget(form.pacFoto) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+
+                                        </div>
+                                    </div>   
+                                </div>
+                            </fieldset>
+                            {{ include('EmrBundle:paciente:_cropper.html.twig' )  }}
+                        </div>
+                    </div>
+
+                    {{ form_end(form)}}
+
+
+
+                    <hr>
+                    <ul class="list-inline">
+                        <li>
+                            <a href="{{ path('paciente_index') }}" class="btn btn-info"><i class="fa fa-list"></i> Listar</a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="panel panel-white">
+                <div class="panel-heading">
+                    <h6 class="panel-title"><i class="fa fa-user"></i> Buscar paciente</h6>
+                    <div class="heading-elements">
+                        <ul class="icons-list">
+                            <li><a data-action="collapse"></a></li>
+                            <li><a data-action="reload"></a></li>
+                            <li><a data-action="close"></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">Go!</button>
+                        </span>
+                    </div><!-- /input-group -->
+                </div>
+            </div>        
+        </div>
+
+
+        <div>
+
+
+
+
+
+        </div>   
+                 
+        <button type="button" class="btn btn-primary" id="btn-save-form">
+            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
+                Enviar datos
+            </span>
+        </button>
+                        
+
+    {% endblock %}
+
+    {% block codejs %}
+        <script>
+            $(document).on("ready", function () {
+
+            {# {{ include('EmrBundle:paciente:_cropper.js.html.twig' )  }} #}
+                    
+                    var img_base64 = "";
+                    
+                    'use strict';
+
+                    var console = window.console || {log: function () {}};
+                    var URL = window.URL || window.webkitURL;
+                    var $image = $('#image');
+                    var $download = $('#download');
+                    var $dataX = $('#dataX');
+                    var $dataY = $('#dataY');
+                    var $dataHeight = $('#dataHeight');
+                    var $dataWidth = $('#dataWidth');
+                    var $dataRotate = $('#dataRotate');
+                    var $dataScaleX = $('#dataScaleX');
+                    var $dataScaleY = $('#dataScaleY');
+                    var options = {
+                        aspectRatio: 4 / 3,
+                        preview: '.img-preview',
+                        crop: function (e) {
+                            $dataX.val(Math.round(e.x));
+                            $dataY.val(Math.round(e.y));
+                            $dataHeight.val(Math.round(e.height));
+                            $dataWidth.val(Math.round(e.width));
+                            $dataRotate.val(e.rotate);
+                            $dataScaleX.val(e.scaleX);
+                            $dataScaleY.val(e.scaleY);
+                        }
+                        
+                    };
+                    var originalImageURL = $image.attr('src');
+                    var uploadedImageURL;
+
+
+                    // Tooltip
+                    $('[data-toggle="tooltip"]').tooltip();
+
+
+                    // Cropper
+                    $image.on({
+                        ready: function (e) {
+                            console.log(e.type);
+                        },
+                        cropstart: function (e) {
+                            console.log(e.type, e.action);
+                        },
+                        cropmove: function (e) {
+                            console.log(e.type, e.action);
+                            
+                        },
+                        cropend: function (e) {
+                            console.log(e.type, e.action);
+                        },
+                        crop: function (e) {
+                            console.log(e.type, e.x, e.y, e.width, e.height, e.rotate, e.scaleX, e.scaleY);
+                        },
+                        zoom: function (e) {
+                            console.log(e.type, e.ratio);
+                        }
+                    }).cropper(options);
+
+
+                    // Buttons
+                    if (!$.isFunction(document.createElement('canvas').getContext)) {
+                        $('button[data-method="getCroppedCanvas"]').prop('disabled', true);
+                        //$('button[data-method="getCroppedCanvasX"]').prop('disabled', true);
+                    }
+
+                    if (typeof document.createElement('cropper').style.transition === 'undefined') {
+                        $('button[data-method="rotate"]').prop('disabled', true);
+                        $('button[data-method="scale"]').prop('disabled', true);
+                    }
+
+
+                    // Download
+                    if ($("#download").size() > 0) {
+                        if (typeof $download[0].download === 'undefined') {
+                            $download.addClass('disabled');
+                        }
+                    }
+
+
+                    // Options
+                    $('.docs-toggles').on('change', 'input', function () {
+                        var $this = $(this);
+                        var name = $this.attr('name');
+                        var type = $this.prop('type');
+                        var cropBoxData;
+                        var canvasData;
+
+                        if (!$image.data('cropper')) {
+                            return;
+                        }
+
+                        if (type === 'checkbox') {
+                            options[name] = $this.prop('checked');
+                            cropBoxData = $image.cropper('getCropBoxData');
+                            canvasData = $image.cropper('getCanvasData');
+
+                            options.ready = function () {
+                                $image.cropper('setCropBoxData', cropBoxData);
+                                $image.cropper('setCanvasData', canvasData);
+                            };
+                        } else if (type === 'radio') {
+                            options[name] = $this.val();
+                        }
+
+                        $image.cropper('destroy').cropper(options);
+                    });
+
+
+                    // Methods
+                    $('body').on('click', '[data-method]', function () {
+                        var $this = $(this);
+                        var data = $this.data();
+                        var $target;
+                        var result;
+
+                        if ($this.prop('disabled') || $this.hasClass('disabled')) {
+                            return;
+                        }
+
+                        if ($image.data('cropper') && data.method) {
+                            data = $.extend({}, data); // Clone a new one
+
+                            if (typeof data.target !== 'undefined') {
+                                $target = $(data.target);
+
+                                if (typeof data.option === 'undefined') {
+                                    try {
+                                        data.option = JSON.parse($target.val());
+                                    } catch (e) {
+                                        console.log(e.message);
+                                    }
+                                }
+                            }
+
+                            if (data.method === 'rotate') {
+                                $image.cropper('clear');
+                            }
+
+                            result = $image.cropper(data.method, data.option, data.secondOption);
+
+                            if (data.method === 'rotate') {
+                                $image.cropper('crop');
+                            }
+
+                            switch (data.method) {
+                                case 'scaleX':
+                                case 'scaleY':
+                                    $(this).data('option', -data.option);
+                                    break;
+
+                                case 'getCroppedCanvas':
+                                    if (result) {
+
+                                        // Bootstrap's Modal
+                                        $('#getCroppedCanvasModal').modal().find('.modal-body').html(result);
+
+                                        if (!$download.hasClass('disabled')) {
+                                            $download.attr('href', result.toDataURL('image/png'));
+                                        }
+                                        
+                                        img_base64 = result.toDataURL('image/png');
+                                    }
+                                    //console.log(result.toDataURL('image/jpeg'));
+                                    break;
+  
+                                case 'destroy':
+                                    if (uploadedImageURL) {
+                                        URL.revokeObjectURL(uploadedImageURL);
+                                        uploadedImageURL = '';
+                                        $image.attr('src', originalImageURL);
+                                    }
+
+                                    break;
+                            }
+
+                            if ($.isPlainObject(result) && $target) {
+                                try {
+                                    $target.val(JSON.stringify(result));
+                                } catch (e) {
+                                    console.log(e.message);
+                                }
+                            }
+
+                        }
+                    });
+
+
+                    // Keyboard
+                    $(document.body).on('keydown', function (e) {
+
+                        if (!$image.data('cropper') || this.scrollTop > 300) {
+                            return;
+                        }
+
+                        switch (e.which) {
+                            case 37:
+                                e.preventDefault();
+                                $image.cropper('move', -1, 0);
+                                break;
+
+                            case 38:
+                                e.preventDefault();
+                                $image.cropper('move', 0, -1);
+                                break;
+
+                            case 39:
+                                e.preventDefault();
+                                $image.cropper('move', 1, 0);
+                                break;
+
+                            case 40:
+                                e.preventDefault();
+                                $image.cropper('move', 0, 1);
+                                break;
+                        }
+
+                    });
+
+
+                    // Import image
+                    var $inputImage = $('#inputImage');
+
+                    if (URL) {
+                        $inputImage.change(function () {
+                            var files = this.files;
+                            var file;
+
+                            if (!$image.data('cropper')) {
+                                return;
+                            }
+
+                            if (files && files.length) {
+                                file = files[0];
+
+                                if (/^image\/\w+$/.test(file.type)) {
+                                    if (uploadedImageURL) {
+                                        URL.revokeObjectURL(uploadedImageURL);
+                                    }
+
+                                    uploadedImageURL = URL.createObjectURL(file);
+                                    $image.cropper('destroy').attr('src', uploadedImageURL).cropper(options);
+                                    $inputImage.val('');
+                                } else {
+                                    window.alert('Please choose an image file.');
+                                }
+                            }
+                        });
+                    } else {
+                        $inputImage.prop('disabled', true).parent().addClass('disabled');
+                    }
+
+
+
+
+
+
+                    $("#btn-save-form").on("click", function () {
+                        saveFormAjax("");
+                    });
+                    // Basic wizard setup
+                    /*
+                     $(".steps-basic").steps({
+                     headerTag: "h6",
+                     bodyTag: "fieldset",
+                     //transitionEffect: "fade",
+                     titleTemplate: '<span class="number">#index#</span> #title#',
+                     labels: {
+                     finish: 'Submit'
+                     },
+                     onFinished: function (event, currentIndex) {
+                     alert("Form submitted.");
+                     }
+                     });
+                     */
+
+                    // Initialize plugins
+                    // ------------------------------
+
+                    // Select2 selects
+                    $('.select').select2();
+
+                    /*
+                     // Simple select without search
+                     $('.select-simple').select2({
+                     minimumResultsForSearch: Infinity
+                     });
+					 
+					 
+                     // Styled checkboxes and radios
+                     $('.styled').uniform({
+                     radioClass: 'choice'
+                     });
+					 
+					 
+                     // Styled file input
+                     $('.file-styled').uniform({
+                     fileButtonClass: 'action btn bg-blue'
+                     });
+                     */
+
+                    $("#appbundle_paciente_pacMun").empty();
+                    $("#appbundle_paciente_pais").on("change", function () {
+
+                        var id = $(this).val();
+                        if (id > 0)
+                        {
+                            getLocationsAjax(id)
+                        }
+                        //$("#appbundle_paciente_pacMun").append($('<option>', {value: 100000, text: 'new option'}));
+                    });
+
+
+                    function getLocationsAjax(id) {
+                        $("#holder_loading").show();
+						$.ajax({
+                            type: "post",
+                            url: "{{ path('emr_location_per_country') }}",
+                            data: {id: id},
+                            error: function (data) {
+                                $("#holder_loading").hide();
+                                $.confirm({
+                                    icon: 'fa fa-remove',
+                                    title: 'Error!',
+                                    content: 'Ha ocurrido un error al tratar de enviar la petición',
+                                    type: 'red',
+                                    typeAnimated: true,
+                                    buttons: {
+                                        tryAgain: {
+                                            text: 'Intentar de nuevo',
+                                            btnClass: 'btn-red',
+                                            action: function () {
+                                                sendAjax(id);
+                                            }
+                                        },
+                                        close: function () {
+                                        }
+                                    }
+                                });
+
+                            },
+                            success: function (data) {
+                                $("#holder_loading").hide();
+
+                                //console.log(data.length);
+
+
+                                if (data.length > 1)
+                                {
+                                    /*
+                                     $.alert({
+                                     icon: 'fa fa-check-circle',
+                                     title: 'Ok!',
+                                     content: 'El registro fue eliminado con éxito',
+                                     type: 'green',
+                                     typeAnimated: true,
+                                     });
+                                     */
+                                    $("#appbundle_paciente_pacMun").empty();
+                                    for (i = 0; i < data.length; i++)
+                                    {
+                                        //console.log(data[i]['mun_nombre']);
+                                        $("#appbundle_paciente_pacMun").append($('<option>', {value: data[i]['mun_id'], text: data[i]['mun_nombre'] + "/" + data[i]['dep_departamento']}));
+                                    }
+                                    //$("#appbundle_paciente_pacMun").append($('<option>', {value: 100000, text: 'new option'}));
+                                } else
+                                {
+                                    var infoError = (data);
+                                    $.alert({
+                                        icon: 'glyphicon glyphicon-exclamation-sign',
+                                        title: 'Info!',
+                                        content: 'No hay información asociada al pais seleccionado <br>' + infoError,
+                                        type: 'blue',
+                                        typeAnimated: true,
+                                    });
+                                }
+
+                            }
+                        });
+                    }
+                    
+                    
+                    function saveFormAjax(id) {
+                        
+                        
+                        var firts_name = $("#appbundle_paciente_pacNombre").val();
+                        var middle_name = $("#appbundle_paciente_pacSegNombre").val();
+                        var last_name = $("#appbundle_paciente_pacApellido").val();
+                        var middle_last_name = $("#appbundle_paciente_pacSegApellido").val();
+                        var gender = $("#appbundle_paciente_pacGenero").val();
+                        var dui = $("#appbundle_paciente_pacDui").val();
+                        var blood_type = $("#appbundle_paciente_pacTipSangre").val();
+                        var email = $("#appbundle_paciente_pacEmail").val();
+                        var civil_state = $("#appbundle_paciente_pacEstadoCivil").val();
+                        var municipality = $("#appbundle_paciente_pacMun").val();
+                        var address = $("#appbundle_paciente_pacDireccion").val();
+                        var home_phone = $("#appbundle_paciente_pacTelCasa").val();
+                        var work_phone = $("#appbundle_paciente_pacTelTrabajo").val();
+                        var cellphone = $("#appbundle_paciente_pacTelTrabajo").val();
+                        var month = $("#appbundle_paciente_pacFechaNacimiento_month").val();
+                        var day = $("#appbundle_paciente_pacFechaNacimiento_day").val();
+                        var year = $("#appbundle_paciente_pacFechaNacimiento_year").val();
+                        var img = img_base64;
+                       
+                        var err = 0;
+                            if( month == "" )
+                            {
+                                msg = "Selecciones el mes del nacimiento del paciente";
+                                err = 1;
+                            }else if ($day == "")
+                            {
+                                msg = "Seleccione el dia de nacimiento del paciente";
+                                err = 1;
+                            }else if( year=="")
+                            {
+                                msg = "Seleccione el año de nacimiento del paciente";
+                                err = 1;
+                            }
+                            
+                        if( err == 1 ){
+                            $.alert({
+                                icon: 'fa fa-remove',
+                                title: 'Error: fecha de nacimiento',
+                                content: msg,
+                                type: 'red',
+                                typeAnimated: true,
+                            });
+                            return false;
+                        }         
+                        
+                        $("#holder_loading").show();
+						$.ajax({
+                            type: "post",
+                            url: "{{ path('paciente_form') }}",
+                            data: {
+                                firts_name: firts_name, middle_name: middle_name,
+                                last_name: last_name, middle_last_name: middle_last_name,
+                                gender: gender, dui:dui, blood_type: blood_type,
+                                email: email, civil_state: civil_state, municipality: municipality,
+                                address: address, home_phone: home_phone, work_phone, cellphone: cellphone,
+                                date: ""+year+"-"+month+"-"+day+"", img: img
+                                
+                            },
+                            error: function (data) {
+                                $("#holder_loading").hide();
+                                $.confirm({
+                                    icon: 'fa fa-remove',
+                                    title: 'Error!',
+                                    content: 'Ha ocurrido un error al tratar de enviar la petición',
+                                    type: 'red',
+                                    typeAnimated: true,
+                                    buttons: {
+                                        tryAgain: {
+                                            text: 'Intentar de nuevo',
+                                            btnClass: 'btn-red',
+                                            action: function () {
+                                                saveFormAjax("");
+                                            }
+                                        },
+                                        close: function () {
+                                        }
+                                    }
+                                });
+
+                            },
+                            success: function (data) {
+                                $("#holder_loading").hide();
+
+                                //console.log(data.length);
+
+
+                                if (data == 1)
+                                {
+                                    
+                                     $.alert({
+                                        icon: 'fa fa-check-circle',
+                                        title: 'Ok!',
+                                        content: 'El registro guardado con éxito',
+                                        type: 'green',
+                                        typeAnimated: true,
+                                     });
+                                     
+                                    //$("#appbundle_paciente_pacMun").append($('<option>', {value: 100000, text: 'new option'}));
+                                } else 
+                                {
+                                    var infoError = (data);
+                                    $.alert({
+                                        icon: 'glyphicon glyphicon-exclamation-sign',
+                                        title: 'Info!',
+                                        content: 'Ocurrio un error al intentar guardar la información <br>' + infoError,
+                                        type: 'blue',
+                                        typeAnimated: true,
+                                    });
+                                }
+
+                            }
+                        });
+                    }
+
+                });
+        </script>
+    {% endblock %}    

@@ -39,15 +39,15 @@ AppBundle\Entity\ClienteUsuario:
                 default: '1'
             column: cli_usu_activo
     manyToOne:
-        cliUsuCli:
-            targetEntity: Cliente
+        cliUsuUsu:
+            targetEntity: Usuario
             cascade: {  }
             fetch: LAZY
             mappedBy: null
             inversedBy: null
             joinColumns:
-                cli_usu_cli_id:
-                    referencedColumnName: cli_id
+                cli_usu_usu_id:
+                    referencedColumnName: usu_id
             orphanRemoval: false
         cliUsuRol:
             targetEntity: Rol
@@ -59,14 +59,14 @@ AppBundle\Entity\ClienteUsuario:
                 cli_usu_rol_id:
                     referencedColumnName: rol_id
             orphanRemoval: false
-        cliUsuUsu:
-            targetEntity: Usuario
+        cliUsuCli:
+            targetEntity: Cliente
             cascade: {  }
             fetch: LAZY
             mappedBy: null
             inversedBy: null
             joinColumns:
-                cli_usu_usu_id:
-                    referencedColumnName: usu_id
+                cli_usu_cli_id:
+                    referencedColumnName: cli_id
             orphanRemoval: false
     lifecycleCallbacks: {  }
