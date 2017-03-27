@@ -323,7 +323,7 @@ class adminCreateElSalvadorLocationsCommand extends ContainerAwareCommand {
  
 		//Departamentos 
 		$states = array(
-				"Ahuachapán"=>$municpios_santa_ana,
+				"Ahuachapán"=>$municpios_ahuchapan,
 				"Santa Ana"=>$municpios_santa_ana,
 				"Sonsonate"=>$municpios_sonsonate,
 				"Usulután"=>$municpios_usulutan, 

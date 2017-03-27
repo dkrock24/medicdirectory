@@ -21,4 +21,7 @@ emr_paciente:
     resource: "@EmrBundle/Resources/config/routing/paciente.yml"
     prefix:   /paciente
     host:     "%emr_domain%"
-    
+
+emr_location_per_country:
+    path:     /state/municipality
+    defaults: { _controller: "EmrBundle:Paciente:getStatesFromCountry" }    

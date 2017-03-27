@@ -22,3 +22,9 @@ paciente_delete:
     path:     /{id}/delete
     defaults: { _controller: "EmrBundle:Paciente:delete" }
     methods:  DELETE
+    
+    
+paciente_form:
+    path:     /form/paciente
+    defaults: { _controller: "EmrBundle:Paciente:formPacientes" }
+        

@@ -167,4 +167,9 @@ class Municipio
     {
         return $this->munDep;
     }
+	
+	
+	public function __toString() {
+		return $this->munNombre;
+	}
 }
