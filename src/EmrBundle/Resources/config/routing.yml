@@ -21,4 +21,14 @@ emr_paciente:
     resource: "@EmrBundle/Resources/config/routing/paciente.yml"
     prefix:   /paciente
     host:     "%emr_domain%"
+
+app_invarea:
+    resource: "@EmrBundle/Resources/config/routing/invarea.yml"
+    prefix:   /invarea
+    host:     "%emr_domain%"
+
+app_invcategoria:
+    resource: "@EmrBundle/Resources/config/routing/invcategoria.yml"
+    prefix:   /invcategoria
+    host:     "%emr_domain%"
     

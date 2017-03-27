@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Invcategorium</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Icaid</th>
+                <td>{{ invCategorium.icaId }}</td>
+            </tr>
+            <tr>
+                <th>Icacategoria</th>
+                <td>{{ invCategorium.icaCategoria }}</td>
+            </tr>
+            <tr>
+                <th>Icadescripcion</th>
+                <td>{{ invCategorium.icaDescripcion }}</td>
+            </tr>
+            <tr>
+                <th>Icafechacrea</th>
+                <td>{% if invCategorium.icaFechaCrea %}{{ invCategorium.icaFechaCrea|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Icafechamod</th>
+                <td>{% if invCategorium.icaFechaMod %}{{ invCategorium.icaFechaMod|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Icaactivo</th>
+                <td>{% if invCategorium.icaActivo %}Yes{% else %}No{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('invcategoria_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('invcategoria_edit', { 'icaId': invCategorium.icaId }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

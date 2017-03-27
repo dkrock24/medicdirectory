@@ -1,0 +1,68 @@
+{% extends "Layout/base_emr/_clients_base.html.twig" %}
+
+{% block title_page %}
+        EMR || Datos del Area
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('EmrBundle:InvArea:_breadcrumb.html.twig' )  }}
+{% endblock %} 
+
+{% block submenutop %}
+    {{ include('EmrBundle:InvArea:_submenu.html.twig' )  }}
+{% endblock %} 
+
+{% block body %}
+    <h1>Inventario</h1>
+
+    <!-- Check the notifications -->
+    {% for message in app.session.flashbag().get("success") %}
+        <div class="alert alert-success"><i class="fa fa-check-circle"></i> {{message}}</div>
+    {% endfor %}
+    {% for message in app.session.flashbag().get("error") %}
+        <div class="alert alert-danger"><i class="fa fa-close"></i> {{message}}</div>
+    {% endfor %}
+    <!-- End notifications -->
+
+    <table class="table table-striped">
+        <tbody>
+            <tr>
+                <th>Iarid</th>
+                <td>{{ invArea.iarId }}</td>
+            </tr>
+            <tr>
+                <th>Iararea</th>
+                <td>{{ invArea.iarArea }}</td>
+            </tr>
+            <tr>
+                <th>Iarfechacrea</th>
+                <td>{% if invArea.iarFechaCrea %}{{ invArea.iarFechaCrea|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Iarfechamod</th>
+                <td>{% if invArea.iarFechaMod %}{{ invArea.iarFechaMod|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Iaractivo</th>
+                <td>{% if invArea.iarActivo %}Yes{% else %}No{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul class="list-inline">
+        <li>
+            <a href="{{ path('invarea_index') }}" class="btn btn-info"><i class="fa fa-list"></i> Listar</a>
+        </li>
+        <li>
+            <a href="{{ path('invarea_new') }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Nuevo</a>
+        </li>
+        <li>
+            <a href="{{ path('invarea_edit', { 'iarId': invArea.iarId }) }}" class="btn bg-teal-400"><i class="fa fa-edit"></i> Editar</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <button type="submit" class="btn btn-danger"><i class="fa fa-remove"></i> Eliminar</button>
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}
