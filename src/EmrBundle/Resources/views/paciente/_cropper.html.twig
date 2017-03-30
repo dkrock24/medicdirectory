@@ -1,9 +1,20 @@
+<style>
+    #bg-image-upload, #my_camera{
+        background-image: url("{{ asset('bundles/admin/img/avatar-picture.png') }}");
+        background-position: center center;
+        background-repeat: no-repeat;
+    }
+    #my_camera{
+        background-size: 50% 50%;
+        border: solid 1px #ccc;
+    }
+</style>
 <!-- Content -->
   <div class="containerx">
     <div class="row">
       <div class="col-md-8">
         <!-- <h3>Demo:</h3> -->
-        <div class="img-container" style="">
+        <div class="img-container" style=""  id="bg-image-upload">
           <img id="image" src="" alt="Picture">
         </div>
       </div>

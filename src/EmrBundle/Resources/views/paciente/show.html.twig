@@ -14,96 +14,99 @@
 
 {% block body %}
     <h1>Datos del paciente</h1>
-    
-    <!-- Check the notifications -->
-    {% for message in app.session.flashbag().get("success") %}
-        <div class="alert alert-success"><i class="fa fa-check-circle"></i> {{message}}</div>
-    {% endfor %}
-    {% for message in app.session.flashbag().get("error") %}
-        <div class="alert alert-danger"><i class="fa fa-close"></i> {{message}}</div>
-    {% endfor %}
-    <!-- End notifications -->
-    
-    <table class="table table-striped">
-        <tbody>
-            <tr>
-                <th>Pacid</th>
-                <td>{{ paciente.pacId }}</td>
-            </tr>
-            <tr>
-                <th>Pacnombre</th>
-                <td>{{ paciente.pacNombre }}</td>
-            </tr>
-            <tr>
-                <th>Pacsegnombre</th>
-                <td>{{ paciente.pacSegNombre }}</td>
-            </tr>
-            <tr>
-                <th>Pacfechamod</th>
-                <td>{% if paciente.pacFechaMod %}{{ paciente.pacFechaMod|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Pacapellido</th>
-                <td>{{ paciente.pacApellido }}</td>
-            </tr>
-            <tr>
-                <th>Pacsegapellido</th>
-                <td>{{ paciente.pacSegApellido }}</td>
-            </tr>
-            <tr>
-                <th>Pacgenero</th>
-                <td>{{ paciente.pacGenero }}</td>
-            </tr>
-            <tr>
-                <th>Pacemail</th>
-                <td>{{ paciente.pacEmail }}</td>
-            </tr>
-            <tr>
-                <th>Pacdui</th>
-                <td>{{ paciente.pacDui }}</td>
-            </tr>
-            <tr>
-                <th>Pacestadocivil</th>
-                <td>{{ paciente.pacEstadoCivil }}</td>
-            </tr>
-            <tr>
-                <th>Pactipsangre</th>
-                <td>{{ paciente.pacTipSangre }}</td>
-            </tr>
-            <tr>
-                <th>Pacteltrabajo</th>
-                <td>{{ paciente.pacTelTrabajo }}</td>
-            </tr>
-            <tr>
-                <th>Pactelcelular</th>
-                <td>{{ paciente.pacTelCelular }}</td>
-            </tr>
-            <tr>
-                <th>Pactelcasa</th>
-                <td>{{ paciente.pacTelCasa }}</td>
-            </tr>
-            <tr>
-                <th>Pacdireccion</th>
-                <td>{{ paciente.pacDireccion }}</td>
-            </tr>
-            <tr>
-                <th>Pacfechanacimiento</th>
-                <td>{% if paciente.pacFechaNacimiento %}{{ paciente.pacFechaNacimiento|date('Y-m-d') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Pacfoto</th>
-                <td>{{ paciente.pacFoto }}</td>
-            </tr>
-            <tr>
-                <th>Pacfechacrea</th>
-                <td>{% if paciente.pacFechaCrea %}{{ paciente.pacFechaCrea|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Pacactivo</th>
-                <td>{% if paciente.pacActivo %}Yes{% else %}No{% endif %}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="row">
+        <div class="col-lg-6">
+        <!-- Check the notifications -->
+        {% for message in app.session.flashbag().get("success") %}
+            <div class="alert alert-success"><i class="fa fa-check-circle"></i> {{message}}</div>
+        {% endfor %}
+        {% for message in app.session.flashbag().get("error") %}
+            <div class="alert alert-danger"><i class="fa fa-close"></i> {{message}}</div>
+        {% endfor %}
+        <!-- End notifications -->
+
+        <table class="table table-striped">
+            <tbody>
+                <tr>
+                    <th>Id</th>
+                    <td>{{ paciente.pacId }}</td>
+                </tr>
+                <tr>
+                    <th>Nombre:</th>
+                    <td>{{ paciente.pacNombre }}</td>
+                </tr>
+                <tr>
+                    <th>Segundo nombre:</th>
+                    <td>{{ paciente.pacSegNombre }}</td>
+                </tr>
+                <tr>
+                    <th>Apellido paterno:</th>
+                    <td>{{ paciente.pacApellido }}</td>
+                </tr>
+                <tr>
+                    <th>Apellido materno:</th>
+                    <td>{{ paciente.pacSegApellido }}</td>
+                </tr>
+                <tr>
+                    <th>Género:</th>
+                    <td>{{ paciente.pacGenero }}</td>
+                </tr>
+                <tr>
+                    <th>Email:</th>
+                    <td>{{ paciente.pacEmail }}</td>
+                </tr>
+                <tr>
+                    <th>DUI:</th>
+                    <td>{{ paciente.pacDui }}</td>
+                </tr>
+                <tr>
+                    <th>Estado civil:</th>
+                    <td>{{ paciente.pacEstadoCivil }}</td>
+                </tr>
+                <tr>
+                    <th>Tipo de sangre:</th>
+                    <td>{{ paciente.pacTipSangre }}</td>
+                </tr>
+                <tr>
+                    <th>Teléfono trabajo:</th>
+                    <td>{{ paciente.pacTelTrabajo }}</td>
+                </tr>
+                <tr>
+                    <th>Celular:</th>
+                    <td>{{ paciente.pacTelCelular }}</td>
+                </tr>
+                <tr>
+                    <th>Teléfono casa:</th>
+                    <td>{{ paciente.pacTelCasa }}</td>
+                </tr>
+                <tr>
+                    <th>Dirección:</th>
+                    <td>{{ paciente.pacDireccion }}</td>
+                </tr>
+                <tr>
+                    <th>Fecha de nacimiento:</th>
+                    <td>{% if paciente.pacFechaNacimiento %}{{ paciente.pacFechaNacimiento|date('Y-m-d') }}{% endif %}</td>
+                </tr>
+                <tr>
+                    <th>Foto:</th>
+                    <td>{{ paciente.pacFoto }}</td>
+                </tr>
+                <tr>
+                    <th>Fecha creación:</th>
+                    <td>{% if paciente.pacFechaCrea %}{{ paciente.pacFechaCrea|date('Y-m-d H:i:s') }}{% endif %}</td>
+                </tr>
+                <tr>
+                    <th>Fecha actualizado:</th>
+                    <td>{% if paciente.pacFechaMod %}{{ paciente.pacFechaMod|date('Y-m-d H:i:s') }}{% endif %}</td>
+                </tr>
+                <tr>
+                    <th>Activo:</th>
+                    <td>{% if paciente.pacActivo %}<span class="label label-success">Si</span>{% else %}<span class="label label-danger">No</span>{% endif %}</td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+    </div>
     <hr>        
 
                       

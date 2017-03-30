@@ -27,4 +27,8 @@ paciente_delete:
 paciente_form:
     path:     /form/paciente
     defaults: { _controller: "EmrBundle:Paciente:formPacientes" }
+    
+paciente_search:
+    path:     /search/patients
+    defaults: { _controller: "EmrBundle:Paciente:searchPatients" }
         

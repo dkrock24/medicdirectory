@@ -38,7 +38,7 @@ class PacienteType extends AbstractType
 						'Femenino' => "F",
 					),
 				))
-				->add('pacEmail', TextType::class, array("label"=>"Email:","required"=>false, "attr"=>array( "class"=>"daterange-ranges", "autocomplete"=>false )))
+				->add('pacEmail', TextType::class, array("label"=>"Email:","required"=>false, "attr"=>array( "class"=>"", "autocomplete"=>false )))
 				->add('pacDui')
 				->add('pacEstadoCivil')
 				->add('pacTipSangre', ChoiceType::class, array(
@@ -63,12 +63,14 @@ class PacienteType extends AbstractType
 				->add('pacMun', \Symfony\Bridge\Doctrine\Form\Type\EntityType::class, array(
 				
 						"class" => "AppBundle:Municipio",
-						'mapped'=>false,
+					
+						'choice_label' => function ($pacMun) {
+							return $pacMun->getMunNombre()." / ".$pacMun->getMunDep();
+						},
 						'required'    => false,
-						//'placeholder' => 'Seleccione el pais',
-						'empty_data'  => null,
+						//'empty_data'  => null,
 						'multiple'=> false,
-						'data' => array(),
+						//'data' => array(),
 						"attr"=>array( "class"=>"select" )
 						//'preferred_choices' => array('1')
 					))
@@ -78,8 +80,9 @@ class PacienteType extends AbstractType
 						'mapped'=>false,
 						'required'    => false,
 						//'placeholder' => 'Seleccione el pais',
-						'empty_data'  => null,
+						//'empty_data'  => null,
 						'multiple'=> false,
+						"attr"=>array( "class"=>"select" ),
 						'data' => array()
 						//'preferred_choices' => array('1')
 					)
@@ -93,9 +96,9 @@ class PacienteType extends AbstractType
 					//'years' => range( (date("Y")-100), date("Y") )
 					'years' => range( 1917, date("Y") )
 					) )
-				->add('pacFoto', TextareaType::class, array("label"=>"Email:","required"=>false, "attr"=>array( "class"=>"imgbase64", "autocomplete"=>false )))
+				//->add('pacFoto', TextareaType::class, array("label"=>"Email:","required"=>false, "attr"=>array( "class"=>"imgbase64", "autocomplete"=>false )))
 				//->add('pacFechaCrea')
-				//->add('pacActivo')
+				->add('pacActivo',CheckboxType::class, array("label"=>"Activo", "required"=>false, "attr"=>array("class"=>"styled")))
 				//->add('pacCli')
 				//->add('pacUsu')
 				;

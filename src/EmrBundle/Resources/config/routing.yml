@@ -24,4 +24,8 @@ emr_paciente:
 
 emr_location_per_country:
     path:     /state/municipality
-    defaults: { _controller: "EmrBundle:Paciente:getStatesFromCountry" }    
+    defaults: { _controller: "EmrBundle:Paciente:getStatesFromCountry" }
+    
+emr_cliente:
+    resource: "@EmrBundle/Resources/config/routing/cliente.yml"
+    prefix:   /cliente

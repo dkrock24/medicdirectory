@@ -51,10 +51,10 @@
                 <div class="panel-body">
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs" role="tablist">
-                        <li role="presentation" class="active"><a href="#personal_date" aria-controls="home" role="tab" data-toggle="tab">Datos personales</a></li>
-                        <li role="presentation"><a href="#address" aria-controls="profile" role="tab" data-toggle="tab">Domicilio</a></li>
-                        <li role="presentation"><a href="#phones" aria-controls="messages" role="tab" data-toggle="tab">Telefónos</a></li>
-                        <li role="presentation"><a href="#picture" aria-controls="settings" role="tab" data-toggle="tab">Fotografía</a></li>
+                        <li role="presentation" class="active"><a href="#personal_date" aria-controls="home" role="tab" data-toggle="tab"><i class="fa fa-list-alt"></i> Datos personales</a></li>
+                        <li role="presentation"><a href="#address" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-map-o"></i> Domicilio/Telefónos</a></li>
+                        <!--<li role="presentation"><a href="#phones" aria-controls="messages" role="tab" data-toggle="tab"></a></li>-->
+                        <li role="presentation"><a href="#picture" aria-controls="settings" role="tab" data-toggle="tab"><i class="fa fa-file-image-o"></i> Fotografía</a></li>
                     </ul>
                     <!-- Tab panes -->
                     <div class="tab-content">
@@ -85,8 +85,6 @@
                                     </div>    
                                 </div>
                                 <div class="row">
-
-
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <div class="form_error">{{ form_errors(form.pacSegApellido)}}</div>
@@ -138,10 +136,7 @@
                                     </div>
                                 </div>
 
-
                                 <div class="row">
-
-
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <div class="form_error">{{ form_errors(form.pacFechaNacimiento)}}</div>
@@ -149,6 +144,13 @@
                                             <div class="">{{ form_widget(form.pacFechaNacimiento) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
                                         </div>
                                     </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <div class="form_error">{{ form_errors(form.pacActivo)}}</div>
+                                            <label for="" class=" control-label">Estatus del paciente: </label>
+                                            <div class="">{{ form_widget(form.pacActivo) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                        </div>
+                                    </div>    
                                 </div>       
                             </fieldset>
                         </div>
@@ -178,13 +180,7 @@
                                         </div>
                                     </div>    
                                 </div>
-                            </fieldset>
-
-
-
-                        </div>
-                        <div role="tabpanel" class="tab-pane" id="phones">
-                            <fieldset>
+                                
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
@@ -207,79 +203,64 @@
                                             <div class="">{{ form_widget(form.pacTelTrabajo) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
                                         </div>
                                     </div>    
-                                </div>
+                                </div>        
                             </fieldset>
+
                         </div>
                         <div role="tabpanel" class="tab-pane" id="picture">
                             <fieldset>
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <div class="form_error">{{ form_errors(form.pacFoto)}}</div>
-                                            <label for="" class=" control-label">Fotografía:</label>
-                                            <div class="">{{ form_widget(form.pacFoto) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
-
+                                            
+                                            <!-- Nav tabs -->
+                                            <ul class="nav nav-tabs" role="tablistUpload">
+                                              <li role="presentation" class="active"><a href="#pc" aria-controls="pc" role="tab" data-toggle="tab"><i class='fa fa-upload'></i> PC</a></li>
+                                              <li role="presentation"><a href="#webcam" aria-controls="webcam" role="tab" data-toggle="tab"><i class='fa fa-camera'></i> Carama web</a></li>
+                                            </ul>
+                                            <!-- Tab panes -->
+                                            <div class="tab-content">
+                                                <div role="tabpanel" class="tab-pane active" id="pc">
+                                                    {{ include('EmrBundle:paciente:_cropper.html.twig' )  }}  
+                                                </div>
+                                                <div role="tabpanel" class="tab-pane" id="webcam">
+                                                    {{ include('EmrBundle:paciente:_webcam.html.twig' )  }}
+                                                </div>
+                                            </div>
+                                            
+                                            
                                         </div>
                                     </div>   
                                 </div>
+                                          
                             </fieldset>
-                            {{ include('EmrBundle:paciente:_cropper.html.twig' )  }}
+                            
                         </div>
                     </div>
 
                     {{ form_end(form)}}
 
-
-
                     <hr>
                     <ul class="list-inline">
+                        <li>
+                            <button type="button" class="btn btn-primary" id="btn-save-form">
+                                <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
+                                    Enviar datos
+                                </span>
+                            </button>
+                        </li>
                         <li>
                             <a href="{{ path('paciente_index') }}" class="btn btn-info"><i class="fa fa-list"></i> Listar</a>
                         </li>
                     </ul>
-
                 </div>
             </div>
         </div>
         <div class="col-lg-4">
-            <div class="panel panel-white">
-                <div class="panel-heading">
-                    <h6 class="panel-title"><i class="fa fa-user"></i> Buscar paciente</h6>
-                    <div class="heading-elements">
-                        <ul class="icons-list">
-                            <li><a data-action="collapse"></a></li>
-                            <li><a data-action="reload"></a></li>
-                            <li><a data-action="close"></a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="panel-body">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search for...">
-                        <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">Go!</button>
-                        </span>
-                    </div><!-- /input-group -->
-                </div>
-            </div>        
+            {{ include('EmrBundle:paciente:_search.html.twig' )  }}       
         </div>
-
-
-        <div>
-
-
-
-
-
-        </div>   
-                 
-        <button type="button" class="btn btn-primary" id="btn-save-form">
-            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
-                Enviar datos
-            </span>
-        </button>
-                        
-
+    </div>
+    
     {% endblock %}
 
     {% block codejs %}
@@ -549,21 +530,7 @@
                     $("#btn-save-form").on("click", function () {
                         saveFormAjax("");
                     });
-                    // Basic wizard setup
-                    /*
-                     $(".steps-basic").steps({
-                     headerTag: "h6",
-                     bodyTag: "fieldset",
-                     //transitionEffect: "fade",
-                     titleTemplate: '<span class="number">#index#</span> #title#',
-                     labels: {
-                     finish: 'Submit'
-                     },
-                     onFinished: function (event, currentIndex) {
-                     alert("Form submitted.");
-                     }
-                     });
-                     */
+
 
                     // Initialize plugins
                     // ------------------------------
@@ -571,24 +538,6 @@
                     // Select2 selects
                     $('.select').select2();
 
-                    /*
-                     // Simple select without search
-                     $('.select-simple').select2({
-                     minimumResultsForSearch: Infinity
-                     });
-					 
-					 
-                     // Styled checkboxes and radios
-                     $('.styled').uniform({
-                     radioClass: 'choice'
-                     });
-					 
-					 
-                     // Styled file input
-                     $('.file-styled').uniform({
-                     fileButtonClass: 'action btn bg-blue'
-                     });
-                     */
 
                     $("#appbundle_paciente_pacMun").empty();
                     $("#appbundle_paciente_pais").on("change", function () {
@@ -621,7 +570,7 @@
                                             text: 'Intentar de nuevo',
                                             btnClass: 'btn-red',
                                             action: function () {
-                                                sendAjax(id);
+                                                getLocationsAjax(id);
                                             }
                                         },
                                         close: function () {
@@ -651,7 +600,7 @@
                                     for (i = 0; i < data.length; i++)
                                     {
                                         //console.log(data[i]['mun_nombre']);
-                                        $("#appbundle_paciente_pacMun").append($('<option>', {value: data[i]['mun_id'], text: data[i]['mun_nombre'] + "/" + data[i]['dep_departamento']}));
+                                        $("#appbundle_paciente_pacMun").append($('<option>', {value: data[i]['mun_id'], text: data[i]['mun_nombre'] + " / " + data[i]['dep_departamento']}));
                                     }
                                     //$("#appbundle_paciente_pacMun").append($('<option>', {value: 100000, text: 'new option'}));
                                 } else
@@ -698,7 +647,7 @@
                             {
                                 msg = "Selecciones el mes del nacimiento del paciente";
                                 err = 1;
-                            }else if ($day == "")
+                            }else if (day == "")
                             {
                                 msg = "Seleccione el dia de nacimiento del paciente";
                                 err = 1;
@@ -711,7 +660,7 @@
                         if( err == 1 ){
                             $.alert({
                                 icon: 'fa fa-remove',
-                                title: 'Error: fecha de nacimiento',
+                                title: 'Error!',
                                 content: msg,
                                 type: 'red',
                                 typeAnimated: true,
@@ -787,7 +736,79 @@
                             }
                         });
                     }
+                    
+                   
+                        
+                        $("#form_search_patients").submit(function(e){
+                            //
+                            e.preventDefault();
+                            searchPatients();
+                            
+                            return false;
+                        });
+                    
+                    
+                    function searchPatients()
+                    {
+                        var search = $("#input_search_patients").val();
+                        $("#holder_loading").show();
+                            $.ajax({
+                                type: "post",
+                                url: "{{ path('paciente_search') }}",
+                                data: { search: search },
+                                error: function (data) {
+                                    $("#holder_loading").hide();
+                                    $.confirm({
+                                        icon: 'fa fa-remove',
+                                        title: 'Error!',
+                                        content: 'Ha ocurrido un error al tratar de enviar la petición',
+                                        type: 'red',
+                                        typeAnimated: true,
+                                        buttons: {
+                                            tryAgain: {
+                                                text: 'Intentar de nuevo',
+                                                btnClass: 'btn-red',
+                                                action: function () {
+                                                    searchPatients();
+                                                }
+                                            },
+                                            close: function () {
+                                            }
+                                        }
+                                    });
+
+                                },
+                                success: function (data) {
+                                    $("#holder_loading").hide();
+                                    if( data.length > 0)
+                                    {
+                                        var table = "<table class='table table-striped' id='table_result_patients'><head><tr><td>Nombre</td><td>DUI</td></tr></thead><tbody>";
+                                        for(i=0; i < data.length; i++)
+                                        {
+                                            table += "<tr>";
+                                            table += "<td>"+data[i]['fullname']+"</td>";
+                                            table += "<td>"+data[i]['dui']+"</td>";
+                                            table += "</tr>";
+                                        }
+                                        table += "</body></table>";
+                                        
+                                    }
+                                    else
+                                    {
+                                        table = "<br><div class='alert alert-danger'><i class='glyphicon glyphicon-exclamation-sign'></i> No se han encontrado regístros</div>";
+                                    }
+                                    $("#result_search_patients").html(table);
+                                    if( $("body").find("#table_result_patients").size() == 1 )
+                                    {
+                                        //$("#table_result_patients").DataTable({});
+                                    }
+                                    
+                                }
+                            });
+                    }
+                    
 
                 });
+
         </script>
     {% endblock %}    

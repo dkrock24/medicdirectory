@@ -354,7 +354,7 @@ class Cliente
      */
     public function getCliActivo()
     {
-        return $this->cliActivo;
+        return (boolean)$this->cliActivo;
     }
 
     /**

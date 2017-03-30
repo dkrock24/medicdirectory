@@ -196,4 +196,8 @@ class Especialidad
     {
         return $this->espActivo;
     }
+	
+	public function __toString() {
+		return $this->espEspecialidad;
+	}
 }

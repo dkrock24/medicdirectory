@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Finder\Finder;
 
 /**
  * Paciente controller.
@@ -81,13 +82,14 @@ class PacienteController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('paciente_edit', array('id' => $paciente->getId()));
+            return $this->redirectToRoute('paciente_edit', array('id' => $paciente->getPacId()));
         }
 
         return $this->render('EmrBundle:paciente:edit.html.twig', array(
             'paciente' => $paciente,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+			'id' => $paciente->getPacId()
         ));
     }
 
@@ -119,13 +121,40 @@ class PacienteController extends Controller
     private function createDeleteForm(Paciente $paciente)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('paciente_delete', array('id' => $paciente->getId())))
+            ->setAction($this->generateUrl('paciente_delete', array('id' => $paciente->getPacId())))
             ->setMethod('DELETE')
             ->getForm()
         ;
     }
 	
 	//custom Functions
+	public function searchPatientsAction( Request $request )
+	{
+		$sSearch = $request->get('search');
+		if( isset($sSearch) && !empty($sSearch) )
+		{
+			$espacio = " ";
+			$q = $sSearch;
+			$q = str_replace($espacio, "(.*)", $q);
+
+			//WHERE contenido REGEXP ‘$q’
+			
+			$em = $this->getDoctrine()->getManager();
+			$RAW_QUERY = "SELECT concat_ws(' ',p.pac_nombre, p.pac_seg_nombre, p.pac_apellido, p.pac_seg_apellido ) as fullname, p.pac_dui as dui FROM paciente p "
+						. " WHERE  concat_ws(' ',p.pac_nombre, p.pac_seg_nombre, p.pac_apellido, p.pac_seg_apellido ) REGEXP \"".$q."\" ";
+			$statement = $em->getConnection()->prepare($RAW_QUERY);
+			$statement->execute();
+
+			$result = $statement->fetchAll();
+			
+			//var_dump( $result );
+		}
+		return  $response = new JsonResponse($result);
+		exit();
+			
+	}
+	
+	
 	public function getStatesFromCountryAction( Request $request )
 	{
 		
@@ -180,14 +209,53 @@ class PacienteController extends Controller
         $status = 0;
 		try
 		{
+			//Call the service to upload file
+			$uFile = $this->get('srv_uploadFile');
+			
+			
 			if( isset($municipality) )
 			{
 				$municipality = $em->getRepository('AppBundle:Municipio')->find($municipality);
 			}
+			
+			
 
 			if( isset($id) && $id > 0 )
 			{
-				
+				//throw $this->createNotFoundException('The product does not exist');
+				$oPatient = $em->getRepository('AppBundle:Paciente')->findOneBy(array("pacId"=>$id));
+
+				if( $oPatient )
+				{
+					$oPatient->setPacNombre($firts_name);
+					$oPatient->setPacSegNombre($middle_name);
+					$oPatient->setPacApellido($last_name);
+					$oPatient->setPacSegApellido($middle_last_name);
+					$oPatient->setPacGenero($gender);
+					$oPatient->setPacDui($dui);
+					$oPatient->setPacTipSangre($blood_type);
+					$oPatient->setPacEmail($email);
+					$oPatient->setPacEstadoCivil($civil_state);
+					$oPatient->setPacMun( $municipality );
+					$oPatient->setPacDireccion($address);
+					$oPatient->setPacTelCasa($home_phone);
+					$oPatient->setPacTelTrabajo($work_phone);
+					$oPatient->setPacTelCelular($cellphone);
+					$oPatient->setPacFechaNacimiento(new \Datetime($date) );
+					$oPatient->setPacFechaMod(new \Datetime()); //Fecha de creacion
+					
+					//Check if is update onf file
+					if( !empty($img) )
+					{
+						$currentImg = $oPatient->getPacFoto();
+						$uFile->deleteFile($currentImg);
+					}
+					
+				}
+				else
+				{
+					
+				}
 			}
 			else
 			{
@@ -208,6 +276,15 @@ class PacienteController extends Controller
 				$oPatient->setPacTelCelular($cellphone);
 				$oPatient->setPacFechaNacimiento(new \Datetime($date) );
 				$oPatient->setPacFechaCrea(new \Datetime()); //Fecha de creacion
+			}
+			
+			if( !empty($img) )
+			{
+				$upload = $uFile->startUploadFile($img, $path=false, $pre_fix=false);
+				if( $upload )
+				{
+					$oPatient->setPacFoto($upload);
+				}
 			}
 
 			$em->persist($oPatient);			
@@ -234,14 +311,35 @@ class PacienteController extends Controller
 	public function savePicture($img)
 	{
 		
+		//$uFile = $this->get('srv_uploadFile');	
+		
+		$finder = new Finder();
+		$finder->files()->in(__DIR__);
+
+		foreach ($finder as $file) {
+			// Dump the absolute path
+			var_dump($file->getRealPath());
+
+			// Dump the relative path to the file, omitting the filename
+			var_dump($file->getRelativePath());
+
+			// Dump the relative path to the file
+			var_dump($file->getRelativePathname());
+			
+			
+		}
+		
+		/*
 		$fs = new Filesystem();
+		//$file_name=time().".".$ext;
+		//$fs->move("uploads",$file_name);
 		
 		try {
 			$fs->mkdir('/tmp/random/dir/'.mt_rand());
 		} catch (IOExceptionInterface $e) {
 			echo "An error occurred while creating your directory at ".$e->getPath();
 		}
-		
+		*/
 		/*
 			$filename = "test.png";
 			$img = $_POST['img'];
