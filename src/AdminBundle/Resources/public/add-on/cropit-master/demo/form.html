@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>cropit</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script src="../dist/jquery.cropit.js"></script>
+
+    <style>
+      .cropit-preview {
+        background-color: #f8f8f8;
+        background-size: cover;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        margin-top: 7px;
+      }
+	  
+	  .cropit-preview {
+		  /* You can specify preview size in CSS */
+		  width: 250px;
+		  height: 250px;
+		}
+
+      .cropit-preview-image-container {
+        cursor: move;
+      }
+
+      .image-size-label {
+        margin-top: 10px;
+      }
+
+      input {
+        display: block;
+      }
+
+      button[type="submit"] {
+        margin-top: 10px;
+      }
+
+      #result {
+        margin-top: 10px;
+        width: 900px;
+      }
+
+      #result-data {
+        display: block;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        word-wrap: break-word;
+      }
+	  
+	  
+	  
+	 
+    </style>
+  </head>
+  <body>
+    
+      <div class="image-editor">
+        <input type="file" class="cropit-image-input">
+        <div class="cropit-preview"></div>
+        <div class="image-size-label">
+          Resize image
+        </div>
+        <input type="range" class="cropit-image-zoom-input">
+        <input type="hidden" name="image-data" class="hidden-image-data" />
+		
+		<button class="rotate-ccw">Rotate counterclockwise</button>
+		<button class="rotate-cw">Rotate clockwise</button>
+		
+        <span type="button" id="btn">Submit</span>
+      </div>
+    
+	
+	<div id="loading"></div>
+	
+    <div id="result">
+      <code>$form.serialize() =</code>
+      <code id="result-data"></code>
+    </div>
+
+    <script>
+      $(function() {
+        $('.image-editor').cropit({
+			onImageLoading: function(){ // Called when image starts to be loaded.
+
+				$("#loading").html("Cargando Imagen");
+			},
+			
+			onImageLoaded: function(){ // Called when image is loaded.
+				$("#loading").html("Ok");
+			},
+			onFileReaderError: function(){ // Called when FileReader encounters an error while loading the image file.
+				alert("eRROR");
+			},
+			
+			onFileChange: function(){ // Called when user selects a file in the select file input.
+			
+			},
+
+			
+			imageBackgroundBorderWidth: 50,
+
+				
+			//$imageCropper.cropit('zoom', .75),
+
+		
+
+		});
+		
+		$('.rotate-cw').click(function() {
+          $('.image-editor').cropit('rotateCW');
+        });
+        $('.rotate-ccw').click(function() {
+          $('.image-editor').cropit('rotateCCW');
+        });
+		
+
+        $('#btn').click(function() {
+          // Move cropped image data to hidden input
+          var imageData = $('.image-editor').cropit('export');
+          //$('.hidden-image-data').val(imageData);
+		  
+		  $('#result-data').val(imageData);
+		  
+
+          // Print HTTP request params
+          var formValue = $(this).serialize();
+          $('#result-data').text(formValue);
+
+          // Prevent the form from actually submitting
+          return false;
+        });
+      });
+    </script>
+  </body>
+</html>

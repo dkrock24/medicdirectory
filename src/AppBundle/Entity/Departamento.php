@@ -199,7 +199,7 @@ class Departamento
      */
     public function getDepActivo()
     {
-        return $this->depActivo;
+        return (boolean)$this->depActivo;
     }
 
     /**
@@ -225,4 +225,8 @@ class Departamento
     {
         return $this->depPai;
     }
+	
+	public function __toString() {
+		return $this->depDepartamento;
+	}
 }

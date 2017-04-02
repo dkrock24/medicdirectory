@@ -138,4 +138,8 @@ class TipoCliente
     {
         return $this->tipCliActivo;
     }
+	
+	public function __toString() {
+		return $this->tipCliTipo;
+	}
 }

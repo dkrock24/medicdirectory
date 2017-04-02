@@ -1,1 +1,41 @@
-Hello World Admin!
+{% extends "Layout/base_admin/_admin_base.html.twig" %}
+
+{% block title_page %}
+        EMR || Dashboard
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('AdminBundle:Default:_breadcrumb.html.twig' )  }}
+{% endblock %} 
+
+{% block submenutop %}
+    {{ include('AdminBundle:Default:_submenu.html.twig' )  }}
+{% endblock %}
+
+{% block body %}
+    <h1>Dashboard</h1>
+    
+    <!-- Check the notifications -->
+    <div id="holder_msg">
+        {% for message in app.session.flashbag().get("success") %}
+            <div class="alert alert-success"><i class="fa fa-check-circle"></i> {{message}}</div>
+        {% endfor %}
+        {% for message in app.session.flashbag().get("error") %}
+            <div class="alert alert-danger"><i class="fa fa-close"></i> {{message}}</div>
+        {% endfor %}
+    </div>
+    <!-- End notifications -->
+    
+    
+            
+    
+{% endblock %}
+
+{% block codejs %}
+    <script>
+        $(document).on("ready",function(){
+
+            }
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends "Layout/base_emr/_clients_base.html.twig" %}
+
+{% block title_page %}
+    Sitema Medico EMR || Regístro de nuevo paciente
+{% endblock %}
+
+{#
+{% block breadcrumb %}
+    {{ include('EmrBundle:Dashboard:_breadcrumb.html.twig' )  }}
+{% endblock %} 
+
+{% block submenutop %}
+    {{ include('EmrBundle:Dashboard:_submenu.html.twig' )  }}
+{% endblock %} 
+#}
+
+{% block body %}
+    <h1>Regístro de nuevo cliente</h1>
+    <div class="row">
+        <div class="col-lg-12">
+
+            <!-- Check the notifications -->
+            {% for message in app.session.flashbag().get("success") %}
+                <div class="alert alert-success"><i class="fa fa-check-circle"></i> {{message}}</div>
+            {% endfor %}
+            {% for message in app.session.flashbag().get("error") %}
+                <div class="alert alert-danger"><i class="fa fa-close"></i> {{message}}</div>
+            {% endfor %}
+            <!-- End notifications -->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">        
+            {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <input type="submit" value="Create" />
+            {{ form_end(form) }}
+        </div>
+    </div>    
+    {#    
+    <ul>
+        <li>
+            <a href="{{ path('cliente_index') }}">Back to the list</a>
+        </li>
+    </ul>
+    #}
+{% endblock %}
+
+{% block codejs %}
+    <script>
+        $(document).on("ready", function(){
+            $('.select').select2();
+        });
+    </script>
+{% endblock %}    

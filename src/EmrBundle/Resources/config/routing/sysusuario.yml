@@ -1,0 +1,24 @@
+sys_usuario_index:
+    path:     /
+    defaults: { _controller: "EmrBundle:Usuario:index" }
+    methods:  GET
+
+sys_usuario_show:
+    path:     /{id}/show
+    defaults: { _controller: "EmrBundle:Usuario:show" }
+    methods:  GET
+
+sys_usuario_new:
+    path:     /new
+    defaults: { _controller: "EmrBundle:Usuario:new" }
+    methods:  [GET, POST]
+
+sys_usuario_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "EmrBundle:Usuario:edit" }
+    methods:  [GET, POST]
+
+sys_usuario_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "EmrBundle:Usuario:delete" }
+    methods:  DELETE

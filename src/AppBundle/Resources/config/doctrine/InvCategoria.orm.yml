@@ -1,6 +1,10 @@
 AppBundle\Entity\InvCategoria:
     type: entity
     table: inv_categoria
+    indexes:
+        FK_inv_categoria_cliente:
+            columns:
+                - ica_cli_id
     id:
         icaId:
             type: integer
@@ -42,4 +46,15 @@ AppBundle\Entity\InvCategoria:
             options:
                 default: '1'
             column: ica_activo
+    manyToOne:
+        icaCli:
+            targetEntity: Cliente
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                ica_cli_id:
+                    referencedColumnName: cli_id
+            orphanRemoval: false
     lifecycleCallbacks: {  }

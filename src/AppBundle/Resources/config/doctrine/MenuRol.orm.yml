@@ -5,9 +5,9 @@ AppBundle\Entity\MenuRol:
         men_rol_menu_idx:
             columns:
                 - men_rol_men_id
-        men_rol_men_rol_idx:
+        fk_menu_rol_rol1_idx:
             columns:
-                - men_rol_mrol_id
+                - men_rol_rol_id
     id:
         menRolId:
             type: integer
@@ -36,16 +36,6 @@ AppBundle\Entity\MenuRol:
                 default: '1'
             column: men_rol_activo
     manyToOne:
-        menRolMrol:
-            targetEntity: MenRol
-            cascade: {  }
-            fetch: LAZY
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                men_rol_mrol_id:
-                    referencedColumnName: mrol_id
-            orphanRemoval: false
         menRolMen:
             targetEntity: Menu
             cascade: {  }
@@ -55,5 +45,15 @@ AppBundle\Entity\MenuRol:
             joinColumns:
                 men_rol_men_id:
                     referencedColumnName: men_id
+            orphanRemoval: false
+        menRolRol:
+            targetEntity: Rol
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                men_rol_rol_id:
+                    referencedColumnName: rol_id
             orphanRemoval: false
     lifecycleCallbacks: {  }

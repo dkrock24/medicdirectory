@@ -74,16 +74,6 @@ AppBundle\Entity\HistorialPago:
                 default: '1'
             column: hpa_activo
     manyToOne:
-        hpaMep:
-            targetEntity: MetodoPago
-            cascade: {  }
-            fetch: LAZY
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                hpa_mep_id:
-                    referencedColumnName: mep_id
-            orphanRemoval: false
         hpaUsu:
             targetEntity: Usuario
             cascade: {  }
@@ -103,5 +93,15 @@ AppBundle\Entity\HistorialPago:
             joinColumns:
                 hpa_usu_id_verificado:
                     referencedColumnName: usu_id
+            orphanRemoval: false
+        hpaMep:
+            targetEntity: MetodoPago
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                hpa_mep_id:
+                    referencedColumnName: mep_id
             orphanRemoval: false
     lifecycleCallbacks: {  }

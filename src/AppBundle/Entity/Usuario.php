@@ -245,4 +245,8 @@ class Usuario implements \Symfony\Component\Security\Core\User\UserInterface
     public function getUsername() {
         return $this->usuUsuario;
     }
+	
+	public function __toString() {
+		return $this->usuUsuario;
+	}
 }

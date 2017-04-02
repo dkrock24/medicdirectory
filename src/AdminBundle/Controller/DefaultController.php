@@ -9,7 +9,10 @@ use Symfony\Component\HttpFoundation\Request;
 class DefaultController extends Controller {
 
     public function indexAction(Request $request) {
-        return new \Symfony\Component\HttpFoundation\Response('Todo bien', 200);
+        //return new \Symfony\Component\HttpFoundation\Response('Todo bien', 200);
+		
+		//return $this->redirectToRoute('homepage');
+		return $this->render('AdminBundle:Default:index.html.twig', array( ));
     }
 
 }

@@ -18,17 +18,44 @@ $(function() {
     // Setting datatable defaults
     $.extend( $.fn.dataTable.defaults, {
         autoWidth: false,
-        columnDefs: [{ 
+        /*
+		columnDefs: [{ 
             orderable: false,
             width: '100px',
             targets: [ 5 ]
         }],
-        colReorder: true,
+		*/
+        //colReorder: true,
         dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
         language: {
-            search: '<span>Filter:</span> _INPUT_',
-            lengthMenu: '<span>Show:</span> _MENU_',
-            paginate: { 'first': 'First', 'last': 'Last', 'next': '&rarr;', 'previous': '&larr;' }
+            search: '<span>Buscar:</span> _INPUT_',
+            lengthMenu: '<span>Mostrar:</span> _MENU_ registros',
+            //paginate: { 'first': 'First', 'last': 'Last', 'next': '&rarr;', 'previous': '&larr;' },
+			
+			"sProcessing":     "Procesando...",
+			//"sLengthMenu":     "Mostrar _MENU_ registros",
+			"sZeroRecords":    "No se encontraron resultados",
+			"sEmptyTable":     "Ningún dato disponible en esta tabla",
+			"sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+			"sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+			"sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+			"sInfoPostFix":    "",
+			//"sSearch":         "Buscar:",
+			"sUrl":            "",
+			"sInfoThousands":  ",",
+			"sLoadingRecords": "Cargando...",
+			"oPaginate": {
+				"sFirst":    "Primero",
+				"sLast":     "Último",
+				"sNext":     "Siguiente",
+				"sPrevious": "Anterior"
+			},
+			"oAria": {
+				"sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+				"sSortDescending": ": Activar para ordenar la columna de manera descendente"
+			}
+			
+			
         },
         drawCallback: function () {
             $(this).find('tbody tr').slice(-3).find('.dropdown, .btn-group').addClass('dropup');
@@ -38,7 +65,7 @@ $(function() {
         }
     });
 
-
+	/*
     // Basic column reorder
     $('.datatable-reorder').DataTable();
 
@@ -78,5 +105,6 @@ $(function() {
         minimumResultsForSearch: Infinity,
         width: 'auto'
     });
+	*/
     
 });

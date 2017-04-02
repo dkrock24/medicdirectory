@@ -24,18 +24,14 @@ AppBundle\Entity\Municipio:
                 fixed: false
             column: mun_nombre
         munFechaCrea:
-            type: string
+            type: datetime
             nullable: true
-            length: 45
             options:
-                fixed: false
+                default: CURRENT_TIMESTAMP
             column: mun_fecha_crea
         munFechaMod:
-            type: string
+            type: datetime
             nullable: true
-            length: 45
-            options:
-                fixed: false
             column: mun_fecha_mod
         munActivo:
             type: string

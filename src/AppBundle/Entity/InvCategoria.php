@@ -167,4 +167,33 @@ class InvCategoria
     {
         return $this->icaActivo;
     }
+    /**
+     * @var \AppBundle\Entity\Cliente
+     */
+    private $icaCli;
+
+
+    /**
+     * Set icaCli
+     *
+     * @param \AppBundle\Entity\Cliente $icaCli
+     *
+     * @return InvCategoria
+     */
+    public function setIcaCli(\AppBundle\Entity\Cliente $icaCli = null)
+    {
+        $this->icaCli = $icaCli;
+
+        return $this;
+    }
+
+    /**
+     * Get icaCli
+     *
+     * @return \AppBundle\Entity\Cliente
+     */
+    public function getIcaCli()
+    {
+        return $this->icaCli;
+    }
 }

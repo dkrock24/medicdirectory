@@ -5,3 +5,16 @@ admin_homepage:
 admin_crear_medicos:
     path:   /generate/medicos/{number}
     defaults: { _controller: AdminBundle:Default:generateMedicos }
+    
+admin_pais:
+    resource: "@AdminBundle/Resources/config/routing/pais.yml"
+    prefix:   /pais
+    
+admin_departamento:
+    resource: "@AdminBundle/Resources/config/routing/departamento.yml"
+    prefix:   /departamento
+    
+admin_menu:
+    resource: "@AdminBundle/Resources/config/routing/menu.yml"
+    prefix:   /menu 
+    

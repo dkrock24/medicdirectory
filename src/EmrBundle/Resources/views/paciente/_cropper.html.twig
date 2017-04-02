@@ -1,0 +1,232 @@
+<style>
+    #bg-image-upload, #my_camera{
+        background-image: url("{{ asset('bundles/admin/img/avatar-picture.png') }}");
+        background-position: center center;
+        background-repeat: no-repeat;
+    }
+    #my_camera{
+        background-size: 50% 50%;
+        border: solid 1px #ccc;
+    }
+</style>
+<!-- Content -->
+  <div class="containerx">
+    <div class="row">
+      <div class="col-md-8">
+        <!-- <h3>Demo:</h3> -->
+        <div class="img-container" style=""  id="bg-image-upload">
+          <img id="image" src="" alt="Picture">
+        </div>
+      </div>
+      <div class="col-md-4">
+        <!-- <h3>Preview:</h3> -->
+        <div class="docs-preview clearfix">
+          <div class="img-preview preview-lg"></div>
+        </div>
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-9 docs-buttons">
+
+        
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary" data-method="setDragMode" data-option="move" title="Move">
+            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
+              <span class="fa fa-arrows"></span>
+            </span>
+          </button>
+          <button type="button" class="btn btn-primary" data-method="setDragMode" data-option="crop" title="Crop">
+            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
+              <span class="fa fa-crop"></span>
+            </span>
+          </button>
+        </div>
+        
+
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary" data-method="zoom" data-option="0.1" title="Zoom In">
+            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
+              <span class="fa fa-search-plus"></span>
+            </span>
+          </button>
+          <button type="button" class="btn btn-primary" data-method="zoom" data-option="-0.1" title="Zoom Out">
+            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
+              <span class="fa fa-search-minus"></span>
+            </span>
+          </button>
+        </div>
+
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary" data-method="move" data-option="-10" data-second-option="0" title="Move Left">
+            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="Mover a la izquierda">
+              <span class="fa fa-arrow-left"></span>
+            </span>
+          </button>
+          <button type="button" class="btn btn-primary" data-method="move" data-option="10" data-second-option="0" title="Move Right">
+            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="Mover a la derecha">
+              <span class="fa fa-arrow-right"></span>
+            </span>
+          </button>
+          <button type="button" class="btn btn-primary" data-method="move" data-option="0" data-second-option="-10" title="Move Up">
+            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="Mover hacia arriba">
+              <span class="fa fa-arrow-up"></span>
+            </span>
+          </button>
+          <button type="button" class="btn btn-primary" data-method="move" data-option="0" data-second-option="10" title="Move Down">
+            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="Mover hacia abajo">
+              <span class="fa fa-arrow-down"></span>
+            </span>
+          </button>
+        </div>
+
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary" data-method="rotate" data-option="-45" title="Rotate Left">
+            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="Rotar a la izquierda">
+              <span class="fa fa-rotate-left"></span>
+            </span>
+          </button>
+          <button type="button" class="btn btn-primary" data-method="rotate" data-option="45" title="Rotate Right">
+            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="Rotar a la derecha">
+              <span class="fa fa-rotate-right"></span>
+            </span>
+          </button>
+        </div>
+
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary" data-method="scaleX" data-option="-1" title="Flip Horizontal">
+            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
+              <span class="fa fa-arrows-h"></span>
+            </span>
+          </button>
+          <button type="button" class="btn btn-primary" data-method="scaleY" data-option="-1" title="Flip Vertical">
+            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
+              <span class="fa fa-arrows-v"></span>
+            </span>
+          </button>
+        </div>
+
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary" data-method="crop" title="Crop">
+            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
+              <span class="fa fa-check"></span>
+            </span>
+          </button>
+          <button type="button" class="btn btn-primary" data-method="clear" title="Clear">
+            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
+              <span class="fa fa-remove"></span>
+            </span>
+          </button>
+        </div>
+        
+        
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary" data-method="disable" title="Disable">
+            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
+              <span class="fa fa-lock"></span>
+            </span>
+          </button>
+          <button type="button" class="btn btn-primary" data-method="enable" title="Enable">
+            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
+              <span class="fa fa-unlock"></span>
+            </span>
+          </button>
+        </div>
+        
+
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary" data-method="reset" title="Reset">
+            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
+              <span class="fa fa-refresh"></span>
+            </span>
+          </button>
+          <label class="btn btn-danger btn-upload" for="inputImage" title="Upload image file">
+            <input type="file" class="sr-only" id="inputImage" name="file" accept=".jpg,.jpeg,.png,.gif,.bmp,.tiff">
+            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="Importar imagen con Blob URLs">
+              <span class="fa fa-upload"></span>
+            </span>
+          </label>
+
+        </div>
+
+        <div class="btn-group btn-group-crop">
+          <button type="button" class="btn btn-primary" data-method="getCroppedCanvas">
+            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
+              Recortar Imagen
+            </span>
+          </button>
+          <button type="button" class="btn btn-primary" data-method="getCroppedCanvas" data-option="{ &quot;width&quot;: 160, &quot;height&quot;: 90 }">
+            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="$">
+              160&times;90
+            </span>
+          </button>
+          <button type="button" class="btn btn-primary" data-method="getCroppedCanvas" data-option="{ &quot;width&quot;: 320, &quot;height&quot;: 180 }">
+            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
+              320&times;180
+            </span>
+          </button>
+        </div>
+
+        <!-- Show the cropped image in modal -->
+        <div class="modal fade docs-cropped" id="getCroppedCanvasModal" aria-hidden="true" aria-labelledby="getCroppedCanvasTitle" role="dialog" tabindex="-1">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="getCroppedCanvasTitle">Cropped</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body"></div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <a class="btn btn-primary" id="download" href="javascript:void(0);" download="cropped.jpg" style="display:none">Download</a>
+                
+              </div>
+            </div>
+          </div>
+        </div><!-- /.modal -->
+
+        <button type="button" class="btn btn-primary" data-method="zoomTo" data-option="1">
+          <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="cropper.zoomTo(1)">
+            Zoom to 100%
+          </span>
+        </button>
+
+      </div><!-- /.docs-buttons -->
+
+      <div class="col-md-3 docs-toggles">
+       <!--
+        <div class="btn-group d-flex flex-nowrap" data-toggle="buttons">
+          <label class="btn btn-primary active">
+            <input type="radio" class="sr-only" id="viewMode0" name="viewMode" value="0" checked>
+            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
+              VM0
+            </span>
+          </label>
+          <label class="btn btn-primary">
+            <input type="radio" class="sr-only" id="viewMode1" name="viewMode" value="1">
+            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
+              VM1
+            </span>
+          </label>
+          <label class="btn btn-primary">
+            <input type="radio" class="sr-only" id="viewMode2" name="viewMode" value="2">
+            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
+              VM2
+            </span>
+          </label>
+          <label class="btn btn-primary">
+            <input type="radio" class="sr-only" id="viewMode3" name="viewMode" value="3">
+            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
+              VM3
+            </span>
+          </label>
+        </div>
+          -->
+      </div><!-- /.docs-toggles -->
+    </div>
+  </div>
+
+
+

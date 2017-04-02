@@ -557,7 +557,7 @@ class Paciente
      */
     public function getPacActivo()
     {
-        return $this->pacActivo;
+        return (bool)$this->pacActivo;
     }
 
     /**
@@ -630,5 +630,36 @@ class Paciente
     public function getPacUsu()
     {
         return $this->pacUsu;
+    }
+	
+	
+    /**
+     * @var \AppBundle\Entity\Municipio
+     */
+    private $pacMun;
+
+
+    /**
+     * Set pacMun
+     *
+     * @param \AppBundle\Entity\Municipio $pacMun
+     *
+     * @return Paciente
+     */
+    public function setPacMun(\AppBundle\Entity\Municipio $pacMun = null)
+    {
+        $this->pacMun = $pacMun;
+
+        return $this;
+    }
+
+    /**
+     * Get pacMun
+     *
+     * @return \AppBundle\Entity\Municipio
+     */
+    public function getPacMun()
+    {
+        return $this->pacMun;
     }
 }

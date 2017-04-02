@@ -138,4 +138,8 @@ class Rol
     {
         return $this->rolActivo;
     }
+	
+	public function __toString() {
+		return $this->rolRol;
+	}
 }

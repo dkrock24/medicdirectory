@@ -28,7 +28,12 @@ security:
                 use_referer: true
                 login_path: login
                 check_path: login
+            logout:
+                path: /logout
+                target: /login    
 
     access_control:
+        - { path: ^/cliente/new, roles: IS_AUTHENTICATED_ANONYMOUSLY  }
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/, roles: ROLE_USER }
+        
