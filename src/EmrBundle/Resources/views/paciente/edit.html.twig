@@ -762,6 +762,74 @@
                         });
                     }
                     
+                        $("#form_search_patients").submit(function(e){
+                            //
+                            e.preventDefault();
+                            searchPatients();
+                            
+                            return false;
+                        });
+                    
+                    
+                    function searchPatients()
+                    {
+                        var search = $("#input_search_patients").val();
+                        $("#holder_loading").show();
+                            $.ajax({
+                                type: "post",
+                                url: "{{ path('paciente_search') }}",
+                                data: { search: search },
+                                error: function (data) {
+                                    $("#holder_loading").hide();
+                                    $.confirm({
+                                        icon: 'fa fa-remove',
+                                        title: 'Error!',
+                                        content: 'Ha ocurrido un error al tratar de enviar la petición',
+                                        type: 'red',
+                                        typeAnimated: true,
+                                        buttons: {
+                                            tryAgain: {
+                                                text: 'Intentar de nuevo',
+                                                btnClass: 'btn-red',
+                                                action: function () {
+                                                    searchPatients();
+                                                }
+                                            },
+                                            close: function () {
+                                            }
+                                        }
+                                    });
+
+                                },
+                                success: function (data) {
+                                    $("#holder_loading").hide();
+                                    if( data.length > 0)
+                                    {
+                                        var table = "<table class='table table-striped' id='table_result_patients'><head><tr><td>Nombre</td><td>DUI</td></tr></thead><tbody>";
+                                        for(i=0; i < data.length; i++)
+                                        {
+                                            table += "<tr>";
+                                            table += "<td>"+data[i]['fullname']+"</td>";
+                                            table += "<td>"+data[i]['dui']+"</td>";
+                                            table += "</tr>";
+                                        }
+                                        table += "</body></table>";
+                                        
+                                    }
+                                    else
+                                    {
+                                        table = "<br><div class='alert alert-danger'><i class='glyphicon glyphicon-exclamation-sign'></i> No se han encontrado regístros</div>";
+                                    }
+                                    $("#result_search_patients").html(table);
+                                    if( $("body").find("#table_result_patients").size() == 1 )
+                                    {
+                                        //$("#table_result_patients").DataTable({});
+                                    }
+                                    
+                                }
+                            });
+                    }
+                    
                     
 
                 });

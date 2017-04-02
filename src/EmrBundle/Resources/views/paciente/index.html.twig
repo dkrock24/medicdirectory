@@ -29,11 +29,12 @@
         <table class="table table-striped datatable-reorder">
             <thead>
                 <tr>
-                    <th>Id</th>
+                    
                     <th>Nombre</th>
+                    <th>DUI</th>
                     <th>Genero</th>
                     <th>Email</th>
-                    <th>DUI</th>
+                    
                     <th>Fecha creación</th>
                     <th>Acciones</th>
                 </tr>
@@ -41,11 +42,12 @@
             <tbody>
             {% for paciente in pacientes %}
                 <tr>
-                    <td><a href="{{ path('paciente_show', { 'id': paciente.pacId }) }}">{{ paciente.pacId }}</a></td>
+                    {# <td><a href="{{ path('paciente_show', { 'id': paciente.pacId }) }}">{{ paciente.pacId }}</a></td> #}
                     <td>{{ paciente.pacNombre }} {{ paciente.pacSegNombre }} {{ paciente.pacApellido }} {{ paciente.pacSegApellido }}</td>
+                    <td>{{ paciente.pacDui }}</td>
                     <td>{{ paciente.pacGenero }}</td>
                     <td>{{ paciente.pacEmail }}</td>
-                    <td>{{ paciente.pacDui }}</td>
+                    
                     <td>{% if paciente.pacFechaCrea %}{{ paciente.pacFechaCrea|date('Y-m-d H:i:s') }}{% endif %}</td>
                     <td>
                         <ul class="list-inline">
@@ -81,7 +83,15 @@
 {% block codejs %}
     <script>
         $(document).on("ready",function(){
-           // alert();
+           var table = $('.datatable-reorder').DataTable({});
+            // Add placeholder to the datatable filter option
+            $('.dataTables_filter input[type=search]').attr('placeholder','Escribar para filtrar...');
+            // Enable Select2 select for the length option
+            $('.dataTables_length select').select2({
+                minimumResultsForSearch: Infinity,
+                width: 'auto'
+            });
+            //End
         });
     </script>
 {% endblock %}    
