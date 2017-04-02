@@ -488,4 +488,28 @@ class Cliente
     {
         $this->cliTipCli->removeElement($cliTipCli);
     }
+
+    /**
+     * Add cliEsp
+     *
+     * @param \AppBundle\Entity\Especialidad $cliEsp
+     *
+     * @return Cliente
+     */
+    public function addCliEsp(\AppBundle\Entity\Especialidad $cliEsp)
+    {
+        $this->cliEsp[] = $cliEsp;
+
+        return $this;
+    }
+
+    /**
+     * Remove cliEsp
+     *
+     * @param \AppBundle\Entity\Especialidad $cliEsp
+     */
+    public function removeCliEsp(\AppBundle\Entity\Especialidad $cliEsp)
+    {
+        $this->cliEsp->removeElement($cliEsp);
+    }
 }
