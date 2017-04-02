@@ -457,4 +457,35 @@ class Cliente
     {
         return $this->cliMun;
     }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->cliTipCli = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add cliTipCli
+     *
+     * @param \AppBundle\Entity\TipoCliente $cliTipCli
+     *
+     * @return Cliente
+     */
+    public function addCliTipCli(\AppBundle\Entity\TipoCliente $cliTipCli)
+    {
+        $this->cliTipCli[] = $cliTipCli;
+
+        return $this;
+    }
+
+    /**
+     * Remove cliTipCli
+     *
+     * @param \AppBundle\Entity\TipoCliente $cliTipCli
+     */
+    public function removeCliTipCli(\AppBundle\Entity\TipoCliente $cliTipCli)
+    {
+        $this->cliTipCli->removeElement($cliTipCli);
+    }
 }
