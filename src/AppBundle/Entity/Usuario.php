@@ -307,4 +307,33 @@ class Usuario implements \Symfony\Component\Security\Core\User\UserInterface
     {
         return $this->usuGenero;
     }
+    /**
+     * @var \DateTime
+     */
+    private $usuFechaNacimiento;
+
+
+    /**
+     * Set usuFechaNacimiento
+     *
+     * @param \DateTime $usuFechaNacimiento
+     *
+     * @return Usuario
+     */
+    public function setUsuFechaNacimiento($usuFechaNacimiento)
+    {
+        $this->usuFechaNacimiento = $usuFechaNacimiento;
+
+        return $this;
+    }
+
+    /**
+     * Get usuFechaNacimiento
+     *
+     * @return \DateTime
+     */
+    public function getUsuFechaNacimiento()
+    {
+        return $this->usuFechaNacimiento;
+    }
 }
