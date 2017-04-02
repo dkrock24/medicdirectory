@@ -48,8 +48,11 @@ AppBundle\Entity\Usuario:
                 fixed: false
             column: usu_titulo
         usuGenero:
-            type: integer
+            type: string
             nullable: false
+            length: 1
+            options:
+                fixed: true
             column: usu_genero
         usuFechaCrea:
             type: datetime
