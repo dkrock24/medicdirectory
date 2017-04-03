@@ -283,4 +283,149 @@ class HistorialPago
     {
         return $this->hpaUsuVerificado;
     }
+    /**
+     * @var string
+     */
+    private $hpaMontoEsperado;
+
+    /**
+     * @var string
+     */
+    private $hpaMontoPagado;
+
+    /**
+     * @var string
+     */
+    private $hpaComentario;
+
+    /**
+     * @var integer
+     */
+    private $hpaCantUsuariosEnCorte;
+
+    /**
+     * @var integer
+     */
+    private $hpaEstado;
+
+
+    /**
+     * Set hpaMontoEsperado
+     *
+     * @param string $hpaMontoEsperado
+     *
+     * @return HistorialPago
+     */
+    public function setHpaMontoEsperado($hpaMontoEsperado)
+    {
+        $this->hpaMontoEsperado = $hpaMontoEsperado;
+
+        return $this;
+    }
+
+    /**
+     * Get hpaMontoEsperado
+     *
+     * @return string
+     */
+    public function getHpaMontoEsperado()
+    {
+        return $this->hpaMontoEsperado;
+    }
+
+    /**
+     * Set hpaMontoPagado
+     *
+     * @param string $hpaMontoPagado
+     *
+     * @return HistorialPago
+     */
+    public function setHpaMontoPagado($hpaMontoPagado)
+    {
+        $this->hpaMontoPagado = $hpaMontoPagado;
+
+        return $this;
+    }
+
+    /**
+     * Get hpaMontoPagado
+     *
+     * @return string
+     */
+    public function getHpaMontoPagado()
+    {
+        return $this->hpaMontoPagado;
+    }
+
+    /**
+     * Set hpaComentario
+     *
+     * @param string $hpaComentario
+     *
+     * @return HistorialPago
+     */
+    public function setHpaComentario($hpaComentario)
+    {
+        $this->hpaComentario = $hpaComentario;
+
+        return $this;
+    }
+
+    /**
+     * Get hpaComentario
+     *
+     * @return string
+     */
+    public function getHpaComentario()
+    {
+        return $this->hpaComentario;
+    }
+
+    /**
+     * Set hpaCantUsuariosEnCorte
+     *
+     * @param integer $hpaCantUsuariosEnCorte
+     *
+     * @return HistorialPago
+     */
+    public function setHpaCantUsuariosEnCorte($hpaCantUsuariosEnCorte)
+    {
+        $this->hpaCantUsuariosEnCorte = $hpaCantUsuariosEnCorte;
+
+        return $this;
+    }
+
+    /**
+     * Get hpaCantUsuariosEnCorte
+     *
+     * @return integer
+     */
+    public function getHpaCantUsuariosEnCorte()
+    {
+        return $this->hpaCantUsuariosEnCorte;
+    }
+
+    /**
+     * Set hpaEstado
+     *
+     * @param integer $hpaEstado
+     *
+     * @return HistorialPago
+     */
+    public function setHpaEstado($hpaEstado)
+    {
+        $this->hpaEstado = $hpaEstado;
+
+        return $this;
+    }
+
+    /**
+     * Get hpaEstado
+     *
+     * @return integer
+     */
+    public function getHpaEstado()
+    {
+        return $this->hpaEstado;
+    }
 }

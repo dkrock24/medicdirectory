@@ -31,4 +31,8 @@ paciente_form:
 paciente_search:
     path:     /search/patients
     defaults: { _controller: "EmrBundle:Paciente:searchPatients" }
+    
+paciente_list:
+    path:     /list
+    defaults: { _controller: "EmrBundle:Paciente:getPatientsList" }
         

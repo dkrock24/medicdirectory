@@ -26,45 +26,21 @@
     </div>
     <!-- End notifications -->
     {% if pacientes|length > 0%}
-        <table class="table table-striped datatable-reorder">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Nombre</th>
-                    <th>Genero</th>
-                    <th>Email</th>
-                    <th>DUI</th>
-                    <th>Fecha creación</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-            {% for paciente in pacientes %}
-                <tr>
-                    <td><a href="{{ path('paciente_show', { 'id': paciente.pacId }) }}">{{ paciente.pacId }}</a></td>
-                    <td>{{ paciente.pacNombre }} {{ paciente.pacSegNombre }} {{ paciente.pacApellido }} {{ paciente.pacSegApellido }}</td>
-                    <td>{{ paciente.pacGenero }}</td>
-                    <td>{{ paciente.pacEmail }}</td>
-                    <td>{{ paciente.pacDui }}</td>
-                    <td>{% if paciente.pacFechaCrea %}{{ paciente.pacFechaCrea|date('Y-m-d H:i:s') }}{% endif %}</td>
-                    <td>
-                        <ul class="list-inline">
-                            <li>
-                                <a href="{{ path('paciente_show', { 'id': paciente.pacId }) }}" class="btn btn-default"><i class="fa fa-folder-open"></i> Ver</a>
-                            </li>
-                            <li>
-                                <a href="{{ path('paciente_edit', { 'id': paciente.pacId }) }}" class="btn bg-teal-400"><i class="fa fa-edit"></i> Editar</a>
-                            </li>
-                            {#
-                            <li>
-                                <button value="{{ pai.pacId }}" class="btn btn-danger delete"><i class="fa fa-remove"></i> Eliminar</button>
-                            </li>#}
-                        </ul>    
-                    </td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+
+       <table class="table table-striped" id="patients_grid">
+           <thead>
+               <tr>
+                   <th>Nombre</th>
+                   <th>Dui</th>
+                   <th>Genero</th>
+                   <th>Email</th>
+                   <th>fecha creación</th>
+                   <th>Acciones</th>
+               </tr>
+           </thead>
+           <tbody>
+           </tbody>
+       </table>
     {% else %}
         <div class="alert alert-info" role=""><i class="fa fa-info-circle"></i> No hay regístros creados</div>
     {% endif %}    
@@ -73,15 +49,63 @@
             <a href="{{ path('paciente_new') }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Nuevo</a>
         </li>
     </ul>
-        
-    
 
 {% endblock %}
 
 {% block codejs %}
     <script>
         $(document).on("ready",function(){
-           // alert();
+            
+            if( $("#patients_grid").size() == 1 )
+            {
+                $('#patients_grid').DataTable({
+                    "bProcessing": true,
+                    "serverSide": true,
+                    "ajax":{
+                       url :"{{ path('paciente_list') }}", // json datasource
+                       type: "post",  // type of method  , by default would be get
+                       error: function(){  // error handling code
+                         $("#patients_grid_processing").css("display","none");
+                       }
+                     },
+                    "columnDefs": [ {
+                        "targets": -1,
+                        "data": null,
+                        //"defaultContent": "<button>Click!"+pac_id+"</button>"
+                        "render": function ( data, type, full, meta ) {
+                            var buttonID = data[5];
+                            var routeShow = "{{ path('paciente_show', { 'id': "PLACEHOLDER" }) }}";
+                            var routeEdit = "{{ path('paciente_edit', { 'id': "PLACEHOLDER" }) }}";
+
+                            routeShow = routeShow.replace("PLACEHOLDER", buttonID);
+                            routeEdit = routeEdit.replace("PLACEHOLDER", buttonID);
+                            var listBtn = "<a href="+routeShow+" class='btn btn-default'><i class='fa fa-folder-open'></i> Ver</a>";
+                            listBtn += " <a href="+routeEdit+" class='btn bg-teal-400'><i class='fa fa-edit'></i> Editar</a>";
+
+                            return listBtn;
+                        }
+                    } ]         
+                });
+                
+                $('.dataTables_filter input[type=search]').attr('placeholder','Escribar para filtrar...');
+                $('.dataTables_length select').select2({
+                    minimumResultsForSearch: Infinity,
+                    width: 'auto'
+                });
+            }
+            
+            
+           /*
+           var table = $('.datatable-reorder').DataTable({});
+            // Add placeholder to the datatable filter option
+            $('.dataTables_filter input[type=search]').attr('placeholder','Escribar para filtrar...');
+            // Enable Select2 select for the length option
+            $('.dataTables_length select').select2({
+                minimumResultsForSearch: Infinity,
+                width: 'auto'
+            });
+            //End
+            */
         });
     </script>
 {% endblock %}    

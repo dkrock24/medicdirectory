@@ -22,6 +22,10 @@ and open the template in the editor.
     margin-right:8px; 
 }
 
+.dataTables_processing{
+    padding-bottom: 40px !important;
+}
+
 /*
 ============================
 Loading
