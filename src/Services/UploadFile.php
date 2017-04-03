@@ -30,16 +30,34 @@ class UploadFile {
 	public function startUploadFile($file, $path=false, $pre_fix=false)
 	{
 		
+		if( isset($path) && !empty($path) )
+		{
+			$res = $this->checkDir($path);
+			if( $res )
+			{
+				$path = $res."/";
+			}
+			else
+			{
+				return false;
+			}
+		}
+		else
+		{
+			$path = $this->getUploadRootDir();
+		}
+		
 		if( $this->check_base_64($file) )
 		{
 			//file_put_contents("images/".$filename, $data);
 			$filename = $this->getUniqueName( $pre_fix ).".png";//"test.png";
-			file_put_contents($this->getUploadRootDir().$filename, $this->check_base_64($file));
+			file_put_contents($path.$filename, $this->check_base_64($file));
 		}
 		else
 		{
 			
 		}
+		
 		return $filename;
 		
 	}
@@ -58,18 +76,44 @@ class UploadFile {
 		}
 		return false;
 	}
+	
+	public function checkDir($dir=false)
+	{
+		$dirname = trim( $dir, "/" );
+		$dirname = $this->getUploadRootDir().$dirname;
+		if (!file_exists( $dirname))
+		{
+			$d = mkdir( $dirname, 0777);
+			if( $d )
+			{
+				//echo "The directory $dirname was successfully created.";
+				return $d;
+			}else{
+				return false;
+			}
 
+		} else {
+			return $dirname;
+		}
+	}
 
 	public function getUniqueName( $pre_fix=false )
 	{
 		return $pre_fix.uniqid().time();
 	} 
 
-	public function deleteFile($pathFile)
+	public function deleteFile($pathFile, $path=false)
 	{
 		try
 		{
-			unlink( $this->getUploadRootDir().$pathFile);
+			if( isset($path) && !empty($path) )
+			{
+				$dir = $dirname = trim( $path, "/" );
+				$path = $this->getUploadRootDir().$dir."/".$pathFile;
+			}else{
+				$path = $this->getUploadRootDir().$pathFile;
+			}
+			unlink( $path );
 			return true;
 		}  
 		catch (\Exception $e)
@@ -77,6 +121,13 @@ class UploadFile {
 			echo ( $e->getMessage() );
 			return false;
 		}
+	}
+	
+	public function thumbnailImage($img, $path)
+	{
+		$images = new \Imagick($img);
+		$image->thumbnailImage(100, 100);
+		$images->writeImages();
 	}
 	
 }

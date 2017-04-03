@@ -249,4 +249,91 @@ class Usuario implements \Symfony\Component\Security\Core\User\UserInterface
 	public function __toString() {
 		return $this->usuUsuario;
 	}
+    /**
+     * @var string
+     */
+    private $usuTitulo;
+
+    /**
+     * @var integer
+     */
+    private $usuGenero;
+
+
+    /**
+     * Set usuTitulo
+     *
+     * @param string $usuTitulo
+     *
+     * @return Usuario
+     */
+    public function setUsuTitulo($usuTitulo)
+    {
+        $this->usuTitulo = $usuTitulo;
+
+        return $this;
+    }
+
+    /**
+     * Get usuTitulo
+     *
+     * @return string
+     */
+    public function getUsuTitulo()
+    {
+        return $this->usuTitulo;
+    }
+
+    /**
+     * Set usuGenero
+     *
+     * @param integer $usuGenero
+     *
+     * @return Usuario
+     */
+    public function setUsuGenero($usuGenero)
+    {
+        $this->usuGenero = $usuGenero;
+
+        return $this;
+    }
+
+    /**
+     * Get usuGenero
+     *
+     * @return integer
+     */
+    public function getUsuGenero()
+    {
+        return $this->usuGenero;
+    }
+    /**
+     * @var \DateTime
+     */
+    private $usuFechaNacimiento;
+
+
+    /**
+     * Set usuFechaNacimiento
+     *
+     * @param \DateTime $usuFechaNacimiento
+     *
+     * @return Usuario
+     */
+    public function setUsuFechaNacimiento($usuFechaNacimiento)
+    {
+        $this->usuFechaNacimiento = $usuFechaNacimiento;
+
+        return $this;
+    }
+
+    /**
+     * Get usuFechaNacimiento
+     *
+     * @return \DateTime
+     */
+    public function getUsuFechaNacimiento()
+    {
+        return $this->usuFechaNacimiento;
+    }
 }

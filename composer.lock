@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "45c6eb5c8c27f08cc8dc998196e3ca73",
-    "content-hash": "ee46c56a335535929f2a52e863c0f830",
+    "hash": "339c51502af8e56e662042deb76c04df",
+    "content-hash": "ab4e8e8ac7337482e7844a0e61b915a8",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1171,6 +1171,49 @@
                 "psr-3"
             ],
             "time": "2016-10-10 12:19:37"
+        },
+        {
+            "name": "search/sphinxsearch-bundle",
+            "version": "1.2.2",
+            "target-dir": "Search/SphinxsearchBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/timewasted/Search-SphinxsearchBundle.git",
+                "reference": "9d09f1aaf0043a42c25df5b4baf50f2b383fbd79"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/timewasted/Search-SphinxsearchBundle/zipball/9d09f1aaf0043a42c25df5b4baf50f2b383fbd79",
+                "reference": "9d09f1aaf0043a42c25df5b4baf50f2b383fbd79",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "Search\\SphinxsearchBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-2-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Ryan Rogers",
+                    "email": "ryan@timewasted.me"
+                }
+            ],
+            "description": "Sphinx search bundle for Symfony 2",
+            "homepage": "https://github.com/timewasted/Search-SphinxsearchBundle",
+            "keywords": [
+                "Symfony2",
+                "sphinx",
+                "sphinxsearch"
+            ],
+            "time": "2013-02-08 19:06:41"
         },
         {
             "name": "sensio/distribution-bundle",
