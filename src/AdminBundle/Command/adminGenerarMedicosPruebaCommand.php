@@ -9,9 +9,6 @@ use Symfony\Component\Console\Input\InputArgument;
 
 class adminGenerarMedicosPruebaCommand extends ContainerAwareCommand {
 
-    /* @var $em \Doctrine\ORM\EntityManager */
-    private $em = null;
-
     protected function configure() {
         /* php bin/console admin:generar-medicos-prueba */
         $this
@@ -29,8 +26,12 @@ class adminGenerarMedicosPruebaCommand extends ContainerAwareCommand {
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) {
-        $this->em = $this->getContainer()->get('doctrine')->getManager();
+        /* @var $em \Doctrine\ORM\EntityManager */
+        $em = $this->getContainer()->get('doctrine')->getManager();
+
         $iCantidad = $input->getArgument('cantidad');
+        $sCsvNombres = $this->getContainer()->get('kernel')->getRootDir() . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'data/nombres.csv';
+        $aNombres = $aApellidos = [];
 
         $output->writeln([
             '',
@@ -39,10 +40,38 @@ class adminGenerarMedicosPruebaCommand extends ContainerAwareCommand {
             '========================',
             '',
             'Medicos a crear: ' . $iCantidad,
+            'Generado a partir de: ' . $sCsvNombres,
         ]);
 
-        
+        if (($hCsvNombres = fopen($sCsvNombres, "r")) !== FALSE) {
+            while (($asColumnas = fgetcsv($hCsvNombres, 1000, ",")) !== FALSE) {
+                //print_r($asColumnas);
+                $aNombres[] = $asColumnas[2];
+                $aApellidos[] = $asColumnas[3];
+            }
+            fclose($hCsvNombres);
+        }
 
+        // Generar usuarios
+
+        for($i=0; $i <= $iCantidad ; $i++) {
+            $sUsuario = strtolower($aNombres[rand(0, count($aNombres))].'.'.$aApellidos[rand(0, count($aApellidos))]);
+            $oUsuario = new \AppBundle\Entity\Usuario();
+            $oUsuario->setUsuActivo(TRUE);
+            $oUsuario->setUsuClave(sha1('123'));
+            $oUsuario->setUsuFechaCrea(new \DateTime());
+            $oUsuario->setUsuFechaMod(new \DateTime());
+            $oUsuario->setUsuFechaRegistro(new \DateTime());
+            $oUsuario->setUsuFechaNacimiento( new \DateTime());
+            $oUsuario->setUsuIdVendedor(1);
+            $oUsuario->setUsuTitulo('Dr.');
+            $oUsuario->setUsuGenero('m');
+            $oUsuario->setUsuUsuario($sUsuario);
+            $em->persist($oUsuario);
+            $em->flush();
+            $output->writeln($sUsuario);
+        }
+        
     }
 
 }
