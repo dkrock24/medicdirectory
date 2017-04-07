@@ -22,20 +22,41 @@ AppBundle\Entity\HistorialPago:
             generator:
                 strategy: IDENTITY
     fields:
-        hpaMonto:
+        hpaMontoEsperado:
             type: decimal
             nullable: false
             precision: 5
             scale: 2
-            column: hpa_monto
+            column: hpa_monto_esperado
+        hpaMontoPagado:
+            type: decimal
+            nullable: false
+            precision: 5
+            scale: 2
+            column: hpa_monto_pagado
+        hpaComentario:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+            column: hpa_comentario
+        hpaCantUsuariosEnCorte:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: hpa_cantidad_usuarios_corte
+        hpaEstado:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: hpa_estado
         hpaFechaPago:
             type: datetime
             nullable: false
             column: hpa_fecha_pago
-        hpaVerificado:
-            type: boolean
-            nullable: true
-            column: hpa_verificado
         hpaFechaCrea:
             type: datetime
             nullable: true

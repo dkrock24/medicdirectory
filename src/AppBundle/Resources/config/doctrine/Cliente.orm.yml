@@ -5,12 +5,9 @@ AppBundle\Entity\Cliente:
         FK_cli_tipo_cliente_idx:
             columns:
                 - cli_tip_cli_id
-        FK_cli_especialidad_idx:
-            columns:
-                - cli_esp_id
         FK_cli_ciudad_idx:
             columns:
-                - cli_mun_id
+                - cli_ciu_id
         IDX_cli_nit:
             columns:
                 - cli_nit
@@ -97,15 +94,15 @@ AppBundle\Entity\Cliente:
                 default: '1'
             column: cli_activo
     manyToOne:
-        cliEsp:
-            targetEntity: Especialidad
+        cliCiu:
+            targetEntity: Ciudad
             cascade: {  }
             fetch: LAZY
             mappedBy: null
             inversedBy: null
             joinColumns:
-                cli_esp_id:
-                    referencedColumnName: esp_id
+                cli_ciu_id:
+                    referencedColumnName: ciu_id
             orphanRemoval: false
         cliTipCli:
             targetEntity: TipoCliente
@@ -117,14 +114,16 @@ AppBundle\Entity\Cliente:
                 cli_tip_cli_id:
                     referencedColumnName: tip_cli_id
             orphanRemoval: false
-        cliMun:
-            targetEntity: Municipio
-            cascade: {  }
-            fetch: LAZY
-            mappedBy: null
-            inversedBy: null
+    manyToMany:
+        cliEsp:
+          targetEntity: Especialidad
+          joinTable:
+            name: cliente_especialidad
             joinColumns:
-                cli_mun_id:
-                    referencedColumnName: mun_id
-            orphanRemoval: false
+              cliId:
+                referencedColumnName: cli_id
+            inverseJoinColumns:
+              espId:
+                referencedColumnName: esp_id
+
     lifecycleCallbacks: {  }
