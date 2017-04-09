@@ -13,11 +13,11 @@ namespace AppBundle\Services;
  *
  * @author vladimir
  */
-
 use \AppBundle\Entity\Parametros;
 
 class servicioParametros {
     /* @var $em \Doctrine\ORM\EntityManager */
+
     private $em;
 
     function __construct($em) {
@@ -26,15 +26,18 @@ class servicioParametros {
 
     public function setParametro($llave, $valor) {
         $this->em->getRepository(Parametros::class)->findOneBy(array('parLlave' => $llave));
-
     }
 
     public function getParametro($llave, $valor = '') {
         /* @var $parametro \AppBundle\Entity\Parametros */
         $parametro = $this->em->getRepository(Parametros::class)->findOneBy(array('parLlave' => $llave));
 
-        return $parametro->getParValor();
-
+        if (null === $parametro) {
+            return $valor;
+        } else {
+            return $parametro->getParValor();
+            /* TODO: Registrar en el servicio de logs cuando se sirva un parametro que no exista */
+        }
     }
 
 }
