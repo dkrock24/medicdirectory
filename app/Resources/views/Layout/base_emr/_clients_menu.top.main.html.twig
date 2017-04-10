@@ -13,7 +13,7 @@
     <!-- Main navbar -->
 	<div class="navbar navbar-inverse">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="index.html"><img src="{{ asset('bundles/admin/img/logo.png') }}" alt=""></a>
+			<a class="navbar-brand" href="{{ path('emr_location') }}"><img src="{{ asset('bundles/admin/img/logo.png') }}" alt=""></a>
 
 			<ul class="nav navbar-nav pull-right visible-xs-block">
 				<li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
@@ -171,7 +171,8 @@
 			<p class="navbar-text"><span class="label bg-success-400">Online</span></p>
 
 			<ul class="nav navbar-nav navbar-right">
-				<li class="dropdown language-switch">
+				{#
+                <li class="dropdown language-switch">
 					<a class="dropdown-toggle" data-toggle="dropdown">
 						<img src="{{ asset('bundles/admin/template_admin/assets/images/flags/gb.png') }}" class="position-left" alt="">
 						English
@@ -186,7 +187,8 @@
 						<li><a class="russian"><img src="{{ asset('bundles/admin/template_admin/assets/images/flags/ru.png') }}" alt=""> Русский</a></li>
 					</ul>
 				</li>
-
+                #}
+                {% if app.user.username is defined %}
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 						<i class="icon-bubbles4"></i>
@@ -279,9 +281,10 @@
 				</li>
 
 				<li class="dropdown dropdown-user">
+                    
 					<a class="dropdown-toggle" data-toggle="dropdown">
 						<img src="assets/images/placeholder.jpg" alt="">
-						<span>Victoria</span>
+						<span>{{ app.user.username }}</span>
 						<i class="caret"></i>
 					</a>
 
@@ -293,7 +296,11 @@
 						<li><a href="#"><i class="icon-cog5"></i> Account settings</a></li>
 						<li><a href=" {{path("logout")}} "><i class="icon-switch2"></i> Logout</a></li>
 					</ul>
+                    
 				</li>
+                {% else %}
+                        
+                {% endif %}
 			</ul>
 		</div>
 	</div>

@@ -52,6 +52,10 @@ class UploadFile {
 			//file_put_contents("images/".$filename, $data);
 			$filename = $this->getUniqueName( $pre_fix ).".png";//"test.png";
 			file_put_contents($path.$filename, $this->check_base_64($file));
+			
+			//create a thumbnailImage
+			//echo $path."58e1b93402c5f1491188020.png";
+			$this->thumbnailImage($path.$filename);
 		}
 		else
 		{
@@ -113,7 +117,15 @@ class UploadFile {
 			}else{
 				$path = $this->getUploadRootDir().$pathFile;
 			}
+			
+			
+			$partes_ruta = pathinfo($path);
+
+			$dir = $partes_ruta['dirname'];
+			$name = $partes_ruta['basename'];
+			
 			unlink( $path );
+			unlink( $dir."/100x100_".$name );
 			return true;
 		}  
 		catch (\Exception $e)
@@ -123,11 +135,26 @@ class UploadFile {
 		}
 	}
 	
-	public function thumbnailImage($img, $path)
+	public function thumbnailImage($image)
 	{
-		$images = new \Imagick($img);
-		$image->thumbnailImage(100, 100);
-		$images->writeImages();
+		if( isset($image) && !empty($image) )
+		{	
+			$partes_ruta = pathinfo($image);
+
+			$dir = $partes_ruta['dirname'];
+			$name = $partes_ruta['basename'];
+			//echo $partes_ruta['extension'], "\n";
+			//echo $partes_ruta['filename'], "\n"; // desde PHP 5.2.0
+
+			$im = new \Imagick($image);
+			 /*** ping the image ***/
+	        $im->pingImage($image);
+	
+	        /*** read the image into the object ***/
+	        $im->readImage( $image );
+			$im->thumbnailImage(100, 100);
+			$im->writeImage( $dir."/100x100_".$name );
+		}
 	}
 	
 }

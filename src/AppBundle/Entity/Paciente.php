@@ -102,11 +102,11 @@ class Paciente
      */
     private $pacActivo = '1';
 
-    /**
-     * @var \AppBundle\Entity\Ciudad
+	/**
+     * @var \AppBundle\Entity\Municipio
      */
-    private $pacCiu;
-
+    private $pacMun;
+	
     /**
      * @var \AppBundle\Entity\Cliente
      */
@@ -560,29 +560,6 @@ class Paciente
         return (bool)$this->pacActivo;
     }
 
-    /**
-     * Set pacCiu
-     *
-     * @param \AppBundle\Entity\Ciudad $pacCiu
-     *
-     * @return Paciente
-     */
-    public function setPacCiu(\AppBundle\Entity\Ciudad $pacCiu = null)
-    {
-        $this->pacCiu = $pacCiu;
-
-        return $this;
-    }
-
-    /**
-     * Get pacCiu
-     *
-     * @return \AppBundle\Entity\Ciudad
-     */
-    public function getPacCiu()
-    {
-        return $this->pacCiu;
-    }
 
     /**
      * Set pacCli
@@ -633,12 +610,6 @@ class Paciente
     }
 	
 	
-    /**
-     * @var \AppBundle\Entity\Municipio
-     */
-    private $pacMun;
-
-
     /**
      * Set pacMun
      *

@@ -200,4 +200,50 @@ class Especialidad
 	public function __toString() {
 		return $this->espEspecialidad;
 	}
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $cliid;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->cliid = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add cliid
+     *
+     * @param \AppBundle\Entity\Cliente $cliid
+     *
+     * @return Especialidad
+     */
+    public function addCliid(\AppBundle\Entity\Cliente $cliid)
+    {
+        $this->cliid[] = $cliid;
+
+        return $this;
+    }
+
+    /**
+     * Remove cliid
+     *
+     * @param \AppBundle\Entity\Cliente $cliid
+     */
+    public function removeCliid(\AppBundle\Entity\Cliente $cliid)
+    {
+        $this->cliid->removeElement($cliid);
+    }
+
+    /**
+     * Get cliid
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCliid()
+    {
+        return $this->cliid;
+    }
 }
