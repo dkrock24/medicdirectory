@@ -243,14 +243,14 @@
                     <hr>
                     <ul class="list-inline">
                         <li>
-                            <button type="button" class="btn btn-primary" id="btn-save-form">
+                            <button type="button" class="btn btn-primary btn-sm" id="btn-save-form">
                                 <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
                                     Enviar datos
                                 </span>
                             </button>
                         </li>
                         <li>
-                            <a href="{{ path('paciente_index') }}" class="btn btn-info"><i class="fa fa-list"></i> Listar</a>
+                            <a href="{{ path('paciente_index') }}" class="btn btn-info btn-sm"><i class="fa fa-list"></i> Listar</a>
                         </li>
                     </ul>
                 </div>
@@ -797,12 +797,36 @@
                                         var table = "<table class='table table-striped' id='table_result_patients'><head><tr><td>Nombre</td><td>DUI</td><td></td></tr></thead><tbody>";
                                         for(i=0; i < data.length; i++)
                                         {
+<<<<<<< HEAD
                                             var route = "{{ path('paciente_edit', { 'id': "PLACEHOLDER" }) }}";
                                             route = route.replace("PLACEHOLDER", data[i]['pac_id']);
                                             table += "<tr>";
                                             table += "<td>"+data[i]['fullname']+"</td>";
                                             table += "<td>"+data[i]['dui']+"</td>";
                                             table += "<td><a href='"+route+"' class='btn bg-teal-400' ><i class='fa fa-edit'></i></a></td>";
+=======
+                                            var routeEdit = "{{ path('paciente_edit', { 'id': "PLACEHOLDER" }) }}";
+                                            routeEdit = routeEdit.replace("PLACEHOLDER", data[i]['pac_id']);
+                                            
+                                            var routeShow = "{{ path('paciente_show', { 'id': "PLACEHOLDER" }) }}";
+                                            routeShow = routeShow.replace("PLACEHOLDER", data[i]['pac_id']);
+                                            
+                                            var btn_group = "<div class='btn-group' role='group'>";
+                                                btn_group += "<button type='button' class='btn btn-default btn-sm dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>";
+                                                btn_group += "Acción";
+                                                btn_group += "<span class='caret'></span>";
+                                                btn_group += "</button>";
+                                                btn_group += "<ul class='dropdown-menu dropdown-menu-right'>";
+                                                btn_group += "<li><a href='"+routeShow+"'>Ver</a></li>";
+                                                btn_group += "<li><a href='"+routeEdit+"'>Editar</a></li>";
+                                                btn_group += "</ul>";
+                                                btn_group += "</div>";
+                                            
+                                            table += "<tr>";
+                                            table += "<td>"+data[i]['fullname']+"</td>";
+                                            table += "<td>"+data[i]['dui']+"</td>";
+                                            table += "<td>"+btn_group+"</td>";
+>>>>>>> master
                                             table += "</tr>";
                                         }
                                         table += "</body></table>";

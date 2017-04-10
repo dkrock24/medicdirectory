@@ -62,7 +62,10 @@ class PacienteController extends Controller
     public function showAction(Paciente $paciente)
     {
         $deleteForm = $this->createDeleteForm($paciente);
-
+		
+		//$uFile = $this->get('srv_uploadFile');
+		//$path = $uFile->getUploadRootDir()."pacientes/";
+		
         return $this->render('EmrBundle:paciente:show.html.twig', array(
             'paciente' => $paciente,
             'delete_form' => $deleteForm->createView(),
@@ -325,7 +328,11 @@ class PacienteController extends Controller
 					if( !empty($img) )
 					{
 						$currentImg = $oPatient->getPacFoto();
+<<<<<<< HEAD
 						$uFile->deleteFile($currentImg, $path="pacientes");
+=======
+						$uFile->deleteFile($currentImg, $path="pacientes", $pre_fix=false);
+>>>>>>> master
 					}
 					
 				}

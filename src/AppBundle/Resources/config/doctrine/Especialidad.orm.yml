@@ -49,4 +49,13 @@ AppBundle\Entity\Especialidad:
             options:
                 default: '1'
             column: esp_activo
+    manyToMany:
+        cliid:
+            targetEntity: Cliente
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: espid
+            inversedBy: null
+            joinTable: null
+            orderBy: null
     lifecycleCallbacks: {  }

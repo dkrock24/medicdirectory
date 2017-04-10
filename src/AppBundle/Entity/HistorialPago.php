@@ -428,4 +428,33 @@ class HistorialPago
     {
         return $this->hpaEstado;
     }
+    /**
+     * @var integer
+     */
+    private $hpaCantidadUsuariosCorte;
+
+
+    /**
+     * Set hpaCantidadUsuariosCorte
+     *
+     * @param integer $hpaCantidadUsuariosCorte
+     *
+     * @return HistorialPago
+     */
+    public function setHpaCantidadUsuariosCorte($hpaCantidadUsuariosCorte)
+    {
+        $this->hpaCantidadUsuariosCorte = $hpaCantidadUsuariosCorte;
+
+        return $this;
+    }
+
+    /**
+     * Get hpaCantidadUsuariosCorte
+     *
+     * @return integer
+     */
+    public function getHpaCantidadUsuariosCorte()
+    {
+        return $this->hpaCantidadUsuariosCorte;
+    }
 }
