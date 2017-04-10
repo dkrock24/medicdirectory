@@ -1,7 +1,7 @@
-{% extends "Layout/base_emr/_clients_base.html.twig" %}
+{% extends "Layout/base_emr/_clients_base.location.html.twig" %}
 
 {% block title_page %}
-    Sitema Medico EMR || Regístro de nuevo paciente
+    Sitema Medico EMR || Regístrate
 {% endblock %}
 
 {#
@@ -29,21 +29,109 @@
             <!-- End notifications -->
         </div>
     </div>
-    <div class="row">
-        <div class="col-lg-6">        
+    <div class="panel panel-white">
+        <div class="panel-heading">
+            <h6 class="panel-title"><i class="fa fa-hospital-o"></i> Datos del establecimiento</h6>
+            <div class="heading-elements">
+                <ul class="icons-list">
+                    <li><a data-action="collapse"></a></li>
+                    <li><a data-action="reload"></a></li>
+                    <li><a data-action="close"></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="panel-body">
+            
+            <div class="row">
+            <div class="col-lg-6">        
+            {#
             {{ form_start(form) }}
                 {{ form_widget(form) }}
                 <input type="submit" value="Create" />
             {{ form_end(form) }}
+            #}
+            {{ form_start(form, {'attr': {'class': 'steps-basic'}}) }}
+            <div class="form_error">{{ form_errors(form)}}</div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="form_error">{{ form_errors(form.cliTipCli)}}</div>
+                        <label for="" class=" control-label">Tipo:</label>
+                        <div class="">{{ form_widget(form.cliTipCli,  { 'attr': {'class': 'select'} } ) }}</div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="form_error">{{ form_errors(form.cliNombre)}}</div>
+                        <label for="" class=" control-label">Nombre:</label>
+                        <div class="">{{ form_widget(form.cliNombre) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="form_error">{{ form_errors(form.cliNombreFiscal)}}</div>
+                        <label for="" class=" control-label">Nombre Fiscal:</label>
+                        <div class="">{{ form_widget(form.cliNombreFiscal) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                    </div>
+                </div>    
+            </div>
+            <div class="row">
+                <div class="col-md-4">    
+                    <div class="form-group">
+                        <div class="form_error">{{ form_errors(form.cliMun)}}</div>
+                        <label for="" class=" control-label">Municipio:</label>
+                        <div class="">{{ form_widget(form.cliMun) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                    </div>
+                </div>    
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <div class="form_error">{{ form_errors(form.cliDireccion)}}</div>
+                        <label for="" class=" control-label">Dirección:</label>
+                        <div class="">{{ form_widget(form.cliDireccion) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                    </div>
+                </div>
+            </div>        
+            <div class="row">
+                <div class="col-md-4">    
+                    <div class="form-group">
+                        <div class="form_error">{{ form_errors(form.cliNit)}}</div>
+                        <label for="" class=" control-label">Nit:</label>
+                        <div class="">{{ form_widget(form.cliNit) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="form_error">{{ form_errors(form.cliTelefono1)}}</div>
+                        <label for="" class=" control-label">Teléfono 1:</label>
+                        <div class="">{{ form_widget(form.cliTelefono1) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="form_error">{{ form_errors(form.cliTelefono2)}}</div>
+                        <label for="" class=" control-label">Teléfono 2:</label>
+                        <div class="">{{ form_widget(form.cliTelefono2) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                    </div>
+                </div>    
+            </div>      
+            <div class="row">
+                <div class="col-md-12">    
+                    <div class="form-group">
+                        <div class="form_error">{{ form_errors(form.cliEsp)}}</div>
+                        <label for="" class=" control-label">Tipos de especialidades:</label>
+                        <div class="">{{ form_widget(form.cliEsp) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                    </div>
+                </div>    
+            </div>         
+            {{ form_end(form)}}            
         </div>
-    </div>    
-    {#    
-    <ul>
-        <li>
-            <a href="{{ path('cliente_index') }}">Back to the list</a>
-        </li>
-    </ul>
-    #}
+            </div>
+            
+        </div>
+    </div>         
+        
 {% endblock %}
 
 {% block codejs %}

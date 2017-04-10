@@ -17,6 +17,11 @@ emr_dashboard:
     defaults: { _controller: EmrBundle:Dashboard:dashboard  }
     host:     "%emr_domain%"
     
+emr_location:
+    path:     /establecimiento
+    defaults: { _controller: EmrBundle:Default:establecimiento  }
+    host:     "%emr_domain%"
+    
 emr_paciente:
     resource: "@EmrBundle/Resources/config/routing/paciente.yml"
     prefix:   /paciente
