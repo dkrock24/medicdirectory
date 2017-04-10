@@ -27,23 +27,23 @@
     <table class="table table-striped">
         <tbody>
             <tr>
-                <th>Iarid</th>
+                <th>Id</th>
                 <td>{{ invArea.iarId }}</td>
             </tr>
             <tr>
-                <th>Iararea</th>
+                <th>Nombre Area</th>
                 <td>{{ invArea.iarArea }}</td>
             </tr>
             <tr>
-                <th>Iarfechacrea</th>
+                <th>Creado</th>
                 <td>{% if invArea.iarFechaCrea %}{{ invArea.iarFechaCrea|date('Y-m-d H:i:s') }}{% endif %}</td>
             </tr>
             <tr>
-                <th>Iarfechamod</th>
+                <th>Modificado</th>
                 <td>{% if invArea.iarFechaMod %}{{ invArea.iarFechaMod|date('Y-m-d H:i:s') }}{% endif %}</td>
             </tr>
             <tr>
-                <th>Iaractivo</th>
+                <th>Estado</th>
                 <td>{% if invArea.iarActivo %}Yes{% else %}No{% endif %}</td>
             </tr>
         </tbody>

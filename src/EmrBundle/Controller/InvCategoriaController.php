@@ -14,6 +14,11 @@ use Symfony\Component\HttpFoundation\Session\Session;
  */
 class InvCategoriaController extends Controller
 {
+    private $session;
+    
+    public function __construct() {
+        $this->session = new Session();
+    }
     /**
      * Lists all invCategorium entities.
      *
@@ -22,7 +27,9 @@ class InvCategoriaController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $invCategorias = $em->getRepository('AppBundle:InvCategoria')->findAll();
+        //$invCategorias = $em->getRepository('AppBundle:InvCategoria')->findAll();
+        //$invCategorias = $em->$repository->findBy(array('icaCategoria' => 'IS'));
+        $invCategorias = $em->getRepository('AppBundle:InvCategoria')->findBy(array('icaCli' => 1));
 
         return $this->render('EmrBundle:invcategoria:index.html.twig', array(
             'invCategorias' => $invCategorias,
@@ -35,6 +42,9 @@ class InvCategoriaController extends Controller
      */
     public function newAction(Request $request)
     {
+        $idUser =  $this->getUser()->getUsuId();
+
+
         $invCategorium = new InvCategoria();
         $form = $this->createForm('EmrBundle\Form\InvCategoriaType', $invCategorium);
         $form->handleRequest($request);
@@ -42,11 +52,22 @@ class InvCategoriaController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
+            $cliente = $em->getRepository('AppBundle:Cliente')->find($idUser);
             $invCategorium->SetIcaFechaCrea(new \DateTime());
+            $invCategorium->SetIcaCli($cliente);
 
             $em->persist($invCategorium);
-            $em->flush();
 
+            $flush = $em->flush();
+            if ($flush == null)
+            {
+                $msgBox = "Registro creado con éxito";
+                $status = "success";
+            } else {
+                $msgBox = "No se pudo crear el registro ";
+                $status = "error";
+            }
+            $this->session->getFlashBag()->add($status,$msgBox);
             return $this->redirectToRoute('invcategoria_show', array('icaId' => $invCategorium->getIcaid()));
         }
 
@@ -81,7 +102,22 @@ class InvCategoriaController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $em = $this->getDoctrine()->getManager();
+
+            $invCategorium->SetIcaFechaMod(new \DateTime());
+
+            $flush = $em->flush();
+
+            if ($flush == null)
+            {
+                $msgBox = "Registro actualizado con éxito";
+                $status = "success";
+            } else {
+                $msgBox = "No se ha podido actualizar el registro ";
+                $status = "error";
+            }
+            
+            $this->session->getFlashBag()->add($status,$msgBox);
 
             return $this->redirectToRoute('invcategoria_edit', array('icaId' => $invCategorium->getIcaid()));
         }
@@ -125,5 +161,37 @@ class InvCategoriaController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+
+    public function deleteCustomAction( Request $request )
+    {
+        $iId = $request->request->get('id');
+        //$iId = $request->query->get('id');
+        
+        if( isset($iId) && $iId > 0 )
+        {
+            
+            try
+            {
+                $em = $this->getDoctrine()->getManager();
+                $repo = $em->getRepository("AppBundle:InvCategoria");   
+                $item = $repo->find($iId);
+                $em->remove($item);
+                $flush = $em->flush();
+
+                if ($flush == null)
+                {
+                    echo 1;
+                } else {
+                    echo 0;
+                }
+                
+            }catch (\Exception $e){
+                echo ($e->getMessage());
+            }
+            
+        }
+        
+        exit();
     }
 }

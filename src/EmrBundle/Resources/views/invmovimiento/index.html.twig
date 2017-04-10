@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Invmovimientos list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Imoid</th>
+                <th>Imovalor</th>
+                <th>Imodescripcion</th>
+                <th>Imofechacrea</th>
+                <th>Imofechamod</th>
+                <th>Imoactivo</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for invMovimiento in invMovimientos %}
+            <tr>
+                <td><a href="{{ path('invmovimiento_show', { 'imoId': invMovimiento.imoId }) }}">{{ invMovimiento.imoId }}</a></td>
+                <td>{{ invMovimiento.imoValor }}</td>
+                <td>{{ invMovimiento.imoDescripcion }}</td>
+                <td>{% if invMovimiento.imoFechaCrea %}{{ invMovimiento.imoFechaCrea|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if invMovimiento.imoFechaMod %}{{ invMovimiento.imoFechaMod|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if invMovimiento.imoActivo %}Yes{% else %}No{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('invmovimiento_show', { 'imoId': invMovimiento.imoId }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('invmovimiento_edit', { 'imoId': invMovimiento.imoId }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('invmovimiento_new') }}">Create a new invMovimiento</a>
+        </li>
+    </ul>
+{% endblock %}

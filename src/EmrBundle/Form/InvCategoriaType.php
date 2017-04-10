@@ -21,7 +21,9 @@ class InvCategoriaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('icaCategoria',TextType::class, array("label"=>"Categoria:","required"=>true))
-                ->add('icaDescripcion',TextareaType::class, array("label"=>"Descripcion:","required"=>true));
+                ->add('icaDescripcion',TextareaType::class, array("label"=>"Descripcion:","required"=>true))
+                ->add('icaActivo', CheckboxType::class, array("label"=>"Activo", "required"=>false))
+                ;
                 //->add('icaFechaCrea')
                 //->add('icaFechaMod')
                 //->add('icaActivo');

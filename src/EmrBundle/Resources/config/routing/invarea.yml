@@ -22,3 +22,7 @@ invarea_delete:
     path:     /{iarId}/delete
     defaults: { _controller: "EmrBundle:InvArea:delete" }
     methods:  DELETE
+
+invarea_delete_from_list:
+    path:     /list/delete/area
+    defaults: { _controller: "EmrBundle:InvArea:deleteCustom" }

@@ -23,7 +23,8 @@ class InvAreaType extends AbstractType
         $builder->add('iarArea',TextType::class, array("label"=>"Nombre Area:","required"=>true))
                 //->add('iarFechaCrea')
                 //->add('iarFechaMod');
-                //->add('iarActivo', CheckboxType::class, array("label"=>"Activo", "required"=>false))
+                ->add('iarActivo', CheckboxType::class, array("label"=>"Activo", "required"=>false))
+
                 ;
     }
     

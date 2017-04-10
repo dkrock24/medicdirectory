@@ -1,47 +1,71 @@
-{% extends 'base.html.twig' %}
+{% extends "Layout/base_emr/_clients_base.html.twig" %}
+
+{% block title_page %}
+        EMR || Datos Categoria
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('EmrBundle:InvArea:_breadcrumb.html.twig' )  }}
+{% endblock %} 
+
+{% block submenutop %}
+    {{ include('EmrBundle:InvArea:_submenu.html.twig' )  }}
+{% endblock %} 
 
 {% block body %}
-    <h1>Invcategorium</h1>
+    <h1>Categorias</h1>
 
-    <table>
+    <!-- Check the notifications -->
+    {% for message in app.session.flashbag().get("success") %}
+        <div class="alert alert-success"><i class="fa fa-check-circle"></i> {{message}}</div>
+    {% endfor %}
+    {% for message in app.session.flashbag().get("error") %}
+        <div class="alert alert-danger"><i class="fa fa-close"></i> {{message}}</div>
+    {% endfor %}
+    <!-- End notifications -->
+
+    <table class="table table-striped">
         <tbody>
             <tr>
-                <th>Icaid</th>
+                <th>Id</th>
                 <td>{{ invCategorium.icaId }}</td>
             </tr>
             <tr>
-                <th>Icacategoria</th>
+                <th>Categoria</th>
                 <td>{{ invCategorium.icaCategoria }}</td>
             </tr>
             <tr>
-                <th>Icadescripcion</th>
+                <th>Descripción</th>
                 <td>{{ invCategorium.icaDescripcion }}</td>
             </tr>
             <tr>
-                <th>Icafechacrea</th>
+                <th>Creado</th>
                 <td>{% if invCategorium.icaFechaCrea %}{{ invCategorium.icaFechaCrea|date('Y-m-d H:i:s') }}{% endif %}</td>
             </tr>
             <tr>
-                <th>Icafechamod</th>
+                <th>Modificado</th>
                 <td>{% if invCategorium.icaFechaMod %}{{ invCategorium.icaFechaMod|date('Y-m-d H:i:s') }}{% endif %}</td>
             </tr>
             <tr>
-                <th>Icaactivo</th>
+                <th>Estado</th>
                 <td>{% if invCategorium.icaActivo %}Yes{% else %}No{% endif %}</td>
             </tr>
         </tbody>
     </table>
 
-    <ul>
+    <ul class="list-inline">
         <li>
-            <a href="{{ path('invcategoria_index') }}">Back to the list</a>
+            <a href="{{ path('invcategoria_index') }}" class="btn btn-info"><i class="fa fa-list"></i> Listar</a>
         </li>
         <li>
-            <a href="{{ path('invcategoria_edit', { 'icaId': invCategorium.icaId }) }}">Edit</a>
+            <a href="{{ path('invcategoria_new') }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Nuevo</a>
+        </li>
+        <li>
+            <a href="{{ path('invcategoria_edit', { 'icaId': invCategorium.icaId }) }}" class="btn bg-teal-400"><i class="fa fa-edit"></i> Editar</a>
         </li>
         <li>
             {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
+                <button type="submit" class="btn btn-danger"><i class="fa fa-remove"></i> Eliminar</button>
             {{ form_end(delete_form) }}
         </li>
     </ul>

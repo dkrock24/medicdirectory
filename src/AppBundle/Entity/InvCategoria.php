@@ -165,7 +165,8 @@ class InvCategoria
      */
     public function getIcaActivo()
     {
-        return $this->icaActivo;
+        //return $this->icaActivo;
+        return (boolean) $this->icaActivo;
     }
     /**
      * @var \AppBundle\Entity\Cliente

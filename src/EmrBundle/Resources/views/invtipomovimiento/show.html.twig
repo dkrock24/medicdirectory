@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Invtipomovimiento</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Itmid</th>
+                <td>{{ invTipoMovimiento.itmId }}</td>
+            </tr>
+            <tr>
+                <th>Itmtipo</th>
+                <td>{{ invTipoMovimiento.itmTipo }}</td>
+            </tr>
+            <tr>
+                <th>Itmdescripcion</th>
+                <td>{{ invTipoMovimiento.itmDescripcion }}</td>
+            </tr>
+            <tr>
+                <th>Itmfechacrea</th>
+                <td>{% if invTipoMovimiento.itmFechaCrea %}{{ invTipoMovimiento.itmFechaCrea|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Itmfechamod</th>
+                <td>{% if invTipoMovimiento.itmFechaMod %}{{ invTipoMovimiento.itmFechaMod|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Itmactivo</th>
+                <td>{% if invTipoMovimiento.itmActivo %}Yes{% else %}No{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('invtipomovimiento_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('invtipomovimiento_edit', { 'itmId': invTipoMovimiento.itmId }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

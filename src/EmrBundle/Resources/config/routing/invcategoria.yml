@@ -22,3 +22,7 @@ invcategoria_delete:
     path:     /{icaId}/delete
     defaults: { _controller: "EmrBundle:InvCategoria:delete" }
     methods:  DELETE
+
+invcategoria_delete_from_list:
+    path:     /list/delete/categoria
+    defaults: { _controller: "EmrBundle:InvCategoria:deleteCustom" }

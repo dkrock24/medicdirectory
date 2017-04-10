@@ -30,13 +30,13 @@
         <table class="table table-striped datatable-reorder">
         <thead>
             <tr>
-                <th>Icaid</th>
-                <th>Icacategoria</th>
-                <th>Icadescripcion</th>
-                <th>Icafechacrea</th>
-                <th>Icafechamod</th>
-                <th>Icaactivo</th>
-                <th>Actions</th>
+                <th>Id</th>
+                <th>Categoria</th>
+                <th>Descripción</th>
+                <th>Creado</th>
+                <th>Modificado</th>
+                <th>Estado</th>
+                <th>Acción</th>
             </tr>
         </thead>
         <tbody>
@@ -47,14 +47,18 @@
                 <td>{{ invCategorium.icaDescripcion }}</td>
                 <td>{% if invCategorium.icaFechaCrea %}{{ invCategorium.icaFechaCrea|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>{% if invCategorium.icaFechaMod %}{{ invCategorium.icaFechaMod|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if invCategorium.icaActivo %}Yes{% else %}No{% endif %}</td>
+
+                <td>{% if invCategorium.icaActivo %}<span class="label label-success">Si</span>{% else %}<span class="label label-danger">No</span>{% endif %}</td>
                 <td>
-                    <ul>
+                    <ul class="list-inline">
                         <li>
-                            <a href="{{ path('invcategoria_show', { 'icaId': invCategorium.icaId }) }}">show</a>
+                            <a href="{{ path('invcategoria_show', { 'icaId': invCategorium.icaId }) }}"  class='btn btn-default'><i class='fa fa-folder-open'></i> ver</a>
                         </li>
                         <li>
-                            <a href="{{ path('invcategoria_edit', { 'icaId': invCategorium.icaId }) }}">edit</a>
+                            <a href="{{ path('invcategoria_edit', { 'icaId': invCategorium.icaId }) }}" class='btn bg-teal-400'><i class='fa fa-edit'></i> Editar</a>
+                        </li>
+                        <li>
+                            <button value="{{invCategorium.icaId}}" class="btn btn-danger delete"><i class="fa fa-remove"></i> Eliminar</button>
                         </li>
                     </ul>
                 </td>
@@ -75,7 +79,88 @@
 {% block codejs %}
     <script>
         $(document).on("ready",function(){
-           // alert();
+            
+            /*
+             * This works if you want to use datatable plugin 
+            */
+            var table = $('.datatable-reorder').DataTable({});
+            // Add placeholder to the datatable filter option
+            $('.dataTables_filter input[type=search]').attr('placeholder','Escribar para filtrar...');
+            // Enable Select2 select for the length option
+            $('.dataTables_length select').select2({
+                minimumResultsForSearch: Infinity,
+                width: 'auto'
+            });
+            //End
+            
+            
+            $('body').on("click",".delete",function () {
+                var id = $(this).val();
+                if( id > 0 )
+                {
+                    sendAjax(id);
+                }
+            });
+            
+            function sendAjax(id) {
+                $("#holder_loading").show(); 
+                $.ajax({
+                    type: "post",
+                    url: "{{ path('invcategoria_delete_from_list') }}",
+                    data: {id:id},
+                    error: function (data) {
+                       $("#holder_loading").hide();
+                       $.confirm({
+                            icon: 'fa fa-remove',
+                            title: 'Error!',
+                            content: 'Ha ocurrido un error al tratar de enviar la petición',
+                            type: 'red',
+                            typeAnimated: true,
+                            buttons: {
+                                tryAgain: {
+                                    text: 'Intentar de nuevo',
+                                    btnClass: 'btn-red',
+                                    action: function(){
+                                        sendAjax(id);
+                                    }
+                                },
+                                close: function () {
+                                }
+                            }
+                        });
+                        
+                    },
+                    success: function (data) {
+                        $("#holder_loading").hide();
+                        if( data == 1)
+                        {
+                            $.alert({
+                                icon: 'fa fa-check-circle',
+                                title: 'Ok!',
+                                content: 'El registro fue eliminado con éxito',
+                                type: 'green',
+                                typeAnimated: true,
+                            });
+                            
+                            //$("#tr_"+id).remove();
+                            table.row("#tr_"+id).remove().draw( false );
+                        }
+                        else
+                        {
+                            var infoError = (data);
+                            $.alert({
+                                icon: 'fa fa-remove',
+                                title: 'Error!',
+                                content: 'No se ha podido eliminar el regístro <br>'+infoError,
+                                type: 'red',
+                                typeAnimated: true,
+                            });
+                        }
+                        
+                    }
+                });
+            }
+            
         });
     </script>
 {% endblock %}  

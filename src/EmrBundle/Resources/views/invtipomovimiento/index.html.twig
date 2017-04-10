@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Invtipomovimientos list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Itmid</th>
+                <th>Itmtipo</th>
+                <th>Itmdescripcion</th>
+                <th>Itmfechacrea</th>
+                <th>Itmfechamod</th>
+                <th>Itmactivo</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for invTipoMovimiento in invTipoMovimientos %}
+            <tr>
+                <td><a href="{{ path('invtipomovimiento_show', { 'itmId': invTipoMovimiento.itmId }) }}">{{ invTipoMovimiento.itmId }}</a></td>
+                <td>{{ invTipoMovimiento.itmTipo }}</td>
+                <td>{{ invTipoMovimiento.itmDescripcion }}</td>
+                <td>{% if invTipoMovimiento.itmFechaCrea %}{{ invTipoMovimiento.itmFechaCrea|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if invTipoMovimiento.itmFechaMod %}{{ invTipoMovimiento.itmFechaMod|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if invTipoMovimiento.itmActivo %}Yes{% else %}No{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('invtipomovimiento_show', { 'itmId': invTipoMovimiento.itmId }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('invtipomovimiento_edit', { 'itmId': invTipoMovimiento.itmId }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('invtipomovimiento_new') }}">Create a new invTipoMovimiento</a>
+        </li>
+    </ul>
+{% endblock %}

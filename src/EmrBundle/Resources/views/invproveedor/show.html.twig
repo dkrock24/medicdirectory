@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Invproveedor</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Iprid</th>
+                <td>{{ invProveedor.iprId }}</td>
+            </tr>
+            <tr>
+                <th>Iprnombre</th>
+                <td>{{ invProveedor.iprNombre }}</td>
+            </tr>
+            <tr>
+                <th>Iprnombrelegal</th>
+                <td>{{ invProveedor.iprNombreLegal }}</td>
+            </tr>
+            <tr>
+                <th>Iprnombreabreviado</th>
+                <td>{{ invProveedor.iprNombreAbreviado }}</td>
+            </tr>
+            <tr>
+                <th>Iprtelefono1</th>
+                <td>{{ invProveedor.iprTelefono1 }}</td>
+            </tr>
+            <tr>
+                <th>Iprtelefono2</th>
+                <td>{{ invProveedor.iprTelefono2 }}</td>
+            </tr>
+            <tr>
+                <th>Ipremail</th>
+                <td>{{ invProveedor.iprEmail }}</td>
+            </tr>
+            <tr>
+                <th>Iprdireccion</th>
+                <td>{{ invProveedor.iprDireccion }}</td>
+            </tr>
+            <tr>
+                <th>Iprdescripcion</th>
+                <td>{{ invProveedor.iprDescripcion }}</td>
+            </tr>
+            <tr>
+                <th>Iprfechacrea</th>
+                <td>{% if invProveedor.iprFechaCrea %}{{ invProveedor.iprFechaCrea|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Iprfechamod</th>
+                <td>{% if invProveedor.iprFechaMod %}{{ invProveedor.iprFechaMod|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Ipractivo</th>
+                <td>{% if invProveedor.iprActivo %}Yes{% else %}No{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('invproveedor_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('invproveedor_edit', { 'iprId': invProveedor.iprId }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

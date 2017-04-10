@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Invmovimientodetalles list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Imdid</th>
+                <th>Imdusuid</th>
+                <th>Imdcantidad</th>
+                <th>Imdprecioemitidio</th>
+                <th>Imdfechaingreso</th>
+                <th>Imdfechacrea</th>
+                <th>Imdfechamod</th>
+                <th>Imdactivo</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for invMovimientoDetalle in invMovimientoDetalles %}
+            <tr>
+                <td><a href="{{ path('invmovimientodetalle_show', { 'imdId': invMovimientoDetalle.imdId }) }}">{{ invMovimientoDetalle.imdId }}</a></td>
+                <td>{{ invMovimientoDetalle.imdUsuId }}</td>
+                <td>{{ invMovimientoDetalle.imdCantidad }}</td>
+                <td>{{ invMovimientoDetalle.imdPrecioEmitidio }}</td>
+                <td>{% if invMovimientoDetalle.imdFechaIngreso %}{{ invMovimientoDetalle.imdFechaIngreso|date('Y-m-d') }}{% endif %}</td>
+                <td>{% if invMovimientoDetalle.imdFechaCrea %}{{ invMovimientoDetalle.imdFechaCrea|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if invMovimientoDetalle.imdFechaMod %}{{ invMovimientoDetalle.imdFechaMod|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if invMovimientoDetalle.imdActivo %}Yes{% else %}No{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('invmovimientodetalle_show', { 'imdId': invMovimientoDetalle.imdId }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('invmovimientodetalle_edit', { 'imdId': invMovimientoDetalle.imdId }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('invmovimientodetalle_new') }}">Create a new invMovimientoDetalle</a>
+        </li>
+    </ul>
+{% endblock %}

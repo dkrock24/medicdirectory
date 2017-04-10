@@ -1,0 +1,24 @@
+invproveedor_index:
+    path:     /
+    defaults: { _controller: "EmrBundle:InvProveedor:index" }
+    methods:  GET
+
+invproveedor_show:
+    path:     /{iprId}/show
+    defaults: { _controller: "EmrBundle:InvProveedor:show" }
+    methods:  GET
+
+invproveedor_new:
+    path:     /new
+    defaults: { _controller: "EmrBundle:InvProveedor:new" }
+    methods:  [GET, POST]
+
+invproveedor_edit:
+    path:     /{iprId}/edit
+    defaults: { _controller: "EmrBundle:InvProveedor:edit" }
+    methods:  [GET, POST]
+
+invproveedor_delete:
+    path:     /{iprId}/delete
+    defaults: { _controller: "EmrBundle:InvProveedor:delete" }
+    methods:  DELETE

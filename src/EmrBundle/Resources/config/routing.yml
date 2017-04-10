@@ -23,7 +23,7 @@ emr_paciente:
     host:     "%emr_domain%"
 
 
-app_invarea:
+emr_invarea:
     resource: "@EmrBundle/Resources/config/routing/invarea.yml"
     prefix:   /invarea
     host:     "%emr_domain%"
@@ -33,7 +33,6 @@ app_invcategoria:
     prefix:   /invcategoria
     host:     "%emr_domain%"
     
-
 emr_location_per_country:
     path:     /state/municipality
     defaults: { _controller: "EmrBundle:Paciente:getStatesFromCountry" }        
@@ -41,3 +40,43 @@ emr_location_per_country:
 emr_cliente:
     resource: "@EmrBundle/Resources/config/routing/cliente.yml"
     prefix:   /cliente
+
+emr_invunidadmedida:
+    resource: "@EmrBundle/Resources/config/routing/invunidadmedida.yml"
+    prefix:   /invunidadmedida
+    host:     "%emr_domain%"
+
+emr_invgrupo:
+    resource: "@EmrBundle/Resources/config/routing/invgrupo.yml"
+    prefix:   /invgrupo
+    host:     "%emr_domain%"
+
+emr_invmovimiento:
+    resource: "@EmrBundle/Resources/config/routing/invmovimiento.yml"
+    prefix:   /invmovimiento
+    host:     "%emr_domain%"
+
+emr_invmovimientodetalle:
+    resource: "@EmrBundle/Resources/config/routing/invmovimientodetalle.yml"
+    prefix:   /invmovimientodetalle
+    host:     "%emr_domain%"
+
+emr_invproveedor:
+    resource: "@EmrBundle/Resources/config/routing/invproveedor.yml"
+    prefix:   /invproveedor
+    host:     "%emr_domain%"
+
+emr_invtipomovimiento:
+    resource: "@EmrBundle/Resources/config/routing/invtipomovimiento.yml"
+    prefix:   /invtipomovimiento
+    host:     "%emr_domain%"
+
+app_invtipopresentacion:
+    resource: "@EmrBundle/Resources/config/routing/invtipopresentacion.yml"
+    prefix:   /invtipopresentacion
+    host:     "%emr_domain%"
+
+app_invtipoproveedor:
+    resource: "@EmrBundle/Resources/config/routing/invtipoproveedor.yml"
+    prefix:   /invtipoproveedor
+    host:     "%emr_domain%"

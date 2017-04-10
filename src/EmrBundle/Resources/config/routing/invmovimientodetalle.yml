@@ -1,0 +1,24 @@
+invmovimientodetalle_index:
+    path:     /
+    defaults: { _controller: "EmrBundle:InvMovimientoDetalle:index" }
+    methods:  GET
+
+invmovimientodetalle_show:
+    path:     /{imdId}/show
+    defaults: { _controller: "EmrBundle:InvMovimientoDetalle:show" }
+    methods:  GET
+
+invmovimientodetalle_new:
+    path:     /new
+    defaults: { _controller: "EmrBundle:InvMovimientoDetalle:new" }
+    methods:  [GET, POST]
+
+invmovimientodetalle_edit:
+    path:     /{imdId}/edit
+    defaults: { _controller: "EmrBundle:InvMovimientoDetalle:edit" }
+    methods:  [GET, POST]
+
+invmovimientodetalle_delete:
+    path:     /{imdId}/delete
+    defaults: { _controller: "EmrBundle:InvMovimientoDetalle:delete" }
+    methods:  DELETE

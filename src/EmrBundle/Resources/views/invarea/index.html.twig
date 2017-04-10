@@ -13,7 +13,7 @@
 {% endblock %} 
 
 {% block body %}
-    <h1>lista Areas</h1>
+    <h1>Listado de Areas</h1>
     <!-- Check the notifications -->
     <div id="holder_msg">
         {% for message in app.session.flashbag().get("success") %}
@@ -29,12 +29,12 @@
         <table class="table table-striped datatable-reorder">
         <thead>
             <tr>
-                <th>Iarid</th>
-                <th>Iararea</th>
-                <th>Iarfechacrea</th>
-                <th>Iarfechamod</th>
-                <th>Iaractivo</th>
-                <th>Actions</th>
+                <th>Id</th>
+                <th>Nombre Area</th>
+                <th>Creado</th>
+                <th>Modificado</th>
+                <th>Estado</th>
+                <th>Actión</th>
             </tr>
         </thead>
         <tbody>
@@ -44,14 +44,18 @@
                 <td>{{ invArea.iarArea }}</td>
                 <td>{% if invArea.iarFechaCrea %}{{ invArea.iarFechaCrea|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>{% if invArea.iarFechaMod %}{{ invArea.iarFechaMod|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if invArea.iarActivo %}Yes{% else %}No{% endif %}</td>
+                
+                <td>{% if invArea.iarActivo %}<span class="label label-success">Si</span>{% else %}<span class="label label-danger">No</span>{% endif %}</td>
                 <td>
-                    <ul>
+                    <ul class="list-inline">
                         <li>
-                            <a href="{{ path('invarea_show', { 'iarId': invArea.iarId }) }}">show</a>
+                            <a href="{{ path('invarea_show', { 'iarId': invArea.iarId }) }}" class='btn btn-default'><i class='fa fa-folder-open'></i>Ver</a>
                         </li>
                         <li>
-                            <a href="{{ path('invarea_edit', { 'iarId': invArea.iarId }) }}">edit</a>
+                            <a href="{{ path('invarea_edit', { 'iarId': invArea.iarId }) }}" class='btn bg-teal-400'><i class='fa fa-edit'></i> Editar</a>
+                        </li>
+                        <li>
+                            <button value="{{ invArea.iarId }}" class="btn btn-danger delete"><i class="fa fa-remove"></i> Eliminar</button>
                         </li>
                     </ul>
                 </td>
@@ -72,7 +76,88 @@
 {% block codejs %}
     <script>
         $(document).on("ready",function(){
-           // alert();
+            
+            /*
+             * This works if you want to use datatable plugin 
+            */
+            var table = $('.datatable-reorder').DataTable({});
+            // Add placeholder to the datatable filter option
+            $('.dataTables_filter input[type=search]').attr('placeholder','Escribar para filtrar...');
+            // Enable Select2 select for the length option
+            $('.dataTables_length select').select2({
+                minimumResultsForSearch: Infinity,
+                width: 'auto'
+            });
+            //End
+            
+            
+            $('body').on("click",".delete",function () {
+                var id = $(this).val();
+                if( id > 0 )
+                {
+                    sendAjax(id);
+                }
+            });
+            
+            function sendAjax(id) {
+                $("#holder_loading").show(); 
+                $.ajax({
+                    type: "post",
+                    url: "{{ path('invarea_delete_from_list') }}",
+                    data: {id:id},
+                    error: function (data) {
+                       $("#holder_loading").hide();
+                       $.confirm({
+                            icon: 'fa fa-remove',
+                            title: 'Error!',
+                            content: 'Ha ocurrido un error al tratar de enviar la petición',
+                            type: 'red',
+                            typeAnimated: true,
+                            buttons: {
+                                tryAgain: {
+                                    text: 'Intentar de nuevo',
+                                    btnClass: 'btn-red',
+                                    action: function(){
+                                        sendAjax(id);
+                                    }
+                                },
+                                close: function () {
+                                }
+                            }
+                        });
+                        
+                    },
+                    success: function (data) {
+                        $("#holder_loading").hide();
+                        if( data == 1)
+                        {
+                            $.alert({
+                                icon: 'fa fa-check-circle',
+                                title: 'Ok!',
+                                content: 'El registro fue eliminado con éxito',
+                                type: 'green',
+                                typeAnimated: true,
+                            });
+                            
+                            //$("#tr_"+id).remove();
+                            table.row("#tr_"+id).remove().draw( false );
+                        }
+                        else
+                        {
+                            var infoError = (data);
+                            $.alert({
+                                icon: 'fa fa-remove',
+                                title: 'Error!',
+                                content: 'No se ha podido eliminar el regístro <br>'+infoError,
+                                type: 'red',
+                                typeAnimated: true,
+                            });
+                        }
+                        
+                    }
+                });
+            }
+            
         });
     </script>
 {% endblock %}    

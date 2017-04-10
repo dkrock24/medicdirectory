@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Invproveedors list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Iprid</th>
+                <th>Iprnombre</th>
+                <th>Iprnombrelegal</th>
+                <th>Iprnombreabreviado</th>
+                <th>Iprtelefono1</th>
+                <th>Iprtelefono2</th>
+                <th>Ipremail</th>
+                <th>Iprdireccion</th>
+                <th>Iprdescripcion</th>
+                <th>Iprfechacrea</th>
+                <th>Iprfechamod</th>
+                <th>Ipractivo</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for invProveedor in invProveedors %}
+            <tr>
+                <td><a href="{{ path('invproveedor_show', { 'iprId': invProveedor.iprId }) }}">{{ invProveedor.iprId }}</a></td>
+                <td>{{ invProveedor.iprNombre }}</td>
+                <td>{{ invProveedor.iprNombreLegal }}</td>
+                <td>{{ invProveedor.iprNombreAbreviado }}</td>
+                <td>{{ invProveedor.iprTelefono1 }}</td>
+                <td>{{ invProveedor.iprTelefono2 }}</td>
+                <td>{{ invProveedor.iprEmail }}</td>
+                <td>{{ invProveedor.iprDireccion }}</td>
+                <td>{{ invProveedor.iprDescripcion }}</td>
+                <td>{% if invProveedor.iprFechaCrea %}{{ invProveedor.iprFechaCrea|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if invProveedor.iprFechaMod %}{{ invProveedor.iprFechaMod|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if invProveedor.iprActivo %}Yes{% else %}No{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('invproveedor_show', { 'iprId': invProveedor.iprId }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('invproveedor_edit', { 'iprId': invProveedor.iprId }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('invproveedor_new') }}">Create a new invProveedor</a>
+        </li>
+    </ul>
+{% endblock %}

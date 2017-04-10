@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Invmovimientodetalle</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Imdid</th>
+                <td>{{ invMovimientoDetalle.imdId }}</td>
+            </tr>
+            <tr>
+                <th>Imdusuid</th>
+                <td>{{ invMovimientoDetalle.imdUsuId }}</td>
+            </tr>
+            <tr>
+                <th>Imdcantidad</th>
+                <td>{{ invMovimientoDetalle.imdCantidad }}</td>
+            </tr>
+            <tr>
+                <th>Imdprecioemitidio</th>
+                <td>{{ invMovimientoDetalle.imdPrecioEmitidio }}</td>
+            </tr>
+            <tr>
+                <th>Imdfechaingreso</th>
+                <td>{% if invMovimientoDetalle.imdFechaIngreso %}{{ invMovimientoDetalle.imdFechaIngreso|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Imdfechacrea</th>
+                <td>{% if invMovimientoDetalle.imdFechaCrea %}{{ invMovimientoDetalle.imdFechaCrea|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Imdfechamod</th>
+                <td>{% if invMovimientoDetalle.imdFechaMod %}{{ invMovimientoDetalle.imdFechaMod|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Imdactivo</th>
+                <td>{% if invMovimientoDetalle.imdActivo %}Yes{% else %}No{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('invmovimientodetalle_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('invmovimientodetalle_edit', { 'imdId': invMovimientoDetalle.imdId }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

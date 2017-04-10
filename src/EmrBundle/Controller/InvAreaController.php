@@ -18,11 +18,18 @@ class InvAreaController extends Controller
      * Lists all invArea entities.
      *
      */
+    private $session;
+    
+    public function __construct() {
+        $this->session = new Session();
+    }
+    
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
 
-        $invAreas = $em->getRepository('AppBundle:InvArea')->findAll();
+        //$invAreas = $em->getRepository('AppBundle:InvArea')->findAll();
+        $invAreas = $em->getRepository('AppBundle:InvArea')->findBy(array('iarCli' => 1));
 
         return $this->render('EmrBundle:invarea:index.html.twig', array(
             'invAreas' => $invAreas,
@@ -45,8 +52,16 @@ class InvAreaController extends Controller
             $invArea->SetIarFechaCrea(new \DateTime());
 
             $em->persist($invArea);
-            $em->flush();
-
+            $flush = $em->flush();
+            if ($flush == null)
+            {
+                $msgBox = "Registro creado con éxito";
+                $status = "success";
+            } else {
+                $msgBox = "No se pudo crear el registro ";
+                $status = "error";
+            }
+            $this->session->getFlashBag()->add($status,$msgBox);
             return $this->redirectToRoute('invarea_show', array('iarId' => $invArea->getIarid()));
         }
 
@@ -125,5 +140,37 @@ class InvAreaController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+
+    public function deleteCustomAction( Request $request )
+    {
+        $iId = $request->request->get('id');
+        //$iId = $request->query->get('id');
+        
+        if( isset($iId) && $iId > 0 )
+        {
+            
+            try
+            {
+                $em = $this->getDoctrine()->getManager();
+                $repo = $em->getRepository("AppBundle:InvArea");   
+                $item = $repo->find($iId);
+                $em->remove($item);
+                $flush = $em->flush();
+
+                if ($flush == null)
+                {
+                    echo 1;
+                } else {
+                    echo 0;
+                }
+                
+            }catch (\Exception $e){
+                echo ($e->getMessage());
+            }
+            
+        }
+        
+        exit();
     }
 }
