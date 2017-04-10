@@ -56,6 +56,8 @@ class DefaultController extends Controller
 				return $this->redirectToRoute("emr_dashboard");
 			}
 		}
+		
+		//$this->get('session')->get('locationId');
 		//echo  count($user_repo);
 		/*
 		if( isset($iCountryId) )
