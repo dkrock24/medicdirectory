@@ -328,11 +328,11 @@ class PacienteController extends Controller
 					if( !empty($img) )
 					{
 						$currentImg = $oPatient->getPacFoto();
-<<<<<<< HEAD
-						$uFile->deleteFile($currentImg, $path="pacientes");
-=======
+
+						//$uFile->deleteFile($currentImg, $path="pacientes");
+
 						$uFile->deleteFile($currentImg, $path="pacientes", $pre_fix=false);
->>>>>>> master
+
 					}
 					
 				}
