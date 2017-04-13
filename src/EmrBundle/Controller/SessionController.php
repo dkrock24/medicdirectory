@@ -42,7 +42,10 @@ class SessionController extends Controller
 			
 			if (in_array($iLocationId, $myLocation))
 			{
+				//$iLocationObj = $em->getRepository("AppBundle:Cliente")->find($iLocationId);
+				
 				$this->get('session')->set('locationId', $iLocationId);
+				//$this->get('session')->set('locationObj', $iLocationObj);
 				$this->get('session')->set('locationName', $locationName);
 				$this->get('session')->set('municipalityId', $municipalityId);
 				$this->get('session')->set('municipalityName', $municipalityName);

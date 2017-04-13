@@ -14,7 +14,7 @@
 
 {% block body %}
     <h1>Listado de pacientes</h1>
-    
+    {# {{ app.session.get('locationId') }} #}
     <!-- Check the notifications -->
     <div id="holder_msg">
         {% for message in app.session.flashbag().get("success") %}

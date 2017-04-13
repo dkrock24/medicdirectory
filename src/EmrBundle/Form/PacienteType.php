@@ -96,7 +96,7 @@ class PacienteType extends AbstractType
 					//'years' => range( (date("Y")-100), date("Y") )
 					'years' => range( 1917, date("Y") )
 					) )
-				//->add('pacFoto', TextareaType::class, array("label"=>"Email:","required"=>false, "attr"=>array( "class"=>"imgbase64", "autocomplete"=>false )))
+				->add('pacFoto', HiddenType::class, array("label"=>"foto:","required"=>false, "attr"=>array( "class"=>"imgbase64", "autocomplete"=>false )))
 				//->add('pacFechaCrea')
 				->add('pacActivo',CheckboxType::class, array("label"=>"Activo", "required"=>false, "attr"=>array("class"=>"styled")))
 				//->add('pacCli')

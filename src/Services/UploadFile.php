@@ -124,8 +124,8 @@ class UploadFile {
 			$dir = $partes_ruta['dirname'];
 			$name = $partes_ruta['basename'];
 			
-			unlink( $path );
-			unlink( $dir."/100x100_".$name );
+			@unlink( $path );
+			@unlink( $dir."/100x100_".$name );
 			return true;
 		}  
 		catch (\Exception $e)

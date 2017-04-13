@@ -64,12 +64,16 @@
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane active" id="personal_date">
                             <fieldset>
+                               
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <div class="form_error">{{ form_errors(edit_form.pacNombre)}}</div>
                                             <label for="" class=" control-label">Primer Nombre:</label>
                                             <div class="">{{ form_widget(edit_form.pacNombre) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                            
+                                            
+                                            
                                         </div>
                                     </div>
                                     <div class="col-md-4">    
@@ -225,7 +229,7 @@
                                             <!-- Tab panes -->
                                             <div class="tab-content">
                                                 <div role="tabpanel" class="tab-pane active" id="pc">
-                                                    {{ include('EmrBundle:paciente:_cropper.html.twig' )  }}  
+                                                    {{ include ('EmrBundle:paciente:_cropper.html.twig', {'imgCurrent': edit_form.pacFoto.vars.value } )   }}  
                                                 </div>
                                                 <div role="tabpanel" class="tab-pane" id="webcam">
                                                     {{ include('EmrBundle:paciente:_webcam.html.twig' )  }}
@@ -252,6 +256,10 @@
                                     Enviar datos
                                 </span>
                             </button>
+                        </li>
+                        <li>
+                            {# {{ path('paciente_show', { 'id': id }) }} #}
+                            <a href="{{ path('paciente_show', { 'id': id }) }}" class='btn btn-default btn-sm'><i class='fa fa-folder-open'></i> Ver</a>
                         </li>
                     </ul>
                 </div>
@@ -450,6 +458,8 @@
                                         if (!$download.hasClass('disabled')) {
                                             $download.attr('href', result.toDataURL('image/png'));
                                         }
+                                        
+                                        //$("#currentPicture").html(result);
                                         
                                         img_base64 = result.toDataURL('image/png');
                                     }
@@ -745,6 +755,11 @@
                                         typeAnimated: true,
                                      });
                                      
+                                     
+                                     $("body").find(".cropper-container").remove();
+                                     $(".img-preview").empty();
+                                     $(".currentPicture").html("<img src='"+img+"' class='img-thumbnail'>");
+                                     
                                     //$("#appbundle_paciente_pacMun").append($('<option>', {value: 100000, text: 'new option'}));
                                 } else 
                                 {
@@ -817,18 +832,10 @@
                                     $("#holder_loading").hide();
                                     if( data.length > 0)
                                     {
-                                        var table = "<table class='table table-striped' id='table_result_patients'><head><tr><td>Nombre</td><td>DUI</td><td></td></tr></thead><tbody>";
+                                       // var table = "<table class='table table-striped' id='table_result_patients'><head><tr><td>Nombre</td><td>DUI</td><td></td></tr></thead><tbody>";
+                                        var table = "<table class='table table-striped' id='table_result_patients'><thead><tr><th>Nombre</th><th>DUI</th><th></th></tr></thead><tbody>";
                                         for(i=0; i < data.length; i++)
-                                        {
-                                             /*
-                                            <<<<<<< HEAD
-                                            var route = "{{ path('paciente_edit', { 'id': "PLACEHOLDER" }) }}";
-                                            route = route.replace("PLACEHOLDER", data[i]['pac_id']);
-                                            table += "<tr>";
-                                            table += "<td>"+data[i]['fullname']+"</td>";
-                                            table += "<td>"+data[i]['dui']+"</td>";
-                                            table += "<td><a href='"+route+"' class='btn bg-teal-400' ><i class='fa fa-edit'></i></a></td>";
-                                            */    
+                                        {  
                                             var routeEdit = "{{ path('paciente_edit', { 'id': "PLACEHOLDER" }) }}";
                                             routeEdit = routeEdit.replace("PLACEHOLDER", data[i]['pac_id']);
                                             
@@ -836,13 +843,13 @@
                                             routeShow = routeShow.replace("PLACEHOLDER", data[i]['pac_id']);
                                             
                                             var btn_group = "<div class='btn-group' role='group'>";
-                                                btn_group += "<button type='button' class='btn btn-default btn-sm dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>";
+                                                btn_group += "<button type='button' class='label bg-danger-400 dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>";
                                                 btn_group += "Acción";
                                                 btn_group += "<span class='caret'></span>";
                                                 btn_group += "</button>";
                                                 btn_group += "<ul class='dropdown-menu dropdown-menu-right'>";
-                                                btn_group += "<li><a href='"+routeShow+"'>Ver</a></li>";
-                                                btn_group += "<li><a href='"+routeEdit+"'>Editar</a></li>";
+                                                btn_group += "<li><a href='"+routeShow+"'><i class='fa fa-folder-open'></i> Ver</a></li>";
+                                                btn_group += "<li><a href='"+routeEdit+"'><i class='fa fa-edit'></i> Editar</a></li>";
                                                 btn_group += "</ul>";
                                                 btn_group += "</div>";
                                             
@@ -850,7 +857,6 @@
                                             table += "<td>"+data[i]['fullname']+"</td>";
                                             table += "<td>"+data[i]['dui']+"</td>";
                                             table += "<td>"+btn_group+"</td>";
-
                                             table += "</tr>";
                                         }
                                         table += "</body></table>";
@@ -863,7 +869,22 @@
                                     $("#result_search_patients").html(table);
                                     if( $("body").find("#table_result_patients").size() == 1 )
                                     {
-                                        //$("#table_result_patients").DataTable({});
+                                        $("body").find("#table_result_patients").DataTable({
+                                            "searching": false,
+                                            "bFilter": false,
+                                            "bInfo": false,
+                                            "bLengthChange": false,
+                                            "pageLength": 5,
+                                            "language":{
+                                                oPaginate: {
+                                                    sFirst: "Primero",
+                                                    sLast: "último",
+                                                    sNext: "Siguiente",
+                                                    sPrevious: "Anterior"
+                                                    },
+                                            },
+                                            "order": [[ 0, "desc" ]]
+                                        });
                                     }
                                     
                                 }

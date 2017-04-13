@@ -8,6 +8,10 @@
         background-size: 50% 50%;
         border: solid 1px #ccc;
     }
+    
+    #currentPicture img{
+        max-width: 100%;
+    }
 </style>
 <!-- Content -->
   <div class="containerx">
@@ -15,16 +19,35 @@
       <div class="col-md-6">
         <!-- <h3>Demo:</h3> -->
         <div class="img-container" style=""  id="bg-image-upload">
-          <img id="image" src="" alt="Picture">
+          <img id="image" src="" alt="">
         </div>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-3">
         <!-- <h3>Preview:</h3> -->
         <div class="docs-preview clearfix">
           <div class="img-preview preview-lg"></div>
         </div>
 
       </div>
+        <div class="col-md-3">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                  <div class="panel-title">Fotografía actual</div>
+                </div>
+                <div class="panel-body">
+                    <div class="currentPicture">
+                       <!-- get cuurent picture -->
+                       {% if imgCurrent is defined and imgCurrent != "" %}
+
+                       <img src="{{ asset('uploads/pacientes/'~imgCurrent) }}" class="img-thumbnail">
+                       {% else %}
+                           Este paciente no tiene foto
+                       {% endif %}
+                </div>
+                </div>
+             </div>
+           
+        </div>  
     </div>
     <div class="row">
       <div class="col-md-9 docs-buttons">
@@ -172,7 +195,7 @@
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="getCroppedCanvasTitle">Guardada</h5>
+                <h5 class="modal-title" id="getCroppedCanvasTitle"><i class="fa fa-check-circle" aria-hidden="true"></i> Recorte seleccionado</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
