@@ -44,6 +44,13 @@ AppBundle\Entity\Usuario:
             options:
                 unsigned: false
             column: usu_id_vendedor
+        usuNombre:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: usu_nombre
         usuTitulo:
             type: string
             nullable: true
