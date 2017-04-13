@@ -33,7 +33,7 @@ class ClienteType extends AbstractType
 				->add('cliTelefono2')
 				->add('cliDireccion')
 				//->add('cliFechaRegistro')
-				->add('cliIdVendedor')
+				//->add('cliIdVendedor')
 				//->add('cliFechaCrea')
 				//->add('cliFechaMod')
 				//->add('cliActivo')
