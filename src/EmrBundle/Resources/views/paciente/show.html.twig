@@ -15,7 +15,7 @@
 {% block body %}
     <style>
         .split{
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         .split h5{
             margin-bottom: 0px;
@@ -30,7 +30,7 @@
                 <i class="icon-arrow-left52 position-left"></i>
                 <span class="text-semibold">Home</span> - Datos del paciente
 
-                <small class="display-block">Seleccione la acción que desea realizar!</small></h4>
+                <small class="display-block">Expediente básico del paciente!</small></h4>
             <a class="heading-elements-toggle"><i class="icon-more"></i></a></div>
 
         <div class="heading-elements">
@@ -69,7 +69,7 @@
                         </div>
                     </div>
                      <div class="panel-body no-border no-padding-top">
-                
+                         <div class="thumb thumb-rounded thumb-slide">
                         {% if  paciente.pacFoto != "" %}
                             <div style="text-align:center;"><img src="{{ asset("uploads/pacientes/"~paciente.pacFoto) }}" class="img-thumbnailx" style="max-width:100% "></div>
                         {% else %}
@@ -80,6 +80,7 @@
                             {% endif %}
 
                         {% endif %}
+                         </div>
                      </div>
                 </div>
                 <hr>
@@ -119,89 +120,94 @@
                         <div class="heading-elements">
                             <ul class="icons-list">
                                 <li><a data-action="collapse"></a></li>
-                                <li><a data-action="reload"></a></li>
+                                <!-- <li><a data-action="reload"></a></li> -->
                                 <li><a data-action="close"></a></li>
                             </ul>
                         </div>
                     </div>
                     <div class="panel-body no-border no-padding-top">
-                        <div class='split'>
-                            <h5>Nombre completo:</h5>
-                            <div>{{ paciente.pacNombre }} {{ paciente.pacSegNombre }} {{ paciente.pacApellido }} {{ paciente.pacSegApellido }}</div>
-                        </div>
-                        <div class='split'>
-                            <div class="row">
-                                <div class="col-lg-4 col-md-4 col-sm-4">
-                                    <h5>Género</h5>
-                                    <div>
-                                        {% if paciente.pacGenero|lower == "m" %}
-                                            Masculino
-                                        {% else %}
-                                            Femenino    
-                                        {% endif %}    
-                                    </div>
-                                </div>
+                        <div class="well well-sm">
+                            <div class='split'>
+                                <h5>Nombre completo:</h5>
+                                <div>{{ paciente.pacNombre }} {{ paciente.pacSegNombre }} {{ paciente.pacApellido }} {{ paciente.pacSegApellido }}</div>
+                            </div>
+                            <div class='split'>
+                                <div class="row">
                                     <div class="col-lg-4 col-md-4 col-sm-4">
-                                        <h5>Tipo Sangre:</h5>
-                                        {{ paciente.pacTipSangre }}
+                                        <h5>Género</h5>
+                                        <div>
+                                            {% if paciente.pacGenero|lower == "m" %}
+                                                Masculino
+                                            {% else %}
+                                                Femenino    
+                                            {% endif %}    
+                                        </div>
+                                    </div>
+                                        <div class="col-lg-4 col-md-4 col-sm-4">
+                                            <h5>Tipo Sangre:</h5>
+                                            {{ paciente.pacTipSangre }}
+                                        </div>
+
+                                        <div class="col-lg-4 col-md-4 col-sm-4">
+                                            <h5>DUI</h5>
+                                            {{ paciente.pacDui }}
+                                        </div>
+                                </div>
+                            </div>
+                            <div class='split'>
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-4 col-sm-4">
+                                        <h5>Estado Civil</h5>
+                                        <div>
+                                            {{ paciente.pacEstadoCivil }}    
+                                        </div>
+                                    </div>
+                                        <div class="col-lg-4 col-md-4 col-sm-4">
+                                            <h5>Fecha de nacimiento:</h5>
+                                            {% if paciente.pacFechaNacimiento %}{{ paciente.pacFechaNacimiento|date('Y-m-d') }}{% endif %}
+                                        </div>
+
+                                        <div class="col-lg-4 col-md-4 col-sm-4">
+                                            <h5>Email</h5>
+                                            {{ paciente.pacEmail }}
+                                        </div>
+                                </div>
+                            </div>
+                            <div class='split'>
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-4 col-sm-4">
+                                        <h5>Telefono Trabajo:</h5>
+                                        <div>
+                                            {{ paciente.pacTelTrabajo }}    
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4">
+                                        <h5>Telefóno Casa:</h5>
+                                        {{ paciente.pacTelCasa }}
                                     </div>
 
-                                    <div class="col-lg-4 col-md-4 col-sm-4">
-                                        <h5>DUI</h5>
-                                        {{ paciente.pacDui }}
-                                    </div>
-                            </div>
-                        </div>
-                        <div class='split'>
-                            <div class="row">
-                                <div class="col-lg-4 col-md-4 col-sm-4">
-                                    <h5>Estado Civil</h5>
-                                    <div>
-                                        {{ paciente.pacEstadoCivil }}    
-                                    </div>
+                                        <div class="col-lg-4 col-md-4 col-sm-4">
+                                            <h5>Celular:</h5>
+                                            {{ paciente.pacTelCelular }}
+                                        </div>
                                 </div>
-                                    <div class="col-lg-4 col-md-4 col-sm-4">
-                                        <h5>Fecha de nacimiento:</h5>
-                                        {% if paciente.pacFechaNacimiento %}{{ paciente.pacFechaNacimiento|date('Y-m-d') }}{% endif %}
-                                    </div>
-
-                                    <div class="col-lg-4 col-md-4 col-sm-4">
-                                        <h5>Email</h5>
-                                        {{ paciente.pacEmail }}
-                                    </div>
                             </div>
-                        </div>
-                        <div class='split'>
-                            <div class="row">
-                                <div class="col-lg-4 col-md-4 col-sm-4">
-                                    <h5>Telefono Trabajo:</h5>
-                                    <div>
-                                        {{ paciente.pacTelTrabajo }}    
-                                    </div>
+                            <div class='split'>
+                                <h5>Dirección:</h5>
+                                <div>{{ paciente.pacDireccion }}</div>
+                                <div>
+                                    {% if paciente.pacMun != "" %}
+                                        {{ paciente.pacMun }}
+                                        {{ (paciente.pacMun.munDep != null  and paciente.pacMun.munDep !="") ? ","~paciente.pacMun.munDep }}  {{ paciente.pacMun.munDep.depPai != ""?","~paciente.pacMun.munDep.depPai }}
+                                    {% endif %}
                                 </div>
-                                <div class="col-lg-4 col-md-4 col-sm-4">
-                                    <h5>Telefóno Casa:</h5>
-                                    {{ paciente.pacTelCasa }}
-                                </div>
-
-                                    <div class="col-lg-4 col-md-4 col-sm-4">
-                                        <h5>Celular:</h5>
-                                        {{ paciente.pacTelCelular }}
-                                    </div>
                             </div>
                         </div>
-                        <div class='split'>
-                            <h5>Dirección:</h5>
-                            <div>{{ paciente.pacDireccion }}</div>
-                            <div>
-                                {% if paciente.pacMun != "" %}
-                                    {{ paciente.pacMun }}
-                                    {{ (paciente.pacMun.munDep != null  and paciente.pacMun.munDep !="") ? ","~paciente.pacMun.munDep }}  {{ paciente.pacMun.munDep.depPai != ""?","~paciente.pacMun.munDep.depPai }}
-                                {% endif %}
-                            </div>
-                        </div>
-                        <div class='split'>
-                            <div class="row">
+                        <div class="list-group-divider"></div>        
+                        <div class="well well-sm">    
+                            <div class='split'>
+                            
+                                <div class="row">
                                 <div class="col-lg-4 col-md-4 col-sm-4">
                                     <h5>Activo:</h5>
                                     <div>
@@ -217,6 +223,7 @@
                                         <h5>Fecha actualizado:</h5>
                                         {% if paciente.pacFechaMod %}{{ paciente.pacFechaMod|date('Y-m-d H:i:s') }}{% endif %}
                                     </div>
+                            </div>
                             </div>
                         </div>
                     </div>
@@ -242,48 +249,69 @@
                     </div>
                     
                     <div class="panel-body no-border no-padding-top">
-                        <table class="table table-striped" id="table_books">
-                            <thead>
-                                <tr>
-                                    <th>Fecha</th>
-                                    <th>Estatus</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>2017-04-20</td><td>Pendiente</td><td>
-                                        <ul class="list list-unstyled text-right">
-                                            <li class="dropdown">
-                                                <a href="#" class="label bg-danger-400 dropdown-toggle" data-toggle="dropdown">Acción <span class="caret"></span></a>
-                                                <ul class="dropdown-menu dropdown-menu-right">
+                        
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" role="tablist">
+                          <li role="presentation" class="active"><a href="#books" aria-controls="books" role="tab" data-toggle="tab">Citas</a></li>
+                          <li role="presentation"><a href="#doctors" aria-controls="doctors" role="tab" data-toggle="tab">Historial Médico</a></li>
+                        </ul>
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" id="books">
+                                <table class="table table-striped" id="table_books">
+                                    <thead>
+                                        <tr>
+                                            <th>Fecha</th>
+                                            <th>Estatus</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>2017-04-20</td><td>Pendiente</td><td>
+                                                <ul class="list list-unstyled text-right">
+                                                    <li class="dropdown">
+                                                        <a href="#" class="label bg-danger-400 dropdown-toggle" data-toggle="dropdown">Acción <span class="caret"></span></a>
+                                                        <ul class="dropdown-menu dropdown-menu-right">
 
-                                                    <li><a href="#"><i class="icon-alarm"></i> Pendiente</a></li>
-                                                    <li><a href="#"><i class="icon-checkmark3"></i> Realizada</a></li>
-                                                    <li class="divider"></li>
-                                                    <li><a href="#"><i class="icon-spinner2 spinner"></i> En curso</a></li>
-                                                    <li><a href="#"><i class="icon-cross2"></i> Cancelar</a></li>
+                                                            <li><a href="#"><i class="icon-alarm"></i> Pendiente</a></li>
+                                                            <li><a href="#"><i class="icon-checkmark3"></i> Realizada</a></li>
+                                                            <li class="divider"></li>
+                                                            <li><a href="#"><i class="icon-spinner2 spinner"></i> En curso</a></li>
+                                                            <li><a href="#"><i class="icon-cross2"></i> Cancelar</a></li>
+                                                        </ul>
+                                                    </li>
                                                 </ul>
-                                            </li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2017-03-20</td><td><i class="fa fa-check"></i></td><td/></td>
-                                </tr>
-                                <tr>
-                                    <td>2017-02-20</td><td><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></td><td/></td>
-                                </tr>
-                                <tr>
-                                     <td>2017-01-20</td><td><i class="fa fa-check"></i></td><td/></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <div class="list-group-divider"></div>
-                        <div>
-                            <button class="btn btn-success btn-sm"><i class="fa fa-calendar"></i> Nueva cita</button>
-                            <span class="badge bg-teal-400 pull-right">4</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>2017-03-20</td><td><i class="fa fa-check"></i></td><td/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2017-02-20</td><td><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></td><td/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2017-01-20</td><td><i class="fa fa-check"></i></td><td/></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="list-group-divider"></div>
+                                <div>
+                                    <button class="btn btn-success btn-sm"><i class="fa fa-calendar"></i> Nueva cita</button>
+                                    <span class="badge bg-teal-400 pull-right">4</span>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="doctors">
+                                <br>
+                                <div class="alert alert-info alert-styled-left">
+                                    Médicos que han atendido al paciente
+                                </div>
+                                Parkin juares
+                            </div>
                         </div>
+                        
+                        
+                        
                     </div>
                 </div>
             
