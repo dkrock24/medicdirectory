@@ -65,7 +65,7 @@ class servicioParametros {
     
     /* TODO: Registrar en el servicio de logs cuando se sirva un parametro que no exista */
     
-    public function getParametro($par_llave_lookup) {
+    public function getParametro($par_llave_lookup, $default_return_value = "") {
         //-- Find parameter by its key value
         
         /* @var $parametro \AppBundle\Entity\Parametros */
@@ -75,15 +75,15 @@ class servicioParametros {
         if( $parametro === null ){
             // log event
             $this->log_service->logEvent(servicioLogs::_SELECT_ACTION_ , "parametros", "par_llave",  null, null, "Failed to fetch parameter by name '{$par_llave_lookup}'");
-
+            
+            return $default_return_value;
         }
         
         return $parametro;
     }
+
     
-    /* TODO: Registrar en el servicio de logs cuando se sirva un parametro que no exista */
-    
-    public function getParametroByValue( $par_valor_lookup ){
+    public function getParametroByValue( $par_valor_lookup, $default_return_value = "" ){
         //-- Find parameter by its key value
         
         /* @var $parametro \AppBundle\Entity\Parametros */
@@ -93,6 +93,8 @@ class servicioParametros {
         if( $parametro === null ){
             // log event
             $this->log_service->logEvent(servicioLogs::_SELECT_ACTION_ , "parametros", "par_valor",  null, null, "Failed to fetch parameter by value '{$par_valor_lookup}'");
+            
+            return $default_return_value;
         }
         
         return $parametro;
@@ -110,7 +112,6 @@ class servicioParametros {
 
 
             if (null === $parametro) {
-                /* TODO: Registrar en el servicio de logs cuando se sirva un parametro que no exista */
                 // log event
                 $this->log_service->logEvent(servicioLogs::_SELECT_ACTION_ , "parametros", "",  $par_llave_lookup, null, "Failed to fetch parameter by key '{$par_llave_lookup}'");
                 
