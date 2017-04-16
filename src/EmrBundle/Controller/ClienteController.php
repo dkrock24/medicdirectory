@@ -34,6 +34,8 @@ class ClienteController extends Controller
      */
     public function newAction(Request $request)
     {
+		$em = $this->getDoctrine()->getManager();
+		
         $cliente = new Cliente();
         $form = $this->createForm('EmrBundle\Form\ClienteType', $cliente);
         $form->handleRequest($request);
@@ -45,9 +47,13 @@ class ClienteController extends Controller
 
             return $this->redirectToRoute('cliente_show', array('id' => $cliente->getCliId()));
         }
+		
+		$methodPay = $em->getRepository('AppBundle:MetodoPago')->findBy( array("mepActivo"=>1) );
+		
 
         return $this->render('EmrBundle:cliente:new.html.twig', array(
             'cliente' => $cliente,
+			'methodPay'=> $methodPay,
             'form' => $form->createView(),
         ));
     }

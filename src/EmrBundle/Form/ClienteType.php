@@ -60,13 +60,21 @@ class ClienteType extends AbstractType
 						'choice_label' => function ($pacMun) {
 							return $pacMun->getMunNombre()." / ".$pacMun->getMunDep();
 						},
-						'required'    => false,
+						//'required'    => true,
 						//'empty_data'  => null,
 						'multiple'=> false,
 						//'data' => array(),
 						"attr"=>array( "class"=>"select" )
 						//'preferred_choices' => array('1')
 					))
+				->add('pacFechaNacimiento', DateType::class, array(
+					'placeholder' => array(
+						'year' => 'Año', 'month' => 'Mes', 'day' => 'Día'
+					),
+					'mapped'=>false,
+					//'years' => range( (date("Y")-100), date("Y") )
+					'years' => range( 1917, date("Y") )
+					) )				
 				;
     }
     
