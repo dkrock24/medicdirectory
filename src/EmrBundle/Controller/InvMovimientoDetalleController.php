@@ -6,6 +6,8 @@ use AppBundle\Entity\InvMovimientoDetalle;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
+use Symfony\Component\HttpFoundation\Session\Session;
+
 /**
  * Invmovimientodetalle controller.
  *
@@ -16,13 +18,20 @@ class InvMovimientoDetalleController extends Controller
      * Lists all invMovimientoDetalle entities.
      *
      */
-    public function indexAction()
+    private $session;
+    
+    public function __construct() {
+        $this->session = new Session();
+    }
+
+    public function indexAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();        
+        //$request
+        $id =  $request->get('imoId');
+        $invMovimientoDetalles = $em->getRepository('AppBundle:InvMovimientoDetalle')->findBy(array('imdImo' => $id));
 
-        $invMovimientoDetalles = $em->getRepository('AppBundle:InvMovimientoDetalle')->findAll();
-
-        return $this->render('invmovimientodetalle/index.html.twig', array(
+        return $this->render('EmrBundle:invmovimientodetalle:index.html.twig', array(
             'invMovimientoDetalles' => $invMovimientoDetalles,
         ));
     }
@@ -34,18 +43,30 @@ class InvMovimientoDetalleController extends Controller
     public function newAction(Request $request)
     {
         $invMovimientoDetalle = new Invmovimientodetalle();
-        $form = $this->createForm('AppBundle\Form\InvMovimientoDetalleType', $invMovimientoDetalle);
+        $form = $this->createForm('EmrBundle\Form\InvMovimientoDetalleType', $invMovimientoDetalle);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+
+            $invMovimientoDetalle->SetImdFechaCrea(new \DateTime());
             $em->persist($invMovimientoDetalle);
-            $em->flush();
+            
+            $flush = $em->flush();
+            if ($flush == null)
+            {
+                $msgBox = "Registro creado con éxito";
+                $status = "success";
+            } else {
+                $msgBox = "No se pudo crear el registro ";
+                $status = "error";
+            }
+            $this->session->getFlashBag()->add($status,$msgBox);
 
             return $this->redirectToRoute('invmovimientodetalle_show', array('imdId' => $invMovimientoDetalle->getImdid()));
         }
 
-        return $this->render('invmovimientodetalle/new.html.twig', array(
+        return $this->render('EmrBundle:invmovimientodetalle:new.html.twig', array(
             'invMovimientoDetalle' => $invMovimientoDetalle,
             'form' => $form->createView(),
         ));
@@ -59,7 +80,7 @@ class InvMovimientoDetalleController extends Controller
     {
         $deleteForm = $this->createDeleteForm($invMovimientoDetalle);
 
-        return $this->render('invmovimientodetalle/show.html.twig', array(
+        return $this->render('EmrBundle:invmovimientodetalle:show.html.twig', array(
             'invMovimientoDetalle' => $invMovimientoDetalle,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -72,7 +93,7 @@ class InvMovimientoDetalleController extends Controller
     public function editAction(Request $request, InvMovimientoDetalle $invMovimientoDetalle)
     {
         $deleteForm = $this->createDeleteForm($invMovimientoDetalle);
-        $editForm = $this->createForm('AppBundle\Form\InvMovimientoDetalleType', $invMovimientoDetalle);
+        $editForm = $this->createForm('EmrBundle\Form\InvMovimientoDetalleType', $invMovimientoDetalle);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
@@ -81,7 +102,7 @@ class InvMovimientoDetalleController extends Controller
             return $this->redirectToRoute('invmovimientodetalle_edit', array('imdId' => $invMovimientoDetalle->getImdid()));
         }
 
-        return $this->render('invmovimientodetalle/edit.html.twig', array(
+        return $this->render('EmrBundle:invmovimientodetalle:edit.html.twig', array(
             'invMovimientoDetalle' => $invMovimientoDetalle,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -121,4 +142,5 @@ class InvMovimientoDetalleController extends Controller
             ->getForm()
         ;
     }
+
 }

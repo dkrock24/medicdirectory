@@ -6,6 +6,8 @@ use AppBundle\Entity\InvTipoMovimiento;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
+use Symfony\Component\HttpFoundation\Session\Session;
+
 /**
  * Invtipomovimiento controller.
  *
@@ -16,13 +18,19 @@ class InvTipoMovimientoController extends Controller
      * Lists all invTipoMovimiento entities.
      *
      */
+    private $session;
+    
+    public function __construct() {
+        $this->session = new Session();
+    }
+
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
 
         $invTipoMovimientos = $em->getRepository('AppBundle:InvTipoMovimiento')->findAll();
 
-        return $this->render('invtipomovimiento/index.html.twig', array(
+        return $this->render('EmrBundle:invtipomovimiento:index.html.twig', array(
             'invTipoMovimientos' => $invTipoMovimientos,
         ));
     }
@@ -34,18 +42,30 @@ class InvTipoMovimientoController extends Controller
     public function newAction(Request $request)
     {
         $invTipoMovimiento = new Invtipomovimiento();
-        $form = $this->createForm('AppBundle\Form\InvTipoMovimientoType', $invTipoMovimiento);
+        $form = $this->createForm('EmrBundle\Form\InvTipoMovimientoType', $invTipoMovimiento);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($invTipoMovimiento);
-            $em->flush();
+
+            $invTipoMovimiento->SetItmFechaCrea(new \DateTime());
+            $em->persist($invTipoMovimiento);           
+
+            $flush = $em->flush();
+            if ($flush == null)
+            {
+                $msgBox = "Registro creado con éxito";
+                $status = "success";
+            } else {
+                $msgBox = "No se pudo crear el registro ";
+                $status = "error";
+            }
+            $this->session->getFlashBag()->add($status,$msgBox);
 
             return $this->redirectToRoute('invtipomovimiento_show', array('itmId' => $invTipoMovimiento->getItmid()));
         }
 
-        return $this->render('invtipomovimiento/new.html.twig', array(
+        return $this->render('EmrBundle:invtipomovimiento:new.html.twig', array(
             'invTipoMovimiento' => $invTipoMovimiento,
             'form' => $form->createView(),
         ));
@@ -59,7 +79,7 @@ class InvTipoMovimientoController extends Controller
     {
         $deleteForm = $this->createDeleteForm($invTipoMovimiento);
 
-        return $this->render('invtipomovimiento/show.html.twig', array(
+        return $this->render('EmrBundle:invtipomovimiento:show.html.twig', array(
             'invTipoMovimiento' => $invTipoMovimiento,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -72,7 +92,7 @@ class InvTipoMovimientoController extends Controller
     public function editAction(Request $request, InvTipoMovimiento $invTipoMovimiento)
     {
         $deleteForm = $this->createDeleteForm($invTipoMovimiento);
-        $editForm = $this->createForm('AppBundle\Form\InvTipoMovimientoType', $invTipoMovimiento);
+        $editForm = $this->createForm('EmrBundle\Form\InvTipoMovimientoType', $invTipoMovimiento);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
@@ -81,7 +101,7 @@ class InvTipoMovimientoController extends Controller
             return $this->redirectToRoute('invtipomovimiento_edit', array('itmId' => $invTipoMovimiento->getItmid()));
         }
 
-        return $this->render('invtipomovimiento/edit.html.twig', array(
+        return $this->render('EmrBundle:invtipomovimiento:edit.html.twig', array(
             'invTipoMovimiento' => $invTipoMovimiento,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -120,5 +140,37 @@ class InvTipoMovimientoController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+
+    public function deleteCustomAction( Request $request )
+    {
+        $iId = $request->request->get('id');
+        //$iId = $request->query->get('id');
+        
+        if( isset($iId) && $iId > 0 )
+        {
+            
+            try
+            {
+                $em = $this->getDoctrine()->getManager();
+                $repo = $em->getRepository("AppBundle:InvTipoMovimiento");   
+                $item = $repo->find($iId);
+                $em->remove($item);
+                $flush = $em->flush();
+
+                if ($flush == null)
+                {
+                    echo 1;
+                } else {
+                    echo 0;
+                }
+                
+            }catch (\Exception $e){
+                echo ($e->getMessage());
+            }
+            
+        }
+        
+        exit();
     }
 }

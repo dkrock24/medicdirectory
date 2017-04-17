@@ -1,7 +1,7 @@
 {% extends "Layout/base_emr/_clients_base.html.twig" %}
 
 {% block title_page %}
-        EMR || Listado Tipos de Movimientos
+        EMR || Listado Inventario
 {% endblock %}
 
 {% block breadcrumb %}
@@ -13,7 +13,8 @@
 {% endblock %} 
 
 {% block body %}
-    <h1>Lista Tipo de Movimientos</h1>
+    <h1>Lista Inventario</h1>
+
     <!-- Check the notifications -->
     <div id="holder_msg">
         {% for message in app.session.flashbag().get("success") %}
@@ -25,13 +26,29 @@
     </div>
     <!-- End notifications -->
 
-    {% if invTipoMovimientos|length > 0%}
-    <table class="table table-striped datatable-reorder">
+    {% if inventarios|length > 0%}
+        <table class="table table-striped datatable-reorder">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Tipo</th>
+                <th>Nombre</th>
+                <th>Componente</th>
+                <th>Contenido</th>
+                <th>Lote</th>
+                <th>Mgs</th>
+                <th>Cod Producto</th>
+                <th>Vencimiento</th>
+                <th>Imagen</th>
                 <th>Descripción</th>
+                <th>Notas</th>
+                <th>Etiqueta</th>
+                <th>P. U.</th>
+                <th>Total U.</th>
+                <th>P. Venta</th>
+                <th>P. Medio</th>
+                <th>P. Matoreo</th>
+                <th>P. Especial</th>
+                <th>P. Descuento</th>
                 <th>Creado</th>
                 <th>Modificado</th>
                 <th>Estado</th>
@@ -39,24 +56,41 @@
             </tr>
         </thead>
         <tbody>
-        {% for invTipoMovimiento in invTipoMovimientos %}
+        {% for inventario in inventarios %}
             <tr>
-                <td><a href="{{ path('invtipomovimiento_show', { 'itmId': invTipoMovimiento.itmId }) }}">{{ invTipoMovimiento.itmId }}</a></td>
-                <td>{{ invTipoMovimiento.itmTipo }}</td>
-                <td>{{ invTipoMovimiento.itmDescripcion }}</td>
-                <td>{% if invTipoMovimiento.itmFechaCrea %}{{ invTipoMovimiento.itmFechaCrea|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if invTipoMovimiento.itmFechaMod %}{{ invTipoMovimiento.itmFechaMod|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if invTipoMovimiento.itmActivo %}Yes{% else %}No{% endif %}</td>
+                <td><a href="{{ path('inventario_show', { 'invId': inventario.invId }) }}">{{ inventario.invId }}</a></td>
+                <td>{{ inventario.invNombreComercial }}</td>
+                <td>{{ inventario.invNombreComponente }}</td>
+                <td>{{ inventario.invContenido }}</td>
+                <td>{{ inventario.invLote }}</td>
+                <td>{{ inventario.invMgs }}</td>
+                <td>{{ inventario.invCodigoProducto }}</td>
+                <td>{% if inventario.invFechaVencimiento %}{{ inventario.invFechaVencimiento|date('Y-m-d') }}{% endif %}</td>
+                <td>{{ inventario.invImagenProducto }}</td>
+                <td>{{ inventario.invDescripcionProducto }}</td>
+                <td>{{ inventario.invNotasProducto }}</td>
+                <td>{{ inventario.invEtiquetaAlmacenaje }}</td>
+                <td>{{ inventario.invPrecioUnitario }}</td>
+                <td>{{ inventario.invTotalUnidades }}</td>
+                <td>{{ inventario.invPrecioVenta }}</td>
+                <td>{{ inventario.invPrecioMedioMayoreo }}</td>
+                <td>{{ inventario.invPrecioVentaMayoreo }}</td>
+                <td>{{ inventario.invPrecioEspecial }}</td>
+                <td>{{ inventario.invPrecioDescuento }}</td>
+                <td>{% if inventario.invFechaCrea %}{{ inventario.invFechaCrea|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if inventario.invFechaMod %}{{ inventario.invFechaMod|date('Y-m-d H:i:s') }}{% endif %}</td>
+                
+                <td>{% if inventario.invActivo %}<span class="label label-success">Si</span>{% else %}<span class="label label-danger">No</span>{% endif %}</td>
                 <td>
                     <ul class="list-inline">
                         <li>
-                            <a href="{{ path('invtipomovimiento_show', { 'itmId': invTipoMovimiento.itmId }) }}" class='btn btn-default'><i class='fa fa-folder-open'></i>Ver</a>
+                            <a href="{{ path('inventario_show', { 'invId': inventario.invId }) }}" class='btn btn-default'><i class='fa fa-folder-open'></i>Ver</a>
                         </li>
                         <li>
-                            <a href="{{ path('invtipomovimiento_edit', { 'itmId': invTipoMovimiento.itmId }) }}" class='btn bg-teal-400'><i class='fa fa-edit'></i> Editar</a>
+                            <a href="{{ path('inventario_edit', { 'invId': inventario.invId }) }}" class='btn bg-teal-400'><i class='fa fa-edit'></i> Editar</a>
                         </li>
                         <li>
-                            <button value="{{ invTipoMovimiento.itmId }}" class="btn btn-danger delete"><i class="fa fa-remove"></i> Eliminar</button>
+                            <button value="{{ inventario.invId }}" class="btn btn-danger delete"><i class="fa fa-remove"></i> Eliminar</button>
                         </li>
                     </ul>
                 </td>
@@ -69,7 +103,7 @@
     {% endif %} 
     <ul class="list-inline">
         <li>
-            <a href="{{ path('invtipomovimiento_new') }}"  class="btn btn-primary"><i class="fa fa-plus-circle"></i> Nuevo Tipo Movimiento</a>
+            <a href="{{ path('inventario_new') }}"  class="btn btn-primary"><i class="fa fa-plus-circle"></i> Crear Nuevo</a>
         </li>
     </ul>
 {% endblock %}
@@ -105,7 +139,7 @@
                 $("#holder_loading").show(); 
                 $.ajax({
                     type: "post",
-                    url: "{{ path('invtipomovimiento_delete_from_list') }}",
+                    url: "{{ path('invarea_delete_from_list') }}",
                     data: {id:id},
                     error: function (data) {
                        $("#holder_loading").hide();

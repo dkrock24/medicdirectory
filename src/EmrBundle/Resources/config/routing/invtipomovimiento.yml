@@ -22,3 +22,7 @@ invtipomovimiento_delete:
     path:     /{itmId}/delete
     defaults: { _controller: "EmrBundle:InvTipoMovimiento:delete" }
     methods:  DELETE
+
+invtipomovimiento_delete_from_list:
+    path:     /list/delete/tipo
+    defaults: { _controller: "EmrBundle:InvTipoMovimiento:deleteCustom" }

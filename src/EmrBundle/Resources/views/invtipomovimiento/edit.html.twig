@@ -1,20 +1,50 @@
-{% extends 'base.html.twig' %}
+{% extends "Layout/base_emr/_clients_base.html.twig" %}
+
+{% block title_page %}
+        EMR || Editar Tipo Movimiento
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('EmrBundle:invarea:_breadcrumb.html.twig' )  }}
+{% endblock %} 
+
+{% block submenutop %}
+    {{ include('EmrBundle:invarea:_submenu.html.twig' )  }}
+{% endblock %} 
 
 {% block body %}
     <h1>Invtipomovimiento edit</h1>
+    <div class="row">
+        <div class="col-lg-6">
+
+        <!-- Check the notifications -->
+            {% for message in app.session.flashbag().get("success") %}
+                <div class="alert alert-success"><i class="fa fa-check-circle"></i> {{message}}</div>
+            {% endfor %}
+            {% for message in app.session.flashbag().get("error") %}
+                <div class="alert alert-danger"><i class="fa fa-close"></i> {{message}}</div>
+            {% endfor %}
+        <!-- End notifications -->
 
     {{ form_start(edit_form) }}
         {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
+       <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Guardar</button>
     {{ form_end(edit_form) }}
 
-    <ul>
+     <hr>
+        </div>
+    </div>
+
+   <ul class="list-inline">
         <li>
-            <a href="{{ path('invtipomovimiento_index') }}">Back to the list</a>
+            <a href="{{ path('invtipomovimiento_index') }}" class="btn btn-info"><i class="fa fa-list"></i> Listar</a>
+        </li>
+         <li>
+            <a href="{{ path('invtipomovimiento_new') }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Nuevo</a>
         </li>
         <li>
             {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
+                <button type="submit" class="btn btn-danger"><i class="fa fa-remove"></i> Eliminar</button>
             {{ form_end(delete_form) }}
         </li>
     </ul>

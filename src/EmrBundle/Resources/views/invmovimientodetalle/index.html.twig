@@ -1,20 +1,43 @@
-{% extends 'base.html.twig' %}
+{% extends "Layout/base_emr/_clients_base.html.twig" %}
+
+{% block title_page %}
+        EMR || Detalle Movimiento
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('EmrBundle:invarea:_breadcrumb.html.twig' )  }}
+{% endblock %} 
+
+{% block submenutop %}
+    {{ include('EmrBundle:invarea:_submenu.html.twig' )  }}
+{% endblock %} 
 
 {% block body %}
-    <h1>Invmovimientodetalles list</h1>
+    <h1>Lista Detalle Movimiento</h1>
+    <!-- Check the notifications -->
+    <div id="holder_msg">
+        {% for message in app.session.flashbag().get("success") %}
+            <div class="alert alert-success"><i class="fa fa-check-circle"></i> {{message}}</div>
+        {% endfor %}
+        {% for message in app.session.flashbag().get("error") %}
+            <div class="alert alert-danger"><i class="fa fa-close"></i> {{message}}</div>
+        {% endfor %}
+    </div>
+    <!-- End notifications -->
 
-    <table>
+    {% if invMovimientoDetalles|length > 0%}
+    <table class="table table-striped datatable-reorder">
         <thead>
             <tr>
-                <th>Imdid</th>
-                <th>Imdusuid</th>
-                <th>Imdcantidad</th>
-                <th>Imdprecioemitidio</th>
-                <th>Imdfechaingreso</th>
-                <th>Imdfechacrea</th>
-                <th>Imdfechamod</th>
-                <th>Imdactivo</th>
-                <th>Actions</th>
+                <th>Id</th>
+                <th>Usuario Id</th>
+                <th>Cantidad</th>
+                <th>Precio Medio</th>
+                <th>Ingreso</th>
+                <th>Creado</th>
+                <th>Modifcado</th>
+                <th>Estado</th>
+                <th>Acción</th>
             </tr>
         </thead>
         <tbody>
@@ -27,25 +50,121 @@
                 <td>{% if invMovimientoDetalle.imdFechaIngreso %}{{ invMovimientoDetalle.imdFechaIngreso|date('Y-m-d') }}{% endif %}</td>
                 <td>{% if invMovimientoDetalle.imdFechaCrea %}{{ invMovimientoDetalle.imdFechaCrea|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>{% if invMovimientoDetalle.imdFechaMod %}{{ invMovimientoDetalle.imdFechaMod|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if invMovimientoDetalle.imdActivo %}Yes{% else %}No{% endif %}</td>
+                
+                <td>{% if invMovimientoDetalle.imdActivo %}<span class="label label-success">Si</span>{% else %}<span class="label label-danger">No</span>{% endif %}</td>
                 <td>
-                    <ul>
+                    <ul class="list-inline">
+                        <!--
                         <li>
                             <a href="{{ path('invmovimientodetalle_show', { 'imdId': invMovimientoDetalle.imdId }) }}">show</a>
                         </li>
                         <li>
                             <a href="{{ path('invmovimientodetalle_edit', { 'imdId': invMovimientoDetalle.imdId }) }}">edit</a>
                         </li>
+                        -->
                     </ul>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
+    {% else %}
+        <div class="alert alert-info" role=""><i class="fa fa-info-circle"></i> No hay regístros creados</div>
+    {% endif %} 
 
-    <ul>
+    <ul class="list-inline">
         <li>
-            <a href="{{ path('invmovimientodetalle_new') }}">Create a new invMovimientoDetalle</a>
+            <a href="{{ path('invmovimiento_index') }}" class="btn btn-primary"><i class="fa fa-arrow-left"></i> Regresar</a>
         </li>
     </ul>
 {% endblock %}
+
+
+{% block codejs %}
+    <script>
+        $(document).on("ready",function(){
+            
+            /*
+             * This works if you want to use datatable plugin 
+            */
+            var table = $('.datatable-reorder').DataTable({});
+            // Add placeholder to the datatable filter option
+            $('.dataTables_filter input[type=search]').attr('placeholder','Escribar para filtrar...');
+            // Enable Select2 select for the length option
+            $('.dataTables_length select').select2({
+                minimumResultsForSearch: Infinity,
+                width: 'auto'
+            });
+            //End
+            
+            
+            $('body').on("click",".delete",function () {
+                var id = $(this).val();
+                if( id > 0 )
+                {
+                    sendAjax(id);
+                }
+            });
+            
+            function sendAjax(id) {
+                $("#holder_loading").show(); 
+                $.ajax({
+                    type: "post",
+                    url: "{{ path('invarea_delete_from_list') }}",
+                    data: {id:id},
+                    error: function (data) {
+                       $("#holder_loading").hide();
+                       $.confirm({
+                            icon: 'fa fa-remove',
+                            title: 'Error!',
+                            content: 'Ha ocurrido un error al tratar de enviar la petición',
+                            type: 'red',
+                            typeAnimated: true,
+                            buttons: {
+                                tryAgain: {
+                                    text: 'Intentar de nuevo',
+                                    btnClass: 'btn-red',
+                                    action: function(){
+                                        sendAjax(id);
+                                    }
+                                },
+                                close: function () {
+                                }
+                            }
+                        });
+                        
+                    },
+                    success: function (data) {
+                        $("#holder_loading").hide();
+                        if( data == 1)
+                        {
+                            $.alert({
+                                icon: 'fa fa-check-circle',
+                                title: 'Ok!',
+                                content: 'El registro fue eliminado con éxito',
+                                type: 'green',
+                                typeAnimated: true,
+                            });
+                            
+                            //$("#tr_"+id).remove();
+                            table.row("#tr_"+id).remove().draw( false );
+                        }
+                        else
+                        {
+                            var infoError = (data);
+                            $.alert({
+                                icon: 'fa fa-remove',
+                                title: 'Error!',
+                                content: 'No se ha podido eliminar el regístro <br>'+infoError,
+                                type: 'red',
+                                typeAnimated: true,
+                            });
+                        }
+                        
+                    }
+                });
+            }
+            
+        });
+    </script>
+{% endblock %}    

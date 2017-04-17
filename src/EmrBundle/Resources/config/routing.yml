@@ -80,3 +80,8 @@ app_invtipoproveedor:
     resource: "@EmrBundle/Resources/config/routing/invtipoproveedor.yml"
     prefix:   /invtipoproveedor
     host:     "%emr_domain%"
+
+emr_inventario:
+    resource: "@EmrBundle/Resources/config/routing/inventario.yml"
+    prefix:   /inventario
+    host:     "%emr_domain%"

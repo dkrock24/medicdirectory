@@ -6,6 +6,8 @@ use AppBundle\Entity\InvProveedor;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
+use Symfony\Component\HttpFoundation\Session\Session;
+
 /**
  * Invproveedor controller.
  *
@@ -16,13 +18,19 @@ class InvProveedorController extends Controller
      * Lists all invProveedor entities.
      *
      */
+    private $session;
+    
+    public function __construct() {
+        $this->session = new Session();
+    }
+
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
 
         $invProveedors = $em->getRepository('AppBundle:InvProveedor')->findAll();
 
-        return $this->render('invproveedor/index.html.twig', array(
+        return $this->render('EmrBundle:invproveedor:index.html.twig', array(
             'invProveedors' => $invProveedors,
         ));
     }
@@ -34,18 +42,30 @@ class InvProveedorController extends Controller
     public function newAction(Request $request)
     {
         $invProveedor = new Invproveedor();
-        $form = $this->createForm('AppBundle\Form\InvProveedorType', $invProveedor);
+        $form = $this->createForm('EmrBundle\Form\InvProveedorType', $invProveedor);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+
+            $invProveedor->SetIprFechaCrea(new \DateTime());
             $em->persist($invProveedor);
-            $em->flush();
+            
+            $flush = $em->flush();
+            if ($flush == null)
+            {
+                $msgBox = "Registro creado con éxito";
+                $status = "success";
+            } else {
+                $msgBox = "No se pudo crear el registro ";
+                $status = "error";
+            }
+            $this->session->getFlashBag()->add($status,$msgBox);
 
             return $this->redirectToRoute('invproveedor_show', array('iprId' => $invProveedor->getIprid()));
         }
 
-        return $this->render('invproveedor/new.html.twig', array(
+        return $this->render('EmrBundle:invproveedor:new.html.twig', array(
             'invProveedor' => $invProveedor,
             'form' => $form->createView(),
         ));
@@ -59,7 +79,7 @@ class InvProveedorController extends Controller
     {
         $deleteForm = $this->createDeleteForm($invProveedor);
 
-        return $this->render('invproveedor/show.html.twig', array(
+        return $this->render('EmrBundle:invproveedor:show.html.twig', array(
             'invProveedor' => $invProveedor,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -72,7 +92,7 @@ class InvProveedorController extends Controller
     public function editAction(Request $request, InvProveedor $invProveedor)
     {
         $deleteForm = $this->createDeleteForm($invProveedor);
-        $editForm = $this->createForm('AppBundle\Form\InvProveedorType', $invProveedor);
+        $editForm = $this->createForm('EmrBundle\Form\InvProveedorType', $invProveedor);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
@@ -81,7 +101,7 @@ class InvProveedorController extends Controller
             return $this->redirectToRoute('invproveedor_edit', array('iprId' => $invProveedor->getIprid()));
         }
 
-        return $this->render('invproveedor/edit.html.twig', array(
+        return $this->render('EmrBundle:invproveedor:edit.html.twig', array(
             'invProveedor' => $invProveedor,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -120,5 +140,37 @@ class InvProveedorController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+
+    public function deleteCustomAction( Request $request )
+    {
+        $iId = $request->request->get('id');
+        //$iId = $request->query->get('id');
+        
+        if( isset($iId) && $iId > 0 )
+        {
+            
+            try
+            {
+                $em = $this->getDoctrine()->getManager();
+                $repo = $em->getRepository("AppBundle:InvProveedor");   
+                $item = $repo->find($iId);
+                $em->remove($item);
+                $flush = $em->flush();
+
+                if ($flush == null)
+                {
+                    echo 1;
+                } else {
+                    echo 0;
+                }
+                
+            }catch (\Exception $e){
+                echo ($e->getMessage());
+            }
+            
+        }
+        
+        exit();
     }
 }

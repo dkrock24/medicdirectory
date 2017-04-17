@@ -6,6 +6,8 @@ use AppBundle\Entity\InvMovimiento;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
+use Symfony\Component\HttpFoundation\Session\Session;
+
 /**
  * Invmovimiento controller.
  *
@@ -16,13 +18,19 @@ class InvMovimientoController extends Controller
      * Lists all invMovimiento entities.
      *
      */
+    private $session;
+    
+    public function __construct() {
+        $this->session = new Session();
+    }
+
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
 
         $invMovimientos = $em->getRepository('AppBundle:InvMovimiento')->findAll();
 
-        return $this->render('invmovimiento/index.html.twig', array(
+        return $this->render('EmrBundle:invmovimiento:index.html.twig', array(
             'invMovimientos' => $invMovimientos,
         ));
     }
@@ -34,18 +42,30 @@ class InvMovimientoController extends Controller
     public function newAction(Request $request)
     {
         $invMovimiento = new Invmovimiento();
-        $form = $this->createForm('AppBundle\Form\InvMovimientoType', $invMovimiento);
+        $form = $this->createForm('EmrBundle\Form\InvMovimientoType', $invMovimiento);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+
+            $invMovimiento->SetImoFechaCrea(new \DateTime());
             $em->persist($invMovimiento);
-            $em->flush();
+            
+            $flush = $em->flush();
+            if ($flush == null)
+            {
+                $msgBox = "Registro creado con éxito";
+                $status = "success";
+            } else {
+                $msgBox = "No se pudo crear el registro ";
+                $status = "error";
+            }
+            $this->session->getFlashBag()->add($status,$msgBox);
 
             return $this->redirectToRoute('invmovimiento_show', array('imoId' => $invMovimiento->getImoid()));
         }
 
-        return $this->render('invmovimiento/new.html.twig', array(
+        return $this->render('EmrBundle:invmovimiento:new.html.twig', array(
             'invMovimiento' => $invMovimiento,
             'form' => $form->createView(),
         ));
@@ -59,7 +79,7 @@ class InvMovimientoController extends Controller
     {
         $deleteForm = $this->createDeleteForm($invMovimiento);
 
-        return $this->render('invmovimiento/show.html.twig', array(
+        return $this->render('EmrBundle:invmovimiento:show.html.twig', array(
             'invMovimiento' => $invMovimiento,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -72,7 +92,7 @@ class InvMovimientoController extends Controller
     public function editAction(Request $request, InvMovimiento $invMovimiento)
     {
         $deleteForm = $this->createDeleteForm($invMovimiento);
-        $editForm = $this->createForm('AppBundle\Form\InvMovimientoType', $invMovimiento);
+        $editForm = $this->createForm('EmrBundle\Form\InvMovimientoType', $invMovimiento);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
@@ -81,7 +101,7 @@ class InvMovimientoController extends Controller
             return $this->redirectToRoute('invmovimiento_edit', array('imoId' => $invMovimiento->getImoid()));
         }
 
-        return $this->render('invmovimiento/edit.html.twig', array(
+        return $this->render('EmrBundle:invmovimiento:edit.html.twig', array(
             'invMovimiento' => $invMovimiento,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -120,5 +140,37 @@ class InvMovimientoController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+
+    public function deleteCustomAction( Request $request )
+    {
+        $iId = $request->request->get('id');
+        //$iId = $request->query->get('id');
+        
+        if( isset($iId) && $iId > 0 )
+        {
+            
+            try
+            {
+                $em = $this->getDoctrine()->getManager();
+                $repo = $em->getRepository("AppBundle:InvMovimiento");   
+                $item = $repo->find($iId);
+                $em->remove($item);
+                $flush = $em->flush();
+
+                if ($flush == null)
+                {
+                    echo 1;
+                } else {
+                    echo 0;
+                }
+                
+            }catch (\Exception $e){
+                echo ($e->getMessage());
+            }
+            
+        }
+        
+        exit();
     }
 }

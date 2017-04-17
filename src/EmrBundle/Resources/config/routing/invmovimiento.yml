@@ -22,3 +22,14 @@ invmovimiento_delete:
     path:     /{imoId}/delete
     defaults: { _controller: "EmrBundle:InvMovimiento:delete" }
     methods:  DELETE
+
+invmovimiento_delete_from_list:
+    path:     /list/delete/area
+    defaults: { _controller: "EmrBundle:InvMovimiento:deleteCustom" }
+
+invmovimiento_detalle:
+    path:     /{imoId}/index
+    defaults: { _controller: "EmrBundle:InvMovimientoDetalle:index" }
+    
+
+    
