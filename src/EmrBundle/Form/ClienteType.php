@@ -52,7 +52,19 @@ class ClienteType extends AbstractType
 						"attr"=>array( "class"=>"select" )
 						//'preferred_choices' => array('1')
 					) )
-				->add('cliTipCli')
+				->add('cliTipCli', \Symfony\Bridge\Doctrine\Form\Type\EntityType::class, array(
+				
+						"class" => "AppBundle:TipoCliente",
+					
+
+						//'required'    => true,
+						//'empty_data'  => null,
+						'multiple'=> false,
+						//'data' => array(),
+						"attr"=>array( "class"=>"select","data-placeholder"=>"Establecimiento" )
+								
+						//'preferred_choices' => array('1')
+					))
 				->add('cliMun', \Symfony\Bridge\Doctrine\Form\Type\EntityType::class, array(
 				
 						"class" => "AppBundle:Municipio",
@@ -64,7 +76,8 @@ class ClienteType extends AbstractType
 						//'empty_data'  => null,
 						'multiple'=> false,
 						//'data' => array(),
-						"attr"=>array( "class"=>"select" )
+						"attr"=>array( "class"=>"select","data-placeholder"=>"Minicipo" )
+								
 						//'preferred_choices' => array('1')
 					))
 				->add('pacFechaNacimiento', DateType::class, array(
@@ -73,7 +86,7 @@ class ClienteType extends AbstractType
 					),
 					'mapped'=>false,
 					//'years' => range( (date("Y")-100), date("Y") )
-					'years' => range( 1917, date("Y") )
+					'years' => range( 1937, date("Y") )
 					) )				
 				;
     }

@@ -128,4 +128,46 @@ class ClienteController extends Controller
             ->getForm()
         ;
     }
+	
+	
+	//Starts customs actions
+	public function checkAvailableUserAction( Request $request )
+	{
+		
+		//$result = "";
+		//$iCountryId = $request->get('id');
+		$sUsername = $request->get("username");
+		
+		try
+		{
+			
+			if( isset($sUsername) && !empty($sUsername) ) 
+			{
+				$em = $this->getDoctrine()->getManager();
+				$RAW_QUERY = "SELECT * FROM usuario u WHERE usu_usuario =:username";
+
+				$statement = $em->getConnection()->prepare($RAW_QUERY);
+				$statement->bindValue("username", $sUsername);
+				$statement->execute();
+				$result = $statement->fetchAll();
+			}
+
+			if( count($result) == 0 )
+			{
+				echo 1; //is available
+			}
+			else
+			{
+				echo 0; //in not available
+			}
+		}
+		catch (\Exception $e){
+				echo ($e->getMessage());
+		}
+		
+		
+		exit();
+		//return  $response = new JsonResponse($result);
+
+	}
 }
