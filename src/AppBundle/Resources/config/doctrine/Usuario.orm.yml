@@ -1,5 +1,6 @@
 AppBundle\Entity\Usuario:
     type: entity
+    repositoryClass: AppBundle\Repository\UsuarioRepository
     table: usuario
     indexes:
         IDX_usuario:

@@ -23,21 +23,21 @@
                 <div class="panel panel-profile">
                     <div class="panel-heading">
                         <img src="images/doctors/doctor-bio-img6.jpg" alt="Doctor Profile Image" class="img-responsive img-center-xs">
-                        <h3 class="panel-title">Dr. Tom Smith Bert</h3>
-                        <p class="caption">Gynecology, Health Care &amp; Obstetrics</p>
+                        <h3 class="panel-title">{{ medico.cliUsuUsu.usuTitulo }} {{ medico.cliUsuUsu.usuNombre|title }}</h3>
+                        <p class="caption"><b><< AQUI VA LA ESPECIALIDAD >></b></p> <!-- Gynecology, Health Care &amp; Obstetrics -->
                     </div>
                     <div class="panel-body">
                         <ul class="list-unstyled">
                             <li class="row">
-                                <span class="col-sm-4 col-xs-12"><strong>Speciality</strong></span>
-                                <span class="col-sm-8 col-xs-12">Obstetrics and Gynecology</span>
+                                <span class="col-sm-4 col-xs-12"><b><< AQUI VA LA ESPECIALIDAD >></b> </span>
+                                <span class="col-sm-8 col-xs-12"><b><< AQUI VA LA SUB ESPECIALIDAD >></b></span>
                             </li>
                             <li class="row">
-                                <span class="col-sm-4 col-xs-12"><strong>Education</strong></span>
-                                <span class="col-sm-8 col-xs-12">MD, OB/GYN</span>
+                                <span class="col-sm-4 col-xs-12"><b><< MAS DETALLES (eg: EDUCACION) >></b></span>
+                                <span class="col-sm-8 col-xs-12"><b><< MAS DETALLES (eg: TITULO DE LA U) >></b></span>
                             </li>
                             <li class="row">
-                                <span class="col-sm-4 col-xs-12"><strong>Work Days</strong></span>
+                                <span class="col-sm-4 col-xs-12"><b><< MAS DETALLES (eg: horario) >></b></span>
                                 <span class="col-sm-8 col-xs-12">Monday, Wednesday, Thursday</span>
                             </li>
                         </ul>
@@ -61,7 +61,7 @@
         </div>
         <div class="col-sm-7 col-xs-12">
             <div class="profile-details">
-                <h3 class="main-heading2">Dr. Tom Smith Bert</h3>
+                <h3 class="main-heading2">{{ medico.cliUsuUsu.usuTitulo }} {{ medico.cliUsuUsu.usuNombre|title }}</h3>
                 <h4>Royal Prince Alfred Hospital – United Kingdom</h4>
                 <h5>June 2006 to July 2020</h5>
                 <p>
