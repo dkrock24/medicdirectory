@@ -16,7 +16,7 @@ class SessionController extends Controller
 		//return $this->redirectToRoute('emr_establecimiento');
 		
 		$securityContext = $this->container->get('security.authorization_checker');
-		if ($securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED'))
+		if ($securityContext->isGranted('IS_AUTHENTICATED_FULLY'))
 		{
 		
 			$em = $this->getDoctrine()->getManager();
@@ -57,5 +57,11 @@ class SessionController extends Controller
 
 			return $this->redirectToRoute("emr_location");
 		}
+		else
+		{
+			
+			return $this->redirectToRoute("login");
+		}
+		
     }
 }

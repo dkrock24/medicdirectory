@@ -725,7 +725,7 @@
                         msg = "Repita el password del usuario";
                     }else if ( password != password_again )
                     {
-                        msg = "Los passowrd no son iguales";
+                        msg = "Los password no son iguales";
                     }else if ( inputAvailable != 1 )
                     {
                         msg = "Debe de validar el usuario a crear";
@@ -870,16 +870,16 @@
                 {
                     var exists_user_list = 0;
                     $(".user_to_location").each(function(){
-                        var current = $.trim( $(this).val() );
-                        if( current  != "" )
+                        var currentValue = $.trim( $(this).val() );
+                        var currentId = $(this).attr("id");
+                        if( currentValue  != "" && currentId != idInput)
                         {
-                            console.log(current+"-"+username);
-                            if( current == username )
+                            //console.log(current+"-"+username);
+                            if( currentValue == username )
                             {
                                 exists_user_list++;
+                                 
                                 return false;
-                            }else{
-                                exists_user_list = 0;
                             }
                         }
                     });
@@ -893,7 +893,11 @@
                             type: 'red',
                             typeAnimated: true,
                         });
-                        exists_user_list = 0;
+                        
+                        $("#"+idInput).closest(".form-group").find(".icon-status").remove();    
+                        $("#"+idInput).closest(".section").find(".inputAvailable").val("");    
+                        $("#"+idInput).closest(".form-group").removeClass("has-success has-error has-feedback");
+                        //exists_user_list = 0;
                         return false;
                     }else{
                         
@@ -910,6 +914,7 @@
                             type: 'red',
                             typeAnimated: true,
                         });
+                   
                     return false;                  
                 }
                 
