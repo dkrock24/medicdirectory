@@ -46,6 +46,11 @@ class LogsAuditoria
      * @var \AppBundle\Entity\Usuario
      */
     private $logUsuAccion;
+    
+    /**
+     * @var string
+     */
+    private $logComentario;
 
 
     /**
@@ -225,4 +230,29 @@ class LogsAuditoria
     {
         return $this->logUsuAccion;
     }
+    
+    /**
+     * Get logComentario
+     * 
+     * @return string
+     *
+     */
+    function getLogComentario() {
+        return $this->logComentario;
+    }
+
+     /**
+     * Set logComentario
+     *
+     * @param string $logComentario
+     *
+     */
+    function setLogComentario( $logComentario ) {
+        $this->logComentario = $logComentario;
+        
+        return $this;
+    }
+
+
+    
 }

@@ -11,11 +11,11 @@ class RolesData implements FixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-        /* php app/console doctrine:fixtures:load */
+        /* php bin/console doctrine:fixtures:load */
 
         /* Roles */
 
-        $aRoles = ['ADMIN', 'CLIENTE', 'ASISTENTE', 'USUARIO'];
+        $aRoles = ['ADMIN', 'CLIENTE', 'ASISTENTE', 'USUARIO', 'REPRESENTANTE'];
 
         foreach ($aRoles as $rol) {
             // Objeto para insertar todos los roles

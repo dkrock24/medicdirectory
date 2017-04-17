@@ -6,6 +6,15 @@
             <file>file:/C:/xampp3/htdocs/emr/src/EmrBundle/Controller/PacienteController.php</file>
             <file>file:/C:/xampp3/htdocs/emr/src/EmrBundle/Controller/ClienteController.php</file>
             <file>file:/C:/xampp3/htdocs/emr/src/AdminBundle/Controller/PaisController.php</file>
+            <file>file:/C:/xampp/htdocs/symfony3/emr/src/EmrBundle/Controller/SessionController.php</file>
+            <file>file:/C:/xampp/htdocs/symfony3/emr/app/config/routing.yml</file>
+            <file>file:/C:/xampp/htdocs/symfony3/emr/src/EmrBundle/Resources/views/Default/location.html.twig</file>
+            <file>file:/C:/xampp/htdocs/symfony3/emr/src/AppBundle/Entity/Paciente.php</file>
+            <file>file:/C:/xampp/htdocs/symfony3/emr/src/EmrBundle/Resources/views/paciente/new.html.twig</file>
+            <file>file:/C:/xampp/htdocs/symfony3/emr/app/config/parameters.yml</file>
+            <file>file:/C:/xampp/htdocs/symfony3/emr/src/EmrBundle/Controller/DefaultController.php</file>
+            <file>file:/C:/xampp/htdocs/symfony3/emr/src/EmrBundle/Resources/config/routing.yml</file>
+            <file>file:/C:/xampp/htdocs/symfony3/emr/src/EmrBundle/Controller/PacienteController.php</file>
         </group>
     </open-files>
 </project-private>

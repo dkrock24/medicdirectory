@@ -10,12 +10,22 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 
+use Symfony\Component\HttpFoundation\Session\Session;
+
+
 /**
  * Paciente controller.
  *
  */
 class PacienteController extends Controller
 {
+	
+	private $session;
+	
+	public function __construct() {
+		$this->session = new Session();
+	}
+	
     /**
      * Lists all paciente entities.
      *
@@ -23,8 +33,15 @@ class PacienteController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
-        $pacientes = $em->getRepository('AppBundle:Paciente')->findAll();
+		
+		$iLocationId = $this->get('session')->get('locationId');
+		
+        $pacientes = $em->getRepository('AppBundle:Paciente')->findBy( array("pacCli"=>$iLocationId) );
+		
+		//echo count($pacientes);
+		//$res = $this->get('session')->get('locationObj');
+		//echo $res->getCliNombre();
+		//echo count($res);
 		
         return $this->render('EmrBundle:paciente:index.html.twig', array(
             'pacientes' => $pacientes,
@@ -62,7 +79,10 @@ class PacienteController extends Controller
     public function showAction(Paciente $paciente)
     {
         $deleteForm = $this->createDeleteForm($paciente);
-
+		
+		//$uFile = $this->get('srv_uploadFile');
+		//$path = $uFile->getUploadRootDir()."pacientes/";
+		
         return $this->render('EmrBundle:paciente:show.html.twig', array(
             'paciente' => $paciente,
             'delete_form' => $deleteForm->createView(),
@@ -145,14 +165,16 @@ class PacienteController extends Controller
 			3 =>'pac_email'
 		);
 		
-		$sql = " SELECT pac_id, pac_nombre, pac_dui, pac_genero, pac_email, pac_fecha_crea FROM paciente ";
+		$iLocationId = $this->get('session')->get('locationId');
+		
+		$sql = " SELECT pac_id, pac_nombre, pac_dui, pac_genero, pac_email, pac_fecha_crea FROM paciente WHERE pac_cli_id = ".$iLocationId;
 		
 		$params = $_REQUEST;
 		
 		// check search value exist
 		$where = "";
 		if( !empty($params['search']['value']) ) {   
-			$where .=" WHERE ";
+			$where .=" AND ";
 			$where .=" ( pac_nombre LIKE '%".$params['search']['value']."%' ";    
 			$where .=" OR pac_dui LIKE '%".$params['search']['value']."%' ";
 			//$where .=" OR pac_genero LIKE '".$params['search']['value']."%' )";
@@ -320,12 +342,16 @@ class PacienteController extends Controller
 					$oPatient->setPacTelCelular($cellphone);
 					$oPatient->setPacFechaNacimiento(new \Datetime($date) );
 					$oPatient->setPacFechaMod(new \Datetime()); //Fecha de creacion
-					
+					$isNew = false;
 					//Check if is update onf file
 					if( !empty($img) )
 					{
 						$currentImg = $oPatient->getPacFoto();
-						$uFile->deleteFile($currentImg, $path="pacientes");
+
+						//$uFile->deleteFile($currentImg, $path="pacientes");
+
+						$uFile->deleteFile($currentImg, $path="pacientes", $pre_fix=false);
+
 					}
 					
 				}
@@ -353,7 +379,17 @@ class PacienteController extends Controller
 				$oPatient->setPacTelCelular($cellphone);
 				$oPatient->setPacFechaNacimiento(new \Datetime($date) );
 				$oPatient->setPacFechaCrea(new \Datetime()); //Fecha de creacion
+				$iLocationId = $this->get('session')->get('locationId');
+				$iLocationObj = $em->getRepository("AppBundle:Cliente")->find($iLocationId);
+				$oPatient->setPacCli( $iLocationObj );
+				
+				$isNew = true;
 			}
+			/*
+				$iLocationId = $this->get('session')->get('locationId');
+				$iLocationObj = $em->getRepository("AppBundle:Cliente")->find($iLocationId);
+				$oPatient->setPacCli( $iLocationObj );
+			*/
 			
 			if( !empty($img) )
 			{
@@ -368,7 +404,19 @@ class PacienteController extends Controller
 			$flush = $em->flush();
 			if ($flush == null)
 			{
-				$status = 1; //success
+				//$status = 1; 
+				//success
+				
+				if( isset($isNew) && $isNew == true )
+				{
+						//$this->session->getFlashBag()->add("success","Registro creado con éxito");
+						//return $this->redirectToRoute('paciente_show', array('id' => $oPatient->getPacId()));
+					$status = $oPatient->getPacId(); //new 
+				}else{
+					$status = 1;  // is update
+				}
+				
+				
 			}else{
 				$status = 0; //error
 			}

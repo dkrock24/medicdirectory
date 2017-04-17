@@ -68,11 +68,6 @@ class Cliente
     private $cliActivo = '1';
 
     /**
-     * @var \AppBundle\Entity\Ciudad
-     */
-    private $cliCiu;
-
-    /**
      * @var \AppBundle\Entity\Especialidad
      */
     private $cliEsp;
@@ -358,30 +353,6 @@ class Cliente
     }
 
     /**
-     * Set cliCiu
-     *
-     * @param \AppBundle\Entity\Ciudad $cliCiu
-     *
-     * @return Cliente
-     */
-    public function setCliCiu(\AppBundle\Entity\Ciudad $cliCiu = null)
-    {
-        $this->cliCiu = $cliCiu;
-
-        return $this;
-    }
-
-    /**
-     * Get cliCiu
-     *
-     * @return \AppBundle\Entity\Ciudad
-     */
-    public function getCliCiu()
-    {
-        return $this->cliCiu;
-    }
-
-    /**
      * Set cliEsp
      *
      * @param \AppBundle\Entity\Especialidad $cliEsp
@@ -511,5 +482,44 @@ class Cliente
     public function removeCliEsp(\AppBundle\Entity\Especialidad $cliEsp)
     {
         $this->cliEsp->removeElement($cliEsp);
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $espid;
+
+
+    /**
+     * Add espid
+     *
+     * @param \AppBundle\Entity\Especialidad $espid
+     *
+     * @return Cliente
+     */
+    public function addEspid(\AppBundle\Entity\Especialidad $espid)
+    {
+        $this->espid[] = $espid;
+
+        return $this;
+    }
+
+    /**
+     * Remove espid
+     *
+     * @param \AppBundle\Entity\Especialidad $espid
+     */
+    public function removeEspid(\AppBundle\Entity\Especialidad $espid)
+    {
+        $this->espid->removeElement($espid);
+    }
+
+    /**
+     * Get espid
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getEspid()
+    {
+        return $this->espid;
     }
 }

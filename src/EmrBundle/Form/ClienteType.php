@@ -47,7 +47,7 @@ class ClienteType extends AbstractType
 						},
 						'required'    => true,
 						//'empty_data'  => null,
-						'multiple'=> false,
+						'multiple'=> true,
 						//'data' => array(),
 						"attr"=>array( "class"=>"select" )
 						//'preferred_choices' => array('1')

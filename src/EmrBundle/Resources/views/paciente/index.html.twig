@@ -14,7 +14,7 @@
 
 {% block body %}
     <h1>Listado de pacientes</h1>
-    
+    {# {{ app.session.get('locationId') }} #}
     <!-- Check the notifications -->
     <div id="holder_msg">
         {% for message in app.session.flashbag().get("success") %}
@@ -46,7 +46,7 @@
     {% endif %}    
     <ul class="list-inline">
         <li>
-            <a href="{{ path('paciente_new') }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Nuevo</a>
+            <a href="{{ path('paciente_new') }}" class="btn btn-primary btn-sm"><i class="fa fa-plus-circle"></i> Nuevo</a>
         </li>
     </ul>
 
@@ -79,8 +79,10 @@
 
                             routeShow = routeShow.replace("PLACEHOLDER", buttonID);
                             routeEdit = routeEdit.replace("PLACEHOLDER", buttonID);
-                            var listBtn = "<a href="+routeShow+" class='btn btn-default'><i class='fa fa-folder-open'></i> Ver</a>";
-                            listBtn += " <a href="+routeEdit+" class='btn bg-teal-400'><i class='fa fa-edit'></i> Editar</a>";
+
+                            var listBtn = "<a href="+routeShow+" class='btn btn-default btn-sm'><i class='fa fa-folder-open'></i> Ver</a>";
+                            listBtn += " <a href="+routeEdit+" class='btn bg-teal-400 btn-sm'><i class='fa fa-edit'></i> Editar</a>";
+
 
                             return listBtn;
                         }

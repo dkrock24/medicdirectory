@@ -51,6 +51,13 @@ AppBundle\Entity\LogsAuditoria:
             options:
                 fixed: false
             column: log_valor_nuevo
+        logComentario:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: log_comentario
         logFechaEjecucion:
             type: datetime
             nullable: true

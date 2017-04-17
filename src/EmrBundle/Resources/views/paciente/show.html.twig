@@ -13,9 +13,38 @@
 {% endblock %} 
 
 {% block body %}
-    <h1>Datos del paciente</h1>
+    <style>
+        .split{
+            margin-bottom: 8px;
+        }
+        .split h5{
+            margin-bottom: 0px;
+            font-size: 14px !important;
+            font-weight: 600;
+        }
+    </style>
+
+    <div class="page-header-content">
+        <div class="page-title">
+            <h4>
+                <i class="icon-arrow-left52 position-left"></i>
+                <span class="text-semibold">Home</span> - Datos del paciente
+
+                <small class="display-block">Expediente básico del paciente!</small></h4>
+            <a class="heading-elements-toggle"><i class="icon-more"></i></a></div>
+
+        <div class="heading-elements">
+            <div class="heading-btn-group">
+                <a href="#" class="btn btn-link btn-float has-text"><i class="icon-bars-alt text-primary"></i><span>Statistics</span></a>
+                <a href="#" class="btn btn-link btn-float has-text"><i class="icon-calculator text-primary"></i> <span>Invoices</span></a>
+                <a href="#" class="btn btn-link btn-float has-text"><i class="icon-calendar5 text-primary"></i> <span>Schedule</span></a>
+            </div>
+        </div>
+    </div>
+    
+    
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-8">
         <!-- Check the notifications -->
         {% for message in app.session.flashbag().get("success") %}
             <div class="alert alert-success"><i class="fa fa-check-circle"></i> {{message}}</div>
@@ -24,106 +53,427 @@
             <div class="alert alert-danger"><i class="fa fa-close"></i> {{message}}</div>
         {% endfor %}
         <!-- End notifications -->
+        
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-4">
+                
+                <div class="panel border-left-lg border-left-success">
+                    <div class="panel-heading">
+                        <h6 class="text-semibold no-margin-top"><i class="fa fa-photo"></i> Fotografía </h6>
+                        <div class="heading-elements">
+                            <ul class="icons-list">
+                                <li><a data-action="collapse"></a></li>
+                                <!-- <li><a data-action="reload"></a></li> -->
+                                <li><a data-action="close"></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                     <div class="panel-body no-border no-padding-top">
+                         <div class="thumb thumb-rounded thumb-slide">
+                        {% if  paciente.pacFoto != "" %}
+                            <div style="text-align:center;"><img src="{{ asset("uploads/pacientes/"~paciente.pacFoto) }}" class="img-thumbnailx" style="max-width:100% "></div>
+                        {% else %}
+                            {% if paciente.pacGenero|lower  == "m" %}
+                                <div  style="text-align:center"><img src="{{ asset('bundles/admin/img/man.png') }}" class="img-thumbnailx" style="max-width:100% "></div>
+                            {% else %}
+                                <div  style="text-align:center"><img src="{{ asset('bundles/admin/img/girl.png') }}" class="img-thumbnailx" style="max-width:100% "></div>
+                            {% endif %}
 
-        <table class="table table-striped">
-            <tbody>
-                <tr>
-                    <th>Id</th>
-                    <td>{{ paciente.pacId }}</td>
-                </tr>
-                <tr>
-                    <th>Nombre:</th>
-                    <td>{{ paciente.pacNombre }}</td>
-                </tr>
-                <tr>
-                    <th>Segundo nombre:</th>
-                    <td>{{ paciente.pacSegNombre }}</td>
-                </tr>
-                <tr>
-                    <th>Apellido paterno:</th>
-                    <td>{{ paciente.pacApellido }}</td>
-                </tr>
-                <tr>
-                    <th>Apellido materno:</th>
-                    <td>{{ paciente.pacSegApellido }}</td>
-                </tr>
-                <tr>
-                    <th>Género:</th>
-                    <td>{{ paciente.pacGenero }}</td>
-                </tr>
-                <tr>
-                    <th>Email:</th>
-                    <td>{{ paciente.pacEmail }}</td>
-                </tr>
-                <tr>
-                    <th>DUI:</th>
-                    <td>{{ paciente.pacDui }}</td>
-                </tr>
-                <tr>
-                    <th>Estado civil:</th>
-                    <td>{{ paciente.pacEstadoCivil }}</td>
-                </tr>
-                <tr>
-                    <th>Tipo de sangre:</th>
-                    <td>{{ paciente.pacTipSangre }}</td>
-                </tr>
-                <tr>
-                    <th>Teléfono trabajo:</th>
-                    <td>{{ paciente.pacTelTrabajo }}</td>
-                </tr>
-                <tr>
-                    <th>Celular:</th>
-                    <td>{{ paciente.pacTelCelular }}</td>
-                </tr>
-                <tr>
-                    <th>Teléfono casa:</th>
-                    <td>{{ paciente.pacTelCasa }}</td>
-                </tr>
-                <tr>
-                    <th>Dirección:</th>
-                    <td>{{ paciente.pacDireccion }}</td>
-                </tr>
-                <tr>
-                    <th>Fecha de nacimiento:</th>
-                    <td>{% if paciente.pacFechaNacimiento %}{{ paciente.pacFechaNacimiento|date('Y-m-d') }}{% endif %}</td>
-                </tr>
-                <tr>
-                    <th>Foto:</th>
-                    <td>{{ paciente.pacFoto }}</td>
-                </tr>
-                <tr>
-                    <th>Fecha creación:</th>
-                    <td>{% if paciente.pacFechaCrea %}{{ paciente.pacFechaCrea|date('Y-m-d H:i:s') }}{% endif %}</td>
-                </tr>
-                <tr>
-                    <th>Fecha actualizado:</th>
-                    <td>{% if paciente.pacFechaMod %}{{ paciente.pacFechaMod|date('Y-m-d H:i:s') }}{% endif %}</td>
-                </tr>
-                <tr>
-                    <th>Activo:</th>
-                    <td>{% if paciente.pacActivo %}<span class="label label-success">Si</span>{% else %}<span class="label label-danger">No</span>{% endif %}</td>
-                </tr>
-            </tbody>
-        </table>
+                        {% endif %}
+                         </div>
+                     </div>
+                </div>
+                <hr>
+                <div class="panel border-left-lg border-left-danger invoice-grid timeline-content">
+                    <div class="panel-heading">
+                        <h6 class="text-semibold no-margin-top"><i class="fa fa-address-book-o"></i> Consultas</h6>
+                        <div class="heading-elements">
+                            <ul class="icons-list">
+                                <li><a data-action="collapse"></a></li>
+                                <!-- <li><a data-action="reload"></a></li>-->
+                                <li><a data-action="close"></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="panel-body no-border no-padding-top">
+                        <div class="list-group no-border no-padding-top">
+                            <ul class="list list-unstyled">
+                                <li>
+                                    Consultas realizadas 
+                                    <span class="badge bg-danger pull-rightt"> 2</span>
+                                </li>
+                                <li>
+                                    Pagos Históricos
+                                    <span class="badge bg-danger pull-rightt"> $ 5 </span>
+                                </li>
+
+                            </ul>
+                        </div>    
+                    </div>
+                </div> 
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-8">
+                
+                <div class="panel border-left-lg border-left-success">
+                    <div class="panel-heading">
+                        <h6 class="text-semibold no-margin-top"><i class="fa fa-file"></i> Información</h6>
+                        <div class="heading-elements">
+                            <ul class="icons-list">
+                                <li><a data-action="collapse"></a></li>
+                                <!-- <li><a data-action="reload"></a></li> -->
+                                <li><a data-action="close"></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="panel-body no-border no-padding-top">
+                        <div class="well well-sm">
+                            <div class='split'>
+                                <h5>Nombre completo:</h5>
+                                <div>{{ paciente.pacNombre }} {{ paciente.pacSegNombre }} {{ paciente.pacApellido }} {{ paciente.pacSegApellido }}</div>
+                            </div>
+                            <div class='split'>
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-4 col-sm-4">
+                                        <h5>Género</h5>
+                                        <div>
+                                            {% if paciente.pacGenero|lower == "m" %}
+                                                Masculino
+                                            {% else %}
+                                                Femenino    
+                                            {% endif %}    
+                                        </div>
+                                    </div>
+                                        <div class="col-lg-4 col-md-4 col-sm-4">
+                                            <h5>Tipo Sangre:</h5>
+                                            {{ paciente.pacTipSangre }}
+                                        </div>
+
+                                        <div class="col-lg-4 col-md-4 col-sm-4">
+                                            <h5>DUI</h5>
+                                            {{ paciente.pacDui }}
+                                        </div>
+                                </div>
+                            </div>
+                            <div class='split'>
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-4 col-sm-4">
+                                        <h5>Estado Civil</h5>
+                                        <div>
+                                            {{ paciente.pacEstadoCivil }}    
+                                        </div>
+                                    </div>
+                                        <div class="col-lg-4 col-md-4 col-sm-4">
+                                            <h5>Fecha de nacimiento:</h5>
+                                            {% if paciente.pacFechaNacimiento %}{{ paciente.pacFechaNacimiento|date('Y-m-d') }}{% endif %}
+                                        </div>
+
+                                        <div class="col-lg-4 col-md-4 col-sm-4">
+                                            <h5>Email</h5>
+                                            {{ paciente.pacEmail }}
+                                        </div>
+                                </div>
+                            </div>
+                            <div class='split'>
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-4 col-sm-4">
+                                        <h5>Telefono Trabajo:</h5>
+                                        <div>
+                                            {{ paciente.pacTelTrabajo }}    
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4">
+                                        <h5>Telefóno Casa:</h5>
+                                        {{ paciente.pacTelCasa }}
+                                    </div>
+
+                                        <div class="col-lg-4 col-md-4 col-sm-4">
+                                            <h5>Celular:</h5>
+                                            {{ paciente.pacTelCelular }}
+                                        </div>
+                                </div>
+                            </div>
+                            <div class='split'>
+                                <h5>Dirección:</h5>
+                                <div>{{ paciente.pacDireccion }}</div>
+                                <div>
+                                    {% if paciente.pacMun != "" %}
+                                        {{ paciente.pacMun }}
+                                        {{ (paciente.pacMun.munDep != null  and paciente.pacMun.munDep !="") ? ","~paciente.pacMun.munDep }}  {{ paciente.pacMun.munDep.depPai != ""?","~paciente.pacMun.munDep.depPai }}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="list-group-divider"></div>        
+                        <div class="well well-sm">    
+                            <div class='split'>
+                            
+                                <div class="row">
+                                <div class="col-lg-4 col-md-4 col-sm-4">
+                                    <h5>Activo:</h5>
+                                    <div>
+                                        {% if paciente.pacActivo %}<span class="label label-success">Si</span>{% else %}<span class="label label-danger">No</span>{% endif %} 
+                                    </div>
+                                </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4">
+                                        <h5>Fecha creación:</h5>
+                                        {% if paciente.pacFechaCrea %}{{ paciente.pacFechaCrea|date('Y-m-d H:i:s') }}{% endif %}
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-4 col-sm-4">
+                                        <h5>Fecha actualizado:</h5>
+                                        {% if paciente.pacFechaMod %}{{ paciente.pacFechaMod|date('Y-m-d H:i:s') }}{% endif %}
+                                    </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                                   
+            </div>
+            
+        </div>  
         </div>
+        <div class="col-lg-4">
+           
+            
+            <div class="panel border-left-lg border-left-success invoice-grid timeline-content">
+                    <div class="panel-heading">
+                        <h6 class="text-semibold no-margin-top"><i class="fa fa-address-book-o"></i> Citas médicas</h6>
+                        <div class="heading-elements">
+                            <ul class="icons-list">
+                                <li><a data-action="collapse"></a></li>
+                                <!-- <li><a data-action="reload"></a></li>-->
+                                <li><a data-action="close"></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="panel-body no-border no-padding-top">
+                        
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" role="tablist">
+                          <li role="presentation" class="active"><a href="#books" aria-controls="books" role="tab" data-toggle="tab">Citas</a></li>
+                          <li role="presentation"><a href="#doctors" aria-controls="doctors" role="tab" data-toggle="tab">Historial Médico</a></li>
+                        </ul>
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" id="books">
+                                <table class="table table-striped" id="table_books">
+                                    <thead>
+                                        <tr>
+                                            <th>Fecha</th>
+                                            <th>Estatus</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>2017-04-20</td><td>Pendiente</td><td>
+                                                <ul class="list list-unstyled text-right">
+                                                    <li class="dropdown">
+                                                        <a href="#" class="label bg-danger-400 dropdown-toggle" data-toggle="dropdown">Acción <span class="caret"></span></a>
+                                                        <ul class="dropdown-menu dropdown-menu-right">
+
+                                                            <li><a href="#"><i class="icon-alarm"></i> Pendiente</a></li>
+                                                            <li><a href="#"><i class="icon-checkmark3"></i> Realizada</a></li>
+                                                            <li class="divider"></li>
+                                                            <li><a href="#"><i class="icon-spinner2 spinner"></i> En curso</a></li>
+                                                            <li><a href="#"><i class="icon-cross2"></i> Cancelar</a></li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>2017-03-20</td><td><i class="fa fa-check"></i></td><td/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2017-02-20</td><td><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></td><td/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2017-01-20</td><td><i class="fa fa-check"></i></td><td/></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="list-group-divider"></div>
+                                <div>
+                                    <button class="btn btn-success btn-sm"><i class="fa fa-calendar"></i> Nueva cita</button>
+                                    <span class="badge bg-teal-400 pull-right">4</span>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="doctors">
+                                <br>
+                                <div class="alert alert-info alert-styled-left">
+                                    Médicos que han atendido al paciente
+                                </div>
+                                Parkin juares
+                            </div>
+                        </div>
+                        
+                        
+                        
+                    </div>
+                </div>
+            
+             {{ include('EmrBundle:paciente:_search.html.twig' )  }}
+            
+        </div>        
     </div>
     <hr>        
 
                       
     <ul class="list-inline">
         <li>
-            <a href="{{ path('paciente_index') }}" class="btn btn-info"><i class="fa fa-list"></i> Listar</a>
+            <a href="{{ path('paciente_index') }}" class="btn btn-info btn-sm"><i class="fa fa-list"></i> Listar</a>
         </li>
         <li>
-            <a href="{{ path('paciente_new') }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Nuevo</a>
+            <a href="{{ path('paciente_new') }}" class="btn btn-primary btn-sm"><i class="fa fa-plus-circle"></i> Nuevo</a>
         </li>
         <li>
-            <a href="{{ path('paciente_edit', { 'id': paciente.pacId }) }}" class="btn bg-teal-400"><i class="fa fa-edit"></i> Editar</a>
+            <a href="{{ path('paciente_edit', { 'id': paciente.pacId }) }}" class="btn bg-teal-400 btn-sm"><i class="fa fa-edit"></i> Editar</a>
         </li>
         <li>
             {{ form_start(delete_form) }}
-                <button type="submit" class="btn btn-danger"><i class="fa fa-remove"></i> Eliminar</button>
+                <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-remove"></i> Eliminar</button>
             {{ form_end(delete_form) }}
         </li>
     </ul>        
 {% endblock %}
+
+{% block codejs %}
+    <script>
+        $(document).on("ready",function(){
+            $("#form_search_patients").submit(function(e){
+                            //
+                            e.preventDefault();
+                            searchPatients();
+                            
+                            return false;
+                        });
+                    
+                    
+                    function searchPatients()
+                    {
+                        var search = $("#input_search_patients").val();
+                        if( $.trim(search) == "" )
+                        {
+                            //var infoError = (data);
+                            $.alert({
+                                icon: 'glyphicon glyphicon-exclamation-sign',
+                                title: 'Info!',
+                                content: 'El campo de la búsqueda no puede estar vacio',
+                                type: 'blue',
+                                typeAnimated: true,
+                            });
+                            return false;
+                        }
+                        $("#holder_loading").show();
+                            $.ajax({
+                                type: "post",
+                                url: "{{ path('paciente_search') }}",
+                                data: { search: search },
+                                error: function (data) {
+                                    $("#holder_loading").hide();
+                                    $.confirm({
+                                        icon: 'fa fa-remove',
+                                        title: 'Error!',
+                                        content: 'Ha ocurrido un error al tratar de enviar la petición',
+                                        type: 'red',
+                                        typeAnimated: true,
+                                        buttons: {
+                                            tryAgain: {
+                                                text: 'Intentar de nuevo',
+                                                btnClass: 'btn-red',
+                                                action: function () {
+                                                    searchPatients();
+                                                }
+                                            },
+                                            close: function () {
+                                            }
+                                        }
+                                    });
+
+                                },
+                                success: function (data) {
+                                    $("#holder_loading").hide();
+                                    if( data.length > 0)
+                                    {
+                                        var table = "<table class='table table-striped' id='table_result_patients'><thead><tr><th>Nombre</th><th>DUI</th><th></th></tr></thead><tbody>";
+                                        for(i=0; i < data.length; i++)
+                                        {
+                                            var routeEdit = "{{ path('paciente_edit', { 'id': "PLACEHOLDER" }) }}";
+                                            routeEdit = routeEdit.replace("PLACEHOLDER", data[i]['pac_id']);
+                                            
+                                            var routeShow = "{{ path('paciente_show', { 'id': "PLACEHOLDER" }) }}";
+                                            routeShow = routeShow.replace("PLACEHOLDER", data[i]['pac_id']);
+                                            
+                                            var btn_group = "<div class='btn-group' role='group'>";
+                                                btn_group += "<button type='button' class='label bg-danger-400 dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>";
+                                                btn_group += "Acción";
+                                                btn_group += "<span class='caret'></span>";
+                                                btn_group += "</button>";
+                                                btn_group += "<ul class='dropdown-menu dropdown-menu-right'>";
+                                                btn_group += "<li><a href='"+routeShow+"'><i class='fa fa-folder-open'></i> Ver</a></li>";
+                                                btn_group += "<li><a href='"+routeEdit+"'><i class='fa fa-edit'></i> Editar</a></li>";
+                                                btn_group += "</ul>";
+                                                btn_group += "</div>";
+                                            
+                                            table += "<tr>";
+                                            table += "<td>"+data[i]['fullname']+"</td>";
+                                            table += "<td>"+data[i]['dui']+"</td>";
+                                            table += "<td>"+btn_group+"</td>";
+                                            table += "</tr>";
+                                        }
+                                        table += "</body></table>";
+                                        
+                                        
+                                        
+                                    }
+                                    else
+                                    {
+                                        table = "<br><div class='alert alert-danger'><i class='glyphicon glyphicon-exclamation-sign'></i> No se han encontrado regístros</div>";
+                                    }
+                                    $("#result_search_patients").html(table);
+                                    if( $("body").find("#table_result_patients").size() == 1 )
+                                    {
+                                        $("body").find("#table_result_patients").DataTable({
+                                            "searching": false,
+                                            "bFilter": false,
+                                            "bInfo": false,
+                                            "bLengthChange": false,
+                                            "pageLength": 5,
+                                            "language":{
+                                                oPaginate: {
+                                                    sFirst: "Primero",
+                                                    sLast: "último",
+                                                    sNext: "Siguiente",
+                                                    sPrevious: "Anterior"
+                                                    },
+                                            },
+                                            "order": [[ 0, "desc" ]]
+                                        });
+                                    }
+                                    
+                                }
+                            });
+                    }
+                    
+            $("#table_books").DataTable({
+                    "searching": false,
+                    "bFilter": false,
+                    "bInfo": false,
+                    "bLengthChange": false,
+                    "pageLength": 5,
+                    "language":{
+                        oPaginate: {
+                            sFirst: "Primero",
+                            sLast: "último",
+                            sNext: "Siguiente",
+                            sPrevious: "Anterior"
+                        },
+                    },
+                    "order": [[ 0, "desc" ]]
+            });        
+        });
+    </script>
+{% endblock %}    

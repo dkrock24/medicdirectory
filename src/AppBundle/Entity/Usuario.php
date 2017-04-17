@@ -336,4 +336,33 @@ class Usuario implements \Symfony\Component\Security\Core\User\UserInterface
     {
         return $this->usuFechaNacimiento;
     }
+    /**
+     * @var string
+     */
+    private $usuNombre;
+
+
+    /**
+     * Set usuNombre
+     *
+     * @param string $usuNombre
+     *
+     * @return Usuario
+     */
+    public function setUsuNombre($usuNombre)
+    {
+        $this->usuNombre = $usuNombre;
+
+        return $this;
+    }
+
+    /**
+     * Get usuNombre
+     *
+     * @return string
+     */
+    public function getUsuNombre()
+    {
+        return $this->usuNombre;
+    }
 }

@@ -18,4 +18,16 @@ class DefaultController extends Controller
 		//return $this->render("ErmBundle:".$folder.":".$pagina.".html.twig");
         
     }
+	
+	
+	public function establecimientoAction( Request $request )
+	{
+		$em = $this->getDoctrine()->getManager();
+		$idUser =  $this->getUser()->getUsuId();
+		//echo $this->get('security.token_storage')->getToken()->getUser()->getUsuId();
+		$user_repo = $em->getRepository("AppBundle:ClienteUsuario")->findByCliUsuUsu($idUser);
+		//return $this->redirectToRoute("");
+		return $this->render("EmrBundle:Default:location.html.twig", array('data' => $user_repo));
+	}
+
 }

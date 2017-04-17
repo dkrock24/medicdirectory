@@ -44,6 +44,13 @@ AppBundle\Entity\Usuario:
             options:
                 unsigned: false
             column: usu_id_vendedor
+        usuNombre:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: usu_nombre
         usuTitulo:
             type: string
             nullable: true
@@ -74,4 +81,22 @@ AppBundle\Entity\Usuario:
             options:
                 default: '1'
             column: usu_activo
+        usuFechaNacimiento:
+            type: date
+            nullable: true
+            column: usu_fecha_nacimiento
+        usuTitulo:
+            type: string
+            nullable: true
+            length: 10
+            options:
+                fixed: false
+            column: usu_titulo
+        usuGenero:
+            type: string
+            nullable: false
+            length: 1
+            options:
+                fixed: true
+            column: usu_genero
     lifecycleCallbacks: {  }
