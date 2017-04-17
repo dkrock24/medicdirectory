@@ -20,7 +20,7 @@ class DefaultController extends Controller
     }
 	
 	
-	public function establecimientoAction( Request $request )
+	public function locationAction( Request $request )
 	{
 		$em = $this->getDoctrine()->getManager();
 		$idUser =  $this->getUser()->getUsuId();
@@ -28,6 +28,19 @@ class DefaultController extends Controller
 		$user_repo = $em->getRepository("AppBundle:ClienteUsuario")->findByCliUsuUsu($idUser);
 		//return $this->redirectToRoute("");
 		return $this->render("EmrBundle:Default:location.html.twig", array('data' => $user_repo));
+	}
+	
+	public function checkSessionLocationAction( Request $request )
+	{
+		$location = $this->get('session')->get('locationId');
+		if( !isset($location) )
+		{
+			$msg =  0;
+		}else{
+			$msg = 1;
+		}
+		
+		return $this->render("EmrBundle:Default:noticeLocation.html.twig", array('msg'=>$msg));
 	}
 
 }

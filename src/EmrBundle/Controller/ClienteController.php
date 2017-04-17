@@ -34,6 +34,8 @@ class ClienteController extends Controller
      */
     public function newAction(Request $request)
     {
+		$em = $this->getDoctrine()->getManager();
+		
         $cliente = new Cliente();
         $form = $this->createForm('EmrBundle\Form\ClienteType', $cliente);
         $form->handleRequest($request);
@@ -45,9 +47,13 @@ class ClienteController extends Controller
 
             return $this->redirectToRoute('cliente_show', array('id' => $cliente->getCliId()));
         }
+		
+		$methodPay = $em->getRepository('AppBundle:MetodoPago')->findBy( array("mepActivo"=>1) );
+		
 
         return $this->render('EmrBundle:cliente:new.html.twig', array(
             'cliente' => $cliente,
+			'methodPay'=> $methodPay,
             'form' => $form->createView(),
         ));
     }
@@ -122,4 +128,46 @@ class ClienteController extends Controller
             ->getForm()
         ;
     }
+	
+	
+	//Starts customs actions
+	public function checkAvailableUserAction( Request $request )
+	{
+		
+		//$result = "";
+		//$iCountryId = $request->get('id');
+		$sUsername = $request->get("username");
+		
+		try
+		{
+			
+			if( isset($sUsername) && !empty($sUsername) ) 
+			{
+				$em = $this->getDoctrine()->getManager();
+				$RAW_QUERY = "SELECT * FROM usuario u WHERE usu_usuario =:username";
+
+				$statement = $em->getConnection()->prepare($RAW_QUERY);
+				$statement->bindValue("username", $sUsername);
+				$statement->execute();
+				$result = $statement->fetchAll();
+			}
+
+			if( count($result) == 0 )
+			{
+				echo 1; //is available
+			}
+			else
+			{
+				echo 0; //in not available
+			}
+		}
+		catch (\Exception $e){
+				echo ($e->getMessage());
+		}
+		
+		
+		exit();
+		//return  $response = new JsonResponse($result);
+
+	}
 }

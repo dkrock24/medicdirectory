@@ -22,3 +22,7 @@ cliente_delete:
     path:     /{id}/delete
     defaults: { _controller: "EmrBundle:Cliente:delete" }
     methods:  DELETE
+
+cliente_check_available_user:
+    path:     /available/user
+    defaults: { _controller: "EmrBundle:Cliente:checkAvailableUser" }

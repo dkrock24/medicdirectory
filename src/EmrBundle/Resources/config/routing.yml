@@ -19,7 +19,12 @@ emr_dashboard:
     
 emr_location:
     path:     /establecimiento
-    defaults: { _controller: EmrBundle:Default:establecimiento  }
+    defaults: { _controller: EmrBundle:Default:location  }
+    host:     "%emr_domain%"
+    
+emr_checkSessionLocation:
+    path:     /revisa/sesion/establecimiento
+    defaults: { _controller: EmrBundle:Default:checkSessionLocation  }
     host:     "%emr_domain%"
     
 emr_paciente:
