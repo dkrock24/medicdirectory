@@ -24,15 +24,21 @@ class servicioLogs {
     const _UPDATE_ACTION_ = "UPDATE";
     const _SELECT_ACTION_ = "SELECT";
     
-    function __construct($em) {
+    private $oUser;
+    
+    function __construct($em, $token_storage, $authorization_checker) {
         $this->em = $em;
+        if ($authorization_checker->isGranted('IS_AUTHENTICATED_FULLY')) {
+            $this->oUser = $token_storage->getToken()->getUser();
+        } else {
+            $this->oUser = null;
+        }
     }
     
     public function logEvent( 
         $log_action, 
         $log_table, 
         $log_field, 
-        $log_user,
         $log_new_value = null,
         $log_prev_value = null,
         $log_comment = null
@@ -48,15 +54,11 @@ class servicioLogs {
             $log_record->setLogAccion($log_action);
             $log_record->setLogTabla($log_table);
             $log_record->setLogCampo($log_field);
-            $log_record->setLogUsuAccion($log_user);
+            $log_record->setLogUsuAccion( $this->oUser );
             $log_record->setLogValorPrevio($log_prev_value);
             $log_record->setLogValorNuevo($log_new_value);
             $log_record->setLogFechaEjecucion( new \DateTime() );
             $log_record->setLogComentario( $log_comment );
-            
-//            echo '<pre>';
-//            var_dump( $log_record );
-//            exit;
             
             $this->em->persist( $log_record );
             $this->em->flush();
