@@ -5,21 +5,16 @@
         <group>
             <file>file:/C:/xampp/htdocs/symfony3/emr/src/EmrBundle/Controller/SessionController.php</file>
             <file>file:/C:/xampp/htdocs/symfony3/emr/app/config/routing.yml</file>
+            <file>file:/C:/xampp/htdocs/symfony3/emr/app/Resources/views/Layout/base_emr/clients_estructura.html.twig</file>
             <file>file:/C:/xampp/htdocs/symfony3/emr/src/EmrBundle/Resources/views/Default/location.html.twig</file>
-            <file>file:/C:/xampp/htdocs/symfony3/emr/src/AdminBundle/Command/adminGenerarMedicosPruebaCommand.php</file>
+            <file>file:/C:/xampp/htdocs/symfony3/emr/src/EmrBundle/Resources/config/routing/paciente.yml</file>
             <file>file:/C:/xampp/htdocs/symfony3/emr/src/EmrBundle/Resources/views/paciente/show.html.twig</file>
-            <file>file:/C:/xampp/htdocs/symfony3/emr/src/AppBundle/DataFixtures/ORM/EspecialidadesMedicasData.php</file>
             <file>file:/C:/xampp/htdocs/symfony3/emr/app/config/security.yml</file>
-            <file>file:/C:/xampp/htdocs/symfony3/emr/src/AppBundle/DataFixtures/ORM/MetodosPagoData.php</file>
             <file>file:/C:/xampp/htdocs/symfony3/emr/src/EmrBundle/Controller/DefaultController.php</file>
-            <file>file:/C:/xampp/htdocs/symfony3/emr/src/EmrBundle/Form/ClienteType.php</file>
-            <file>file:/C:/xampp/htdocs/symfony3/emr/src/EmrBundle/Controller/PacienteController.php</file>
-            <file>file:/C:/xampp/htdocs/symfony3/emr/src/AppBundle/DataFixtures/ORM/TiposClientesData.php</file>
-            <file>file:/C:/xampp/htdocs/symfony3/emr/src/EmrBundle/Resources/views/cliente/show.html.twig</file>
+            <file>file:/C:/xampp/htdocs/symfony3/emr/src/EmrBundle/Controller/ClienteController.php</file>
             <file>file:/C:/xampp/htdocs/symfony3/emr/app/Resources/views/Layout/base_emr/_clients_base.location.html.twig</file>
-            <file>file:/C:/xampp/htdocs/symfony3/emr/src/AdminBundle/Command/adminCreateElSalvadorLocationsCommand.php</file>
+            <file>file:/C:/xampp/htdocs/symfony3/emr/src/EmrBundle/Resources/config/routing/cliente.yml</file>
             <file>file:/C:/xampp/htdocs/symfony3/emr/src/EmrBundle/Resources/config/routing.yml</file>
-            <file>file:/C:/xampp/htdocs/symfony3/emr/src/AdminBundle/Command/adminGenerarPacientesPruebaCommand.php</file>
             <file>file:/C:/xampp/htdocs/symfony3/emr/src/EmrBundle/Resources/views/cliente/new.html.twig</file>
             <file>file:/C:/xampp/htdocs/symfony3/emr/app/Resources/views/Layout/base_emr/_clients_base.html.twig</file>
         </group>
