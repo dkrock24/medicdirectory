@@ -167,4 +167,37 @@ class InvTipoProveedor
     {
         return $this->itprActivo;
     }
+    /**
+     * @var \AppBundle\Entity\Cliente
+     */
+    private $itprCli;
+
+
+    /**
+     * Set iarCli
+     *
+     * @param \AppBundle\Entity\Cliente $itprCli
+     *
+     * @return InvTipoProveedor
+     */
+    public function setItprCli(\AppBundle\Entity\Cliente $itprCli = null)
+    {
+        $this->itprCli = $itprCli;
+
+        return $this;
+    }
+
+    /**
+     * Get iarCli
+     *
+     * @return \AppBundle\Entity\Cliente
+     */
+    public function getItprCli()
+    {
+        return $this->itprCli;
+    }
+
+    public function __toString() {
+        return $this->itprTipo;
+    }
 }

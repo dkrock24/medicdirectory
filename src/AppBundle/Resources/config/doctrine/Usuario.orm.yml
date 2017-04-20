@@ -137,6 +137,6 @@ AppBundle\Entity\Usuario:
                   id_usuario:
                     referencedColumnName: usu_id
                 inverseJoinColumns:
-                  id_especialidad:
+                  id_rol:
                     referencedColumnName: rol_id
     lifecycleCallbacks: {  }

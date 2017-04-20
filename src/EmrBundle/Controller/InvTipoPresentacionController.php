@@ -28,7 +28,9 @@ class InvTipoPresentacionController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $invTipoPresentacions = $em->getRepository('AppBundle:InvTipoPresentacion')->findAll();
+        $idCliente = $this->get('session')->get('locationId');
+
+        $invTipoPresentacions = $em->getRepository('AppBundle:InvTipoPresentacion')->findBy(array('itpCli' => $idCliente));
 
         return $this->render('EmrBundle:invtipopresentacion:index.html.twig', array(
             'invTipoPresentacions' => $invTipoPresentacions,
@@ -49,6 +51,11 @@ class InvTipoPresentacionController extends Controller
             $em = $this->getDoctrine()->getManager();
 
             $invTipoPresentacion->SetItpFechaCrea(new \DateTime());
+
+            $idCliente = $this->get('session')->get('locationId');
+
+            $id = $em->getRepository('AppBundle:Cliente')->find($idCliente);
+            $invTipoPresentacion->SetItpCli($id);
 
             $em->persist($invTipoPresentacion);
 

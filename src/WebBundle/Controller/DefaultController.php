@@ -61,4 +61,9 @@ class DefaultController extends Controller
     {
         return $this->render('WebBundle:Farmacias:index.html.twig');
     }
+
+    public function indexPreciosAction()
+    {
+        return $this->render('WebBundle:Precios:index.html.twig');
+    }
 }

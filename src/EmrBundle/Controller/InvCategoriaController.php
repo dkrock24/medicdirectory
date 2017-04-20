@@ -29,7 +29,9 @@ class InvCategoriaController extends Controller
 
         //$invCategorias = $em->getRepository('AppBundle:InvCategoria')->findAll();
         //$invCategorias = $em->$repository->findBy(array('icaCategoria' => 'IS'));
-        $invCategorias = $em->getRepository('AppBundle:InvCategoria')->findBy(array('icaCli' => 1));
+        $idCliente = $this->get('session')->get('locationId');
+
+        $invCategorias = $em->getRepository('AppBundle:InvCategoria')->findBy(array('icaCli' => $idCliente));
 
         return $this->render('EmrBundle:invcategoria:index.html.twig', array(
             'invCategorias' => $invCategorias,
@@ -54,7 +56,11 @@ class InvCategoriaController extends Controller
 
             $cliente = $em->getRepository('AppBundle:Cliente')->find($idUser);
             $invCategorium->SetIcaFechaCrea(new \DateTime());
-            $invCategorium->SetIcaCli($cliente);
+
+            $idCliente = $this->get('session')->get('locationId');
+            $id = $em->getRepository('AppBundle:Cliente')->find($idCliente);
+
+            $invCategorium->SetIcaCli($id);
 
             $em->persist($invCategorium);
 

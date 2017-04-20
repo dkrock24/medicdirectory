@@ -201,7 +201,7 @@
                                         <div class="form-group">
                                             <label>Genero del presentante: <span class="text-danger">*</span></label>
                                             <select name="gender_representer"  id="gender_representer" data-placeholder="Genero..." required class="select">
-                                                <option></option> 
+                                                
                                                 <option value="m">Masculino</option> 
                                                 <option value="f">Femenino</option> 
                                             </select>
@@ -279,7 +279,7 @@
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">
-                                <strong>Nota:</strong> El monto a cobrar será de <strong>$30</strong> mensualmente por cada doctor/a que asocie a su establecimiento
+                                <strong>Nota:</strong> El monto a cobrar será de <strong>$30</strong> mensualmente por cada doctor/a que asocie a su establecimiento, este monto no include a usuarios tipo "Asistente"
                             </div>
                         </div>
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -331,6 +331,15 @@
                                                     <input name="repeatpassword[]" id="password_user_again" value="" type="password" class="form-control" required/>
                                                 </div>
                                             </div>
+                                            <div class="col-lg-3 col-md-6 col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="control-label">Tipo de usuario</label>
+                                                    <select name="typeUser[]" id="typeUser" class="form-control" required>
+                                                        <option value="6">Médico</option>
+                                                        <option value="3">Asistente</option>
+                                                    </select>
+                                                </div>
+                                            </div>
                                             
                                             <div class="col-lg-3 col-md-6 col-sm-6">
                                                 <div class="form-group">
@@ -354,7 +363,6 @@
 				</fieldset>
                 <h6>Formas de pago</h6>
                 <fieldset>
-
                     <div class="row"> 
                         <div class="col-lg-1 col-md-3 col-sm-3 col-xs-12">
                             {% for method in methodPay %}
@@ -488,8 +496,10 @@
     <script>
         $(document).on("ready", function(){
             
-            users = [];
-            creditCard= [];
+            var users = [];
+            //var creditCard = [];
+            
+            
             
             // Show form
             var form = $(".steps-validation").show();
@@ -530,19 +540,9 @@
                     if( currentIndex === 1)
                     {
                         var available = checkAvilableUser();
-                        if( available != "ok" )
+                        //console.log(available);
+                        if( !available )
                         {
-                            /*
-                            var plural = (available > 1)?" usuarios ":" usuario ";
-                            var msg = ("No ha validado la disponibilidad de "+available+""+plural+", para pasar al siguiente paso debe de validarlos");
-                            $.alert({
-                                        icon: 'glyphicon glyphicon-exclamation-sign',
-                                        title: 'Info!',
-                                        content: msg,
-                                        type: 'red',
-                                        typeAnimated: true,
-                                    });
-                                    */
                             return false;
                         }
                     }
@@ -573,7 +573,43 @@
                 },
 
                 onFinished: function (event, currentIndex) {
-                    alert("Submitted!");
+                    var methodPay = $('input:radio[name=optionPay]:checked').val();
+                    if( methodPay == 2 )
+                    {
+                        if( $("#val_cc_number").size() == 0 )
+                        {
+                            $.alert({
+                                icon: 'fa fa-credit-card-alt',
+                                title: 'Error!',
+                                content: 'Es necesario validar la tarjeta',
+                                type: 'red',
+                                typeAnimated: true,
+                            });
+                            return false;
+                        }
+                        else if( $("#val_cc_number").val() != 1 )
+                        {
+                            $.alert({
+                                icon: 'fa fa-credit-card-alt',
+                                title: 'Error!',
+                                content: 'La tarjeta ingresada no es valida',
+                                type: 'red',
+                                typeAnimated: true,
+                            });
+                            
+                            return false;
+                        }
+                        
+                        sendFormRepresenter(users);
+                        
+                    }
+                    else
+                    {
+                        //alert("Submitted! x");
+                        sendFormRepresenter(users);
+                        //alert("Submitted!");
+                    }
+                    
                 }
             });
 
@@ -627,6 +663,7 @@
                         error.insertAfter(element);
                     }
                 },
+                /*
                 rules: {
                     email_representer: {
                         email: true
@@ -638,7 +675,9 @@
                         minlength : 5,
                         equalTo : "#password_representer"
                     }
+                    
                 }
+                */
             });
 
             $('.select').select2();
@@ -699,6 +738,7 @@
            
             function checkAvilableUser()
             {
+                var users = [];
                 var error = 0;
                 $(".section").each(function(index){
                     
@@ -709,6 +749,7 @@
                     var password_again = $.trim( $(this).find("input[name='repeatpassword[]']").val() );
                     var gender = $.trim( $(this).find("select[name='gender[]']").val() );
                     var inputAvailable = $(this).find(".inputAvailable").val();
+                    var typeUser = $.trim( $(this).find("select[name='typeUser[]']").val() );
                     
                     var msg = "";
                     if( name == "" )
@@ -756,23 +797,30 @@
                     }
                     else
                     {
-                        item = [];
-                        item['name'] = name;
-                        item['email'] = email;
-                        item['username'] = username;
-                        item['password'] = password;
-                        item['gender'] = gender;
+                        /*
+                            item = [];
+                            item['name'] = name;
+                            item['email'] = email;
+                            item['username'] = username;
+                            item['password'] = password;
+                            item['gender'] = gender;
+                            item['typeUser'] = typeUser;
+                        */
+                        item = {"name":name, "email":email, "username":username, "password":password, "gender":gender, "typeUser":typeUser };
+                        users.push(item);
 
-                        users[index] = item;
-                        
                         $(this).removeClass("border-warning-available");
                     }
                 });
                 
                 if( error == 0 )
                 {
-                    console.log(users);
-                    return "ok";
+                    //console.log(users);
+                    return users;
+                    //return "ok";
+                }else{
+                    var users = [];
+                    return false;
                 }
                 
             }
@@ -780,6 +828,7 @@
             checkCreditCard();
             function checkCreditCard()
             {
+                var creditCard = [];
                 $('[data-numeric]').payment('restrictNumeric');
                 $('.cc-number').payment('formatCardNumber');
                 $('.cc-exp').payment('formatCardExpiry');
@@ -791,8 +840,9 @@
                   return this;
                 };
 
-                $('#btn-check-credit-card').on("click", function(){
+                $('#btn-check-credit-card').on("click", function(e){
 
+                    e.preventDefault();
                     var cardType = $.payment.cardType($('.cc-number').val());
                     $('.cc-number').toggleInputError(!$.payment.validateCardNumber($('.cc-number').val()));
                     $('.cc-exp').toggleInputError(!$.payment.validateCardExpiry($('.cc-exp').payment('cardExpiryVal')));
@@ -804,18 +854,33 @@
                     
                     if( $('.validation').hasClass("text-success") )
                     {
-                        creditCard['cc-number'] =  $('.cc-number').val();
+                        /*
+                        creditCard['cc-number'] = $('.cc-number').val();
                         creditCard['cc-exp'] =  $('.cc-exp').val();
                         creditCard['cc-cvc'] = $('.cc-cvc').val();
                         creditCard['cc-brand'] = cardType;
+                        */
+                        val_cc_number = 1;
+                        //console.log("ok");
                     }else{
-                        creditCard = [];
+                        //console.log("cagada");
+                        //creditCard = [];
+                        val_cc_number = 0;
                     }
                     
-                    return false;
+                    if( $("body").find("#val_cc_number").size() == 0 )
+                    {
+                        $("body").append("<input type='hidden' value=''  id='val_cc_number'>");
+                    }
+                    
+                    $("body").find("#val_cc_number").val(val_cc_number);
+                    
+                    //e.preventDefault();
+                    //return creditCard;
                     
                 });
             }
+            
             
             validPayMethod();
             function validPayMethod()
@@ -836,13 +901,7 @@
                     }
                 });
             }
-            /*
-            $("#available_representer").change(function(){
-                if( $(this).is(':checked') ) {
-                    checkAvailableUser();
-                }
-            });
-            */
+
             $("body").on("blur","#user_representer, .user_to_location",function(){
                 var user = $(this).val();
                 var idInput = $(this).attr("id");
@@ -957,6 +1016,7 @@
                         $("#holder_loading").hide();
                         if (data == 1)
                         {
+                            /*
                             $.alert({
                                 icon: 'glyphicon glyphicon-ok-sign',
                                 title: 'Ok!',
@@ -964,7 +1024,7 @@
                                 type: 'green',
                                 typeAnimated: true,
                             });
-                            
+                            */
                             if( $("#"+idInput).hasClass("user_to_location") )
                             {
                                 $("#"+idInput).closest(".section").find(".inputAvailable").val(1);
@@ -1033,6 +1093,84 @@
                     $("#gender").attr("readonly", false);
                     $('#gender option').prop('disabled', false);
                 }
+            }
+            
+            
+            function sendFormRepresenter(users){
+
+                //console.log(users);
+                var location = $("#appbundle_cliente_cliTipCli");
+                var fiscal_name = $("#appbundle_cliente_cliNombreFiscal");
+                var municipality = $("#appbundle_cliente_cliMun");
+                var address = $("#appbundle_cliente_cliDireccion");
+                var locationNit = $("#appbundle_cliente_cliNit");
+                var phone_one = $("#appbundle_cliente_cliTelefono1");
+                var phone_two = $("#appbundle_cliente_cliTelefono2");
+                var specialities = $("#appbundle_cliente_cliEsp");
+
+                var representerName = $("#appbundle_cliente_cliNombre");
+                var representerGender = $("#gender_representer");
+                var representerUser = $("#user_representer");
+                var representerEmail = $("#email_representer");
+                var representerPass = $("#password_representer");
+                
+                var locationUsers = checkAvilableUser();
+                var payMethod = $('input:radio[name=optionPay]:checked').val();
+                var representer_cc_number = $("#cc-number");
+                var representer_cc_exp = $("#cc-exp");
+                var representer_cc_cvc = $("#cc-cvc");
+             
+                
+                $("#holder_loading").show();
+                $.ajax({
+                        type: "post",
+                        url: "{{ path('cliente_valid_form') }}",
+                        data: { 
+                            location: location.val(),
+                            fiscal_name: fiscal_name.val(),
+                            municipality: municipality.val(),
+                            address: address.val(),
+                            locationNit: locationNit.val(),
+                            phone_one: phone_one.val(),
+                            phone_two: phone_two.val(),
+                            specialities: specialities.val(),
+                            representerName: representerName.val(),
+                            representerGender: representerGender.val(),
+                            representerUser: representerUser.val(),
+                            representerEmail: representerEmail.val(),
+                            representerPass: representerPass.val(),
+                            locationUsers: locationUsers,
+                            payMethod: payMethod,
+                            representer_cc_number: representer_cc_number.val(),
+                            representer_cc_exp: representer_cc_exp.val(),
+                            representer_cc_cvc: representer_cc_cvc.val()
+                        },
+                        error: function (data) {
+                            $("#holder_loading").hide();
+                            $.confirm({
+                                icon: 'fa fa-remove',
+                                title: 'Error!',
+                                content: 'Ha ocurrido un error al tratar de enviar la petición',
+                                type: 'red',
+                                typeAnimated: true,
+                                buttons: {
+                                    tryAgain: {
+                                        text: 'Intentar de nuevo',
+                                        btnClass: 'btn-red',
+                                        action: function () {
+                                            sendFormRepresenter();
+                                        }
+                                    },
+                                    close: function () {
+                                            }
+                                        }
+                                    });
+                        },
+                        success: function (data) {
+                            $("#holder_loading").hide();
+                        }
+                });
+                
             }
             
         });

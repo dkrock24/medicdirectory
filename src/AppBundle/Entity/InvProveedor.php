@@ -370,4 +370,38 @@ class InvProveedor
     {
         return $this->iprItpr;
     }
+
+    public function __toString() {
+        return $this->iprNombre;
+    }
+
+    /**
+     * @var \AppBundle\Entity\Cliente
+     */
+    private $iprCli;
+
+
+    /**
+     * Set iprCli
+     *
+     * @param \AppBundle\Entity\Cliente $iprCli
+     *
+     * @return InvProveedor
+     */
+    public function setIprCli(\AppBundle\Entity\Cliente $iprCli = null)
+    {
+        $this->iprCli = $iprCli;
+
+        return $this;
+    }
+
+    /**
+     * Get iprCli
+     *
+     * @return \AppBundle\Entity\Cliente
+     */
+    public function getIprCli()
+    {
+        return $this->iprCli;
+    }
 }

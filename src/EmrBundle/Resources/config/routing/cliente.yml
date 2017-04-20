@@ -26,3 +26,7 @@ cliente_delete:
 cliente_check_available_user:
     path:     /available/user
     defaults: { _controller: "EmrBundle:Cliente:checkAvailableUser" }
+    
+cliente_valid_form:
+    path:     /client/form
+    defaults: { _controller: "EmrBundle:Cliente:validForm" }

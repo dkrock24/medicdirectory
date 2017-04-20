@@ -167,4 +167,33 @@ class InvTipoPresentacion
     {
         return $this->itpActivo;
     }
+    /**
+     * @var \AppBundle\Entity\Cliente
+     */
+    private $itpCli;
+
+
+    /**
+     * Set itpCli
+     *
+     * @param \AppBundle\Entity\Cliente $itpCli
+     *
+     * @return InvTipoPresentacion
+     */
+    public function setItpCli(\AppBundle\Entity\Cliente $itpCli = null)
+    {
+        $this->itpCli = $itpCli;
+
+        return $this;
+    }
+
+    /**
+     * Get itpCli
+     *
+     * @return \AppBundle\Entity\Cliente
+     */
+    public function getItpCli()
+    {
+        return $this->itpCli;
+    }
 }

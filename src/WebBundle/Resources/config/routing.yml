@@ -17,3 +17,7 @@ web_hospitales:
 web_farmacias:
     path:     /farmacias
     defaults: { _controller: WebBundle:Default:indexFarmacias }
+
+web_precios:
+    path:     /precios
+    defaults: { _controller: WebBundle:Default:indexPrecios }
