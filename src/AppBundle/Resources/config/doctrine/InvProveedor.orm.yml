@@ -99,10 +99,9 @@ AppBundle\Entity\InvProveedor:
             mappedBy: null
             inversedBy: null
             joinColumns:
-                ipr_cli_id:
+                ipr_cli_Id:
                     referencedColumnName: cli_id
             orphanRemoval: false
-    manyToOne:
         iprItpr:
             targetEntity: InvTipoProveedor
             cascade: {  }
