@@ -170,4 +170,45 @@ class ClienteController extends Controller
 		//return  $response = new JsonResponse($result);
 
 	}
+	
+	
+	public function validFormAction( Request $request )
+	{
+		//Location data
+		$clienId = $request->get("id");
+		
+		$location = $request->get("location");
+		$fiscal_name = $request->get("fiscal_name");
+		$municipality = $request->get("municipality");
+		$address = $request->get("address");
+		$locationNit = $request->get("locationNit");
+		$phone_one = $request->get("phone_one");
+		$phone_two = $request->get("phone_two");
+		$specialities = $request->get("specialities");
+		$representerName = $request->get("representerName");
+		
+		//Representer data
+		$representerGender = $request->get("representerGender");
+		$representerUser = $request->get("representerUser");
+		$representerEmail = $request->get("representerEmail");
+		$representerPass = $request->get("representerPass");
+		
+		//Location List users 
+		$locationListUsers = $request->get("locationUsers");
+		
+		//Payment method
+		$payMethod = $request->get("payMethod");
+		
+		//Credit card data
+		$credirCard = $request->get("credirCard");
+		
+		if( isset($clienId) && $clienId > 0 )
+		{
+			
+		}
+		
+		$em = $this->getDoctrine()->getManager();
+		
+		exit();
+	}
 }
