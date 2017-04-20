@@ -15,7 +15,14 @@ class RolesData implements FixtureInterface
 
         /* Roles */
 
-        $aRoles = ['ADMIN', 'CLIENTE', 'ASISTENTE', 'USUARIO', 'REPRESENTANTE'];
+        /*
+         * ADMIN = nosotros
+         * CLIENTE = Rol para el usuario representante, facturacion, etc.
+         * USUARIO = Visitante
+         * VENDEDOR = Rol especial que permite usar el sistema completamente para demos
+         * DOCTOR, FARMACIA, VISITADOR, HOSPITAL, LABORATORIO y SEGURO = auto explicados
+         */
+        $aRoles = ['ADMIN', 'CLIENTE', 'ASISTENTE', 'USUARIO', 'VENDEDOR', 'DOCTOR', 'FARMACIA', 'VISITADOR', 'HOSPITAL', 'LABORATORIO', 'SEGURO'];
 
         foreach ($aRoles as $rol) {
             // Objeto para insertar todos los roles
