@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Invareas list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Iarid</th>
+                <th>Iararea</th>
+                <th>Iarfechacrea</th>
+                <th>Iarfechamod</th>
+                <th>Iaractivo</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for invArea in invAreas %}
+            <tr>
+                <td><a href="{{ path('invarea_show', { 'iarId': invArea.iarId }) }}">{{ invArea.iarId }}</a></td>
+                <td>{{ invArea.iarArea }}</td>
+                <td>{% if invArea.iarFechaCrea %}{{ invArea.iarFechaCrea|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if invArea.iarFechaMod %}{{ invArea.iarFechaMod|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if invArea.iarActivo %}Yes{% else %}No{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('invarea_show', { 'iarId': invArea.iarId }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('invarea_edit', { 'iarId': invArea.iarId }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('invarea_new') }}">Create a new invArea</a>
+        </li>
+    </ul>
+{% endblock %}

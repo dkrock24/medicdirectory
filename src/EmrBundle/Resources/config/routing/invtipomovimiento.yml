@@ -1,0 +1,28 @@
+invtipomovimiento_index:
+    path:     /
+    defaults: { _controller: "EmrBundle:InvTipoMovimiento:index" }
+    methods:  GET
+
+invtipomovimiento_show:
+    path:     /{itmId}/show
+    defaults: { _controller: "EmrBundle:InvTipoMovimiento:show" }
+    methods:  GET
+
+invtipomovimiento_new:
+    path:     /new
+    defaults: { _controller: "EmrBundle:InvTipoMovimiento:new" }
+    methods:  [GET, POST]
+
+invtipomovimiento_edit:
+    path:     /{itmId}/edit
+    defaults: { _controller: "EmrBundle:InvTipoMovimiento:edit" }
+    methods:  [GET, POST]
+
+invtipomovimiento_delete:
+    path:     /{itmId}/delete
+    defaults: { _controller: "EmrBundle:InvTipoMovimiento:delete" }
+    methods:  DELETE
+
+invtipomovimiento_delete_from_list:
+    path:     /list/delete/tipo
+    defaults: { _controller: "EmrBundle:InvTipoMovimiento:deleteCustom" }

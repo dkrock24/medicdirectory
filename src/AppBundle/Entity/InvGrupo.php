@@ -136,7 +136,8 @@ class InvGrupo
      */
     public function getIgrActivo()
     {
-        return $this->igrActivo;
+        //return $this->igrActivo;
+        return (boolean) $this->igrActivo;
     }
     /**
      * @var \AppBundle\Entity\Cliente
@@ -165,6 +166,6 @@ class InvGrupo
      */
     public function getIgrCli()
     {
-        return $this->igrCli;
+        return $this->igrCli;        
     }
 }

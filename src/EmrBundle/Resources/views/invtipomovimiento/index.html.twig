@@ -1,0 +1,165 @@
+{% extends "Layout/base_emr/_clients_base.html.twig" %}
+
+{% block title_page %}
+        EMR || Listado Tipos de Movimientos
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('EmrBundle:invarea:_breadcrumb.html.twig' )  }}
+{% endblock %} 
+
+{% block submenutop %}
+    {{ include('EmrBundle:invarea:_submenu.html.twig' )  }}
+{% endblock %} 
+
+{% block body %}
+    <h1>Lista Tipo de Movimientos</h1>
+    <!-- Check the notifications -->
+    <div id="holder_msg">
+        {% for message in app.session.flashbag().get("success") %}
+            <div class="alert alert-success"><i class="fa fa-check-circle"></i> {{message}}</div>
+        {% endfor %}
+        {% for message in app.session.flashbag().get("error") %}
+            <div class="alert alert-danger"><i class="fa fa-close"></i> {{message}}</div>
+        {% endfor %}
+    </div>
+    <!-- End notifications -->
+
+    {% if invTipoMovimientos|length > 0%}
+    <table class="table table-striped datatable-reorder">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Tipo</th>
+                <th>Descripción</th>
+                <th>Creado</th>
+                <th>Modificado</th>
+                <th>Estado</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for invTipoMovimiento in invTipoMovimientos %}
+            <tr>
+                <td><a href="{{ path('invtipomovimiento_show', { 'itmId': invTipoMovimiento.itmId }) }}">{{ invTipoMovimiento.itmId }}</a></td>
+                <td>{{ invTipoMovimiento.itmTipo }}</td>
+                <td>{{ invTipoMovimiento.itmDescripcion }}</td>
+                <td>{% if invTipoMovimiento.itmFechaCrea %}{{ invTipoMovimiento.itmFechaCrea|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if invTipoMovimiento.itmFechaMod %}{{ invTipoMovimiento.itmFechaMod|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if invTipoMovimiento.itmActivo %}Yes{% else %}No{% endif %}</td>
+                <td>
+                    <ul class="list-inline">
+                        <li>
+                            <a href="{{ path('invtipomovimiento_show', { 'itmId': invTipoMovimiento.itmId }) }}" class='btn btn-default'><i class='fa fa-folder-open'></i>Ver</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('invtipomovimiento_edit', { 'itmId': invTipoMovimiento.itmId }) }}" class='btn bg-teal-400'><i class='fa fa-edit'></i> Editar</a>
+                        </li>
+                        <li>
+                            <button value="{{ invTipoMovimiento.itmId }}" class="btn btn-danger delete"><i class="fa fa-remove"></i> Eliminar</button>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <div class="alert alert-info" role=""><i class="fa fa-info-circle"></i> No hay regístros creados</div>
+    {% endif %} 
+    <ul class="list-inline">
+        <li>
+            <a href="{{ path('invtipomovimiento_new') }}"  class="btn btn-primary"><i class="fa fa-plus-circle"></i> Nuevo Tipo Movimiento</a>
+        </li>
+    </ul>
+{% endblock %}
+
+
+{% block codejs %}
+    <script>
+        $(document).on("ready",function(){
+            
+            /*
+             * This works if you want to use datatable plugin 
+            */
+            var table = $('.datatable-reorder').DataTable({});
+            // Add placeholder to the datatable filter option
+            $('.dataTables_filter input[type=search]').attr('placeholder','Escribar para filtrar...');
+            // Enable Select2 select for the length option
+            $('.dataTables_length select').select2({
+                minimumResultsForSearch: Infinity,
+                width: 'auto'
+            });
+            //End
+            
+            
+            $('body').on("click",".delete",function () {
+                var id = $(this).val();
+                if( id > 0 )
+                {
+                    sendAjax(id);
+                }
+            });
+            
+            function sendAjax(id) {
+                $("#holder_loading").show(); 
+                $.ajax({
+                    type: "post",
+                    url: "{{ path('invtipomovimiento_delete_from_list') }}",
+                    data: {id:id},
+                    error: function (data) {
+                       $("#holder_loading").hide();
+                       $.confirm({
+                            icon: 'fa fa-remove',
+                            title: 'Error!',
+                            content: 'Ha ocurrido un error al tratar de enviar la petición',
+                            type: 'red',
+                            typeAnimated: true,
+                            buttons: {
+                                tryAgain: {
+                                    text: 'Intentar de nuevo',
+                                    btnClass: 'btn-red',
+                                    action: function(){
+                                        sendAjax(id);
+                                    }
+                                },
+                                close: function () {
+                                }
+                            }
+                        });
+                        
+                    },
+                    success: function (data) {
+                        $("#holder_loading").hide();
+                        if( data == 1)
+                        {
+                            $.alert({
+                                icon: 'fa fa-check-circle',
+                                title: 'Ok!',
+                                content: 'El registro fue eliminado con éxito',
+                                type: 'green',
+                                typeAnimated: true,
+                            });
+                            
+                            //$("#tr_"+id).remove();
+                            table.row("#tr_"+id).remove().draw( false );
+                        }
+                        else
+                        {
+                            var infoError = (data);
+                            $.alert({
+                                icon: 'fa fa-remove',
+                                title: 'Error!',
+                                content: 'No se ha podido eliminar el regístro <br>'+infoError,
+                                type: 'red',
+                                typeAnimated: true,
+                            });
+                        }
+                        
+                    }
+                });
+            }
+            
+        });
+    </script>
+{% endblock %}    

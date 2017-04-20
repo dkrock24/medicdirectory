@@ -1,0 +1,28 @@
+invarea_index:
+    path:     /
+    defaults: { _controller: "EmrBundle:InvArea:index" }
+    methods:  GET
+
+invarea_show:
+    path:     /{iarId}/show
+    defaults: { _controller: "EmrBundle:InvArea:show" }
+    methods:  GET
+
+invarea_new:
+    path:     /new
+    defaults: { _controller: "EmrBundle:InvArea:new" }
+    methods:  [GET, POST]
+
+invarea_edit:
+    path:     /{iarId}/edit
+    defaults: { _controller: "EmrBundle:InvArea:edit" }
+    methods:  [GET, POST]
+
+invarea_delete:
+    path:     /{iarId}/delete
+    defaults: { _controller: "EmrBundle:InvArea:delete" }
+    methods:  DELETE
+
+invarea_delete_from_list:
+    path:     /list/delete/area
+    defaults: { _controller: "EmrBundle:InvArea:deleteCustom" }

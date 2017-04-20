@@ -1,0 +1,28 @@
+invgrupo_index:
+    path:     /
+    defaults: { _controller: "EmrBundle:InvGrupo:index" }
+    methods:  GET
+
+invgrupo_show:
+    path:     /{igrId}/show
+    defaults: { _controller: "EmrBundle:InvGrupo:show" }
+    methods:  GET
+
+invgrupo_new:
+    path:     /new
+    defaults: { _controller: "EmrBundle:InvGrupo:new" }
+    methods:  [GET, POST]
+
+invgrupo_edit:
+    path:     /{igrId}/edit
+    defaults: { _controller: "EmrBundle:InvGrupo:edit" }
+    methods:  [GET, POST]
+
+invgrupo_delete:
+    path:     /{igrId}/delete
+    defaults: { _controller: "EmrBundle:InvGrupo:delete" }
+    methods:  DELETE
+
+invgrupo_delete_from_list:
+    path:     /list/delete/area
+    defaults: { _controller: "EmrBundle:InvGrupo:deleteCustom" }

@@ -1,0 +1,136 @@
+{% extends "Layout/base_emr/_clients_base.html.twig" %}
+
+{% block title_page %}
+        EMR || Datos Inventario
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('EmrBundle:InvArea:_breadcrumb.html.twig' )  }}
+{% endblock %} 
+
+{% block submenutop %}
+    {{ include('EmrBundle:InvArea:_submenu.html.twig' )  }}
+{% endblock %} 
+
+{% block body %}
+    <h1>Inventario</h1>
+
+    <!-- Check the notifications -->
+    {% for message in app.session.flashbag().get("success") %}
+        <div class="alert alert-success"><i class="fa fa-check-circle"></i> {{message}}</div>
+    {% endfor %}
+    {% for message in app.session.flashbag().get("error") %}
+        <div class="alert alert-danger"><i class="fa fa-close"></i> {{message}}</div>
+    {% endfor %}
+    <!-- End notifications -->
+
+    <table class="table table-striped">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ inventario.invId }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ inventario.invNombreComercial }}</td>
+            </tr>
+            <tr>
+                <th>Componente</th>
+                <td>{{ inventario.invNombreComponente }}</td>
+            </tr>
+            <tr>
+                <th>Contenido</th>
+                <td>{{ inventario.invContenido }}</td>
+            </tr>
+            <tr>
+                <th>Lote</th>
+                <td>{{ inventario.invLote }}</td>
+            </tr>
+            <tr>
+                <th>MGS</th>
+                <td>{{ inventario.invMgs }}</td>
+            </tr>
+            <tr>
+                <th>Cod Producto</th>
+                <td>{{ inventario.invCodigoProducto }}</td>
+            </tr>
+            <tr>
+                <th>Vencimiento</th>
+                <td>{% if inventario.invFechaVencimiento %}{{ inventario.invFechaVencimiento|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Imagen</th>
+                <td>{{ inventario.invImagenProducto }}</td>
+            </tr>
+            <tr>
+                <th>Descripción</th>
+                <td>{{ inventario.invDescripcionProducto }}</td>
+            </tr>
+            <tr>
+                <th>Notas</th>
+                <td>{{ inventario.invNotasProducto }}</td>
+            </tr>
+            <tr>
+                <th>Etiqueta Almacenaje</th>
+                <td>{{ inventario.invEtiquetaAlmacenaje }}</td>
+            </tr>
+            <tr>
+                <th>P.U</th>
+                <td>{{ inventario.invPrecioUnitario }}</td>
+            </tr>
+            <tr>
+                <th>Total U.</th>
+                <td>{{ inventario.invTotalUnidades }}</td>
+            </tr>
+            <tr>
+                <th>P.v</th>
+                <td>{{ inventario.invPrecioVenta }}</td>
+            </tr>
+            <tr>
+                <th>P.m. Mayoreo</th>
+                <td>{{ inventario.invPrecioMedioMayoreo }}</td>
+            </tr>
+            <tr>
+                <th>P.V mayoreo</th>
+                <td>{{ inventario.invPrecioVentaMayoreo }}</td>
+            </tr>
+            <tr>
+                <th>P. Especial</th>
+                <td>{{ inventario.invPrecioEspecial }}</td>
+            </tr>
+            <tr>
+                <th>P. Descuento</th>
+                <td>{{ inventario.invPrecioDescuento }}</td>
+            </tr>
+            <tr>
+                <th>Creado</th>
+                <td>{% if inventario.invFechaCrea %}{{ inventario.invFechaCrea|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Modificado</th>
+                <td>{% if inventario.invFechaMod %}{{ inventario.invFechaMod|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Estado</th>
+                <td>{% if inventario.invActivo %}Yes{% else %}No{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul class="list-inline">
+        <li>
+            <a href="{{ path('inventario_index') }}" class="btn btn-info"><i class="fa fa-list"></i> Listar</a>
+        </li>
+        <li>
+            <a href="{{ path('inventario_new') }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Nuevo</a>
+        </li>
+        <li>
+            <a href="{{ path('inventario_edit', { 'invId': inventario.invId }) }}" class="btn bg-teal-400"><i class="fa fa-edit"></i> Editar</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <button type="submit" class="btn btn-danger"><i class="fa fa-remove"></i> Eliminar</button>
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

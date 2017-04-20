@@ -74,5 +74,6 @@ AppBundle\Entity\LogsAuditoria:
             joinColumns:
                 log_usu_accion:
                     referencedColumnName: usu_id
+                    nullable: true
             orphanRemoval: false
     lifecycleCallbacks: {  }
