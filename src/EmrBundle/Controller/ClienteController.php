@@ -175,6 +175,8 @@ class ClienteController extends Controller
 	public function validFormAction( Request $request )
 	{
 		//Location data
+		$clienId = $request->get("id");
+		
 		$location = $request->get("location");
 		$fiscal_name = $request->get("fiscal_name");
 		$municipality = $request->get("municipality");
@@ -200,7 +202,10 @@ class ClienteController extends Controller
 		//Credit card data
 		$credirCard = $request->get("credirCard");
 		
-		
+		if( isset($clienId) && $clienId > 0 )
+		{
+			
+		}
 		
 		$em = $this->getDoctrine()->getManager();
 		
