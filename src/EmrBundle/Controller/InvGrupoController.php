@@ -27,9 +27,9 @@ class InvGrupoController extends Controller
 
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $invGrupos = $em->getRepository('AppBundle:InvGrupo')->findAll();
+        $em         = $this->getDoctrine()->getManager();
+        $idCliente  = $this->get('session')->get('locationId');        
+        $invGrupos  = $em->getRepository('AppBundle:InvGrupo')->findBy(array('igrCli' => $idCliente));
 
         return $this->render('EmrBundle:invgrupo:index.html.twig', array(
             'invGrupos' => $invGrupos,
@@ -50,6 +50,10 @@ class InvGrupoController extends Controller
             $em = $this->getDoctrine()->getManager();
 
             $invGrupo->SetIgrFechaCreacion(new \DateTime());
+            $idCliente = $this->get('session')->get('locationId');
+
+            $id = $em->getRepository('AppBundle:Cliente')->find($idCliente);
+            $invGrupo->SetIgrCli($id);
 
             $em->persist($invGrupo);
             $flush = $em->flush();

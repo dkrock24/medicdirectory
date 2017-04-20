@@ -25,11 +25,12 @@ class InvAreaController extends Controller
     }
     
     public function indexAction()
-    {
+    {       
         $em = $this->getDoctrine()->getManager();
-
+        $idUser =  $this->getUser()->getUsuId();
+        $idCliente = $this->get('session')->get('locationId');
         //$invAreas = $em->getRepository('AppBundle:InvArea')->findAll();
-        $invAreas = $em->getRepository('AppBundle:InvArea')->findBy(array('iarCli' => 1));
+        $invAreas = $em->getRepository('AppBundle:InvArea')->findBy(array('iarCli' => $idCliente));
 
         return $this->render('EmrBundle:invarea:index.html.twig', array(
             'invAreas' => $invAreas,
@@ -42,14 +43,20 @@ class InvAreaController extends Controller
      */
     public function newAction(Request $request)
     {
-        $invArea = new Invarea();
-        $form = $this->createForm('EmrBundle\Form\InvAreaType', $invArea);
+        $invArea    = new Invarea();
+        $idUser     =  $this->getUser()->getUsuId();
+        $form       = $this->createForm('EmrBundle\Form\InvAreaType', $invArea);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
             $invArea->SetIarFechaCrea(new \DateTime());
+            $idCliente = $this->get('session')->get('locationId');
+
+            $id = $em->getRepository('AppBundle:Cliente')->find($idCliente);
+            $invArea->SetIarCli($id);
 
             $em->persist($invArea);
             $flush = $em->flush();

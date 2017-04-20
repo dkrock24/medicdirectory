@@ -28,7 +28,9 @@ class InvTipoProveedorController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $invTipoProveedors = $em->getRepository('AppBundle:InvTipoProveedor')->findAll();
+        $idCliente = $this->get('session')->get('locationId');
+
+        $invTipoProveedors = $em->getRepository('AppBundle:InvTipoProveedor')->findBy(array('itprCli' => $idCliente));
 
         return $this->render('EmrBundle:invtipoproveedor:index.html.twig', array(
             'invTipoProveedors' => $invTipoProveedors,
@@ -49,6 +51,12 @@ class InvTipoProveedorController extends Controller
             $em = $this->getDoctrine()->getManager();
 
             $invTipoProveedor->SetItprFechaCrea(new \DateTime());
+
+            $idCliente = $this->get('session')->get('locationId');
+
+            $id = $em->getRepository('AppBundle:Cliente')->find($idCliente);
+            $invTipoProveedor->SetItprCli($id);
+
             $em->persist($invTipoProveedor);
             $flush = $em->flush();
             if ($flush == null)

@@ -1,0 +1,208 @@
+{% extends "WebBundle::base.html.twig" %}
+{%block body %}
+<style>
+
+
+a{
+	font-size: 18px;
+	font-family:'Open Sans';
+    color: white;
+    text-decoration: none;
+
+}
+
+sup{
+
+	font-size: 40px;
+}
+
+ul{
+	list-style: none;
+	font-size: 15px;
+	font-family:'Open Sans';
+	color: #9095aa;
+	padding: 0px;
+	margin: 0px;
+
+
+}
+
+
+.content ul li{
+border-bottom: 1px solid #494a5a;
+padding: 0px;
+margin: 0px;
+text-align: center;
+height: 52px;
+line-height: 52px;
+}
+
+
+#container{
+	width: 100%;
+  text-align:center;
+}
+
+.whole{
+	display: inline-block;
+  
+}
+
+
+
+.type{
+	width: 300px;
+	border-radius: 5px 5px 0px 0px;
+	background-color: #0487bd;
+	height: 62px;
+	border-bottom: 3px solid grey;
+
+}
+
+.type p{
+	font-family:'Open Sans';
+    font-weight: 800;
+	font-size: 29px;
+	text-transform: uppercase;
+	color: white;
+	text-align: center;
+	padding-top: 10px;
+
+	
+
+}
+
+.plan{
+	width: 300px;
+	background-color: #2b2937;
+
+	border-radius: 0px 0px 5px 5px;
+    font-family:'Open Sans';
+    font-style:condensed;
+    font-size: 90px;
+    color: white;
+    text-align: center;
+
+
+}
+.standard{
+	background-color: #0487bd;
+	border-bottom: 3px solid grey;
+}
+
+.ultimate{
+	background-color: #0487bd;
+	border-bottom: 3px solid grey;
+}
+
+.header{
+	padding-top: 39px;
+	border-bottom: 1px solid #0487bd;
+	padding-bottom: 39px;
+}
+
+.header span{
+	font-size: 32px;
+
+	
+}
+
+.month{
+	font-size: 14px;
+	color: #575757;
+	padding: 0px;
+	margin: -10px;
+}
+
+.price{
+	height:80px;
+}
+
+
+
+
+.top{
+  margin-top:35px;
+}
+
+.nodisplay{
+  opacity: 0.1;
+}
+
+
+</style>
+<div id="container">
+	<div class="whole">
+		<div class="type">
+			<p>Simple</p>
+		</div>
+		<div class="plan">
+
+			<div class="header">
+				<span>$</span>29<sup>99</sup>
+				<p class="month">per month</p>
+			</div>
+			<div class="content">
+				<ul>
+					<li>15 Email Accounts</li>
+					<li>100GB Space</li>
+					<li>1 Domain Name</li>
+					<li>500GB Bandwidth</li>
+				</ul>
+
+			</div>
+			
+			<div class="price">
+	      <a href="#" class="bottom"><p class="cart">Add to cart</p></a>
+			</div>
+		</div>
+	</div>
+	<div class="whole">
+		<div class="type standard">
+		<p>Standard</p>
+		</div>
+		
+		<div class="plan">
+			<div class="header">
+				<span>$</span>49<sup>99</sup>
+				<p class="month">per month</p>
+			</div>
+			<div class="content">
+				<ul>
+					<li>15 Email Accounts</li>
+					<li>100GB Space</li>
+					<li>1 Domain Name</li>
+					<li>500GB Bandwidth</li>
+				</ul>
+			</div>
+			<div class="price">
+				<a href="#" class="bottom"><p class="cart">Add to cart</p></a>
+			</div>
+		</div>
+	</div>
+
+	<div class="whole ">
+		<div class="type ultimate">
+			<p>Ultimate</p>
+		</div>
+		<div class="plan">
+
+			<div class="header">
+				<span>$</span>79<sup>99</sup>
+				<p class="month">per month</p>
+			</div>
+			<div class="content">
+				<ul>
+					<li>15 Email Accounts</li>
+					<li>100GB Space</li>
+					<li>1 Domain Name</li>
+					<li>500GB Bandwidth</li>
+				</ul>
+			</div>
+			<div class="price">
+	      		<a href="#" class="bottom"><p class="cart">Add to cart</p></a>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

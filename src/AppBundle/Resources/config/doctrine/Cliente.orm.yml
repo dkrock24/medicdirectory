@@ -73,7 +73,7 @@ AppBundle\Entity\Cliente:
             column: cli_fecha_registro
         cliIdVendedor:
             type: integer
-            nullable: false
+            nullable: true
             options:
                 unsigned: false
             column: cli_id_vendedor
