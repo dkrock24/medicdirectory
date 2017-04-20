@@ -42,4 +42,15 @@ AppBundle\Entity\InvTipoProveedor:
             options:
                 default: '1'
             column: itpr_activo
+    manyToOne:
+        itprCli:
+            targetEntity: Cliente
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                itpr_cli_id:
+                    referencedColumnName: cli_id
+            orphanRemoval: false
     lifecycleCallbacks: {  }

@@ -92,6 +92,17 @@ AppBundle\Entity\InvProveedor:
                 default: '1'
             column: ipr_activo
     manyToOne:
+        iprCli:
+            targetEntity: Cliente
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                ipr_cli_id:
+                    referencedColumnName: cli_id
+            orphanRemoval: false
+    manyToOne:
         iprItpr:
             targetEntity: InvTipoProveedor
             cascade: {  }

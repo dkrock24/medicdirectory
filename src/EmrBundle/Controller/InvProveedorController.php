@@ -3,10 +3,14 @@
 namespace EmrBundle\Controller;
 
 use AppBundle\Entity\InvProveedor;
+use AppBundle\Entity\InvTipoProveedor;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 use Symfony\Component\HttpFoundation\Session\Session;
+
+use EmrBundle\Form\TaskType;
 
 /**
  * Invproveedor controller.
@@ -28,7 +32,9 @@ class InvProveedorController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $invProveedors = $em->getRepository('AppBundle:InvProveedor')->findAll();
+        $idCliente = $this->get('session')->get('locationId');
+
+        $invProveedors = $em->getRepository('AppBundle:InvProveedor')->findBy(array('iprCli' => $idCliente));
 
         return $this->render('EmrBundle:invproveedor:index.html.twig', array(
             'invProveedors' => $invProveedors,
@@ -41,14 +47,24 @@ class InvProveedorController extends Controller
      */
     public function newAction(Request $request)
     {
-        $invProveedor = new Invproveedor();
-        $form = $this->createForm('EmrBundle\Form\InvProveedorType', $invProveedor);
+        $invProveedor   = new Invproveedor();      
+        $idCliente      = $this->get('session')->get('locationId');
+
+        $form = $this->createForm('EmrBundle\Form\InvProveedorType', $invProveedor, array('security_context'=> $idCliente));
+
+
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
             $invProveedor->SetIprFechaCrea(new \DateTime());
+
+            $idCliente  = $this->get('session')->get('locationId');
+            $id         = $em->getRepository('AppBundle:Cliente')->find($idCliente);
+                          $invProveedor->SetIprCli($id);
+
             $em->persist($invProveedor);
             
             $flush = $em->flush();
