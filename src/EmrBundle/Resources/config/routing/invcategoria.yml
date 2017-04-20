@@ -1,0 +1,28 @@
+invcategoria_index:
+    path:     /
+    defaults: { _controller: "EmrBundle:InvCategoria:index" }
+    methods:  GET
+
+invcategoria_show:
+    path:     /{icaId}/show
+    defaults: { _controller: "EmrBundle:InvCategoria:show" }
+    methods:  GET
+
+invcategoria_new:
+    path:     /new
+    defaults: { _controller: "EmrBundle:InvCategoria:new" }
+    methods:  [GET, POST]
+
+invcategoria_edit:
+    path:     /{icaId}/edit
+    defaults: { _controller: "EmrBundle:InvCategoria:edit" }
+    methods:  [GET, POST]
+
+invcategoria_delete:
+    path:     /{icaId}/delete
+    defaults: { _controller: "EmrBundle:InvCategoria:delete" }
+    methods:  DELETE
+
+invcategoria_delete_from_list:
+    path:     /list/delete/categoria
+    defaults: { _controller: "EmrBundle:InvCategoria:deleteCustom" }

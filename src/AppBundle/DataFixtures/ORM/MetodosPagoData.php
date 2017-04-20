@@ -11,7 +11,7 @@ class MetodosPagoData implements FixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-        /* php app/console doctrine:fixtures:load */
+        /* php bin/console doctrine:fixtures:load */
 
         /* Metodos de pago */
 

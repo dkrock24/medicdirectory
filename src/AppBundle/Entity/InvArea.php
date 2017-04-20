@@ -136,7 +136,9 @@ class InvArea
      */
     public function getIarActivo()
     {
-        return $this->iarActivo;
+        //return $this->iarActivo;
+        return (boolean) $this->iarActivo;
+
     }
     /**
      * @var \AppBundle\Entity\Cliente

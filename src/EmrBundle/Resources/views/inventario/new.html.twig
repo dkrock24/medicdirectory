@@ -1,0 +1,33 @@
+{% extends "Layout/base_emr/_clients_base.html.twig" %}
+
+{% block title_page %}
+        EMR || Nuevo Inventario
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('EmrBundle:InvArea:_breadcrumb.html.twig' )  }}
+{% endblock %} 
+
+{% block submenutop %}
+    {{ include('EmrBundle:InvArea:_submenu.html.twig' )  }}
+{% endblock %} 
+
+{% block body %}
+    <h1>Crear Inventario</h1>
+    <div class="row">
+        <div class="col-lg-6">
+
+        {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <button type="submit" class="btn btn-success"><i class="icon-newspaper"></i> Crear</button>
+        {{ form_end(form) }}
+        <hr>
+        </div>
+    </div>
+
+    <ul class="list-inline">
+        <li>
+            <a href="{{ path('inventario_index') }}" class="btn btn-info"><i class="fa fa-list"></i>Listar</a>
+        </li>
+    </ul>
+{% endblock %}

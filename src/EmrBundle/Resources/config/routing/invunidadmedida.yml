@@ -1,0 +1,28 @@
+invunidadmedida_index:
+    path:     /
+    defaults: { _controller: "EmrBundle:InvUnidadMedida:index" }
+    methods:  GET
+
+invunidadmedida_show:
+    path:     /{iumId}/show
+    defaults: { _controller: "EmrBundle:InvUnidadMedida:show" }
+    methods:  GET
+
+invunidadmedida_new:
+    path:     /new
+    defaults: { _controller: "EmrBundle:InvUnidadMedida:new" }
+    methods:  [GET, POST]
+
+invunidadmedida_edit:
+    path:     /{iumId}/edit
+    defaults: { _controller: "EmrBundle:InvUnidadMedida:edit" }
+    methods:  [GET, POST]
+
+invunidadmedida_delete:
+    path:     /{iumId}/delete
+    defaults: { _controller: "EmrBundle:InvUnidadMedida:delete" }
+    methods:  DELETE
+
+invunidadmedida_delete_from_list:
+    path:     /list/delete/categoria
+    defaults: { _controller: "EmrBundle:InvCategoria:deleteCustom" }

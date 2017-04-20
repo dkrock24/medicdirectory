@@ -14,7 +14,34 @@
 {% endblock %} 
 #}
 
-{% block body %}    
+{% block body %} 
+    <style>
+        .border-warning-available{
+            border: solid 1px #E44F4C;
+            border-top-width: 1px;
+            padding-top: 10px;
+            padding-right: 10px;
+            padding-bottom: 5px;
+            padding-left: 10px;
+            margin-bottom: 10px;
+            background: #F5F5F5;
+        }
+        .has-error input {
+            border-width: 2px;
+        }
+
+         .validation.text-danger:after {
+            content: 'Tarjeta invalida';
+        }
+
+        .validation.text-success:after {
+            content: 'Tajeta valida';
+        }
+        
+        .div_pay{
+            display: none;
+        }
+    </style>
     <div class="page-header-content">
         <div class="page-title">
             <h4>
@@ -50,7 +77,7 @@
             
     <div class="panel border-left-lg border-left-success">
         <div class="panel-heading">
-            <h6 class="panel-title"><i class="fa fa-hospital-o"></i> Datos del establecimiento</h6>
+            <h6 class="panel-title"><i class="fa fa-hospital-o"></i> Para regístrarse es necesario completar el formulario de abajo</h6>
             <div class="heading-elements">
                 <ul class="icons-list">
                     <li><a data-action="collapse"></a></li>
@@ -62,194 +89,391 @@
         <div class="panel-body">
             
             <div class="row">
-            <div class="col-lg-6">        
+            <div class="col-lg-12">        
             {#
             {{ form_start(form) }}
                 {{ form_widget(form) }}
                 <input type="submit" value="Create" />
             {{ form_end(form) }}
             #}
-            {{ form_start(form, {'attr': {'class': 'steps-basic stepy-validation'}}) }}
+            
+            
+            
+            
+            {{ form_start(form, {'attr': {'class': 'steps-basic steps-validation'}}) }}
                 <div class="form_error">{{ form_errors(form)}}</div>
+                <h6>Representante</h6>
                 <fieldset title="1">
-						<legend class="text-semibold">Establecimiento</legend>
+						<!--<legend class="text-semibold">Establecimiento</legend>-->
                         <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <div class="form_error">{{ form_errors(form.cliTipCli)}}</div>
-                                    <label for="" class=" control-label">Tipo:</label>
-                                    <div class="">{{ form_widget(form.cliTipCli,  { 'attr': {'class': 'select'} } ) }}</div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <div class="form_error">{{ form_errors(form.cliNombre)}}</div>
-                                    <label for="" class=" control-label">Nombre:</label>
-                                    <div class="">{{ form_widget(form.cliNombre) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <div class="form_error">{{ form_errors(form.cliNombreFiscal)}}</div>
-                                    <label for="" class=" control-label">Nombre Fiscal:</label>
-                                    <div class="">{{ form_widget(form.cliNombreFiscal) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
-                                </div>
-                            </div>    
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">    
-                                <div class="form-group">
-                                    <div class="form_error">{{ form_errors(form.cliMun)}}</div>
-                                    <label for="" class=" control-label">Municipio:</label>
-                                    <div class="">{{ form_widget(form.cliMun) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
-                                </div>
-                            </div>    
-                            <div class="col-md-8">
-                                <div class="form-group">
-                                    <div class="form_error">{{ form_errors(form.cliDireccion)}}</div>
-                                    <label for="" class=" control-label">Dirección:</label>
-                                    <div class="">{{ form_widget(form.cliDireccion) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
-                                </div>
-                            </div>
-                        </div>        
-                        <div class="row">
-                            <div class="col-md-4">    
-                                <div class="form-group">
-                                    <div class="form_error">{{ form_errors(form.cliNit)}}</div>
-                                    <label for="" class=" control-label">Nit:</label>
-                                    <div class="">{{ form_widget(form.cliNit) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <div class="form_error">{{ form_errors(form.cliTelefono1)}}</div>
-                                    <label for="" class=" control-label">Teléfono 1:</label>
-                                    <div class="">{{ form_widget(form.cliTelefono1) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <div class="form_error">{{ form_errors(form.cliTelefono2)}}</div>
-                                    <label for="" class=" control-label">Teléfono 2:</label>
-                                    <div class="">{{ form_widget(form.cliTelefono2) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
-                                </div>
-                            </div>    
-                        </div>      
-                        <div class="row">
-                            <div class="col-md-12">    
-                                <div class="form-group">
-                                    <div class="form_error">{{ form_errors(form.cliEsp)}}</div>
-                                    <label for="" class=" control-label">Tipos de especialidades:</label>
-                                    <div class="">{{ form_widget(form.cliEsp) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
-                                </div>
-                            </div>    
-                        </div>
-                </fieldset>
-                <fieldset title="2">
-							<legend class="text-semibold">Your education</legend>
-
-							<div class="row">
-								<div class="col-md-6">
-									<div class="form-group">
-										<label>University: <span class="text-danger">*</span></label>
-		                                <input type="text" name="university" placeholder="University name" class="form-control required">
-	                                </div>
-								</div>
-
-								<div class="col-md-6">
-									<div class="form-group">
-										<label>Country:</label>
-	                                    <select name="university-country" data-placeholder="Choose a Country..." class="select">
-	                                        <option></option> 
-	                                        <option value="1">United States</option> 
-	                                        <option value="2">France</option> 
-	                                        <option value="3">Germany</option> 
-	                                        <option value="4">Spain</option> 
-	                                    </select>
+                            <div class="col-lg-6">
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">
+                                            Información del establecimiento
+                                        </div>
                                     </div>
-								</div>
-							</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <div class="form_error">{{ form_errors(form.cliTipCli)}}</div>
+                                            <label for="" class=" control-label">Tipo establecimiento: <span class="text-danger">*</span></label>
+                                            <div class="">{{ form_widget(form.cliTipCli,  { 'attr': {'class': 'select'} } ) }}</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+                                            <div class="form_error">{{ form_errors(form.cliNombreFiscal)}}</div>
+                                            <label for="" class=" control-label">Nombre Fiscal del establecimiento: <span class="text-danger">*</span></label>
+                                            <div class="">{{ form_widget(form.cliNombreFiscal) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                        </div>
+                                    </div>    
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">    
+                                        <div class="form-group">
+                                            <div class="form_error">{{ form_errors(form.cliMun)}}</div>
+                                            <label for="" class=" control-label">Municipio del establecimiento: <span class="text-danger">*</span></label>
+                                            <div class="">{{ form_widget(form.cliMun) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                        </div>
+                                    </div>    
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+                                            <div class="form_error">{{ form_errors(form.cliDireccion)}}</div>
+                                            <label for="" class=" control-label">Dirección del establecimiento: <span class="text-danger">*</span></label>
+                                            <div class="">{{ form_widget(form.cliDireccion) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                        </div>
+                                    </div>
+                                </div>        
+                                <div class="row">
+                                    <div class="col-md-4">    
+                                        <div class="form-group">
+                                            <div class="form_error">{{ form_errors(form.cliNit)}}</div>
+                                            <label for="" class=" control-label">Nit del establecimiento: <span class="text-danger">*</span></label>
+                                            <div class="">{{ form_widget(form.cliNit) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <div class="form_error">{{ form_errors(form.cliTelefono1)}}</div>
+                                            <label for="" class=" control-label">Teléfono 1: <span class="text-danger">*</span></label>
+                                            <div class="">{{ form_widget(form.cliTelefono1) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <div class="form_error">{{ form_errors(form.cliTelefono2)}}</div>
+                                            <label for="" class=" control-label">Teléfono 2:</label>
+                                            <div class="">{{ form_widget(form.cliTelefono2) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                        </div>
+                                    </div>    
+                                </div>      
+                                <div class="row">
+                                    <div class="col-md-12">    
+                                        <div class="form-group">
+                                            <div class="form_error">{{ form_errors(form.cliEsp)}}</div>
+                                            <label for="" class=" control-label">Tipos de especialidades asociadas al establecimiento: <span class="text-danger">*</span></label>
+                                            <div class="">{{ form_widget(form.cliEsp) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                        </div>
+                                    </div>    
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">
+                                            Información del representante
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
 
-							<div class="row">
-								<div class="col-md-6">
-									<div class="form-group">
-										<label>Degree level: <span class="text-danger">*</span></label>
-		                                <input type="text" name="degree-level" placeholder="Bachelor, Master etc." class="form-control required">
-	                                </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="form_error">{{ form_errors(form.cliNombre)}}</div>
+                                            <label for="" class=" control-label">Nombre Representante: <span class="text-danger">*</span></label>
+                                            <div class="">{{ form_widget(form.cliNombre) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                        </div>
+                                    </div>
 
-									<div class="form-group">
-										<label>Specialization:</label>
-		                                <input type="text" name="specialization" placeholder="Design, Development etc." class="form-control">
-	                                </div>
-								</div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Genero del presentante: <span class="text-danger">*</span></label>
+                                            <select name="gender_representer"  id="gender_representer" data-placeholder="Genero..." required class="select">
+                                                <option></option> 
+                                                <option value="m">Masculino</option> 
+                                                <option value="f">Femenino</option> 
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
 
-								<div class="col-md-6">
-									<div class="row">
-										<div class="col-md-6">
-											<label>From:</label>
-											<div class="row">
-												<div class="col-md-6">
-													<div class="form-group">
-					                                    <select name="education-from-month" data-placeholder="Month" class="select">
-					                                    	<option></option>
-					                                        <option value="January">January</option> 
-					                                        <option value="...">...</option> 
-					                                        <option value="December">December</option> 
-					                                    </select>
-				                                    </div>
-												</div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Usuario del representante: <span class="text-danger">*</span></label>
+                                            <input type="text" name="user_representer" id="user_representer" placeholder="Usuario" class="form-control required">
+                                        </div>
 
-												<div class="col-md-6">
-													<div class="form-group">
-					                                    <select name="education-from-year" data-placeholder="Year" class="select">
-					                                        <option></option> 
-					                                        <option value="1995">1995</option> 
-					                                        <option value="...">...</option> 
-					                                        <option value="1980">1980</option> 
-					                                    </select>
-				                                    </div>
-												</div>
-											</div>
-										</div>
+                                        <div class="form-group">
+                                            <label>Password del representante: <span class="text-danger">*</span></label>
+                                            <input type="password" id="password_representer" name="password_representer" placeholder="Password" class="form-control required">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Repita Password: <span class="text-danger">*</span></label>
+                                            <input type="password" id="password_representer_repeat" name="password_representer_repeat" placeholder="Repita Password" class="form-control required">
+                                        </div>
 
-										<div class="col-md-6">
-											<label>To:</label>
-											<div class="row">
-												<div class="col-md-6">
-													<div class="form-group">
-					                                    <select name="education-to-month" data-placeholder="Month" class="select">
-					                                    	<option></option>
-					                                        <option value="January">January</option> 
-					                                        <option value="...">...</option> 
-					                                        <option value="December">December</option> 
-					                                    </select>
-				                                    </div>
-												</div>
+                                        {#
+                                        <div class="form-group">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="" name="available_representer" id="available_representer" class="inputAvailable_representer" required>
+                                                    <span clas="statusAvailable_representer">
+                                                        Validar datos de usuario   
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        #}   
+                                    </div>
 
-												<div class="col-md-6">
-													<div class="form-group">
-					                                    <select name="education-to-year" data-placeholder="Year" class="select">
-					                                        <option></option> 
-					                                        <option value="1995">1995</option> 
-					                                        <option value="...">...</option> 
-					                                        <option value="1980">1980</option> 
-					                                    </select>
-				                                    </div>
-												</div>
-											</div>
-										</div>
-									</div>
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label>Email del representante: <span class="text-danger">*</span></label>
+                                                    <input type="text" name="email_representer" id="email_representer" placeholder="Email" class="form-control required">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <div class="form_error">{{ form_errors(form.cliEsp)}}</div>
+                                                    <label>Fecha nacimiento del representante: <span class="text-danger">*</span></label>
+                                                    <div class="">{{ form_widget(form.pacFechaNacimiento) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <div>&nbsp;</div>
+                                                    <div class="checkbox">
+                                                        <label><input type="checkbox" value="" name="user_representer_doctor" id="user_representer_doctor" class="user_representer_doctor" ><span clas="">
+                                                           Quiero asociar mis datos de representante para usarlo como un doctor de este establecimiento    
+                                                        </span></label>
+                                                    </div>
+                                                </div>
+                                            </div>    
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>            
+                        </div>
+                                        
+                </fieldset>
+                                
+                
+                
+                <h6>Drs/Asistentes</h6>
+                <fieldset title="3">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">
+                                <strong>Nota:</strong> El monto a cobrar será de <strong>$30</strong> mensualmente por cada doctor/a que asocie a su establecimiento
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div id="sections">
+                                <div class="section">
+                                    <div class="" style="padding: 5px;">
+                                        <fieldset>
+                                        <legend><i class="fa fa-user-plus" aria-hidden="true"></i> Usuario</legend>
+                                        <div class="row">
+                                            <div class="col-lg-3 col-md-6 col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="control-label">Nombre</label>
+                                                    <input name="name[]" id="name" value="" type="text" class="form-control" required />
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3 col-md-6 col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="control-label">Email</label>
+                                                    <input name="email[]" id="email" value="" type="text" class="form-control" />
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3 col-md-6 col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="control-label">Username(Usuario)</label>
+                                                    <input name="username[]" id="username" value="" type="text" class="form-control user_to_location" required/>
+                                                </div>
+                                            </div>
+                                            <input name="availbleUser[]" id="availbleUser" value="" type="hidden" class="form-control inputAvailable" />
+                                            <div class="col-lg-3 col-md-6 col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="control-label">Género</label>
+                                                    <select name="gender[]" id="gender" class="form-control" required>
+                                                        <option value="m">Masculino</option>
+                                                        <option value="f">Femenino</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-3 col-md-6 col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="control-label">Password</label>
+                                                    <input name="password[]" id="password_user" value="" type="password" class="form-control" required/>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3 col-md-6 col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="control-label">Repita Password</label>
+                                                    <input name="repeatpassword[]" id="password_user_again" value="" type="password" class="form-control" required/>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-lg-3 col-md-6 col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="control-label">&nbsp;<br><label>
+                                                    <a href="#" class='remove btn bg-danger-400 btn-sm' style="margin-top: 7px;"><b><i class="fa fa-user-times"></i></b> Remover Usuario</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>  
+                                    </fieldset>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <p><a href="#" class='addsection btn bg-teal-400 btn-labele btn-sm'><b><i class="fa fa-plus-circle"></i></b> Agregar usuario</a></p>
+                        </div>
+                        
+                    </div>
+                    
+                    
+				</fieldset>
+                <h6>Formas de pago</h6>
+                <fieldset>
 
-									<div class="form-group">
-										<label>Language of education:</label>
-		                                <input type="text" name="education-language" placeholder="English, German etc." class="form-control">
-	                                </div>
-								</div>
-							</div>
-						</fieldset>
-                        <button type="submit" class="btn btn-primary stepy-finish">Submit <i class="icon-check position-right"></i></button>        
+                    <div class="row"> 
+                        <div class="col-lg-1 col-md-3 col-sm-3 col-xs-12">
+                            {% for method in methodPay %}
+                                <div class="radio ">
+                                    <label class="text-right">
+                                        {% if method.mepId == 2 %}  
+                                            <input type="radio" name="optionPay" class="optionPay" id="optionsRadios1" value="{{ method.mepId }}" checked="true">
+                                        {% else %}
+                                            <input type="radio" name="optionPay" class="optionPay" id="optionsRadios1" value="{{ method.mepId }}" >
+                                        {% endif %}    
+                                        {{ method.mepMetodoPago }}
+                                    </label>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="col-lg-11 col-md-9 col-sm-9 col-xs-12">
+                            {% for method in methodPay %}
+                                {% if method.mepId == 1 %}
+                                    <div id="pay_1" class="div_pay">
+                                        <div class="panel panel-info"> 
+                                            <div class="panel-heading"> 
+                                                <h6 class="panel-title">Efectivo</h6> 
+                                            </div> 
+                                            <div class="panel-body"> Descripción del efectivo </div> 
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                {% if method.mepId == 2 %}
+                                    <div id="pay_2" class="div_pay">
+                                        <div class="panel panel-info"> 
+                                            <div class="panel-heading"> 
+                                                <h6 class="panel-title">Tarjeta de crédito</h6> 
+                                            </div> 
+                                            <div class="panel-body"> 
+                                                
+                                                <div class="row">
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group">
+                                                            <label for="cc-number" class="control-label">Número de tarjeta <small class="text-muted">[<span class="cc-brand"></span>]</small></label>
+                                                            <input id="cc-number" type="tel" class="input-lg form-control cc-number" autocomplete="cc-number" placeholder="•••• •••• •••• ••••" required>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="cc-exp" class="control-label">Fecha de expiración</label>
+                                                            <input id="cc-exp" type="tel" class="input-lg form-control cc-exp" autocomplete="cc-exp" placeholder="MM / YY" required>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="cc-cvc" class="control-label">CVC</label>
+                                                            <input id="cc-cvc" type="tel" class="input-lg form-control cc-cvc" autocomplete="off" placeholder="•••" required>
+                                                        </div>
+                                                        <!--
+                                                        <div class="form-group">
+                                                            <label for="numeric" class="control-label">Restrict numeric</label>
+                                                            <input id="numeric" type="tel" class="input-lg form-control" data-numeric>
+                                                        </div>
+                                                        -->
+                                                        <button id="btn-check-credit-card" class="btn btn-lg btn-primary"><i class="fa fa-credit-card-alt" aria-hidden="true"></i> Validar</button>
+
+                                                        <h2 class="validation"></h2>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        
+                                                        <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">
+                                                            <i class="fa fa-credit-card-alt" aria-hidden="true"></i> Tarjetas soportadas:
+                                                        </div>
+                                                        <ul class="list-unstyled">
+                                                            <li>Visa</li>
+                                                            <li>MasterCard
+                                                            <li>American Express</li>
+                                                            <li>Diners Club</li>
+                                                            <li>Discover</li>
+                                                            <li>UnionPay</li>
+                                                            <li>JCB</li>
+                                                            <li>Maestro</li>
+                                                            <li>Forbrugsforeningen</li>
+                                                            <li>Dankort</li>
+                                                        </ul>    
+                                                    </div>
+                                                </div>
+                                            </div> 
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                {% if method.mepId == 3 %}
+                                    <div id="pay_3" class="div_pay">
+                                        <div class="panel panel-info"> 
+                                            <div class="panel-heading"> 
+                                                <h6 class="panel-title">CHEQUE</h6> 
+                                            </div> 
+                                            <div class="panel-body"> Descripción del cheque </div> 
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                {% if method.mepId == 4 %}
+                                    <div id="pay_4" class="div_pay">
+                                        <div class="panel panel-info"> 
+                                            <div class="panel-heading"> 
+                                                <h6 class="panel-title">BANCO</h6> 
+                                            </div> 
+                                            <div class="panel-body"> Descripción del banco </div> 
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                {% if method.mepId == 5 %}
+                                    <div id="pay_5" class="div_pay">
+                                        <div class="panel panel-info"> 
+                                            <div class="panel-heading"> 
+                                                <h6 class="panel-title">PAYPAL</h6> 
+                                            </div> 
+                                            <div class="panel-body"> Descripción de paypal </div> 
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </fieldset>
+                <!-- <button type="submit" class="btn btn-primary stepy-finish">Submit <i class="icon-check position-right"></i></button>  -->      
             {{ form_end(form)}}            
         </div>
             </div>
@@ -257,40 +481,105 @@
         </div>
     </div>
         
-        <hr>
-        
-        
-        
 {% endblock %}
 
 {% block codejs %}
      
     <script>
         $(document).on("ready", function(){
-            $('.select').select2();
             
+            users = [];
+            creditCard= [];
+            
+            // Show form
+            var form = $(".steps-validation").show();
+
+
             // Initialize wizard
-            
-            // Override defaults
-            $.fn.stepy.defaults.legend = false;
-            $.fn.stepy.defaults.transition = 'fade';
-            $.fn.stepy.defaults.duration = 150;
-            $.fn.stepy.defaults.backLabel = '<i class="icon-arrow-left13 position-left"></i> Atras';
-            $.fn.stepy.defaults.nextLabel = 'Siguiente <i class="icon-arrow-right14 position-right"></i>';
-            
-            $(".stepy-validation").stepy({
-                validate: true,
-                block: true,
-                next: function(index) {
-                    if (!$(".stepy-validation").validate(validate)) {
-                        return false
+            $(".steps-validation").steps({
+                headerTag: "h6",
+                bodyTag: "fieldset",
+                transitionEffect: "fade",
+                titleTemplate: '<span class="number">#index#</span> #title#',
+                autoFocus: true,
+                onStepChanging: function (event, currentIndex, newIndex) {
+
+                    // Allways allow previous action even if the current form is not valid!
+                    if (currentIndex > newIndex) {
+                        return true;
+                    }
+
+                    // Forbid next action on "Warning" step if the user is to young
+                    if (newIndex === 3 && Number($("#age-2").val()) < 18) {
+                        return false;
+                    }
+
+                    // Needed in some cases if the user went back (clean up)
+                    if (currentIndex < newIndex) {
+
+                        // To remove error styles
+                        form.find(".body:eq(" + newIndex + ") label.error").remove();
+                        form.find(".body:eq(" + newIndex + ") .error").removeClass("error");
                     }
                     
+                    if(currentIndex === 0)
+                    {
+                        setRepresenterAsDoctor();
+                    }
+                    
+                    if( currentIndex === 1)
+                    {
+                        var available = checkAvilableUser();
+                        if( available != "ok" )
+                        {
+                            /*
+                            var plural = (available > 1)?" usuarios ":" usuario ";
+                            var msg = ("No ha validado la disponibilidad de "+available+""+plural+", para pasar al siguiente paso debe de validarlos");
+                            $.alert({
+                                        icon: 'glyphicon glyphicon-exclamation-sign',
+                                        title: 'Info!',
+                                        content: msg,
+                                        type: 'red',
+                                        typeAnimated: true,
+                                    });
+                                    */
+                            return false;
+                        }
+                    }
+                    
+
+                    form.validate().settings.ignore = ":disabled,:hidden";
+                    return form.valid();
+                },
+
+                onStepChanged: function (event, currentIndex, priorIndex) {
+                    
+                    
+
+                    // Used to skip the "Warning" step if the user is old enough.
+                    if (currentIndex === 2 && Number($("#age-2").val()) >= 18) {
+                        form.steps("next");
+                    }
+
+                    // Used to skip the "Warning" step if the user is old enough and wants to the previous step.
+                    if (currentIndex === 2 && priorIndex === 3) {
+                        form.steps("previous");
+                    }
+                },
+
+                onFinishing: function (event, currentIndex) {
+                    form.validate().settings.ignore = ":disabled";
+                    return form.valid();
+                },
+
+                onFinished: function (event, currentIndex) {
+                    alert("Submitted!");
                 }
             });
-            
+
+
             // Initialize validation
-            var validate = {
+            $(".steps-validation").validate({
                 ignore: 'input[type=hidden], .select2-search__field', // ignore hidden fields
                 errorClass: 'validation-error-label',
                 successClass: 'validation-valid-label',
@@ -339,15 +628,413 @@
                     }
                 },
                 rules: {
-                    email: {
+                    email_representer: {
                         email: true
+                    },
+                    password_representer : {
+                        minlength : 5
+                    },
+                    password_representer_repeat : {
+                        minlength : 5,
+                        equalTo : "#password_representer"
                     }
+                }
+            });
+
+            $('.select').select2();
+            
+            //define template
+            var template = $('#sections .section:first').clone();
+            //$('#sections .section').remove();
+            
+            //==================================================================
+            //This is the begin to clone de user form
+            //==================================================================
+            //define counter
+            var sectionsCount = 1;
+
+            //add new section
+            $('body').on('click', '.addsection', function() {
+
+                //increment
+                sectionsCount++;
+
+                //loop through each input
+                var section = template.clone().find(':input').each(function(){
+
+                    //set id to store the updated section number
+                    var newId = this.id + sectionsCount;
+
+                    //update for label
+                    $(this).prev().attr('for', newId);
+
+                    //update id
+                    this.id = newId;
+
+                }).end()
+
+                //inject new section
+                .appendTo('#sections');
+                return false;
+            });
+
+            //remove section
+            $('#sections').on('click', '.remove', function() {
+                //fade out section
+                $(this).closest(".section").remove();
+                /*$(this).parent().fadeOut(300, function(){
+                    //remove parent element (main section)
+                    $(this).parent().parent().empty();
+                    return false;
+                });
+                */
+                return false;
+            });
+            
+            //==================================================================
+            //End clone
+            //==================================================================
+            
+           
+           
+            function checkAvilableUser()
+            {
+                var error = 0;
+                $(".section").each(function(index){
+                    
+                    var name = $.trim( $(this).find("input[name='name[]']").val() );
+                    var email = $.trim( $(this).find("input[name='email[]']").val() );
+                    var username = $.trim( $(this).find("input[name='username[]']").val() );
+                    var password = $.trim( $(this).find("input[name='password[]']").val() );
+                    var password_again = $.trim( $(this).find("input[name='repeatpassword[]']").val() );
+                    var gender = $.trim( $(this).find("select[name='gender[]']").val() );
+                    var inputAvailable = $(this).find(".inputAvailable").val();
+                    
+                    var msg = "";
+                    if( name == "" )
+                    {
+                        msg = "Ingrese el nombre del usuario";
+                    }else if( username == "" )
+                    {
+                        msg = "Ingrese el usurname del usuario";
+                    }else if( password == "" )
+                    {
+                        msg = "Ingrese el password del usuario";
+                    }else if( password_again == "" )
+                    {
+                        msg = "Repita el password del usuario";
+                    }else if ( password != password_again )
+                    {
+                        msg = "Los password no son iguales";
+                    }else if ( inputAvailable != 1 )
+                    {
+                        msg = "Debe de validar el usuario a crear";
+                    }
+                    
+                    if( msg != "")
+                    {
+                        
+                        $.alert({
+                            icon: 'glyphicon glyphicon-exclamation-sign',
+                            title: 'Info!',
+                            content: msg,
+                            type: 'red',
+                            typeAnimated: true,
+                        });
+                        
+                        $('html, body').animate({
+                            scrollTop: $(this).offset().top
+                        }, 1000);
+                        
+                        users = [];
+                        error++;
+                        $(".section").removeClass("border-warning-available");
+                        $(this).addClass("border-warning-available");
+                        //break;
+                        return false;
+                        return "error";
+                    }
+                    else
+                    {
+                        item = [];
+                        item['name'] = name;
+                        item['email'] = email;
+                        item['username'] = username;
+                        item['password'] = password;
+                        item['gender'] = gender;
+
+                        users[index] = item;
+                        
+                        $(this).removeClass("border-warning-available");
+                    }
+                });
+                
+                if( error == 0 )
+                {
+                    console.log(users);
+                    return "ok";
+                }
+                
+            }
+            
+            checkCreditCard();
+            function checkCreditCard()
+            {
+                $('[data-numeric]').payment('restrictNumeric');
+                $('.cc-number').payment('formatCardNumber');
+                $('.cc-exp').payment('formatCardExpiry');
+                $('.cc-cvc').payment('formatCardCVC');
+
+                $.fn.toggleInputError = function(erred) {
+                  this.parent('.form-group').toggleClass('has-error', erred);
+                  //console.log(this);
+                  return this;
+                };
+
+                $('#btn-check-credit-card').on("click", function(){
+
+                    var cardType = $.payment.cardType($('.cc-number').val());
+                    $('.cc-number').toggleInputError(!$.payment.validateCardNumber($('.cc-number').val()));
+                    $('.cc-exp').toggleInputError(!$.payment.validateCardExpiry($('.cc-exp').payment('cardExpiryVal')));
+                    $('.cc-cvc').toggleInputError(!$.payment.validateCardCVC($('.cc-cvc').val(), cardType));
+                    $('.cc-brand').text(cardType);
+
+                    $('.validation').removeClass('text-danger text-success');
+                    $('.validation').addClass($('.has-error').length ? 'text-danger' : 'text-success');
+                    
+                    if( $('.validation').hasClass("text-success") )
+                    {
+                        creditCard['cc-number'] =  $('.cc-number').val();
+                        creditCard['cc-exp'] =  $('.cc-exp').val();
+                        creditCard['cc-cvc'] = $('.cc-cvc').val();
+                        creditCard['cc-brand'] = cardType;
+                    }else{
+                        creditCard = [];
+                    }
+                    
+                    return false;
+                    
+                });
+            }
+            
+            validPayMethod();
+            function validPayMethod()
+            {
+
+                var option = $('input[name=optionPay]:checked').val();
+                $("#pay_"+option).show();
+                
+                $('input[name=optionPay]').change(function(){
+                    //console.log($(this).val());
+                    $(".div_pay").hide();
+                    $("#pay_"+$(this).val()).show();
+                    if($(this).val() != 2 )
+                    {
+                        $("#cc-number, #cc-exp, #cc-cvc").attr("required", false);
+                    }else{
+                        $("#cc-number, #cc-exp, #cc-cvc").attr("required", true);
+                    }
+                });
+            }
+            /*
+            $("#available_representer").change(function(){
+                if( $(this).is(':checked') ) {
+                    checkAvailableUser();
+                }
+            });
+            */
+            $("body").on("blur","#user_representer, .user_to_location",function(){
+                var user = $(this).val();
+                var idInput = $(this).attr("id");
+                if( $.trim( user ) != "" )
+                {
+                    checkAvailableUserDB(idInput);
+                }
+                else
+                {
+                    $(this).closest(".form-group").removeClass("has-success has-feedback has-error");
+                    $(this).closest(".form-group").find(".icon-status").remove();
+                }
+            });
+            
+            
+            function checkAvailableUserDB(idInput)
+            {
+                var username = $("#"+idInput).val();
+                
+                if ( $("#"+idInput).is('[readonly]') ) {
+                    return false;
+                }
+                
+                if( $("#"+idInput).hasClass("user_to_location") )
+                {
+                    var exists_user_list = 0;
+                    $(".user_to_location").each(function(){
+                        var currentValue = $.trim( $(this).val() );
+                        var currentId = $(this).attr("id");
+                        if( currentValue  != "" && currentId != idInput)
+                        {
+                            //console.log(current+"-"+username);
+                            if( currentValue == username )
+                            {
+                                exists_user_list++;
+                                 
+                                return false;
+                            }
+                        }
+                    });
+                    
+                    if( exists_user_list == 1 )
+                    {
+                        $.alert({
+                            icon: 'glyphicon glyphicon-remove-circle',
+                            title: 'Error!',
+                            content: 'El usuario <strong>'+username+'</strong> ya existe en esta lista intente con otro usuario',
+                            type: 'red',
+                            typeAnimated: true,
+                        });
+                        
+                        $("#"+idInput).closest(".form-group").find(".icon-status").remove();    
+                        $("#"+idInput).closest(".section").find(".inputAvailable").val("");    
+                        $("#"+idInput).closest(".form-group").removeClass("has-success has-error has-feedback");
+                        //exists_user_list = 0;
+                        return false;
+                    }else{
+                        
+                    }
+                }
+                
+                if( $.trim(username) == "" )
+                {
+                    //$('#available_representer').attr('checked', false); // Unchecks it
+                    $.alert({
+                            icon: 'glyphicon glyphicon-remove-circle',
+                            title: 'Error!',
+                            content: 'Antes de verificar la disponibilidad del usuario debe llenar el campo: Usuario del representante ',
+                            type: 'red',
+                            typeAnimated: true,
+                        });
+                   
+                    return false;                  
+                }
+                
+                $("#holder_loading").show();
+				$.ajax({
+                    type: "post",
+                    url: "{{ path('cliente_check_available_user') }}",
+                    data: {
+                        username: username
+                    },
+                    error: function (data) {
+                        $("#holder_loading").hide();
+                        $.confirm({
+                            icon: 'fa fa-remove',
+                            title: 'Error!',
+                            content: 'Ha ocurrido un error al tratar de enviar la petición',
+                            type: 'red',
+                            typeAnimated: true,
+                            buttons: {
+                                tryAgain: {
+                                    text: 'Intentar de nuevo',
+                                    btnClass: 'btn-red',
+                                    action: function () {
+                                        checkAvailableUser();
+                                    }
+                                },
+                                close: function () {}
+                            }
+                        });
+                    },
+                    success: function (data) {
+                        
+                        if( $("#"+idInput).hasClass("user_to_location") )
+                        {
+                            $("#"+idInput).closest(".section").find(".user_available_location").val(1);
+                        }
+                        
+                        
+                        $("#"+idInput).closest(".form-group").find(".icon-status").remove();
+                        $("#holder_loading").hide();
+                        if (data == 1)
+                        {
+                            $.alert({
+                                icon: 'glyphicon glyphicon-ok-sign',
+                                title: 'Ok!',
+                                content: 'El usuario <strong>'+username+'</strong> esta disponible',
+                                type: 'green',
+                                typeAnimated: true,
+                            });
+                            
+                            if( $("#"+idInput).hasClass("user_to_location") )
+                            {
+                                $("#"+idInput).closest(".section").find(".inputAvailable").val(1);
+                            }
+                            
+                            $("#"+idInput).closest(".form-group").addClass("has-success has-feedback").append('<span class="glyphicon glyphicon-ok form-control-feedback icon-status" aria-hidden="true"></span>');
+                        } 
+                        else 
+                        {        
+                            //$('#available_representer').attr('checked', false); // Unchecks it
+                            $.alert({
+                                icon: 'fa fa-user-times',
+                                title: 'Info!',
+                                content: 'El usuario <strong>'+username+'</strong> no esta disponible',
+                                type: 'red',
+                                typeAnimated: true,
+                            });
+                            
+                            if( $("#"+idInput).hasClass("user_to_location") )
+                            {
+                                $("#"+idInput).closest(".section").find(".inputAvailable").val(0);
+                            }
+                            
+                            $("#"+idInput).closest(".form-group").addClass("has-error has-feedback").append('<span class="glyphicon glyphicon-remove form-control-feedback icon-status" aria-hidden="true"></span>');
+                        }
+                    }
+                });
+            }
+            
+            
+            
+            function setRepresenterAsDoctor()
+            {
+                if( $("#user_representer_doctor").is(':checked') )
+                {
+                   var nameRepresenter = $("#appbundle_cliente_cliNombre").val();
+                   var emailRepresenter = $("#email_representer").val();
+                   var userRepresenter = $("#user_representer").val();
+                   var passRepresenter = $("#password_representer").val();
+                   var genderRepresenter = $("#gender_representer").val();
+                   $("#availbleUser").val(1);
+                   
+                   $("#name").val(nameRepresenter);
+                   $("#password_user").val(passRepresenter);
+                   $("#password_user_again").val(passRepresenter);
+                   $("#email").val(emailRepresenter);
+                   $("#username").val(userRepresenter);
+                   $("#gender").val(genderRepresenter);
+                   
+                   $("#name").attr("readonly", true);
+                   $("#password_user").attr("readonly", true);
+                   $("#password_user_again").attr("readonly", true);
+                   $("#email").attr("readonly", true);
+                   $("#username").attr("readonly", true);
+                   //$("#gender").attr("readonly", true);
+                   $('#gender option:not(:selected)').prop('disabled', true);
+                }
+                else
+                {
+                    $("#name, #email, #username, #password_user,#password_user_again,  #availbleUser").val("");
+                    $("#name").attr("readonly", false);
+                    $("#password_user").attr("readonly", false);
+                    $("#password_user_again").attr("readonly", false);
+                    $("#email").attr("readonly", false);
+                    $("#username").attr("readonly", false);
+                    $("#gender").attr("readonly", false);
+                    $('#gender option').prop('disabled', false);
                 }
             }
             
-            // Apply "Back" and "Next" button styling
-            $('.stepy-step').find('.button-next').addClass('btn btn-primary');
-            $('.stepy-step').find('.button-back').addClass('btn btn-default');
         });
     </script>
 {% endblock %}    

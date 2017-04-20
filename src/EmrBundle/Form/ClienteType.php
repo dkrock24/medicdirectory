@@ -33,7 +33,7 @@ class ClienteType extends AbstractType
 				->add('cliTelefono2')
 				->add('cliDireccion')
 				//->add('cliFechaRegistro')
-				->add('cliIdVendedor')
+				//->add('cliIdVendedor')
 				//->add('cliFechaCrea')
 				//->add('cliFechaMod')
 				//->add('cliActivo')
@@ -52,7 +52,19 @@ class ClienteType extends AbstractType
 						"attr"=>array( "class"=>"select" )
 						//'preferred_choices' => array('1')
 					) )
-				->add('cliTipCli')
+				->add('cliTipCli', \Symfony\Bridge\Doctrine\Form\Type\EntityType::class, array(
+				
+						"class" => "AppBundle:TipoCliente",
+					
+
+						//'required'    => true,
+						//'empty_data'  => null,
+						'multiple'=> false,
+						//'data' => array(),
+						"attr"=>array( "class"=>"select","data-placeholder"=>"Establecimiento" )
+								
+						//'preferred_choices' => array('1')
+					))
 				->add('cliMun', \Symfony\Bridge\Doctrine\Form\Type\EntityType::class, array(
 				
 						"class" => "AppBundle:Municipio",
@@ -60,13 +72,22 @@ class ClienteType extends AbstractType
 						'choice_label' => function ($pacMun) {
 							return $pacMun->getMunNombre()." / ".$pacMun->getMunDep();
 						},
-						'required'    => false,
+						//'required'    => true,
 						//'empty_data'  => null,
 						'multiple'=> false,
 						//'data' => array(),
-						"attr"=>array( "class"=>"select" )
+						"attr"=>array( "class"=>"select","data-placeholder"=>"Minicipo" )
+								
 						//'preferred_choices' => array('1')
 					))
+				->add('pacFechaNacimiento', DateType::class, array(
+					'placeholder' => array(
+						'year' => 'Año', 'month' => 'Mes', 'day' => 'Día'
+					),
+					'mapped'=>false,
+					//'years' => range( (date("Y")-100), date("Y") )
+					'years' => range( 1937, date("Y") )
+					) )				
 				;
     }
     

@@ -365,4 +365,176 @@ class Usuario implements \Symfony\Component\Security\Core\User\UserInterface
     {
         return $this->usuNombre;
     }
+    /**
+     * @var string
+     */
+    private $usuCorreo;
+
+    /**
+     * @var \AppBundle\Entity\UsuarioInformacion
+     */
+    private $cliTipCli;
+
+
+    /**
+     * Set usuCorreo
+     *
+     * @param string $usuCorreo
+     *
+     * @return Usuario
+     */
+    public function setUsuCorreo($usuCorreo)
+    {
+        $this->usuCorreo = $usuCorreo;
+
+        return $this;
+    }
+
+    /**
+     * Get usuCorreo
+     *
+     * @return string
+     */
+    public function getUsuCorreo()
+    {
+        return $this->usuCorreo;
+    }
+
+    /**
+     * Set cliTipCli
+     *
+     * @param \AppBundle\Entity\UsuarioInformacion $cliTipCli
+     *
+     * @return Usuario
+     */
+    public function setCliTipCli(\AppBundle\Entity\UsuarioInformacion $cliTipCli = null)
+    {
+        $this->cliTipCli = $cliTipCli;
+
+        return $this;
+    }
+
+    /**
+     * Get cliTipCli
+     *
+     * @return \AppBundle\Entity\UsuarioInformacion
+     */
+    public function getCliTipCli()
+    {
+        return $this->cliTipCli;
+    }
+    /**
+     * @var \AppBundle\Entity\UsuarioInformacion
+     */
+    private $usuInformacion;
+
+
+    /**
+     * Set usuInformacion
+     *
+     * @param \AppBundle\Entity\UsuarioInformacion $usuInformacion
+     *
+     * @return Usuario
+     */
+    public function setUsuInformacion(\AppBundle\Entity\UsuarioInformacion $usuInformacion = null)
+    {
+        $this->usuInformacion = $usuInformacion;
+
+        return $this;
+    }
+
+    /**
+     * Get usuInformacion
+     *
+     * @return \AppBundle\Entity\UsuarioInformacion
+     */
+    public function getUsuInformacion()
+    {
+        return $this->usuInformacion;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $groups;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->groups = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add group
+     *
+     * @param \AppBundle\Entity\Especialidad $group
+     *
+     * @return Usuario
+     */
+    public function addGroup(\AppBundle\Entity\Especialidad $group)
+    {
+        $this->groups[] = $group;
+
+        return $this;
+    }
+
+    /**
+     * Remove group
+     *
+     * @param \AppBundle\Entity\Especialidad $group
+     */
+    public function removeGroup(\AppBundle\Entity\Especialidad $group)
+    {
+        $this->groups->removeElement($group);
+    }
+
+    /**
+     * Get groups
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getGroups()
+    {
+        return $this->groups;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $rol;
+
+
+    /**
+     * Add rol
+     *
+     * @param \AppBundle\Entity\Rol $rol
+     *
+     * @return Usuario
+     */
+    public function addRol(\AppBundle\Entity\Rol $rol)
+    {
+        $this->rol[] = $rol;
+
+        return $this;
+    }
+
+    /**
+     * Remove rol
+     *
+     * @param \AppBundle\Entity\Rol $rol
+     */
+    public function removeRol(\AppBundle\Entity\Rol $rol)
+    {
+        $this->rol->removeElement($rol);
+    }
+
+    /**
+     * Get rol
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRol()
+    {
+        return $this->rol;
+    }
 }

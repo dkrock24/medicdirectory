@@ -19,7 +19,12 @@ emr_dashboard:
     
 emr_location:
     path:     /establecimiento
-    defaults: { _controller: EmrBundle:Default:establecimiento  }
+    defaults: { _controller: EmrBundle:Default:location  }
+    host:     "%emr_domain%"
+    
+emr_checkSessionLocation:
+    path:     /revisa/sesion/establecimiento
+    defaults: { _controller: EmrBundle:Default:checkSessionLocation  }
     host:     "%emr_domain%"
     
 emr_paciente:
@@ -27,10 +32,66 @@ emr_paciente:
     prefix:   /paciente
     host:     "%emr_domain%"
 
+
+emr_invarea:
+    resource: "@EmrBundle/Resources/config/routing/invarea.yml"
+    prefix:   /invarea
+    host:     "%emr_domain%"
+
+app_invcategoria:
+    resource: "@EmrBundle/Resources/config/routing/invcategoria.yml"
+    prefix:   /invcategoria
+    host:     "%emr_domain%"
+    
 emr_location_per_country:
     path:     /state/municipality
-    defaults: { _controller: "EmrBundle:Paciente:getStatesFromCountry" }
+    defaults: { _controller: "EmrBundle:Paciente:getStatesFromCountry" }        
     
 emr_cliente:
     resource: "@EmrBundle/Resources/config/routing/cliente.yml"
     prefix:   /cliente
+
+emr_invunidadmedida:
+    resource: "@EmrBundle/Resources/config/routing/invunidadmedida.yml"
+    prefix:   /invunidadmedida
+    host:     "%emr_domain%"
+
+emr_invgrupo:
+    resource: "@EmrBundle/Resources/config/routing/invgrupo.yml"
+    prefix:   /invgrupo
+    host:     "%emr_domain%"
+
+emr_invmovimiento:
+    resource: "@EmrBundle/Resources/config/routing/invmovimiento.yml"
+    prefix:   /invmovimiento
+    host:     "%emr_domain%"
+
+emr_invmovimientodetalle:
+    resource: "@EmrBundle/Resources/config/routing/invmovimientodetalle.yml"
+    prefix:   /invmovimientodetalle
+    host:     "%emr_domain%"
+
+emr_invproveedor:
+    resource: "@EmrBundle/Resources/config/routing/invproveedor.yml"
+    prefix:   /invproveedor
+    host:     "%emr_domain%"
+
+emr_invtipomovimiento:
+    resource: "@EmrBundle/Resources/config/routing/invtipomovimiento.yml"
+    prefix:   /invtipomovimiento
+    host:     "%emr_domain%"
+
+app_invtipopresentacion:
+    resource: "@EmrBundle/Resources/config/routing/invtipopresentacion.yml"
+    prefix:   /invtipopresentacion
+    host:     "%emr_domain%"
+
+app_invtipoproveedor:
+    resource: "@EmrBundle/Resources/config/routing/invtipoproveedor.yml"
+    prefix:   /invtipoproveedor
+    host:     "%emr_domain%"
+
+emr_inventario:
+    resource: "@EmrBundle/Resources/config/routing/inventario.yml"
+    prefix:   /inventario
+    host:     "%emr_domain%"

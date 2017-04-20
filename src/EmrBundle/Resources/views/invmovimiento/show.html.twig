@@ -1,0 +1,73 @@
+{% extends "Layout/base_emr/_clients_base.html.twig" %}
+
+{% block title_page %}
+        EMR || Datos Movimiento
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('EmrBundle:InvArea:_breadcrumb.html.twig' )  }}
+{% endblock %} 
+
+{% block submenutop %}
+    {{ include('EmrBundle:InvArea:_submenu.html.twig' )  }}
+{% endblock %} 
+
+{% block body %}
+    <h1>Movimiento</h1>
+
+    <!-- Check the notifications -->
+    {% for message in app.session.flashbag().get("success") %}
+        <div class="alert alert-success"><i class="fa fa-check-circle"></i> {{message}}</div>
+    {% endfor %}
+    {% for message in app.session.flashbag().get("error") %}
+        <div class="alert alert-danger"><i class="fa fa-close"></i> {{message}}</div>
+    {% endfor %}
+    <!-- End notifications -->
+
+    <table class="table table-striped">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ invMovimiento.imoId }}</td>
+            </tr>
+            <tr>
+                <th>Valor</th>
+                <td>{{ invMovimiento.imoValor }}</td>
+            </tr>
+            <tr>
+                <th>Descripción</th>
+                <td>{{ invMovimiento.imoDescripcion }}</td>
+            </tr>
+            <tr>
+                <th>Creado</th>
+                <td>{% if invMovimiento.imoFechaCrea %}{{ invMovimiento.imoFechaCrea|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Modificado</th>
+                <td>{% if invMovimiento.imoFechaMod %}{{ invMovimiento.imoFechaMod|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Estado</th>
+                <td>{% if invMovimiento.imoActivo %}Yes{% else %}No{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul class="list-inline">      
+
+        <li>
+            <a href="{{ path('invmovimiento_index') }}" class="btn btn-info"><i class="fa fa-list"></i> Listar</a>
+        </li>
+        <li>
+            <a href="{{ path('invmovimiento_new') }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Nuevo</a>
+        </li>
+        <li>
+            <a href="{{ path('invmovimiento_edit', { 'imoId': invMovimiento.imoId }) }}"  class="btn bg-teal-400"><i class="fa fa-edit"></i> Editar</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <button type="submit" class="btn btn-danger"><i class="fa fa-remove"></i> Eliminar</button>
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

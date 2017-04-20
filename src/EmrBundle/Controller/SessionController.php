@@ -15,46 +15,53 @@ class SessionController extends Controller
         //return $this->render('EmrBundle:Session:login.html.twig', array());
 		//return $this->redirectToRoute('emr_establecimiento');
 		
-		$em = $this->getDoctrine()->getManager();
-		$idUser =  $this->getUser()->getUsuId();
-		//echo $this->get('security.token_storage')->getToken()->getUser()->getUsuId();
-		$user_repo = $em->getRepository("AppBundle:ClienteUsuario")->findByCliUsuUsu($idUser);
-		
-		$iLocationId = $request->get('id');
-		
-		if( isset($iLocationId) && $iLocationId > 0)
+		$securityContext = $this->container->get('security.authorization_checker');
+		if ($securityContext->isGranted('IS_AUTHENTICATED_FULLY'))
 		{
 		
-			$locationName = "";
-			$municipalityId = "";
-			$municipalityName = "";
-			$myLocation = array();
-			foreach( $user_repo as $key)
+			$em = $this->getDoctrine()->getManager();
+			$idUser =  $this->getUser()->getUsuId();
+			//echo $this->get('security.token_storage')->getToken()->getUser()->getUsuId();
+			$user_repo = $em->getRepository("AppBundle:ClienteUsuario")->findByCliUsuUsu($idUser);
+
+			$iLocationId = $request->get('id');
+
+			if( isset($iLocationId) && $iLocationId > 0)
 			{
-				$myLocation[] = $key->getCliUsuCli()->getCliId();
-				if( $key->getCliUsuCli()->getCliId() ==  $iLocationId )
+
+				$locationName = "";
+				$municipalityId = "";
+				$municipalityName = "";
+				$myLocation = array();
+				foreach( $user_repo as $key)
 				{
-					$locationName = $key->getCliUsuCli()->getCliNombre();
-					$municipalityName = $key->getCliUsuCli()->getCliMun()->getMunNombre();
-					$municipalityId = $key->getCliUsuCli()->getCliMun()->getMunId();
+					$myLocation[] = $key->getCliUsuCli()->getCliId();
+					if( $key->getCliUsuCli()->getCliId() ==  $iLocationId )
+					{
+						$locationName = $key->getCliUsuCli()->getCliNombre();
+						$municipalityName = $key->getCliUsuCli()->getCliMun()->getMunNombre();
+						$municipalityId = $key->getCliUsuCli()->getCliMun()->getMunId();
+					}
+				}
+
+				if (in_array($iLocationId, $myLocation))
+				{
+					$this->get('session')->set('locationId', $iLocationId);
+					$this->get('session')->set('locationName', $locationName);
+					$this->get('session')->set('municipalityId', $municipalityId);
+					$this->get('session')->set('municipalityName', $municipalityName);
+
+					return $this->redirectToRoute("emr_dashboard");
 				}
 			}
-			
-			if (in_array($iLocationId, $myLocation))
-			{
-				//$iLocationObj = $em->getRepository("AppBundle:Cliente")->find($iLocationId);
-				
-				$this->get('session')->set('locationId', $iLocationId);
-				//$this->get('session')->set('locationObj', $iLocationObj);
-				$this->get('session')->set('locationName', $locationName);
-				$this->get('session')->set('municipalityId', $municipalityId);
-				$this->get('session')->set('municipalityName', $municipalityName);
-				
-				return $this->redirectToRoute("emr_dashboard");
-			}
+
+			return $this->redirectToRoute("emr_location");
 		}
-		
-		return $this->redirectToRoute("emr_location");
+		else
+		{
+			
+			return $this->redirectToRoute("login");
+		}
 		
     }
 }

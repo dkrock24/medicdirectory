@@ -8,7 +8,7 @@ AppBundle\Entity\Paciente:
         FK_clientes_idx:
             columns:
                 - pac_cli_id
-        FK_pac_ciudad_idx:
+        FK_pac_mun_idx:
             columns:
                 - pac_mun_id
         IDX_pac_dui:

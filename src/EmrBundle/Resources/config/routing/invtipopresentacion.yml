@@ -1,0 +1,28 @@
+invtipopresentacion_index:
+    path:     /
+    defaults: { _controller: "EmrBundle:InvTipoPresentacion:index" }
+    methods:  GET
+
+invtipopresentacion_show:
+    path:     /{itpId}/show
+    defaults: { _controller: "EmrBundle:InvTipoPresentacion:show" }
+    methods:  GET
+
+invtipopresentacion_new:
+    path:     /new
+    defaults: { _controller: "EmrBundle:InvTipoPresentacion:new" }
+    methods:  [GET, POST]
+
+invtipopresentacion_edit:
+    path:     /{itpId}/edit
+    defaults: { _controller: "EmrBundle:InvTipoPresentacion:edit" }
+    methods:  [GET, POST]
+
+invtipopresentacion_delete:
+    path:     /{itpId}/delete
+    defaults: { _controller: "EmrBundle:InvTipoPresentacion:delete" }
+    methods:  DELETE
+
+invtipopresentacion_delete_from_list:
+    path:     /list/delete/area
+    defaults: { _controller: "EmrBundle:InvTipoPresentacion:deleteCustom" }

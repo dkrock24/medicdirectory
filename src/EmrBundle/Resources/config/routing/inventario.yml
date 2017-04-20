@@ -1,0 +1,24 @@
+inventario_index:
+    path:     /
+    defaults: { _controller: "EmrBundle:Inventario:index" }
+    methods:  GET
+
+inventario_show:
+    path:     /{invId}/show
+    defaults: { _controller: "EmrBundle:Inventario:show" }
+    methods:  GET
+
+inventario_new:
+    path:     /new
+    defaults: { _controller: "EmrBundle:Inventario:new" }
+    methods:  [GET, POST]
+
+inventario_edit:
+    path:     /{invId}/edit
+    defaults: { _controller: "EmrBundle:Inventario:edit" }
+    methods:  [GET, POST]
+
+inventario_delete:
+    path:     /{invId}/delete
+    defaults: { _controller: "EmrBundle:Inventario:delete" }
+    methods:  DELETE

@@ -1,0 +1,178 @@
+{% extends "Layout/base_emr/_clients_base.html.twig" %}
+
+{% block title_page %}
+        EMR || Listado Proveedores
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('EmrBundle:invarea:_breadcrumb.html.twig' )  }}
+{% endblock %} 
+
+{% block submenutop %}
+    {{ include('EmrBundle:invarea:_submenu.html.twig' )  }}
+{% endblock %} 
+
+{% block body %}
+    <h1>Lista Proveedores</h1>
+
+    <!-- Check the notifications -->
+    <div id="holder_msg">
+        {% for message in app.session.flashbag().get("success") %}
+            <div class="alert alert-success"><i class="fa fa-check-circle"></i> {{message}}</div>
+        {% endfor %}
+        {% for message in app.session.flashbag().get("error") %}
+            <div class="alert alert-danger"><i class="fa fa-close"></i> {{message}}</div>
+        {% endfor %}
+    </div>
+    <!-- End notifications -->
+
+    {% if invProveedors|length > 0%}
+    <table class="table table-striped datatable-reorder">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Nombre Legal</th>
+                <th>Nombre Corto</th>
+                <th>Telefono 1</th>
+                <th>Telefono 2</th>
+                <th>Email</th>
+                <th>Dirección</th>
+                <th>Descripción</th>
+                <th>Creado</th>
+                <th>Modificado</th>
+                <th>Estado</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for invProveedor in invProveedors %}
+            <tr>
+                <td><a href="{{ path('invproveedor_show', { 'iprId': invProveedor.iprId }) }}">{{ invProveedor.iprId }}</a></td>
+                <td>{{ invProveedor.iprNombre }}</td>
+                <td>{{ invProveedor.iprNombreLegal }}</td>
+                <td>{{ invProveedor.iprNombreAbreviado }}</td>
+                <td>{{ invProveedor.iprTelefono1 }}</td>
+                <td>{{ invProveedor.iprTelefono2 }}</td>
+                <td>{{ invProveedor.iprEmail }}</td>
+                <td>{{ invProveedor.iprDireccion }}</td>
+                <td>{{ invProveedor.iprDescripcion }}</td>
+                <td>{% if invProveedor.iprFechaCrea %}{{ invProveedor.iprFechaCrea|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if invProveedor.iprFechaMod %}{{ invProveedor.iprFechaMod|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if invProveedor.iprActivo %}Yes{% else %}No{% endif %}</td>
+                <td>
+                    <ul class="list-inline">
+                        <li>
+                            <a href="{{ path('invproveedor_show', { 'iprId': invProveedor.iprId }) }}" class='btn btn-default'><i class='fa fa-folder-open'></i>Ver</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('invproveedor_edit', { 'iprId': invProveedor.iprId }) }}"  class='btn bg-teal-400'><i class='fa fa-edit'></i> Editar</a>
+                        </li>
+                        <li>
+                            <button value="{{ invProveedor.iprId }}" class="btn btn-danger delete"><i class="fa fa-remove"></i> Eliminar</button>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <div class="alert alert-info" role=""><i class="fa fa-info-circle"></i> No hay regístros creados</div>
+    {% endif %} 
+
+    <ul class="list-inline">
+        <li>
+            <a href="{{ path('invproveedor_new') }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Nuevo Proveedor</a>
+        </li>
+    </ul>
+{% endblock %}
+
+{% block codejs %}
+    <script>
+        $(document).on("ready",function(){
+            
+            /*
+             * This works if you want to use datatable plugin 
+            */
+            var table = $('.datatable-reorder').DataTable({});
+            // Add placeholder to the datatable filter option
+            $('.dataTables_filter input[type=search]').attr('placeholder','Escribar para filtrar...');
+            // Enable Select2 select for the length option
+            $('.dataTables_length select').select2({
+                minimumResultsForSearch: Infinity,
+                width: 'auto'
+            });
+            //End
+            
+            
+            $('body').on("click",".delete",function () {
+                var id = $(this).val();
+                if( id > 0 )
+                {
+                    sendAjax(id);
+                }
+            });
+            
+            function sendAjax(id) {
+                $("#holder_loading").show(); 
+                $.ajax({
+                    type: "post",
+                    url: "{{ path('invproveedor_delete_from_list') }}",
+                    data: {id:id},
+                    error: function (data) {
+                       $("#holder_loading").hide();
+                       $.confirm({
+                            icon: 'fa fa-remove',
+                            title: 'Error!',
+                            content: 'Ha ocurrido un error al tratar de enviar la petición',
+                            type: 'red',
+                            typeAnimated: true,
+                            buttons: {
+                                tryAgain: {
+                                    text: 'Intentar de nuevo',
+                                    btnClass: 'btn-red',
+                                    action: function(){
+                                        sendAjax(id);
+                                    }
+                                },
+                                close: function () {
+                                }
+                            }
+                        });
+                        
+                    },
+                    success: function (data) {
+                        $("#holder_loading").hide();
+                        if( data == 1)
+                        {
+                            $.alert({
+                                icon: 'fa fa-check-circle',
+                                title: 'Ok!',
+                                content: 'El registro fue eliminado con éxito',
+                                type: 'green',
+                                typeAnimated: true,
+                            });
+                            
+                            //$("#tr_"+id).remove();
+                            table.row("#tr_"+id).remove().draw( false );
+                        }
+                        else
+                        {
+                            var infoError = (data);
+                            $.alert({
+                                icon: 'fa fa-remove',
+                                title: 'Error!',
+                                content: 'No se ha podido eliminar el regístro <br>'+infoError,
+                                type: 'red',
+                                typeAnimated: true,
+                            });
+                        }
+                        
+                    }
+                });
+            }
+            
+        });
+    </script>
+{% endblock %}  

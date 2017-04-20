@@ -1,0 +1,28 @@
+invtipoproveedor_index:
+    path:     /
+    defaults: { _controller: "EmrBundle:InvTipoProveedor:index" }
+    methods:  GET
+
+invtipoproveedor_show:
+    path:     /{itprId}/show
+    defaults: { _controller: "EmrBundle:InvTipoProveedor:show" }
+    methods:  GET
+
+invtipoproveedor_new:
+    path:     /new
+    defaults: { _controller: "EmrBundle:InvTipoProveedor:new" }
+    methods:  [GET, POST]
+
+invtipoproveedor_edit:
+    path:     /{itprId}/edit
+    defaults: { _controller: "EmrBundle:InvTipoProveedor:edit" }
+    methods:  [GET, POST]
+
+invtipoproveedor_delete:
+    path:     /{itprId}/delete
+    defaults: { _controller: "EmrBundle:InvTipoProveedor:delete" }
+    methods:  DELETE
+
+invtipoproveedor_delete_from_list:
+    path:     /list/delete/invtipoproveedor
+    defaults: { _controller: "EmrBundle:InvTipoProveedor:deleteCustom" }

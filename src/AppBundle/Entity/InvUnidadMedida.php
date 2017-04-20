@@ -136,6 +136,7 @@ class InvUnidadMedida
      */
     public function getIumActivo()
     {
-        return $this->iumActivo;
+        //return $this->iumActivo;
+        return (boolean) $this->iumActivo;
     }
 }

@@ -69,14 +69,14 @@
                         </div>
                     </div>
                      <div class="panel-body no-border no-padding-top">
-                         <div class="thumb thumb-rounded thumb-slide">
+                         <div class="thumb">
                         {% if  paciente.pacFoto != "" %}
-                            <div style="text-align:center;"><img src="{{ asset("uploads/pacientes/"~paciente.pacFoto) }}" class="img-thumbnailx" style="max-width:100% "></div>
+                            <div style="text-align:center;"><img src="{{ asset("uploads/pacientes/"~paciente.pacFoto) }}" class="img-thumbnailx" style="max-width:85% "></div>
                         {% else %}
                             {% if paciente.pacGenero|lower  == "m" %}
-                                <div  style="text-align:center"><img src="{{ asset('bundles/admin/img/man.png') }}" class="img-thumbnailx" style="max-width:100% "></div>
+                                <div  style="text-align:center"><img src="{{ asset('bundles/admin/img/man.png') }}" class="img-thumbnailx" style="max-width:80% "></div>
                             {% else %}
-                                <div  style="text-align:center"><img src="{{ asset('bundles/admin/img/girl.png') }}" class="img-thumbnailx" style="max-width:100% "></div>
+                                <div  style="text-align:center"><img src="{{ asset('bundles/admin/img/girl.png') }}" class="img-thumbnailx" style="max-width:80% "></div>
                             {% endif %}
 
                         {% endif %}

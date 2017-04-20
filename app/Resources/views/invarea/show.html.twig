@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Invarea</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Iarid</th>
+                <td>{{ invArea.iarId }}</td>
+            </tr>
+            <tr>
+                <th>Iararea</th>
+                <td>{{ invArea.iarArea }}</td>
+            </tr>
+            <tr>
+                <th>Iarfechacrea</th>
+                <td>{% if invArea.iarFechaCrea %}{{ invArea.iarFechaCrea|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Iarfechamod</th>
+                <td>{% if invArea.iarFechaMod %}{{ invArea.iarFechaMod|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Iaractivo</th>
+                <td>{% if invArea.iarActivo %}Yes{% else %}No{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('invarea_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('invarea_edit', { 'iarId': invArea.iarId }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

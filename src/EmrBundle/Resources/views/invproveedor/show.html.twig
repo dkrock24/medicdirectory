@@ -1,0 +1,96 @@
+{% extends "Layout/base_emr/_clients_base.html.twig" %}
+
+{% block title_page %}
+        EMR || Datos del Proveedor
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('EmrBundle:InvArea:_breadcrumb.html.twig' )  }}
+{% endblock %} 
+
+{% block submenutop %}
+    {{ include('EmrBundle:InvArea:_submenu.html.twig' )  }}
+{% endblock %} 
+
+{% block body %}
+    <h1>Proveedor</h1>
+
+    <!-- Check the notifications -->
+    {% for message in app.session.flashbag().get("success") %}
+        <div class="alert alert-success"><i class="fa fa-check-circle"></i> {{message}}</div>
+    {% endfor %}
+    {% for message in app.session.flashbag().get("error") %}
+        <div class="alert alert-danger"><i class="fa fa-close"></i> {{message}}</div>
+    {% endfor %}
+    <!-- End notifications -->
+
+    <table class="table table-striped">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ invProveedor.iprId }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ invProveedor.iprNombre }}</td>
+            </tr>
+            <tr>
+                <th>Nombre Legal</th>
+                <td>{{ invProveedor.iprNombreLegal }}</td>
+            </tr>
+            <tr>
+                <th>Nombre Corto</th>
+                <td>{{ invProveedor.iprNombreAbreviado }}</td>
+            </tr>
+            <tr>
+                <th>Telefono 1</th>
+                <td>{{ invProveedor.iprTelefono1 }}</td>
+            </tr>
+            <tr>
+                <th>Telefono 2</th>
+                <td>{{ invProveedor.iprTelefono2 }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ invProveedor.iprEmail }}</td>
+            </tr>
+            <tr>
+                <th>Dirección</th>
+                <td>{{ invProveedor.iprDireccion }}</td>
+            </tr>
+            <tr>
+                <th>Descripción</th>
+                <td>{{ invProveedor.iprDescripcion }}</td>
+            </tr>
+            <tr>
+                <th>Creado</th>
+                <td>{% if invProveedor.iprFechaCrea %}{{ invProveedor.iprFechaCrea|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Modificado</th>
+                <td>{% if invProveedor.iprFechaMod %}{{ invProveedor.iprFechaMod|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Estado</th>
+                <td>{% if invProveedor.iprActivo %}Yes{% else %}No{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul class="list-inline">
+        <li>
+            <a href="{{ path('invproveedor_index') }}" class="btn btn-info"><i class="fa fa-list"></i> Listar</a>
+        </li>
+        <li>
+            <a href="{{ path('invproveedor_new') }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Nuevo</a>
+        </li>
+        <li>
+            <a href="{{ path('invproveedor_edit', { 'iprId': invProveedor.iprId }) }}" class="btn bg-teal-400"><i class="fa fa-edit"></i> Editar</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <button type="submit" class="btn btn-danger"><i class="fa fa-remove"></i> Eliminar</button>
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}
