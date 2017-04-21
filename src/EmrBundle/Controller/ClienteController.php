@@ -197,6 +197,7 @@ class ClienteController extends Controller
 		$representerUser = $request->get("representerUser");
 		$representerEmail = $request->get("representerEmail");
 		$representerPass = $request->get("representerPass");
+		$representerBirthDate = $request->get("representerBirthDate");
 		
 		//Location List users 
 		$locationListUsers = $request->get("locationUsers");
@@ -229,8 +230,11 @@ class ClienteController extends Controller
 			$client->setCliTelefono1($phone_one);
 			$client->setCliTelefono2($phone_two);
 			$client->setCliNombre($representerName);
+			//$client->set
+			
 			$client->setCliFechaRegistro(new \Datetime());
 			$client->setCliFechaCrea(new \Datetime() );
+			
 
 			
 			//if ($flush == null) {
@@ -261,34 +265,51 @@ class ClienteController extends Controller
 				$em->persist($client);
 				$flush = $em->flush();
 				
+				//date from representer
+				$representer = new Usuario();
+				$representer->setUsuClave($representerPass);
+				$representer->setUsuCorreo($representerEmail);
+				$representer->setUsuGenero($representerGender);
+				$representer->setUsuUsuario($representerUser);
+				$representer->setUsuNombre($representerName);
+				$representer->setUsuFechaNacimiento($representerBirthDate);
+				
+				$role_representer_repo = $em->getRepository('AppBundle:Rol')->find(5); // 5 = Representante
+				$representer->addRol($role_representer_repo);
+				
+				$em->persist($representer);
+				$flush = $em->flush();
+				
+				$lastUser = $representer->getUsuId();
+				
+				
 				
 				//Save all users related for this location establishment
 				if( count($locationListUsers) > 0 )
 				{
 					for($i=0; $i < count($locationListUsers); $i++)
 					{
-						$user = new Usuario();
-						$user->setUsuNombre($locationListUsers[$i]['name']);
-						$user->setUsuUsuario($locationListUsers[$i]['username']);
-						$user->setUsuClave( sha1($locationListUsers[$i]['password']) );
+						
+						if( $locationListUsers[$i]['username'] != $representerUser )
+						{
+							$user = new Usuario();
+							$user->setUsuNombre($locationListUsers[$i]['name']);
+							$user->setUsuUsuario($locationListUsers[$i]['username']);
+							$user->setUsuClave( sha1($locationListUsers[$i]['password']) );
 
-						$user->setUsuCorreo( $locationListUsers[$i]['email'] );
-						$user->setUsuGenero($locationListUsers[$i]['gender']);
-						$user->setUsuFechaRegistro(new \Datetime());
-						$user->setUsuFechaCrea(new \Datetime());
-						
+							$user->setUsuCorreo( $locationListUsers[$i]['email'] );
+							$user->setUsuGenero($locationListUsers[$i]['gender']);
+							$user->setUsuFechaRegistro(new \Datetime());
+							$user->setUsuFechaCrea(new \Datetime());
 
-						$role_repo = $em->getRepository('AppBundle:Rol')->find($locationListUsers[$i]['typeUser']);
-						$user->addRol($role_repo);
-						 
-						$em->persist($user);
-						$flush = $em->flush();
-						
-						$lastUser = $user->getUsuId();
-						
-						//Set type permission
-						//$typeRole = new  UsuarioRol();
-						
+							$role_repo = $em->getRepository('AppBundle:Rol')->find($locationListUsers[$i]['typeUser']);
+							$user->addRol($role_repo);
+
+							$em->persist($user);
+							$flush = $em->flush();
+
+							$lastUser = $user->getUsuId();
+						}
 					}
 				}
 				

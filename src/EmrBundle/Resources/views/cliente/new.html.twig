@@ -251,7 +251,7 @@
                                                 <div class="form-group">
                                                     <div class="form_error">{{ form_errors(form.cliEsp)}}</div>
                                                     <label>Fecha nacimiento del representante: <span class="text-danger">*</span></label>
-                                                    <div class="">{{ form_widget(form.pacFechaNacimiento) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                                    <div class=""><input type="text" id="birth_date" name="birth_date" class="form-control" readonly="readonly"></div>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
@@ -279,7 +279,7 @@
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">
-                                <strong>Nota:</strong> El monto a cobrar será de <strong>$30</strong> mensualmente por cada doctor/a que asocie a su establecimiento, este monto no include a usuarios tipo "Asistente"
+                                <strong>Nota:</strong> El monto a cobrar será de <strong>$30</strong> mensualmente por cada doctor/a que asocie a su establecimiento, este monto no incluye a usuarios tipo "Asistente"
                             </div>
                         </div>
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -354,7 +354,8 @@
                                 </div>
                             </div>
                             <hr>
-                            <p><a href="#" class='addsection btn bg-teal-400 btn-labele btn-sm'><b><i class="fa fa-plus-circle"></i></b> Agregar usuario</a></p>
+                            {# <p><a href="#" class='addsection btn bg-teal-400 btn-labele btn-sm'><b><i class="fa fa-plus-circle"></i></b> Agregar usuario</a></p> #}
+                            <p><span class='addsection btn bg-teal-400 btn-labele btn-sm'><b><i class="fa fa-plus-circle"></i></b> Agregar usuario</span></p>
                         </div>
                         
                     </div>
@@ -694,32 +695,66 @@
 
             //add new section
             $('body').on('click', '.addsection', function() {
-
-                //increment
-                sectionsCount++;
-
-                //loop through each input
-                var section = template.clone().find(':input').each(function(){
-
-                    //set id to store the updated section number
-                    var newId = this.id + sectionsCount;
-
-                    //update for label
-                    $(this).prev().attr('for', newId);
-
-                    //update id
-                    this.id = newId;
-
-                }).end()
-
-                //inject new section
-                .appendTo('#sections');
-                return false;
+                //prebt
+                cloneSection("yes");
             });
+            
+            function cloneSection(increment)
+            {
+                //preventDe
+                //increment
+                if( increment == "yes")
+                {
+                    sectionsCount++;
+                    
+                    //loop through each input
+                    var section = template.clone().find(':input').each(function(){
+
+                        //set id to store the updated section number
+                        var newId = this.id + sectionsCount; //sectionsCount;
+
+                        //update for label
+                        $(this).prev().attr('for', newId);
+
+                        //update id
+                        this.id = newId;
+
+                    }).end()
+
+                    //inject new section
+                    .appendTo('#sections');
+                    //$('#sections').prepend(section);
+                    return false;
+                    
+                }else{
+                    //loop through each input
+                    var section = template.clone().find(':input').each(function(){
+
+                        //set id to store the updated section number
+                        var newId = this.id; //sectionsCount;
+
+                        //update for label
+                        $(this).prev().attr('for', newId);
+
+                        //update id
+                        this.id = newId;
+
+                    }).end();
+
+                    //inject new section
+                    $('#sections').prepend(section);
+                    return false;
+                }
+                
+            }
 
             //remove section
             $('#sections').on('click', '.remove', function() {
                 //fade out section
+                if( $(this).closest(".section").find("#name").size() == 1 )
+                {
+                    $("#user_representer_doctor").prop('checked', false);
+                }  
                 $(this).closest(".section").remove();
                 /*$(this).parent().fadeOut(300, function(){
                     //remove parent element (main section)
@@ -729,6 +764,9 @@
                 */
                 return false;
             });
+            
+            
+            
             
             //==================================================================
             //End clone
@@ -901,13 +939,81 @@
                     }
                 });
             }
+            
+            function useDateRepresenterAsDoctor(number)
+            {
+                   var nameRepresenter = $("#appbundle_cliente_cliNombre").val();
+                   var emailRepresenter = $("#email_representer").val();
+                   var userRepresenter = $("#user_representer").val();
+                   var passRepresenter = $("#password_representer").val();
+                   var genderRepresenter = $("#gender_representer").val();
+                   $("#availbleUser").val(1);
+                   
+                   $("#name"+number).val(nameRepresenter);
+                   $("#password_user"+number).val(passRepresenter);
+                   $("#password_user_again"+number).val(passRepresenter);
+                   $("#email"+number).val(emailRepresenter);
+                   $("#username"+number).val(userRepresenter);
+                   $("#gender"+number).val(genderRepresenter);
+                   
+                   $("#name"+number).attr("readonly", true);
+                   $("#password_user"+number).attr("readonly", true);
+                   $("#password_user_again"+number).attr("readonly", true);
+                   $("#email"+number).attr("readonly", true);
+                   $("#username"+number).attr("readonly", true);
+                   //$("#gender").attr("readonly", true);
+                   $("#gender"+number+" option:not(:selected)").prop('disabled', true);
+            }
 
             $("body").on("blur","#user_representer, .user_to_location",function(){
                 var user = $(this).val();
                 var idInput = $(this).attr("id");
+                var number = idInput.replace( /\D+/g, '');
                 if( $.trim( user ) != "" )
                 {
-                    checkAvailableUserDB(idInput);
+                    var readonly = 0;
+                    $(".user_to_location").each(function(){
+                        if( $(this).is('[readonly]') )
+                        {
+                            readonly++;
+                            return false;
+                        }
+                    });
+                    if( $.trim( user ) ==  $("#user_representer").val() && $(this).hasClass("user_to_location") && !$(this).is('[readonly]') && readonly != 1 )
+                    {
+                        $.confirm({
+                            title: 'Confirme!',
+                            content: '<p class="small">Este usuario ya ha sido tomado para el representante de este establecimiento!</p><p class="small"> Desea usar las mismas credenciales?</p>',
+                            type: 'blue',
+                            typeAnimated: true,
+                            buttons: {
+                                close: {
+                                    text: 'Cancelar',
+                                    btnClass: 'btn-red',
+                                    //keys: ['enter', 'shift'],
+                                    action: function(){
+                                        $("#"+idInput).val("");
+                                    }
+                                },
+                                somethingElse: {
+                                    text: 'Ok',
+                                    btnClass: 'btn-blue',
+                                    //keys: ['enter', 'shift'],
+                                    action: function(){
+                                        useDateRepresenterAsDoctor(number);
+                                        //$("#"+idInput).
+                                    }
+                                }
+                            }
+                        });
+                        
+                        //return false
+                    }
+                    else
+                    {
+                        checkAvailableUserDB(idInput);
+                    }
+                    
                 }
                 else
                 {
@@ -948,13 +1054,14 @@
                         $.alert({
                             icon: 'glyphicon glyphicon-remove-circle',
                             title: 'Error!',
-                            content: 'El usuario <strong>'+username+'</strong> ya existe en esta lista intente con otro usuario',
+                            content: '<p class="small">El usuario <strong>'+username+'</strong> ya existe en esta lista intente con otro usuario</p>',
                             type: 'red',
                             typeAnimated: true,
                         });
-                        
+                        //$("#"+idInput).val("");
                         $("#"+idInput).closest(".form-group").find(".icon-status").remove();    
-                        $("#"+idInput).closest(".section").find(".inputAvailable").val("");    
+                        $("#"+idInput).closest(".section").find(".inputAvailable").val("");
+                        $("#"+idInput).closest(".section").find(".user_to_location").val("");
                         $("#"+idInput).closest(".form-group").removeClass("has-success has-error has-feedback");
                         //exists_user_list = 0;
                         return false;
@@ -969,7 +1076,7 @@
                     $.alert({
                             icon: 'glyphicon glyphicon-remove-circle',
                             title: 'Error!',
-                            content: 'Antes de verificar la disponibilidad del usuario debe llenar el campo: Usuario del representante ',
+                            content: '<p class="small">Antes de verificar la disponibilidad del usuario debe llenar el campo: Usuario del representante</p> ',
                             type: 'red',
                             typeAnimated: true,
                         });
@@ -989,7 +1096,7 @@
                         $.confirm({
                             icon: 'fa fa-remove',
                             title: 'Error!',
-                            content: 'Ha ocurrido un error al tratar de enviar la petición',
+                            content: '<p class="small">Ha ocurrido un error al tratar de enviar la petición</p>',
                             type: 'red',
                             typeAnimated: true,
                             buttons: {
@@ -1030,6 +1137,7 @@
                                 $("#"+idInput).closest(".section").find(".inputAvailable").val(1);
                             }
                             
+                            $("#"+idInput).closest(".form-group").removeClass("has-error");
                             $("#"+idInput).closest(".form-group").addClass("has-success has-feedback").append('<span class="glyphicon glyphicon-ok form-control-feedback icon-status" aria-hidden="true"></span>');
                         } 
                         else 
@@ -1048,6 +1156,7 @@
                                 $("#"+idInput).closest(".section").find(".inputAvailable").val(0);
                             }
                             
+                            $("#"+idInput).closest(".form-group").removeClass("has-success");
                             $("#"+idInput).closest(".form-group").addClass("has-error has-feedback").append('<span class="glyphicon glyphicon-remove form-control-feedback icon-status" aria-hidden="true"></span>');
                         }
                     }
@@ -1060,27 +1169,38 @@
             {
                 if( $("#user_representer_doctor").is(':checked') )
                 {
-                   var nameRepresenter = $("#appbundle_cliente_cliNombre").val();
-                   var emailRepresenter = $("#email_representer").val();
-                   var userRepresenter = $("#user_representer").val();
-                   var passRepresenter = $("#password_representer").val();
-                   var genderRepresenter = $("#gender_representer").val();
-                   $("#availbleUser").val(1);
                    
-                   $("#name").val(nameRepresenter);
-                   $("#password_user").val(passRepresenter);
-                   $("#password_user_again").val(passRepresenter);
-                   $("#email").val(emailRepresenter);
-                   $("#username").val(userRepresenter);
-                   $("#gender").val(genderRepresenter);
                    
-                   $("#name").attr("readonly", true);
-                   $("#password_user").attr("readonly", true);
-                   $("#password_user_again").attr("readonly", true);
-                   $("#email").attr("readonly", true);
-                   $("#username").attr("readonly", true);
-                   //$("#gender").attr("readonly", true);
-                   $('#gender option:not(:selected)').prop('disabled', true);
+                   if( $("#name").size() == 0 )
+                   {
+                       cloneSection("noIncrement");
+                   }
+                   
+                   useDateRepresenterAsDoctor("");
+                   /*
+                    var nameRepresenter = $("#appbundle_cliente_cliNombre").val();
+                    var emailRepresenter = $("#email_representer").val();
+                    var userRepresenter = $("#user_representer").val();
+                    var passRepresenter = $("#password_representer").val();
+                    var genderRepresenter = $("#gender_representer").val();
+                    $("#availbleUser").val(1);
+
+                    $("#name").val(nameRepresenter);
+                    $("#password_user").val(passRepresenter);
+                    $("#password_user_again").val(passRepresenter);
+                    $("#email").val(emailRepresenter);
+                    $("#username").val(userRepresenter);
+                    $("#gender").val(genderRepresenter);
+
+                    $("#name").attr("readonly", true);
+                    $("#password_user").attr("readonly", true);
+                    $("#password_user_again").attr("readonly", true);
+                    $("#email").attr("readonly", true);
+                    $("#username").attr("readonly", true);
+                    //$("#gender").attr("readonly", true);
+                    $('#gender option:not(:selected)').prop('disabled', true);
+                   */
+                   
                 }
                 else
                 {
@@ -1107,6 +1227,8 @@
                 var phone_one = $("#appbundle_cliente_cliTelefono1");
                 var phone_two = $("#appbundle_cliente_cliTelefono2");
                 var specialities = $("#appbundle_cliente_cliEsp");
+                
+                var birth_date = $("#birth_date");
 
                 var representerName = $("#appbundle_cliente_cliNombre");
                 var representerGender = $("#gender_representer");
@@ -1139,6 +1261,7 @@
                             representerUser: representerUser.val(),
                             representerEmail: representerEmail.val(),
                             representerPass: representerPass.val(),
+                            representerBirthDate: birth_date.val(),
                             locationUsers: locationUsers,
                             payMethod: payMethod,
                             representer_cc_number: representer_cc_number.val(),
@@ -1172,6 +1295,30 @@
                 });
                 
             }
+            
+             $.datepicker.regional['es'] = {
+                closeText: 'Cerrar',
+                prevText: '< Ant',
+                nextText: 'Sig >',
+                currentText: 'Hoy',
+                monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+                dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+                dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+                dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
+                weekHeader: 'Sm',
+                dateFormat: 'yy-mm-dd',
+                firstDay: 1,
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: ''
+            };
+            $.datepicker.setDefaults($.datepicker.regional['es']);
+            $( "#birth_date" ).datepicker({
+                changeMonth: true,
+                changeYear: true,
+                yearRange: '1945:'+(new Date).getFullYear()
+            });
             
         });
     </script>

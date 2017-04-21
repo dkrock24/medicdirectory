@@ -80,6 +80,7 @@ class ClienteType extends AbstractType
 								
 						//'preferred_choices' => array('1')
 					))
+				 /*
 				->add('pacFechaNacimiento', DateType::class, array(
 					'placeholder' => array(
 						'year' => 'Año', 'month' => 'Mes', 'day' => 'Día'
@@ -87,7 +88,8 @@ class ClienteType extends AbstractType
 					'mapped'=>false,
 					//'years' => range( (date("Y")-100), date("Y") )
 					'years' => range( 1937, date("Y") )
-					) )				
+					) )
+				*/				
 				;
     }
     
