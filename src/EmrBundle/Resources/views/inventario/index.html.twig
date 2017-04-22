@@ -13,7 +13,8 @@
 {% endblock %} 
 
 {% block body %}
-    <h1>Lista Inventario</h1>
+    <h1>Lista / Inventario</h1>
+    <hr>
 
     <!-- Check the notifications -->
     <div id="holder_msg">
@@ -32,25 +33,15 @@
             <tr>
                 <th>Id</th>
                 <th>Nombre</th>
-                <th>Componente</th>
-                <th>Contenido</th>
-                <th>Lote</th>
-                <th>Mgs</th>
-                <th>Cod Producto</th>
-                <th>Vencimiento</th>
-                <th>Imagen</th>
-                <th>Descripción</th>
-                <th>Notas</th>
-                <th>Etiqueta</th>
-                <th>P. U.</th>
-                <th>Total U.</th>
-                <th>P. Venta</th>
-                <th>P. Medio</th>
-                <th>P. Matoreo</th>
-                <th>P. Especial</th>
-                <th>P. Descuento</th>
-                <th>Creado</th>
-                <th>Modificado</th>
+                <th>Grupo</th>
+                <th>Proveedor</th>
+                <th>Presentación</th>
+                <th>Area</th>
+                <th>Unidad</th>
+                <th>Categoria</th>           
+                <th>Cod Producto</th>                           
+                <th>Etiqueta</th>                
+                <th>Creado</th>                
                 <th>Estado</th>
                 <th>Acción</th>
             </tr>
@@ -60,37 +51,33 @@
             <tr>
                 <td><a href="{{ path('inventario_show', { 'invId': inventario.invId }) }}">{{ inventario.invId }}</a></td>
                 <td>{{ inventario.invNombreComercial }}</td>
-                <td>{{ inventario.invNombreComponente }}</td>
-                <td>{{ inventario.invContenido }}</td>
-                <td>{{ inventario.invLote }}</td>
-                <td>{{ inventario.invMgs }}</td>
+                <td>{{ inventario.invGrpInv }}</td>
+                <td>{{ inventario.invProInv }}</td>
+                <td>{{ inventario.invTipPre }}</td>
+                <td>{{ inventario.invAreaInv }}</td>
+                <td>{{ inventario.invUmeInv }}</td>
+                <td>{{ inventario.invCatInv }}</td>
+
+                              
                 <td>{{ inventario.invCodigoProducto }}</td>
-                <td>{% if inventario.invFechaVencimiento %}{{ inventario.invFechaVencimiento|date('Y-m-d') }}{% endif %}</td>
-                <td>{{ inventario.invImagenProducto }}</td>
-                <td>{{ inventario.invDescripcionProducto }}</td>
-                <td>{{ inventario.invNotasProducto }}</td>
+              
+                            
                 <td>{{ inventario.invEtiquetaAlmacenaje }}</td>
-                <td>{{ inventario.invPrecioUnitario }}</td>
-                <td>{{ inventario.invTotalUnidades }}</td>
-                <td>{{ inventario.invPrecioVenta }}</td>
-                <td>{{ inventario.invPrecioMedioMayoreo }}</td>
-                <td>{{ inventario.invPrecioVentaMayoreo }}</td>
-                <td>{{ inventario.invPrecioEspecial }}</td>
-                <td>{{ inventario.invPrecioDescuento }}</td>
+                
                 <td>{% if inventario.invFechaCrea %}{{ inventario.invFechaCrea|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if inventario.invFechaMod %}{{ inventario.invFechaMod|date('Y-m-d H:i:s') }}{% endif %}</td>
+
                 
                 <td>{% if inventario.invActivo %}<span class="label label-success">Si</span>{% else %}<span class="label label-danger">No</span>{% endif %}</td>
                 <td>
                     <ul class="list-inline">
-                        <li>
-                            <a href="{{ path('inventario_show', { 'invId': inventario.invId }) }}" class='btn btn-default'><i class='fa fa-folder-open'></i>Ver</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('inventario_edit', { 'invId': inventario.invId }) }}" class='btn bg-teal-400'><i class='fa fa-edit'></i> Editar</a>
-                        </li>
-                        <li>
-                            <button value="{{ inventario.invId }}" class="btn btn-danger delete"><i class="fa fa-remove"></i> Eliminar</button>
+                        <li class="dropdown">
+                            <a href="#" class="btn btn bg-teal-400 dropdown-toggle btn-sm" data-toggle="dropdown">Acción <span class="caret"></span></a>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li><a href="{{ path('inventario_show', { 'invId': inventario.invId }) }}"><i class="icon-folder"></i> Ver </a></li>
+                                    <li><a href="{{ path('inventario_edit', { 'invId': inventario.invId }) }}"><i class="icon-pencil"></i> Editar</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#" id="{{ inventario.invId }}" class="delete"><i class="icon-trash"></i> Eliminar</a></li>
+                                </ul>
                         </li>
                     </ul>
                 </td>

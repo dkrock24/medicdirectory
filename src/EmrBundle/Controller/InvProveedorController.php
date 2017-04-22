@@ -108,7 +108,9 @@ class InvProveedorController extends Controller
     public function editAction(Request $request, InvProveedor $invProveedor)
     {
         $deleteForm = $this->createDeleteForm($invProveedor);
-        $editForm = $this->createForm('EmrBundle\Form\InvProveedorType', $invProveedor);
+        $idCliente = $this->get('session')->get('locationId');
+        
+        $editForm = $this->createForm('EmrBundle\Form\InvProveedorType', $invProveedor,array('security_context'=> $idCliente));
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

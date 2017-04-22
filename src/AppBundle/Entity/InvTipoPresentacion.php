@@ -196,4 +196,8 @@ class InvTipoPresentacion
     {
         return $this->itpCli;
     }
+
+    public function __toString() {
+        return $this->itpTipo;
+    }
 }

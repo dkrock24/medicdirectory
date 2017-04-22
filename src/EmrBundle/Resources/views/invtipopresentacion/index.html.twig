@@ -13,7 +13,8 @@
 {% endblock %} 
 
 {% block body %}
-    <h1>Lista Inventario Tipos de Presentación</h1>
+    <h1>Lista / Inventario Tipos Presentación</h1>
+    <hr>
     <!-- Check the notifications -->
     <div id="holder_msg">
         {% for message in app.session.flashbag().get("success") %}
@@ -29,13 +30,13 @@
     <table class="table table-striped datatable-reorder">
         <thead>
             <tr>
-                <th>Itpid</th>
-                <th>Itptipo</th>
-                <th>Itpdescripcion</th>
-                <th>Itpfechacrea</th>
-                <th>Itpfechamod</th>
-                <th>Itpactivo</th>
-                <th>Actions</th>
+                <th>Id</th>
+                <th>Tipo</th>
+                <th>Descripción</th>
+                <th>Creado</th>
+                <th>Modificado</th>
+                <th>Activo</th>
+                <th>Acción</th>
             </tr>
         </thead>
         <tbody>
@@ -50,14 +51,14 @@
                 <td>{% if invTipoPresentacion.itpActivo %}<span class="label label-success">Si</span>{% else %}<span class="label label-danger">No</span>{% endif %}</td>
                 <td>
                     <ul class="list-inline">
-                        <li>
-                            <a href="{{ path('invtipopresentacion_show', { 'itpId': invTipoPresentacion.itpId }) }}" class='btn btn-default'><i class='fa fa-folder-open'></i>Ver</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('invtipopresentacion_edit', { 'itpId': invTipoPresentacion.itpId }) }}" class='btn bg-teal-400'><i class='fa fa-edit'></i> Editar</a>
-                        </li>
-                        <li>
-                            <button value="{{ invTipoPresentacion.itpId }}" class="btn btn-danger delete"><i class="fa fa-remove"></i> Eliminar</button>
+                        <li class="dropdown">
+                            <a href="#" class="btn btn bg-teal-400 dropdown-toggle btn-sm" data-toggle="dropdown">Acción <span class="caret"></span></a>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li><a href="{{ path('invtipopresentacion_show', { 'itpId': invTipoPresentacion.itpId }) }}"><i class="icon-folder"></i> Ver </a></li>
+                                    <li><a href="{{ path('invtipopresentacion_edit', { 'itpId': invTipoPresentacion.itpId }) }}"><i class="icon-pencil"></i> Editar</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#" id="{{ invTipoPresentacion.itpId }}" class="delete"><i class="icon-trash"></i> Eliminar</a></li>
+                                </ul>
                         </li>
                     </ul>
                 </td>
@@ -96,7 +97,7 @@
             
             
             $('body').on("click",".delete",function () {
-                var id = $(this).val();
+                var id = $(this).attr("id");
                 if( id > 0 )
                 {
                     sendAjax(id);

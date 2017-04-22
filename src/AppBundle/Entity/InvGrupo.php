@@ -168,4 +168,8 @@ class InvGrupo
     {
         return $this->igrCli;        
     }
+
+    public function __toString() {
+        return $this->igrGrupo;
+    }
 }

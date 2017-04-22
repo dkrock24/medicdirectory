@@ -139,4 +139,8 @@ class InvUnidadMedida
         //return $this->iumActivo;
         return (boolean) $this->iumActivo;
     }
+
+    public function __toString() {
+        return $this->iumUnidad;
+    }
 }

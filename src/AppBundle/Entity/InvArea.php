@@ -169,4 +169,8 @@ class InvArea
     {
         return $this->iarCli;
     }
+
+    public function __toString() {
+        return $this->iarArea;
+    }
 }
