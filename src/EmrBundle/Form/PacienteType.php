@@ -90,12 +90,24 @@ class PacienteType extends AbstractType
 				->add('pacDireccion')
 				//->add('pacFechaNacimiento')
 				->add('pacFechaNacimiento', DateType::class, array(
-					'placeholder' => array(
-						'year' => 'Año', 'month' => 'Mes', 'day' => 'Día'
-					),
-					//'years' => range( (date("Y")-100), date("Y") )
-					'years' => range( 1917, date("Y") )
-					) )
+					/*
+						'placeholder' => array(
+							'year' => 'Año', 'month' => 'Mes', 'day' => 'Día'
+						),
+						//'years' => range( (date("Y")-100), date("Y") )
+						'years' => range( 1917, date("Y") )
+					 * 
+					 */
+						'widget' => 'single_text',
+						'html5' => false,
+
+						// add a class that can be selected in JavaScript
+						'attr' => ['class' => 'birth_date', 'readonly'=>"readonly"],
+
+					) 
+						
+				)
+								
 				->add('pacFoto', HiddenType::class, array("label"=>"foto:","required"=>false, "attr"=>array( "class"=>"imgbase64", "autocomplete"=>false )))
 				//->add('pacFechaCrea')
 				->add('pacActivo',CheckboxType::class, array("label"=>"Activo", "required"=>false, "attr"=>array("class"=>"styled")))

@@ -1,6 +1,10 @@
 AppBundle\Entity\InvTipoPresentacion:
     type: entity
     table: inv_tipo_presentacion
+    indexes:
+        IDX_5AE960D17769EC8:
+            columns:
+                - itp_cli_id
     id:
         itpId:
             type: integer

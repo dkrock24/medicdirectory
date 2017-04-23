@@ -142,4 +142,50 @@ class Rol
 	public function __toString() {
 		return $this->rolRol;
 	}
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $idUsuario;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->idUsuario = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add idUsuario
+     *
+     * @param \AppBundle\Entity\Usuario $idUsuario
+     *
+     * @return Rol
+     */
+    public function addIdUsuario(\AppBundle\Entity\Usuario $idUsuario)
+    {
+        $this->idUsuario[] = $idUsuario;
+
+        return $this;
+    }
+
+    /**
+     * Remove idUsuario
+     *
+     * @param \AppBundle\Entity\Usuario $idUsuario
+     */
+    public function removeIdUsuario(\AppBundle\Entity\Usuario $idUsuario)
+    {
+        $this->idUsuario->removeElement($idUsuario);
+    }
+
+    /**
+     * Get idUsuario
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getIdUsuario()
+    {
+        return $this->idUsuario;
+    }
 }

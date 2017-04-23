@@ -2,6 +2,9 @@ AppBundle\Entity\InvProveedor:
     type: entity
     table: inv_proveedor
     indexes:
+        IDX_E93010379D3BEC1B:
+            columns:
+                - ipr_cli_Id
         FK_pro_inv_tipo_proveedor_idx:
             columns:
                 - ipr_itpr_id

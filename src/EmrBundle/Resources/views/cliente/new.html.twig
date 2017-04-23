@@ -60,16 +60,15 @@
         </div>
     </div>
     
-    
     <div class="row">
         <div class="col-lg-12">
 
             <!-- Check the notifications -->
             {% for message in app.session.flashbag().get("success") %}
-                <div class="alert alert-success"><i class="fa fa-check-circle"></i> {{message}}</div>
+                <div class="alert alert-success alert-styled-left alert-arrow-left alert-component"><i class="fa fa-check-circle"></i> {{message}}, Inicia sesión haciendo click <a href="{{path('emr_homepage')}}">Aquí</a></div>
             {% endfor %}
             {% for message in app.session.flashbag().get("error") %}
-                <div class="alert alert-danger"><i class="fa fa-close"></i> {{message}}</div>
+                <div class="alert alert-danger alert-styled-left alert-arrow-left alert-component"><i class="fa fa-close"></i> {{message}}</div>
             {% endfor %}
             <!-- End notifications -->
         </div>
@@ -97,393 +96,423 @@
             {{ form_end(form) }}
             #}
             
-            
-            
-            
-            {{ form_start(form, {'attr': {'class': 'steps-basic steps-validation'}}) }}
-                <div class="form_error">{{ form_errors(form)}}</div>
-                <h6>Representante</h6>
-                <fieldset title="1">
-						<!--<legend class="text-semibold">Establecimiento</legend>-->
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="row">
-                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                        <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">
-                                            Información del establecimiento
+                {{ form_start(form, {'attr': {'class': 'steps-basic steps-validation'}}) }}
+                    <div class="form_error">{{ form_errors(form)}}</div>
+                    <h6>Representante</h6>
+                    <fieldset title="1">
+                            <!--<legend class="text-semibold">Establecimiento</legend>-->
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">
+                                                Información del establecimiento
+                                            </div>
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <div class="form_error">{{ form_errors(form.cliTipCli)}}</div>
+                                                <label for="" class=" control-label">Tipo establecimiento: <span class="text-danger">*</span></label>
+                                                <div class="">{{ form_widget(form.cliTipCli,  { 'attr': {'class': 'select'} } ) }}</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                <div class="form_error">{{ form_errors(form.cliNombreFiscal)}}</div>
+                                                <label for="" class=" control-label">Nombre Fiscal del establecimiento: <span class="text-danger">*</span></label>
+                                                <div class="">{{ form_widget(form.cliNombreFiscal) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                            </div>
+                                        </div>    
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">    
+                                            <div class="form-group">
+                                                <div class="form_error">{{ form_errors(form.cliMun)}}</div>
+                                                <label for="" class=" control-label">Municipio del establecimiento: <span class="text-danger">*</span></label>
+                                                <div class="">{{ form_widget(form.cliMun) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                            </div>
+                                        </div>    
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                <div class="form_error">{{ form_errors(form.cliDireccion)}}</div>
+                                                <label for="" class=" control-label">Dirección del establecimiento: <span class="text-danger">*</span></label>
+                                                <div class="">{{ form_widget(form.cliDireccion) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                            </div>
+                                        </div>
+                                    </div>        
+                                    <div class="row">
+                                        <div class="col-md-4">    
+                                            <div class="form-group">
+                                                <div class="form_error">{{ form_errors(form.cliNit)}}</div>
+                                                <label for="" class=" control-label">Nit del establecimiento: <span class="text-danger">*</span></label>
+                                                <div class="">{{ form_widget(form.cliNit) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <div class="form_error">{{ form_errors(form.cliTelefono1)}}</div>
+                                                <label for="" class=" control-label">Teléfono 1: <span class="text-danger">*</span></label>
+                                                <div class="">{{ form_widget(form.cliTelefono1) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <div class="form_error">{{ form_errors(form.cliTelefono2)}}</div>
+                                                <label for="" class=" control-label">Teléfono 2:</label>
+                                                <div class="">{{ form_widget(form.cliTelefono2) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                            </div>
+                                        </div>    
+                                    </div>
+                                           
+                                    <div class="row">
+                                        <div class="col-md-12">    
+                                            <div class="form-group">
+                                                <div class="form_error">{{ form_errors(form.espid)}}</div>
+                                                <label for="" class=" control-label">Tipos de especialidades asociadas al establecimiento: <span class="text-danger">*</span></label>
+                                                <div class="">{# {{ form_widget(edit_form.espid) }} #}{{ form_widget(form.espid,  { 'attr': {'class': 'select', 'required':true} } ) }}</div>
+                                            </div>
+                                        </div>    
+                                    </div>
+                                           
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <div class="form_error">{{ form_errors(form.cliTipCli)}}</div>
-                                            <label for="" class=" control-label">Tipo establecimiento: <span class="text-danger">*</span></label>
-                                            <div class="">{{ form_widget(form.cliTipCli,  { 'attr': {'class': 'select'} } ) }}</div>
+                                <div class="col-lg-6">
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">
+                                                Información del representante
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-8">
-                                        <div class="form-group">
-                                            <div class="form_error">{{ form_errors(form.cliNombreFiscal)}}</div>
-                                            <label for="" class=" control-label">Nombre Fiscal del establecimiento: <span class="text-danger">*</span></label>
-                                            <div class="">{{ form_widget(form.cliNombreFiscal) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
-                                        </div>
-                                    </div>    
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-4">    
-                                        <div class="form-group">
-                                            <div class="form_error">{{ form_errors(form.cliMun)}}</div>
-                                            <label for="" class=" control-label">Municipio del establecimiento: <span class="text-danger">*</span></label>
-                                            <div class="">{{ form_widget(form.cliMun) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
-                                        </div>
-                                    </div>    
-                                    <div class="col-md-8">
-                                        <div class="form-group">
-                                            <div class="form_error">{{ form_errors(form.cliDireccion)}}</div>
-                                            <label for="" class=" control-label">Dirección del establecimiento: <span class="text-danger">*</span></label>
-                                            <div class="">{{ form_widget(form.cliDireccion) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
-                                        </div>
-                                    </div>
-                                </div>        
-                                <div class="row">
-                                    <div class="col-md-4">    
-                                        <div class="form-group">
-                                            <div class="form_error">{{ form_errors(form.cliNit)}}</div>
-                                            <label for="" class=" control-label">Nit del establecimiento: <span class="text-danger">*</span></label>
-                                            <div class="">{{ form_widget(form.cliNit) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <div class="form_error">{{ form_errors(form.cliTelefono1)}}</div>
-                                            <label for="" class=" control-label">Teléfono 1: <span class="text-danger">*</span></label>
-                                            <div class="">{{ form_widget(form.cliTelefono1) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <div class="form_error">{{ form_errors(form.cliTelefono2)}}</div>
-                                            <label for="" class=" control-label">Teléfono 2:</label>
-                                            <div class="">{{ form_widget(form.cliTelefono2) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
-                                        </div>
-                                    </div>    
-                                </div>      
-                                <div class="row">
-                                    <div class="col-md-12">    
-                                        <div class="form-group">
-                                            <div class="form_error">{{ form_errors(form.cliEsp)}}</div>
-                                            <label for="" class=" control-label">Tipos de especialidades asociadas al establecimiento: <span class="text-danger">*</span></label>
-                                            <div class="">{{ form_widget(form.cliEsp) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
-                                        </div>
-                                    </div>    
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="row">
-                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                        <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">
-                                            Información del representante
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
+                                    <div class="row">
 
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <div class="form_error">{{ form_errors(form.cliNombre)}}</div>
-                                            <label for="" class=" control-label">Nombre Representante: <span class="text-danger">*</span></label>
-                                            <div class="">{{ form_widget(form.cliNombre) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Genero del presentante: <span class="text-danger">*</span></label>
-                                            <select name="gender_representer"  id="gender_representer" data-placeholder="Genero..." required class="select">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <div class="form_error">{{ form_errors(form.cliNombre)}}</div>
+                                                <label for="" class=" control-label">Nombre Representante: <span class="text-danger">*</span></label>
+                                                 {% if addLocationToUser|length > 0 %}
+                                                     <div class="">{{ form_widget(form.cliNombre,  { 'attr': {'class': 'c4', 'value':addLocationToUser.usuNombre} } ) }}</div>
+                                                 {% else %}
+                                                     <div class="">{{ form_widget(form.cliNombre) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                                 {% endif %}    
                                                 
-                                                <option value="m">Masculino</option> 
-                                                <option value="f">Femenino</option> 
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Usuario del representante: <span class="text-danger">*</span></label>
-                                            <input type="text" name="user_representer" id="user_representer" placeholder="Usuario" class="form-control required">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label>Password del representante: <span class="text-danger">*</span></label>
-                                            <input type="password" id="password_representer" name="password_representer" placeholder="Password" class="form-control required">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Repita Password: <span class="text-danger">*</span></label>
-                                            <input type="password" id="password_representer_repeat" name="password_representer_repeat" placeholder="Repita Password" class="form-control required">
-                                        </div>
-
-                                        {#
-                                        <div class="form-group">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="" name="available_representer" id="available_representer" class="inputAvailable_representer" required>
-                                                    <span clas="statusAvailable_representer">
-                                                        Validar datos de usuario   
-                                                    </span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                        #}   
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label>Email del representante: <span class="text-danger">*</span></label>
-                                                    <input type="text" name="email_representer" id="email_representer" placeholder="Email" class="form-control required">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <div class="form_error">{{ form_errors(form.cliEsp)}}</div>
-                                                    <label>Fecha nacimiento del representante: <span class="text-danger">*</span></label>
-                                                    <div class="">{{ form_widget(form.pacFechaNacimiento) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <div>&nbsp;</div>
-                                                    <div class="checkbox">
-                                                        <label><input type="checkbox" value="" name="user_representer_doctor" id="user_representer_doctor" class="user_representer_doctor" ><span clas="">
-                                                           Quiero asociar mis datos de representante para usarlo como un doctor de este establecimiento    
-                                                        </span></label>
-                                                    </div>
-                                                </div>
-                                            </div>    
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>            
-                        </div>
-                                        
-                </fieldset>
-                                
-                
-                
-                <h6>Drs/Asistentes</h6>
-                <fieldset title="3">
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">
-                                <strong>Nota:</strong> El monto a cobrar será de <strong>$30</strong> mensualmente por cada doctor/a que asocie a su establecimiento, este monto no include a usuarios tipo "Asistente"
-                            </div>
-                        </div>
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <div id="sections">
-                                <div class="section">
-                                    <div class="" style="padding: 5px;">
-                                        <fieldset>
-                                        <legend><i class="fa fa-user-plus" aria-hidden="true"></i> Usuario</legend>
-                                        <div class="row">
-                                            <div class="col-lg-3 col-md-6 col-sm-6">
-                                                <div class="form-group">
-                                                    <label class="control-label">Nombre</label>
-                                                    <input name="name[]" id="name" value="" type="text" class="form-control" required />
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-3 col-md-6 col-sm-6">
-                                                <div class="form-group">
-                                                    <label class="control-label">Email</label>
-                                                    <input name="email[]" id="email" value="" type="text" class="form-control" />
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-3 col-md-6 col-sm-6">
-                                                <div class="form-group">
-                                                    <label class="control-label">Username(Usuario)</label>
-                                                    <input name="username[]" id="username" value="" type="text" class="form-control user_to_location" required/>
-                                                </div>
-                                            </div>
-                                            <input name="availbleUser[]" id="availbleUser" value="" type="hidden" class="form-control inputAvailable" />
-                                            <div class="col-lg-3 col-md-6 col-sm-6">
-                                                <div class="form-group">
-                                                    <label class="control-label">Género</label>
-                                                    <select name="gender[]" id="gender" class="form-control" required>
-                                                        <option value="m">Masculino</option>
-                                                        <option value="f">Femenino</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-lg-3 col-md-6 col-sm-6">
-                                                <div class="form-group">
-                                                    <label class="control-label">Password</label>
-                                                    <input name="password[]" id="password_user" value="" type="password" class="form-control" required/>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-3 col-md-6 col-sm-6">
-                                                <div class="form-group">
-                                                    <label class="control-label">Repita Password</label>
-                                                    <input name="repeatpassword[]" id="password_user_again" value="" type="password" class="form-control" required/>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-3 col-md-6 col-sm-6">
-                                                <div class="form-group">
-                                                    <label class="control-label">Tipo de usuario</label>
-                                                    <select name="typeUser[]" id="typeUser" class="form-control" required>
-                                                        <option value="6">Médico</option>
-                                                        <option value="3">Asistente</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="col-lg-3 col-md-6 col-sm-6">
-                                                <div class="form-group">
-                                                    <label class="control-label">&nbsp;<br><label>
-                                                    <a href="#" class='remove btn bg-danger-400 btn-sm' style="margin-top: 7px;"><b><i class="fa fa-user-times"></i></b> Remover Usuario</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <br>  
-                                    </fieldset>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr>
-                            <p><a href="#" class='addsection btn bg-teal-400 btn-labele btn-sm'><b><i class="fa fa-plus-circle"></i></b> Agregar usuario</a></p>
-                        </div>
-                        
-                    </div>
-                    
-                    
-				</fieldset>
-                <h6>Formas de pago</h6>
-                <fieldset>
-                    <div class="row"> 
-                        <div class="col-lg-1 col-md-3 col-sm-3 col-xs-12">
-                            {% for method in methodPay %}
-                                <div class="radio ">
-                                    <label class="text-right">
-                                        {% if method.mepId == 2 %}  
-                                            <input type="radio" name="optionPay" class="optionPay" id="optionsRadios1" value="{{ method.mepId }}" checked="true">
-                                        {% else %}
-                                            <input type="radio" name="optionPay" class="optionPay" id="optionsRadios1" value="{{ method.mepId }}" >
-                                        {% endif %}    
-                                        {{ method.mepMetodoPago }}
-                                    </label>
-                                </div>
-                            {% endfor %}
-                        </div>
-                        <div class="col-lg-11 col-md-9 col-sm-9 col-xs-12">
-                            {% for method in methodPay %}
-                                {% if method.mepId == 1 %}
-                                    <div id="pay_1" class="div_pay">
-                                        <div class="panel panel-info"> 
-                                            <div class="panel-heading"> 
-                                                <h6 class="panel-title">Efectivo</h6> 
-                                            </div> 
-                                            <div class="panel-body"> Descripción del efectivo </div> 
-                                        </div>
-                                    </div>
-                                {% endif %}
-                                {% if method.mepId == 2 %}
-                                    <div id="pay_2" class="div_pay">
-                                        <div class="panel panel-info"> 
-                                            <div class="panel-heading"> 
-                                                <h6 class="panel-title">Tarjeta de crédito</h6> 
-                                            </div> 
-                                            <div class="panel-body"> 
                                                 
-                                                <div class="row">
-                                                    <div class="col-lg-6">
-                                                        <div class="form-group">
-                                                            <label for="cc-number" class="control-label">Número de tarjeta <small class="text-muted">[<span class="cc-brand"></span>]</small></label>
-                                                            <input id="cc-number" type="tel" class="input-lg form-control cc-number" autocomplete="cc-number" placeholder="•••• •••• •••• ••••" required>
-                                                        </div>
+                                            </div>
+                                        </div>
 
-                                                        <div class="form-group">
-                                                            <label for="cc-exp" class="control-label">Fecha de expiración</label>
-                                                            <input id="cc-exp" type="tel" class="input-lg form-control cc-exp" autocomplete="cc-exp" placeholder="MM / YY" required>
-                                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Genero del presentante: <span class="text-danger">*</span></label>
+                                                <select name="gender_representer"  id="gender_representer" data-placeholder="Genero..." required class="select">
+                                                    {% if addLocationToUser|length > 0 %}
+                                                        {% if addLocationToUser.usuUsuario == "m" %}
+                                                            <option value="m" selected="selected">Masculino</option> 
+                                                            <option value="f">Femenino</option>
+                                                        {% else %}
+                                                            <option value="m">Masculino</option> 
+                                                            <option value="f" selected="selected">Femenino</option>
+                                                        {% endif %}    
+                                                    {% else %}
+                                                        <option value="m">Masculino</option> 
+                                                        <option value="f">Femenino</option> 
+                                                    {% endif %}    
+                                                    
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                                                        <div class="form-group">
-                                                            <label for="cc-cvc" class="control-label">CVC</label>
-                                                            <input id="cc-cvc" type="tel" class="input-lg form-control cc-cvc" autocomplete="off" placeholder="•••" required>
-                                                        </div>
-                                                        <!--
-                                                        <div class="form-group">
-                                                            <label for="numeric" class="control-label">Restrict numeric</label>
-                                                            <input id="numeric" type="tel" class="input-lg form-control" data-numeric>
-                                                        </div>
-                                                        -->
-                                                        <button id="btn-check-credit-card" class="btn btn-lg btn-primary"><i class="fa fa-credit-card-alt" aria-hidden="true"></i> Validar</button>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            {#
+                                             {{ dump(addLocationToUser) }} 
+                                             {{ addLocationToUser.usuId }}
+                                            #}
+                                            {% if addLocationToUser|length > 0 %}
+                                                <div class="form-group has-success has-feedback">
+                                                    <label>Usuario del representante: <span class="text-danger">*</span></label>
+                                                    <input type="text" name="user_representer" id="user_representer" value="{{ addLocationToUser.usuUsuario }}" placeholder="Usuario" class="form-control required" readonly="readonly">
+                                                    <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                                                </div>
+                                                <div class="form-group">
+                                                        <label>Password del representante:</label>
+                                                        <input type="password" id="password_representer" value="deafult"  name="password_representer" placeholder="Password" class="form-control" disabled="disabled">
+                                                </div>
+                                                <div class="form-group">
+                                                        <label>Repita Password: </label>
+                                                        <input type="password" id="password_representer_repeat" value="deafult" name="password_representer_repeat" placeholder="Repita Password" class="form-control" disabled="disabled">
+                                                </div>
+                                            {% else %}
+                                                <div class="form-group">
+                                                    <label>Usuario del representante: <span class="text-danger">*</span></label>
+                                                    <input type="text" name="user_representer" id="user_representer" placeholder="Usuario" class="form-control required">
+                                                </div>
 
-                                                        <h2 class="validation"></h2>
-                                                    </div>
-                                                    <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label>Password del representante: <span class="text-danger">*</span></label>
+                                                    <input type="password" id="password_representer" name="password_representer" placeholder="Password" class="form-control required">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Repita Password: <span class="text-danger">*</span></label>
+                                                    <input type="password" id="password_representer_repeat" name="password_representer_repeat" placeholder="Repita Password" class="form-control required">
+                                                </div>
+                                            {% endif %}    
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label>Email del representante: <span class="text-danger">*</span></label>
+                                                        {% if addLocationToUser|length > 0 %}
+                                                            <input type="text" name="email_representer" id="email_representer" value="{{ addLocationToUser.usuCorreo }}" placeholder="Email" class="form-control required" readonly="readonly">
+                                                        {% else %}
+                                                            <input type="text" name="email_representer" id="email_representer" placeholder="Email" class="form-control required">
+                                                        {% endif %}    
                                                         
-                                                        <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">
-                                                            <i class="fa fa-credit-card-alt" aria-hidden="true"></i> Tarjetas soportadas:
-                                                        </div>
-                                                        <ul class="list-unstyled">
-                                                            <li>Visa</li>
-                                                            <li>MasterCard
-                                                            <li>American Express</li>
-                                                            <li>Diners Club</li>
-                                                            <li>Discover</li>
-                                                            <li>UnionPay</li>
-                                                            <li>JCB</li>
-                                                            <li>Maestro</li>
-                                                            <li>Forbrugsforeningen</li>
-                                                            <li>Dankort</li>
-                                                        </ul>    
                                                     </div>
                                                 </div>
-                                            </div> 
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        
+                                                        <label>Fecha nacimiento del representante: <span class="text-danger">*</span></label>
+                                                        {% if addLocationToUser|length > 0 %}
+                                                            <div class=""><input type="text" id="birth_date" value="{{ addLocationToUser.usuFechaNacimiento|date('Y-m-d') }}" name="birth_date" class="form-control" required readonly="readonly"></div>
+                                                        {% else %}
+                                                            <div class=""><input type="text" id="birth_date" name="birth_date" class="form-control" required readonly="readonly"></div>
+                                                        {% endif %}    
+                                                        
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <div>&nbsp;</div>
+                                                        <div class="checkbox">
+                                                            <label><input type="checkbox" value="" name="user_representer_doctor" id="user_representer_doctor" class="user_representer_doctor" ><span clas="">
+                                                               Quiero asociar mis datos de representante para usarlo como un doctor de este establecimiento    
+                                                            </span></label>
+                                                        </div>
+                                                    </div>
+                                                </div>    
+                                            </div>
                                         </div>
                                     </div>
-                                {% endif %}
-                                {% if method.mepId == 3 %}
-                                    <div id="pay_3" class="div_pay">
-                                        <div class="panel panel-info"> 
-                                            <div class="panel-heading"> 
-                                                <h6 class="panel-title">CHEQUE</h6> 
-                                            </div> 
-                                            <div class="panel-body"> Descripción del cheque </div> 
+                                </div>            
+                            </div>
+
+                    </fieldset>
+                    <h6>Drs/Asistentes</h6>
+                    <fieldset title="3">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">
+                                    <strong>Nota:</strong> El monto a cobrar será de <strong>$30</strong> mensualmente por cada doctor/a que asocie a su establecimiento, este monto no incluye a usuarios tipo "Asistente"
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div id="sections">
+                                    <div class="section">
+                                        <div class="" style="padding: 5px;">
+                                            <fieldset>
+                                            <legend><i class="fa fa-user-plus" aria-hidden="true"></i> Usuario</legend>
+                                            <div class="row">
+                                                <div class="col-lg-3 col-md-6 col-sm-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Nombre</label>
+                                                        <input name="name[]" id="name" value="" type="text" class="form-control" required />
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3 col-md-6 col-sm-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Email</label>
+                                                        <input name="email[]" id="email" value="" type="text" class="form-control" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3 col-md-6 col-sm-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Username(Usuario)</label>
+                                                        <input name="username[]" id="username" value="" type="text" class="form-control user_to_location" required/>
+                                                    </div>
+                                                </div>
+                                                <input name="availbleUser[]" id="availbleUser" value="" type="hidden" class="form-control inputAvailable" />
+                                                <div class="col-lg-3 col-md-6 col-sm-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Género</label>
+                                                        <select name="gender[]" id="gender" class="form-control" required>
+                                                            <option value="m">Masculino</option>
+                                                            <option value="f">Femenino</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-3 col-md-6 col-sm-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Password</label>
+                                                        <input name="password[]" id="password_user" value="" type="password" class="form-control" required/>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3 col-md-6 col-sm-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Repita Password</label>
+                                                        <input name="repeatpassword[]" id="password_user_again" value="" type="password" class="form-control" required/>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3 col-md-6 col-sm-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Tipo de usuario</label>
+                                                        <select name="typeUser[]" id="typeUser" class="form-control" required>
+                                                            <option value="6">Doctor</option>
+                                                            <option value="3">Asistente</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-3 col-md-6 col-sm-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label">&nbsp;<br><label>
+                                                        <a href="#" class='remove btn bg-danger-400 btn-sm' style="margin-top: 7px;"><b><i class="fa fa-user-times"></i></b> Remover Usuario</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br>  
+                                        </fieldset>
                                         </div>
                                     </div>
-                                {% endif %}
-                                {% if method.mepId == 4 %}
-                                    <div id="pay_4" class="div_pay">
-                                        <div class="panel panel-info"> 
-                                            <div class="panel-heading"> 
-                                                <h6 class="panel-title">BANCO</h6> 
-                                            </div> 
-                                            <div class="panel-body"> Descripción del banco </div> 
-                                        </div>
-                                    </div>
-                                {% endif %}
-                                {% if method.mepId == 5 %}
-                                    <div id="pay_5" class="div_pay">
-                                        <div class="panel panel-info"> 
-                                            <div class="panel-heading"> 
-                                                <h6 class="panel-title">PAYPAL</h6> 
-                                            </div> 
-                                            <div class="panel-body"> Descripción de paypal </div> 
-                                        </div>
-                                    </div>
-                                {% endif %}
-                            {% endfor %}
+                                </div>
+                                <hr>
+                                {# <p><a href="#" class='addsection btn bg-teal-400 btn-labele btn-sm'><b><i class="fa fa-plus-circle"></i></b> Agregar usuario</a></p> #}
+                                <p><span class='addsection btn bg-teal-400 btn-labele btn-sm'><b><i class="fa fa-plus-circle"></i></b> Agregar usuario</span></p>
+                            </div>
+
                         </div>
-                    </div>
-                </fieldset>
-                <!-- <button type="submit" class="btn btn-primary stepy-finish">Submit <i class="icon-check position-right"></i></button>  -->      
-            {{ form_end(form)}}            
-        </div>
+
+
+                    </fieldset>
+                    <h6>Formas de pago</h6>
+                    <fieldset>
+                        <div class="row"> 
+                            <div class="col-lg-1 col-md-3 col-sm-3 col-xs-12">
+                                {% for method in methodPay %}
+                                    <div class="radio ">
+                                        <label class="text-right">
+                                            {% if method.mepId == 2 %}  
+                                                <input type="radio" name="optionPay" class="optionPay" id="optionsRadios1" value="{{ method.mepId }}" checked="true">
+                                            {% else %}
+                                                <input type="radio" name="optionPay" class="optionPay" id="optionsRadios1" value="{{ method.mepId }}" >
+                                            {% endif %}    
+                                            {{ method.mepMetodoPago }}
+                                        </label>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div class="col-lg-11 col-md-9 col-sm-9 col-xs-12">
+                                {% for method in methodPay %}
+                                    {% if method.mepId == 1 %}
+                                        <div id="pay_1" class="div_pay">
+                                            <div class="panel panel-info"> 
+                                                <div class="panel-heading"> 
+                                                    <h6 class="panel-title">Efectivo</h6> 
+                                                </div> 
+                                                <div class="panel-body"> Descripción del efectivo </div> 
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                    {% if method.mepId == 2 %}
+                                        <div id="pay_2" class="div_pay">
+                                            <div class="panel panel-info"> 
+                                                <div class="panel-heading"> 
+                                                    <h6 class="panel-title">Tarjeta de crédito</h6> 
+                                                </div> 
+                                                <div class="panel-body"> 
+
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                            <div class="form-group">
+                                                                <label for="cc-number" class="control-label">Número de tarjeta <small class="text-muted">[<span class="cc-brand"></span>]</small></label>
+                                                                <input id="cc-number" type="tel" class="input-lg form-control cc-number" autocomplete="cc-number" placeholder="•••• •••• •••• ••••" required>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label for="cc-exp" class="control-label">Fecha de expiración</label>
+                                                                <input id="cc-exp" type="tel" class="input-lg form-control cc-exp" autocomplete="cc-exp" placeholder="MM / YY" required>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label for="cc-cvc" class="control-label">CVC</label>
+                                                                <input id="cc-cvc" type="tel" class="input-lg form-control cc-cvc" autocomplete="off" placeholder="•••" required>
+                                                            </div>
+                                                            <!--
+                                                            <div class="form-group">
+                                                                <label for="numeric" class="control-label">Restrict numeric</label>
+                                                                <input id="numeric" type="tel" class="input-lg form-control" data-numeric>
+                                                            </div>
+                                                            -->
+                                                            <button id="btn-check-credit-card" class="btn btn-lg btn-primary"><i class="fa fa-credit-card-alt" aria-hidden="true"></i> Validar</button>
+
+                                                            <h2 class="validation"></h2>
+                                                        </div>
+                                                        <div class="col-lg-6">
+
+                                                            <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">
+                                                                <i class="fa fa-credit-card-alt" aria-hidden="true"></i> Tarjetas soportadas:
+                                                            </div>
+                                                            <ul class="list-unstyled">
+                                                                <li>Visa</li>
+                                                                <li>MasterCard
+                                                                <li>American Express</li>
+                                                                <li>Diners Club</li>
+                                                                <li>Discover</li>
+                                                                <li>UnionPay</li>
+                                                                <li>JCB</li>
+                                                                <li>Maestro</li>
+                                                                <li>Forbrugsforeningen</li>
+                                                                <li>Dankort</li>
+                                                            </ul>    
+                                                        </div>
+                                                    </div>
+                                                </div> 
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                    {% if method.mepId == 3 %}
+                                        <div id="pay_3" class="div_pay">
+                                            <div class="panel panel-info"> 
+                                                <div class="panel-heading"> 
+                                                    <h6 class="panel-title">CHEQUE</h6> 
+                                                </div> 
+                                                <div class="panel-body"> Descripción del cheque </div> 
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                    {% if method.mepId == 4 %}
+                                        <div id="pay_4" class="div_pay">
+                                            <div class="panel panel-info"> 
+                                                <div class="panel-heading"> 
+                                                    <h6 class="panel-title">BANCO</h6> 
+                                                </div> 
+                                                <div class="panel-body"> Descripción del banco </div> 
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                    {% if method.mepId == 5 %}
+                                        <div id="pay_5" class="div_pay">
+                                            <div class="panel panel-info"> 
+                                                <div class="panel-heading"> 
+                                                    <h6 class="panel-title">PAYPAL</h6> 
+                                                </div> 
+                                                <div class="panel-body"> Descripción de paypal </div> 
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </fieldset>
+                    <!-- <button type="submit" class="btn btn-primary stepy-finish">Submit <i class="icon-check position-right"></i></button>  -->      
+                {{ form_end(form)}}            
+            </div>
             </div>
             
         </div>
@@ -512,6 +541,14 @@
                 transitionEffect: "fade",
                 titleTemplate: '<span class="number">#index#</span> #title#',
                 autoFocus: true,
+                labels: {
+                    current: "current step:",
+                    pagination: "Pagination",
+                    finish: "Fin",
+                    next: "Siguiente",
+                    previous: "Anterior",
+                    loading: "Loading ..."
+                },
                 onStepChanging: function (event, currentIndex, newIndex) {
 
                     // Allways allow previous action even if the current form is not valid!
@@ -694,32 +731,66 @@
 
             //add new section
             $('body').on('click', '.addsection', function() {
-
-                //increment
-                sectionsCount++;
-
-                //loop through each input
-                var section = template.clone().find(':input').each(function(){
-
-                    //set id to store the updated section number
-                    var newId = this.id + sectionsCount;
-
-                    //update for label
-                    $(this).prev().attr('for', newId);
-
-                    //update id
-                    this.id = newId;
-
-                }).end()
-
-                //inject new section
-                .appendTo('#sections');
-                return false;
+                //prebt
+                cloneSection("yes");
             });
+            
+            function cloneSection(increment)
+            {
+                //preventDe
+                //increment
+                if( increment == "yes")
+                {
+                    sectionsCount++;
+                    
+                    //loop through each input
+                    var section = template.clone().find(':input').each(function(){
+
+                        //set id to store the updated section number
+                        var newId = this.id + sectionsCount; //sectionsCount;
+
+                        //update for label
+                        $(this).prev().attr('for', newId);
+
+                        //update id
+                        this.id = newId;
+
+                    }).end()
+
+                    //inject new section
+                    .appendTo('#sections');
+                    //$('#sections').prepend(section);
+                    return false;
+                    
+                }else{
+                    //loop through each input
+                    var section = template.clone().find(':input').each(function(){
+
+                        //set id to store the updated section number
+                        var newId = this.id; //sectionsCount;
+
+                        //update for label
+                        $(this).prev().attr('for', newId);
+
+                        //update id
+                        this.id = newId;
+
+                    }).end();
+
+                    //inject new section
+                    $('#sections').prepend(section);
+                    return false;
+                }
+                
+            }
 
             //remove section
             $('#sections').on('click', '.remove', function() {
                 //fade out section
+                if( $(this).closest(".section").find("#name").size() == 1 )
+                {
+                    $("#user_representer_doctor").prop('checked', false);
+                }  
                 $(this).closest(".section").remove();
                 /*$(this).parent().fadeOut(300, function(){
                     //remove parent element (main section)
@@ -729,6 +800,9 @@
                 */
                 return false;
             });
+            
+            
+            
             
             //==================================================================
             //End clone
@@ -901,13 +975,83 @@
                     }
                 });
             }
+            
+            function useDateRepresenterAsDoctor(number)
+            {
+                   var nameRepresenter = $("#appbundle_cliente_cliNombre").val();
+                   var emailRepresenter = $("#email_representer").val();
+                   var userRepresenter = $("#user_representer").val();
+                   var passRepresenter = $("#password_representer").val();
+                   var genderRepresenter = $("#gender_representer").val();
+                   $("#availbleUser").val(1);
+                   
+                   $("#name"+number).closest(".section").removeClass("border-warning-available"); 
+                   
+                   $("#name"+number).val(nameRepresenter);
+                   $("#password_user"+number).val(passRepresenter);
+                   $("#password_user_again"+number).val(passRepresenter);
+                   $("#email"+number).val(emailRepresenter);
+                   $("#username"+number).val(userRepresenter);
+                   $("#gender"+number).val(genderRepresenter);
+                   
+                   $("#name"+number).attr("readonly", true);
+                   $("#password_user"+number).attr("readonly", true);
+                   $("#password_user_again"+number).attr("readonly", true);
+                   $("#email"+number).attr("readonly", true);
+                   $("#username"+number).attr("readonly", true);
+                   //$("#gender").attr("readonly", true);
+                   $("#gender"+number+" option:not(:selected)").prop('disabled', true);
+            }
 
             $("body").on("blur","#user_representer, .user_to_location",function(){
                 var user = $(this).val();
                 var idInput = $(this).attr("id");
+                var number = idInput.replace( /\D+/g, '');
                 if( $.trim( user ) != "" )
                 {
-                    checkAvailableUserDB(idInput);
+                    var readonly = 0;
+                    $(".user_to_location").each(function(){
+                        if( $(this).is('[readonly]') )
+                        {
+                            readonly++;
+                            return false;
+                        }
+                    });
+                    if( $.trim( user ) ==  $("#user_representer").val() && $(this).hasClass("user_to_location") && !$(this).is('[readonly]') && readonly != 1 )
+                    {
+                        $.confirm({
+                            title: 'Confirme!',
+                            content: '<p class="small">Este usuario ya ha sido tomado para el representante de este establecimiento!</p><p class="small"> Desea usar las mismas credenciales?</p>',
+                            type: 'blue',
+                            typeAnimated: true,
+                            buttons: {
+                                close: {
+                                    text: 'Cancelar',
+                                    btnClass: 'btn-red',
+                                    //keys: ['enter', 'shift'],
+                                    action: function(){
+                                        $("#"+idInput).val("");
+                                    }
+                                },
+                                somethingElse: {
+                                    text: 'Ok',
+                                    btnClass: 'btn-blue',
+                                    //keys: ['enter', 'shift'],
+                                    action: function(){
+                                        useDateRepresenterAsDoctor(number);
+                                        //$("#"+idInput).
+                                    }
+                                }
+                            }
+                        });
+                        
+                        //return false
+                    }
+                    else
+                    {
+                        checkAvailableUserDB(idInput);
+                    }
+                    
                 }
                 else
                 {
@@ -948,13 +1092,14 @@
                         $.alert({
                             icon: 'glyphicon glyphicon-remove-circle',
                             title: 'Error!',
-                            content: 'El usuario <strong>'+username+'</strong> ya existe en esta lista intente con otro usuario',
+                            content: '<p class="small">El usuario <strong>'+username+'</strong> ya existe en esta lista intente con otro usuario</p>',
                             type: 'red',
                             typeAnimated: true,
                         });
-                        
+                        //$("#"+idInput).val("");
                         $("#"+idInput).closest(".form-group").find(".icon-status").remove();    
-                        $("#"+idInput).closest(".section").find(".inputAvailable").val("");    
+                        $("#"+idInput).closest(".section").find(".inputAvailable").val("");
+                        $("#"+idInput).closest(".section").find(".user_to_location").val("");
                         $("#"+idInput).closest(".form-group").removeClass("has-success has-error has-feedback");
                         //exists_user_list = 0;
                         return false;
@@ -969,7 +1114,7 @@
                     $.alert({
                             icon: 'glyphicon glyphicon-remove-circle',
                             title: 'Error!',
-                            content: 'Antes de verificar la disponibilidad del usuario debe llenar el campo: Usuario del representante ',
+                            content: '<p class="small">Antes de verificar la disponibilidad del usuario debe llenar el campo: Usuario del representante</p> ',
                             type: 'red',
                             typeAnimated: true,
                         });
@@ -989,7 +1134,7 @@
                         $.confirm({
                             icon: 'fa fa-remove',
                             title: 'Error!',
-                            content: 'Ha ocurrido un error al tratar de enviar la petición',
+                            content: '<p class="small">Ha ocurrido un error al tratar de enviar la petición</p>',
                             type: 'red',
                             typeAnimated: true,
                             buttons: {
@@ -1030,6 +1175,7 @@
                                 $("#"+idInput).closest(".section").find(".inputAvailable").val(1);
                             }
                             
+                            $("#"+idInput).closest(".form-group").removeClass("has-error");
                             $("#"+idInput).closest(".form-group").addClass("has-success has-feedback").append('<span class="glyphicon glyphicon-ok form-control-feedback icon-status" aria-hidden="true"></span>');
                         } 
                         else 
@@ -1048,6 +1194,7 @@
                                 $("#"+idInput).closest(".section").find(".inputAvailable").val(0);
                             }
                             
+                            $("#"+idInput).closest(".form-group").removeClass("has-success");
                             $("#"+idInput).closest(".form-group").addClass("has-error has-feedback").append('<span class="glyphicon glyphicon-remove form-control-feedback icon-status" aria-hidden="true"></span>');
                         }
                     }
@@ -1060,27 +1207,15 @@
             {
                 if( $("#user_representer_doctor").is(':checked') )
                 {
-                   var nameRepresenter = $("#appbundle_cliente_cliNombre").val();
-                   var emailRepresenter = $("#email_representer").val();
-                   var userRepresenter = $("#user_representer").val();
-                   var passRepresenter = $("#password_representer").val();
-                   var genderRepresenter = $("#gender_representer").val();
-                   $("#availbleUser").val(1);
                    
-                   $("#name").val(nameRepresenter);
-                   $("#password_user").val(passRepresenter);
-                   $("#password_user_again").val(passRepresenter);
-                   $("#email").val(emailRepresenter);
-                   $("#username").val(userRepresenter);
-                   $("#gender").val(genderRepresenter);
                    
-                   $("#name").attr("readonly", true);
-                   $("#password_user").attr("readonly", true);
-                   $("#password_user_again").attr("readonly", true);
-                   $("#email").attr("readonly", true);
-                   $("#username").attr("readonly", true);
-                   //$("#gender").attr("readonly", true);
-                   $('#gender option:not(:selected)').prop('disabled', true);
+                   if( $("#name").size() == 0 )
+                   {
+                       cloneSection("noIncrement");
+                   }
+                   
+                   useDateRepresenterAsDoctor("");
+                   
                 }
                 else
                 {
@@ -1106,7 +1241,9 @@
                 var locationNit = $("#appbundle_cliente_cliNit");
                 var phone_one = $("#appbundle_cliente_cliTelefono1");
                 var phone_two = $("#appbundle_cliente_cliTelefono2");
-                var specialities = $("#appbundle_cliente_cliEsp");
+                var specialities = $("#appbundle_cliente_espid");
+                
+                var birth_date = $("#birth_date");
 
                 var representerName = $("#appbundle_cliente_cliNombre");
                 var representerGender = $("#gender_representer");
@@ -1119,6 +1256,8 @@
                 var representer_cc_number = $("#cc-number");
                 var representer_cc_exp = $("#cc-exp");
                 var representer_cc_cvc = $("#cc-cvc");
+                
+                
              
                 
                 $("#holder_loading").show();
@@ -1127,6 +1266,9 @@
                         url: "{{ path('cliente_valid_form') }}",
                         data: { 
                             location: location.val(),
+                            {% if addLocationToUser|length > 0 %}
+                                addToUser: {{ addLocationToUser.usuId }},    
+                            {% endif %}
                             fiscal_name: fiscal_name.val(),
                             municipality: municipality.val(),
                             address: address.val(),
@@ -1139,6 +1281,7 @@
                             representerUser: representerUser.val(),
                             representerEmail: representerEmail.val(),
                             representerPass: representerPass.val(),
+                            representerBirthDate: birth_date.val(),
                             locationUsers: locationUsers,
                             payMethod: payMethod,
                             representer_cc_number: representer_cc_number.val(),
@@ -1167,11 +1310,57 @@
                                     });
                         },
                         success: function (data) {
-                            $("#holder_loading").hide();
+                            if( data == "1" )
+                            {
+                               window.location = "{{ path('cliente_new') }}";
+                               //$("#holder_loading").hide();
+                            }
+                            else
+                            {
+                                $("#holder_loading").hide();
+                                $.alert({
+                                    icon: 'glyphicon glyphicon-remove-circle',
+                                    title: 'Info!',
+                                    content: 'Ha ocurrido un error al intentar crear el regístro',
+                                    type: 'red',
+                                    typeAnimated: true,
+                                 });
+                            }
+                            
                         }
                 });
                 
             }
+            
+            
+            
+            //$(".ui-datepicker-year").select2();
+             $.datepicker.regional['es'] = {
+                closeText: 'Cerrar',
+                prevText: '< Ant',
+                nextText: 'Sig >',
+                currentText: 'Hoy',
+                monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+                dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+                dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+                dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
+                weekHeader: 'Sm',
+                dateFormat: 'yy-mm-dd',
+                firstDay: 1,
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: ''
+            };
+            $.datepicker.setDefaults($.datepicker.regional['es']);
+            $( "#birth_date" ).datepicker({
+                changeMonth: true,
+                changeYear: true,
+                yearRange: '1945:'+(new Date).getFullYear()
+            });
+            
+            
+            //$("body").find(".ui-datepicker-year").select2();
             
         });
     </script>

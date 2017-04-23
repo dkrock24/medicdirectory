@@ -55,7 +55,7 @@ class Cliente
     /**
      * @var \DateTime
      */
-    private $cliFechaCrea = 'CURRENT_TIMESTAMP';
+    private $cliFechaCrea;
 
     /**
      * @var \DateTime
@@ -68,15 +68,27 @@ class Cliente
     private $cliActivo = '1';
 
     /**
-     * @var \AppBundle\Entity\Especialidad
-     */
-    private $cliEsp;
-
-    /**
      * @var \AppBundle\Entity\TipoCliente
      */
     private $cliTipCli;
 
+    /**
+     * @var \AppBundle\Entity\Municipio
+     */
+    private $cliMun;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $espid;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->espid = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get cliId
@@ -349,31 +361,7 @@ class Cliente
      */
     public function getCliActivo()
     {
-        return (boolean)$this->cliActivo;
-    }
-
-    /**
-     * Set cliEsp
-     *
-     * @param \AppBundle\Entity\Especialidad $cliEsp
-     *
-     * @return Cliente
-     */
-    public function setCliEsp(\AppBundle\Entity\Especialidad $cliEsp = null)
-    {
-        $this->cliEsp = $cliEsp;
-
-        return $this;
-    }
-
-    /**
-     * Get cliEsp
-     *
-     * @return \AppBundle\Entity\Especialidad
-     */
-    public function getCliEsp()
-    {
-        return $this->cliEsp;
+        return $this->cliActivo;
     }
 
     /**
@@ -399,11 +387,6 @@ class Cliente
     {
         return $this->cliTipCli;
     }
-    /**
-     * @var \AppBundle\Entity\Municipio
-     */
-    private $cliMun;
-
 
     /**
      * Set cliMun
@@ -428,66 +411,6 @@ class Cliente
     {
         return $this->cliMun;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->cliTipCli = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add cliTipCli
-     *
-     * @param \AppBundle\Entity\TipoCliente $cliTipCli
-     *
-     * @return Cliente
-     */
-    public function addCliTipCli(\AppBundle\Entity\TipoCliente $cliTipCli)
-    {
-        $this->cliTipCli[] = $cliTipCli;
-
-        return $this;
-    }
-
-    /**
-     * Remove cliTipCli
-     *
-     * @param \AppBundle\Entity\TipoCliente $cliTipCli
-     */
-    public function removeCliTipCli(\AppBundle\Entity\TipoCliente $cliTipCli)
-    {
-        $this->cliTipCli->removeElement($cliTipCli);
-    }
-
-    /**
-     * Add cliEsp
-     *
-     * @param \AppBundle\Entity\Especialidad $cliEsp
-     *
-     * @return Cliente
-     */
-    public function addCliEsp(\AppBundle\Entity\Especialidad $cliEsp)
-    {
-        $this->cliEsp[] = $cliEsp;
-
-        return $this;
-    }
-
-    /**
-     * Remove cliEsp
-     *
-     * @param \AppBundle\Entity\Especialidad $cliEsp
-     */
-    public function removeCliEsp(\AppBundle\Entity\Especialidad $cliEsp)
-    {
-        $this->cliEsp->removeElement($cliEsp);
-    }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $espid;
-
 
     /**
      * Add espid
@@ -523,3 +446,4 @@ class Cliente
         return $this->espid;
     }
 }
+

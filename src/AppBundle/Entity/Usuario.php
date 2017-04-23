@@ -537,4 +537,82 @@ class Usuario implements \Symfony\Component\Security\Core\User\UserInterface
     {
         return $this->rol;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $idEspecialidad;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $idRol;
+
+
+    /**
+     * Add idEspecialidad
+     *
+     * @param \AppBundle\Entity\Especialidad $idEspecialidad
+     *
+     * @return Usuario
+     */
+    public function addIdEspecialidad(\AppBundle\Entity\Especialidad $idEspecialidad)
+    {
+        $this->idEspecialidad[] = $idEspecialidad;
+
+        return $this;
+    }
+
+    /**
+     * Remove idEspecialidad
+     *
+     * @param \AppBundle\Entity\Especialidad $idEspecialidad
+     */
+    public function removeIdEspecialidad(\AppBundle\Entity\Especialidad $idEspecialidad)
+    {
+        $this->idEspecialidad->removeElement($idEspecialidad);
+    }
+
+    /**
+     * Get idEspecialidad
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getIdEspecialidad()
+    {
+        return $this->idEspecialidad;
+    }
+
+    /**
+     * Add idRol
+     *
+     * @param \AppBundle\Entity\Rol $idRol
+     *
+     * @return Usuario
+     */
+    public function addIdRol(\AppBundle\Entity\Rol $idRol)
+    {
+        $this->idRol[] = $idRol;
+
+        return $this;
+    }
+
+    /**
+     * Remove idRol
+     *
+     * @param \AppBundle\Entity\Rol $idRol
+     */
+    public function removeIdRol(\AppBundle\Entity\Rol $idRol)
+    {
+        $this->idRol->removeElement($idRol);
+    }
+
+    /**
+     * Get idRol
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getIdRol()
+    {
+        return $this->idRol;
+    }
 }
