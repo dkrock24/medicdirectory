@@ -41,9 +41,9 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         $medico = $em->getRepository('AppBundle\Entity\Usuario')->getMedicoById( $med_id );
         
-        echo '<pre>';
-        \Doctrine\Common\Util\Debug::dump($medico);
-        exit;
+//        echo '<pre>';
+//        \Doctrine\Common\Util\Debug::dump($medico);
+//        exit;
         
         return $this->render('WebBundle:Doctores:profile.html.twig',
                 array(
