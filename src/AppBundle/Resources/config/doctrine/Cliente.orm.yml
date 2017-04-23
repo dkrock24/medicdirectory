@@ -79,9 +79,7 @@ AppBundle\Entity\Cliente:
             column: cli_id_vendedor
         cliFechaCrea:
             type: datetime
-            nullable: false
-            options:
-                default: CURRENT_TIMESTAMP
+            nullable: true
             column: cli_fecha_crea
         cliFechaMod:
             type: datetime

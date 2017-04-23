@@ -5,6 +5,9 @@ AppBundle\Entity\Usuario:
         IDX_usuario:
             columns:
                 - usu_usuario
+        IDX_2265B05D12023DFD:
+            columns:
+                - usu_informacion
     id:
         usuId:
             type: integer
@@ -23,13 +26,6 @@ AppBundle\Entity\Usuario:
             options:
                 fixed: false
             column: usu_usuario
-        usuCorreo:
-            type: string
-            nullable: false
-            length: 255
-            options:
-                fixed: false
-            column: usu_correo
         usuClave:
             type: string
             nullable: false
@@ -41,42 +37,15 @@ AppBundle\Entity\Usuario:
             type: datetime
             nullable: false
             column: usu_fecha_registro
-        usuFechaNacimiento:
-            type: date
-            nullable: true
-            column: usu_fecha_nacimiento
         usuIdVendedor:
             type: integer
             nullable: true
             options:
                 unsigned: false
             column: usu_id_vendedor
-        usuNombre:
-            type: string
-            nullable: true
-            length: 255
-            options:
-                fixed: false
-            column: usu_nombre
-        usuTitulo:
-            type: string
-            nullable: true
-            length: 10
-            options:
-                fixed: false
-            column: usu_titulo
-        usuGenero:
-            type: string
-            nullable: false
-            length: 1
-            options:
-                fixed: true
-            column: usu_genero
         usuFechaCrea:
             type: datetime
-            nullable: false
-            options:
-                default: CURRENT_TIMESTAMP
+            nullable: true
             column: usu_fecha_crea
         usuFechaMod:
             type: datetime
@@ -106,6 +75,20 @@ AppBundle\Entity\Usuario:
             options:
                 fixed: true
             column: usu_genero
+        usuNombre:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: usu_nombre
+        usuCorreo:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+            column: usu_correo
     manyToOne:
         usuInformacion:
             targetEntity: UsuarioInformacion
@@ -118,24 +101,38 @@ AppBundle\Entity\Usuario:
                     referencedColumnName: usi_id
             orphanRemoval: false
     manyToMany:
-        groups:
-              targetEntity: Especialidad
-              joinTable:
+        idEspecialidad:
+            targetEntity: Especialidad
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: idUsuario
+            joinTable:
                 name: usuarios_especialidad
                 joinColumns:
-                  id_usuario:
-                    referencedColumnName: usu_id
+                    -
+                        name: id_usuario
+                        referencedColumnName: usu_id
                 inverseJoinColumns:
-                  id_especialidad:
-                    referencedColumnName: esp_id
-        rol:
-              targetEntity: Rol
-              joinTable:
+                    -
+                        name: id_especialidad
+                        referencedColumnName: esp_id
+            orderBy: null
+        idRol:
+            targetEntity: Rol
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: idUsuario
+            joinTable:
                 name: usuarios_rol
                 joinColumns:
-                  id_usuario:
-                    referencedColumnName: usu_id
+                    -
+                        name: id_usuario
+                        referencedColumnName: usu_id
                 inverseJoinColumns:
-                  id_rol:
-                    referencedColumnName: rol_id
+                    -
+                        name: id_rol
+                        referencedColumnName: rol_id
+            orderBy: null
     lifecycleCallbacks: {  }

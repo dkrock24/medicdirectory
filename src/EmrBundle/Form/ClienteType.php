@@ -26,6 +26,7 @@ class ClienteType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+		//$builder = $this->createFormBuilder($article);
         $builder->add('cliNombre')
 				->add('cliNombreFiscal')
 				->add('cliNit')
@@ -37,6 +38,7 @@ class ClienteType extends AbstractType
 				//->add('cliFechaCrea')
 				//->add('cliFechaMod')
 				//->add('cliActivo')
+				/*
 				->add('cliEsp', \Symfony\Bridge\Doctrine\Form\Type\EntityType::class, array(
 				
 						"class" => "AppBundle:Especialidad",
@@ -49,20 +51,18 @@ class ClienteType extends AbstractType
 						//'empty_data'  => null,
 						'multiple'=> true,
 						//'data' => array(),
-						"attr"=>array( "class"=>"select" )
-						//'preferred_choices' => array('1')
+						"attr"=>array( "class"=>"select" ),
+						//'preferred_choices' => array('108')
 					) )
+				*/
+				->add('espid')
 				->add('cliTipCli', \Symfony\Bridge\Doctrine\Form\Type\EntityType::class, array(
-				
 						"class" => "AppBundle:TipoCliente",
-					
-
 						//'required'    => true,
 						//'empty_data'  => null,
 						'multiple'=> false,
 						//'data' => array(),
 						"attr"=>array( "class"=>"select","data-placeholder"=>"Establecimiento" )
-								
 						//'preferred_choices' => array('1')
 					))
 				->add('cliMun', \Symfony\Bridge\Doctrine\Form\Type\EntityType::class, array(

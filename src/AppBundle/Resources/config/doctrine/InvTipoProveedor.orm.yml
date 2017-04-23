@@ -1,6 +1,10 @@
 AppBundle\Entity\InvTipoProveedor:
     type: entity
     table: inv_tipo_proveedor
+    indexes:
+        IDX_39E1E37D797BB3C6:
+            columns:
+                - itpr_cli_id
     id:
         itprId:
             type: integer

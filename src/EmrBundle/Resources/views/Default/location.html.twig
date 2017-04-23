@@ -1,7 +1,7 @@
 {% extends "Layout/base_emr/_clients_base.location.html.twig" %}
 
 {% block title_page %}
-        EMR || Seleccione el establecimiento a administrar
+        EMR || Selcción de establecimiento
 {% endblock %}
 {#
 {% block breadcrumb %}
@@ -13,13 +13,6 @@
 {% endblock %} 
 #}
 {% block body %}    
-    <div class="panel panel-white">
-        <div class="panel-heading">
-            <h6 class="panel-title"><i class="fa fa-hospital-o"></i> Listado de sucursales</h6>
-            
-        </div>
-        <div class="panel-body">
-            <!-- Check the notifications -->
             <div id="holder_msg">
                 {% for message in app.session.flashbag().get("success") %}
                     <div class="alert alert-success"><i class="fa fa-check-circle"></i> {{message}}</div>
@@ -28,26 +21,75 @@
                     <div class="alert alert-danger"><i class="fa fa-close"></i> {{message}}</div>
                 {% endfor %}
             </div>
+            <div class="page-header-content">
+                <div class="page-title">
+                    <h4>
+                        <i class="fa fa-info-circle position-left"></i>
+                        <span class="text-semibold">Establecimientos</span> - Lista de sucursales
 
-            <div class="row">
-                {% for reg in data   %}
-
-                    <div class="col-lg-4 col-md-3 col-sm-6">
-                        <div class="panel panel-warning">
-                            <div class="panel-heading"> {{ reg.cliUsuCli.cliNombre }}</div>
-                            <div class="panel-body">
-                              Localizado en: <i class="glyphicon glyphicon-map-marker"></i> {{ reg.cliUsuCli.cliMun.munNombre }}
-                              <hr>
-                              <a href="{{ path('emr_homepage',{'id':reg.cliUsuCli.cliId} ) }}" class="btn btn-success"><i class="glyphicon glyphicon-cog"></i> Administrar</a>
-                              <a href="#" class="btn btn-danger"><i class="glyphicon glyphicon-remove-sign"></i> Dar de baja</a>
-                            </div>
-                         </div>
+                        <small class="display-block">Seleccione la sucursa ha iniciar sesión o administrar!</small></h4>
+                    <a class="heading-elements-toggle"><i class="icon-more"></i></a><a class="heading-elements-toggle"><i class="icon-more"></i></a></div>
+                    
+                <div class="heading-elements">
+                    <div class="heading-btn-group">
+                        {#
+                        <a href="#" class="btn btn-link btn-float has-text"><i class="icon-bars-alt text-primary"></i><span>Statistics</span></a>
+                        <a href="#" class="btn btn-link btn-float has-text"><i class="icon-calculator text-primary"></i> <span>Invoices</span></a>
+                        <a href="#" class="btn btn-link btn-float has-text"><i class="icon-calendar5 text-primary"></i> <span>Schedule</span></a>
+                        #}
+                        <ul class="icons-list">
+                                        <li class="dropdown ">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><i class="glyphicon glyphicon-plus-sign"></i> Nuevo establecimiento <span class="caret"></span></a>
+                                            <ul class="dropdown-menu dropdown-menu-right">
+                                                
+                                                <li><a href="#"><i class="fa fa-user-plus"></i> Para mí usuario</a></li>
+                                                
+                                                <li><a href="#"><i class="fa fa-user-md"></i> Nuevo usuario</a></li>
+                                                {#<li class="divider"></li>#}
+                                                {# <li><a href="#"><i class="fa fa-hospital-o"></i> Ver lista</a></li> #}
+                                            </ul>
+                                        </li>
+                                    </ul>
                     </div>
-
-                {% endfor %}
+                </div>
+                
             </div>
-        </div>
-    </div> 
+                 
+                {% for reg in dataLocation%}
+                    
+                    <div class="col-lg-4 col-md-3 col-sm-6">
+                        <div class="panel panel-flat border-left-lg border-left-info">
+                            <div class="panel-heading">
+                                <h6 class="panel-title"><i class="fa fa-hospital-o"></i> {{ reg.fiscalName }}</h6>
+                                {% if reg.client == "is_representer" %}
+                                    <div class="heading-elements">
+                                        <!-- <span class="label bg-success heading-text">5 Doctores</span> -->
+                                        <ul class="icons-list">
+                                            <li class="dropdown ">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><i class="icon-menu7"></i> <span class="caret"></span></a>
+                                                <ul class="dropdown-menu dropdown-menu-right">
+                                                    <li><a href="{{ path('cliente_edit', { 'id': reg.clientId } ) }}"><i class="icon-sync"></i> Actualizar Información</a></li>
+                                                    <li><a href="#"><i class="icon-list-unordered"></i> Médicos</a></li>
+                                                    <li><a href="#"><i class="icon-pie5"></i> Estadisticas</a></li>
+                                                    <li class="divider"></li>
+                                                    <li><a href="#"><i class="icon-cross3"></i> Clear list</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                {% endif %}                
+                            </div>
+                            <div class="panel-body">
+                                Localizado en: <i class="glyphicon glyphicon-map-marker"></i> {{ reg.municipality  }}
+                                <hr>
+                                <a href="{{ path('emr_homepage',{'id':reg.clientId} ) }}" class="btn btn-success"><i class="fa fa-stethoscope"></i> Iniciar sesión</a>
+                                <!-- <a href="{{ path('emr_homepage',{'id':reg.clientId} ) }}" class="btn btn-info"><i class="glyphicon glyphicon-cog"></i> Administrar</a> -->
+                                <!-- <a href="#" class="btn btn-danger"><i class="glyphicon glyphicon-remove-sign"></i> Dar de baja</a> -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                {% endfor %}        
 
     
     

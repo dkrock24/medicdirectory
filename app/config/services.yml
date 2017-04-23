@@ -10,3 +10,6 @@ services:
     srv_uploadFile:
         class:        Services\UploadFile
         arguments:     ["@doctrine.orm.entity_manager"]
+    srv_session:
+        class:        Services\ConfigureSession
+        arguments:     ["@doctrine.orm.entity_manager", "@session"]    

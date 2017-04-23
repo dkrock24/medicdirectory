@@ -35,4 +35,13 @@ AppBundle\Entity\Rol:
             options:
                 default: '1'
             column: rol_activo
+    manyToMany:
+        idUsuario:
+            targetEntity: Usuario
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: idRol
+            inversedBy: null
+            joinTable: null
+            orderBy: null
     lifecycleCallbacks: {  }
