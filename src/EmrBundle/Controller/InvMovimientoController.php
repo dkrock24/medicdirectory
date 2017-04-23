@@ -41,8 +41,10 @@ class InvMovimientoController extends Controller
      */
     public function newAction(Request $request)
     {
-        $invMovimiento = new Invmovimiento();
-        $form = $this->createForm('EmrBundle\Form\InvMovimientoType', $invMovimiento);
+        $invMovimiento  = new Invmovimiento();
+        $idCliente      = $this->get('session')->get('locationId');
+
+        $form = $this->createForm('EmrBundle\Form\InvMovimientoType', $invMovimiento, array('id_cliente_session'=> $idCliente));
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

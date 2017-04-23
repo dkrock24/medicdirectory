@@ -28,7 +28,9 @@ class InventarioController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $inventarios = $em->getRepository('AppBundle:Inventario')->findAll();
+        $idCliente = $this->get('session')->get('locationId');
+
+        $inventarios = $em->getRepository('AppBundle:Inventario')->findBy(array('invCli' => $idCliente));
 
         return $this->render('EmrBundle:inventario:index.html.twig', array(
             'inventarios' => $inventarios,
@@ -42,12 +44,19 @@ class InventarioController extends Controller
     public function newAction(Request $request)
     {
         $inventario = new Inventario();
-        $form = $this->createForm('EmrBundle\Form\InventarioType', $inventario);
+        $idCliente  = $this->get('session')->get('locationId');
+
+        $form = $this->createForm('EmrBundle\Form\InventarioType', $inventario,array('id_cliente'=> $idCliente));
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
+            $idCliente  = $this->get('session')->get('locationId');
+            $id         = $em->getRepository('AppBundle:Cliente')->find($idCliente);
+
+            $inventario->SetInvCli($id);
             $inventario->SetInvFechaCrea(new \DateTime());
             $em->persist($inventario);
             

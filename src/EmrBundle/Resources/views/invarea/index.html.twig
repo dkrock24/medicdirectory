@@ -13,7 +13,8 @@
 {% endblock %} 
 
 {% block body %}
-    <h1>Listado de Areas</h1>
+    <h1>Lista / Inventario Areas</h1>
+    <hr>
     <!-- Check the notifications -->
     <div id="holder_msg">
         {% for message in app.session.flashbag().get("success") %}
@@ -33,7 +34,7 @@
                 <th>Nombre Area</th>
                 <th>Creado</th>
                 <th>Modificado</th>
-                <th>Estado</th>
+                <th>Activo</th>
                 <th>Actión</th>
             </tr>
         </thead>
@@ -42,30 +43,76 @@
             <tr>
                 <td><a href="{{ path('invarea_show', { 'iarId': invArea.iarId }) }}">{{ invArea.iarId }}</a></td>
                 <td>{{ invArea.iarArea }}</td>
-                <td>{% if invArea.iarFechaCrea %}{{ invArea.iarFechaCrea|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if invArea.iarFechaMod %}{{ invArea.iarFechaMod|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if invArea.iarFechaCrea %}{{ invArea.iarFechaCrea|date('l, j  F  Y')|replace({
+  'January'  : 'Enero',
+  'February'  : 'Abril',
+  'March'  : 'Abril',
+  'April'  : 'Abril',
+  'May'  : 'Mayo',
+  'June'  : 'Junio',
+  'July'  : 'Julio',
+  'August'  : 'Agosto',
+  'September' : 'Septiembre',
+  'October'  : 'Octubre',
+  'November'  : 'Noviembre',
+  'December'  : 'Diciembre',
+  'January'  : 'Enero',
+  'January'  : 'Enero',
+  'Monday'   : 'Lunes',
+  'Tuesday'   : 'Martes',
+  'Wednesday'   : 'Miercoles',
+  'Thursday'   : 'Jueves',
+  'Friday'   : 'Viernes',
+  'Saturday'   : 'Sabado',
+  'Sunday'   : 'Domingo'
+})  }}{% endif %}</td>
+                <td>{% if invArea.iarFechaMod %}{{ invArea.iarFechaMod|date('l, j  F  Y')|replace({
+  'January'  : 'Enero',
+  'February'  : 'Abril',
+  'March'  : 'Abril',
+  'April'  : 'Abril',
+  'May'  : 'Mayo',
+  'June'  : 'Junio',
+  'July'  : 'Julio',
+  'August'  : 'Agosto',
+  'September' : 'Septiembre',
+  'October'  : 'Octubre',
+  'November'  : 'Noviembre',
+  'December'  : 'Diciembre',
+  'January'  : 'Enero',
+  'January'  : 'Enero',
+  'Monday'   : 'Lunes',
+  'Tuesday'   : 'Martes',
+  'Wednesday'   : 'Miercoles',
+  'Thursday'   : 'Jueves',
+  'Friday'   : 'Viernes',
+  'Saturday'   : 'Sabado',
+  'Sunday'   : 'Domingo'
+})  }}{% endif %}</td>
                 
                 <td>{% if invArea.iarActivo %}<span class="label label-success">Si</span>{% else %}<span class="label label-danger">No</span>{% endif %}</td>
                 <td>
                     <ul class="list-inline">
-                        <li>
-                            <a href="{{ path('invarea_show', { 'iarId': invArea.iarId }) }}" class='btn btn-default'><i class='fa fa-folder-open'></i>Ver</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('invarea_edit', { 'iarId': invArea.iarId }) }}" class='btn bg-teal-400'><i class='fa fa-edit'></i> Editar</a>
-                        </li>
-                        <li>
-                            <button value="{{ invArea.iarId }}" class="btn btn-danger delete"><i class="fa fa-remove"></i> Eliminar</button>
+                        <li class="dropdown">
+                            <a href="#" class="btn btn bg-teal-400 dropdown-toggle btn-sm" data-toggle="dropdown">Acción <span class="caret"></span></a>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li><a href="{{ path('invarea_show', { 'iarId': invArea.iarId }) }}"><i class="icon-folder"></i> Ver </a></li>
+                                    <li><a href="{{ path('invarea_edit', { 'iarId': invArea.iarId }) }}"><i class="icon-pencil"></i> Editar</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#" id="{{invArea.iarId}}" class="delete"><i class="icon-trash"></i> Eliminar</a></li>
+                                </ul>
                         </li>
                     </ul>
                 </td>
             </tr>
         {% endfor %}
-        </tbody>
+        </tbody>        
     </table>
+    <hr>
     {% else %}
         <div class="alert alert-info" role=""><i class="fa fa-info-circle"></i> No hay regístros creados</div>
     {% endif %} 
+
     <ul class="list-inline">
         <li>
             <a href="{{ path('invarea_new') }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Nueva Area</a>
@@ -92,7 +139,7 @@
             
             
             $('body').on("click",".delete",function () {
-                var id = $(this).val();
+                var id = $(this).attr("id");
                 if( id > 0 )
                 {
                     sendAjax(id);

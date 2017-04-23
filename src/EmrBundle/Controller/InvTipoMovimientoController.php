@@ -28,7 +28,9 @@ class InvTipoMovimientoController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $invTipoMovimientos = $em->getRepository('AppBundle:InvTipoMovimiento')->findAll();
+        $idCliente = $this->get('session')->get('locationId');
+
+        $invTipoMovimientos = $em->getRepository('AppBundle:InvTipoMovimiento')->findBy(array('itmCli' => $idCliente));
 
         return $this->render('EmrBundle:invtipomovimiento:index.html.twig', array(
             'invTipoMovimientos' => $invTipoMovimientos,
@@ -47,6 +49,10 @@ class InvTipoMovimientoController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+
+            $idCliente = $this->get('session')->get('locationId');
+            $id = $em->getRepository('AppBundle:Cliente')->find($idCliente);
+            $invTipoMovimiento->SetItmCli($id);
 
             $invTipoMovimiento->SetItmFechaCrea(new \DateTime());
             $em->persist($invTipoMovimiento);           

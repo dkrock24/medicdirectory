@@ -13,7 +13,8 @@
 {% endblock %} 
 
 {% block body %}
-    <h1>Lista Tipos de Proveedores</h1>
+    <h1>Lista / Inventario Tipo Proveedor</h1>
+    <hr>
     <!-- Check the notifications -->
     <div id="holder_msg">
         {% for message in app.session.flashbag().get("success") %}
@@ -34,7 +35,7 @@
                 <th>Descripción</th>
                 <th>Creado</th>
                 <th>Modificado</th>
-                <th>Estado</th>
+                <th>Activo</th>
                 <th>Acción</th>
             </tr>
         </thead>
@@ -50,14 +51,14 @@
                 <td>{% if invTipoProveedor.itprActivo %}<span class="label label-success">Si</span>{% else %}<span class="label label-danger">No</span>{% endif %}</td>
                 <td>
                     <ul class="list-inline">
-                        <li>
-                            <a href="{{ path('invtipoproveedor_show', { 'itprId': invTipoProveedor.itprId }) }}" class='btn btn-default'><i class='fa fa-folder-open'></i>Ver</a>
-                        </li>
-                         <li>
-                            <a href="{{ path('invtipoproveedor_edit', { 'itprId': invTipoProveedor.itprId }) }}" class='btn bg-teal-400'><i class='fa fa-edit'></i> Editar</a>
-                        </li>
-                        <li>
-                            <button value="{{ invTipoProveedor.itprId }}" class="btn btn-danger delete"><i class="fa fa-remove"></i> Eliminar</button>
+                        <li class="dropdown">
+                            <a href="#" class="btn btn bg-teal-400 dropdown-toggle btn-sm" data-toggle="dropdown">Acción <span class="caret"></span></a>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li><a href="{{ path('invtipoproveedor_show', { 'itprId': invTipoProveedor.itprId }) }}"><i class="icon-folder"></i> Ver </a></li>
+                                    <li><a href="{{ path('invtipoproveedor_edit', { 'itprId': invTipoProveedor.itprId }) }}"><i class="icon-pencil"></i> Editar</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#" id="{{ invTipoProveedor.itprId }}" class="delete"><i class="icon-trash"></i> Eliminar</a></li>
+                                </ul>
                         </li>
                     </ul>
                 </td>
@@ -96,7 +97,7 @@
             
             
             $('body').on("click",".delete",function () {
-                var id = $(this).val();
+                var id = $(this).attr("id");
                 if( id > 0 )
                 {
                     sendAjax(id);

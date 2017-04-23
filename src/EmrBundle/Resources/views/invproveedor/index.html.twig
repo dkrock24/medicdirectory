@@ -13,8 +13,8 @@
 {% endblock %} 
 
 {% block body %}
-    <h1>Lista Proveedores</h1>
-
+    <h1>Lista / Inventario Proveedores</h1>
+    <hr>
     <!-- Check the notifications -->
     <div id="holder_msg">
         {% for message in app.session.flashbag().get("success") %}
@@ -36,12 +36,10 @@
                 <th>Nombre Corto</th>
                 <th>Telefono 1</th>
                 <th>Telefono 2</th>
-                <th>Email</th>
-                <th>Dirección</th>
-                <th>Descripción</th>
+                <th>Tipo</th>
                 <th>Creado</th>
                 <th>Modificado</th>
-                <th>Estado</th>
+                <th>Activo</th>
                 <th>Acción</th>
             </tr>
         </thead>
@@ -54,22 +52,22 @@
                 <td>{{ invProveedor.iprNombreAbreviado }}</td>
                 <td>{{ invProveedor.iprTelefono1 }}</td>
                 <td>{{ invProveedor.iprTelefono2 }}</td>
-                <td>{{ invProveedor.iprEmail }}</td>
-                <td>{{ invProveedor.iprDireccion }}</td>
-                <td>{{ invProveedor.iprDescripcion }}</td>
+                <td>{{ invProveedor.iprItpr.ItprTipo }}</td>
+                
                 <td>{% if invProveedor.iprFechaCrea %}{{ invProveedor.iprFechaCrea|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>{% if invProveedor.iprFechaMod %}{{ invProveedor.iprFechaMod|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if invProveedor.iprActivo %}Yes{% else %}No{% endif %}</td>
+                
+                <td>{% if invProveedor.iprActivo %}<span class="label label-success">Si</span>{% else %}<span class="label label-danger">No</span>{% endif %}</td>
                 <td>
                     <ul class="list-inline">
-                        <li>
-                            <a href="{{ path('invproveedor_show', { 'iprId': invProveedor.iprId }) }}" class='btn btn-default'><i class='fa fa-folder-open'></i>Ver</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('invproveedor_edit', { 'iprId': invProveedor.iprId }) }}"  class='btn bg-teal-400'><i class='fa fa-edit'></i> Editar</a>
-                        </li>
-                        <li>
-                            <button value="{{ invProveedor.iprId }}" class="btn btn-danger delete"><i class="fa fa-remove"></i> Eliminar</button>
+                        <li class="dropdown">
+                            <a href="#" class="btn btn bg-teal-400 dropdown-toggle btn-sm" data-toggle="dropdown">Acción <span class="caret"></span></a>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li><a href="{{ path('invproveedor_show', { 'iprId': invProveedor.iprId }) }}"><i class="icon-folder"></i> Ver </a></li>
+                                    <li><a href="{{ path('invproveedor_edit', { 'iprId': invProveedor.iprId }) }}"><i class="icon-pencil"></i> Editar</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#" id="{{ invProveedor.iprId }}" class="delete"><i class="icon-trash"></i> Eliminar</a></li>
+                                </ul>
                         </li>
                     </ul>
                 </td>
@@ -107,7 +105,7 @@
             
             
             $('body').on("click",".delete",function () {
-                var id = $(this).val();
+                var id = $(this).attr("id");
                 if( id > 0 )
                 {
                     sendAjax(id);

@@ -834,4 +834,8 @@ class Inventario
     {
         return $this->invUmeInv;
     }
+
+    public function __toString() {
+        return $this->invNombreComercial;
+    }
 }

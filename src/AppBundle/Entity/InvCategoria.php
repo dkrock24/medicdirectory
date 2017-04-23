@@ -197,4 +197,8 @@ class InvCategoria
     {
         return $this->icaCli;
     }
+
+    public function __toString() {
+        return $this->icaCategoria;
+    }
 }

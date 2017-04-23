@@ -167,4 +167,38 @@ class InvTipoMovimiento
     {
         return $this->itmActivo;
     }
+
+    /**
+     * @var \AppBundle\Entity\Cliente
+     */
+    private $itmCli;
+
+
+    /**
+     * Set itmCli
+     *
+     * @param \AppBundle\Entity\Cliente $itmCli
+     *
+     * @return InvArea
+     */
+    public function setItmCli(\AppBundle\Entity\Cliente $itmCli = null)
+    {
+        $this->itmCli = $itmCli;
+
+        return $this;
+    }
+
+    /**
+     * Get itmCli
+     *
+     * @return \AppBundle\Entity\Cliente
+     */
+    public function getItmCli()
+    {
+        return $this->itmCli;
+    }
+
+    public function __toString() {
+        return $this->itmTipo;
+    }
 }
