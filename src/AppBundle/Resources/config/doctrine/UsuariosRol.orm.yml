@@ -1,0 +1,49 @@
+AppBundle\Entity\UsuariosRol:
+    type: entity
+    table: usuarios_rol
+    id:
+        urolId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            id: true
+            column: urol_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        urolUsuId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            column: urol_usu_id
+        urolRolId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            column: urol_rol_id
+        urolCliId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            column: urol_cli_id
+    manyToOne:
+        usuRolUsuarios:
+            targetEntity: Usuario
+            joinColumn:
+                name: urol_usu_id
+                referencedColumnName: usu_id
+        usuRolClientes:
+            targetEntity: Cliente
+            joinColumn:
+                name: urol_cli_id
+                referencedColumnName: cli_id
+        usuRolRols:
+            targetEntity: Rol
+            joinColumn:
+                name: urol_rol_id
+                referencedColumnName: rol_id
+    lifecycleCallbacks: {  }

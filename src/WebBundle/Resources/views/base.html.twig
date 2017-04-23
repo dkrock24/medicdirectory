@@ -146,4 +146,15 @@
     <script src="{{ asset('bundles/web/js/jquery-scrolltofixed-min.js') }}"></script>
     <!-- <script src="https://maps.googleapis.com/maps/api/js"></script> !-->
     <script src="{{ asset('bundles/web/js/custom.js') }}"></script>
+    <script src="{{ asset('jquery.lazy.min.js') }}"></script>
+    <script type="text/javascript">
+        $(function($) {
+            $("#doctors-grid .lazy").Lazy({
+                effect: "fadeIn",
+                effectTime: 1000,
+                threshold: 0
+                //,appendScroll: $('.bio-box')
+            });
+        });
+    </script>
 </body>

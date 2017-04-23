@@ -7,8 +7,8 @@ web_doctores:
     defaults: { _controller: WebBundle:Default:indexDoctores }
     
 web_doctores_perfil:
-    path:     /doctores/perfil
-    defaults: { _controller: WebBundle:Default:indexProfile }
+    path:     /doctores/perfil/{med_id}
+    defaults: { _controller: WebBundle:Default:indexProfile, med_id : null}
 
 web_hospitales:
     path:     /hospitales

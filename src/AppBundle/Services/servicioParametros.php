@@ -79,7 +79,7 @@ class servicioParametros {
             return $default_return_value;
         }
         
-        return $parametro;
+        return $parametro->getParValor();
     }
 
     
@@ -97,7 +97,7 @@ class servicioParametros {
             return $default_return_value;
         }
         
-        return $parametro;
+        return $parametro->getParValor();
     }
 
     

@@ -58,4 +58,7 @@ AppBundle\Entity\Especialidad:
             inversedBy: null
             joinTable: null
             orderBy: null
+        usuarios:
+            targetEntity: Usuario
+            mappedBy: groups
     lifecycleCallbacks: {  }
