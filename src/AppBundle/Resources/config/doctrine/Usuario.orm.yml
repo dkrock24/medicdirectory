@@ -1,6 +1,5 @@
 AppBundle\Entity\Usuario:
     type: entity
-    repositoryClass: AppBundle\Repository\UsuarioRepository
     table: usuario
     indexes:
         IDX_usuario:
@@ -102,15 +101,21 @@ AppBundle\Entity\Usuario:
                     referencedColumnName: usi_id
             orphanRemoval: false
     manyToMany:
-        groups:
+        idEspecialidad:
             targetEntity: Especialidad
-            inversedBy: usuarios
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: idUsuario
             joinTable:
                 name: usuarios_especialidad
                 joinColumns:
-                    uesp_usu_id:
+                    -
+                        name: id_usuario
                         referencedColumnName: usu_id
                 inverseJoinColumns:
-                    uesp_esp_id:
+                    -
+                        name: id_especialidad
                         referencedColumnName: esp_id
+            orderBy: null
     lifecycleCallbacks: {  }

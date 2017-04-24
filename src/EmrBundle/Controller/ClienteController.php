@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use \AppBundle\Entity\Usuario;
 use \AppBundle\Entity\Rol;
 use \AppBundle\Entity\ClienteUsuario;
+use \AppBundle\Entity\UsuariosRol;
 
 /**
  * Cliente controller.
@@ -48,13 +49,14 @@ class ClienteController extends Controller
     public function newAction(Request $request)
     {
 		$em = $this->getDoctrine()->getManager();
-		
+		//die();
 		$location = $request->get("id");
+		//$idUser =  $this->getUser()->getUsuId();
 		
 		$addToUser = false;
 		if( isset($location)  )
 		{
-			if( $location > 0 )
+			if( $location == "myself" )
 			{
 				$securityContext = $this->container->get('security.authorization_checker');
 				if ($securityContext->isGranted('IS_AUTHENTICATED_FULLY'))
@@ -63,34 +65,37 @@ class ClienteController extends Controller
 					$idUser =  $this->getUser()->getUsuId();
 					
 					$location_repo = $em->getRepository("AppBundle:Cliente")->find($location);
-					if( $location_repo )
+					//if( $location_repo )
+					if( $idUser )	
 					{
-						
-						$RAW_QUERY = "SELECT * FROM cliente_usuario 
-								
-								WHERE cli_usu_cli_id =:client
-								and cli_usu_usu_id =:idUser "; //5 = Cliente( Representante )
+						/*
+							$RAW_QUERY = "SELECT * FROM cliente_usuario 
 
-						$statement = $em->getConnection()->prepare($RAW_QUERY);
-						$statement->bindValue("client", $location );
-						$statement->bindValue("idUser", $idUser );
-						$statement->execute();
-						$getUsers = $statement->fetchAll();
-						
-						if( count($getUsers) > 0)
-						{
-							//==========================
-							//Set the session 
-							//==========================
-							$idUser =  $this->getUser()->getUsuId();
-							$srvSession = $this->get('srv_session');
-							$res = $srvSession->setSessionLocation( $idUser, $location );
-							$addToUser = true;
-						}
-						else
-						{
-							return $this->redirectToRoute("emr_location");
-						}
+									WHERE cli_usu_cli_id =:client
+									and cli_usu_usu_id =:idUser "; //5 = Cliente( Representante )
+
+							$statement = $em->getConnection()->prepare($RAW_QUERY);
+							$statement->bindValue("client", $location );
+							$statement->bindValue("idUser", $idUser );
+							$statement->execute();
+							$getUsers = $statement->fetchAll();
+
+							if( count($getUsers) > 0)
+							{
+								//==========================
+								//Set the session 
+								//==========================
+								$idUser =  $this->getUser()->getUsuId();
+								$srvSession = $this->get('srv_session');
+								$res = $srvSession->setSessionLocation( $idUser, $location );
+								$addToUser = true;
+							}
+							else
+							{
+								return $this->redirectToRoute("emr_location");
+							}
+						*/
+						$addToUser = true;
 						
 					}
 					else
@@ -170,6 +175,28 @@ class ClienteController extends Controller
 		{
 			
 			$em = $this->getDoctrine()->getManager();
+			
+			
+			$idUser =  $this->getUser()->getUsuId();
+			
+			//echo $cliente->getCliId();
+			//==================================================================
+			//Check if the user if a representer 
+			//==================================================================
+			$RAW_QUERY = "SELECT * FROM usuarios_rol 
+							WHERE urol_cli_id =:client
+							and urol_usu_id =:userId
+							and urol_rol_id = 2 "; //5 = Cliente( Representante )
+			$statement = $em->getConnection()->prepare($RAW_QUERY);
+			$statement->bindValue("client", $cliente->getCliId() );
+			$statement->bindValue("userId", $idUser );
+			$statement->execute();
+			$isRepresenter = $statement->fetchAll();
+			if( count($isRepresenter) == 0 )
+			{
+				return $this->redirectToRoute("emr_location");
+			}
+			
 		
 			$deleteForm = $this->createDeleteForm($cliente);
 			$editForm = $this->createForm('EmrBundle\Form\ClienteType', $cliente);
@@ -186,7 +213,7 @@ class ClienteController extends Controller
 			//==========================
 			//Set the session 
 			//==========================
-			$idUser =  $this->getUser()->getUsuId();
+			
 			$srvSession = $this->get('srv_session');
 			$res = $srvSession->setSessionLocation( $idUser, $cliente->getCliId() );
 			
@@ -195,9 +222,9 @@ class ClienteController extends Controller
 			//==================================================================
 			$RAW_QUERY = "SELECT * FROM cliente_usuario cu 
 							inner join usuario u on u.usu_id = cu.cli_usu_usu_id
-							inner join usuarios_rol ur on ur.id_usuario = u.usu_id 
+							inner join usuarios_rol ur on ur.urol_usu_id = u.usu_id 
 							WHERE cu.cli_usu_cli_id =:client
-							and ur.id_rol = 2 "; //5 = Cliente( Representante )
+							and ur.urol_rol_id = 2 "; //5 = Cliente( Representante )
 			$statement = $em->getConnection()->prepare($RAW_QUERY);
 			$statement->bindValue("client", $cliente->getCliId() );
 			$statement->execute();
@@ -209,9 +236,9 @@ class ClienteController extends Controller
 			//==================================================================
 			$RAW_QUERY = "SELECT * FROM cliente_usuario cu 
 							inner join usuario u on u.usu_id = cu.cli_usu_usu_id
-							inner join usuarios_rol ur on ur.id_usuario = u.usu_id 
+							inner join usuarios_rol ur on ur.urol_usu_id = u.usu_id 
 							WHERE cu.cli_usu_cli_id =:client
-							and ur.id_rol != 2 "; //2 = Cliente( Representante )
+							and ur.urol_rol_id != 2 "; //2 = Cliente( Representante )
 			$statement = $em->getConnection()->prepare($RAW_QUERY);
 			$statement->bindValue("client", $cliente->getCliId() );
 			$statement->execute();
@@ -222,8 +249,8 @@ class ClienteController extends Controller
 			//Get if the representer marked the checkbox as set representer date
 			//as doctor or assistant
 			//==================================================================
-			$RAW_QUERY = "SELECT * FROM usuarios_rol WHERE id_usuario =:idUser
-							and id_rol != 2 "; //2 = Cliente( Representante )
+			$RAW_QUERY = "SELECT * FROM usuarios_rol WHERE urol_usu_id =:idUser
+							and urol_rol_id != 2 "; //2 = Cliente( Representante )
 			$statement = $em->getConnection()->prepare($RAW_QUERY);
 			$statement->bindValue("idUser", $idUser );
 			$statement->execute();
@@ -330,6 +357,18 @@ class ClienteController extends Controller
 	{
 		$em = $this->getDoctrine()->getManager();
 		
+		/*
+			$objUserRol = new UsuariosRol();
+		
+			$objUserRol->setUsuRolUsuarios( 2 );
+			$objUserRol->setUsuRolClientes( 3 );
+			$objUserRol->setUsuRolRols(2);
+			//$objUserRol->set
+			$em->persist($objUserRol);
+			$flush = $em->flush();
+		
+		exit("xxxx");
+		*/
 		//Location data
 		$clientId = $request->get("id");
 		
@@ -458,13 +497,13 @@ class ClienteController extends Controller
 			{
 				//exit("x");
 				/*
-					$RAW_QUERY = "delete from usuarios_rol where id_usuario =$clientId AND id_rol = 2"; //2 = Cliente( Representante )
+					$RAW_QUERY = "delete from usuarios_rol where urol_usu_id =$clientId AND urol_rol_id = 2"; //2 = Cliente( Representante )
 					$statement = $em->getConnection()->prepare($RAW_QUERY);
 					$statement->execute();
 				*/
-				$RAW_QUERY = "SELECT ur.id_usuario FROM cliente_usuario cu 
+				$RAW_QUERY = "SELECT ur.urol_usu_id FROM cliente_usuario cu 
 								inner join usuario u on u.usu_id = cu.cli_usu_usu_id
-								inner join usuarios_rol ur on ur.id_usuario = u.usu_id 
+								inner join usuarios_rol ur on ur.urol_usu_id = u.usu_id 
 								WHERE cu.cli_usu_cli_id =:client
 							"; //5 = Cliente( Representante )
 					$statement = $em->getConnection()->prepare($RAW_QUERY);
@@ -476,12 +515,12 @@ class ClienteController extends Controller
 				{
 					foreach($getUserList as $k)
 					{
-						array_push($deleteList, $k['id_usuario']);
+						array_push($deleteList, $k['urol_usu_id']);
 					}
 					
 					if( count($deleteList) )
 					{
-						$RAW_QUERY = "delete from usuarios_rol where id_usuario in (".  implode(",", $deleteList).") "; //2 = Cliente( Representante )
+						$RAW_QUERY = "delete from usuarios_rol where urol_usu_id in (".  implode(",", $deleteList).") AND urol_cli_id =  $clientId "; //2 = Cliente( Representante )
 						$statement = $em->getConnection()->prepare($RAW_QUERY);
 						$statement->execute();
 					}
@@ -491,13 +530,26 @@ class ClienteController extends Controller
 				//exit("v");
 			}
 			
-			$role_representer_repo = $em->getRepository('AppBundle:Rol')->find(2); //2 = Cliente( Representante )
-			$oRepresenter->addIdRol($role_representer_repo); 
-			//		addRol($role_representer_repo);
-				
 			$em->persist($oRepresenter);
-			$flush = $em->flush();				
-				
+			$flush = $em->flush();
+			$lastRepresenter = $oRepresenter->getUsuId();	
+			
+			$role_representer_repo = $em->getRepository('AppBundle:Rol')->find(2); //2 = Cliente( Representante )
+			//$oRepresenter->addIdRol($role_representer_repo); 
+
+			$client_repo = $em->getRepository('AppBundle:Cliente')->find($lastClient); // = Cliente( Representante )
+			//echo $lastRepresenter;
+			$representer_repo = $em->getRepository("AppBundle:Usuario")->find($lastRepresenter);
+			
+			
+			//$lastRepresenter = $objUserRol->getUsuId();
+			//
+			$objUserRol = new UsuariosRol();
+			$objUserRol->setUsuRolUsuarios(  $representer_repo );
+			$objUserRol->setUsuRolClientes($client_repo);
+			$objUserRol->setUsuRolRols( $role_representer_repo );
+			$em->persist($objUserRol);
+			$flush = $em->flush();
 				
 			//Save all users related for this location establishment
 			if( count($locationListUsers) > 0 )
@@ -543,12 +595,29 @@ class ClienteController extends Controller
 						$user->setUsuFechaCrea(new \Datetime());
 						
 						$role_repo = $em->getRepository('AppBundle:Rol')->find($locationListUsers[$i]['typeUser']);
-						$user->addIdRol($role_repo);
-
+						//$user->addIdRol($role_repo);
 						$em->persist($user);
 						$flush = $em->flush();
 
 						$lastUser = $user->getUsuId();
+						
+						$user_repo = $em->getRepository('AppBundle:Usuario')->find( $lastUser );
+						
+						$objUserRol = new UsuariosRol();
+						/*
+						$objUserRol->setUrolCliId( $client_repo ); // cliente 
+						$objUserRol->setUrolUsuId( $user_repo ); //user
+						$objUserRol->setUrolRolId( $role_repo ); //role
+						*/
+						
+						$objUserRol->setUsuRolUsuarios( $user_repo );
+						$objUserRol->setUsuRolClientes( $client_repo );
+						$objUserRol->setUsuRolRols($role_repo);
+						
+						$em->persist($objUserRol);
+						$flush = $em->flush();
+						
+						
 					}
 					else
 					{
@@ -556,14 +625,31 @@ class ClienteController extends Controller
 						//Save all rol per users 
 						//========================================
 						$role_repo = $em->getRepository('AppBundle:Rol')->find($locationListUsers[$i]['typeUser']);
-						$oRepresenter->addIdRol($role_repo);
+						//$oRepresenter->addIdRol($role_repo);
 						$lastUser = $oRepresenter->getUsuId();
+						
+						
+						$objUserRol = new UsuariosRol();
+						/*
+						$objUserRol->setUrolCliId( $client_repo ); // cliente 
+						$objUserRol->setUrolUsuId( $representer_repo ); //user
+						$objUserRol->setUrolRolId( $role_repo ); //role
+						*/
+						//exit("xxxx");
+						$objUserRol->setUsuRolUsuarios( $representer_repo );
+						$objUserRol->setUsuRolClientes( $client_repo );
+						$objUserRol->setUsuRolRols($role_repo);
+						
+						$em->persist($objUserRol);
+						$flush = $em->flush();
+						
+						
 					}
 					
 					//========================================
 					//Sava data in cliente_usuario
 					//========================================					
-					$client_repo = $em->getRepository('AppBundle:Cliente')->find($lastClient);
+					//$client_repo = $em->getRepository('AppBundle:Cliente')->find($lastClient);
 					$user_repo = $em->getRepository('AppBundle:Usuario')->find($lastUser);
 
 					$oClientUser = new ClienteUsuario();
