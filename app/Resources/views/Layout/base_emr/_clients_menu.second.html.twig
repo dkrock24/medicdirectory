@@ -5,7 +5,7 @@
 		</ul>
 
 		<div class="navbar-collapse collapse" id="navbar-second-toggle">
-            {{ render(controller('EmrBundle:MenuTop:listShow')) }}
+            {{ render(controller('EmrBundle:MenuTop:listShow',{ 'menu': 1 })) }}
             {#
 			<ul class="nav navbar-nav">
 				<li class="active"><a href="index.html"><i class="icon-display4 position-left"></i> Dashboard</a></li>

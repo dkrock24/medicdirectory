@@ -8,7 +8,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Hospitals - Bootstrap 3 Template</title>
+        <title>Web</title>
 
         <!-- Bootstrap Core CSS -->
         <link href="{{ asset('bundles/web/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -56,6 +56,7 @@
                         <!-- Navbar Collapse Starts -->
                         <div class="navbar-collapse collapse">
                             {% include 'WebBundle:Default:menutop.html.twig' %}
+                            {{ render(controller('EmrBundle:MenuTop:listShow',{ 'menu': 2 })) }}
                         </div>
                         <!-- Navbar Collapse Ends -->
                     </div>
