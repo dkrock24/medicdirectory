@@ -269,4 +269,91 @@ class UsuarioGaleria
     {
         return $this->galUsuario;
     }
+    /**
+     * @var string
+     */
+    private $galHash;
+
+    /**
+     * @var \AppBundle\Entity\Modulo
+     */
+    private $galModulo;
+
+    /**
+     * @var \AppBundle\Entity\Cliente
+     */
+    private $galCliente;
+
+
+    /**
+     * Set galHash
+     *
+     * @param string $galHash
+     *
+     * @return UsuarioGaleria
+     */
+    public function setGalHash($galHash)
+    {
+        $this->galHash = $galHash;
+
+        return $this;
+    }
+
+    /**
+     * Get galHash
+     *
+     * @return string
+     */
+    public function getGalHash()
+    {
+        return $this->galHash;
+    }
+
+    /**
+     * Set galModulo
+     *
+     * @param \AppBundle\Entity\Modulo $galModulo
+     *
+     * @return UsuarioGaleria
+     */
+    public function setGalModulo(\AppBundle\Entity\Modulo $galModulo = null)
+    {
+        $this->galModulo = $galModulo;
+
+        return $this;
+    }
+
+    /**
+     * Get galModulo
+     *
+     * @return \AppBundle\Entity\Modulo
+     */
+    public function getGalModulo()
+    {
+        return $this->galModulo;
+    }
+
+    /**
+     * Set galCliente
+     *
+     * @param \AppBundle\Entity\Cliente $galCliente
+     *
+     * @return UsuarioGaleria
+     */
+    public function setGalCliente(\AppBundle\Entity\Cliente $galCliente = null)
+    {
+        $this->galCliente = $galCliente;
+
+        return $this;
+    }
+
+    /**
+     * Get galCliente
+     *
+     * @return \AppBundle\Entity\Cliente
+     */
+    public function getGalCliente()
+    {
+        return $this->galCliente;
+    }
 }

@@ -12,6 +12,13 @@ AppBundle\Entity\UsuarioGaleria:
             generator:
                 strategy: IDENTITY
     fields:
+        galHash:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+            column: cli_pago_detalle
         galFechaCrea:
             type: datetime
             nullable: false
@@ -39,4 +46,19 @@ AppBundle\Entity\UsuarioGaleria:
                 gal_usu_id:
                     referencedColumnName: usu_id
             orphanRemoval: false
+        galModulo:
+            targetEntity: Modulo
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                gal_modulo_id:
+                    referencedColumnName: mod_id
+            orphanRemoval: false
+        galCliente:
+            targetEntity: Cliente
+            joinColumn:
+                name: gal_cliente_id
+                referencedColumnName: cli_id
     lifecycleCallbacks: {  }
