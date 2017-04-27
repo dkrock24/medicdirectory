@@ -79,14 +79,25 @@ AppBundle\Entity\Cliente:
             column: cli_id_vendedor
         cliFechaCrea:
             type: datetime
-            nullable: false
-            options:
-                default: CURRENT_TIMESTAMP
+            nullable: true
             column: cli_fecha_crea
         cliFechaMod:
             type: datetime
             nullable: true
             column: cli_fecha_mod
+        cliPagoDetalle:
+            type: string
+            nullable: false
+            length: 200
+            options:
+                fixed: false
+            column: cli_pago_detalle
+        cliPrecioPorUsuario:
+            type: decimal
+            nullable: true
+            precision: 5
+            scale: 2
+            column: cli_precio_por_usuario
         cliActivo:
             type: boolean
             nullable: true
@@ -113,6 +124,16 @@ AppBundle\Entity\Cliente:
             joinColumns:
                 cli_mun_id:
                     referencedColumnName: mun_id
+            orphanRemoval: false
+        cliMetodoPago:
+            targetEntity: MetodoPago
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                cli_metodo_pago_id:
+                    referencedColumnName: mep_id
             orphanRemoval: false
     manyToMany:
         espid:

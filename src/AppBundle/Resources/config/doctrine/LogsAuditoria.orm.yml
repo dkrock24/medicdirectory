@@ -51,6 +51,12 @@ AppBundle\Entity\LogsAuditoria:
             options:
                 fixed: false
             column: log_valor_nuevo
+        logFechaEjecucion:
+            type: datetime
+            nullable: true
+            options:
+                default: CURRENT_TIMESTAMP
+            column: log_fecha_ejecucion
         logComentario:
             type: string
             nullable: true
@@ -58,12 +64,6 @@ AppBundle\Entity\LogsAuditoria:
             options:
                 fixed: false
             column: log_comentario
-        logFechaEjecucion:
-            type: datetime
-            nullable: true
-            options:
-                default: CURRENT_TIMESTAMP
-            column: log_fecha_ejecucion
     manyToOne:
         logUsuAccion:
             targetEntity: Usuario
@@ -74,6 +74,5 @@ AppBundle\Entity\LogsAuditoria:
             joinColumns:
                 log_usu_accion:
                     referencedColumnName: usu_id
-                    nullable: true
             orphanRemoval: false
     lifecycleCallbacks: {  }

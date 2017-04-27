@@ -13,10 +13,10 @@ class MenuTopController extends Controller
 	
 	public $createRoute = "";
 	
-	public function listShowAction( Request $request )
+	public function listShowAction( Request $request ,$menu)
     {
 		
-		$dinamicMenu = $this->get_main_parent(); 
+		$dinamicMenu = $this->get_main_parent($menu); 
 		//$this->get('srv_DinamicMenu');
 		//$menu = $dinamicMenu->showMenu();
 		
@@ -26,7 +26,7 @@ class MenuTopController extends Controller
 	
 	
 	
-	function get_main_parent(){
+	function get_main_parent($menu){
 		
 		//get absolute path of this route
 		$this->createRoute = $this->generateUrl('emr_controller_url_menu_top', array('route'=>"{}"), UrlGeneratorInterface::ABSOLUTE_URL);
@@ -35,9 +35,9 @@ class MenuTopController extends Controller
 		$app_repo = $em->createQuery(
 				'SELECT m
 				FROM AppBundle:Menu m
-				WHERE m.menActivo = 1
-				ORDER BY m.menOrden ASC'
-			)->getResult();
+				WHERE m.menActivo = 1  and m.menBackend=:menu ORDER BY m.menOrden ASC')
+				->setParameter('menu', $menu)
+				->getResult();
 		$nav = "";
 		if( count($app_repo) > 0)
 		{

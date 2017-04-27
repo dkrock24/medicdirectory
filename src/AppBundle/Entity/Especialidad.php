@@ -285,4 +285,43 @@ class Especialidad
     {
         return $this->usuarios;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $idUsuario;
+
+
+    /**
+     * Add idUsuario
+     *
+     * @param \AppBundle\Entity\Usuario $idUsuario
+     *
+     * @return Especialidad
+     */
+    public function addIdUsuario(\AppBundle\Entity\Usuario $idUsuario)
+    {
+        $this->idUsuario[] = $idUsuario;
+
+        return $this;
+    }
+
+    /**
+     * Remove idUsuario
+     *
+     * @param \AppBundle\Entity\Usuario $idUsuario
+     */
+    public function removeIdUsuario(\AppBundle\Entity\Usuario $idUsuario)
+    {
+        $this->idUsuario->removeElement($idUsuario);
+    }
+
+    /**
+     * Get idUsuario
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getIdUsuario()
+    {
+        return $this->idUsuario;
+    }
 }

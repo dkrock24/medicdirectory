@@ -7,21 +7,21 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 
-class adminGenerarPacientesPruebaCommand extends ContainerAwareCommand {
+class adminGenerarClientesPruebaCommand extends ContainerAwareCommand {
 
     protected function configure() {
-        /* php bin/console admin:generar-pacientes-prueba */
+        /* php bin/console admin:generar-clientes-prueba */
         $this
                 // the name of the command (the part after "bin/console")
-                ->setName('admin:generar-pacientes-prueba')
+                ->setName('admin:generar-clientes-prueba')
 
                 // the short description shown while running "php bin/console list"
-                ->setDescription('Crea pacientes de manera aleatoria.')
+                ->setDescription('Crea clientes de manera aleatoria.')
 
                 // the full command description shown when running the command with
                 // the "--help" option
-                ->setHelp("Crea pacientes de manera aleatoria con un numero definido por el primer parametro")
-                ->addArgument('cantidad', InputArgument::REQUIRED, '¿Cuantos pacientes?')
+                ->setHelp("Crea clientes de manera aleatoria con un numero definido por el primer parametro")
+                ->addArgument('cantidad', InputArgument::REQUIRED, '¿Cuantos clientes?')
         ;
     }
 
@@ -36,10 +36,10 @@ class adminGenerarPacientesPruebaCommand extends ContainerAwareCommand {
         $output->writeln([
             '',
             '========================',
-            'Creador de pacientes',
+            'Creador de clientes',
             '========================',
             '',
-            'Pacientes a crear: ' . $iCantidad,
+            'Clientes a crear: ' . $iCantidad,
             'Generado a partir de: ' . $sCsvNombres,
         ]);
 
@@ -52,26 +52,15 @@ class adminGenerarPacientesPruebaCommand extends ContainerAwareCommand {
             fclose($hCsvNombres);
         }
 
-        // Generar pacientes
-        $aGeneros = array("m", "f");
+        // Generar usuarios
+
         for($i=0; $i <= $iCantidad ; $i++) {
-            $sApellido = $aApellidos[rand(0, count($aApellidos))];
-            $sNombre = $aNombres[rand(0, count($aNombres))];
-            $sPaciente = strtolower($sNombre.'.'.$sApellido);
-            
-            $oPaciente = new \AppBundle\Entity\Paciente();
-            $oPaciente->setPacActivo(TRUE);
-            $oPaciente->setPacNombre($sNombre);
-            $oPaciente->setPacApellido($sApellido);
-            $oPaciente->setPacGenero($aGeneros[array_rand($aGeneros)]);
-            $oPaciente->setPacFechaNacimiento(new \DateTime('1988-02-08'));
-            $oPaciente->setPacFechaCrea(new \DateTime());
-            $oPaciente->setPacFechaMod(new \DateTime());
-            $oPaciente->setPacDui(substr(uniqid('',TRUE),0,9));
-            $oPaciente->setPacDireccion('Pje. Blah blah');
-            $em->persist($oPaciente);
+            $sNombre = $aNombres[rand(0, count($aNombres))].' '.$aApellidos[rand(0, count($aApellidos))];
+            $oCliente = new \AppBundle\Entity\Cliente();
+            $oCliente->setCliActivo(TRUE);
+            $em->persist($oCliente);
             $em->flush();
-            $output->writeln($sPaciente);
+            $output->writeln($sUsuario);
         }
         
     }

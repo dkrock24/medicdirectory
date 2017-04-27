@@ -8,9 +8,6 @@ AppBundle\Entity\Paciente:
         FK_clientes_idx:
             columns:
                 - pac_cli_id
-        FK_pac_mun_idx:
-            columns:
-                - pac_mun_id
         IDX_pac_dui:
             columns:
                 - pac_dui
@@ -21,6 +18,9 @@ AppBundle\Entity\Paciente:
             columns:
                 - pac_nombre
                 - pac_apellido
+        FK_pac_mun_idx:
+            columns:
+                - pac_mun_id
     id:
         pacId:
             type: integer
