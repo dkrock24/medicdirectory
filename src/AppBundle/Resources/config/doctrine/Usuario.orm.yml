@@ -107,13 +107,10 @@ AppBundle\Entity\Usuario:
             options:
                 fixed: true
             column: usu_genero
-    manyToOne:
+    oneToOne:
         usuInformacion:
             targetEntity: UsuarioInformacion
-            cascade: {  }
             fetch: LAZY
-            mappedBy: null
-            inversedBy: null
             joinColumns:
                 usu_informacion:
                     referencedColumnName: usi_id

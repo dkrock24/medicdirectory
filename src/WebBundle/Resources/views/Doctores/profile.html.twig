@@ -23,7 +23,7 @@
                 <div class="panel panel-profile">
                     <div class="panel-heading">
                         <img src="{{ asset("bundles/web/images/doctors/doctor-bio-img6.jpg") }}" alt="Doctor Profile Image" class="img-responsive img-center-xs">
-                        <h3 class="panel-title">{{ medico.cliUsuUsu.usuTitulo }} {{ medico.cliUsuUsu.usuNombre|title }}</h3>
+                        <h3 class="panel-title">{{ medico.usu_titulo}} {{ medico.usu_nombre|title }}</h3>
                         <p class="caption"><b><< AQUI VA LA ESPECIALIDAD >></b></p> <!-- Gynecology, Health Care &amp; Obstetrics -->
                     </div>
                     <div class="panel-body">
@@ -37,8 +37,8 @@
                                 <span class="col-sm-8 col-xs-12"><b><< MAS DETALLES (eg: TITULO DE LA U) >></b></span>
                             </li>
                             <li class="row">
-                                <span class="col-sm-4 col-xs-12"><b><< MAS DETALLES (eg: horario) >></b></span>
-                                <span class="col-sm-8 col-xs-12">Monday, Wednesday, Thursday</span>
+                                <span class="col-sm-4 col-xs-12"><b>Dias de trabajo:</b></span>
+                                <span class="col-sm-8 col-xs-12"><b>{{ medico.usi_dias_trabajo }}</b></span>
                             </li>
                         </ul>
                     </div>
@@ -46,9 +46,9 @@
                         <div class="row">
                             <div class="col-lg-6 col-xs-12">
                                 <ul class="list-unstyled list-inline sm-links">
-                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-skype"></i></a></li>
+                                    <li><a href="{{ medico.usi_twitter }}"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="{{ medico.usi_fb }}"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="{{ medico.usi_correo }}"><i class="fa fa-skype"></i></a></li>
                                 </ul>
                             </div>
                             <div class="col-lg-6 col-xs-12">
@@ -61,24 +61,11 @@
         </div>
         <div class="col-sm-7 col-xs-12">
             <div class="profile-details">
-                <h3 class="main-heading2">{{ medico.cliUsuUsu.usuTitulo }} {{ medico.cliUsuUsu.usuNombre|title }}</h3>
-                <h4>Royal Prince Alfred Hospital – United Kingdom</h4>
+                <h3 class="main-heading2">{{ medico.usu_titulo}} {{ medico.usu_nombre|title }}</h3>
+                <h4>{{ medico.cli_nombre }}</h4>
                 <h5>June 2006 to July 2020</h5>
                 <p>
-                    It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text.
-                </p>
-                <h5>June 2000 to July 2006</h5>
-                <p>
-                    It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. 
-                </p>
-                <p>
-                    Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text.
-                </p>
-                <p><br></p>
-                <h4>Royal Prince Alfred Hospital – United Kingdom</h4>
-                <h5>June 2006 to July 2010</h5>
-                <p>
-                    It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text.
+                    {{ medico.usi_info_perfil }}
                 </p>
             </div>
         </div>

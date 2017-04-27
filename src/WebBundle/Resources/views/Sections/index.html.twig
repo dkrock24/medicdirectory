@@ -17,14 +17,14 @@
                     </div>
                 </div>
                 <div class="inner">
-                    <h4>{{ m.CliUsuUsu.UsuTitulo }} {{ m.CliUsuUsu.UsuNombre }}</h4>
-                    <p class="designation">{{ m.cliUsuCli.cliNombre }}</p> <!--  Cardiac Clinic, Health Care -->
+                    <h4>{{ m.usu_titulo}} {{ m.usu_nombre}}</h4>
+                    <p class="designation">{{ m.cli_nombre}}</p> <!--  Cardiac Clinic, Health Care -->
                     <p class="divider"><i class="fa fa-plus-square"></i></p>
                     <p>
                         Lorem Ipsum is simply dummy text of the printing and typesetting industry. It was popularised in the with the release of Letraset sheets Lorem Ipsum passages.
                     </p>
                 </div>							
-                <a href={{ path( "web_doctores_perfil", {"med_id" : m.cliUsuUsu.UsuId} ) }} class="btn btn-secondary text-uppercase">Ver Perfil</a>
+                <a href="{{ path( "web_doctores_perfil", {"med_id" : m.cli_usu_usu_id} ) }}" class="btn btn-secondary text-uppercase">Ver Perfil</a>
                 <!-- /doctores -->
             </div>
         </li>

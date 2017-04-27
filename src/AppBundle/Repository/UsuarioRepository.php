@@ -22,16 +22,23 @@ class UsuarioRepository extends EntityRepository {
         
         /* @var $em \Doctrine\ORM\EntityManager */
         $em = $this->getEntityManager();
-        $query = $em->createQuery(
-                "SELECT cli_usu "
-                . "FROM \AppBundle\Entity\ClienteUsuario cli_usu, "
-                . "\AppBundle\Entity\Rol r, "
-                . "\AppBundle\Entity\Usuario u "
-                . "WHERE cli_usu.cliUsuActivo = 1 "
-                . "AND r.rolRol = 'MEDICO'"
-        );
+        $query = "select
+                    cu.cli_usu_id,
+                    cu.cli_usu_usu_id,
+                    u.usu_titulo,
+                    u.usu_nombre,
+                    c.cli_nombre
+                from cliente_usuario cu
+                inner join rol r on cu.cli_usu_rol_id = r.rol_id and r.rol_activo = 1
+                inner join usuario u on cu.cli_usu_usu_id = u.usu_id
+                left join cliente c on c.cli_id = cu.cli_usu_cli_id
+                where cu.cli_usu_activo = 1
+                and r.rol_rol = 'MEDICO'";
         
-        $result = $query->getResult();
+        $statement = $em->getConnection()->prepare($query);
+        $statement->execute();
+
+        $result = $statement->fetchAll();
         
         return $result;
         
@@ -41,30 +48,31 @@ class UsuarioRepository extends EntityRepository {
         
                 /* @var $em \Doctrine\ORM\EntityManager */
         $em = $this->getEntityManager();
-        $qb = $em->createQueryBuilder();
-        $qb->select('cu')
-            ->from('\AppBundle\Entity\ClienteUsuario', 'cu')
-            ->innerJoin( '\AppBundle\Entity\Usuario u', 'WITH u.usuId = cu.cliUsuUsu' )
-            ->innerJoin( '\AppBundle\Entity\Cliente c', 'WITH cu.cliUsuCli = c.cliId' )
-            ->where('cu.cliUsuId = :med_id')
-            ->andWhere( 'u.usuActivo = 1' )
-            ->andWhere( 'cu.cliUsuActivo = 1' )
-            ->andWhere( 'c.cliActivo = 1' )
-            ;
+        $query = "select 
+                    cu.cli_usu_usu_id,
+                    u.usu_nombre,
+                    u.usu_titulo,
+                    c.cli_nombre,
+                    ui.usi_dias_trabajo,
+                    ui.usi_info_perfil,
+                    ui.usi_fb,
+                    ui.usi_twitter,
+                    ui.usi_correo
+                from 
+                cliente_usuario cu
+                left join usuario u on u.usu_id = cu.cli_usu_usu_id and u.usu_activo = 1
+                left join cliente c on cu.cli_usu_cli_id = c.cli_id and c.cli_activo = 1
+                left join usuario_informacion ui on ui.usi_id = u.usu_informacion
+                where cu.cli_usu_usu_id = :med_id and cu.cli_usu_activo = 1";
         
-//        $query = $em->createQuery(
-//                "SELECT u, cu, c "
-//                . "FROM \AppBundle\Entity\Usuario u, "
-//                . "INNER JOIN \AppBundle\Entity\ClienteUsuario cu WITH cu.cliUsuUsuId = u.usuId "
-//                . "INNER JOIN \AppBundle\Entity\Cliente c WITH cu.cliUsuCliId = c.cliId"
-//                . "WHERE u.usuId = :med_id "
-//                . "AND u.usuActivo = 1 AND cu.cliUsuActivo = 1 AND c.cliActivo = 1"
-//        );
-        $qb->setParameter( 'med_id', $med_id );
+        $statement = $em->getConnection()->prepare($query);
+        $statement->bindValue('med_id', $med_id);
         
-        $result = $qb->getQuery()->getSingleResult();
+        $statement->execute();
         
-        return $result;
+        $result = $statement->fetchAll();
+        
+        return $result[0];
         
     }
     

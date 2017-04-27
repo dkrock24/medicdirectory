@@ -12,25 +12,62 @@ AppBundle\Entity\UsuarioInformacion:
             generator:
                 strategy: IDENTITY
     fields:
-         usiDireccion:
+        usiDireccion:
             type: string
             nullable: true
             length: 255
             options:
                 fixed: false
             column: usi_direccion
-         usiTelefono:
+        usiTelefono:
             type: string
             nullable: true
             length: 255
-            options:
+            options: 
                 fixed: false
             column: usi_telefono
-         usiDescripcion:
+        usiInfoPerfil:
             type: string
             nullable: true
             length: 255
             options:
                 fixed: false
-            column: usi_descripcion
+            column: usi_info_perfil
+        usiFb:
+            type: string
+            nullable: true
+            length: 150
+            options:
+                fixed: false
+            column: usi_fb
+        usiTwitter:
+            type: string
+            nullable: true
+            length: 150
+            options:
+                fixed: false
+            column: usi_twitter
+        usiCorreo:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+            column: usi_correo
+        usiDiasTrabajo:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+            column: usi_dias_trabajo
+#    oneToMany:
+#        infoUsuarios:
+#            targetEntity: Usuario
+#            mappedBy: usuInformacion
+#            fetch: LAZY
+#            joinColumns:
+#                usi_usu_id:
+#                    referencedColumnName: usu_id
+#            orphanRemoval: false
     lifecycleCallbacks: {  }
