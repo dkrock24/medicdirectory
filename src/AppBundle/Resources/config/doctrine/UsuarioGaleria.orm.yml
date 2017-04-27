@@ -1,0 +1,42 @@
+AppBundle\Entity\UsuarioGaleria:
+    type: entity
+    table: usuario_galeria
+    id:
+        galId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            id: true
+            column: gal_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        galFechaCrea:
+            type: datetime
+            nullable: false
+            options:
+                default: CURRENT_TIMESTAMP
+            column: gal_fecha_crea
+        galFechaMod:
+            type: datetime
+            nullable: true
+            column: gal_fecha_mod
+        galActivo:
+            type: boolean
+            nullable: false
+            options:
+                default: '1'
+            column: gal_activo
+    manyToOne:
+        galUsuario:
+            targetEntity: Usuario
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                gal_usu_id:
+                    referencedColumnName: usu_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

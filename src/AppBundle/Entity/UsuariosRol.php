@@ -197,4 +197,3 @@ class UsuariosRol
         return $this->usuRolRols;
     }
 }
-

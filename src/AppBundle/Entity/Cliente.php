@@ -445,4 +445,91 @@ class Cliente
     {
         return $this->espid;
     }
+    /**
+     * @var string
+     */
+    private $cliPagoDetalle;
+
+    /**
+     * @var string
+     */
+    private $cliPrecioPorUsuario;
+
+    /**
+     * @var \AppBundle\Entity\MetodoPago
+     */
+    private $cliMetodoPago;
+
+
+    /**
+     * Set cliPagoDetalle
+     *
+     * @param string $cliPagoDetalle
+     *
+     * @return Cliente
+     */
+    public function setCliPagoDetalle($cliPagoDetalle)
+    {
+        $this->cliPagoDetalle = $cliPagoDetalle;
+
+        return $this;
+    }
+
+    /**
+     * Get cliPagoDetalle
+     *
+     * @return string
+     */
+    public function getCliPagoDetalle()
+    {
+        return $this->cliPagoDetalle;
+    }
+
+    /**
+     * Set cliPrecioPorUsuario
+     *
+     * @param string $cliPrecioPorUsuario
+     *
+     * @return Cliente
+     */
+    public function setCliPrecioPorUsuario($cliPrecioPorUsuario)
+    {
+        $this->cliPrecioPorUsuario = $cliPrecioPorUsuario;
+
+        return $this;
+    }
+
+    /**
+     * Get cliPrecioPorUsuario
+     *
+     * @return string
+     */
+    public function getCliPrecioPorUsuario()
+    {
+        return $this->cliPrecioPorUsuario;
+    }
+
+    /**
+     * Set cliMetodoPago
+     *
+     * @param \AppBundle\Entity\MetodoPago $cliMetodoPago
+     *
+     * @return Cliente
+     */
+    public function setCliMetodoPago(\AppBundle\Entity\MetodoPago $cliMetodoPago = null)
+    {
+        $this->cliMetodoPago = $cliMetodoPago;
+
+        return $this;
+    }
+
+    /**
+     * Get cliMetodoPago
+     *
+     * @return \AppBundle\Entity\MetodoPago
+     */
+    public function getCliMetodoPago()
+    {
+        return $this->cliMetodoPago;
+    }
 }
