@@ -319,6 +319,7 @@ class ClienteController extends Controller
 		//$iCountryId = $request->get('id');
 		$sUsername = $request->get("username");
 		
+		$res = array();
 		try
 		{
 			
@@ -335,21 +336,44 @@ class ClienteController extends Controller
 
 			if( count($result) == 0 )
 			{
-				echo 1; //is available
+				$available = 1; //is available
+				$email = "";
+				$gender = "";
 			}
 			else
 			{
-				echo 0; //in not available
+				$available = 0; //in not available
+				
+				$email = $result[0]['usu_correo'];
+				$gender = $result[0]['usu_genero'];
+				$email =  $this->hide_mail( $email );
 			}
+			
+			
+			$res = array("available"=> $available, "email"=>$email, "gender"=>$gender );
 		}
 		catch (\Exception $e){
 				echo ($e->getMessage());
-		}
+		}		
 		
-		
-		exit();
-		//return  $response = new JsonResponse($result);
+		return  $response = new JsonResponse(($res));
+		//$response->headers->set('Content-Type', 'application/json');
 
+		//return $response;
+		//exit();
+
+	}
+	
+	function hide_mail($email) {
+		$mail_part = explode("@", $email);
+		//$mail_part[0] = str_repeat("*", strlen($mail_part[0]));
+		
+		$str_length = strlen($mail_part[0]);
+		$str = $mail_part[0];
+		$str_length = strlen($str);
+		$mail_part[0] = substr($str, 0, 1).str_repeat('*', $str_length - 2).substr($str, $str_length - 1, 1);
+		
+		return implode("@", $mail_part);
 	}
 	
 	

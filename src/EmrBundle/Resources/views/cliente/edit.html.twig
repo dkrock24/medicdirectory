@@ -290,13 +290,13 @@
                                             <div class="col-lg-3 col-md-6 col-sm-6">
                                                 <div class="form-group">
                                                     <label class="control-label">Nombre</label>
-                                                    <input name="name[]" id="name" value="" type="text" class="form-control" required />
+                                                    <input name="name[]" id="name" value="" type="text" class="form-control inputAssName" required />
                                                 </div>
                                             </div>
                                             <div class="col-lg-3 col-md-6 col-sm-6">
                                                 <div class="form-group">
                                                     <label class="control-label">Email</label>
-                                                    <input name="email[]" id="email" value="" type="text" class="form-control" />
+                                                    <input name="email[]" id="email" value="" type="text" class="form-control inputAssEmail" />
                                                 </div>
                                             </div>
                                             <div class="col-lg-3 col-md-6 col-sm-6">
@@ -309,7 +309,7 @@
                                             <div class="col-lg-3 col-md-6 col-sm-6">
                                                 <div class="form-group">
                                                     <label class="control-label">Género</label>
-                                                    <select name="gender[]" id="gender" class="form-control" required>
+                                                    <select name="gender[]" id="gender" class="form-control selectAssGender" required>
                                                         <option value="m">Masculino</option>
                                                         <option value="f">Femenino</option>
                                                     </select>
@@ -320,13 +320,13 @@
                                             <div class="col-lg-3 col-md-6 col-sm-6">
                                                 <div class="form-group">
                                                     <label class="control-label">Password</label>
-                                                    <input name="password[]" id="password_user" value="" type="password" class="form-control" placeholder="" />
+                                                    <input name="password[]" id="password_user" value="" type="password" class="form-control inputAssPassword" placeholder="" />
                                                 </div>
                                             </div>
                                             <div class="col-lg-3 col-md-6 col-sm-6">
                                                 <div class="form-group">
                                                     <label class="control-label">Repita Password</label>
-                                                    <input name="repeatpassword[]" id="password_user_again" value="" type="password" class="form-control" placeholder=""/>
+                                                    <input name="repeatpassword[]" id="password_user_again" value="" type="password" class="form-control inputAssPassword" placeholder=""/>
                                                 </div>
                                             </div>
                                             <div class="col-lg-3 col-md-6 col-sm-6">
@@ -365,13 +365,13 @@
                                                                 <div class="col-lg-3 col-md-6 col-sm-6">
                                                                     <div class="form-group">
                                                                         <label class="control-label">Nombre</label>
-                                                                        <input name="name[]" id="name{{ loop.index }}" value="{{ users.usu_nombre }}" type="text" class="form-control" required />
+                                                                        <input name="name[]" id="name{{ loop.index }}" value="{{ users.usu_nombre }}" type="text" class="form-control inputAssName" required />
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-3 col-md-6 col-sm-6">
                                                                     <div class="form-group">
                                                                         <label class="control-label">Email</label>
-                                                                        <input name="email[]" id="email{{ loop.index }}" value="{{ users.usu_correo }}" type="text" class="form-control" />
+                                                                        <input name="email[]" id="email{{ loop.index }}" value="{{ users.usu_correo }}" type="text" class="form-control inputAssEmail" />
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-3 col-md-6 col-sm-6">
@@ -385,7 +385,7 @@
                                                                 <div class="col-lg-3 col-md-6 col-sm-6">
                                                                     <div class="form-group">
                                                                         <label class="control-label">Género</label>
-                                                                        <select name="gender[]" id="gender{{ loop.index }}" class="form-control" required>
+                                                                        <select name="gender[]" id="gender{{ loop.index }}" class="form-control selectAssGender" required>
                                                                             <option value="m">Masculino</option>
                                                                             <option value="f">Femenino</option>
                                                                         </select>
@@ -396,13 +396,13 @@
                                                                 <div class="col-lg-3 col-md-6 col-sm-6">
                                                                     <div class="form-group">
                                                                         <label class="control-label">Password</label>
-                                                                        <input name="password[]" id="password_user{{ loop.index }}" value="" type="password" class="form-control "  placeholder=""/>
+                                                                        <input name="password[]" id="password_user{{ loop.index }}" value="" type="password" class="form-control inputAssPassword"  placeholder=""/>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-3 col-md-6 col-sm-6">
                                                                     <div class="form-group">
                                                                         <label class="control-label">Repita Password</label>
-                                                                        <input name="repeatpassword[]" id="password_user_again{{ loop.index }}" value="" type="password" class="form-control "  placeholder="" />
+                                                                        <input name="repeatpassword[]" id="password_user_again{{ loop.index }}" value="" type="password" class="form-control inputAssPassword"  placeholder="" />
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-3 col-md-6 col-sm-6">
@@ -885,49 +885,55 @@
                 var error = 0;
                 $(".section").each(function(index){
                     
-                    var name = $.trim( $(this).find("input[name='name[]']").val() );
-                    var email = $.trim( $(this).find("input[name='email[]']").val() );
-                    var username = $.trim( $(this).find("input[name='username[]']").val() );
-                    var password = $.trim( $(this).find("input[name='password[]']").val() );
+                    var name = $(this).find("input[name='name[]']");
+                    var valName = $.trim( name.val() );
+                    var email = $(this).find("input[name='email[]']");
+                    var valEmail = $.trim( email.val() );
+                    var username = $(this).find("input[name='username[]']");
+                    var valUsername = $.trim(username.val() );
+                    var password = $(this).find("input[name='password[]']");
+                    var valPassword = $.trim( password.val() );
                     var password_cloned = $(this).find("input[name='password[]']").hasClass("cloned");
                     var password_again_cloned = $(this).find("input[name='repeatpassword[]']").hasClass("cloned");
-                    var password_again = $.trim( $(this).find("input[name='repeatpassword[]']").val() );
+                    var password_again =  $(this).find("input[name='repeatpassword[]']");
                     var gender = $.trim( $(this).find("select[name='gender[]']").val() );
+                    var valPassword_again = $.trim( password_again.val() );
+                    
                     var inputAvailable = $(this).find(".inputAvailable").val();
                     var typeUser = $.trim( $(this).find("select[name='typeUser[]']").val() );
                     
                     //alert(password_cloned);
                     
                     var msg = "";
-                    if( name == "" )
+                    if( valName == "" && !name.hasClass("passed") )
                     {
                         msg = "Ingrese el nombre del usuario";
                     }
-                    else if( username == "" )
+                    else if( valUsername == "" && !username.hasClass("passed") )
                     {
                         msg = "Ingrese el usurname del usuario";
                     }
                     else if ( password_cloned  || password_again_cloned )
                     {
                         
-                        if( password == "" )
+                        if( valPassword == "" &&  !password.hasClass("passed") )
                         {
                             msg = "Ingrese el password para el nuevo usuario";
                             
                         }
-                        else if(  password_again == "" )
+                        else if(  valPassword_again == "" && !password_again.hasClass("passed")  )
                         {
                                 msg = "Repita el password para el nuevo usuario";
  
                         }
-                        else if( password != password_again )
+                        else if( valPassword != valPassword_again )
                         {
                             msg = "Los passwords no son iguales, para adicionar un nuevo usuario es necesario que los passwords sean iguales";
                         }
                     }
-                    else if( password != "" ||  password_again != "" )
+                    else if( valPassword != "" ||  valPassword_again != "" )
                     {
-                        if( password != password_again )
+                        if( valPassword != valPassword_again )
                         {
                             msg = "Los password no son iguales";
                         }
@@ -1113,7 +1119,7 @@
                     {
                         $.confirm({
                             title: 'Confirme!',
-                            content: '<p class="small">Este usuario ya ha sido tomado para el representante de este establecimiento!</p><p class="small"> Desea usar las mismas credenciales?</p>',
+                            content: '<p class="small">Este usuario ya ha sido tomado por un representante de este establecimiento!</p><p class="small"> Desea usar las mismas credenciales?</p>',
                             type: 'blue',
                             typeAnimated: true,
                             buttons: {
@@ -1217,6 +1223,7 @@
                 $("#holder_loading").show();
 				$.ajax({
                     type: "post",
+                    //dataType: 'json',
                     url: "{{ path('cliente_check_available_user') }}",
                     data: {
                         username: username
@@ -1242,53 +1249,123 @@
                         });
                     },
                     success: function (data) {
-                        
+                        $("#holder_loading").hide();
                         if( $("#"+idInput).hasClass("user_to_location") )
                         {
                             $("#"+idInput).closest(".section").find(".user_available_location").val(1);
                         }
-                        
-                        
-                        $("#"+idInput).closest(".form-group").find(".icon-status").remove();
-                        $("#holder_loading").hide();
-                        if (data == 1)
+                        //alert( (data.email) );
+                        if( data.available != undefined )
                         {
-                            /*
-                            $.alert({
-                                icon: 'glyphicon glyphicon-ok-sign',
-                                title: 'Ok!',
-                                content: 'El usuario <strong>'+username+'</strong> esta disponible',
-                                type: 'green',
-                                typeAnimated: true,
-                            });
-                            */
-                            if( $("#"+idInput).hasClass("user_to_location") )
+                            $("#"+idInput).closest(".form-group").find(".icon-status").remove();
+                            //$("#holder_loading").hide();
+                            if (data.available == 1 || data.available == "1")
                             {
-                                $("#"+idInput).closest(".section").find(".inputAvailable").val(1);
+                                if( $("#"+idInput).hasClass("user_to_location") )
+                                {
+                                    $("#"+idInput).closest(".section").find(".inputAvailable").val(1);
+                                }
+
+                                $("#"+idInput).closest(".form-group").removeClass("has-error");
+                                $("#"+idInput).closest(".form-group").addClass("has-success has-feedback").append('<span class="glyphicon glyphicon-ok form-control-feedback icon-status" aria-hidden="true"></span>');
+                            } 
+                            else 
+                            {        
+                                //$('#available_representer').attr('checked', false); // Unchecks it
+                                
+                                
+                                if( $("#"+idInput).hasClass("user_to_location") )
+                                {
+                                    var msg = "<p class='small'>El usuario <strong>"+username+"</strong>";
+                                    if( data.email != "" )
+                                    {
+                                        msg += " con email <strong>"+data.email+"</strong></p><p class='small'>";
+                                    }
+                                    msg += "ya existe desea asociar este usuario a este establecimiento?</p>";
+                                    $.confirm({
+                                        icon: 'fa fa-question-circle-o',
+                                        title: 'Confirmar datos',
+                                        content: msg,
+                                        type: 'blue',
+                                        typeAnimated: true,
+                                        buttons: {
+                                            tryAgain: {
+                                                text: 'Si',
+                                                btnClass: 'btn-green',
+                                                action: function () {
+                                                   $("#"+idInput).closest(".section").find(".inputAssEmail").val(data.email);
+                                                   $("#"+idInput).closest(".section").find(".selectAssGender").val(data.gender);
+                                                   $("#"+idInput).closest(".section").find(".inputAvailable").val(1);
+
+                                                   $("#"+idInput).closest(".section").find(".inputAssName").attr("disabled", true);
+                                                   $("#"+idInput).closest(".section").find(".inputAssEmail").attr("disabled", true);
+                                                   $("#"+idInput).closest(".section").find(".inputAssPassword").attr("disabled", true);
+                                                   $("#"+idInput).closest(".section").find(".selectAssGender option:not(:selected)").prop('disabled', true);
+                                                   
+                                                   
+                                                    $("#"+idInput).closest(".section").find(".inputAssName").addClass("passed");
+                                                    $("#"+idInput).closest(".section").find(".inputAssPassword").addClass("passed");
+                                                    $("#"+idInput).closest(".section").find(".inputAssEmail").addClass("passed");
+                                                    //$("#"+idInput).closest(".section").find(".inputAssEmail").addClass("passed");
+                                                      
+                                                    $("#"+idInput).closest(".form-group").removeClass("has-error");
+                                                    $("#"+idInput).closest(".form-group").addClass("has-success has-feedback").append('<span class="glyphicon glyphicon-ok form-control-feedback icon-status" aria-hidden="true"></span>');
+                                                
+                                                    $("#"+idInput).closest(".border-warning-available").removeClass("border-warning-available");
+                                                }
+                                            },
+                                            close: {
+                                                text: 'No',
+                                                btnClass: 'btn-red',
+                                                action: function () {
+                                                    if( $("#"+idInput).hasClass("user_to_location") )
+                                                    {
+                                                        $("#"+idInput).closest(".section").find(".inputAvailable").val(0);
+                                                    }
+
+                                                    $("#"+idInput).closest(".form-group").removeClass("has-success");
+                                                    $("#"+idInput).closest(".form-group").addClass("has-error has-feedback").append('<span class="glyphicon glyphicon-remove form-control-feedback icon-status" aria-hidden="true"></span>');
+
+                                                    $("#"+idInput).closest(".section").find(".passed").val("");
+                                                    
+                                                    $("#"+idInput).closest(".section").find(".inputAssName").removeClass("passed");
+                                                    $("#"+idInput).closest(".section").find(".inputAssPassword").removeClass("passed");
+                                                    $("#"+idInput).closest(".section").find(".inputAssEmail").removeClass("passed");
+                                                    
+                                                    $("#"+idInput).closest(".section").find(".inputAssName").attr("disabled", false);
+                                                    $("#"+idInput).closest(".section").find(".inputAssEmail").attr("disabled", false);
+                                                    $("#"+idInput).closest(".section").find(".inputAssPassword").attr("disabled", false);
+                                                    $("#"+idInput).closest(".section").find(".selectAssGender option:not(:selected)").prop('disabled', false);
+                                                }
+                                            }
+                                        }
+                                    });
+                                }    
+                                else
+                                {
+                                    $.alert({
+                                        icon: 'fa fa-user-times',
+                                        title: 'Info!',
+                                        content: 'El usuario <strong>'+username+'</strong> no esta disponible',
+                                        type: 'red',
+                                        typeAnimated: true,
+                                    });
+                                }
+   
+                                
                             }
-                            
-                            $("#"+idInput).closest(".form-group").removeClass("has-error");
-                            $("#"+idInput).closest(".form-group").addClass("has-success has-feedback").append('<span class="glyphicon glyphicon-ok form-control-feedback icon-status" aria-hidden="true"></span>');
-                        } 
-                        else 
-                        {        
-                            //$('#available_representer').attr('checked', false); // Unchecks it
-                            $.alert({
-                                icon: 'fa fa-user-times',
-                                title: 'Info!',
-                                content: 'El usuario <strong>'+username+'</strong> no esta disponible',
-                                type: 'red',
-                                typeAnimated: true,
-                            });
-                            
-                            if( $("#"+idInput).hasClass("user_to_location") )
-                            {
-                                $("#"+idInput).closest(".section").find(".inputAvailable").val(0);
-                            }
-                            
-                            $("#"+idInput).closest(".form-group").removeClass("has-success");
-                            $("#"+idInput).closest(".form-group").addClass("has-error has-feedback").append('<span class="glyphicon glyphicon-remove form-control-feedback icon-status" aria-hidden="true"></span>');
                         }
+                        else
+                        {
+                            $.alert({
+                                    icon: 'fa fa-user-times',
+                                    title: 'Info!',
+                                    content: 'El usuario no pudo ser validado',
+                                    type: 'red',
+                                    typeAnimated: true,
+                                });
+                        }
+                        
                     }
                 });
             }
