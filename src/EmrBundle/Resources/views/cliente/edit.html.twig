@@ -887,8 +887,8 @@
                     
                     var name = $(this).find("input[name='name[]']");
                     var valName = $.trim( name.val() );
-                    var email = $(this).find("input[name='email[]']");
-                    var valEmail = $.trim( email.val() );
+                    var email = $(this).find("input[name='email[]']").val();
+                    //var valEmail = $.trim( email.val() );
                     var username = $(this).find("input[name='username[]']");
                     var valUsername = $.trim(username.val() );
                     var password = $(this).find("input[name='password[]']");
@@ -899,9 +899,10 @@
                     var gender = $.trim( $(this).find("select[name='gender[]']").val() );
                     var valPassword_again = $.trim( password_again.val() );
                     
-                    var inputAvailable = $(this).find(".inputAvailable").val();
+                    var inputAvailable = $(this).find("input[name='availbleUser[]']").val();
                     var typeUser = $.trim( $(this).find("select[name='typeUser[]']").val() );
                     
+                    //alert(inputAvailableX);
                     //alert(password_cloned);
                     
                     var msg = "";
@@ -969,16 +970,7 @@
                     }
                     else
                     {
-                        /*
-                            item = [];
-                            item['name'] = name;
-                            item['email'] = email;
-                            item['username'] = username;
-                            item['password'] = password;
-                            item['gender'] = gender;
-                            item['typeUser'] = typeUser;
-                        */
-                        item = {"name":name, "email":email, "username":username, "password":password, "gender":gender, "typeUser":typeUser };
+                        item = {"name":valName, "email":email, "username":valUsername, "password":valPassword, "gender":gender, "typeUser":typeUser };
                         users.push(item);
 
                         $(this).removeClass("border-warning-available");
@@ -1277,11 +1269,13 @@
                                 if( $("#"+idInput).hasClass("user_to_location") )
                                 {
                                     var msg = "<p class='small'>El usuario <strong>"+username+"</strong>";
+                                    var email = "";
                                     if( data.email != "" )
                                     {
-                                        msg += " con email <strong>"+data.email+"</strong></p><p class='small'>";
+                                        email = "Al asociarlo se le notificara al usuario por medio del email: <strong>"+data.email+"</strong></p>";
                                     }
                                     msg += "ya existe desea asociar este usuario a este establecimiento?</p>";
+                                    msg += email;
                                     $.confirm({
                                         icon: 'fa fa-question-circle-o',
                                         title: 'Confirmar datos',
@@ -1293,7 +1287,7 @@
                                                 text: 'Si',
                                                 btnClass: 'btn-green',
                                                 action: function () {
-                                                   $("#"+idInput).closest(".section").find(".inputAssEmail").val(data.email);
+                                                   //$("#"+idInput).closest(".section").find(".inputAssEmail").val(data.email);
                                                    $("#"+idInput).closest(".section").find(".selectAssGender").val(data.gender);
                                                    $("#"+idInput).closest(".section").find(".inputAvailable").val(1);
 
@@ -1402,6 +1396,7 @@
             
             function sendFormRepresenter(users){
 
+                
                 //console.log(users);
                 var location = $("#appbundle_cliente_cliTipCli");
                 var fiscal_name = $("#appbundle_cliente_cliNombreFiscal");
@@ -1426,7 +1421,8 @@
                 var representer_cc_exp = $("#cc-exp");
                 var representer_cc_cvc = $("#cc-cvc");
              
-                
+                console.log(locationUsers);
+                //return false;
                 $("#holder_loading").show();
                 $.ajax({
                         type: "post",

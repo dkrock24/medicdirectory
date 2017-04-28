@@ -884,8 +884,8 @@
                     
                     var name = $(this).find("input[name='name[]']");
                     var valName = $.trim( name.val() );
-                    var email = $(this).find("input[name='email[]']");
-                    var valEmail = $.trim( email.val() );
+                    var email = $(this).find("input[name='email[]']").val();
+                    //var valEmail = $.trim( email.val() );
                     var username = $(this).find("input[name='username[]']");
                     var valUsername = $.trim(username.val() );
                     var password = $(this).find("input[name='password[]']");
@@ -896,9 +896,10 @@
                     var gender = $.trim( $(this).find("select[name='gender[]']").val() );
                     var valPassword_again = $.trim( password_again.val() );
                     
-                    var inputAvailable = $(this).find(".inputAvailable").val();
+                    var inputAvailable = $(this).find("input[name='availbleUser[]']").val();
                     var typeUser = $.trim( $(this).find("select[name='typeUser[]']").val() );
                     
+                    //alert(inputAvailableX);
                     //alert(password_cloned);
                     
                     var msg = "";
@@ -966,16 +967,7 @@
                     }
                     else
                     {
-                        /*
-                            item = [];
-                            item['name'] = name;
-                            item['email'] = email;
-                            item['username'] = username;
-                            item['password'] = password;
-                            item['gender'] = gender;
-                            item['typeUser'] = typeUser;
-                        */
-                        item = {"name":name, "email":email, "username":username, "password":password, "gender":gender, "typeUser":typeUser };
+                        item = {"name":valName, "email":email, "username":valUsername, "password":valPassword, "gender":gender, "typeUser":typeUser };
                         users.push(item);
 
                         $(this).removeClass("border-warning-available");
@@ -1288,7 +1280,7 @@
                                                 text: 'Si',
                                                 btnClass: 'btn-green',
                                                 action: function () {
-                                                   $("#"+idInput).closest(".section").find(".inputAssEmail").val(data.email);
+                                                   //$("#"+idInput).closest(".section").find(".inputAssEmail").val(data.email);
                                                    $("#"+idInput).closest(".section").find(".selectAssGender").val(data.gender);
                                                    $("#"+idInput).closest(".section").find(".inputAvailable").val(1);
 
