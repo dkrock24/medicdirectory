@@ -6,13 +6,8 @@
             <file>file:/C:/xampp/htdocs/symfony3/emr/src/EmrBundle/Controller/SessionController.php</file>
             <file>file:/C:/xampp/htdocs/symfony3/emr/src/EmrBundle/Resources/views/Default/location.html.twig</file>
             <file>file:/C:/xampp/htdocs/symfony3/emr/src/EmrBundle/Resources/views/cliente/edit.html.twig</file>
-            <file>file:/C:/xampp/htdocs/symfony3/emr/src/AppBundle/Entity/UsuariosRol.php</file>
-            <file>file:/C:/xampp/htdocs/symfony3/emr/src/EmrBundle/Resources/config/routing/cliente.yml</file>
-            <file>file:/C:/xampp/htdocs/symfony3/emr/src/AppBundle/Entity/Cliente.php</file>
             <file>file:/C:/xampp/htdocs/symfony3/emr/src/EmrBundle/Controller/DefaultController.php</file>
             <file>file:/C:/xampp/htdocs/symfony3/emr/src/EmrBundle/Controller/ClienteController.php</file>
-            <file>file:/C:/xampp/htdocs/symfony3/emr/src/AppBundle/Entity/Usuario.php</file>
-            <file>file:/C:/xampp/htdocs/symfony3/emr/src/AppBundle/Resources/config/doctrine/Usuario.orm.yml</file>
             <file>file:/C:/xampp/htdocs/symfony3/emr/src/EmrBundle/Resources/views/cliente/new.html.twig</file>
         </group>
     </open-files>

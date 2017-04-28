@@ -59,7 +59,7 @@
                 
                 {% for reg in dataLocation%}
                     
-                    <div class="col-lg-4 col-md-3 col-sm-6">
+                    <div class="col-lg-4 col-md-4 col-sm-6">
                         <div class="panel panel-flat border-left-lg border-left-info">
                             <div class="panel-heading">
                                 <h6 class="panel-title"><i class="fa fa-hospital-o"></i> {{ reg.fiscalName }}</h6>
@@ -84,7 +84,7 @@
                             <div class="panel-body">
                                 Localizado en: <i class="glyphicon glyphicon-map-marker"></i> {{ reg.municipality  }}
                                 <hr>
-                                <a href="{{ path('emr_homepage',{'id':reg.clientId} ) }}" class="btn btn-success"><i class="fa fa-stethoscope"></i> Iniciar sesión</a>
+                                <a href="{{ path('emr_homepage',{'id':reg.clientId} ) }}" class="btn btn-success"><i class="fa fa-stethoscope"></i> Iniciar administración</a>
                                 <!-- <a href="{{ path('emr_homepage',{'id':reg.clientId} ) }}" class="btn btn-info"><i class="glyphicon glyphicon-cog"></i> Administrar</a> -->
                                 <!-- <a href="#" class="btn btn-danger"><i class="glyphicon glyphicon-remove-sign"></i> Dar de baja</a> -->
                             </div>

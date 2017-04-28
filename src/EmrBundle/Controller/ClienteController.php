@@ -232,13 +232,21 @@ class ClienteController extends Controller
 			//echo count($getUsersLocations);
 			
 			//==================================================================
-			//Get users than not are representers only doctors and assistant
+			//Get users than are not representers only doctors and assistant
 			//==================================================================
+			/*
 			$RAW_QUERY = "SELECT * FROM cliente_usuario cu 
 							inner join usuario u on u.usu_id = cu.cli_usu_usu_id
 							inner join usuarios_rol ur on ur.urol_usu_id = u.usu_id 
 							WHERE cu.cli_usu_cli_id =:client
 							and ur.urol_rol_id != 2 "; //2 = Cliente( Representante )
+							*/
+			$RAW_QUERY = "SELECT *
+								FROM cliente_usuario cu
+								INNER JOIN usuario u ON u.usu_id = cu.cli_usu_usu_id
+								LEFT JOIN usuarios_rol ur ON ur.urol_usu_id = u.usu_id
+								WHERE ur.urol_cli_id  =:client AND ur.urol_rol_id != 2
+								GROUP BY ur.urol_rol_id, ur.urol_usu_id";				
 			$statement = $em->getConnection()->prepare($RAW_QUERY);
 			$statement->bindValue("client", $cliente->getCliId() );
 			$statement->execute();
@@ -319,6 +327,7 @@ class ClienteController extends Controller
 		//$iCountryId = $request->get('id');
 		$sUsername = $request->get("username");
 		
+		$res = array();
 		try
 		{
 			
@@ -335,21 +344,44 @@ class ClienteController extends Controller
 
 			if( count($result) == 0 )
 			{
-				echo 1; //is available
+				$available = 1; //is available
+				$email = "";
+				$gender = "";
 			}
 			else
 			{
-				echo 0; //in not available
+				$available = 0; //in not available
+				
+				$email = $result[0]['usu_correo'];
+				$gender = $result[0]['usu_genero'];
+				$email =  $this->hide_mail( $email );
 			}
+			
+			
+			$res = array("available"=> $available, "email"=>$email, "gender"=>$gender );
 		}
 		catch (\Exception $e){
 				echo ($e->getMessage());
-		}
+		}		
 		
-		
-		exit();
-		//return  $response = new JsonResponse($result);
+		return  $response = new JsonResponse(($res));
+		//$response->headers->set('Content-Type', 'application/json');
 
+		//return $response;
+		//exit();
+
+	}
+	
+	function hide_mail($email) {
+		$mail_part = explode("@", $email);
+		//$mail_part[0] = str_repeat("*", strlen($mail_part[0]));
+		
+		$str_length = strlen($mail_part[0]);
+		$str = $mail_part[0];
+		$str_length = strlen($str);
+		$mail_part[0] = substr($str, 0, 1).str_repeat('*', $str_length - 2).substr($str, $str_length - 1, 1);
+		
+		return implode("@", $mail_part);
 	}
 	
 	
@@ -369,6 +401,7 @@ class ClienteController extends Controller
 		
 		exit("xxxx");
 		*/
+		//exit("xxxx");
 		//Location data
 		$clientId = $request->get("id");
 		
@@ -585,11 +618,22 @@ class ClienteController extends Controller
 							$user = new Usuario();
 						} 
 						//$user = new Usuario();
-						$user->setUsuNombre( $locationListUsers[$i]['name']);
+						if( isset($locationListUsers[$i]['name']) && !empty($locationListUsers[$i]['name']) )
+						{
+							$user->setUsuNombre( $locationListUsers[$i]['name']);
+						}
 						$user->setUsuUsuario($locationListUsers[$i]['username']);
-						$user->setUsuClave( sha1($locationListUsers[$i]['password']) );
+						
+						if( isset($locationListUsers[$i]['password']) && !empty($locationListUsers[$i]['password']) )
+						{
+							$user->setUsuClave( sha1($locationListUsers[$i]['password']) );
+						}
 
-						$user->setUsuCorreo( $locationListUsers[$i]['email'] );
+						if( isset($locationListUsers[$i]['email']) && !empty($locationListUsers[$i]['email']) )
+						{
+							$user->setUsuCorreo( $locationListUsers[$i]['email'] );
+						}
+						
 						$user->setUsuGenero($locationListUsers[$i]['gender']);
 						$user->setUsuFechaRegistro(new \Datetime());
 						$user->setUsuFechaCrea(new \Datetime());
