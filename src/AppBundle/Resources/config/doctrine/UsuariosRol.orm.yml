@@ -1,6 +1,16 @@
 AppBundle\Entity\UsuariosRol:
     type: entity
     table: usuarios_rol
+    indexes:
+        IDX_2E759ED8E73132C6:
+            columns:
+                - urol_usu_id
+        IDX_2E759ED8CAC13B34:
+            columns:
+                - urol_cli_id
+        IDX_2E759ED8723560E8:
+            columns:
+                - urol_rol_id
     id:
         urolId:
             type: integer
@@ -11,39 +21,35 @@ AppBundle\Entity\UsuariosRol:
             column: urol_id
             generator:
                 strategy: IDENTITY
-    fields:
-        urolUsuId:
-            type: integer
-            nullable: false
-            options:
-                unsigned: true
-            column: urol_usu_id
-        urolRolId:
-            type: integer
-            nullable: false
-            options:
-                unsigned: true
-            column: urol_rol_id
-        urolCliId:
-            type: integer
-            nullable: false
-            options:
-                unsigned: true
-            column: urol_cli_id
     manyToOne:
-        usuRolUsuarios:
-            targetEntity: Usuario
-            joinColumn:
-                name: urol_usu_id
-                referencedColumnName: usu_id
-        usuRolClientes:
-            targetEntity: Cliente
-            joinColumn:
-                name: urol_cli_id
-                referencedColumnName: cli_id
-        usuRolRols:
+        urolRol:
             targetEntity: Rol
-            joinColumn:
-                name: urol_rol_id
-                referencedColumnName: rol_id
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                urol_rol_id:
+                    referencedColumnName: rol_id
+            orphanRemoval: false
+        urolCli:
+            targetEntity: Cliente
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                urol_cli_id:
+                    referencedColumnName: cli_id
+            orphanRemoval: false
+        urolUsu:
+            targetEntity: Usuario
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                urol_usu_id:
+                    referencedColumnName: usu_id
+            orphanRemoval: false
     lifecycleCallbacks: {  }

@@ -356,4 +356,33 @@ class UsuarioGaleria
     {
         return $this->galCliente;
     }
+    /**
+     * @var string
+     */
+    private $galTipo;
+
+
+    /**
+     * Set galTipo
+     *
+     * @param string $galTipo
+     *
+     * @return UsuarioGaleria
+     */
+    public function setGalTipo($galTipo)
+    {
+        $this->galTipo = $galTipo;
+
+        return $this;
+    }
+
+    /**
+     * Get galTipo
+     *
+     * @return string
+     */
+    public function getGalTipo()
+    {
+        return $this->galTipo;
+    }
 }

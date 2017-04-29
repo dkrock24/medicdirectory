@@ -1,0 +1,29 @@
+cita_index:
+    path:     /
+    defaults: { _controller: "EmrBundle:Cita:index" }
+    #methods:  GET
+
+cita_show:
+    path:     /{id}/show
+    defaults: { _controller: "EmrBundle:Cita:show" }
+    #methods:  GET
+
+cita_new:
+    path:     /new
+    defaults: { _controller: "EmrBundle:Cita:new" }
+    #methods:  [GET, POST]
+    
+cita_valida:
+    path:     /valid/appointment
+    defaults: { _controller: "EmrBundle:Cita:validAppointment" }
+    
+
+cita_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "EmrBundle:Cita:edit" }
+    #methods:  [GET, POST]
+
+cita_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "EmrBundle:Cita:delete" }
+    #methods:  DELETE

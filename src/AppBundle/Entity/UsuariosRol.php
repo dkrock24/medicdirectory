@@ -196,4 +196,91 @@ class UsuariosRol
     {
         return $this->usuRolRols;
     }
+    /**
+     * @var \AppBundle\Entity\Rol
+     */
+    private $urolRol;
+
+    /**
+     * @var \AppBundle\Entity\Cliente
+     */
+    private $urolCli;
+
+    /**
+     * @var \AppBundle\Entity\Usuario
+     */
+    private $urolUsu;
+
+
+    /**
+     * Set urolRol
+     *
+     * @param \AppBundle\Entity\Rol $urolRol
+     *
+     * @return UsuariosRol
+     */
+    public function setUrolRol(\AppBundle\Entity\Rol $urolRol = null)
+    {
+        $this->urolRol = $urolRol;
+
+        return $this;
+    }
+
+    /**
+     * Get urolRol
+     *
+     * @return \AppBundle\Entity\Rol
+     */
+    public function getUrolRol()
+    {
+        return $this->urolRol;
+    }
+
+    /**
+     * Set urolCli
+     *
+     * @param \AppBundle\Entity\Cliente $urolCli
+     *
+     * @return UsuariosRol
+     */
+    public function setUrolCli(\AppBundle\Entity\Cliente $urolCli = null)
+    {
+        $this->urolCli = $urolCli;
+
+        return $this;
+    }
+
+    /**
+     * Get urolCli
+     *
+     * @return \AppBundle\Entity\Cliente
+     */
+    public function getUrolCli()
+    {
+        return $this->urolCli;
+    }
+
+    /**
+     * Set urolUsu
+     *
+     * @param \AppBundle\Entity\Usuario $urolUsu
+     *
+     * @return UsuariosRol
+     */
+    public function setUrolUsu(\AppBundle\Entity\Usuario $urolUsu = null)
+    {
+        $this->urolUsu = $urolUsu;
+
+        return $this;
+    }
+
+    /**
+     * Get urolUsu
+     *
+     * @return \AppBundle\Entity\Usuario
+     */
+    public function getUrolUsu()
+    {
+        return $this->urolUsu;
+    }
 }

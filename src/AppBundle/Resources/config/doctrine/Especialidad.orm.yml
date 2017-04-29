@@ -50,15 +50,12 @@ AppBundle\Entity\Especialidad:
                 default: '1'
             column: esp_activo
     manyToMany:
-        cliid:
-            targetEntity: Cliente
+        idUsuario:
+            targetEntity: Usuario
             cascade: {  }
             fetch: LAZY
-            mappedBy: espid
+            mappedBy: idEspecialidad
             inversedBy: null
             joinTable: null
             orderBy: null
-        usuarios:
-            targetEntity: Usuario
-            mappedBy: groups
     lifecycleCallbacks: {  }

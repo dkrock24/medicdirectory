@@ -323,6 +323,7 @@ class ClienteController extends Controller
 	public function checkAvailableUserAction( Request $request )
 	{
 		
+		exit();
 		//$result = "";
 		//$iCountryId = $request->get('id');
 		$sUsername = $request->get("username");
@@ -439,8 +440,6 @@ class ClienteController extends Controller
 			if (isset($clientId) && $clientId > 0) {
 				$client = $em->getRepository('AppBundle:Cliente')->find($clientId);
 			} else {
-				
-				
 				$client = new Cliente();
 				
 			}
@@ -578,9 +577,9 @@ class ClienteController extends Controller
 			//$lastRepresenter = $objUserRol->getUsuId();
 			//
 			$objUserRol = new UsuariosRol();
-			$objUserRol->setUsuRolUsuarios(  $representer_repo );
-			$objUserRol->setUsuRolClientes($client_repo);
-			$objUserRol->setUsuRolRols( $role_representer_repo );
+			$objUserRol->setUrolUsu($representer_repo); //setUsuRolUsuarios(  $representer_repo );
+			$objUserRol->setUrolCli($client_repo);
+			$objUserRol->setUrolRol( $role_representer_repo );
 			$em->persist($objUserRol);
 			$flush = $em->flush();
 				
@@ -652,11 +651,12 @@ class ClienteController extends Controller
 						$objUserRol->setUrolCliId( $client_repo ); // cliente 
 						$objUserRol->setUrolUsuId( $user_repo ); //user
 						$objUserRol->setUrolRolId( $role_repo ); //role
-						*/
+						*/						
 						
-						$objUserRol->setUsuRolUsuarios( $user_repo );
-						$objUserRol->setUsuRolClientes( $client_repo );
-						$objUserRol->setUsuRolRols($role_repo);
+						$objUserRol->setUrolUsu($user_repo); //setUsuRolUsuarios(  $representer_repo );
+						$objUserRol->setUrolCli($client_repo);
+						$objUserRol->setUrolRol( $role_repo );
+						
 						
 						$em->persist($objUserRol);
 						$flush = $em->flush();
@@ -680,9 +680,9 @@ class ClienteController extends Controller
 						$objUserRol->setUrolRolId( $role_repo ); //role
 						*/
 						//exit("xxxx");
-						$objUserRol->setUsuRolUsuarios( $representer_repo );
-						$objUserRol->setUsuRolClientes( $client_repo );
-						$objUserRol->setUsuRolRols($role_repo);
+						$objUserRol->setUrolUsu( $representer_repo );
+						$objUserRol->setUrolCli( $client_repo );
+						$objUserRol->setUrolRol($role_repo);
 						
 						$em->persist($objUserRol);
 						$flush = $em->flush();
@@ -698,7 +698,7 @@ class ClienteController extends Controller
 
 					$oClientUser = new ClienteUsuario();
 					$oClientUser->setCliUsuCli( $client_repo );
-					$oClientUser->setCliUsuFechaCrea( new \Datetime() );
+					$oClientUser->setCliUsuFechaCrea( new \DateTime() );
 					$oClientUser->setCliUsuRol( $role_repo );
 					$oClientUser->setCliUsuUsu( $user_repo );
 					$em->persist($oClientUser);

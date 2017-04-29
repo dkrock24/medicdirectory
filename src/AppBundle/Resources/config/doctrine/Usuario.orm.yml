@@ -1,11 +1,13 @@
 AppBundle\Entity\Usuario:
     type: entity
-    repositoryClass: AppBundle\Repository\UsuarioRepository
     table: usuario
     indexes:
         IDX_usuario:
             columns:
                 - usu_usuario
+        IDX_2265B05D12023DFD:
+            columns:
+                - usu_informacion
     id:
         usuId:
             type: integer
@@ -24,13 +26,6 @@ AppBundle\Entity\Usuario:
             options:
                 fixed: false
             column: usu_usuario
-        usuCorreo:
-            type: string
-            nullable: false
-            length: 255
-            options:
-                fixed: false
-            column: usu_correo
         usuClave:
             type: string
             nullable: false
@@ -42,42 +37,15 @@ AppBundle\Entity\Usuario:
             type: datetime
             nullable: false
             column: usu_fecha_registro
-        usuFechaNacimiento:
-            type: date
-            nullable: true
-            column: usu_fecha_nacimiento
         usuIdVendedor:
             type: integer
             nullable: true
             options:
                 unsigned: false
             column: usu_id_vendedor
-        usuNombre:
-            type: string
-            nullable: true
-            length: 255
-            options:
-                fixed: false
-            column: usu_nombre
-        usuTitulo:
-            type: string
-            nullable: true
-            length: 10
-            options:
-                fixed: false
-            column: usu_titulo
-        usuGenero:
-            type: string
-            nullable: false
-            length: 1
-            options:
-                fixed: true
-            column: usu_genero
         usuFechaCrea:
             type: datetime
-            nullable: false
-            options:
-                default: CURRENT_TIMESTAMP
+            nullable: true
             column: usu_fecha_crea
         usuFechaMod:
             type: datetime
@@ -107,24 +75,47 @@ AppBundle\Entity\Usuario:
             options:
                 fixed: true
             column: usu_genero
-    oneToOne:
+        usuNombre:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: usu_nombre
+        usuCorreo:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+            column: usu_correo
+    manyToOne:
         usuInformacion:
             targetEntity: UsuarioInformacion
+            cascade: {  }
             fetch: LAZY
+            mappedBy: null
+            inversedBy: null
             joinColumns:
                 usu_informacion:
                     referencedColumnName: usi_id
             orphanRemoval: false
     manyToMany:
-        groups:
+        idEspecialidad:
             targetEntity: Especialidad
-            inversedBy: usuarios
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: idUsuario
             joinTable:
                 name: usuarios_especialidad
                 joinColumns:
-                    uesp_usu_id:
+                    -
+                        name: id_usuario
                         referencedColumnName: usu_id
                 inverseJoinColumns:
-                    uesp_esp_id:
+                    -
+                        name: id_especialidad
                         referencedColumnName: esp_id
+            orderBy: null
     lifecycleCallbacks: {  }

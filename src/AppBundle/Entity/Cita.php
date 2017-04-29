@@ -20,7 +20,12 @@ class Cita
     /**
      * @var \DateTime
      */
-    private $citHoraCita;
+    private $citHoraInicioCita;
+	
+	/**
+     * @var \DateTime
+     */
+    private $citHoraFinCita;
 
     /**
      * @var string
@@ -98,29 +103,55 @@ class Cita
     }
 
     /**
-     * Set citHoraCita
+     * Set citHoraInicioCita
      *
-     * @param \DateTime $citHoraCita
+     * @param \DateTime $citHoraInicioCita
      *
      * @return Cita
      */
-    public function setCitHoraCita($citHoraCita)
+    public function setCitHoraInicioCita($citHoraInicioCita)
     {
-        $this->citHoraCita = $citHoraCita;
+        $this->citHoraInicioCita = $citHoraInicioCita;
 
         return $this;
     }
-
-    /**
-     * Get citHoraCita
+	
+	/**
+     * Get citHoraInicioCita
      *
      * @return \DateTime
      */
-    public function getCitHoraCita()
+    public function getcitHoraInicioCita()
     {
-        return $this->citHoraCita;
+        return $this->citHoraInicioCita;
     }
+	
+	
+	 /**
+     * Set citHoraFinCita
+     *
+     * @param \DateTime $citHoraFinCita
+     *
+     * @return Cita
+     */
+    public function setCitHoraFinCita($citHoraFinCita)
+    {
+        $this->citHoraFinCita = $citHoraFinCita;
 
+        return $this;
+    }
+	
+	/**
+     * Get citHoraFinCita
+     *
+     * @return \DateTime
+     */
+    public function getCitHoraFinCita()
+    {
+        return $this->citHoraFinCita;
+    }	
+	
+	
     /**
      * Set citSala
      *
@@ -186,7 +217,7 @@ class Cita
     /**
      * Get citFechaCrea
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getCitFechaCrea()
     {
