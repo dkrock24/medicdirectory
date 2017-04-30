@@ -63,7 +63,15 @@
 
             <!-- Check the notifications -->
             {% for message in app.session.flashbag().get("success") %}
-                <div class="alert alert-success alert-styled-left alert-arrow-left alert-component"><i class="fa fa-check-circle"></i> {{message}}, Inicia sesión haciendo click <a href="{{path('emr_homepage')}}">Aquí</a></div>
+                <div class="alert alert-success alert-styled-left alert-arrow-left alert-component"> {{message}}
+                    
+                    {% if app.user.getUsuId() is defined and app.user.getUsuId() > 0 %}
+                    {% else %}
+                        , Inicia sesión haciendo click <a href="{{path('emr_homepage')}}">Aquí</a>
+                    {% endif %}
+                    
+                    
+                </div>
             {% endfor %}
             {% for message in app.session.flashbag().get("error") %}
                 <div class="alert alert-danger alert-styled-left alert-arrow-left alert-component"><i class="fa fa-close"></i> {{message}}</div>
@@ -247,6 +255,7 @@
                                                     <label>Fecha nacimiento del representante: <span class="text-danger">*</span></label>
                                                     <div class=""><input type="text" value="{{ getUserRepresenter[0].usu_fecha_nacimiento }}" id="birth_date" name="birth_date" class="form-control" required readonly="readonly"></div>
                                                 </div>
+
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
@@ -1493,6 +1502,7 @@
                 });
                 
             }
+            
             //$(".ui-datepicker-year").select2();
              $.datepicker.regional['es'] = {
                 closeText: 'Cerrar',
@@ -1522,6 +1532,7 @@
                 $(this).addClass("done");
                 $(this).removeClass("disabled");
             });
+            
             //$("body").find(".ui-datepicker-year").select2();
             
         });

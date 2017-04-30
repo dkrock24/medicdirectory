@@ -323,7 +323,7 @@ class ClienteController extends Controller
 	public function checkAvailableUserAction( Request $request )
 	{
 		
-		exit();
+		//exit();
 		//$result = "";
 		//$iCountryId = $request->get('id');
 		$sUsername = $request->get("username");
@@ -360,6 +360,7 @@ class ClienteController extends Controller
 			
 			
 			$res = array("available"=> $available, "email"=>$email, "gender"=>$gender );
+			//var_dump($res);
 		}
 		catch (\Exception $e){
 				echo ($e->getMessage());
@@ -709,7 +710,14 @@ class ClienteController extends Controller
 			//} 
 
 			$em->getConnection()->commit();
-			$this->session->getFlashBag()->add("success","Registro creado con éxito");
+			if (isset($clientId) && $clientId > 0) {
+				$msg = "Se actualizó correctamente los datos del extablecimiento con éxito";
+			}
+			else
+			{
+				$msg = "Registro creado con éxito";
+			}
+			$this->session->getFlashBag()->add("success", $msg);
 			echo 1;
 			
 		}

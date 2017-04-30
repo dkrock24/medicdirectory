@@ -96,8 +96,8 @@ emr_inventario:
     prefix:   /inventario
     host:     "%emr_domain%"
     
-#citas
-emr_cita:
-    resource: "@EmrBundle/Resources/config/routing/cita.yml"
-    prefix:   /cita
+#agenda
+emr_agenda:
+    resource: "@EmrBundle/Resources/config/routing/agenda.yml"
+    prefix:   /agenda
     host:     "%emr_domain%"

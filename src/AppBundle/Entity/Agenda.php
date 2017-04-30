@@ -16,16 +16,11 @@ class Agenda
      * @var \DateTime
      */
     private $ageFechaInicio;
-
-    /**
+	
+	/**
      * @var \DateTime
      */
     private $ageFechaFin;
-
-    /**
-     * @var \DateTime
-     */
-    private $ageHoraInicio;
 
     /**
      * @var \DateTime
@@ -41,6 +36,11 @@ class Agenda
      * @var \DateTime
      */
     private $ageFechaMod;
+	
+	/**
+     * @var integer
+     */
+    private $ageTipoEvento;
 
     /**
      * @var boolean
@@ -125,55 +125,6 @@ class Agenda
     {
         return $this->ageFechaFin;
     }
-
-    /**
-     * Set ageHoraInicio
-     *
-     * @param \DateTime $ageHoraInicio
-     *
-     * @return Agenda
-     */
-    public function setAgeHoraInicio($ageHoraInicio)
-    {
-        $this->ageHoraInicio = $ageHoraInicio;
-
-        return $this;
-    }
-
-    /**
-     * Get ageHoraInicio
-     *
-     * @return \DateTime
-     */
-    public function getAgeHoraInicio()
-    {
-        return $this->ageHoraInicio;
-    }
-
-    /**
-     * Set ageHoraFin
-     *
-     * @param \DateTime $ageHoraFin
-     *
-     * @return Agenda
-     */
-    public function setAgeHoraFin($ageHoraFin)
-    {
-        $this->ageHoraFin = $ageHoraFin;
-
-        return $this;
-    }
-
-    /**
-     * Get ageHoraFin
-     *
-     * @return \DateTime
-     */
-    public function getAgeHoraFin()
-    {
-        return $this->ageHoraFin;
-    }
-
     /**
      * Set ageFechaCrea
      *
@@ -221,6 +172,32 @@ class Agenda
     {
         return $this->ageFechaMod;
     }
+	
+	
+	/**
+     * Set ageTipoEvento
+     *
+     * @param integer $ageTipoEvento
+     *
+     * @return Agenda
+     */
+    public function setAgeTipoEventor($ageTipoEvento)
+    {
+        $this->ageTipoEvento = $ageTipoEvento;
+
+        return $this;
+    }
+
+    /**
+     * Get ageTipoEvento
+     *
+     * @return integer
+     */
+    public function getAgeTipoEvento()
+    {
+        return $this->ageTipoEvento;
+    }
+	
 
     /**
      * Set ageActivo

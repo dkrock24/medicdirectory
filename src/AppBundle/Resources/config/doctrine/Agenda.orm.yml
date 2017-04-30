@@ -26,21 +26,13 @@ AppBundle\Entity\Agenda:
                 strategy: IDENTITY
     fields:
         ageFechaInicio:
-            type: date
+            type: datetime
             nullable: true
             column: age_fecha_inicio
         ageFechaFin:
-            type: date
+            type: datetime
             nullable: true
             column: age_fecha_fin
-        ageHoraInicio:
-            type: time
-            nullable: true
-            column: age_hora_inicio
-        ageHoraFin:
-            type: time
-            nullable: true
-            column: age_hora_fin
         ageFechaCrea:
             type: datetime
             nullable: true
@@ -51,6 +43,12 @@ AppBundle\Entity\Agenda:
             type: datetime
             nullable: true
             column: age_fecha_mod
+        ageTipoEvento:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: age_tipo_evento    
         ageActivo:
             type: boolean
             nullable: true

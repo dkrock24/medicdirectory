@@ -4,11 +4,18 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/xampp/htdocs/symfony3/emr/src/EmrBundle/Controller/SessionController.php</file>
+            <file>file:/C:/xampp/htdocs/symfony3/emr/src/EmrBundle/Controller/CitaController.php</file>
             <file>file:/C:/xampp/htdocs/symfony3/emr/src/EmrBundle/Resources/views/Default/location.html.twig</file>
             <file>file:/C:/xampp/htdocs/symfony3/emr/src/EmrBundle/Resources/views/cliente/edit.html.twig</file>
+            <file>file:/C:/xampp/htdocs/symfony3/emr/src/EmrBundle/Resources/views/paciente/new.html.twig</file>
             <file>file:/C:/xampp/htdocs/symfony3/emr/src/EmrBundle/Controller/DefaultController.php</file>
             <file>file:/C:/xampp/htdocs/symfony3/emr/src/EmrBundle/Controller/ClienteController.php</file>
+            <file>file:/C:/xampp/htdocs/symfony3/emr/src/AppBundle/Resources/config/doctrine/Cita.orm.yml</file>
+            <file>file:/C:/xampp/htdocs/symfony3/emr/src/EmrBundle/Resources/config/routing/cita.yml</file>
+            <file>file:/C:/xampp/htdocs/symfony3/emr/src/AppBundle/Entity/Cita.php</file>
+            <file>file:/C:/xampp/htdocs/symfony3/emr/src/EmrBundle/Resources/views/cita/new.html.twig</file>
             <file>file:/C:/xampp/htdocs/symfony3/emr/src/EmrBundle/Resources/views/cliente/new.html.twig</file>
+            <file>file:/C:/xampp/htdocs/symfony3/emr/app/Resources/views/Layout/base_emr/_clients_base.html.twig</file>
         </group>
     </open-files>
 </project-private>

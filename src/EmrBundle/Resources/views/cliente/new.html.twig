@@ -65,7 +65,14 @@
 
             <!-- Check the notifications -->
             {% for message in app.session.flashbag().get("success") %}
-                <div class="alert alert-success alert-styled-left alert-arrow-left alert-component"><i class="fa fa-check-circle"></i> {{message}}, Inicia sesión haciendo click <a href="{{path('emr_homepage')}}">Aquí</a></div>
+                <div class="alert alert-success alert-styled-left alert-arrow-left alert-component"> {{message}}, 
+                    
+                    {% if app.user.getUsuId() is defined and app.user.getUsuId() > 0 %}
+                    {% else %}
+                        , Inicia sesión haciendo click <a href="{{path('emr_homepage')}}">Aquí</a>
+                    {% endif %}
+                    
+                </div>
             {% endfor %}
             {% for message in app.session.flashbag().get("error") %}
                 <div class="alert alert-danger alert-styled-left alert-arrow-left alert-component"><i class="fa fa-close"></i> {{message}}</div>

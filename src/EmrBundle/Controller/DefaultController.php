@@ -108,6 +108,14 @@ class DefaultController extends Controller
 		if( !isset($location) )
 		{
 			$msg =  0;
+			//return $this->redirectToRoute("emr_location");
+			//throw $this->createNotFoundException("<a href='xxx'>xxxx</a>");
+			$path = $url = $this->generateUrl('emr_location', array(), true);
+			$tag = "<div class='alert alert-danger alert-styled-left'>
+					Debe de seleccionar un establecimiento para hacer un buen uso de la herramienta de lo contrario tendrá problemas, seleccione uno pulsando <a href=".$path.">Aquí</a>
+					</div>";
+			exit($tag);
+			
 		}else{
 			$msg = 1;
 		}

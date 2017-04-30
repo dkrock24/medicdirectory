@@ -54,6 +54,30 @@ class ConfigureSession {
 				$this->session->set('municipalityId', $municipalityId);
 				$this->session->set('municipalityName', $municipalityName);
 				//return $this->redirectToRoute("emr_dashboard");
+				
+				
+				//===========================================
+				//Check role type
+				//============================================
+				//$em = $this->getDoctrine()->getManager();
+				//$idUser =  $this->getUser()->getUsuId();
+				$RAW_QUERY = "SELECT r.rol_id AS id, r.rol_rol AS name FROM usuarios_rol ur "
+							. " INNER JOIN rol r on r.rol_id = ur.urol_rol_id "
+							. " WHERE r.rol_activo = 1 "
+							. " AND ur.urol_usu_id =:idUser AND ur.urol_cli_id =:idClient "; 
+				$statement = $this->em->getConnection()->prepare($RAW_QUERY);
+				$statement->bindValue("idUser", $idUser );
+				$statement->bindValue("idClient", $iLocationId );
+				$statement->execute();
+				$aRols = $statement->fetchAll();
+				$listRoles = array();
+				foreach($aRols as $r)
+				{
+					$listRoles[ $r['id'] ] = $r['name'];
+				}
+				$this->session->set('userRoles', $listRoles);
+				
+				
 				$status = true;
 			}
 		}

@@ -8,13 +8,68 @@ use Symfony\Component\HttpFoundation\Request;
 
 use \AppBundle\Entity\Cita;
 
-class CitaController extends Controller
+class AgendaController extends Controller
 {
 	
 	public function newAction( Request $request  )
     {
+		$em = $this->getDoctrine()->getManager();
 		
-		return $this->render("EmrBundle:cita:new.html.twig");
+		
+		$doctor = $request->get("d");
+		
+		$patient = $request->get("p");
+		
+		//==================================================
+		//get all user roles logged
+		//==================================================
+		$userRoles = $this->get('session')->get('userRoles');
+		
+		//==================================================
+		//get all doctors from this establishment
+		//==================================================
+		
+		$locationId = $this->get('session')->get('locationId');
+		if( !$locationId )
+		{
+			return $this->redirectToRoute("emr_location");
+		}
+		
+		$RAW_QUERY = "SELECT u.* FROM cliente_usuario cu
+						INNER JOIN usuarios_rol ur on cu.cli_usu_usu_id = ur.urol_usu_id
+						INNER JOIN usuario u on cu.cli_usu_usu_id = u.usu_id 
+						where cli_usu_cli_id =:locationId
+						and ur.urol_rol_id = 6 ORDER BY u.usu_nombre asc ";
+
+		$statement = $em->getConnection()->prepare($RAW_QUERY);
+		$statement->bindValue("locationId", $locationId);
+		$statement->execute();
+		$doctorList = $statement->fetchAll();
+		
+		//================================================
+		//Check if the doctor exists in the location
+		//================================================
+		if( isset($doctor) )
+		{
+			$is_available = false;
+			foreach($doctorList as $value )
+			{
+				if($doctor == $value['usu_id'])
+				{
+					$is_available = true;
+				}
+			}
+			
+			if( !$is_available )
+			{
+				return $this->redirectToRoute("agenda_new");
+			}
+		}
+		
+		return $this->render("EmrBundle:agenda:new.html.twig", array(
+			"userRoles" => $userRoles,
+			"doctorList"=> $doctorList	
+		));
         
     }
 	
@@ -38,12 +93,55 @@ class CitaController extends Controller
 				//$start = mysqli_real_escape_string($connection, $_GET["start"]);
 				//$end = mysqli_real_escape_string($connection, $_GET["end"]);
 				//$result = "";//mysqli_query($connection, "SELECT id, start ,end ,title FROM  events where (date(start) >= "$start" AND date(start) <= "$end")");
-				$RAW_QUERY = "SELECT cit_id as id, cit_hora_inicio_cita as start, cit_hora_fin_cita as end, cit_notas as title FROM cita  WHERE  (date(cit_hora_inicio_cita) >= '".$start."' AND date(cit_hora_inicio_cita) <= '".$end."')";
+				$RAW_QUERY = "SELECT a.age_id as id, a.age_fecha_inicio as start, a.age_fecha_fin as end, a.age_tipo_evento as tipo_evento FROM agenda a
+								LEFT JOIN cita c on c.cit_id = a.age_cit_id
+								AND c.cit_activo = 1
+								WHERE a.age_activo = 1"
+							. " AND  (date(a.age_fecha_inicio) >= '".$start."' AND date(a.age_fecha_inicio) <= '".$end."')";
 
 				$statement = $em->getConnection()->prepare($RAW_QUERY);
 				//$statement->bindValue("username", $sUsername);
 				$statement->execute();
-				$events = $statement->fetchAll();
+				$rs = $statement->fetchAll();
+				
+				//var_dump($events);
+				
+				$events = array();
+				foreach( $rs as $key)
+				{
+					$ar = array();
+					$ar['start'] = $key['start'];
+					$ar['end'] = $key['end'];
+					
+					
+					switch ( $key['tipo_evento'] )
+					{
+						case 1:
+							$color = "#0E77AE";
+							$event = " Cita médica";
+							break;
+						case 2:
+							$color = "#26A69A";
+							$event = " Evento Personal ";
+							break;
+						case 3:
+							$color = "#3a3a3a";
+							$event = " Ausente ";
+							break;
+						case 4:
+							$color = "#93c54b";
+							$event = "Tiempo de Comida";	
+						default;
+							$color = "#FF7043";
+							$event = "Otros";
+							break;
+					}
+					
+					$ar['title'] = $event;
+					$ar['color'] = $color;
+					//$ar['rendering'] = "background";
+					array_push($events, $ar);
+				}
 				/*
 				while ($row = mysqli_fetch_assoc($result)) {
 
@@ -69,7 +167,8 @@ class CitaController extends Controller
 
                     )");
 				*/
-				echo date("Y-m-d H:i:s",strtotime($end) );
+
+				/*	
 				$obAppointment= new Cita();
 				$obAppointment->setCitHoraInicioCita( new \DateTime( date("Y-m-d H:i:s",strtotime($start) ) ) ) ; //setUsuRolUsuarios(  $representer_repo );
 				$obAppointment->setCitHoraFinCita(new \DateTime( date("Y-m-d H:i:s",strtotime($end) ) ) );
@@ -81,7 +180,7 @@ class CitaController extends Controller
 				header("Content-Type: application/json");
 
 				echo "{'id':$lastAppointment}";
-
+				*/
 				exit;
 			} elseif ($_POST["action"] == "update") {  // update event
 

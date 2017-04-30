@@ -1,0 +1,29 @@
+agenda_index:
+    path:     /
+    defaults: { _controller: "EmrBundle:Agenda:index" }
+    #methods:  GET
+
+agenda_show:
+    path:     /{id}/show
+    defaults: { _controller: "EmrBundle:Agenda:show" }
+    #methods:  GET
+
+agenda_new:
+    path:     /new
+    defaults: { _controller: "EmrBundle:Agenda:new" }
+    #methods:  [GET, POST]
+    
+agenda_valida:
+    path:     /valid/appointment
+    defaults: { _controller: "EmrBundle:Agenda:validAppointment" }
+    
+
+agenda_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "EmrBundle:Agenda:edit" }
+    #methods:  [GET, POST]
+
+agenda_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "EmrBundle:Agenda:delete" }
+    #methods:  DELETE
