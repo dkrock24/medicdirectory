@@ -29,7 +29,19 @@ class DefaultController extends Controller
     
     public function indexDoctoresAction()
     {
-        return $this->render('WebBundle:Doctores:index.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $medicos = $em->getRepository('AppBundle\Entity\Usuario')
+            ->getUsuariosMedicos();
+        
+        $esp_service = $this->get('catalogs');
+        $esp = $esp_service->getEspecialidades();
+        
+        return $this->render('WebBundle:Doctores:index.html.twig',
+                array(
+                    'medicos' => $medicos,
+                    'esp' => $esp
+                )
+        );
     }
     
     public function indexProfileAction( $med_id )
@@ -40,10 +52,6 @@ class DefaultController extends Controller
         
         $em = $this->getDoctrine()->getManager();
         $medico = $em->getRepository('AppBundle\Entity\Usuario')->getMedicoById( $med_id );
-        
-//        echo '<pre>';
-//        \Doctrine\Common\Util\Debug::dump($medico);
-//        exit;
         
         return $this->render('WebBundle:Doctores:profile.html.twig',
                 array(

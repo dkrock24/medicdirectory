@@ -13,3 +13,7 @@ services:
     srv_session:
         class:        Services\ConfigureSession
         arguments:     ["@doctrine.orm.entity_manager", "@session"]    
+        
+    catalogs:
+        class:        Services\CatalogsService
+        arguments:     [ "@doctrine.orm.entity_manager" ]

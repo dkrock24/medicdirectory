@@ -1,0 +1,148 @@
+{% extends "Layout/base_web/web_estructura.html.twig" %}
+{% block title_page %}EMR{% endblock %}
+
+{% block stylesheets %}
+    <!-- Bootstrap Core CSS -->
+    <link href="{{ asset('bundles/web/css/bootstrap.min.css') }}" rel="stylesheet">
+
+    <!-- Template CSS Files  -->
+    <link href="{{ asset('bundles/web/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/web/js/plugins/camera/css/camera.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/web/js/plugins/magnific-popup/magnific-popup.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/web/css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/web/css/responsive.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/web/css/custom.css') }}" rel="stylesheet">
+{% endblock %}
+
+    {% block header %}
+                <!-- Header Starts -->
+        <header class="main-header">
+            <!-- Nested Container Starts -->
+            <div class="container">
+                <!-- Top Bar Starts -->
+                <div class="top-bar hidden-sm hidden-xs">
+                   {% include 'Layout/base_web/_web_topbar.html.twig' %}
+                </div>
+                <!-- Top Bar Ends -->
+                <!-- Navbar Starts -->
+                <nav id="nav" class="navbar navbar-default" role="navigation">
+                    <div class="container-fluid">
+                        <!-- Navbar Header Starts -->
+                        <div class="navbar-header">
+                            <!-- Collapse Button Starts -->
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <!-- Collapse Button Ends -->
+                            <!-- Logo Starts -->
+                            <a href="{{ path('web_homepage') }}" class="navbar-brand">
+                                <i class="fa fa-heartbeat"></i>
+                                NOMBRE
+                            </a>
+                            <!-- Logo Ends -->
+                        </div>
+                        <!-- Navbar Header Ends -->
+                        <!-- Navbar Collapse Starts -->
+                        <div class="navbar-collapse collapse">
+                            {% include 'Layout/base_web/_web_base_menutop.html.twig' %}
+                            {{ render(controller('EmrBundle:MenuTop:listShow',{ 'menu': 2 })) }}
+                        </div>
+                        <!-- Navbar Collapse Ends -->
+                    </div>
+                </nav>
+                <!-- Navbar Ends -->
+            </div>
+            <!-- Nested Container Ends -->
+        </header>   
+        <!-- Header Ends -->
+    {% endblock %}
+
+{% block body %}
+    
+{% endblock %}
+
+{% block footer %}
+        <!-- Footer Starts -->
+    <footer class="main-footer">
+        <!-- Footer Area Starts -->
+        <footer class="main-footer">
+            <!-- Footer Area Starts -->
+            <div class="footer-area">
+                <!-- Nested Container Starts -->
+                <div class="container">
+                    <div class="row">
+                        <!-- Hosptial Information Starts -->
+                        <div class="col-md-3 col-sm-4 col-xs-12">
+                            {% include 'Layout/base_web/_web_base_about.html.twig' %}
+                        </div>
+                        <!-- Hosptial Information Ends -->
+                        <!-- Services Starts -->
+                        <div class="col-md-2 col-sm-4 col-xs-12">
+                           {% include 'Layout/base_web/_web_base_services.html.twig' %}
+                        </div>
+                        <!-- Services Ends -->
+                        <!-- Twitter Starts -->
+                        <div class="col-md-3 col-sm-4 col-xs-12">
+                            {% include 'Layout/base_web/_web_base_social.html.twig' %}
+                        </div>
+                        <!-- Twitter Ends -->
+                        <!-- Signup Newsletter Starts -->
+                        <div class="col-md-4 col-xs-12 newsletter-block">
+                           {% include 'Layout/base_web/_web_base_subscribe.html.twig' %}
+                        </div>
+                        <!-- Signup Newsletter Ends -->
+                    </div>
+                </div>
+                <!-- Nested Container Ends -->
+            </div>
+            <!-- Footer Area Ends -->
+            <!-- Copyright Starts -->
+            <div class="copyright">
+               {% include 'Layout/base_web/_web_base_copyright.html.twig' %}
+            </div>
+            <!-- Copyright Ends -->
+        </footer>
+        <!-- Footer Area Ends -->
+        
+        <!-- Copyright Starts -->
+        <div class="copyright">
+            <div class="container clearfix">
+
+            </div>
+        </div>
+        <!-- Copyright Ends -->
+    </footer>
+    
+    <!-- Footer Ends -->
+{% endblock %}
+
+{% block javascripts %}
+    <!-- Template JS Files -->
+    <script src="{{ asset('bundles/web/js/jquery-1.11.3.min.js') }}"></script>
+    <script src="{{ asset('bundles/web/js/jquery-migrate-1.2.1.min.js') }}"></script>  
+    <script src="{{ asset('bundles/web/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('bundles/web/js/plugins/camera/js/jquery.mobile.customized.min.js') }}"></script>
+    <script src="{{ asset('bundles/web/js/plugins/camera/js/jquery.easing.1.3.js') }}"></script>
+    <script src="{{ asset('bundles/web/js/plugins/camera/js/camera.min.js') }}"></script>  
+    <script src="{{ asset('bundles/web/js/plugins/shuffle/jquery.shuffle.modernizr.min.js') }}"></script>
+    <script src="{{ asset('bundles/web/js/plugins/magnific-popup/jquery.magnific-popup.min.js') }}"></script>
+    <script src="{{ asset('bundles/web/js/jquery-scrolltofixed-min.js') }}"></script>
+    <!-- <script src="https://maps.googleapis.com/maps/api/js"></script> !-->
+    <script src="{{ asset('bundles/web/js/custom.js') }}"></script>
+    <script src="{{ asset('bundles/web/js/jquery.lazy.min.js') }}"></script>
+    <script type="text/javascript">
+        $(function($) {
+            $("#doctors-grid .lazy").Lazy({
+                effect: "fadeIn",
+                effectTime: 1000,
+                threshold: 0
+                //,appendScroll: $('.bio-box')
+            });
+        });
+    </script>
+{% endblock %}
+{% block codejs %}
+{% endblock  %}
