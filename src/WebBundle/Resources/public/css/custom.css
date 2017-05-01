@@ -29,3 +29,14 @@ Top bar
 .filter-color{
     background: rgba(0,0,0,0.7);
 }
+
+.alineado{
+    float: right;
+    background: none;
+}
+
+.main_logo{
+    width: 50px;
+    position: relative;
+    display: inline-block;
+}

@@ -38,16 +38,16 @@
                             </button>
                             <!-- Collapse Button Ends -->
                             <!-- Logo Starts -->
-                            <a href="{{ path('web_homepage') }}" class="navbar-brand">
-                                <i class="fa fa-heartbeat"></i>
-                                NOMBRE
+                            <a href="{{ path('web_homepage') }}" class="navbar-brand">                                
+                                <img src="{{ asset('bundles/admin/img/logo.png') }}" class="main_logo" alt="">
+                                Global Medic
                             </a>
                             <!-- Logo Ends -->
                         </div>
                         <!-- Navbar Header Ends -->
                         <!-- Navbar Collapse Starts -->
-                        <div class="navbar-collapse collapse">
-                            {% include 'Layout/base_web/_web_base_menutop.html.twig' %}
+                        <div class="navbar-collapse collapse alineado">
+                            {#% include 'Layout/base_web/_web_base_menutop.html.twig' %#}
                             {{ render(controller('EmrBundle:MenuTop:listShow',{ 'menu': 2 })) }}
                         </div>
                         <!-- Navbar Collapse Ends -->
