@@ -13,7 +13,26 @@
 {% endblock %} 
 
 {% block body %}
-    <h1>Edición de paciente</h1>
+    
+    <div class="page-header-content">
+        <div class="page-title">
+            <h4>
+                <i class="icon-arrow-left52 position-left"></i>
+                <span class="text-semibold">Home</span> - Edición de paciente
+
+                <small class="display-block">Expediente básico del paciente!</small></h4>
+            <a class="heading-elements-toggle"><i class="icon-more"></i></a></div>
+
+        <div class="heading-elements">
+            <div class="heading-btn-group">
+                <a href="#" class="btn btn-link btn-float has-text"><i class="icon-bars-alt text-primary"></i><span>Statistics</span></a>
+                <a href="#" class="btn btn-link btn-float has-text"><i class="icon-calculator text-primary"></i> <span>Invoices</span></a>
+                <a href="#" class="btn btn-link btn-float has-text"><i class="icon-calendar5 text-primary"></i> <span>Schedule</span></a>
+            </div>
+        </div>
+    </div>
+    
+    
     <div class="row">
         <div class="col-lg-12">
 
@@ -671,26 +690,37 @@
                         var home_phone = $("#appbundle_paciente_pacTelCasa").val();
                         var work_phone = $("#appbundle_paciente_pacTelTrabajo").val();
                         var cellphone = $("#appbundle_paciente_pacTelTrabajo").val();
-                        var month = $("#appbundle_paciente_pacFechaNacimiento_month").val();
-                        var day = $("#appbundle_paciente_pacFechaNacimiento_day").val();
-                        var year = $("#appbundle_paciente_pacFechaNacimiento_year").val();
+                        /*
+                            var month = $("#appbundle_paciente_pacFechaNacimiento_month").val();
+                            var day = $("#appbundle_paciente_pacFechaNacimiento_day").val();
+                            var year = $("#appbundle_paciente_pacFechaNacimiento_year").val();
+                        */
+                        var birthdate = $("#appbundle_paciente_pacFechaNacimiento").val();
                         var img = img_base64;
                         var id = idItem;
-                       
+                        
                         var err = 0;
-                            if( month == "" )
-                            {
-                                msg = "Selecciones el mes del nacimiento del paciente";
-                                err = 1;
-                            }else if (day == "")
-                            {
-                                msg = "Seleccione el dia de nacimiento del paciente";
-                                err = 1;
-                            }else if( year=="")
-                            {
-                                msg = "Seleccione el año de nacimiento del paciente";
-                                err = 1;
-                            }
+                        if( birthdate == "" )
+                        {
+                            msg = "Selecciones la fecha de nacimiento del paciente";
+                            err = 1;
+                        }
+                        
+                        if( middle_name != "" || last_name  != "" || middle_last_name != "" )
+                        {
+                            
+                        }
+                        else
+                        {
+                            msg = "Ingrese almenos un apellido del paciente";
+                            err = 1;
+                        }
+                        
+                        if( firts_name == "" )
+                        {
+                            msg = "Ingrese el primer nombre del paciente";
+                            err = 1;
+                        }
                             
                         if( err == 1 ){
                             $.alert({
@@ -713,7 +743,7 @@
                                 gender: gender, dui:dui, blood_type: blood_type,
                                 email: email, civil_state: civil_state, municipality: municipality,
                                 address: address, home_phone: home_phone, work_phone, cellphone: cellphone,
-                                date: ""+year+"-"+month+"-"+day+"", img: img, id:id
+                                date: birthdate, img: img, id:id
                                 
                             },
                             error: function (data) {

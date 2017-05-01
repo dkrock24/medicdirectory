@@ -4,12 +4,12 @@ agenda_index:
     #methods:  GET
 
 agenda_show:
-    path:     /{id}/show
+    path:     /{id}/info
     defaults: { _controller: "EmrBundle:Agenda:show" }
     #methods:  GET
 
 agenda_new:
-    path:     /new
+    path:     /calendario
     defaults: { _controller: "EmrBundle:Agenda:new" }
     #methods:  [GET, POST]
     
@@ -19,11 +19,11 @@ agenda_valida:
     
 
 agenda_edit:
-    path:     /{id}/edit
+    path:     /{id}/editar
     defaults: { _controller: "EmrBundle:Agenda:edit" }
     #methods:  [GET, POST]
 
 agenda_delete:
-    path:     /{id}/delete
+    path:     /{id}/eliminar
     defaults: { _controller: "EmrBundle:Agenda:delete" }
     #methods:  DELETE

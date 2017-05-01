@@ -377,7 +377,11 @@ class PacienteController extends Controller
 				$oPatient->setPacTelCasa($home_phone);
 				$oPatient->setPacTelTrabajo($work_phone);
 				$oPatient->setPacTelCelular($cellphone);
-				$oPatient->setPacFechaNacimiento(new \Datetime($date) );
+				if( !empty($date) )
+				{
+					$oPatient->setPacFechaNacimiento(new \Datetime($date) );
+				}
+				
 				$oPatient->setPacFechaCrea(new \Datetime()); //Fecha de creacion
 				$iLocationId = $this->get('session')->get('locationId');
 				$iLocationObj = $em->getRepository("AppBundle:Cliente")->find($iLocationId);

@@ -40,7 +40,18 @@ class PacienteType extends AbstractType
 				))
 				->add('pacEmail', TextType::class, array("label"=>"Email:","required"=>false, "attr"=>array( "class"=>"", "autocomplete"=>false )))
 				->add('pacDui')
-				->add('pacEstadoCivil')
+				->add('pacEstadoCivil' , ChoiceType::class, array(
+					'required' => false,
+					'attr'   =>  array(
+					'class'   => 'form-control select'),
+					'choices'  => array(
+						//'Maybe' => null,
+						'Soltero/a' => "s",
+						'Casado/a' => "c",
+						'Divorciado/a'=> "d",
+						'Viudo/a' => "v",
+					),
+				))
 				->add('pacTipSangre', ChoiceType::class, array(
 					'required' => false,
 					'attr'   =>  array(

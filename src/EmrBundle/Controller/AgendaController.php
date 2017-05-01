@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 
 use \AppBundle\Entity\Cita;
+use \AppBundle\Entity\Agenda;
 
 class AgendaController extends Controller
 {
@@ -46,12 +47,24 @@ class AgendaController extends Controller
 		$statement->execute();
 		$doctorList = $statement->fetchAll();
 		
+		/*
+		$arr = array();
+		$con = 0;
+		foreach($doctorList as $value )
+		{
+			$arr[] =
+					
+					
+		}
+		*/
+		
 		//================================================
 		//Check if the doctor exists in the location
 		//================================================
+		$is_available = false;
 		if( isset($doctor) )
 		{
-			$is_available = false;
+			
 			foreach($doctorList as $value )
 			{
 				if($doctor == $value['usu_id'])
@@ -66,9 +79,44 @@ class AgendaController extends Controller
 			}
 		}
 		
+		//================================================
+		//Check if the patient exists in the location
+		//================================================
+		//echo $patient;
+		$patientName = "";
+		if( isset($patient) )
+		{
+			$patient_available = false;
+			//select * from paciente
+			$patient_repo = $em->getRepository("AppBundle:Paciente")->findBy(array("pacCli"=>$locationId, "pacId"=>$patient ));
+			if(!$patient_repo)
+			{
+				//check if exists the variable doctor
+				if( $is_available )
+				{
+					return $this->redirect( $this->generateUrl('agenda_new', array(
+						'd' => $doctor
+					)));
+				}
+				else
+				{
+					return $this->redirectToRoute("agenda_new");
+				}
+			}
+			else
+			{
+				
+				$patientName = $patient_repo[0]->getPacNombre()." ".$patient_repo[0]->getPacSegNombre()." ".$patient_repo[0]->getPacApellido()." ".$patient_repo[0]->getPacSegApellido();
+			}
+			
+			
+			//exit();
+		}
+		
 		return $this->render("EmrBundle:agenda:new.html.twig", array(
 			"userRoles" => $userRoles,
-			"doctorList"=> $doctorList	
+			"doctorList"=> $doctorList,
+			"patientName"=>$patientName
 		));
         
     }
@@ -78,11 +126,35 @@ class AgendaController extends Controller
 	{
 		$em = $this->getDoctrine()->getManager();
 		
+		
+		//Options
 		$action = $request->get("action");
 		$view = $request->get("view");
+		
+		//Calendar
 		$title = $request->get("title");
 		$start = $request->get("start");
 		$end = $request->get("end");
+		
+		//Doctor
+		$doctorId = $request->get("doctor");
+		
+		//Patient
+		$patientId = $request->get("patient");
+		
+		//Room
+		$room = $request->get("room");
+		//Event Type
+		$eventType = $request->get("eventType");
+		
+		$locationId = $this->get('session')->get('locationId');
+		$client_repo = $em->getRepository("AppBundle:Cliente")->find($locationId);
+		
+		//=========================
+		//if it a update o delete
+		//=========================
+		$id = $request->get("id");
+		
 		if (isset($action) or isset($view))
 		{
 			//show all events
@@ -90,14 +162,19 @@ class AgendaController extends Controller
 			{
 
 				header("Content-Type: application/json");
-				//$start = mysqli_real_escape_string($connection, $_GET["start"]);
-				//$end = mysqli_real_escape_string($connection, $_GET["end"]);
-				//$result = "";//mysqli_query($connection, "SELECT id, start ,end ,title FROM  events where (date(start) >= "$start" AND date(start) <= "$end")");
+
+				$filter = "";
+				if( isset($doctorId) && $doctorId > 0 )
+				{
+					$filter = " AND a.age_usu_id = ".$doctorId;
+				}
 				$RAW_QUERY = "SELECT a.age_id as id, a.age_fecha_inicio as start, a.age_fecha_fin as end, a.age_tipo_evento as tipo_evento FROM agenda a
 								LEFT JOIN cita c on c.cit_id = a.age_cit_id
 								AND c.cit_activo = 1
 								WHERE a.age_activo = 1"
-							. " AND  (date(a.age_fecha_inicio) >= '".$start."' AND date(a.age_fecha_inicio) <= '".$end."')";
+							. " AND  (date(a.age_fecha_inicio) >= '".$start."' AND date(a.age_fecha_inicio) <= '".$end."') "
+							. $filter ;
+							
 
 				$statement = $em->getConnection()->prepare($RAW_QUERY);
 				//$statement->bindValue("username", $sUsername);
@@ -110,6 +187,7 @@ class AgendaController extends Controller
 				foreach( $rs as $key)
 				{
 					$ar = array();
+					$ar['id'] = $key['id'];
 					$ar['start'] = $key['start'];
 					$ar['end'] = $key['end'];
 					
@@ -130,8 +208,8 @@ class AgendaController extends Controller
 							break;
 						case 4:
 							$color = "#93c54b";
-							$event = "Tiempo de Comida";	
-						default;
+							$event = "Receso";	
+						default:
 							$color = "#FF7043";
 							$event = "Otros";
 							break;
@@ -142,48 +220,79 @@ class AgendaController extends Controller
 					//$ar['rendering'] = "background";
 					array_push($events, $ar);
 				}
-				/*
-				while ($row = mysqli_fetch_assoc($result)) {
 
-					$events[] = $row;
-				}
-				*/
 				echo json_encode($events);
 
 				exit;
 			}
-			elseif ($_POST["action"] == "add") 
+			elseif ( $action == "add") 
 			{ 
 				// add new event
+				$doctor_repo = $em->getRepository("AppBundle:Usuario")->find($doctorId);
+				$em->getConnection()->beginTransaction(); // suspend auto-commit
+				try
+				{
+					if( isset($patientId) && !empty($patientId) )
+					{
+						$patientId_repo = $em->getRepository("AppBundle:Paciente")->find($patientId);
 
-				/*
-				mysqli_query($connection, "INSERT INTO events ( title ,start ,end )
-
-                    VALUES ("".mysqli_real_escape_string($connection,$_POST["title"])."",
-
-                    "".mysqli_real_escape_string($connection,date("Y-m-d H:i:s",strtotime($_POST["start"])))."",
-
-                    "".mysqli_real_escape_string($connection,date("Y-m-d H:i:s",strtotime($_POST["end"]))).""
-
-                    )");
-				*/
-
-				/*	
-				$obAppointment= new Cita();
-				$obAppointment->setCitHoraInicioCita( new \DateTime( date("Y-m-d H:i:s",strtotime($start) ) ) ) ; //setUsuRolUsuarios(  $representer_repo );
-				$obAppointment->setCitHoraFinCita(new \DateTime( date("Y-m-d H:i:s",strtotime($end) ) ) );
-				$obAppointment->setCitNotas($title);
-				$em->persist($obAppointment);
-				$flush = $em->flush();
-				$lastAppointment = $obAppointment->getUsuId();
+						$obAppointment= new Cita();
+						//$obAppointment->setCitHoraInicioCita( new \DateTime( date("Y-m-d H:i:s",strtotime($start) ) ) ) ; //setUsuRolUsuarios(  $representer_repo );
+						//$obAppointment->setCitHoraFinCita(new \DateTime( date("Y-m-d H:i:s",strtotime($end) ) ) );
+						$obAppointment->setCitUsu( $doctor_repo );
+						$obAppointment->setCitNotas($title);
+						$obAppointment->setCitPac( $patientId_repo );
+						$obAppointment->setCitCli( $client_repo );
+						if( isset($room) && !empty($room) )
+						{
+							$obAppointment->setCitSala($room);
+						}
+						$obAppointment->setCitFechaCrea( new \DateTime() );
+						$em->persist($obAppointment);
+						$flush = $em->flush();
+						$lastAppointment = $obAppointment->getCitId();
+					}
 				
-				header("Content-Type: application/json");
-
-				echo "{'id':$lastAppointment}";
-				*/
-				exit;
-			} elseif ($_POST["action"] == "update") {  // update event
-
+				
+					$oDiary = new Agenda();
+					if( isset($lastAppointment) && !empty($lastAppointment) )
+					{
+						$appointment_repo = $em->getRepository("AppBundle:Cita")->find($lastAppointment);
+						$oDiary->setAgeCit( $appointment_repo );
+						
+					}else{
+						$oDiary->setAgeNotas($title);
+					}
+					$oDiary->setAgeTipoEventor($eventType);
+					$oDiary->setAgeCli( $client_repo );
+					$oDiary->setAgeUsu( $doctor_repo );
+					$oDiary->setAgeFechaInicio( new \DateTime( date("Y-m-d H:i:s",strtotime($start) ) ) );
+					$oDiary->setAgeFechaFin( new \DateTime( date("Y-m-d H:i:s",strtotime($end) ) ) );
+					$oDiary->setAgeFechaCrea( new \DateTime() );
+					$em->persist($oDiary);
+					$flush = $em->flush();
+					$lastDiary = $oDiary->getAgeId();
+					
+					$em->getConnection()->commit();
+					
+					header("Content-Type: application/json");
+					echo "{'id':$lastDiary}";
+				
+					exit;
+				}
+				catch (Exception $e) {
+					$em->getConnection()->rollBack();
+					throw $e;
+				}
+			} elseif ( $action == "update") {  // update event
+				//exit("sali");
+				$oDiary = $em->getRepository("AppBundle:Agenda")->find($id);
+				$oDiary->setAgeFechaInicio( new \DateTime( date("Y-m-d H:i:s",strtotime($start) ) ) );
+				$oDiary->setAgeFechaFin( new \DateTime( date("Y-m-d H:i:s",strtotime($end) ) ) );
+				$oDiary->setAgeFechaMod( new \DateTime() );
+				$em->persist($oDiary);
+				$flush = $em->flush();
+				//$lastDiary = $oDiary->getAgeId();
 				/*
 				mysqli_query($connection, "UPDATE events set 
 
@@ -194,7 +303,7 @@ class AgendaController extends Controller
 				where id = "".mysqli_real_escape_string($connection,$_POST["id"]).""");
 				*/
 				exit;
-			} elseif ($_POST["action"] == "delete") {  // remove event
+			} elseif ( $action == "delete") {  // remove event
 				/*
 				mysqli_query($connection, "DELETE from events where id = "".mysqli_real_escape_string($connection,$_POST["id"]).""");
 
@@ -203,6 +312,33 @@ class AgendaController extends Controller
 					echo "1";
 				}
 				*/
+				$em->getConnection()->beginTransaction(); // suspend auto-commit
+				try
+				{
+					$oDiary_repo = $em->getRepository('AppBundle:Agenda')->find($id);
+				
+					$appointment = $oDiary_repo->getAgeCit();
+
+					$em->remove($oDiary_repo);
+					$em->flush(); 
+					if( !empty($appointment) )
+					{
+						$oAppointment_repo = $em->getRepository('AppBundle:Cita')->find($appointment);
+						$em->remove($oAppointment_repo);
+						$em->flush(); 
+					}
+					
+					$em->getConnection()->commit();
+					echo "1";
+				}
+				catch (Exception $e) {
+					$em->getConnection()->rollBack();
+					throw $e;
+				}
+				
+				
+				
+				
 				exit;
 			}
 		}

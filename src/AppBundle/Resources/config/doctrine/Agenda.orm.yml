@@ -25,6 +25,13 @@ AppBundle\Entity\Agenda:
             generator:
                 strategy: IDENTITY
     fields:
+        ageNotas:
+            type: string
+            nullable: true
+            length: 500
+            options:
+                fixed: false
+            column: age_notas
         ageFechaInicio:
             type: datetime
             nullable: true

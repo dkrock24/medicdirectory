@@ -1125,7 +1125,7 @@ a.badge,
   bottom: 30px;
 }
 .footer:not(.navbar-fixed-bottom) {
-  z-index: 1000;
+  z-index: 1;
 }
 .footer.navbar {
   left: 0;

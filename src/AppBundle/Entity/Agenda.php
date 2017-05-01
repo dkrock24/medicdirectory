@@ -11,6 +11,11 @@ class Agenda
      * @var integer
      */
     private $ageId;
+	
+	/**
+     * @var string
+     */
+    private $ageNotas;
 
     /**
      * @var \DateTime
@@ -76,6 +81,30 @@ class Agenda
     public function getAgeId()
     {
         return $this->ageId;
+    }
+	
+	/**
+     * Set ageNotas
+     *
+     * @param string $ageNotas
+     *
+     * @return Agenda
+     */
+    public function setAgeNotas($ageNotas)
+    {
+        $this->ageNotas = $ageNotas;
+
+        return $this;
+    }
+
+    /**
+     * Get ageNotas
+     *
+     * @return string
+     */
+    public function getAgeNotas()
+    {
+        return $this->ageNotas;
     }
 
     /**

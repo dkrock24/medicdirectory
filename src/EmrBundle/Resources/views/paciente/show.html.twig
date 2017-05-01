@@ -274,10 +274,10 @@
                                                         <a href="#" class="label bg-danger-400 dropdown-toggle" data-toggle="dropdown">Acción <span class="caret"></span></a>
                                                         <ul class="dropdown-menu dropdown-menu-right">
 
-                                                            <li><a href="#"><i class="icon-alarm"></i> Pendiente</a></li>
-                                                            <li><a href="#"><i class="icon-checkmark3"></i> Realizada</a></li>
+                                                            <li><a href="#"><i class="icon-checkmark3"></i> Iniciar Consulta</a></li>
+                                                            <li><a href="#"><i class="icon-alarm"></i> Actualizar</a></li>
                                                             <li class="divider"></li>
-                                                            <li><a href="#"><i class="icon-spinner2 spinner"></i> En curso</a></li>
+                                                            {# <li><a href="#"><i class="icon-spinner2 spinner"></i> En curso</a></li> #}
                                                             <li><a href="#"><i class="icon-cross2"></i> Cancelar</a></li>
                                                         </ul>
                                                     </li>
@@ -297,7 +297,7 @@
                                 </table>
                                 <div class="list-group-divider"></div>
                                 <div>
-                                    <button class="btn btn-success btn-sm"><i class="fa fa-calendar"></i> Nueva cita</button>
+                                    <a href="{{ path('agenda_new', {'p':paciente.pacId}) }}" class="btn btn-success btn-sm"><i class="fa fa-calendar"></i> Nueva cita</a>
                                     <span class="badge bg-teal-400 pull-right">4</span>
                                 </div>
                             </div>
@@ -458,22 +458,22 @@
                             });
                     }
                     
-            $("#table_books").DataTable({
-                    "searching": false,
-                    "bFilter": false,
-                    "bInfo": false,
-                    "bLengthChange": false,
-                    "pageLength": 5,
-                    "language":{
-                        oPaginate: {
-                            sFirst: "Primero",
-                            sLast: "último",
-                            sNext: "Siguiente",
-                            sPrevious: "Anterior"
-                        },
-                    },
-                    "order": [[ 0, "desc" ]]
-            });        
+                    $("#table_books").DataTable({
+                            "searching": false,
+                            "bFilter": false,
+                            "bInfo": false,
+                            "bLengthChange": false,
+                            "pageLength": 5,
+                            "language":{
+                                oPaginate: {
+                                    sFirst: "Primero",
+                                    sLast: "último",
+                                    sNext: "Siguiente",
+                                    sPrevious: "Anterior"
+                                },
+                            },
+                            "order": [[ 0, "desc" ]]
+                    });        
         });
     </script>
 {% endblock %}    
