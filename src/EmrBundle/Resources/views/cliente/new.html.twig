@@ -315,69 +315,69 @@
                                     <div class="section">
                                         <div class="" style="padding: 5px;">
                                             <fieldset>
-                                            <legend><i class="fa fa-user-plus" aria-hidden="true"></i> Usuario</legend>
-                                            <div class="row">
-                                                <div class="col-lg-3 col-md-6 col-sm-6">
-                                                    <div class="form-group">
-                                                        <label class="control-label">Nombre</label>
-                                                        <input name="name[]" id="name" value="" type="text" class="form-control" required />
+                                                <legend><i class="fa fa-user-plus" aria-hidden="true"></i> Usuario</legend>
+                                                <div class="row">
+                                                    <div class="col-lg-3 col-md-6 col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Nombre</label>
+                                                            <input name="name[]" id="name" value="" type="text" class="form-control inputAssName" required />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3 col-md-6 col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Email</label>
+                                                            <input name="email[]" id="email" value="" type="text" class="form-control inputAssEmail" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3 col-md-6 col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Username(Usuario)</label>
+                                                            <input name="username[]" id="username" value="" type="text" class="form-control user_to_location" required/>
+                                                        </div>
+                                                    </div>
+                                                    <input name="availbleUser[]" id="availbleUser" value="" type="hidden" class="form-control inputAvailable" />
+                                                    <div class="col-lg-3 col-md-6 col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Género</label>
+                                                            <select name="gender[]" id="gender" class="form-control selectAssGender" required>
+                                                                <option value="m">Masculino</option>
+                                                                <option value="f">Femenino</option>
+                                                            </select>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-3 col-md-6 col-sm-6">
-                                                    <div class="form-group">
-                                                        <label class="control-label">Email</label>
-                                                        <input name="email[]" id="email" value="" type="text" class="form-control" />
+                                                <div class="row">
+                                                    <div class="col-lg-3 col-md-6 col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Password</label>
+                                                            <input name="password[]" id="password_user" value="" type="password" class="form-control inputAssPassword" placeholder="" />
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-lg-3 col-md-6 col-sm-6">
-                                                    <div class="form-group">
-                                                        <label class="control-label">Username(Usuario)</label>
-                                                        <input name="username[]" id="username" value="" type="text" class="form-control user_to_location" required/>
+                                                    <div class="col-lg-3 col-md-6 col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Repita Password</label>
+                                                            <input name="repeatpassword[]" id="password_user_again" value="" type="password" class="form-control inputAssPassword" placeholder=""/>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <input name="availbleUser[]" id="availbleUser" value="" type="hidden" class="form-control inputAvailable" />
-                                                <div class="col-lg-3 col-md-6 col-sm-6">
-                                                    <div class="form-group">
-                                                        <label class="control-label">Género</label>
-                                                        <select name="gender[]" id="gender" class="form-control" required>
-                                                            <option value="m">Masculino</option>
-                                                            <option value="f">Femenino</option>
-                                                        </select>
+                                                    <div class="col-lg-3 col-md-6 col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Tipo de usuario</label>
+                                                            <select name="typeUser[]" id="typeUser" class="form-control" required>
+                                                                <option value="6">Doctor</option>
+                                                                <option value="3">Asistente</option>
+                                                            </select>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-lg-3 col-md-6 col-sm-6">
-                                                    <div class="form-group">
-                                                        <label class="control-label">Password</label>
-                                                        <input name="password[]" id="password_user" value="" type="password" class="form-control" required/>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-3 col-md-6 col-sm-6">
-                                                    <div class="form-group">
-                                                        <label class="control-label">Repita Password</label>
-                                                        <input name="repeatpassword[]" id="password_user_again" value="" type="password" class="form-control" required/>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-3 col-md-6 col-sm-6">
-                                                    <div class="form-group">
-                                                        <label class="control-label">Tipo de usuario</label>
-                                                        <select name="typeUser[]" id="typeUser" class="form-control" required>
-                                                            <option value="6">Doctor</option>
-                                                            <option value="3">Asistente</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
 
-                                                <div class="col-lg-3 col-md-6 col-sm-6">
-                                                    <div class="form-group">
-                                                        <label class="control-label">&nbsp;<br><label>
-                                                        <a href="#" class='remove btn bg-danger-400 btn-sm' style="margin-top: 7px;"><b><i class="fa fa-user-times"></i></b> Remover Usuario</a>
+                                                    <div class="col-lg-3 col-md-6 col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label">&nbsp;<br><label>
+                                                                    <a href="#" class='remove btn bg-danger-400 btn-sm' style="margin-top: 7px;"><b><i class="fa fa-user-times"></i></b> Remover Usuario</a>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <br>  
-                                        </fieldset>
+                                                <br>  
+                                            </fieldset>
                                         </div>
                                     </div>
                                 </div>
@@ -814,6 +814,7 @@
             {
                 var users = [];
                 var error = 0;
+                /*
                 $(".section").each(function(index){
                     
                     var name = $.trim( $(this).find("input[name='name[]']").val() );
@@ -871,22 +872,107 @@
                     }
                     else
                     {
-                        /*
-                            item = [];
-                            item['name'] = name;
-                            item['email'] = email;
-                            item['username'] = username;
-                            item['password'] = password;
-                            item['gender'] = gender;
-                            item['typeUser'] = typeUser;
-                        */
+
                         item = {"name":name, "email":email, "username":username, "password":password, "gender":gender, "typeUser":typeUser };
                         users.push(item);
 
                         $(this).removeClass("border-warning-available");
                     }
                 });
-                
+                */
+                $(".section").each(function(index){
+                    
+                    var name = $(this).find("input[name='name[]']");
+                    var valName = $.trim( name.val() );
+                    var email = $(this).find("input[name='email[]']").val();
+                    //var valEmail = $.trim( email.val() );
+                    var username = $(this).find("input[name='username[]']");
+                    var valUsername = $.trim(username.val() );
+                    var password = $(this).find("input[name='password[]']");
+                    var valPassword = $.trim( password.val() );
+                    var password_cloned = $(this).find("input[name='password[]']").hasClass("cloned");
+                    var password_again_cloned = $(this).find("input[name='repeatpassword[]']").hasClass("cloned");
+                    var password_again =  $(this).find("input[name='repeatpassword[]']");
+                    var gender = $.trim( $(this).find("select[name='gender[]']").val() );
+                    var valPassword_again = $.trim( password_again.val() );
+                    
+                    var inputAvailable = $(this).find("input[name='availbleUser[]']").val();
+                    var typeUser = $.trim( $(this).find("select[name='typeUser[]']").val() );
+                    
+                    //alert(inputAvailableX);
+                    //alert(password_cloned);
+                    
+                    var msg = "";
+                    if( valName == "" && !name.hasClass("passed") )
+                    {
+                        msg = "Ingrese el nombre del usuario";
+                    }
+                    else if( valUsername == "" && !username.hasClass("passed") )
+                    {
+                        msg = "Ingrese el usurname del usuario";
+                    }
+                    else if ( password_cloned  || password_again_cloned )
+                    {
+                        
+                        if( valPassword == "" &&  !password.hasClass("passed") )
+                        {
+                            msg = "Ingrese el password para el nuevo usuario";
+                            
+                        }
+                        else if(  valPassword_again == "" && !password_again.hasClass("passed")  )
+                        {
+                                msg = "Repita el password para el nuevo usuario";
+ 
+                        }
+                        else if( valPassword != valPassword_again )
+                        {
+                            msg = "Los passwords no son iguales, para adicionar un nuevo usuario es necesario que los passwords sean iguales";
+                        }
+                    }
+                    else if( valPassword != "" ||  valPassword_again != "" )
+                    {
+                        if( valPassword != valPassword_again )
+                        {
+                            msg = "Los password no son iguales";
+                        }
+                       
+                    }
+                    else if ( inputAvailable != 1 )
+                    {
+                        msg = "Debe de validar el usuario a crear";
+                    }
+                    
+                    if( msg != "")
+                    {
+                        
+                        $.alert({
+                            icon: 'glyphicon glyphicon-exclamation-sign',
+                            title: 'Info!',
+                            content: msg,
+                            type: 'red',
+                            typeAnimated: true,
+                        });
+                        
+                        $('html, body').animate({
+                            scrollTop: $(this).offset().top
+                        }, 1000);
+                        
+                        users = [];
+                        error++;
+                        $(".section").removeClass("border-warning-available");
+                        $(this).addClass("border-warning-available");
+                        //break;
+                        return false;
+                        return "error";
+                    }
+                    else
+                    {
+                        item = {"name":valName, "email":email, "username":valUsername, "password":valPassword, "gender":gender, "typeUser":typeUser };
+                        users.push(item);
+
+                        $(this).removeClass("border-warning-available");
+                    }
+                });
                 if( error == 0 )
                 {
                     //console.log(users);
@@ -1021,7 +1107,7 @@
                     {
                         $.confirm({
                             title: 'Confirme!',
-                            content: '<p class="small">Este usuario ya ha sido tomado para el representante de este establecimiento!</p><p class="small"> Desea usar las mismas credenciales?</p>',
+                            content: '<p class="small">Este usuario ya ha sido tomado por un representante de este establecimiento!</p><p class="small"> Desea usar las mismas credenciales?</p>',
                             type: 'blue',
                             typeAnimated: true,
                             buttons: {
@@ -1150,53 +1236,123 @@
                         });
                     },
                     success: function (data) {
-                        
+                        $("#holder_loading").hide();
                         if( $("#"+idInput).hasClass("user_to_location") )
                         {
                             $("#"+idInput).closest(".section").find(".user_available_location").val(1);
                         }
-                        
-                        
-                        $("#"+idInput).closest(".form-group").find(".icon-status").remove();
-                        $("#holder_loading").hide();
-                        if (data == 1)
+                        //alert( (data.email) );
+                        if( data.available != undefined )
                         {
-                            /*
-                            $.alert({
-                                icon: 'glyphicon glyphicon-ok-sign',
-                                title: 'Ok!',
-                                content: 'El usuario <strong>'+username+'</strong> esta disponible',
-                                type: 'green',
-                                typeAnimated: true,
-                            });
-                            */
-                            if( $("#"+idInput).hasClass("user_to_location") )
+                            $("#"+idInput).closest(".form-group").find(".icon-status").remove();
+                            //$("#holder_loading").hide();
+                            if (data.available == 1 || data.available == "1")
                             {
-                                $("#"+idInput).closest(".section").find(".inputAvailable").val(1);
+                                if( $("#"+idInput).hasClass("user_to_location") )
+                                {
+                                    $("#"+idInput).closest(".section").find(".inputAvailable").val(1);
+                                }
+
+                                $("#"+idInput).closest(".form-group").removeClass("has-error");
+                                $("#"+idInput).closest(".form-group").addClass("has-success has-feedback").append('<span class="glyphicon glyphicon-ok form-control-feedback icon-status" aria-hidden="true"></span>');
+                            } 
+                            else 
+                            {        
+                                //$('#available_representer').attr('checked', false); // Unchecks it
+                                
+                                
+                                if( $("#"+idInput).hasClass("user_to_location") )
+                                {
+                                    var msg = "<p class='small'>El usuario <strong>"+username+"</strong>";
+                                    if( data.email != "" )
+                                    {
+                                        msg += " con email <strong>"+data.email+"</strong></p><p class='small'>";
+                                    }
+                                    msg += "ya existe desea asociar este usuario a este establecimiento?</p>";
+                                    $.confirm({
+                                        icon: 'fa fa-question-circle-o',
+                                        title: 'Confirmar datos',
+                                        content: msg,
+                                        type: 'blue',
+                                        typeAnimated: true,
+                                        buttons: {
+                                            tryAgain: {
+                                                text: 'Si',
+                                                btnClass: 'btn-green',
+                                                action: function () {
+                                                   //$("#"+idInput).closest(".section").find(".inputAssEmail").val(data.email);
+                                                   $("#"+idInput).closest(".section").find(".selectAssGender").val(data.gender);
+                                                   $("#"+idInput).closest(".section").find(".inputAvailable").val(1);
+
+                                                   $("#"+idInput).closest(".section").find(".inputAssName").attr("disabled", true);
+                                                   $("#"+idInput).closest(".section").find(".inputAssEmail").attr("disabled", true);
+                                                   $("#"+idInput).closest(".section").find(".inputAssPassword").attr("disabled", true);
+                                                   $("#"+idInput).closest(".section").find(".selectAssGender option:not(:selected)").prop('disabled', true);
+                                                   
+                                                   
+                                                    $("#"+idInput).closest(".section").find(".inputAssName").addClass("passed");
+                                                    $("#"+idInput).closest(".section").find(".inputAssPassword").addClass("passed");
+                                                    $("#"+idInput).closest(".section").find(".inputAssEmail").addClass("passed");
+                                                    //$("#"+idInput).closest(".section").find(".inputAssEmail").addClass("passed");
+                                                      
+                                                    $("#"+idInput).closest(".form-group").removeClass("has-error");
+                                                    $("#"+idInput).closest(".form-group").addClass("has-success has-feedback").append('<span class="glyphicon glyphicon-ok form-control-feedback icon-status" aria-hidden="true"></span>');
+                                                
+                                                    $("#"+idInput).closest(".border-warning-available").removeClass("border-warning-available");
+                                                }
+                                            },
+                                            close: {
+                                                text: 'No',
+                                                btnClass: 'btn-red',
+                                                action: function () {
+                                                    if( $("#"+idInput).hasClass("user_to_location") )
+                                                    {
+                                                        $("#"+idInput).closest(".section").find(".inputAvailable").val(0);
+                                                    }
+
+                                                    $("#"+idInput).closest(".form-group").removeClass("has-success");
+                                                    $("#"+idInput).closest(".form-group").addClass("has-error has-feedback").append('<span class="glyphicon glyphicon-remove form-control-feedback icon-status" aria-hidden="true"></span>');
+
+                                                    $("#"+idInput).closest(".section").find(".passed").val("");
+                                                    
+                                                    $("#"+idInput).closest(".section").find(".inputAssName").removeClass("passed");
+                                                    $("#"+idInput).closest(".section").find(".inputAssPassword").removeClass("passed");
+                                                    $("#"+idInput).closest(".section").find(".inputAssEmail").removeClass("passed");
+                                                    
+                                                    $("#"+idInput).closest(".section").find(".inputAssName").attr("disabled", false);
+                                                    $("#"+idInput).closest(".section").find(".inputAssEmail").attr("disabled", false);
+                                                    $("#"+idInput).closest(".section").find(".inputAssPassword").attr("disabled", false);
+                                                    $("#"+idInput).closest(".section").find(".selectAssGender option:not(:selected)").prop('disabled', false);
+                                                }
+                                            }
+                                        }
+                                    });
+                                }    
+                                else
+                                {
+                                    $.alert({
+                                        icon: 'fa fa-user-times',
+                                        title: 'Info!',
+                                        content: 'El usuario <strong>'+username+'</strong> no esta disponible',
+                                        type: 'red',
+                                        typeAnimated: true,
+                                    });
+                                }
+   
+                                
                             }
-                            
-                            $("#"+idInput).closest(".form-group").removeClass("has-error");
-                            $("#"+idInput).closest(".form-group").addClass("has-success has-feedback").append('<span class="glyphicon glyphicon-ok form-control-feedback icon-status" aria-hidden="true"></span>');
-                        } 
-                        else 
-                        {        
-                            //$('#available_representer').attr('checked', false); // Unchecks it
-                            $.alert({
-                                icon: 'fa fa-user-times',
-                                title: 'Info!',
-                                content: 'El usuario <strong>'+username+'</strong> no esta disponible',
-                                type: 'red',
-                                typeAnimated: true,
-                            });
-                            
-                            if( $("#"+idInput).hasClass("user_to_location") )
-                            {
-                                $("#"+idInput).closest(".section").find(".inputAvailable").val(0);
-                            }
-                            
-                            $("#"+idInput).closest(".form-group").removeClass("has-success");
-                            $("#"+idInput).closest(".form-group").addClass("has-error has-feedback").append('<span class="glyphicon glyphicon-remove form-control-feedback icon-status" aria-hidden="true"></span>');
                         }
+                        else
+                        {
+                            $.alert({
+                                    icon: 'fa fa-user-times',
+                                    title: 'Info!',
+                                    content: 'El usuario no pudo ser validado',
+                                    type: 'red',
+                                    typeAnimated: true,
+                                });
+                        }
+                        
                     }
                 });
             }
