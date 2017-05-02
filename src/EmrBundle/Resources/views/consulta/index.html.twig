@@ -1,0 +1,24 @@
+{% extends "Layout/base_emr/_clients_base.html.twig" %}
+
+{% block title_page %}
+        EMR || Consulta Médica
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('EmrBundle:consulta:_breadcrumb.html.twig' )  }}
+{% endblock %} 
+
+{% block submenutop %}
+    {{ include('EmrBundle:consulta:_submenu.html.twig' )  }}
+{% endblock %} 
+
+{% block body %}
+{% endblock %}
+
+{% block codejs %}
+    <script>
+        $(document).on("ready",function(){
+            
+        });
+    </script>
+{% endblock %}        

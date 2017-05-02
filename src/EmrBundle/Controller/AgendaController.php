@@ -225,7 +225,7 @@ class AgendaController extends Controller
 
 				exit;
 			}
-			elseif ( $action == "add") 
+			else if ( $action == "add") 
 			{ 
 				// add new event
 				$doctor_repo = $em->getRepository("AppBundle:Usuario")->find($doctorId);
@@ -284,7 +284,9 @@ class AgendaController extends Controller
 					$em->getConnection()->rollBack();
 					throw $e;
 				}
-			} elseif ( $action == "update") {  // update event
+			} 
+			else if ( $action == "update") 
+			{  // update event
 				//exit("sali");
 				$oDiary = $em->getRepository("AppBundle:Agenda")->find($id);
 				$oDiary->setAgeFechaInicio( new \DateTime( date("Y-m-d H:i:s",strtotime($start) ) ) );
@@ -292,26 +294,12 @@ class AgendaController extends Controller
 				$oDiary->setAgeFechaMod( new \DateTime() );
 				$em->persist($oDiary);
 				$flush = $em->flush();
-				//$lastDiary = $oDiary->getAgeId();
-				/*
-				mysqli_query($connection, "UPDATE events set 
 
-				start = "".mysqli_real_escape_string($connection,date("Y-m-d H:i:s",strtotime($_POST["start"])))."", 
-
-				end = "".mysqli_real_escape_string($connection,date("Y-m-d H:i:s",strtotime($_POST["end"])))."" 
-
-				where id = "".mysqli_real_escape_string($connection,$_POST["id"]).""");
-				*/
 				exit;
-			} elseif ( $action == "delete") {  // remove event
-				/*
-				mysqli_query($connection, "DELETE from events where id = "".mysqli_real_escape_string($connection,$_POST["id"]).""");
+			} 
+			else if ( $action == "delete") 
+			{  // remove event
 
-				if (mysqli_affected_rows($connection) > 0) {
-
-					echo "1";
-				}
-				*/
 				$em->getConnection()->beginTransaction(); // suspend auto-commit
 				try
 				{
@@ -335,13 +323,71 @@ class AgendaController extends Controller
 					$em->getConnection()->rollBack();
 					throw $e;
 				}
-				
-				
-				
-				
 				exit;
 			}
 		}
 	}
+	
+	
+	public function getDetailAppointmentAction( Request $request )
+	{
+		$appointment = $request->get("id");
+		
+		$locationId = $this->get('session')->get('locationId');
+		$em = $this->getDoctrine()->getManager();
+		
+		$data = array();
+		
+		
+		$fullName = "";
+		$dui = "";
+		$email="";
+		$room = "";
+		$res = 0;
+		if( isset($appointment) && !empty($appointment) )
+		{
+			
+			$diary_repo = $em->getRepository("AppBundle:Agenda")->find($appointment);
+			if( $diary_repo )
+			{
+				$is_appointment = $diary_repo->getAgeCit();
+				if( !empty($is_appointment) )
+				{
+					$name1 = $diary_repo->getAgeCit()->getCitPac()->getPacNombre();
+					$name2 = $diary_repo->getAgeCit()->getCitPac()->getPacSegNombre();
+					$lastName1 = $diary_repo->getAgeCit()->getCitPac()->getPacApellido();
+					$lastName2 = $diary_repo->getAgeCit()->getCitPac()->getPacSegApellido();
+					$fullName = $name1." ".$name2." ".$lastName1." ".$lastName2;
+					
+					$data['fullname'] = trim($fullName);
+					$data['email'] = $diary_repo->getAgeCit()->getCitPac()->getPacEmail();
+					$date['dui'] = $diary_repo->getAgeCit()->getCitPac()->getPacDui();
+					$data['notes'] = $diary_repo->getAgeCit()->getCitNotas();
+					$data['room'] = $diary_repo->getAgeCit()->getCitSala();
+					$data['appointment'] = 1;
 
+				}else{
+
+					$data['fullname'] = "";
+					$data['email'] = "";
+					$date['dui'] = "";
+					$data['notes'] = $diary_repo->getAgeNotas();
+					$data['room'] = "";
+					$data['appointment'] = 0;
+				}
+				
+				$res = 1;
+			}
+		}
+		$data['res'] = $res;
+		
+		header("Content-Type: application/json");
+		echo json_encode($data);
+		
+		//echo "<hr>";
+		
+		//echo "{'res':$res, 'is_appointment':$appointment,'fullname':$fullName,'dui':$dui,'email':$email,'room',$room, 'notes':$notes }";
+				
+		exit;
+	}
 }

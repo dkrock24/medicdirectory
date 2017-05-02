@@ -306,8 +306,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
-                <button type="submit" class="btn btn-primary" id="submitButton">Guardar</button>
+                <button class="btn" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times-circle-o" aria-hidden="true"></i> Cerrar</button>
+                <button type="submit" class="btn btn-success" id="submitButton"><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar</button>
             </div>
         </div>
     </div>
@@ -323,18 +323,25 @@
 
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Detalles de la cita</h4>
+                <h4 class="modal-title">Detalles del evento</h4>
             </div>
 
             <div id="modalBody" class="modal-body">
-                <h4 id="modalTitle" class="modal-title"></h4>
-                <div id="modalWhen" style="margin-top:5px;"></div>
+                <h4 class="modal-title">Tipo Evento: <span id="modalTitle"></span></h4>
+                <div style="margin-top:5px;"><span><strong>Fecha: </strong></span><span id="modalWhen"></span></div>
+                <div>
+                    <div id="detailAppointment"></div>
+                    <hr>
+                    <button type="button" class="btn btn-info  btn-xs btn-show-more" > Ver más <i class="fa fa-plus-circle"></i></button>
+                    <hr>
+                </div>
             </div>
 
             <input type="hidden" id="eventID"/>
             <div class="modal-footer">
-                <button class="btn"  data-dismiss="modal" aria-hidden="true">Cerrar</button>
-                <button type="submit" class="btn btn-danger" id="deleteButton">Eliminar</button>
+                <button class="btn"  data-dismiss="modal" aria-hidden="true"><i class="fa fa-times-circle-o" aria-hidden="true"></i> Cerrar</button>
+                <button type="submit" class="btn btn-danger" id="deleteButton"><i class="fa fa-trash" aria-hidden="true"></i> Eliminar</button>
+                <a href="" class="btn btn-success" id=""><i class="fa fa-medkit" aria-hidden="true"></i> Inicar Consulta</a>
             </div>
         </div>
     </div>
@@ -533,6 +540,7 @@
                     $("#modalTitle").html(event.title);
                     $("#modalWhen").text(mywhen);
                     $("#eventID").val(event.id);
+                    $("#detailAppointment").empty();
                     $("#calendarModal").modal({backdrop: 'static', keyboard: false});
                 },
                 select: function(start, end, jsEvent) {  // click on empty time slot
@@ -544,6 +552,8 @@
                     $("#createEventModal #startTime").val(start);
                     $("#createEventModal #endTime").val(end);
                     $("#createEventModal #when").text(mywhen);
+                    
+                    
                     //$("#createEventModal").modal("toggle");
                     $("#createEventModal").modal({backdrop: 'static', keyboard: false});
 
@@ -556,7 +566,18 @@
                         type: "POST",
                         success: function(json) {
                             $("#holder_loading").hide();
-                        }
+                        },
+                        error: function() {
+                            $("#holder_loading").hide();
+                            //alert('there was an error while fetching events!');
+                            $.alert({
+                                icon: 'fa fa-times',
+                                title: 'Error!',
+                                content: "<p class='small'>No se ha posido actualizar el evento</p> <hr>",
+                                type: 'red',
+                                typeAnimated: true,
+                            });
+                        }        
                     });
                 },
                 eventResize: function(event) {  // resize to increase or decrease time of event
@@ -567,7 +588,18 @@
                         type: "POST",
                         success: function(json) {
                             $("#holder_loading").hide();
-                        }
+                        },
+                        error: function() {
+                            $("#holder_loading").hide();
+                            //alert('there was an error while fetching events!');
+                            $.alert({
+                                icon: 'fa fa-times',
+                                title: 'Error!',
+                                content: "<p class='small'>No se ha posido actualizar el evento</p> <hr>",
+                                type: 'red',
+                                typeAnimated: true,
+                            });
+                        }        
                     });
 
             }
@@ -603,7 +635,32 @@
             $("#deleteButton").on("click", function(e){ // delete event clicked
                 // We don"t want this to act as a link so cancel the link action
                 e.preventDefault();
-                doDelete(); //send data to delete function
+                
+                $.confirm({
+                    icon: 'fa fa-exclamation-triangle',
+                    title: 'Confirme',
+                    content: 'Esta seguro de cancelar el evento?',
+                    type: 'red',
+                    typeAnimated: true,
+                    buttons: {
+                        tryAgain: {
+                            text: 'Si',
+                            btnClass: 'btn-green',
+                            action: function () {
+                                doDelete(); //send data to delete function
+                            }
+                        },
+                        tryClose: {
+                            text: 'No',
+                            btnClass: 'btn-red',
+                            action: function () {
+                                            
+                            }
+                        },
+                    }
+                });
+                
+                
             });
 
        
@@ -688,29 +745,30 @@
                data: "action=add&title="+title+"&start="+startTime+"&end="+endTime+"&doctor="+doctorId+"&patient="+setUserAppointmentId+"&room="+room+"&eventType="+eventType,
                type: "POST",
                success: function(json) {
+                   $("#holder_loading").hide();
                    $("#calendar").fullCalendar("renderEvent",
                    {
-                       id: json.id,
+                       id: id,
                        title: title,
                        start: startTime,
                        end: endTime,
                        color: color,
                    },
                    true);
-                   $("#holder_loading").hide();
+                   
                },
                error: function(json){
+                  $("#holder_loading").hide(); 
                   $("#calendar").fullCalendar("renderEvent",
                    {
-                       id: json.id,
+                       id: id,
                        title: title,
                        start: startTime,
                        end: endTime,
                        color: color,
                    },
-
                    true);
-                   $("#holder_loading").hide();
+                   
                }
            });
        }
@@ -730,6 +788,63 @@
             }
         });
         
+        $(".btn-show-more").on("click", function(){
+            var eventId =  $("#eventID").val();
+            getMoreDetailAppoitment(eventId)
+        });
+        function getMoreDetailAppoitment(id)
+        {
+            $("#holder_loading").show();
+            $.ajax({
+
+               url: "{{ path('agenda_detail') }}",
+               data: { id: id},
+               type: "POST",
+               error: function(json){
+ 
+                   $("#holder_loading").hide();
+               },
+               success: function(json) {
+                   $("#holder_loading").hide();
+                   if( json.res == 1)
+                   {
+                       var moreDetail = "";
+                       if( json.appointment == 1 )
+                       {
+                           //It's appointment
+                           var room = (json.room != null)?json.room:"N/A";
+                           var dui = (json.dui != null)?json.dui:"N/A";
+                           var email = (json.email != null)?json.email:"N/A";
+                           var notes = (json.notes != null)?json.notes:"N/A";
+                           moreDetail += "<div><span><strong># Consultorio:</strong> </span><span>"+ room+"</span></div>";
+                           moreDetail += "<div><span><strong>Nombre del paciente:</strong> </span><span>"+json.fullname+"</span></div>";
+                           moreDetail += "<div><span><strong>DUI:</strong> </span><span>"+dui+"</span></div>";
+                           moreDetail += "<div><span><strong>Email:</strong> </span><span>"+email+"</span></div>";
+                           moreDetail += "<div><span><strong>Notas:</strong> </span><span>"+notes+"</span></div>";
+                       }
+                       else
+                       {
+                           // It's not appointment
+                           var notes = (json.notes != null)?json.notes:"N/A";
+                           moreDetail += "<div><span><strong>Notas:</strong> </span><span>"+notes+"</span></div>";
+                       }
+                       
+                       $("#detailAppointment").html("<hr>"+moreDetail);
+                   }
+                   else
+                   {
+                       $.alert({
+                            icon: 'fa fa-times',
+                            title: 'Info!',
+                            content: 'Ha ocurrido un error al intentar ver el detalle completo del evento, intente nuevamente',
+                            type: 'red',
+                            typeAnimated: true,
+                        });
+                   }
+                  
+               },        
+           });
+        }
         
         //======================================================================
         //Search patient
@@ -945,7 +1060,9 @@
             
     });
                
-                        
+     ////////////////////////////////////
+     // Determine the correct object to use
+     
     </script>
 {% endblock %}    
 
