@@ -59,8 +59,6 @@ class ConfigureSession {
 				//===========================================
 				//Check role type
 				//============================================
-				//$em = $this->getDoctrine()->getManager();
-				//$idUser =  $this->getUser()->getUsuId();
 				$RAW_QUERY = "SELECT r.rol_id AS id, r.rol_rol AS name FROM usuarios_rol ur "
 							. " INNER JOIN rol r on r.rol_id = ur.urol_rol_id "
 							. " WHERE r.rol_activo = 1 "

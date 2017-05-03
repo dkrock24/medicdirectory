@@ -56,12 +56,20 @@ AppBundle\Entity\Agenda:
             options:
                 unsigned: false
             column: age_tipo_evento    
+        ageEstado:
+            type: string
+            nullable: false
+            length: 1
+            options:
+                default: 'p'
+            column: age_estado
+            comment: 'p=pendiente, a=anulada, c=curso, t=terminada'
         ageActivo:
             type: boolean
             nullable: true
             options:
                 default: '1'
-            column: age_activo
+            column: age_activo    
     manyToOne:
         ageUsu:
             targetEntity: Usuario

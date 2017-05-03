@@ -80,11 +80,23 @@ class PacienteController extends Controller
     {
         $deleteForm = $this->createDeleteForm($paciente);
 		
-		//$uFile = $this->get('srv_uploadFile');
-		//$path = $uFile->getUploadRootDir()."pacientes/";
+		/*
+		$locationId = $this->get('session')->get('locationId');
+		$em = $this->getDoctrine()->getManager();
+		*/
+		
+		//$listAppointment 
+		$patient = $this->get('srv_patient');
+		$listAppointment = $patient->getAppointments( $paciente->getPacId() );
+		$doctorstList = $patient->getDoctorsPerPatient( $paciente->getPacId() );
+		$medicalConsultation = $patient->getMedicalConsultation( $paciente->getPacId() );
+		$totalMedicalConsultation = $medicalConsultation[0]['total'];
 		
         return $this->render('EmrBundle:paciente:show.html.twig', array(
             'paciente' => $paciente,
+			'listAppointment' => $listAppointment,
+			'totalMedicalConsultation' =>$totalMedicalConsultation,
+			'doctorstList' => $doctorstList,
             'delete_form' => $deleteForm->createView(),
         ));
     }

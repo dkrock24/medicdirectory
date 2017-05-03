@@ -266,6 +266,7 @@ class AgendaController extends Controller
 					$oDiary->setAgeTipoEventor($eventType);
 					$oDiary->setAgeCli( $client_repo );
 					$oDiary->setAgeUsu( $doctor_repo );
+					$oDiary->setAgeEstado("p");
 					$oDiary->setAgeFechaInicio( new \DateTime( date("Y-m-d H:i:s",strtotime($start) ) ) );
 					$oDiary->setAgeFechaFin( new \DateTime( date("Y-m-d H:i:s",strtotime($end) ) ) );
 					$oDiary->setAgeFechaCrea( new \DateTime() );

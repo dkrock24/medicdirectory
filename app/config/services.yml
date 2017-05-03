@@ -12,4 +12,7 @@ services:
         arguments:     ["@doctrine.orm.entity_manager"]
     srv_session:
         class:        Services\ConfigureSession
-        arguments:     ["@doctrine.orm.entity_manager", "@session"]    
+        arguments:     ["@doctrine.orm.entity_manager", "@session"]
+    srv_patient:
+        class:        Services\Patient
+        arguments:     ["@doctrine.orm.entity_manager", "@session"] 

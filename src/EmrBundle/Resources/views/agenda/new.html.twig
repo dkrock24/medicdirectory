@@ -58,6 +58,7 @@
 				<div class="panel panel-flat">
 					<div class="panel-heading">
 						<h5 class="panel-title">Calendario</h5>
+                        <!--
 						<div class="heading-elements">
 							<ul class="icons-list">
 		                		<li><a data-action="collapse"></a></li>
@@ -65,6 +66,7 @@
 		                		<li><a data-action="close"></a></li>
 		                	</ul>
 	                	</div>
+                        -->
 					</div>
 					
 					<div class="panel-body">
@@ -138,7 +140,7 @@
                                     </span>
                                 </div>
                                 <div class="row">
-                                    <div class="col-lg-8 col-md-8">
+                                    <div class="col-lg-9 col-md-9 col-sm-12">
                                         
                                         {% if app.request.query.get("d") is defined and app.request.query.get("d") > 0 %}
                                             <div id="calendar"></div>
@@ -146,7 +148,7 @@
                                             <div id="datepickerSimple"></div>
                                         {% endif %}    
                                     </div>
-                                    <div class="col-lg-4 col-md-4">
+                                    <div class="col-lg-3 col-md-3 col-sm-12">
                                         <div class="alert alert-info ">
                                             Tipos de eventos
                                         </div>

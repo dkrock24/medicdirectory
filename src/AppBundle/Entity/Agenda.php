@@ -71,6 +71,11 @@ class Agenda
      * @var \AppBundle\Entity\Usuario
      */
     private $ageUsu;
+	
+	/**
+     * @var string
+     */
+    private $ageEstado;
 
 
     /**
@@ -346,5 +351,30 @@ class Agenda
     public function getAgeUsu()
     {
         return $this->ageUsu;
+    }
+	
+	
+	/**
+     * Set ageEstado
+     *
+     * @param string $ageEstado
+     *
+     * @return Agenda
+     */
+    public function setAgeEstado($ageEstado)
+    {
+        $this->ageEstado = $ageEstado;
+
+        return $this;
+    }
+
+    /**
+     * Get ageEstado
+     *
+     * @return string
+     */
+    public function getAgeEstado()
+    {
+        return $this->ageEstado;
     }
 }
