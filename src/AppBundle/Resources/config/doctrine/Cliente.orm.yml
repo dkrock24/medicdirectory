@@ -32,6 +32,13 @@ AppBundle\Entity\Cliente:
             options:
                 fixed: false
             column: cli_nombre
+        cliNombreComercial:
+            type: string
+            nullable: false
+            length: 50
+            options:
+                fixed: false
+            column: cli_nombre_comercial
         cliNombreFiscal:
             type: string
             nullable: false
@@ -98,6 +105,18 @@ AppBundle\Entity\Cliente:
             precision: 5
             scale: 2
             column: cli_precio_por_usuario
+        cliUbicacionLat:
+            type: decimal
+            nullable: true
+            precision: 9
+            scale: 6
+            column: cli_ubicacion_lat
+        cliUbicacionLon:
+            type: decimal
+            nullable: true
+            precision: 5
+            scale: 2
+            column: cli_ubicacion_lon
         cliActivo:
             type: boolean
             nullable: true

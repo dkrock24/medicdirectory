@@ -457,4 +457,33 @@ class HistorialPago
     {
         return $this->hpaCantidadUsuariosCorte;
     }
+    /**
+     * @var \AppBundle\Entity\Cliente
+     */
+    private $hpaCli;
+
+
+    /**
+     * Set hpaCli
+     *
+     * @param \AppBundle\Entity\Cliente $hpaCli
+     *
+     * @return HistorialPago
+     */
+    public function setHpaCli(\AppBundle\Entity\Cliente $hpaCli = null)
+    {
+        $this->hpaCli = $hpaCli;
+
+        return $this;
+    }
+
+    /**
+     * Get hpaCli
+     *
+     * @return \AppBundle\Entity\Cliente
+     */
+    public function getHpaCli()
+    {
+        return $this->hpaCli;
+    }
 }
