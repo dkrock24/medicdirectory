@@ -532,4 +532,91 @@ class Cliente
     {
         return $this->cliMetodoPago;
     }
+    /**
+     * @var string
+     */
+    private $cliNombreComercial;
+
+    /**
+     * @var string
+     */
+    private $cliUbicacionLat;
+
+    /**
+     * @var string
+     */
+    private $cliUbicacionLon;
+
+
+    /**
+     * Set cliNombreComercial
+     *
+     * @param string $cliNombreComercial
+     *
+     * @return Cliente
+     */
+    public function setCliNombreComercial($cliNombreComercial)
+    {
+        $this->cliNombreComercial = $cliNombreComercial;
+
+        return $this;
+    }
+
+    /**
+     * Get cliNombreComercial
+     *
+     * @return string
+     */
+    public function getCliNombreComercial()
+    {
+        return $this->cliNombreComercial;
+    }
+
+    /**
+     * Set cliUbicacionLat
+     *
+     * @param string $cliUbicacionLat
+     *
+     * @return Cliente
+     */
+    public function setCliUbicacionLat($cliUbicacionLat)
+    {
+        $this->cliUbicacionLat = $cliUbicacionLat;
+
+        return $this;
+    }
+
+    /**
+     * Get cliUbicacionLat
+     *
+     * @return string
+     */
+    public function getCliUbicacionLat()
+    {
+        return $this->cliUbicacionLat;
+    }
+
+    /**
+     * Set cliUbicacionLon
+     *
+     * @param string $cliUbicacionLon
+     *
+     * @return Cliente
+     */
+    public function setCliUbicacionLon($cliUbicacionLon)
+    {
+        $this->cliUbicacionLon = $cliUbicacionLon;
+
+        return $this;
+    }
+
+    /**
+     * Get cliUbicacionLon
+     *
+     * @return string
+     */
+    public function getCliUbicacionLon()
+    {
+        return $this->cliUbicacionLon;
+    }
 }

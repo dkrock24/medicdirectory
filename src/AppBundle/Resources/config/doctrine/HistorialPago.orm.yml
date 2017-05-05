@@ -2,15 +2,15 @@ AppBundle\Entity\HistorialPago:
     type: entity
     table: historial_pago
     indexes:
-        FK_mep_usuario_idx1:
+        FK_mep_usuario_idx:
             columns:
                 - hpa_usu_id_verificado
         FK_hpa_metodo_pago_idx:
             columns:
                 - hpa_mep_id
-        FK_hpa_usuario_paga_idx:
+        FK_hpa_cliente_paga_idx:
             columns:
-                - hpa_usu_id
+                - hpa_cli_id
     id:
         hpaId:
             type: integer
@@ -28,9 +28,15 @@ AppBundle\Entity\HistorialPago:
             precision: 5
             scale: 2
             column: hpa_monto_esperado
+        hpaMontoPagado:
+            type: decimal
+            nullable: false
+            precision: 5
+            scale: 2
+            column: hpa_monto_pagado
         hpaFechaPago:
             type: datetime
-            nullable: false
+            nullable: true
             column: hpa_fecha_pago
         hpaFechaCrea:
             type: datetime
@@ -42,18 +48,6 @@ AppBundle\Entity\HistorialPago:
             type: datetime
             nullable: true
             column: hpa_fecha_mod
-        hpaActivo:
-            type: boolean
-            nullable: false
-            options:
-                default: '1'
-            column: hpa_activo
-        hpaMontoPagado:
-            type: decimal
-            nullable: false
-            precision: 5
-            scale: 2
-            column: hpa_monto_pagado
         hpaComentario:
             type: string
             nullable: false
@@ -74,15 +68,15 @@ AppBundle\Entity\HistorialPago:
                 unsigned: false
             column: hpa_estado
     manyToOne:
-        hpaUsu:
-            targetEntity: Usuario
+        hpaCli:
+            targetEntity: Cliente
             cascade: {  }
             fetch: LAZY
             mappedBy: null
             inversedBy: null
             joinColumns:
-                hpa_usu_id:
-                    referencedColumnName: usu_id
+                hpa_cli_id:
+                    referencedColumnName: cli_id
             orphanRemoval: false
         hpaUsuVerificado:
             targetEntity: Usuario
