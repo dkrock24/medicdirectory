@@ -8,9 +8,6 @@ AppBundle\Entity\ClienteUsuario:
         FK_usuario_idx:
             columns:
                 - cli_usu_usu_id
-        FK_cli_usu_roles_idx:
-            columns:
-                - cli_usu_rol_id
     id:
         cliUsuId:
             type: integer
@@ -48,16 +45,6 @@ AppBundle\Entity\ClienteUsuario:
             joinColumns:
                 cli_usu_usu_id:
                     referencedColumnName: usu_id
-            orphanRemoval: false
-        cliUsuRol:
-            targetEntity: Rol
-            cascade: {  }
-            fetch: LAZY
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                cli_usu_rol_id:
-                    referencedColumnName: rol_id
             orphanRemoval: false
         cliUsuCli:
             targetEntity: Cliente

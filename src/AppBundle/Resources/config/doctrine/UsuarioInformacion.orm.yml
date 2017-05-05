@@ -61,6 +61,11 @@ AppBundle\Entity\UsuarioInformacion:
             options:
                 fixed: false
             column: usi_dias_trabajo
+        usiEducacion:
+            type: string
+            nullable: true
+            lenght: 255
+            column: usi_educacion
 #    oneToMany:
 #        infoUsuarios:
 #            targetEntity: Usuario

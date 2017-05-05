@@ -329,4 +329,33 @@ class UsuarioInformacion
     {
         return $this->infoUsuarios;
     }
+    /**
+     * @var string
+     */
+    private $usiEducacion;
+
+
+    /**
+     * Set usiEducacion
+     *
+     * @param string $usiEducacion
+     *
+     * @return UsuarioInformacion
+     */
+    public function setUsiEducacion($usiEducacion)
+    {
+        $this->usiEducacion = $usiEducacion;
+
+        return $this;
+    }
+
+    /**
+     * Get usiEducacion
+     *
+     * @return string
+     */
+    public function getUsiEducacion()
+    {
+        return $this->usiEducacion;
+    }
 }

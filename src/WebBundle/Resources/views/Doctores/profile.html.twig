@@ -4,8 +4,8 @@
     <div class="breadcrumb">
         <div class="container">
             <ul class="list-unstyled list-inline">
-                <li><a href="index.html">Inicio</a></li>
-                <li><a href="doctors.html">Doctores</a></li>
+                <li><a href="{{ url('web_homepage') }}">Inicio</a></li>
+                <li><a href="{{ url('web_doctores') }}">Doctores</a></li>
                 <li class="active">Perfil</li>
             </ul>
         </div>
@@ -23,21 +23,27 @@
                     <div class="panel-heading">
                         <img src="{{ asset("bundles/web/images/doctors/doctor-bio-img6.jpg") }}" alt="Doctor Profile Image" class="img-responsive img-center-xs">
                         <h3 class="panel-title">{{ medico.usu_titulo}} {{ medico.usu_nombre|title }}</h3>
-                        <p class="caption"><b><< AQUI VA LA ESPECIALIDAD >></b></p> <!-- Gynecology, Health Care &amp; Obstetrics -->
+                        <p class="caption"><b>{{ medico.esp_especialidad|default('N/A') }}</b></p> <!-- Gynecology, Health Care &amp; Obstetrics -->
                     </div>
                     <div class="panel-body">
                         <ul class="list-unstyled">
                             <li class="row">
-                                <span class="col-sm-4 col-xs-12"><b><< AQUI VA LA ESPECIALIDAD >></b> </span>
-                                <span class="col-sm-8 col-xs-12"><b><< AQUI VA LA SUB ESPECIALIDAD >></b></span>
+                                <span class="col-sm-4 col-xs-12"><b>Especialidad:</b> </span>
+                                <span class="col-sm-8 col-xs-12"><b>{{ medico.esp_especialidad|default('N/A') }}</b></span>
                             </li>
                             <li class="row">
-                                <span class="col-sm-4 col-xs-12"><b><< MAS DETALLES (eg: EDUCACION) >></b></span>
-                                <span class="col-sm-8 col-xs-12"><b><< MAS DETALLES (eg: TITULO DE LA U) >></b></span>
+                                <span class="col-sm-4 col-xs-12"><b>Educacion:</b></span><br>
+                                {% if medico.usi_educacion is empty %}
+                                    <span class="col-sm-8 col-xs-12"><b>{{ 'N/A' }}</b></span>
+                                {% else %}
+                                    {% for educacion in medico.usi_educacion|split('||') %}
+                                        <span class="col-sm-8 col-xs-12"><b>{{ educacion }}</b></span>
+                                    {% endfor %}
+                                {% endif %}
                             </li>
                             <li class="row">
                                 <span class="col-sm-4 col-xs-12"><b>Dias de trabajo:</b></span>
-                                <span class="col-sm-8 col-xs-12"><b>{{ medico.usi_dias_trabajo }}</b></span>
+                                <span class="col-sm-8 col-xs-12"><b>{{ medico.usi_dias_trabajo|default('N/A') }}</b></span>
                             </li>
                         </ul>
                     </div>
@@ -51,7 +57,7 @@
                                 </ul>
                             </div>
                             <div class="col-lg-6 col-xs-12">
-                                <a href="#" class="btn btn-secondary text-uppercase">Book An Appointment</a>
+                                <a href="#" class="btn btn-secondary text-uppercase">Agendar cita</a>
                             </div>
                         </div>
                     </div>
@@ -62,9 +68,8 @@
             <div class="profile-details">
                 <h3 class="main-heading2">{{ medico.usu_titulo}} {{ medico.usu_nombre|title }}</h3>
                 <h4>{{ medico.cli_nombre }}</h4>
-                <h5>June 2006 to July 2020</h5>
                 <p>
-                    {{ medico.usi_info_perfil }}
+                    {{ medico.usi_info_perfil|default('No se encontro informacion de perfil.') }}
                 </p>
             </div>
         </div>

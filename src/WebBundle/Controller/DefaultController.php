@@ -62,7 +62,14 @@ class DefaultController extends Controller
  
     public function indexHospitalesAction()
     {
-        return $this->render('WebBundle:Hospitales:index.html.twig');
+        /* @var $em \Doctrine\ORM\EntityManager  */
+        $em = $this->getDoctrine()->getManager();
+        $hospitales = $em->getRepository('AppBundle\Entity\Usuario')
+                ->getHospitales();
+        
+        return $this->render('WebBundle:Hospitales:index.html.twig',
+                array('hospitales' => $hospitales)
+                );
     }
 
     public function indexFarmaciasAction()
