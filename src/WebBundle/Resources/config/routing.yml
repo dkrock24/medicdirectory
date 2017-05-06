@@ -21,3 +21,7 @@ web_farmacias:
 web_precios:
     path:     /precios
     defaults: { _controller: WebBundle:Default:indexPrecios }
+
+web_terminos:
+    path:     /terminos
+    defaults: { _controller: WebBundle:Default:indexTerminos }
