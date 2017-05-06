@@ -1,0 +1,56 @@
+AppBundle\Entity\EavModCatValores:
+    type: entity
+    table: eav_mod_cat_valores
+    id:
+        modCatValId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            id: true
+            column: mod_cat_val_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        modCatValCampId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            column: mod_cat_val_camp_id
+        modCatValValor:
+            type: string
+            nullable: true
+            column: mod_cat_val_valor
+        modCatValCatValPadre:
+            type: integer
+            nullable: true
+            column: mod_cat_val_cat_val_padre
+        modCatValActivo:
+            type: boolean
+            nullable: false
+            column: mod_cat_val_activo
+            options:
+                default: 1
+                unsigned: true
+        modCatValFechaCrea:
+            type: datetime
+            nullable: false
+            options:
+                default: CURRENT_TIMESTAMP
+            column: mod_cat_val_fecha_crea
+        modCatValFechaMod:
+            type: datetime
+            nullable: true
+            column: mod_cat_val_fecha_mod
+    manyToOne:
+        ModCampos:
+            targetEntity: EavModCampos
+            cascade: {  }
+            fetch: LAZY
+            inversedBy: null
+            joinColumns:
+                mod_cat_val_camp_id:
+                    referencedColumnName: mod_camp_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

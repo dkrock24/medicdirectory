@@ -1,0 +1,39 @@
+AppBundle\Entity\EavTipCampos:
+    type: entity
+    table: eav_tip_campos
+    id:
+        tipCampId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            id: true
+            column: tip_camp_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        tipCampTipo:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+            column: tip_camp_tipo
+        tipCampActivo:
+            type: boolean
+            nullable: false
+            options:
+                unsigned: true
+                default: 1
+            column: tip_camp_activo
+        tipCampFechaCrea:
+            type: datetime
+            nullable: false
+            options:
+                default: CURRENT_TIMESTAMP
+            column: tip_camp_fecha_crea
+        tipCampFechaMod:
+            type: datetime
+            nullable: true
+            column: tip_camp_fecha_mod
+    lifecycleCallbacks: {  }

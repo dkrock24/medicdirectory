@@ -1,0 +1,102 @@
+AppBundle\Entity\EavModDatos:
+    type: entity
+    table: eav_mod_datos
+    id:
+        modDatId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            id: true
+            column: mod_dat_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        modDatModCampId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            column: mod_dat_mod_camp_id
+        modDatUsuId:
+            type: integer
+            nullable: true
+            options:
+                unsigned: true
+            column: mod_dat_usu_id
+        modDatPacId:
+            type: integer
+            nullable: true
+            options:
+                unsigned: true
+            column: mod_dat_pac_id
+        modDatCliId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            column: mod_dat_cli_id
+        modDatCitId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            column: mod_dat_cit_id
+        modDatDatoValor:
+            type: string
+            nullable: true
+            column: mod_dat_dato_valor
+        modDatActivo:
+            type: boolean
+            nullable: false
+            options:
+                default: 1
+            column: mod_dat_activo
+        modDatFechaCrea:
+            type: datetime
+            nullable: false
+            options:
+                default: CURRENT_TIMESTAMP
+            column: mod_dat_fecha_crea
+        modDatFechaMod:
+            type: datetime
+            nullable: true
+            column: mod_dat_fecha_mod
+    manyToOne:
+        usuarioDato:
+            targetEntity: Usuario
+            cascade: {  }
+            fetch: LAZY
+            inversedBy: null
+            joinColumns:
+                mod_dat_usu_id:
+                    referencedColumnName: usu_id
+            orphanRemoval: false
+        pacienteDato:
+            targetEntity: Paciente
+            cascade: {  }
+            fetch: LAZY
+            inversedBy: null
+            joinColumns:
+                mod_dat_pac_id:
+                    referencedColumnName: pac_id
+            orphanRemoval: false
+        clienteDato:
+            targetEntity: Cliente
+            cascade: {  }
+            fetch: LAZY
+            inversedBy: null
+            joinColumns:
+                mod_dat_cli_id:
+                    referencedColumnName: cli_id
+            orphanRemoval: false
+        citaDato:
+            targetEntity: Cita
+            cascade: {  }
+            fetch: LAZY
+            inversedBy: null
+            joinColumns:
+                mod_dat_cit_id:
+                    referencedColumnName: cit_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

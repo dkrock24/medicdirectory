@@ -1,0 +1,108 @@
+AppBundle\Entity\EavModCampos:
+    type: entity
+    table: eav_mod_campos
+    indexes:
+        FK_campos_tipcampos_idx:
+            columns:
+                - mod_camp_tip_camp_id
+    id:
+        modCampId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            id: true
+            column: mod_camp_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        modCampModSeccId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            column: mod_camp_mod_secc_id
+        modCampNombre:
+            type: string
+            nullable: false
+            length: 100
+            column: mod_camp_nombre
+        modCampNombreCorto:
+            type: string
+            nullable: true
+            length: 50
+            column: mod_camp_nombre_corto
+        modCampShowIfnull:
+            type: boolean
+            nullable: false
+            options:
+                default: 0
+                unsigned: true
+            column: mod_camp_show_ifnull
+        modCampValorDefault:
+            type: string
+            nullable: true
+            length: 50
+            column: mod_camp_valor_default
+        modCampCampoPadre:
+            type: integer
+            nullable: true
+            options:
+                unsigned: true
+            column: mod_camp_campo_padre
+        modCampRequerido:
+            type: integer
+            nullable: false
+            options:
+                default: 0
+                unsigned: true
+            column: mod_camp_requerido
+        modCampTipCampId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            column: mod_camp_tip_camp_id
+        modCampOrden:
+            type: integer
+            nullable: true
+            options:
+                unsigned: true
+            column: mod_camp_orden
+        modCampActivo:
+            type: boolean
+            nullable: false
+            options:
+                default: 1
+                unsigned: true
+            column: mod_camp_activo
+        modCampFechaCrea:
+            type: datetime
+            nullable: false
+            options:
+                default: CURRENT_TIMESTAMP
+            column: mod_camp_fecha_crea
+        modCampFechaMod:
+            type: datetime
+            nullable: true
+            column: mod_camp_fecha_mod
+    manyToOne:
+        tipoCampos:
+            targetEntity: EavTipCampos
+            cascade: {  }
+            fetch: LAZY
+            inversedBy: null
+            joinColumns:
+                mod_camp_tip_camp_id:
+                    referencedColumnName: tip_camp_id
+            orphanRemoval: false
+        modSeccion:
+            targetEntity: EavModSeccion
+            cascade: {  }
+            fetch: LAZY
+            inversedBy: null
+            joinColumns:
+                mod_camp_mod_secc_id:
+                    referencedColumnName: mod_secc_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }
