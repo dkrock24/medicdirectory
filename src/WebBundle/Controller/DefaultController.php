@@ -81,4 +81,8 @@ class DefaultController extends Controller
     {
         return $this->render('WebBundle:Precios:index.html.twig');
     }
+    public function indexTerminosAction()
+    {
+        return $this->render('WebBundle:Terminos:index.html.twig');
+    }
 }
