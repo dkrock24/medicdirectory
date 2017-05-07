@@ -35,6 +35,9 @@ AppBundle\Entity\ClienteUsuario:
             options:
                 default: '1'
             column: cli_usu_activo
+    uniqueConstraints:
+        unique_idx:
+          columns: [ cli_usu_usu_id, cli_usu_cli_id, cli_usu_rol_id ]
     manyToOne:
         cliUsuUsu:
             targetEntity: Usuario
@@ -55,5 +58,15 @@ AppBundle\Entity\ClienteUsuario:
             joinColumns:
                 cli_usu_cli_id:
                     referencedColumnName: cli_id
+            orphanRemoval: false
+        cliUsuRol:
+            targetEntity: Rol
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                cli_usu_rol_id:
+                    referencedColumnName: rol_id
             orphanRemoval: false
     lifecycleCallbacks: {  }

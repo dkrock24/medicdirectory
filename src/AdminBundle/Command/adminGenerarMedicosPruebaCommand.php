@@ -66,6 +66,7 @@ class adminGenerarMedicosPruebaCommand extends ContainerAwareCommand {
             $oUsuario->setUsuIdVendedor(1);
             $oUsuario->setUsuTitulo('Dr.');
             $oUsuario->setUsuGenero('m');
+            $oUsuario->setUsuCorreo("{$sUsuario}@correo.com");
             $oUsuario->setUsuUsuario($sUsuario);
             $em->persist($oUsuario);
             $em->flush();
