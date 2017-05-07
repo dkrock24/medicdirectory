@@ -25,13 +25,13 @@ AppBundle\Entity\HistorialPago:
         hpaMontoEsperado:
             type: decimal
             nullable: false
-            precision: 5
+            precision: 8
             scale: 2
             column: hpa_monto_esperado
         hpaMontoPagado:
             type: decimal
             nullable: false
-            precision: 5
+            precision: 8
             scale: 2
             column: hpa_monto_pagado
         hpaFechaPago:
@@ -67,8 +67,15 @@ AppBundle\Entity\HistorialPago:
             options:
                 unsigned: false
             column: hpa_estado
+        hpaPagoDetalle:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+            column: hpa_pago_detalle
     manyToOne:
-        hpaCli:
+        hpaCliente:
             targetEntity: Cliente
             cascade: {  }
             fetch: LAZY
@@ -88,7 +95,7 @@ AppBundle\Entity\HistorialPago:
                 hpa_usu_id_verificado:
                     referencedColumnName: usu_id
             orphanRemoval: false
-        hpaMep:
+        hpaMetodoPago:
             targetEntity: MetodoPago
             cascade: {  }
             fetch: LAZY
