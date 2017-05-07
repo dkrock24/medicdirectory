@@ -54,13 +54,39 @@ class adminGenerarClientesPruebaCommand extends ContainerAwareCommand {
 
         // Generar usuarios
 
+        $aPago = [];
+        $aPago['tarjeta'] = '4111-1111-1111-1111';
+        $aPago['ccv'] = '123';
+        $aPago['exp'] = '12/20';
+        $aPago['nombre'] = 'Pepito Perez';
+        $sPago = json_encode($aPago);
+
+        $sPago = json_encode($aPago);
         for($i=0; $i <= $iCantidad ; $i++) {
             $sNombre = $aNombres[rand(0, count($aNombres))].' '.$aApellidos[rand(0, count($aApellidos))];
+            $sNombreComercial = 'Clinica ' . $aApellidos[rand(0, count($aApellidos))];
+            $sNombreFiscal = $aApellidos[rand(0, count($aApellidos))] . ' SA de CV';
+
             $oCliente = new \AppBundle\Entity\Cliente();
+
+            $oCliente->setCliNombre($sNombre);
+            $oCliente->setCliNombreComercial($sNombreComercial);
+            $oCliente->setCliNombreFiscal($sNombreFiscal);
+            $oCliente->setCliNit(mt_rand(pow(10, 13), pow(10, 14)));
             $oCliente->setCliActivo(TRUE);
+            $oCliente->setCliDireccion('Direccion generada');
+            $oCliente->setCliFechaCrea(new \DateTime());
+            $oCliente->setCliFechaMod(new \DateTime());
+            $oCliente->setCliFechaRegistro(new \DateTime());
+            $oCliente->setCliTelefono1('79859476');
+            $oCliente->setCliTelefono2('70893287');
+            $oCliente->setCliMetodoPago($em->getReference(\AppBundle\Entity\MetodoPago::class, 2)); // Tarjeta
+            $oCliente->setCliMun($em->getReference(\AppBundle\Entity\Municipio::class, 214)); // San Salvador
+            $oCliente->setCliPagoDetalle($sPago);
+            $oCliente->setCliIdVendedor(1);
             $em->persist($oCliente);
             $em->flush();
-            $output->writeln($sUsuario);
+            $output->writeln($sNombre);
         }
         
     }

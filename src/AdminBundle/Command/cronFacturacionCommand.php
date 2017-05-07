@@ -27,9 +27,10 @@ class cronFacturacionCommand extends ContainerAwareCommand {
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) {
+        /* @var $em \Doctrine\ORM\EntityManager */
         $em = $this->getContainer()->get('doctrine')->getManager();
         
-        
+        $em->getRepository();
     }
 
 }
