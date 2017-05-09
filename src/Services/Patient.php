@@ -38,7 +38,7 @@ class Patient {
 		//============================================
 		$RAW_QUERY = "SELECT u.usu_id as id_doctor, u.usu_nombre AS doctor, a.age_id AS id_agenda, a.age_fecha_inicio AS fecha_inicio, a.age_fecha_fin AS fecha_fin, 
 						CASE a.age_estado 
-						WHEN 'P' THEN 'Pendiente' 
+						WHEN 'p' THEN 'Pendiente' 
 						WHEN 'a' THEN 'Anulada'
 						WHEN 'c' THEN 'En curso'
 						WHEN 't' THEN 'Terminada'

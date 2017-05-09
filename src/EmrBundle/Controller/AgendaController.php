@@ -307,7 +307,22 @@ class AgendaController extends Controller
 					$oDiary_repo = $em->getRepository('AppBundle:Agenda')->find($id);
 				
 					$appointment = $oDiary_repo->getAgeCit();
+					
+					if( empty($appointment) )
+					{
+						$em->remove($oDiary_repo);
+						$em->flush(); 
+					}
+					else
+					{
+						$oDiary_repo->setAgeActivo(0);
+						$oDiary_repo->setAgeEstado("a");
+						$em->persist( $oDiary_repo );
+						$em->flush(); 
+					}
+					
 
+					/*
 					$em->remove($oDiary_repo);
 					$em->flush(); 
 					if( !empty($appointment) )
@@ -316,6 +331,7 @@ class AgendaController extends Controller
 						$em->remove($oAppointment_repo);
 						$em->flush(); 
 					}
+					*/
 					
 					$em->getConnection()->commit();
 					echo "1";
