@@ -14,7 +14,8 @@
 #}
 {% block body %} 
     
-            {# {{ app.user.getUsuId() }} #}
+            {# {{ app.user.getUsuId() }} #} 
+            
             <div id="holder_msg">
                 {% for message in app.session.flashbag().get("success") %}
                     <div class="alert alert-success"><i class="fa fa-check-circle"></i> {{message}}</div>

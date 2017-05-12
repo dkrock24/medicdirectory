@@ -129,7 +129,7 @@ AppBundle\Entity\Paciente:
             column: pac_direccion
         pacFechaNacimiento:
             type: date
-            nullable: false
+            nullable: true
             column: pac_fecha_nacimiento
         pacFoto:
             type: string

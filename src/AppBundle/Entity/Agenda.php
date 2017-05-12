@@ -11,21 +11,21 @@ class Agenda
      * @var integer
      */
     private $ageId;
+	
+	/**
+     * @var string
+     */
+    private $ageNotas;
 
     /**
      * @var \DateTime
      */
     private $ageFechaInicio;
-
-    /**
+	
+	/**
      * @var \DateTime
      */
     private $ageFechaFin;
-
-    /**
-     * @var \DateTime
-     */
-    private $ageHoraInicio;
 
     /**
      * @var \DateTime
@@ -41,6 +41,11 @@ class Agenda
      * @var \DateTime
      */
     private $ageFechaMod;
+	
+	/**
+     * @var integer
+     */
+    private $ageTipoEvento;
 
     /**
      * @var boolean
@@ -66,6 +71,11 @@ class Agenda
      * @var \AppBundle\Entity\Usuario
      */
     private $ageUsu;
+	
+	/**
+     * @var string
+     */
+    private $ageEstado;
 
 
     /**
@@ -76,6 +86,30 @@ class Agenda
     public function getAgeId()
     {
         return $this->ageId;
+    }
+	
+	/**
+     * Set ageNotas
+     *
+     * @param string $ageNotas
+     *
+     * @return Agenda
+     */
+    public function setAgeNotas($ageNotas)
+    {
+        $this->ageNotas = $ageNotas;
+
+        return $this;
+    }
+
+    /**
+     * Get ageNotas
+     *
+     * @return string
+     */
+    public function getAgeNotas()
+    {
+        return $this->ageNotas;
     }
 
     /**
@@ -125,55 +159,6 @@ class Agenda
     {
         return $this->ageFechaFin;
     }
-
-    /**
-     * Set ageHoraInicio
-     *
-     * @param \DateTime $ageHoraInicio
-     *
-     * @return Agenda
-     */
-    public function setAgeHoraInicio($ageHoraInicio)
-    {
-        $this->ageHoraInicio = $ageHoraInicio;
-
-        return $this;
-    }
-
-    /**
-     * Get ageHoraInicio
-     *
-     * @return \DateTime
-     */
-    public function getAgeHoraInicio()
-    {
-        return $this->ageHoraInicio;
-    }
-
-    /**
-     * Set ageHoraFin
-     *
-     * @param \DateTime $ageHoraFin
-     *
-     * @return Agenda
-     */
-    public function setAgeHoraFin($ageHoraFin)
-    {
-        $this->ageHoraFin = $ageHoraFin;
-
-        return $this;
-    }
-
-    /**
-     * Get ageHoraFin
-     *
-     * @return \DateTime
-     */
-    public function getAgeHoraFin()
-    {
-        return $this->ageHoraFin;
-    }
-
     /**
      * Set ageFechaCrea
      *
@@ -221,6 +206,32 @@ class Agenda
     {
         return $this->ageFechaMod;
     }
+	
+	
+	/**
+     * Set ageTipoEvento
+     *
+     * @param integer $ageTipoEvento
+     *
+     * @return Agenda
+     */
+    public function setAgeTipoEventor($ageTipoEvento)
+    {
+        $this->ageTipoEvento = $ageTipoEvento;
+
+        return $this;
+    }
+
+    /**
+     * Get ageTipoEvento
+     *
+     * @return integer
+     */
+    public function getAgeTipoEvento()
+    {
+        return $this->ageTipoEvento;
+    }
+	
 
     /**
      * Set ageActivo
@@ -340,5 +351,30 @@ class Agenda
     public function getAgeUsu()
     {
         return $this->ageUsu;
+    }
+	
+	
+	/**
+     * Set ageEstado
+     *
+     * @param string $ageEstado
+     *
+     * @return Agenda
+     */
+    public function setAgeEstado($ageEstado)
+    {
+        $this->ageEstado = $ageEstado;
+
+        return $this;
+    }
+
+    /**
+     * Get ageEstado
+     *
+     * @return string
+     */
+    public function getAgeEstado()
+    {
+        return $this->ageEstado;
     }
 }

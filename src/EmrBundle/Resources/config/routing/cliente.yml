@@ -4,22 +4,22 @@ cliente_index:
     methods:  GET
 
 cliente_show:
-    path:     /{id}/show
+    path:     /{id}/info
     defaults: { _controller: "EmrBundle:Cliente:show" }
     methods:  GET
 
 cliente_new:
-    path:     /new
+    path:     /nuevo
     defaults: { _controller: "EmrBundle:Cliente:new" }
     methods:  [GET, POST]
 
 cliente_edit:
-    path:     /{id}/edit
+    path:     /{id}/editar
     defaults: { _controller: "EmrBundle:Cliente:edit" }
     methods:  [GET, POST]
 
 cliente_delete:
-    path:     /{id}/delete
+    path:     /{id}/eliminar
     defaults: { _controller: "EmrBundle:Cliente:delete" }
     methods:  DELETE
 

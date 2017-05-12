@@ -99,12 +99,12 @@
                         <div class="list-group no-border no-padding-top">
                             <ul class="list list-unstyled">
                                 <li>
-                                    Consultas realizadas 
-                                    <span class="badge bg-danger pull-rightt"> 2</span>
+                                    <i class="fa fa-stethoscope" aria-hidden="true"></i> Consultas realizadas 
+                                    <span class="badge bg-teal-400 pull-right"> {{ totalMedicalConsultation }}</span>
                                 </li>
                                 <li>
-                                    Pagos Históricos
-                                    <span class="badge bg-danger pull-rightt"> $ 5 </span>
+                                    <i class="fa fa-usd" aria-hidden="true"></i> Pagos Históricos
+                                    <span class="badge bg-teal-400 pull-right"> 5 </span>
                                 </li>
 
                             </ul>
@@ -252,13 +252,16 @@
                         
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs" role="tablist">
-                          <li role="presentation" class="active"><a href="#books" aria-controls="books" role="tab" data-toggle="tab">Citas</a></li>
-                          <li role="presentation"><a href="#doctors" aria-controls="doctors" role="tab" data-toggle="tab">Historial Médico</a></li>
+                          <li role="presentation" class="active"><a href="#books" aria-controls="books" role="tab" data-toggle="tab">Citas &nbsp;<span class="badge bg-danger-400 pull-right">{{ listAppointment|length }}</span></a></li>
+                          <li role="presentation"><a href="#doctors" aria-controls="doctors" role="tab" data-toggle="tab">Historial Médico  &nbsp;<span class="badge bg-danger-400 pull-right">{{ doctorstList|length }}</span></a></li>
                         </ul>
                         <!-- Tab panes -->
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane active" id="books">
-                                <table class="table table-striped" id="table_books">
+                                {% set userRoles = app.session.get('userRoles') %}
+                               
+                                {% if listAppointment|length > 0 %}
+                                    <table class="table table-striped" id="table_books">
                                     <thead>
                                         <tr>
                                             <th>Fecha</th>
@@ -267,46 +270,76 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>2017-04-20</td><td>Pendiente</td><td>
-                                                <ul class="list list-unstyled text-right">
-                                                    <li class="dropdown">
-                                                        <a href="#" class="label bg-danger-400 dropdown-toggle" data-toggle="dropdown">Acción <span class="caret"></span></a>
-                                                        <ul class="dropdown-menu dropdown-menu-right">
-
-                                                            <li><a href="#"><i class="icon-alarm"></i> Pendiente</a></li>
-                                                            <li><a href="#"><i class="icon-checkmark3"></i> Realizada</a></li>
-                                                            <li class="divider"></li>
-                                                            <li><a href="#"><i class="icon-spinner2 spinner"></i> En curso</a></li>
-                                                            <li><a href="#"><i class="icon-cross2"></i> Cancelar</a></li>
-                                                        </ul>
-                                                    </li>
-                                                </ul>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>2017-03-20</td><td><i class="fa fa-check"></i></td><td/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>2017-02-20</td><td><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></td><td/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>2017-01-20</td><td><i class="fa fa-check"></i></td><td/></td>
-                                        </tr>
+                                        {% for appointment in listAppointment %}
+                                            <tr>
+                                                <td><small>{{ appointment.fecha_inicio }}</small></td>
+                                                <td>
+                                                    {{ appointment.estado }}
+                                                </td>
+                                                <td>
+                                                    <ul class="list list-unstyled text-right">
+                                                        <li class="dropdown">
+                                                            <a href="#" class="label bg-danger-600 dropdown-toggle btn-sm" data-toggle="dropdown">Acción <span class="caret"></span></a>
+                                                            <ul class="dropdown-menu dropdown-menu-right">
+                                                                {% if "6" in userRoles|keys  %}
+                                                                    <li><a href="#"><i class="icon-checkmark3" aria-hidden="true"></i> Iniciar Consulta</a></li>
+                                                                {% endif %}
+                                                                <li><a href="{{ path("agenda_new")}}?d={{ appointment.id_doctor }}"><i class="icon-alarm" aria-hidden="true"></i> Actualizar</a></li>
+                                                                <li class="divider"></li>
+                                                                {# <li><a href="#"><i class="icon-spinner2 spinner"></i> En curso</a></li> #}
+                                                                <li><a href="#"><i class="fa fa-calendar-times-o" aria-hidden="true"></i> Cancelar</a></li>
+                                                                <li><a href="#"><i class="icon-cross2" aria-hidden="true"></i> Cerrar menú</a></li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </td>
+                                            </tr>
+                                            {#
+                                            <tr>
+                                                <td>2017-03-20</td><td><i class="fa fa-check"></i></td><td/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>2017-02-20</td><td><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></td><td/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>2017-01-20</td><td><i class="fa fa-check"></i></td><td/></td>
+                                            </tr>
+                                            #}
+                                        {% endfor %}
                                     </tbody>
                                 </table>
+                                {% else %}
+                                    <br>
+                                     <div class="alert alert-info alert-styled-left">
+                                        El paciente no tiene citas creadas
+                                    </div>
+                                {% endif %}
+                               
+                                
+                                
                                 <div class="list-group-divider"></div>
                                 <div>
-                                    <button class="btn btn-success btn-sm"><i class="fa fa-calendar"></i> Nueva cita</button>
-                                    <span class="badge bg-teal-400 pull-right">4</span>
+                                    <a href="{{ path('agenda_new', {'p':paciente.pacId}) }}" class="btn btn-success btn-sm"><i class="fa fa-calendar"></i> Nueva cita</a>
+                                    
                                 </div>
                             </div>
                             <div role="tabpanel" class="tab-pane" id="doctors">
                                 <br>
-                                <div class="alert alert-info alert-styled-left">
-                                    Médicos que han atendido al paciente
-                                </div>
-                                Parkin juares
+                                {% if doctorstList|length > 0 %}
+                                        <h5>Médicos que han atendido al paciente</h5>
+                                        <ul class="list-group">
+                                        {% for  doctor in  doctorstList %}
+                                            <li class="list-group-item"> <i class="fa fa-user-md" aria-hidden="true"></i> {{ doctor.doctor }}</li>
+                                        {% endfor %}
+                                        </ul>
+                                   
+                                {% else %}
+                                    <br>
+                                     <div class="alert alert-info alert-styled-left">
+                                        Este paciente no tiene historial médico de momento
+                                    </div>
+                                {% endif %}    
+                               
                             </div>
                         </div>
                         
@@ -458,22 +491,22 @@
                             });
                     }
                     
-            $("#table_books").DataTable({
-                    "searching": false,
-                    "bFilter": false,
-                    "bInfo": false,
-                    "bLengthChange": false,
-                    "pageLength": 5,
-                    "language":{
-                        oPaginate: {
-                            sFirst: "Primero",
-                            sLast: "último",
-                            sNext: "Siguiente",
-                            sPrevious: "Anterior"
-                        },
-                    },
-                    "order": [[ 0, "desc" ]]
-            });        
+                    $("#table_books").DataTable({
+                            "searching": false,
+                            "bFilter": false,
+                            "bInfo": false,
+                            "bLengthChange": false,
+                            "pageLength": 5,
+                            "language":{
+                                oPaginate: {
+                                    sFirst: "Primero",
+                                    sLast: "último",
+                                    sNext: "Siguiente",
+                                    sPrevious: "Anterior"
+                                },
+                            },
+                            "order": [[ 0, "desc" ]]
+                    });        
         });
     </script>
 {% endblock %}    

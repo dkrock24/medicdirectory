@@ -80,11 +80,23 @@ class PacienteController extends Controller
     {
         $deleteForm = $this->createDeleteForm($paciente);
 		
-		//$uFile = $this->get('srv_uploadFile');
-		//$path = $uFile->getUploadRootDir()."pacientes/";
+		/*
+		$locationId = $this->get('session')->get('locationId');
+		$em = $this->getDoctrine()->getManager();
+		*/
+		
+		//$listAppointment 
+		$patient = $this->get('srv_patient');
+		$listAppointment = $patient->getAppointments( $paciente->getPacId() );
+		$doctorstList = $patient->getDoctorsPerPatient( $paciente->getPacId() );
+		$medicalConsultation = $patient->getMedicalConsultation( $paciente->getPacId() );
+		$totalMedicalConsultation = $medicalConsultation[0]['total'];
 		
         return $this->render('EmrBundle:paciente:show.html.twig', array(
             'paciente' => $paciente,
+			'listAppointment' => $listAppointment,
+			'totalMedicalConsultation' =>$totalMedicalConsultation,
+			'doctorstList' => $doctorstList,
             'delete_form' => $deleteForm->createView(),
         ));
     }
@@ -229,6 +241,7 @@ class PacienteController extends Controller
 	
 	public function searchPatientsAction( Request $request )
 	{
+		$iLocationId = $this->get('session')->get('locationId');
 		$sSearch = $request->get('search');
 		if( isset($sSearch) && !empty($sSearch) )
 		{
@@ -240,7 +253,7 @@ class PacienteController extends Controller
 			
 			$em = $this->getDoctrine()->getManager();
 			$RAW_QUERY = "SELECT concat_ws(' ',p.pac_nombre, p.pac_seg_nombre, p.pac_apellido, p.pac_seg_apellido ) as fullname, p.pac_dui as dui, p.pac_id FROM paciente p "
-						. " WHERE  concat_ws(' ',p.pac_nombre, p.pac_seg_nombre, p.pac_apellido, p.pac_seg_apellido ) REGEXP \"".$q."\" LIMIT 10";
+						. " WHERE  concat_ws(' ',p.pac_nombre, p.pac_seg_nombre, p.pac_apellido, p.pac_seg_apellido ) REGEXP \"".$q."\"  AND pac_cli_id = $iLocationId LIMIT 10";
 			$statement = $em->getConnection()->prepare($RAW_QUERY);
 			$statement->execute();
 
@@ -377,7 +390,11 @@ class PacienteController extends Controller
 				$oPatient->setPacTelCasa($home_phone);
 				$oPatient->setPacTelTrabajo($work_phone);
 				$oPatient->setPacTelCelular($cellphone);
-				$oPatient->setPacFechaNacimiento(new \Datetime($date) );
+				if( !empty($date) )
+				{
+					$oPatient->setPacFechaNacimiento(new \Datetime($date) );
+				}
+				
 				$oPatient->setPacFechaCrea(new \Datetime()); //Fecha de creacion
 				$iLocationId = $this->get('session')->get('locationId');
 				$iLocationObj = $em->getRepository("AppBundle:Cliente")->find($iLocationId);

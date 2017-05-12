@@ -4,22 +4,22 @@ paciente_index:
     methods:  GET
 
 paciente_show:
-    path:     /{id}/show
+    path:     /{id}/info
     defaults: { _controller: "EmrBundle:Paciente:show" }
     methods:  GET
 
 paciente_new:
-    path:     /new
+    path:     /nuevo
     defaults: { _controller: "EmrBundle:Paciente:new" }
     methods:  [GET, POST]
 
 paciente_edit:
-    path:     /{id}/edit
+    path:     /{id}/editar
     defaults: { _controller: "EmrBundle:Paciente:edit" }
     methods:  [GET, POST]
 
 paciente_delete:
-    path:     /{id}/delete
+    path:     /{id}/eliminar
     defaults: { _controller: "EmrBundle:Paciente:delete" }
     methods:  DELETE
     

@@ -17,3 +17,7 @@ services:
     catalogs:
         class:        Services\CatalogsService
         arguments:     [ "@doctrine.orm.entity_manager" ]
+        arguments:     ["@doctrine.orm.entity_manager", "@session"]
+    srv_patient:
+        class:        Services\Patient
+        arguments:     ["@doctrine.orm.entity_manager", "@session"] 

@@ -183,10 +183,10 @@ class ClienteController extends Controller
 			//==================================================================
 			//Check if the user if a representer 
 			//==================================================================
-			$RAW_QUERY = "SELECT * FROM usuarios_rol 
-							WHERE urol_cli_id =:client
-							and urol_usu_id =:userId
-							and urol_rol_id = 2 "; //5 = Cliente( Representante )
+			$RAW_QUERY = "SELECT * FROM cliente_usuario 
+							WHERE cli_usu_cli_id =:client
+							and cli_usu_usu_id =:userId
+							and cli_usu_rol_id = 2 "; //5 = Cliente( Representante )
 			$statement = $em->getConnection()->prepare($RAW_QUERY);
 			$statement->bindValue("client", $cliente->getCliId() );
 			$statement->bindValue("userId", $idUser );
@@ -222,9 +222,8 @@ class ClienteController extends Controller
 			//==================================================================
 			$RAW_QUERY = "SELECT * FROM cliente_usuario cu 
 							inner join usuario u on u.usu_id = cu.cli_usu_usu_id
-							inner join usuarios_rol ur on ur.urol_usu_id = u.usu_id 
 							WHERE cu.cli_usu_cli_id =:client
-							and ur.urol_rol_id = 2 "; //5 = Cliente( Representante )
+							and cu.cli_usu_rol_id = 2 "; //5 = Cliente( Representante )
 			$statement = $em->getConnection()->prepare($RAW_QUERY);
 			$statement->bindValue("client", $cliente->getCliId() );
 			$statement->execute();
@@ -244,9 +243,9 @@ class ClienteController extends Controller
 			$RAW_QUERY = "SELECT *
 								FROM cliente_usuario cu
 								INNER JOIN usuario u ON u.usu_id = cu.cli_usu_usu_id
-								LEFT JOIN usuarios_rol ur ON ur.urol_usu_id = u.usu_id
-								WHERE ur.urol_cli_id  =:client AND ur.urol_rol_id != 2
-								GROUP BY ur.urol_rol_id, ur.urol_usu_id";				
+								
+								WHERE cu.cli_usu_cli_id  =:client AND cu.cli_usu_rol_id != 2
+								#GROUP BY cu.cli_usu_rol_id";				
 			$statement = $em->getConnection()->prepare($RAW_QUERY);
 			$statement->bindValue("client", $cliente->getCliId() );
 			$statement->execute();
@@ -257,8 +256,8 @@ class ClienteController extends Controller
 			//Get if the representer marked the checkbox as set representer date
 			//as doctor or assistant
 			//==================================================================
-			$RAW_QUERY = "SELECT * FROM usuarios_rol WHERE urol_usu_id =:idUser
-							and urol_rol_id != 2 "; //2 = Cliente( Representante )
+			$RAW_QUERY = "SELECT * FROM cliente_usuario WHERE cli_usu_usu_id =:idUser
+							and cli_usu_rol_id != 2 "; //2 = Cliente( Representante )
 			$statement = $em->getConnection()->prepare($RAW_QUERY);
 			$statement->bindValue("idUser", $idUser );
 			$statement->execute();
@@ -323,6 +322,7 @@ class ClienteController extends Controller
 	public function checkAvailableUserAction( Request $request )
 	{
 		
+		//exit();
 		//$result = "";
 		//$iCountryId = $request->get('id');
 		$sUsername = $request->get("username");
@@ -359,6 +359,7 @@ class ClienteController extends Controller
 			
 			
 			$res = array("available"=> $available, "email"=>$email, "gender"=>$gender );
+			//var_dump($res);
 		}
 		catch (\Exception $e){
 				echo ($e->getMessage());
@@ -415,6 +416,10 @@ class ClienteController extends Controller
 		$specialities = $request->get("specialities");
 		$representerName = $request->get("representerName");
 		
+		$comercial_name = $request->get("comercial_name");
+		$lon = $request->get("lon");
+		$lat = $request->get("lat");
+		
 		//Representer data
 		$representerGender = $request->get("representerGender");
 		$representerUser = $request->get("representerUser");
@@ -439,8 +444,6 @@ class ClienteController extends Controller
 			if (isset($clientId) && $clientId > 0) {
 				$client = $em->getRepository('AppBundle:Cliente')->find($clientId);
 			} else {
-				
-				
 				$client = new Cliente();
 				
 			}
@@ -459,6 +462,10 @@ class ClienteController extends Controller
 			$client->setCliTelefono2($phone_two);
 			$client->setCliNombre($representerName);
 			
+			$client->setCliNombreComercial($comercial_name);
+			$client->setCliUbicacionLat($lat);
+			$client->setCliUbicacionLon($lon);
+			
 			$client->setCliFechaRegistro(new \Datetime());
 			$client->setCliFechaCrea(new \Datetime() );
 				
@@ -471,7 +478,6 @@ class ClienteController extends Controller
 					$statement = $em->getConnection()->prepare($RAW_QUERY);
 					$statement->execute();
 				}
-				
 				
 				for(	$i=0; $i < count($specialities); $i++ )
 				{
@@ -528,15 +534,8 @@ class ClienteController extends Controller
 			
 			if (isset($clientId) && $clientId > 0) 
 			{
-				//exit("x");
-				/*
-					$RAW_QUERY = "delete from usuarios_rol where urol_usu_id =$clientId AND urol_rol_id = 2"; //2 = Cliente( Representante )
-					$statement = $em->getConnection()->prepare($RAW_QUERY);
-					$statement->execute();
-				*/
-				$RAW_QUERY = "SELECT ur.urol_usu_id FROM cliente_usuario cu 
+				$RAW_QUERY = "SELECT cu.cli_usu_rol_id FROM cliente_usuario cu 
 								inner join usuario u on u.usu_id = cu.cli_usu_usu_id
-								inner join usuarios_rol ur on ur.urol_usu_id = u.usu_id 
 								WHERE cu.cli_usu_cli_id =:client
 							"; //5 = Cliente( Representante )
 					$statement = $em->getConnection()->prepare($RAW_QUERY);
@@ -548,12 +547,12 @@ class ClienteController extends Controller
 				{
 					foreach($getUserList as $k)
 					{
-						array_push($deleteList, $k['urol_usu_id']);
+						array_push($deleteList, $k['cli_usu_rol_id']);
 					}
 					
 					if( count($deleteList) )
 					{
-						$RAW_QUERY = "delete from usuarios_rol where urol_usu_id in (".  implode(",", $deleteList).") AND urol_cli_id =  $clientId "; //2 = Cliente( Representante )
+						$RAW_QUERY = "delete from cliente_usuario where cli_usu_usu_id in (".  implode(",", $deleteList).") AND cli_usu_cli_id =  $clientId "; //2 = Cliente( Representante )
 						$statement = $em->getConnection()->prepare($RAW_QUERY);
 						$statement->execute();
 					}
@@ -575,19 +574,26 @@ class ClienteController extends Controller
 			$representer_repo = $em->getRepository("AppBundle:Usuario")->find($lastRepresenter);
 			
 			
+			if (isset($clientId) && $clientId > 0) 
+			{
+				$RAW_QUERY = "delete from cliente_usuario where cli_usu_cli_id = $clientId ";
+				$statement = $em->getConnection()->prepare($RAW_QUERY);
+				$statement->execute();
+			}
+			
 			//$lastRepresenter = $objUserRol->getUsuId();
-			//
-			$objUserRol = new UsuariosRol();
-			$objUserRol->setUsuRolUsuarios(  $representer_repo );
-			$objUserRol->setUsuRolClientes($client_repo);
-			$objUserRol->setUsuRolRols( $role_representer_repo );
+			$objUserRol = new ClienteUsuario();
+			$objUserRol->setCliUsuUsu($representer_repo); //setUsuRolUsuarios(  $representer_repo );
+			$objUserRol->setCliUsuCli($client_repo);
+			$objUserRol->setCliUsuRol( $role_representer_repo );
+			$objUserRol->setCliUsuFechaCrea( new \DateTime() );
 			$em->persist($objUserRol);
 			$flush = $em->flush();
 				
 			//Save all users related for this location establishment
 			if( count($locationListUsers) > 0 )
 			{
-				
+				/*
 				if (isset($clientId) && $clientId > 0) 
 				{
 					//exit("c");
@@ -595,6 +601,7 @@ class ClienteController extends Controller
 					$statement = $em->getConnection()->prepare($RAW_QUERY);
 					$statement->execute();
 				}
+				*/
 				
 				for($i=0; $i < count($locationListUsers); $i++)
 				{
@@ -604,19 +611,20 @@ class ClienteController extends Controller
 						//========================================
 						//Save all users except the representer 
 						//========================================
-						if (isset($clientId) && $clientId > 0)
-						{
+						//if (isset($clientId) && $clientId > 0)
+						//{
 							//Check if exists or is new in module edit, if not exists then the represented added a new user
 							$user = $em->getRepository('AppBundle:Usuario')->findOneBy( array( "usuUsuario"=>$locationListUsers[$i]['username'] ) );
 							if( !$user )
 							{
 								$user = new Usuario();
 							}
-						}
-						else
-						{
-							$user = new Usuario();
-						} 
+						//}
+						//else
+						//{
+							//echo "aqui";
+							//$user = new Usuario();
+						//} 
 						//$user = new Usuario();
 						if( isset($locationListUsers[$i]['name']) && !empty($locationListUsers[$i]['name']) )
 						{
@@ -647,16 +655,17 @@ class ClienteController extends Controller
 						
 						$user_repo = $em->getRepository('AppBundle:Usuario')->find( $lastUser );
 						
-						$objUserRol = new UsuariosRol();
+						$objUserRol = new ClienteUsuario();
 						/*
 						$objUserRol->setUrolCliId( $client_repo ); // cliente 
 						$objUserRol->setUrolUsuId( $user_repo ); //user
 						$objUserRol->setUrolRolId( $role_repo ); //role
-						*/
+						*/						
 						
-						$objUserRol->setUsuRolUsuarios( $user_repo );
-						$objUserRol->setUsuRolClientes( $client_repo );
-						$objUserRol->setUsuRolRols($role_repo);
+						$objUserRol->setCliUsuUsu($user_repo); //setUsuRolUsuarios(  $representer_repo );
+						$objUserRol->setCliUsuCli($client_repo);
+						$objUserRol->setCliUsuRol( $role_repo );
+						$objUserRol->setCliUsuFechaCrea( new \DateTime() );
 						
 						$em->persist($objUserRol);
 						$flush = $em->flush();
@@ -673,23 +682,24 @@ class ClienteController extends Controller
 						$lastUser = $oRepresenter->getUsuId();
 						
 						
-						$objUserRol = new UsuariosRol();
+						$objUserRol = new ClienteUsuario();
 						/*
 						$objUserRol->setUrolCliId( $client_repo ); // cliente 
 						$objUserRol->setUrolUsuId( $representer_repo ); //user
 						$objUserRol->setUrolRolId( $role_repo ); //role
 						*/
 						//exit("xxxx");
-						$objUserRol->setUsuRolUsuarios( $representer_repo );
-						$objUserRol->setUsuRolClientes( $client_repo );
-						$objUserRol->setUsuRolRols($role_repo);
+						$objUserRol->setCliUsuUsu( $representer_repo );
+						$objUserRol->setCliUsuCli( $client_repo );
+						$objUserRol->setCliUsuRol($role_repo);
+						$objUserRol->setCliUsuFechaCrea( new \DateTime() );
 						
 						$em->persist($objUserRol);
 						$flush = $em->flush();
 						
 						
 					}
-					
+					/*
 					//========================================
 					//Sava data in cliente_usuario
 					//========================================					
@@ -698,18 +708,27 @@ class ClienteController extends Controller
 
 					$oClientUser = new ClienteUsuario();
 					$oClientUser->setCliUsuCli( $client_repo );
-					$oClientUser->setCliUsuFechaCrea( new \Datetime() );
+					$oClientUser->setCliUsuFechaCrea( new \DateTime() );
 					$oClientUser->setCliUsuRol( $role_repo );
 					$oClientUser->setCliUsuUsu( $user_repo );
+					//$oClientUser->setCliUsuFechaCrea( new)
 					$em->persist($oClientUser);
 					$flush = $em->flush();
+					*/
 				}
 			}
 				
 			//} 
 
 			$em->getConnection()->commit();
-			$this->session->getFlashBag()->add("success","Registro creado con éxito");
+			if (isset($clientId) && $clientId > 0) {
+				$msg = "Se actualizó correctamente los datos del extablecimiento con éxito";
+			}
+			else
+			{
+				$msg = "Registro creado con éxito";
+			}
+			$this->session->getFlashBag()->add("success", $msg);
 			echo 1;
 			
 		}

@@ -167,9 +167,15 @@
 					</div>
 				</li>
 			</ul>
+            {% if app.session.get('locationName') is defined and app.session.get('locationName') != "" %}
+                <p class="navbar-text">
+                    <span class="label bg-success-400">Sucursal activa:
 
-			<p class="navbar-text"><span class="label bg-success-400">Online</span></p>
+                        {{ app.session.get('locationName') ~" >> " ~ app.session.get('municipalityName') }}
 
+                    </span>
+                </p>
+            {% endif %}
 			<ul class="nav navbar-nav navbar-right">
 				{#
                 <li class="dropdown language-switch">

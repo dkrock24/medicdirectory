@@ -23,10 +23,10 @@ AppBundle\Entity\UsuarioInformacion:
             type: string
             nullable: true
             length: 255
-            options: 
+            options:
                 fixed: false
             column: usi_telefono
-        usiInfoPerfil:
+        usiDescripcion:
             type: string
             nullable: true
             length: 255

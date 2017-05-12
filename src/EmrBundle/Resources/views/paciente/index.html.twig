@@ -76,15 +76,30 @@
                             var buttonID = data[5];
                             var routeShow = "{{ path('paciente_show', { 'id': "PLACEHOLDER" }) }}";
                             var routeEdit = "{{ path('paciente_edit', { 'id': "PLACEHOLDER" }) }}";
+                            var routeAgenda = "{{ path('agenda_new', { 'p': "PLACEHOLDER" }) }}";
 
                             routeShow = routeShow.replace("PLACEHOLDER", buttonID);
                             routeEdit = routeEdit.replace("PLACEHOLDER", buttonID);
+                            routeAgenda = routeAgenda.replace("PLACEHOLDER", buttonID);
 
-                            var listBtn = "<a href="+routeShow+" class='btn btn-default btn-sm'><i class='fa fa-folder-open'></i> Ver</a>";
-                            listBtn += " <a href="+routeEdit+" class='btn bg-teal-400 btn-sm'><i class='fa fa-edit'></i> Editar</a>";
+                            //var listBtn = "<a href="+routeShow+" class='btn btn-default btn-sm'><i class='fa fa-folder-open'></i> Ver</a>";
+                            //listBtn += " <a href="+routeEdit+" class='btn bg-teal-400 btn-sm'><i class='fa fa-edit'></i> Editar</a>";
+                            
+                            var btn_group = "<div class='btn-group' role='group'>";
+                            btn_group += "<button type='button' class='label bg-success dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>";
+                            btn_group += "Acción";
+                            btn_group += "<span class='caret'></span>";
+                            btn_group += "</button>";
+                            btn_group += "<ul class='dropdown-menu dropdown-menu-right'>";
+                            btn_group += "<li><a href='"+routeAgenda+"'><i class='fa fa-calendar'></i> Crear cita</a></li>";
+                            btn_group += "<li class='divider'></li>";
+                            btn_group += "<li><a href='"+routeShow+"'><i class='fa fa-folder-open'></i> Ver</a></li>";
+                            btn_group += "<li><a href='"+routeEdit+"'><i class='fa fa-edit'></i> Editar</a></li>";
+                            btn_group += "</ul>";
+                            btn_group += "</div>";
+                            
 
-
-                            return listBtn;
+                            return btn_group;
                         }
                     } ]         
                 });

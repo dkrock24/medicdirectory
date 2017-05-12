@@ -1,0 +1,1097 @@
+{% extends "Layout/base_emr/_clients_base.html.twig" %}
+
+{% block title_page %}
+        EMR || Nueva Cita
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('EmrBundle:cita:_breadcrumb.html.twig' )  }}
+{% endblock %} 
+
+{% block submenutop %}
+    {{ include('EmrBundle:cita:_submenu.html.twig' )  }}
+{% endblock %} 
+
+{% block body %}
+    <style>
+        /*
+        #calendar {
+		max-width: 900px;
+		margin: 0 auto;
+        }
+        */
+    
+        #divUserPatient{
+            display: none;
+            
+            
+        }
+
+    </style>
+    
+    <div class="page-header-content">
+        <div class="page-title">
+            <h4>
+                <i class="fa fa-info-circle position-left"></i>
+                <span class="text-semibold">Home</span> - Calendario de eventos
+
+                <small class="display-block">Seleccione el horario que desea reservar para el evento</small></h4>
+            <a class="heading-elements-toggle"><i class="icon-more"></i></a><a class="heading-elements-toggle"><i class="icon-more"></i></a></div>
+
+        <div class="heading-elements">
+            <div class="heading-btn-group">
+
+                <a href="#" class="btn btn-link btn-float has-text"><i class="icon-bars-alt text-primary"></i><span>Statistics</span></a>
+                <a href="#" class="btn btn-link btn-float has-text"><i class="icon-calculator text-primary"></i> <span>Invoices</span></a>
+                <a href="#" class="btn btn-link btn-float has-text"><i class="icon-calendar5 text-primary"></i> <span>Schedule</span></a>
+
+            </div>
+        </div>
+
+    </div>
+    
+    
+    {# {{ app.request.query.get("d") }} #}
+    <div class="rowx">
+        <div class="col-lg-12x">
+            <!-- Agenda view -->
+				<div class="panel panel-flat">
+					<div class="panel-heading">
+						<h5 class="panel-title">Calendario</h5>
+                        <!--
+						<div class="heading-elements">
+							<ul class="icons-list">
+		                		<li><a data-action="collapse"></a></li>
+		                		<li><a data-action="reload"></a></li>
+		                		<li><a data-action="close"></a></li>
+		                	</ul>
+	                	</div>
+                        -->
+					</div>
+					
+					<div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-3 col-md-4 col-sm-12">
+                                <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">
+                                    <i class="fa fa-user-md" aria-hidden="true"></i> Doctores asignados
+                                </div>
+                                <div>
+                                    {#
+                                    
+                                    #}
+                                   
+                                    {% if doctorList|length > 0 %}
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Doctor</th>
+                                                    <th>Acción</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for doctor in doctorList %}
+                                                {% if "6" in userRoles|keys  %}
+                                                    {% if app.user.usuId == doctor.usu_id %}
+                                                    <tr id="d_{{ doctor.usu_id }}">
+                                                        <td>{{ doctor.usu_nombre }}</td>
+                                                        <td>
+                                                            <a href="" class="btn btn-primary btn-sm" data-popup="tooltip" title="" data-original-title="Mandar email"><i class="fa fa-envelope-o" aria-hidden="true"></i> </a>
+                                                            {% if app.request.query.get("p") == "" %}
+                                                                <a href="{{ path('agenda_new') }}?d={{ doctor.usu_id}}" class="btn btn-success btn-sm" data-popup="tooltip" title="" data-original-title="Ver Agenda"><i class="fa fa-calendar"></i></a>
+                                                            {% else %}
+                                                                <a href="{{ path('agenda_new') }}?d={{ doctor.usu_id}}&p={{app.request.query.get("p")}}" class="btn btn-success btn-sm" data-popup="tooltip" title="" data-original-title="Ver Agenda"><i class="fa fa-calendar"></i></a>
+                                                            {% endif %}
+                                                        </td>
+                                                    </tr>
+                                                    {% endif %}
+                                                {% else %} 
+                                                   
+                                                   
+                                                    <tr id="d_{{ doctor.usu_id }}">
+                                                        <td>{{ doctor.usu_nombre }}</td>
+                                                        <td>
+                                                            <a href="" class="btn btn-primary btn-sm" data-popup="tooltip" title="" data-original-title="Mandar email"><i class="fa fa-envelope-o" aria-hidden="true"></i> </a>
+                                                            {% if app.request.query.get("p") == "" %}
+                                                                <a href="{{ path('agenda_new') }}?d={{ doctor.usu_id}}" class="btn btn-success btn-sm" data-popup="tooltip" title="" data-original-title="Ver Agenda"><i class="fa fa-calendar"></i></a>
+                                                            {% else %}
+                                                                <a href="{{ path('agenda_new') }}?d={{ doctor.usu_id}}&p={{app.request.query.get("p")}}" class="btn btn-success btn-sm" data-popup="tooltip" title="" data-original-title="Ver Agenda"><i class="fa fa-calendar"></i></a>
+                                                            {% endif %}
+                                                        </td>
+                                                    </tr>
+                                                   
+                                                {% endif %}
+                                                
+                                                
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>    
+                                    {% else %}    
+                                        <div class="alert alert-danger"><i class="fa fa-times-circle" aria-hidden="true"></i> No hay doctores asociados a este establecimiento</div>
+                                    {% endif %}    
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-md-8 col-sm-12">
+                                <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">
+                                    Calendario de eventos 
+                                    <span id="labelDoctorName">
+                                        {% if app.request.query.get("d") is null  %}
+                                            <strong>( Selecciona la agenda un doctor )</strong>
+                                        {% endif %}
+                                    </span>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-9 col-md-9 col-sm-12">
+                                        
+                                        {% if app.request.query.get("d") is defined and app.request.query.get("d") > 0 %}
+                                            <div id="calendar"></div>
+                                        {% else %}
+                                            <div id="datepickerSimple"></div>
+                                        {% endif %}    
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-12">
+                                        <div class="alert alert-info ">
+                                            Tipos de eventos
+                                        </div>
+                                        <div>
+                                            <div >
+                                                <span style="background:#0E77AE; width: 25px; height: 25px; display:inline-block; float: left;"></span>
+                                                <span style="line-height: 25px; float: left; padding-left: 10px"> Cita médica</span>
+                                                <div style="clear:both; margin-bottom: 10px;" ></div>
+                                            </div>
+                                            <div>
+                                                <span style="background:#26A69A; width: 25px; height: 25px; display:inline-block; float: left;"></span>
+                                                <span style="line-height: 25px; float: left; padding-left: 10px"> Evento Personal</span>
+                                                <div style="clear:both; margin-bottom: 10px;" ></div>
+                                            </div>
+                                            <div>
+                                                <span style="background:#3a3a3a; width: 25px; height: 25px; display:inline-block; float: left;"></span>
+                                                <span style="line-height: 25px; float: left; padding-left: 10px"> Ausente</span>
+                                                <div style="clear:both; margin-bottom: 10px;" ></div>
+                                            </div>
+                                            <div>
+                                                <span style="background:#93c54b; width: 25px; height: 25px; display:inline-block; float: left;"></span> 
+                                                <span style="line-height: 25px; float: left; padding-left: 10px"> Receso</span>
+                                                <div style="clear:both; margin-bottom: 10px;" ></div>
+                                            </div>
+                                            <div>
+                                                <span style="background:#FF7043; width: 25px; height: 25px; display:inline-block; float: left;"></span> 
+                                                <span style="line-height: 25px; float: left; padding-left: 10px"> Otros</span>
+                                                <div style="clear:both; margin-bottom: 10px;" ></div>
+                                            </div>                                            
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+					</div>
+				</div>
+				<!-- agenda view -->
+        </div>
+        <div class="">
+           {# {{ include('EmrBundle:paciente:_search.html.twig' )  }}    #}   
+        </div>
+    </div>
+            
+    <!-- Modal -->
+    <!---
+    <div class="modal fade" id="calendarModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+          </div>
+          <div class="modal-body">
+              <div id="modalTitle"></div>
+              <div id="modalByWhen"></div>
+              <div id="eventId"></div>
+              
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="save">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>  
+    -->
+    <!-- Modal to Event Details -->
+
+<!-- Modal  to Add Event -->
+   
+<div id="createEventModal" class="modal fade" role="dialog">
+
+    <div class="modal-dialog">
+    <!--<div class="modal-dialog modal-lg"> -->
+        <!-- Modal content-->
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Agregar evento</h4>
+            </div>
+
+            <div class="modal-body">
+                
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="control-group">
+                            <label class="control-label" for="eventType">Seleccionar tipo de evento:</label>
+                            <select class="form-control" id="eventType">
+                                <option value="1">Cita Médica</option>
+                                {% if "6" in userRoles|keys %} {# 6 = role Medico #}
+                                    <option value="2">Evento Personal</option>
+                                    <option value="3">Ausente</option>
+                                    <option value="4">Receso</option>
+                                    <option value="5">Otros</option>
+                                {% endif %} 
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div id="divRoom">
+                            <label class="control-label" for="room"># Consultorio:</label>
+                            <input type="text" value="" placeholder="# Consultorio" class="form-control" id="room">
+                        </div>
+                    </div>
+                </div>
+                
+                <hr>
+                
+                <div class ="form-group" id="divSearchPatient">
+                    <div class="field">
+                        <label class="control-label" for="title" id="titlePatient">Añadir paciente:</label>
+                        <form id="form_search_patients">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Nombre o DUI" id="input_search_patients" autocomplete="off">
+                                <span class="input-group-btn">
+                                    <button class="btn bg-slate" type="submit" id="btn_search_patients"><i class="glyphicon glyphicon-search"></i></button>
+                                </span>
+                            </div><!-- /input-group -->
+                        </form>
+                        
+                         <input type="hidden" value="" id="setUserAppointmentId" >
+                         <div id="divUserPatient">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                <input type="text" value="" id="setUserAppointmentName" class="form-control" disabled="disabled">
+                            </div>
+                         </div>
+                        <div id="result_search_patients"></div>
+                    </div>
+                </div>
+                
+                <div class ="form-group">
+                    <label class="control-label" for="title">Doctor:</label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-user-md"></i></span>
+                        <input class="form-control" id="doctorId" name="doctorId" placeholder="Doctor" type="hidden" value="">
+                        <input class="form-control" id="doctorName" name="doctorName" placeholder="Doctor" type="text" value="" disabled="disabled">   
+                        
+                    </div>
+                </div>
+                <div class ="form-group">
+                    <div class="field desc">
+                         <label class="control-label" for="title">Nota:</label>
+                         <input class="form-control" id="title" name="title" placeholder="Nota:" type="text" value="" autocomplete="off">
+                    </div>
+                </div>
+
+                <input type="hidden" id="startTime"/>
+                <input type="hidden" id="endTime"/>
+
+                <div class="control-group">
+                    <label class="control-label" for="when">Cuando:</label>
+                    <div class="alert alert-info alert-styled-left alert-arrow-left alert-component"><div class="controls controls-row" id="when" style="margin-top:5px;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times-circle-o" aria-hidden="true"></i> Cerrar</button>
+                <button type="submit" class="btn btn-success" id="submitButton"><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal to Event Details -->
+
+<div id="calendarModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Detalles del evento</h4>
+            </div>
+
+            <div id="modalBody" class="modal-body">
+                <h4 class="modal-title">Tipo Evento: <span id="modalTitle"></span></h4>
+                <div style="margin-top:5px;"><span><strong>Fecha: </strong></span><span id="modalWhen"></span></div>
+                <div>
+                    <div id="detailAppointment"></div>
+                    <hr>
+                    <button type="button" class="btn btn-info  btn-xs btn-show-more" > Ver más <i class="fa fa-plus-circle"></i></button>
+                    <hr>
+                </div>
+            </div>
+
+            <input type="hidden" id="eventID"/>
+            <div class="modal-footer">
+                <button class="btn"  data-dismiss="modal" aria-hidden="true"><i class="fa fa-times-circle-o" aria-hidden="true"></i> Cerrar</button>
+                <button type="submit" class="btn btn-danger" id="deleteButton"><i class="fa fa-trash" aria-hidden="true"></i> Eliminar</button>
+                <a href="" class="btn btn-success" id=""><i class="fa fa-medkit" aria-hidden="true"></i> Inicar Consulta</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal-->
+
+<!--Modal-->
+{% endblock %}
+
+
+{% block codejs %}
+    <script>
+        $(document).on("ready", function(){
+        //$(function(window,undefined){
+            
+            var d = "{{ app.request.query.get("d") }}";
+            if( d != "")
+            {
+                var doctor = $("body").find("#d_"+d).find("td").eq(0).text();
+                $("#doctorName").val(doctor);
+                $("#doctorId").val(d);
+                $("#labelDoctorName").html(" (<strong>"+doctor+"</strong>) ");
+                
+            }
+            
+            if( $("#datepickerSimple").size() == 1 )
+            {
+                
+                //$(".ui-datepicker-year").select2();
+                $.datepicker.regional['es'] = {
+                   closeText: 'Cerrar',
+                   prevText: '< Ant',
+                   nextText: 'Sig >',
+                   currentText: 'Hoy',
+                   monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                   monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+                   dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+                   dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+                   dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
+                   weekHeader: 'Sm',
+                   dateFormat: 'yy-mm-dd',
+                   firstDay: 1,
+                   isRTL: false,
+                   showMonthAfterYear: false,
+                   yearSuffix: ''
+                };
+                $.datepicker.setDefaults($.datepicker.regional['es']);               
+                $( "#datepickerSimple" ).datepicker({
+                    onSelect: function (dateText, inst) {
+                        if( d == "")
+                        {
+                            var doctorMsg = "";
+                            {% if doctorList|length > 0 %}
+                                 doctorMsg = "<p class='small'>Lista de doctores asociados a este establecimiento: <strong>{{ doctorList|length }}</strong></p>";       
+                            {% else %}
+                                doctorMsg = "<p class='small'>El establecimiento no cuenta con doctores asociados</p> ";
+                            {% endif %}            
+                            $.alert({
+                                icon: 'glyphicon glyphicon-exclamation-sign',
+                                title: 'Info!',
+                                content: "<p class='small'>Debes seleccionar la agenda de un doctor para agendar los eventos</p> <hr>"+doctorMsg,
+                                type: 'red',
+                                typeAnimated: true,
+                            });
+                        }
+                     }
+                });
+            }
+            
+            //$('[data-toggle="tooltip"]').tooltip();
+            
+            // Add events
+            // ------------------------------
+            var initialLocaleCode = 'es-do';
+
+            // Event colors
+            var eventColors = [
+                {
+                    title: 'All Day Event',
+                    start: '2014-11-01',
+                        color: '#EF5350'
+                },
+                {
+                    title: 'Long Event',
+                    start: '2017-04-30',
+                    end: '2017-04-30',
+                    color: '#26A69A'
+                },
+                {
+                    //id: 999,
+                    title: 'Repeating Event x',
+                    start: '2017-04-28T16:00:00',
+                    color: '#26A69A'
+                },
+                {
+                    id: 999,
+                    title: 'Repeating Event y',
+                    start: '2014-11-16T16:00:00',
+                    color: '#5C6BC0'
+                },
+                {
+                    title: 'Conference',
+                    start: '2014-11-11',
+                    end: '2014-11-13',
+                    color: '#546E7A'
+                },
+                {
+                    title: 'Meeting',
+                    start: '2014-11-12T10:30:00',
+                    end: '2014-11-12T12:30:00',
+                    color: '#546E7A'
+                },
+                {
+                    title: 'Birthday Party',
+					start: '2014-11-13T07:00:00',
+					color: '#546E7A'
+                },
+				{
+                    //idName: "1",
+                    title: 'Click for Google',
+					url: 'http://google.com/',
+					start: '2017-05-12',
+					color: '#FF7043',
+                    className: "xxx",
+				}
+			];
+
+            // Initialization
+            // ------------------------------
+            // Agenda view
+            if( $("#calendar").size() == 1 )
+            {
+                $('#calendar').fullCalendar({
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay'
+                },
+                //default: 30,
+                locale: initialLocaleCode,
+                //defaultDate: '2017-04-29',
+                defaultView: 'agendaWeek',
+                editable: true,
+                eventLimit: true, // allow "more" link when too many events
+                navLinks: true, // can click day/week names to navigate views
+                selectable: true,
+                selectHelper: true,
+                //events: eventColors,
+                //events: "{{ path('agenda_valida') }}?view=1&d="+d,
+                
+                eventSources: [
+                    // your event source
+                    {
+                        url: "{{ path('agenda_valida') }}",
+                        type: 'GET',
+                        data: {
+                            view: 1,
+                            doctor: d
+                        },
+                        beforeSend: function(){
+                           $("#holder_loading").show();
+                        },
+                        error: function() {
+                            $("#holder_loading").hide();
+                            //alert('there was an error while fetching events!');
+                            $.confirm({
+                                icon: 'fa fa-remove',
+                                title: 'Error!',
+                                content: 'Ha ocurrido un error al tratar de mostrar la agenda del doctor',
+                                type: 'red',
+                                typeAnimated: true,
+                                buttons: {
+                                    tryAgain: {
+                                        text: 'Intentar de nuevo',
+                                        btnClass: 'btn-red',
+                                        action: function () {
+                                            location.reload();
+                                        }
+                                    },
+                                    close: function () {
+                                    }
+                                }
+                            });
+                        },
+                        success: function(){
+                            $("#holder_loading").hide();
+                        },
+                        //color: 'yellow',   // a non-ajax option
+                        //textColor: 'WHITE' // a non-ajax option
+                    }
+                    // any other sources...
+                ],
+                
+                eventClick:  function(event, jsEvent, view) {  // when some one click on any event
+
+                    endtime = $.fullCalendar.moment(event.end).format("h:mm");
+                    starttime = $.fullCalendar.moment(event.start).format("dddd, MMMM Do YYYY, h:mm");
+                    var bywhen = starttime + " – " + endtime;
+                    $("#modalTitle").html(event.title);
+                    $("#modalWhen").text(bywhen);
+                    $("#eventID").val(event.id);
+                    $("#detailAppointment").empty();
+                    $("#calendarModal").modal({backdrop: 'static', keyboard: false});
+                    
+                    console.log("click");
+                },
+                select: function(start, end, jsEvent) {  // click on empty time slot
+                    endtime = $.fullCalendar.moment(end).format("h:mm");
+                    starttime = $.fullCalendar.moment(start).format("dddd, MMMM Do YYYY, h:mm");
+                    var bywhen = starttime + " – " + endtime;
+                    start = moment(start).format();
+                    end = moment(end).format();
+                    $("#createEventModal #startTime").val(start);
+                    $("#createEventModal #endTime").val(end);
+                    $("#createEventModal #when").text(bywhen);
+                    
+                    
+                    //$("#createEventModal").modal("toggle");
+                    $("#createEventModal").modal({backdrop: 'static', keyboard: false});
+                    
+                    console.log("select");
+
+                },
+                eventDrop: function(event, delta){ // event drag and drop
+                    $("#holder_loading").show();
+                    $.ajax({
+                        url: "{{ path('agenda_valida')}}",
+                        data: "action=update&title="+event.title+"&start="+moment(event.start).format()+"&end="+moment(event.end).format()+"&id="+event.id ,
+                        type: "POST",
+                        success: function(json) {
+                            $("#holder_loading").hide();
+                        },
+                        error: function() {
+                            $("#holder_loading").hide();
+                            //alert('there was an error while fetching events!');
+                            $.alert({
+                                icon: 'fa fa-times',
+                                title: 'Error!',
+                                content: "<p class='small'>No se ha posido actualizar el evento</p> <hr>",
+                                type: 'red',
+                                typeAnimated: true,
+                            });
+                        }        
+                    });
+                    
+                    console.log("drop");
+                },
+                eventResize: function(event) {  // resize to increase or decrease time of event
+                    $("#holder_loading").show();
+                    $.ajax({
+                        url: "{{ path('agenda_valida') }}",
+                        data: "action=update&title="+event.title+"&start="+moment(event.start).format()+"&end="+moment(event.end).format()+"&id="+event.id,
+                        type: "POST",
+                        success: function(json) {
+                            $("#holder_loading").hide();
+                        },
+                        error: function() {
+                            $("#holder_loading").hide();
+                            //alert('there was an error while fetching events!');
+                            $.alert({
+                                icon: 'fa fa-times',
+                                title: 'Error!',
+                                content: "<p class='small'>No se ha posido actualizar el evento</p> <hr>",
+                                type: 'red',
+                                typeAnimated: true,
+                            });
+                        }        
+                    });
+            }
+                /*
+                select: function(start, end) {
+                   
+                    var title = prompt('Event Title:');
+                    var eventData;
+                    if (title) {
+                        eventData = {
+                            title: title,
+                            start: start,
+                            end: end
+                        };
+                        $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+                    }
+                    $('#calendar').fullCalendar('unselect');
+                    
+                },
+                */
+                
+            });
+            }
+            
+            $("#submitButton").on("click", function(e){ // add event submit
+                // We don"t want this to act as a link so cancel the link action
+                e.preventDefault();
+                var eventType = $("#eventType").val();
+                var setUserAppointmentId = $("#setUserAppointmentId").val();
+                if( eventType == 1 )
+                {
+                    if( setUserAppointmentId == "" )
+                    {
+                        $.alert({
+                            icon: 'glyphicon glyphicon-exclamation-sign',
+                            title: 'Info!',
+                            content: 'Para agendar una cita médica debe de seleccionar el paciente',
+                            type: 'red',
+                            typeAnimated: true,
+                        });
+                        return false;
+                    }
+                }
+                
+                doSubmit(); // send to form submit function
+            });
+
+       
+
+            $("#deleteButton").on("click", function(e){ // delete event clicked
+                // We don"t want this to act as a link so cancel the link action
+                e.preventDefault();
+                
+                $.confirm({
+                    icon: 'fa fa-exclamation-triangle',
+                    title: 'Confirme',
+                    content: 'Esta seguro de cancelar el evento?',
+                    type: 'red',
+                    typeAnimated: true,
+                    buttons: {
+                        tryAgain: {
+                            text: 'Si',
+                            btnClass: 'btn-green',
+                            action: function () {
+                                doDelete(); //send data to delete function
+                            }
+                        },
+                        tryClose: {
+                            text: 'No',
+                            btnClass: 'btn-red',
+                            action: function () {
+                                            
+                            }
+                        },
+                    }
+                });
+            });
+
+       
+
+        function doDelete(){  // delete event 
+
+           $("#calendarModal").modal("hide");
+           var eventID = $("#eventID").val();
+           $("#holder_loading").show();
+           $.ajax({
+               url: "{{ path('agenda_valida') }}",
+               data: "action=delete&id="+eventID,
+               type: "POST",
+               success: function(json) {
+                   $("#holder_loading").hide();
+                   if(json == 1)
+                    {   
+                        $("#calendar").fullCalendar("removeEvents",eventID);
+                    }    
+                    else
+                    {
+                        return false;
+                    }
+               },
+                error: function(json){
+                    $.alert({
+                        icon: 'fa fa-times',
+                        title: 'Error!',
+                        content: "<p class='small'>No se ha podido eliminar el evento</p>",
+                        type: 'red',
+                        typeAnimated: true,
+                    });  
+                    $("#holder_loading").hide();  
+                    return false;
+                   
+               }       
+           });
+
+       }
+
+        function doSubmit(){ // add event
+
+           $("#createEventModal").modal("hide");
+           var title = $("#title").val();
+           var startTime = $("#startTime").val();
+           var endTime = $("#endTime").val();
+           var doctorId = $("#doctorId").val();
+           var setUserAppointmentId = $("#setUserAppointmentId").val();
+           var room = $("#room").val();
+           var eventType = $("#eventType").val();
+           
+           $("#holder_loading").show();
+           
+           var color = "";
+           var event = "";
+            switch ( eventType )
+			{
+                case "1":
+                    color = "#0E77AE";
+					event = " Cita médica";
+					break;
+				case "2":
+                    color = "#26A69A";
+					event = " Evento Personal ";
+					break;
+				case "3":
+                    color = "#3a3a3a";
+					event = " Ausente ";
+					break;
+				case "4":
+                    color = "#93c54b";
+					event = "Receso";	
+                default:
+                    color = "#FF7043";
+					event = "Otros";
+					break;
+			}
+           
+           $.ajax({
+
+               url: "{{ path('agenda_valida') }}",
+               data: "action=add&title="+title+"&start="+startTime+"&end="+endTime+"&doctor="+doctorId+"&patient="+setUserAppointmentId+"&room="+room+"&eventType="+eventType,
+               type: "POST",
+               success: function(json) {
+                   //alert(json.id);
+                   $("#holder_loading").hide();
+                   $("#calendar").fullCalendar("renderEvent",
+                   {
+                       id: json.id,
+                       title: title,
+                       start: startTime,
+                       end: endTime,
+                       color: color,
+                       className: "gio-xxx",
+                   },
+                   true);
+                   
+               },
+               error: function(json){
+                  // alert(json.id);
+                  $("#holder_loading").hide(); 
+                  $("#calendar").fullCalendar("renderEvent",
+                   {
+                       id: json.id,
+                       title: title,
+                       start: startTime,
+                       end: endTime,
+                       color: color,
+                   },
+                   true);
+                   
+               }
+           });
+       }
+            
+
+        $("#eventType").change(function(){
+            if( $(this).val() != 1 ) //1 = Cita medica
+            {
+                $("#divRoom, #divSearchPatient").hide();
+                $("#setUserAppointmentId, #setUserAppointmentName").val("");
+                $("#result_search_patients").empty();
+            }
+            else
+            {
+                $("#divRoom, #divSearchPatient").show();
+                //console.log("No");
+            }
+        });
+        
+        $(".btn-show-more").on("click", function(){
+            var eventId =  $("#eventID").val();
+            getMoreDetailAppoitment(eventId)
+        });
+        function getMoreDetailAppoitment(id)
+        {
+            $("#holder_loading").show();
+            $.ajax({
+
+               url: "{{ path('agenda_detail') }}",
+               data: { id: id},
+               type: "POST",
+               error: function(json){
+ 
+                   $("#holder_loading").hide();
+               },
+               success: function(json) {
+                   $("#holder_loading").hide();
+                   if( json.res == 1)
+                   {
+                       var moreDetail = "";
+                       if( json.appointment == 1 )
+                       {
+                           //It's appointment
+                           var room = (json.room != null)?json.room:"N/A";
+                           var dui = (json.dui != null)?json.dui:"N/A";
+                           var email = (json.email != null)?json.email:"N/A";
+                           var notes = (json.notes != null)?json.notes:"N/A";
+                           moreDetail += "<div><span><strong># Consultorio:</strong> </span><span>"+ room+"</span></div>";
+                           moreDetail += "<div><span><strong>Nombre del paciente:</strong> </span><span>"+json.fullname+"</span></div>";
+                           moreDetail += "<div><span><strong>DUI:</strong> </span><span>"+dui+"</span></div>";
+                           moreDetail += "<div><span><strong>Email:</strong> </span><span>"+email+"</span></div>";
+                           moreDetail += "<div><span><strong>Notas:</strong> </span><span>"+notes+"</span></div>";
+                       }
+                       else
+                       {
+                           // It's not appointment
+                           var notes = (json.notes != null)?json.notes:"N/A";
+                           moreDetail += "<div><span><strong>Notas:</strong> </span><span>"+notes+"</span></div>";
+                       }
+                       
+                       $("#detailAppointment").html("<hr>"+moreDetail);
+                   }
+                   else
+                   {
+                       $.alert({
+                            icon: 'fa fa-times',
+                            title: 'Info!',
+                            content: 'Ha ocurrido un error al intentar ver el detalle completo del evento, intente nuevamente',
+                            type: 'red',
+                            typeAnimated: true,
+                        });
+                   }
+                  
+               },        
+           });
+        }
+        
+        //======================================================================
+        //Search patient
+        //======================================================================
+        $("#form_search_patients").submit(function(e){
+            e.preventDefault();
+            searchPatients();
+            return false;
+        });
+                    
+                    
+        function searchPatients()
+        {
+            var search = $("#input_search_patients").val();
+            if( $.trim(search) == "" )
+            {
+                //var infoError = (data);
+                $.alert({
+                    icon: 'glyphicon glyphicon-exclamation-sign',
+                    title: 'Info!',
+                    content: 'El campo de la búsqueda no puede estar vacio',
+                    type: 'blue',
+                    typeAnimated: true,
+                });
+                return false;
+            }
+            $("#holder_loading").show();
+            $.ajax({
+                type: "post",
+                url: "{{ path('paciente_search') }}",
+                data: { search: search },
+                error: function (data) {
+                    $("#holder_loading").hide();
+                    $.confirm({
+                        icon: 'fa fa-remove',
+                        title: 'Error!',
+                        content: 'Ha ocurrido un error al tratar de enviar la petición',
+                        type: 'red',
+                        typeAnimated: true,
+                        buttons: {
+                            tryAgain: {
+                                text: 'Intentar de nuevo',
+                                btnClass: 'btn-red',
+                                action: function () {
+                                    searchPatients();
+                                }
+                            },
+                            close: function () {
+                            }
+                        }
+                    });
+                },
+                success: function (data) {
+                    $("#holder_loading").hide();
+                    if( data.length > 0)
+                    {
+                        var table = "<table class='table table-striped' id='table_result_patients'><thead><tr><th>Nombre</th><th>DUI</th><th></th></tr></thead><tbody>";
+                        for(i=0; i < data.length; i++)
+                        {
+                            var routeEdit = "{{ path('paciente_edit', { 'id': "PLACEHOLDER" }) }}";
+                            routeEdit = routeEdit.replace("PLACEHOLDER", data[i]['pac_id']);
+                            var routeShow = "{{ path('paciente_show', { 'id': "PLACEHOLDER" }) }}";
+                            routeShow = routeShow.replace("PLACEHOLDER", data[i]['pac_id']);
+                                            
+                            var btn_group = "<div class='btn-group' role='group'>";
+                            btn_group += "<button type='button' class='label bg-danger-400 dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>";
+                            btn_group += "Acción";
+                            btn_group += "<span class='caret'></span>";
+                            btn_group += "</button>";
+                            btn_group += "<ul class='dropdown-menu dropdown-menu-right'>";
+                            btn_group += "<li><a href='#' class='addUserAppointment noActionLink' data-user='"+data[i]['pac_id']+"'><i class='fa fa-calendar-check-o'></i> Añadir Cita</a></li>";
+                            btn_group += "<li class='divider'></li>";
+                            btn_group += "<li><a href='"+routeShow+"'><i class='fa fa-folder-open'></i> Ver</a></li>";
+                            btn_group += "<li><a href='"+routeEdit+"'><i class='fa fa-edit'></i> Editar</a></li>";
+                            btn_group += "<li class='divider'></li>";
+                            btn_group += "<li><a href='#' class='noActionLink'><i class='fa fa-minus-square'></i> Cerrar menú</a></li>";
+                            btn_group += "</ul>";
+                            btn_group += "</div>";
+                                            
+                            table += "<tr>";
+                            table += "<td>"+data[i]['fullname']+"</td>";
+                            table += "<td>"+data[i]['dui']+"</td>";
+                            table += "<td>"+btn_group+"</td>";
+                            table += "</tr>";
+                        }
+                        table += "</body></table>";
+                    }
+                    else
+                    {
+                        table = "<br><div class='alert alert-danger'><i class='glyphicon glyphicon-exclamation-sign'></i> No se han encontrado regístros</div>";
+                    }
+                    $("#result_search_patients").html(table);
+                    if( $("body").find("#table_result_patients").size() == 1 )
+                    {
+                        $("body").find("#table_result_patients").DataTable({
+                            "searching": false,
+                            "bFilter": false,
+                            "bInfo": false,
+                            "bLengthChange": false,
+                            "pageLength": 5,
+                            "language":{
+                                oPaginate: {
+                                    sFirst: "Primero",
+                                    sLast: "último",
+                                    sNext: "Siguiente",
+                                    sPrevious: "Anterior"
+                                },
+                            },
+                            "order": [[ 0, "desc" ]]
+                        });
+                    }
+                }
+            });
+        }
+        
+        setUserAppointment();
+        function setUserAppointment()
+        {
+            var txt = $("#titlePatient").text();
+            $("body").on("click",".noActionLink", function(e){
+                e.preventDefault();
+
+                if( $(this).hasClass("addUserAppointment") )
+                {
+                   var id =  $( this ).data( "user" );
+                   $("#setUserAppointmentId").val(id);
+                   
+                   var name = $( this ).closest("tr").find("td").eq(0).text();
+                    $("#setUserAppointmentName").val(name);
+                    
+                    $("#result_search_patients").empty();
+                    $("#titlePatient").text("Nombre del paciente:");
+                    
+                    $("#form_search_patients").hide();
+                    
+                    $("#divUserPatient").show();
+                    
+                    if( $("body").find("#newSearch").size() == 0 )
+                    {
+                        $( "#result_search_patients" ).after( "<p class='text-right' id='newSearch'><a href='#'>Nueva busqueda</a></p>" );
+                    }
+                }
+            });
+
+            
+            $("body").on("click","#newSearch a", function(e){
+                e.preventDefault();
+                $("#setUserAppointmentId, #setUserAppointmentName, #input_search_patients").val("");
+                $("#divUserPatient").hide();
+                
+                $("#form_search_patients").show();
+                $("#titlePatient").text(txt);   
+                
+                $("#newSearch").remove();
+                
+                
+                //Clean if exist a user id
+                var patient = "{{ app.request.query.get("p") }}";
+                if( d != "" && patient != "")
+                {
+                    var url = "{{ path('agenda_new') }}";
+                    var action_array = url.split('/');
+                    var path = action_array[action_array.length-1]
+                    history.pushState(null, null, path+"?d="+d);
+                }
+                
+            });
+            
+            {% if patientName != "" and app.request.query.get("p") %}
+                    $("#form_search_patients").hide();
+                    $("#divUserPatient").show();
+                    $("#setUserAppointmentName").val("{{patientName}}" );
+                    $("#setUserAppointmentId").val( "{{ app.request.query.get("p") }}" );
+                    if( $("body").find("#newSearch").size() == 0 )
+                    {
+                        $( "#result_search_patients" ).after( "<p class='text-right' id='newSearch'><a href='#'>Nueva busqueda</a></p>" );
+                    }
+            {% endif %}        
+            
+        }
+        
+        function setModalMaxHeight(element) {
+            this.$element     = $(element);  
+            this.$content     = this.$element.find('.modal-content');
+            var borderWidth   = this.$content.outerHeight() - this.$content.innerHeight();
+            var dialogMargin  = $(window).width() < 768 ? 20 : 60;
+            var contentHeight = $(window).height() - (dialogMargin + borderWidth);
+            var headerHeight  = this.$element.find('.modal-header').outerHeight() || 0;
+            var footerHeight  = this.$element.find('.modal-footer').outerHeight() || 0;
+            var maxHeight     = contentHeight - (headerHeight + footerHeight);
+
+            this.$content.css({
+                'overflow': 'hidden'
+            });
+
+            this.$element
+              .find('.modal-body').css({
+                'max-height': maxHeight,
+                'overflow-y': 'auto'
+            });
+        }
+
+        $('.modal').on('show.bs.modal', function() {
+            $(this).show();
+            setModalMaxHeight(this);
+        });
+
+        $(window).resize(function() {
+            if ($('.modal.in').length != 0) {
+              setModalMaxHeight($('.modal.in'));
+            }
+        });
+            
+    });
+               
+     ////////////////////////////////////
+     // Determine the correct object to use
+     
+    </script>
+{% endblock %}    
+

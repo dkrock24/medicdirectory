@@ -22,14 +22,18 @@ AppBundle\Entity\Cita:
             generator:
                 strategy: IDENTITY
     fields:
-        citFechaCita:
-            type: date
-            nullable: false
-            column: cit_fecha_cita
-        citHoraCita:
-            type: time
-            nullable: false
-            column: cit_hora_cita
+        #citFechaCita:
+        #    type: date
+        #    nullable: false
+        #    column: cit_fecha_cita
+        #citHoraInicioCita:
+        #    type: datetime
+        #    nullable: false
+        #    column: cit_hora_inicio_cita
+        #citHoraFinCita:
+        #    type: datetime
+        #    nullable: false
+        #    column: cit_hora_fin_cita    
         citSala:
             type: string
             nullable: true
