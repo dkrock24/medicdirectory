@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="SysEspecialidades" table="sys_especialidades">
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="categoriaSysEspecialidad" type="string" column="categoria_sys_especialidad" length="60" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="nombreSysEspecialidades" type="string" column="nombre_sys_especialidades" length="50" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="descripcionSysEspecialidades" type="string" column="descripcion_sys_especialidades" length="50" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="codigoSysEspecialidades" type="string" column="codigo_sys_especialidades" length="50" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="estatusSysEspecialidad" type="boolean" column="estatus_sys_especialidad" nullable="true"/>
+  </entity>
+</doctrine-mapping>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="SysConfiguracionPreferencia" table="sys_configuracion_preferencia">
+    <indexes>
+      <index name="FK_sys_configuracion_preferencia_sys_preferencias" columns="id_preferencia"/>
+      <index name="FK_sys_configuracion_preferencia_sys_unidad_medida" columns="id_unidad"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="fechaCreacion" type="datetime" column="fecha_creacion" nullable="true"/>
+    <many-to-one field="idUnidad" target-entity="SysUnidadMedida" fetch="LAZY">
+      <join-columns>
+        <join-column name="id_unidad" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idPreferencia" target-entity="SysPreferencias" fetch="LAZY">
+      <join-columns>
+        <join-column name="id_preferencia" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>
