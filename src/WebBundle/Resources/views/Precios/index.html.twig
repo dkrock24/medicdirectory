@@ -13,16 +13,6 @@
 {% endblock %}
 {%block body %}
 <style>
-
-
-a{
-	font-size: 18px;
-	font-family:'Open Sans';
-    color: white;
-    text-decoration: none;
-
-}
-
 sup{
 
 	font-size: 40px;
@@ -35,40 +25,14 @@ ul{
 	color: #9095aa;
 	padding: 0px;
 	margin: 0px;
-
-
 }
-
-
-.content ul li{
-border-bottom: 1px solid #494a5a;
-padding: 0px;
-margin: 0px;
-text-align: center;
-height: 52px;
-line-height: 52px;
-}
-
-
-#container{
-	width: 100%;
-  text-align:center;
-}
-
-.whole{
-	display: inline-block;
-  
-}
-
-
 
 .type{
-	width: 300px;
+	width: 100%;
 	border-radius: 5px 5px 0px 0px;
 	background-color: #0487bd;
 	height: 62px;
 	border-bottom: 3px solid grey;
-
 }
 
 .type p{
@@ -79,26 +43,24 @@ line-height: 52px;
 	color: white;
 	text-align: center;
 	padding-top: 10px;
-
-	
-
 }
 
 .plan{
-	width: 300px;
+	width: 100%;
+	height: 400px;
 	background-color: #2b2937;
-
 	border-radius: 0px 0px 5px 5px;
     font-family:'Open Sans';
     font-style:condensed;
     font-size: 90px;
     color: white;
     text-align: center;
-
-
 }
 .standard{
 	background-color: #0487bd;
+	border-bottom: 3px solid grey;
+}
+.standard2{
 	border-bottom: 3px solid grey;
 }
 
@@ -107,7 +69,7 @@ line-height: 52px;
 	border-bottom: 3px solid grey;
 }
 
-.header{
+.header{	
 	padding-top: 39px;
 	border-bottom: 1px solid #0487bd;
 	padding-bottom: 39px;
@@ -115,23 +77,29 @@ line-height: 52px;
 
 .header span{
 	font-size: 32px;
-
-	
 }
 
 .month{
 	font-size: 14px;
-	color: #575757;
-	padding: 0px;
+	color: white;
+	padding: 10px;
 	margin: -10px;
 }
 
 .price{
+	width: 100%;
 	height:80px;
+	background: none;
 }
-
-
-
+.comprar{
+	margin-top: 5px;
+	padding: 5px;
+	width: 100%;
+	
+}
+.cart{
+	font-size: 18px;
+}
 
 .top{
   margin-top:35px;
@@ -141,80 +109,255 @@ line-height: 52px;
   opacity: 0.1;
 }
 
+.icono{
+	border-left: 4px solid #3497db;
+	text-align: justify;
+	padding: 15px;
+}
+.logo-icon{
+	width: 15%;
+}
 
+.icono2{
+	border-left: 4px solid #3497db;
+	text-align: center;
+	padding: 15px;
+}
+
+.logo-icon2{
+	width: 15%;
+	float: right;
+}
+
+.bg-skin {
+    background: #46b8da;
+}
+.circled {
+    border-radius: 50%;
+    display: inline-block;
+    color: #fff;
+    width: 1.6em;
+    height: 1.6em;
+    text-align: center;
+    line-height: 1.6em;
+}
+
+.central{
+	text-align: center;
+}
+.caracteristicas{
+	text-align: left;
+}
+.arrow{
+	font-size: 12px;
+	margin-top: -15px;
+	text-align: top;
+}
+.titulos_c{
+	margin-bottom: -5px;
+	margin-left: 5px;
+
+}
 </style>
-<div id="container">
-	<div class="whole">
-		<div class="type">
-			<p>Simple</p>
-		</div>
-		<div class="plan">
+<div class="container">		
+	
 
-			<div class="header">
-				<span>$</span>29<sup>99</sup>
-				<p class="month">per month</p>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="type standard">
+						<p>Caracteristicas Y Costo</p>
+					</div>
+				</div>
 			</div>
-			<div class="content">
-				<ul>
-					<li>15 Email Accounts</li>
-					<li>100GB Space</li>
-					<li>1 Domain Name</li>
-					<li>500GB Bandwidth</li>
-				</ul>
 
-			</div>
-			
-			<div class="price">
-	      <a href="#" class="bottom"><p class="cart">Add to cart</p></a>
-			</div>
-		</div>
-	</div>
-	<div class="whole">
-		<div class="type standard">
-		<p>Standard</p>
-		</div>
-		
-		<div class="plan">
-			<div class="header">
-				<span>$</span>49<sup>99</sup>
-				<p class="month">per month</p>
-			</div>
-			<div class="content">
-				<ul>
-					<li>15 Email Accounts</li>
-					<li>100GB Space</li>
-					<li>1 Domain Name</li>
-					<li>500GB Bandwidth</li>
-				</ul>
-			</div>
-			<div class="price">
-				<a href="#" class="bottom"><p class="cart">Add to cart</p></a>
-			</div>
-		</div>
-	</div>
+			<div class="row standard2">
 
-	<div class="whole ">
-		<div class="type ultimate">
-			<p>Ultimate</p>
-		</div>
-		<div class="plan">
+				<div class="col-lg-3 col-md-3 col-sm-12">
+					<div class="plan">
+						<div class="header">
+							<span>$</span>29<sup>95</sup>
+							<p class="month">Por Mes</p>
+						</div>	
+						<div class="header">
+							<table class="caracteristicas" border=0>
+								<tr>
+									<td><span class="fa fa-arrow-right icon-success arrow"></span></td>
+									<td><h5 class="titulos_c">1 Mes Gratis</h5></td>
+								</tr>
+								<tr>
+									<td><span class="fa fa-arrow-right icon-success arrow"></span></td>
+									<td><h5 class="titulos_c">Soporte Técnico</h5></td>
+								</tr>
+								<tr>
+									<td><span class="fa fa-arrow-right icon-success arrow"></span></td>
+									<td><h5 class="titulos_c"></h5></td>
+								</tr>
+							</table>
+							
+							
+							
+						</div>
+						<div class="price">
+							<a href="#" class="btn btn-primary comprar">
+								<i class="fa fa-cart"></i>
+								<p class="cart">Comprar</p>
+							</a>
+						</div>		
+					</div>	
+								
+				</div>
 
-			<div class="header">
-				<span>$</span>79<sup>99</sup>
-				<p class="month">per month</p>
+				<div class="col-lg-9 col-md-9 col-sm-12">	
+					
+						<table class="table">
+							<tr>
+								<td colspan="2">
+									<div class="panel panel-body">
+										<div class="media">
+											<div class="media-body">
+												<h6 class="media-heading">Usuarios</h6>
+												<span class="text-muted">
+												<i class="fa fa-check"></i>	Creación de un usuario administrador.<br>
+												<i class="fa fa-check"></i>	Multiples Asistentes - Rol Secretaria.<br>
+												<i class="fa fa-asterisk"></i> Cobro Por Usuarios Medicos Extras
+												</span>
+											</div>
+										</div>
+									</div>
+								</td>
+								<td><i class="fa fa-user-md fa-3x circled bg-skin central"></i></td>
+								<td colspan="2"></td>
+								
+							</tr>
+							<tr>
+								<td colspan="2"></td>
+								<td><i class="fa fa-list-alt fa-3x circled bg-skin central"></i></td>
+								<td colspan="2">
+									<div class="panel panel-body">
+										<div class="media">
+											<div class="media-body">
+												<h6 class="media-heading">Publicacón</h6>
+												<span class="text-muted">
+												<i class="fa fa-check"></i>	Publicación del Perfil Medico.<br>
+												<i class="fa fa-check"></i>	Publicacón de las Sucursales Asociadas.<br>
+												<i class="fa fa-asterisk"></i> Enlaces a Redes Sociales
+												</span>
+											</div>
+										</div>
+									</div>
+								</td>								
+							</tr>
+							<tr>
+								<td colspan="2">
+									<div class="panel panel-body">
+										<div class="media">
+											<div class="media-body">
+												<h6 class="media-heading">Sistema EMR</h6>
+												<span class="text-muted">
+												<i class="fa fa-check"></i>	Creación y Administración de Multiples Instancias Medicas.<br>
+												<i class="fa fa-check"></i>	Ideal para Hospitales,Policlinicos,Clinicas etc.<br>
+												<i class="fa fa-check"></i> Administración de Especialidades Medicas.<br>
+												<i class="fa fa-check"></i> Administración de Inventario Medico.<br>
+												</span>
+											</div>
+										</div>
+									</div>
+								</td>
+								<td><i class="fa fa-hospital-o fa-3x circled bg-skin central"></i></td>
+								<td colspan="2"></td>
+								
+							</tr>
+							<tr>
+								<td colspan="2"></td>
+								<td><i class="fa fa-dashboard fa-3x circled bg-skin central"></i></td>
+								<td colspan="2">
+									<div class="panel panel-body">
+										<div class="media">
+											<div class="media-body">
+												<h6 class="media-heading">Dashboard</h6>
+												<span class="text-muted">
+												<i class="fa fa-check"></i>	Indicadores Visuales Estadisticos.<br>
+												</span>
+											</div>
+										</div>
+									</div>
+								</td>
+								
+							</tr>
+							<tr>
+								<td colspan="2">
+									<div class="panel panel-body">
+										<div class="media">
+											<div class="media-body">
+												<h6 class="media-heading">Agenda Medica</h6>
+												<span class="text-muted">
+												<i class="fa fa-check"></i>	Administración del Calendario para Citas por Medico.<br>
+												<i class="fa fa-check"></i>	Administración del Calendario para Eventos.<br>
+												
+												</span>
+											</div>
+										</div>
+									</div>
+								</td>
+								<td><i class="fa fa-calendar fa-3x circled bg-skin central"></i></td>
+								<td colspan="2"></td>								
+							</tr>
+							<tr>
+								<td colspan="2"></td>
+								<td><i class="fa fa-stethoscope fa-3x circled bg-skin central"></i></td>
+								<td colspan="2">
+									<div class="panel panel-body">
+										<div class="media">
+											<div class="media-body">
+												<h6 class="media-heading">Consulta Medica</h6>
+												<span class="text-muted">
+												<i class="fa fa-check"></i>	Modulo Especializado para el Control de la Cita Medica ha Pacientes.<br>
+																								
+												</span>
+											</div>
+										</div>
+									</div>
+								</td>								
+							</tr>
+							<tr>
+								<td colspan="2">
+									<div class="panel panel-body">
+										<div class="media">
+											<div class="media-body">
+												<h6 class="media-heading">Reportes</h6>
+												<span class="text-muted">
+												<i class="fa fa-check"></i>	Generacón de Reportes Ecónomicos.<br>
+												<i class="fa fa-check"></i>	Generacón de Reportes Por Consultas.<br>
+												<i class="fa fa-check"></i>	Generacón de Reportes de Historicos.<br>
+												<i class="fa fa-check"></i>	Mas.<br>
+												</span>
+											</div>
+										</div>
+									</div>
+								</td>
+								<td><i class="fa fa-file-excel-o fa-3x circled bg-skin central"></i></td>
+								<td colspan="2"></td>								
+							</tr>
+							<tr>
+								<td colspan="2"></td>
+								<td><i class="fa fa-check fa-3x circled bg-skin central"></i></td>
+								<td colspan="2">
+									<div class="panel panel-body">
+										<div class="media">
+											<div class="media-body">
+												<h6 class="media-heading">Ciclo Medico</h6>
+												<span class="text-muted">
+												<i class="fa fa-check"></i>	El Sistema Engloba el Ciclo Medico desde el Registro del Paciente,
+												Pasando por la agenda de Citas, la Creación de consulta, Diagnostico y Receta Medica.<br>
+												</span>
+											</div>
+										</div>
+									</div>
+								</td>								
+							</tr>
+						</table>			
+				</div>
 			</div>
-			<div class="content">
-				<ul>
-					<li>15 Email Accounts</li>
-					<li>100GB Space</li>
-					<li>1 Domain Name</li>
-					<li>500GB Bandwidth</li>
-				</ul>
-			</div>
-			<div class="price">
-	      		<a href="#" class="bottom"><p class="cart">Add to cart</p></a>
-			</div>
-		</div>
-	</div>
+
 </div>
 {% endblock %}

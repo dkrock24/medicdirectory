@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="SysDepartamentos" table="sys_departamentos">
+    <indexes>
+      <index name="fk_sys_departamentos_sys_pais1_idx" columns="pais_id"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="nombreSysDepartamento" type="string" column="nombre_sys_departamento" length="60" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="codigoZonaSysDepartamento" type="string" column="codigo_zona_sys_departamento" length="60" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="descripcionSysDepartamento" type="string" column="descripcion_sys_departamento" length="60" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="prefijoSysDepartamento" type="string" column="prefijo_sys_departamento" length="60" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="estatusSysDepartamento" type="boolean" column="estatus_sys_departamento" nullable="true"/>
+    <many-to-one field="pais" target-entity="SysPais" fetch="LAZY">
+      <join-columns>
+        <join-column name="pais_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>
