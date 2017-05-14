@@ -144,6 +144,16 @@ AppBundle\Entity\Cliente:
                 cli_mun_id:
                     referencedColumnName: mun_id
             orphanRemoval: false
+        cliMetodoPago:
+            targetEntity: MetodoPago
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                cli_metodo_pago_id:
+                    referencedColumnName: mep_id
+            orphanRemoval: false
     manyToMany:
         espid:
             targetEntity: Especialidad
