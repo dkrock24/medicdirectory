@@ -377,4 +377,18 @@ class Agenda
     {
         return $this->ageEstado;
     }
+
+    /**
+     * Set ageTipoEvento
+     *
+     * @param integer $ageTipoEvento
+     *
+     * @return Agenda
+     */
+    public function setAgeTipoEvento($ageTipoEvento)
+    {
+        $this->ageTipoEvento = $ageTipoEvento;
+
+        return $this;
+    }
 }

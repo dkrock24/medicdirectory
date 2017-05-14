@@ -14,7 +14,6 @@
 {% endblock %}
 
 {%block body %}
-
     <!-- Doctor Profile Starts -->
     <div class="row">
         <div class="col-sm-5 col-xs-12">
@@ -22,28 +21,66 @@
                 <div class="panel panel-profile">
                     <div class="panel-heading">
                         <img src="{{ asset("bundles/web/images/doctors/doctor-bio-img6.jpg") }}" alt="Doctor Profile Image" class="img-responsive img-center-xs">
-                        <h3 class="panel-title">{{ medico.usu_titulo}} {{ medico.usu_nombre|title }}</h3>
+                        <h3 class="panel-title">{{ medico.usuTitulo}} {{ medico.usuNombre|title }}</h3>
                         <p class="caption"><b>{{ medico.esp_especialidad|default('N/A') }}</b></p> <!-- Gynecology, Health Care &amp; Obstetrics -->
                     </div>
                     <div class="panel-body">
                         <ul class="list-unstyled">
                             <li class="row">
                                 <span class="col-sm-4 col-xs-12"><b>Especialidad:</b> </span>
-                                <span class="col-sm-8 col-xs-12"><b>{{ medico.esp_especialidad|default('N/A') }}</b></span>
+                                <span class="col-sm-8 col-xs-12">
+                                    <ul>
+                                        {% for e in medico.idEspecialidad %}
+                                            <i class="fa fa-check"></i>{{ e.espEspecialidad }}<br>
+                                        {% endfor %}
+                                    </ul>
+
+                                    
+                                </span>
                             </li>
                             <li class="row">
-                                <span class="col-sm-4 col-xs-12"><b>Educacion:</b></span><br>
-                                {% if medico.usi_educacion is empty %}
+                                <span class="col-sm-4 col-xs-12"><b>Educacion:</b></span>
+                                
+                                {% if medico.usuInformacion.usiEducacion is empty %}
                                     <span class="col-sm-8 col-xs-12"><b>{{ 'N/A' }}</b></span>
                                 {% else %}
-                                    {% for educacion in medico.usi_educacion|split('||') %}
-                                        <span class="col-sm-8 col-xs-12"><b>{{ educacion }}</b></span>
-                                    {% endfor %}
+                                    <span class="col-sm-8 col-xs-12">
+                                    <ul>
+                                        <i class="fa fa-check"></i>{{ medico.usuInformacion.usiEducacion }}
+                                    </ul>
+                                    
+                                    </span>
+           
                                 {% endif %}
                             </li>
                             <li class="row">
-                                <span class="col-sm-4 col-xs-12"><b>Dias de trabajo:</b></span>
-                                <span class="col-sm-8 col-xs-12"><b>{{ medico.usi_dias_trabajo|default('N/A') }}</b></span>
+                                <span class="col-sm-4 col-xs-12"><b>Dias de trabajo:</b></span>                                
+                                {% if medico.usuInformacion.usiDiasTrabajo is empty %}
+                                    <span class="col-sm-8 col-xs-12"><b>{{ 'N/A' }}</b></span>
+                                {% else %}
+                                    <span class="col-sm-8 col-xs-12">
+                                    <ul>
+                                        <i class="fa fa-check"></i>{{ medico.usuInformacion.usiDiasTrabajo }}
+                                    </ul>
+                                    
+                                    </span>
+           
+                                {% endif %}
+                            </li>
+                            <li class="row">
+                                <span class="col-sm-4 col-xs-12"><b>Contactos:</b></span>                                
+                                {% if medico.usuInformacion.usiDiasTrabajo is empty %}
+                                    <span class="col-sm-8 col-xs-12"><b>{{ 'N/A' }}</b></span>
+                                {% else %}
+                                    <span class="col-sm-8 col-xs-12">
+                                    <ul>
+                                        <i class="fa fa-check"></i>{{ medico.usuInformacion.usiTelefono }}<br>
+                                        <i class="fa fa-check"></i>{{ medico.usuInformacion.usiCorreo }}<br>
+                                    </ul>
+                                    
+                                    </span>
+           
+                                {% endif %}
                             </li>
                         </ul>
                     </div>
@@ -51,9 +88,9 @@
                         <div class="row">
                             <div class="col-lg-6 col-xs-12">
                                 <ul class="list-unstyled list-inline sm-links">
-                                    <li><a href="{{ medico.usi_twitter }}"><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href="{{ medico.usi_fb }}"><i class="fa fa-facebook"></i></a></li>
-                                    <li><a href="{{ medico.usi_correo }}"><i class="fa fa-skype"></i></a></li>
+                                    <li><a target="_blank" href="{{ medico.usuInformacion.usiTwitter }}"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a target="_blank" href="{{ medico.usuInformacion.usiFb }}"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="{{ medico.usuInformacion.usiTwitter }}"><i class="fa fa-skype"></i></a></li>
                                 </ul>
                             </div>
                             <div class="col-lg-6 col-xs-12">
@@ -66,10 +103,10 @@
         </div>
         <div class="col-sm-7 col-xs-12">
             <div class="profile-details">
-                <h3 class="main-heading2">{{ medico.usu_titulo}} {{ medico.usu_nombre|title }}</h3>
-                <h4>{{ medico.cli_nombre }}</h4>
+                <h3 class="main-heading2">{#{ medico.usu_titulo}#} {#{ medico.usu_nombre|title }#}</h3>
+                <h4>{#{ medico.cli_nombre }#}</h4>
                 <p>
-                    {{ medico.usi_info_perfil|default('No se encontro informacion de perfil.') }}
+                    {#{ medico.usi_info_perfil|default('No se encontro informacion de perfil.') }#}
                 </p>
             </div>
         </div>
