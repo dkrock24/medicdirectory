@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>jQuery timer.js Examples</title>
+    <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
+    <link rel="stylesheet" href="res/style.css" />
+    <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="jquery.timer.js"></script>
+    <script type="text/javascript" src="res/demo.js"></script>
+    <style>
+    .container { margin:150px auto;}
+    </style>
+</head> 
+<body>
+<div id="jquery-script-menu">
+<div class="jquery-script-center">
+<ul>
+<li><a href="http://www.jqueryscript.net/time-clock/Multifunctional-jQuery-Countdown-Stopwatch-Plugin-Timer-js.html">Download This Plugin</a></li>
+<li><a href="http://www.jqueryscript.net/">Back To jQueryScript.Net</a></li>
+</ul>
+<div class="jquery-script-ads"><script type="text/javascript"><!--
+google_ad_client = "ca-pub-2783044520727903";
+/* jQuery_demo */
+google_ad_slot = "2780937993";
+google_ad_width = 728;
+google_ad_height = 90;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script></div>
+<div class="jquery-script-clear"></div>
+</div>
+</div>
+<div class="container">
+    <h1>jQuery timer.js Examples</h1>
+
+    <hr/><h3 style='margin-top:20px;'>Example 1 - Stopwatch (counts ups)</h3>
+    <span id="stopwatch">00:00:00</span>
+    <p>
+        <input class='btn btn-primary' type='button' value='Play/Pause' onclick='Example1.Timer.toggle();' />
+        <input class='btn btn-primary' type='button' value='Stop/Reset' onclick='Example1.resetStopwatch();' />
+    </p>
+    <br/>
+    <br/>
+
+    <h3>Example 2 - Countdown Timer</h3>
+    <span id="countdown">05:00:00</span>
+    <form id="example2form">
+        <input class='btn btn-primary' type='button' value='Play/Pause' onclick='Example2.Timer.toggle();' />
+        <input class='btn btn-primary' type='button' value='Stop/Reset' onclick='Example2.resetCountdown();' />
+        <input type='text' name='startTime' value='300' style='width:30px;' />
+    </form>
+
+    <h3>Example 3 - Slideshow (preserves time remaining when paused)</h3>
+    <div class="galleryImages">
+        <img src='https://unsplash.it/200/150?image=520' alt='' />
+        <img src='https://unsplash.it/200/150?image=521' alt='' />
+        <img src='https://unsplash.it/200/150?image=522' alt='' />
+        <img src='https://unsplash.it/200/150?image=523' alt='' />
+        <img src='https://unsplash.it/200/150?image=524' alt='' />
+        <img src='https://unsplash.it/200/150?image=525' alt='' />
+    </div><br/>
+    <div id="timeRemaining"><br/></div>
+    <p class="example-three">
+        <input class='btn btn-primary' type='button' value='Play / Pause' onclick='Example3.toggleGallery();' />
+    </p>
+
+    <h3>Example 4 - The Basics (just a suped-up version of setTimeout)</h3>
+    <p>timer has been executed <span id='counter' style=''>0</span> times.</p>
+    <div class='example-four'>
+        <input class='btn btn-primary' type='button' value='timer.play()' onclick='timer.play();' /><br/>
+        <input class='btn btn-primary' type='button' value='timer.play(true)' onclick='timer.play(true);' /><br/>
+        <input class='btn btn-primary' type='button' value='timer.pause()' onclick='timer.pause();' /><br/>
+        <input class='btn btn-primary' type='button' value='timer.toggle()' onclick='timer.toggle();' /><br/>
+        <input class='btn btn-primary' type='button' value='timer.toggle(true)' onclick='timer.toggle(true);' /><br/>
+        <input class='btn btn-primary' type='button' value='timer.stop()' onclick='timer.stop();' />
+    </div>
+    <div class='example-four'>
+        <input class='btn btn-primary' type='button' value='timer.reset()' onclick='timer.reset();' /><br/>
+        <input class='btn btn-primary' type='button' value='timer.once()' onclick='timer.once();' /><br/>
+        <input class='btn btn-primary' type='button' value='timer.once(5000)' onclick='timer.once(5000);' /><br/>
+        <input class='btn btn-primary' type='button' value='timer.set({time:1000})' onclick='timer.set({time:1000});' /><br/>
+        <input class='btn btn-primary' type='button' value='timer.set({time:5000})' onclick='timer.set({time:5000});' />
+    </div>
+    <br/><pre style='margin-bottom:20px; padding:10px 15px;'>
+var count = 0;
+var timer = $.timer(function() {
+    $('#counter').html(++count);
+});
+timer.set({ time : 1000, autostart : true });</pre>
+</div>
+</body>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36251023-1']);
+  _gaq.push(['_setDomainName', 'jqueryscript.net']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+</html>

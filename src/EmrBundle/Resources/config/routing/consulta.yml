@@ -1,0 +1,26 @@
+consulta_index:
+    path:     /
+    defaults: { _controller: "EmrBundle:Consulta:index" }
+    #methods:  GET
+
+consulta_show:
+    path:     /{id}/info
+    defaults: { _controller: "EmrBundle:Consulta:show" }
+    #methods:  GET
+
+consulta_new:
+    path:     /medica/{id}
+    defaults: { _controller: "EmrBundle:Consulta:medicalConsultation" }
+    #methods:  [GET, POST]
+    
+    
+
+#agenda_edit:
+    #path:     /{id}/editar
+    #defaults: { _controller: "EmrBundle:Agenda:edit" }
+    #methods:  [GET, POST]
+
+#agenda_delete:
+    #path:     /{id}/eliminar
+    #defaults: { _controller: "EmrBundle:Agenda:delete" }
+    #methods:  DELETE

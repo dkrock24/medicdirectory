@@ -1,0 +1,381 @@
+{% extends "Layout/base_emr/_clients_base.html.twig" %}
+
+
+{% block title_page %}
+        EMR || Nueva Consulta
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('EmrBundle:consulta:_breadcrumb.html.twig' )  }}
+{% endblock %} 
+
+{% block submenutop %}
+    {{ include('EmrBundle:consulta:_submenu.html.twig' )  }}
+{% endblock %} 
+
+{% block body %}
+    <style>
+        /*
+        #calendar {
+		max-width: 900px;
+		margin: 0 auto;
+        }
+        */
+    
+        #divUserPatient{
+            display: none;
+    
+        }
+        .detail-patient label{
+            display:inline-block;
+            width: 80px;
+            font-weight: 500;
+        }
+    </style>
+    <style>
+        
+    </style>
+    <div class="page-header-content">
+        <div class="page-title">
+            <h4>
+                <i class="fa fa-info-circle position-left"></i>
+                <span class="text-semibold">Home</span> - Consulta Médica
+
+                <small class="display-block">Formulario de consulta de paciente</small></h4>
+            <a class="heading-elements-toggle"><i class="icon-more"></i></a><a class="heading-elements-toggle"><i class="icon-more"></i></a>
+        </div>
+
+        <div class="heading-elements">
+            <div class="heading-btn-group">
+
+                <a href="#" class="btn btn-link btn-float has-text"><i class="icon-bars-alt text-primary"></i><span>Statistics</span></a>
+                <a href="#" class="btn btn-link btn-float has-text"><i class="icon-calculator text-primary"></i> <span>Invoices</span></a>
+                <a href="#" class="btn btn-link btn-float has-text"><i class="icon-calendar5 text-primary"></i> <span>Schedule</span></a>
+
+            </div>
+        </div>
+
+    </div>
+    
+    
+    {# {{ app.request.query.get("d") }} #}
+    <div class="panel panel-flat">
+					<div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-body text-center">
+                                        <div class="timer-time timer-container">
+                                            <span id="stopwatch">00:00:00</span>
+                                            <p>
+                                                <input class='btn btn-primary' type='button' value='Iniciar/Pausar' onclick='Example1.Timer.toggle();' />
+                                                <input class='btn btn-primary' type='button' value='Finalizar' onclick='Example1.resetStopwatch();' />
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="list-group">
+                                    <a href="#" class="list-group-item activex">
+                                      Datos generales
+                                    </a>
+                                    <a href="#" class="list-group-item">Ginecología
+                                    </a>
+                                    <a href="#" class="list-group-item">Pediatria
+                                    </a>
+                                  </div>
+                            </div>
+                            <div class="col-lg-9 col-md-8 col-sm-8 col-xs-12">
+                                <div class="panel panel-info">
+                                    <div class="panel-heading">
+                                        <h6 class="panel-title">Ficha de identificación<a class="heading-elements-toggle"><i class="icon-more"></i></a></h6>
+                                        <div class="heading-elements">
+                                            <ul class="icons-list">
+                                                <li><a data-action="collapse"></a></li>
+                                                <li><a data-action="reload"></a></li>
+                                                <li><a data-action="close"></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                                <div class="ficha">
+                                                    <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">
+                                                        Paciente
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-10 col-md-9 col-sm-12">
+                                                            <div class="detail-patient">
+                                                                <label>Nombre:</label>
+                                                                <span>
+                                                                    {{ patient[0].pacNombre }} {{ patient[0].pacSegNombre }} {{ patient[0].pacApellido }} {{ patient[0].pacSegApellido }}
+                                                                </span>
+                                                            </div>
+                                                            <div class="detail-patient">
+                                                                <label>Edad:</label><span>{{ age }}</span>
+                                                            </div>
+                                                            <div class="detail-patient">
+                                                                <label>Expediente:</label><span>Ver detalle completo</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-2 col-md-3 col-sm-12">
+                                                            {% if  paciente.pacFoto is defined and paciente.pacFoto != "" %}
+                                                            <div style="text-align:center;"><img src="{{ asset("uploads/pacientes/"~paciente.pacFoto) }}" class="img-thumbnailx" style="max-width:85% "></div>
+                                                        {% else %}
+                                                            {% if paciente.pacGenero is defined and paciente.pacGenero|lower  == "m" %}
+                                                                <div  style="text-align:center"><img src="{{ asset('bundles/admin/img/man.png') }}" class="img-thumbnailx" style="max-width:80% "></div>
+                                                            {% else %}
+                                                                <div  style="text-align:center"><img src="{{ asset('bundles/admin/img/girl.png') }}" class="img-thumbnailx" style="max-width:80% "></div>
+                                                            {% endif %}
+
+                                                        {% endif %}
+                                                        </div>
+                                                    </div>
+
+                                                    
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-12 ">
+                                                <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">
+                                                    Consultas anteriores
+                                                </div>
+                                                <div>
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Fecha</th>
+                                                                <th>Acción</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>2017-01-12</td>
+                                                                <td>Vista previa</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>2017-02-12</td>
+                                                                <td>Vista previa</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="panel panel-flat border-left-xlg border-left-info">
+                                    <div class="panel-heading">
+                                        <h6 class="panel-title"><span class="text-semibold">Extra large</span> size</h6>
+                                    </div>
+
+                                    <div class="panel-body">
+                                        Extra large border size using <code>.border-*-xlg</code> class
+                                    </div>
+                                </div>            
+                            </div>
+                        </div>
+					</div>
+				</div>
+            
+    
+{% endblock %}
+
+
+{% block codejs %}
+    <script>
+        $(document).on("ready", function(){
+        //$(function(window,undefined){
+            
+        //var d = "{{ app.request.query.get("d") }}";
+
+       
+
+        function doDelete(){  // delete event 
+
+           $("#calendarModal").modal("hide");
+           var eventID = $("#eventID").val();
+           $("#holder_loading").show();
+           $.ajax({
+               url: "{{ path('agenda_valida') }}",
+               data: "action=delete&id="+eventID,
+               type: "POST",
+               success: function(json) {
+                   $("#holder_loading").hide();
+                   if(json == 1)
+                    {   
+                        $("#calendar").fullCalendar("removeEvents",eventID);
+                    }    
+                    else
+                    {
+                        return false;
+                    }
+               },
+                error: function(json){
+                    $.alert({
+                        icon: 'fa fa-times',
+                        title: 'Error!',
+                        content: "<p class='small'>No se ha podido eliminar el evento</p>",
+                        type: 'red',
+                        typeAnimated: true,
+                    });  
+                    $("#holder_loading").hide();  
+                    return false;
+                   
+               }       
+           });
+
+       }
+
+
+                    
+                    
+        function searchPatients()
+        {
+            var search = $("#input_search_patients").val();
+            if( $.trim(search) == "" )
+            {
+                //var infoError = (data);
+                $.alert({
+                    icon: 'glyphicon glyphicon-exclamation-sign',
+                    title: 'Info!',
+                    content: 'El campo de la búsqueda no puede estar vacio',
+                    type: 'blue',
+                    typeAnimated: true,
+                });
+                return false;
+            }
+            $("#holder_loading").show();
+            $.ajax({
+                type: "post",
+                url: "{{ path('paciente_search') }}",
+                data: { search: search },
+                error: function (data) {
+                    $("#holder_loading").hide();
+                    $.confirm({
+                        icon: 'fa fa-remove',
+                        title: 'Error!',
+                        content: 'Ha ocurrido un error al tratar de enviar la petición',
+                        type: 'red',
+                        typeAnimated: true,
+                        buttons: {
+                            tryAgain: {
+                                text: 'Intentar de nuevo',
+                                btnClass: 'btn-red',
+                                action: function () {
+                                    searchPatients();
+                                }
+                            },
+                            close: function () {
+                            }
+                        }
+                    });
+                },
+                success: function (data) {
+                    $("#holder_loading").hide();
+                    if( data.length > 0)
+                    {
+                        var table = "<table class='table table-striped' id='table_result_patients'><thead><tr><th>Nombre</th><th>DUI</th><th></th></tr></thead><tbody>";
+                        for(i=0; i < data.length; i++)
+                        {
+                            var routeEdit = "{{ path('paciente_edit', { 'id': "PLACEHOLDER" }) }}";
+                            routeEdit = routeEdit.replace("PLACEHOLDER", data[i]['pac_id']);
+                            var routeShow = "{{ path('paciente_show', { 'id': "PLACEHOLDER" }) }}";
+                            routeShow = routeShow.replace("PLACEHOLDER", data[i]['pac_id']);
+                                            
+                            var btn_group = "<div class='btn-group' role='group'>";
+                            btn_group += "<button type='button' class='label bg-danger-400 dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>";
+                            btn_group += "Acción";
+                            btn_group += "<span class='caret'></span>";
+                            btn_group += "</button>";
+                            btn_group += "<ul class='dropdown-menu dropdown-menu-right'>";
+                            btn_group += "<li><a href='#' class='addUserAppointment noActionLink' data-user='"+data[i]['pac_id']+"'><i class='fa fa-calendar-check-o'></i> Añadir Cita</a></li>";
+                            btn_group += "<li class='divider'></li>";
+                            btn_group += "<li><a href='"+routeShow+"'><i class='fa fa-folder-open'></i> Ver</a></li>";
+                            btn_group += "<li><a href='"+routeEdit+"'><i class='fa fa-edit'></i> Editar</a></li>";
+                            btn_group += "<li class='divider'></li>";
+                            btn_group += "<li><a href='#' class='noActionLink'><i class='fa fa-minus-square'></i> Cerrar menú</a></li>";
+                            btn_group += "</ul>";
+                            btn_group += "</div>";
+                                            
+                            table += "<tr>";
+                            table += "<td>"+data[i]['fullname']+"</td>";
+                            table += "<td>"+data[i]['dui']+"</td>";
+                            table += "<td>"+btn_group+"</td>";
+                            table += "</tr>";
+                        }
+                        table += "</body></table>";
+                    }
+                    else
+                    {
+                        table = "<br><div class='alert alert-danger'><i class='glyphicon glyphicon-exclamation-sign'></i> No se han encontrado regístros</div>";
+                    }
+                    $("#result_search_patients").html(table);
+                    if( $("body").find("#table_result_patients").size() == 1 )
+                    {
+                        $("body").find("#table_result_patients").DataTable({
+                            "searching": false,
+                            "bFilter": false,
+                            "bInfo": false,
+                            "bLengthChange": false,
+                            "pageLength": 5,
+                            "language":{
+                                oPaginate: {
+                                    sFirst: "Primero",
+                                    sLast: "último",
+                                    sNext: "Siguiente",
+                                    sPrevious: "Anterior"
+                                },
+                            },
+                            "order": [[ 0, "desc" ]]
+                        });
+                    }
+                }
+            });
+        }
+        
+
+
+        
+        function setModalMaxHeight(element) {
+            this.$element     = $(element);  
+            this.$content     = this.$element.find('.modal-content');
+            var borderWidth   = this.$content.outerHeight() - this.$content.innerHeight();
+            var dialogMargin  = $(window).width() < 768 ? 20 : 60;
+            var contentHeight = $(window).height() - (dialogMargin + borderWidth);
+            var headerHeight  = this.$element.find('.modal-header').outerHeight() || 0;
+            var footerHeight  = this.$element.find('.modal-footer').outerHeight() || 0;
+            var maxHeight     = contentHeight - (headerHeight + footerHeight);
+
+            this.$content.css({
+                'overflow': 'hidden'
+            });
+
+            this.$element
+              .find('.modal-body').css({
+                'max-height': maxHeight,
+                'overflow-y': 'auto'
+            });
+        }
+
+        $('.modal').on('show.bs.modal', function() {
+            $(this).show();
+            setModalMaxHeight(this);
+        });
+
+        $(window).resize(function() {
+            if ($('.modal.in').length != 0) {
+              setModalMaxHeight($('.modal.in'));
+            }
+        });
+            
+    });
+               
+     ////////////////////////////////////
+     // Determine the correct object to use
+     
+    </script>
+{% endblock %}    
+

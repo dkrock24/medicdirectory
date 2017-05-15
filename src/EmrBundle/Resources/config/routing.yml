@@ -101,3 +101,9 @@ emr_agenda:
     resource: "@EmrBundle/Resources/config/routing/agenda.yml"
     prefix:   /agenda
     host:     "%emr_domain%"
+
+#consulta médica    
+emr_consulta:
+    resource: "@EmrBundle/Resources/config/routing/consulta.yml"
+    prefix:   /consulta
+    host:     "%emr_domain%"

@@ -3,7 +3,7 @@
 namespace Services;
 
 //use \AppBundle\Entity\Menu;
-
+use Symfony\Component\Validator\Constraints\DateTime;
 class Patient {
 	
 	/* @var $em \Doctrine\ORM\EntityManager */
@@ -107,5 +107,18 @@ class Patient {
 	}
 	
 	
-	
+	function getAge($fecha)
+	{
+		if( !empty($fecha) )
+		{
+			$fecha_nac = new \DateTime(date('Y/m/d',strtotime($fecha))); // Creo un objeto DateTime de la fecha ingresada
+			$fecha_hoy =  new \DateTime(date('Y/m/d',time())); // Creo un objeto DateTime de la fecha de hoy
+			$edad = date_diff($fecha_hoy,$fecha_nac); // La funcion ayuda a calcular la diferencia, esto seria un objeto
+			return "{$edad->format('%Y')} años y {$edad->format('%m')} meses"; // Aplicamos un formato al objeto resultante de la funcion
+		}
+		
+	}
+  
+	//$edad = calcular_edad('1999-12-31');
+
 }
