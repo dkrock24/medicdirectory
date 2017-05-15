@@ -1,10 +1,6 @@
 admin_homepage:
     path:     /
     defaults: { _controller: AdminBundle:Default:index }
-
-admin_crear_medicos:
-    path:   /generate/medicos/{number}
-    defaults: { _controller: AdminBundle:Default:generateMedicos }
     
 admin_pais:
     resource: "@AdminBundle/Resources/config/routing/pais.yml"
@@ -18,3 +14,10 @@ admin_menu:
     resource: "@AdminBundle/Resources/config/routing/menu.yml"
     prefix:   /menu 
     
+admin_contabilidad:
+    path:     /admin_contabilidad
+    defaults: { _controller: AdminBundle:Contabilidad:index }
+
+admin_contabilidad_buscar:
+    path:     /admin_contabilidad_buscar
+    defaults: { _controller: AdminBundle:Contabilidad:buscar }
