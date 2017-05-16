@@ -2,6 +2,8 @@
 
 namespace WebBundle\Controller;
 
+use AppBundle\Entity\ClienteUsuario;
+use AppBundle\Entity\Cliente;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class DefaultController extends Controller
@@ -12,11 +14,13 @@ class DefaultController extends Controller
         $sParametros = $this->get('parametros');
 
         $NombreProyecto = $sParametros->getParametro("nombreProyecto");
-        
-        $em = $this->getDoctrine()->getManager();
-        $medicos = $em->getRepository('AppBundle\Entity\Usuario')
-            ->getUsuariosMedicos();
 
+        $em = $this->getDoctrine()->getManager();
+        //$em->getRepository("AppBundle:ClienteUsuario")->findAll();
+        $medicos = $em->getRepository("AppBundle:ClienteUsuario")->findAll();
+        
+        //var_dump($medicos[0]->getCliUsuUsu()->getUsuUsuario());
+        
         return $this->render(
             'WebBundle:Sections:index.html.twig', 
             array(
@@ -50,8 +54,10 @@ class DefaultController extends Controller
             return $this->redirect($this->generateUrl('web_homepage'));
         }
         
-        $em = $this->getDoctrine()->getManager();
-        $medico = $em->getRepository('AppBundle\Entity\Usuario')->getMedicoById( $med_id );
+        $em = $this->getDoctrine()->getManager();        
+        //$medico = $em->getRepository('AppBundle\Entity\Usuario')->getMedicoById( $med_id );
+        $medico = $em->getRepository('AppBundle:Usuario')->findOneBy(array("usuId"=>$med_id) );
+        
         
         return $this->render('WebBundle:Doctores:profile.html.twig',
                 array(

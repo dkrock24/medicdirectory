@@ -23,3 +23,10 @@ parameters:
     
     # HOST for EMR system
     emr_domain: sistema.emr.qualium.net
+
+    # SphinxSearch
+    sphinxsearch_host: 127.0.0.1
+    sphinxsearch_port: 9312
+    sphinxsearch_socket: ~
+    sphinxsearch_indexer_bin: indexer
+

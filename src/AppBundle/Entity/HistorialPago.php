@@ -371,4 +371,3 @@ class HistorialPago
         return $this->hpaMetodoPago;
     }
 }
-

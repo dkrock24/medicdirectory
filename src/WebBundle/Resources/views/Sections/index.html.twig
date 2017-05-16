@@ -1,5 +1,15 @@
 {% extends 'Layout/base_web/_web_base.html.twig' %}
 {%block body %}
+<style type="text/css">
+    .descripcion{
+        width: 100%;
+        height: 20px;
+        text-align: left;
+        background: none;
+        float: left;
+        display: inline-block;
+    }
+</style>
     {% set med_length = medicos|length %}
     {% set row_limit = med_length / 4 %}
     <ul id="doctors-grid" class="row grid">
@@ -17,14 +27,60 @@
                     </div>
                 </div>
                 <div class="inner">
-                    <h4>{{ m.usu_titulo}} {{ m.usu_nombre}}</h4>
-                    <p class="designation">{{ m.cli_nombre}}</p> <!--  Cardiac Clinic, Health Care -->
+                    <h4>{{ m.cliUsuUsu.usuTitulo }} {{ m.cliUsuUsu.usuNombre }}</h4>
+                    <p class="designation">{{ m.cliUsuCli.cliNombre}}</p> <!--  Cardiac Clinic, Health Care -->
                     <p class="divider"><i class="fa fa-plus-square"></i></p>
                     <p>
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. It was popularised in the with the release of Letraset sheets Lorem Ipsum passages.
+
+                    <div class="table-responsive">
+                        <table class="table text-nowrap" width="100%">
+                            <tbody>
+                                <tr>
+                                    <td width="10%">
+                                        <div class="media-left media-middle descripcion">
+                                            <a href="#" class="btn bg-primary-400 btn-rounded btn-icon btn-xs">
+                                                <i class="fa fa-map"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                    <td width="90%">
+                                        <span class="text-muted text-size-small descripcion">{{ m.cliUsuUsu.usuInformacion.usiDireccion }}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <div class="media-left media-middle descripcion">
+                                            <a href="#" class="btn bg-primary-400 btn-rounded btn-icon btn-xs">
+                                                <i class="fa fa-phone"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="text-muted text-size-small descripcion">{{ m.cliUsuUsu.usuInformacion.usiTelefono }}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <div class="media-left media-middle descripcion">
+                                            <a href="#" class="btn bg-primary-400 btn-rounded btn-icon btn-xs">
+                                                <i class="fa fa-envelope"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="text-muted text-size-small descripcion">{{ m.cliUsuUsu.usuInformacion.usiCorreo }}</span>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
                     </p>
                 </div>							
-                <a href="{{ path( "web_doctores_perfil", {"med_id" : m.cli_usu_usu_id} ) }}" class="btn btn-secondary text-uppercase">Ver Perfil</a>
+               <a href="{{ path( "web_doctores_perfil", {"med_id" : m.cliUsuUsu.usuId} ) }}" class="btn btn-secondary text-uppercase">Ver Perfil</a>                
                 <!-- /doctores -->
             </div>
         </li>

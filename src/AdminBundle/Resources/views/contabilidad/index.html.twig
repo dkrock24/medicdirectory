@@ -1,0 +1,68 @@
+{% extends "Layout/base_admin/_admin_base.html.twig" %}
+
+{% block title_page %}
+    EMR || Contabilidad
+{% endblock %}
+
+{% block body %}
+    <!-- Search field -->
+    <div class="panel panel-flat">
+        <div class="panel-heading">
+            <h5 class="panel-title">Gestor de contabilidad</h5>
+            <div class="heading-elements">
+                <ul class="icons-list">
+                    <li><a data-action="collapse"></a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="panel-body">
+
+            <div class="input-group content-group">
+                <div class="has-feedback has-feedback-left">
+                    <input id ="contabilidad_buscar_texto" type="text" class="form-control input-xlg" value="" placeholder="Nombre o ID de cliente">
+                    <div class="form-control-feedback">
+                        <i class="icon-search4 text-muted text-size-base"></i>
+                    </div>
+                </div>
+
+                <div class="input-group-btn">
+                    <button id="contabilidad_buscar" class="btn btn-primary btn-xlg">Buscar</button>
+                </div>
+            </div>
+
+            <div class="row search-option-buttons">
+                <div class="col-sm-3">
+                    <select id="contabilidad_buscar_tipo" class="form-control">
+                        <option value="1">Todas las facturas</option>
+                        <option value="2">Facturas pendientes</option>
+                        <option value="3">Facturas pagadas</option>
+                    </select>
+                </div>
+                <div class="col-sm-9"></div>
+            </div>
+        </div>
+        <!-- /search field -->
+    </div>
+    <div id="contabilidad_resultados" class="row" style="display:none;">
+
+        <div class="panel panel-body">
+            <p class="text-muted text-size-small"><span id='contabilidad_resultados_cantidad'>0</span></p>
+            <hr>
+        </div>
+    </div>
+{% endblock %}
+{% block codejs %}
+    <script type='text/javascript'>
+        $(function () {
+
+            $('#contabilidad_buscar').click(function () {
+
+                $('#contabilidad_resultados').hide();
+                $.post('{{ path('admin_contabilidad_buscar') }}', {texto: $('#contabilidad_buscar_texto').val(), tipo: $('#contabilidad_buscar_tipo').val()}, function (data) {
+                    $('#contabilidad_resultados').show();
+                });
+            });
+        });
+    </script>
+{% endblock %}

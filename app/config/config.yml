@@ -73,3 +73,15 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+sphinxsearch:
+    indexes:
+        Usuarios: 'usuarios'
+        Clientes: 'clientes'
+        Pacientes: 'pacientes'
+    searchd:
+        host:   %sphinxsearch_host%
+        port:   %sphinxsearch_port%
+        socket: %sphinxsearch_socket%
+    indexer:
+        bin:    %sphinxsearch_indexer_bin%
