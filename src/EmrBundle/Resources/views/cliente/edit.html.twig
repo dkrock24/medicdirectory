@@ -479,14 +479,14 @@
                     
                     
 				</fieldset>
-                <h6>Formas de pago </h6>
+                <h6>Formas de pago</h6>
                 <fieldset>
                     <div class="row"> 
                         <div class="col-lg-1 col-md-3 col-sm-3 col-xs-12">
                             {% for method in methodPay %}
                                 <div class="radio ">
                                     <label class="text-right">
-                                        {% if method.mepId == 2 %}  
+                                        {% if method.mepId == currentPayment[0].cli_metodo_pago_id %}  
                                             <input type="radio" name="optionPay" class="optionPay" id="optionsRadios1" value="{{ method.mepId }}" checked="true">
                                         {% else %}
                                             <input type="radio" name="optionPay" class="optionPay" id="optionsRadios1" value="{{ method.mepId }}" >
@@ -713,6 +713,8 @@
 
                 onFinished: function (event, currentIndex) {
                     var methodPay = $('input:radio[name=optionPay]:checked').val();
+                    //var methodPay = $("body").find("input:radio[name=optionPay]:checked").val();
+                   // alert(methodPay);
                     if( methodPay == 2 )
                     {
                         if( $("#val_cc_number").size() == 0 )
@@ -1520,7 +1522,7 @@
                             if( data == "1" )
                             {
                                // window.location = "{{ path('cliente_new') }}";
-                               window.location.reload();
+                               //window.location.reload();
                                // $("#holder_loading").hide();
                             }
                             else

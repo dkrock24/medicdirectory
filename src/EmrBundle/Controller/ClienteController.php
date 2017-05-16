@@ -264,11 +264,22 @@ class ClienteController extends Controller
 			$resDoctorOrAssistant = $statement->fetchAll();
 			$representerIsDoctorOrAssistant = count($resDoctorOrAssistant);
 			
+			//==================================================================
+			//Get current payment
+			//==================================================================
+			$RAW_QUERY = " SELECT cli_metodo_pago_id, cli_pago_detalle FROM cliente WHERE cli_id =:clientId ";
+			$statement = $em->getConnection()->prepare($RAW_QUERY);
+			$statement->bindValue("clientId", $cliente->getCliId() );
+			$statement->execute();
+			$currentPayment = $statement->fetchAll();
+			
+			
 			return $this->render('EmrBundle:cliente:edit.html.twig', array(
 				'cliente' => $cliente,
 				'id'=>$cliente->getCliId(),
 				'edit_form' => $editForm->createView(),
 				'methodPay'=> $methodPay,
+				'currentPayment' => $currentPayment,
 				'getUserRepresenter'=>$getUserRepresenter,
 				'getUsersLocation'=>$getUsersLocation,
 				'representerIsDoctorOrAssistant' => $representerIsDoctorOrAssistant,
@@ -434,7 +445,23 @@ class ClienteController extends Controller
 		$payMethod = $request->get("payMethod");
 		
 		//Credit card data
-		$credirCard = $request->get("credirCard");
+		//$credirCard = $request->get("credirCard");
+		$representer_cc_number = $request->get("representer_cc_number");
+		$representer_cc_exp = $request->get("representer_cc_exp");
+		$representer_cc_cvc = $request->get("representer_cc_cvc");
+		
+		$payment = false;
+		if( ($representer_cc_number != "" ) && ($representer_cc_exp != "") && ($representer_cc_cvc !="") )
+		{
+			$payment = array(
+				"creaditcard" => array(
+								"number"=>$representer_cc_number, 
+								"exp"=>$representer_cc_exp, 
+								"cvc"=>$representer_cc_cvc
+					) 
+				);
+		}
+		
 		
 		$addToUser = $request->get("addToUser");
 		
@@ -465,6 +492,16 @@ class ClienteController extends Controller
 			$client->setCliNombreComercial($comercial_name);
 			$client->setCliUbicacionLat($lat);
 			$client->setCliUbicacionLon($lon);
+			
+			$oPayMethod_repo = $em->getRepository('AppBundle:MetodoPago')->find($payMethod);
+			$client->setCliMetodoPago( $oPayMethod_repo );
+			
+			if( $payment != false )
+			{
+				$client->setCliPagoDetalle(serialize($payment));
+			}else{
+				$client->setCliPagoDetalle("");
+			}
 			
 			$client->setCliFechaRegistro(new \Datetime());
 			$client->setCliFechaCrea(new \Datetime() );

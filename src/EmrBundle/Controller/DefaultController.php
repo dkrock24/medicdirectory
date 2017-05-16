@@ -31,7 +31,7 @@ class DefaultController extends Controller
 			$idUser =  $this->getUser()->getUsuId();
 			//$municipality = 
 			
-			
+			/*
 			$RAW_QUERY = "SELECT distinct(cu.cli_usu_rol_id), cu.* FROM cliente c 
 							inner join cliente_usuario cu on cu.cli_usu_cli_id = c.cli_id
 							inner join usuario u on u.usu_id = cu.cli_usu_usu_id
@@ -49,31 +49,39 @@ class DefaultController extends Controller
 				//$rolsList[ $r['cli_usu_rol_id'] ][] = $r['cli_usu_rol_id'];
 				$rolsList[ $r['cli_usu_cli_id'] ][] = $r['cli_usu_rol_id'];
 			}
-			//var_dump($rolsList);
+			*/
+
+			//=========================================
+			//Nuevo cambio
+			//=========================================
+			$RAW_QUERY = "select
+								c.cli_nombre_fiscal as nombre_fiscal,
+								m.mun_nombre as municipio, 
+								cu.cli_usu_id as usuario,
+								cu.cli_usu_cli_id as cliente,
+									group_concat(r.rol_id separator ',') as roles
+								from cliente_usuario cu
+								left join rol r on r.rol_id = cu.cli_usu_rol_id
+								left join cliente c ON cu.cli_usu_cli_id = c.cli_id
+								left join municipio m ON c.cli_mun_id = m.mun_id
+								where cu.cli_usu_usu_id =:idUser
+								group by cu.cli_usu_cli_id
+							"; 
+			$statement = $em->getConnection()->prepare($RAW_QUERY);
+			$statement->bindValue("idUser", $idUser );
+			$statement->execute();
+			$user_repo = $statement->fetchAll();
+			
+			//var_dump($user_repo);
 			//exit();
-			//echo count($rolsList);
-			//echo "<hr>";
-			//echo $this->get('security.token_storage')->getToken()->getUser()->getUsuId();
-			$user_repo = $em->getRepository("AppBundle:ClienteUsuario")->findByCliUsuUsu($idUser);
-			
-			//$em = $this->getDoctrine()->getManager();
-			$user_repo = $em->createQuery(
-						'SELECT cu
-						FROM AppBundle:ClienteUsuario cu
-						WHERE cu.cliUsuUsu =:userId 
-						GROUP BY cu.cliUsuCli'
-					)
-					->setParameter('userId', $idUser)    
-					->getResult();
-			
 			
 			$dataLocation = array();
 			$num = 0;
 			foreach( $user_repo as $val)
 			{
-				$fiscalName = $val->getCliUsuCli()->getCliNombreFiscal();
-				$clientId = $val->getCliUsuCli()->getCliId();
-				$municipality = $val->getCliUsuCli()->getCliMun()->getMunNombre();
+				$fiscalName =  $val['nombre_fiscal']; //$val->getCliUsuCli()->getCliNombreFiscal();
+				$clientId = $val['cliente']; //$val->getCliUsuCli()->getCliId();
+				$municipality = $val['municipio']; //$val->getCliUsuCli()->getCliMun()->getMunNombre();
 				
 				//$clientId =  $val->getCliUsuCli()->getCliId();
 				
@@ -83,15 +91,15 @@ class DefaultController extends Controller
 				$dataLocation[$num]['municipality'] = $municipality;
 				
 				//2 = Cliente = representante
-				//$dataLocation[$num]['client'] = "no_representer";
-				//for($i=0; $i < count($rolsList); $i++ )
-				foreach( $rolsList[$clientId] as $elem )
-				{
+				$roles = explode(",",$val['roles']);
+				//foreach( $rolsList[$clientId] as $elem )
+				//{
+				//var_dump($roles);
 					$representer = false;
-					for($i=0; $i < count($elem); $i++ )
+					for($i=0; $i < count($roles); $i++ )
 					{
 						//echo $elem[$i]."<br>";
-						if( $elem[$i] == 2 )
+						if( $roles[$i] == 2 )
 						{
 							$dataLocation[$num]['client'] = "is_representer";
 							$representer = true;
@@ -100,36 +108,31 @@ class DefaultController extends Controller
 							$dataLocation[$num]['client'] = "no_representer";
 						}
 					}
-					if( $representer ){
-						break;
-					}
-				}
-				/*
-				if (array_key_exists($clientId, $rolsList)) 
-				{
-					if (in_array("2", $rolsList[$clientId]) ) {
-						$dataLocation[$num]['client'] = "is_representer";
-					}else{
-						$dataLocation[$num]['client'] = "no_representer";
-					}
 					
-					//echo "The 'first' element is in the array";
-				}else{
-					$dataLocation[$num]['client'] = "no_representer";
-					//echo "else";
-				}
+				//}
+				/*
+					foreach( $rolsList[$clientId] as $elem )
+					{
+						$representer = false;
+						for($i=0; $i < count($elem); $i++ )
+						{
+							//echo $elem[$i]."<br>";
+							if( $elem[$i] == 2 )
+							{
+								$dataLocation[$num]['client'] = "is_representer";
+								$representer = true;
+								break;
+							}else{
+								$dataLocation[$num]['client'] = "no_representer";
+							}
+						}
+						if( $representer ){
+							break;
+						}
+					}
 				*/
-				
-				
-				
 				$num++;
 			}
-			
-			//var_dump($dataLocation);
-			
-			//return $this->redirectToRoute("");
-			
-			//echo "zzzz";
 			
 			return $this->render("EmrBundle:Default:location.html.twig", array('data' => $user_repo, 'dataLocation'=>$dataLocation));
 		}
