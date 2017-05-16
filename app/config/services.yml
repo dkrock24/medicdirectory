@@ -21,3 +21,7 @@ services:
     srv_patient:
         class:        Services\Patient
         arguments:     ["@doctrine.orm.entity_manager", "@session"] 
+
+    srv_busqueda:
+        class:        Services\Busqueda
+        arguments:     ["@doctrine.orm.entity_manager", "@session", "@search.sphinxsearch.search"]
