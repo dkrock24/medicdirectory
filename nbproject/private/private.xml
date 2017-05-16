@@ -3,23 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/symfony3/emr/src/EmrBundle/Controller/AgendaController.php</file>
+            <file>file:/C:/xampp/htdocs/symfony3/emr/app/Resources/views/Layout/base_emr/_clients_base.register.html.twig</file>
+            <file>file:/C:/xampp/htdocs/symfony3/emr/app/Resources/views/Layout/base_emr/_clients_base.location.html.twig</file>
+            <file>file:/C:/xampp/htdocs/symfony3/emr/src/EmrBundle/Resources/views/consulta/new.html.twig</file>
             <file>file:/C:/xampp/htdocs/symfony3/emr/src/EmrBundle/Resources/views/cliente/edit.html.twig</file>
-            <file>file:/C:/xampp/htdocs/symfony3/emr/src/AppBundle/Entity/Cliente.php</file>
-            <file>file:/C:/xampp/htdocs/symfony3/emr/src/EmrBundle/Resources/views/agenda/new.html.twig</file>
-            <file>file:/C:/xampp/htdocs/symfony3/emr/src/AppBundle/DataFixtures/ORM/EspecialidadesMedicasData.php</file>
-            <file>file:/C:/xampp/htdocs/symfony3/emr/src/AppBundle/DataFixtures/ORM/MetodosPagoData.php</file>
+            <file>file:/C:/xampp/htdocs/symfony3/emr/src/EmrBundle/Resources/views/paciente/show.html.twig</file>
+            <file>file:/C:/xampp/htdocs/symfony3/emr/src/Services/Patient.php</file>
             <file>file:/C:/xampp/htdocs/symfony3/emr/src/EmrBundle/Controller/ClienteController.php</file>
-            <file>file:/C:/xampp/htdocs/symfony3/emr/src/EmrBundle/Controller/DefaultController.php</file>
-            <file>file:/C:/xampp/htdocs/symfony3/emr/src/EmrBundle/Form/ClienteType.php</file>
-            <file>file:/C:/xampp/htdocs/symfony3/emr/src/EmrBundle/Controller/PacienteController.php</file>
-            <file>file:/C:/xampp/htdocs/symfony3/emr/src/AppBundle/DataFixtures/ORM/RolesData.php</file>
-            <file>file:/C:/xampp/htdocs/symfony3/emr/src/AppBundle/DataFixtures/ORM/TiposClientesData.php</file>
-            <file>file:/C:/xampp/htdocs/symfony3/emr/src/AppBundle/DataFixtures/ORM/EavTIposCampos.php</file>
-            <file>file:/C:/xampp/htdocs/symfony3/emr/src/Services/ConfigureSession.php</file>
-            <file>file:/C:/xampp/htdocs/symfony3/emr/src/AdminBundle/Command/adminCreateElSalvadorLocationsCommand.php</file>
-            <file>file:/C:/xampp/htdocs/symfony3/emr/app/Resources/views/Layout/base_emr/_clients_menu.top.main.html.twig</file>
+            <file>file:/C:/xampp/htdocs/symfony3/emr/src/EmrBundle/Resources/views/paciente/edit.html.twig</file>
             <file>file:/C:/xampp/htdocs/symfony3/emr/src/EmrBundle/Resources/views/cliente/new.html.twig</file>
+            <file>file:/C:/xampp/htdocs/symfony3/emr/src/EmrBundle/Controller/PacienteController.php</file>
+            <file>file:/C:/xampp/htdocs/symfony3/emr/app/Resources/views/Layout/base_emr/_clients_base.html.twig</file>
         </group>
     </open-files>
 </project-private>
