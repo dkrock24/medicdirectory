@@ -1102,6 +1102,13 @@
                         $("#cc-number, #cc-exp, #cc-cvc").attr("required", true);
                     }
                 });
+                
+                if( option != 2 )
+                {
+                    $("#cc-number, #cc-exp, #cc-cvc").attr("required", false);
+                }else{
+                    $("#cc-number, #cc-exp, #cc-cvc").attr("required", true);
+                }
             }
             
             function useDateRepresenterAsDoctor(number)
@@ -1522,7 +1529,7 @@
                             if( data == "1" )
                             {
                                // window.location = "{{ path('cliente_new') }}";
-                               //window.location.reload();
+                               window.location.reload();
                                // $("#holder_loading").hide();
                             }
                             else

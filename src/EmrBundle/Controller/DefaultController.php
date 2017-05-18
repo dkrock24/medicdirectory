@@ -54,18 +54,26 @@ class DefaultController extends Controller
 			//=========================================
 			//Nuevo cambio
 			//=========================================
-			$RAW_QUERY = "select
-								c.cli_nombre_fiscal as nombre_fiscal,
-								m.mun_nombre as municipio, 
-								cu.cli_usu_id as usuario,
-								cu.cli_usu_cli_id as cliente,
-									group_concat(r.rol_id separator ',') as roles
-								from cliente_usuario cu
-								left join rol r on r.rol_id = cu.cli_usu_rol_id
-								left join cliente c ON cu.cli_usu_cli_id = c.cli_id
-								left join municipio m ON c.cli_mun_id = m.mun_id
-								where cu.cli_usu_usu_id =:idUser
-								group by cu.cli_usu_cli_id
+			$RAW_QUERY = "SELECT 
+							a.*,
+							c.cli_nombre AS nombre_fiscal,
+							m.mun_nombre AS municipio
+						FROM
+							(SELECT
+								  cu.cli_usu_id as usuario,	 
+								cu.cli_usu_cli_id AS cliente,
+									GROUP_CONCAT(r.rol_id
+										SEPARATOR ',') AS roles
+							FROM
+								cliente_usuario cu
+							LEFT JOIN rol r ON r.rol_id = cu.cli_usu_rol_id
+							WHERE
+								cu.cli_usu_usu_id =:idUser
+							GROUP BY cu.cli_usu_cli_id) a
+								LEFT JOIN
+							cliente c ON a.cliente = c.cli_id
+								LEFT JOIN
+							municipio m ON c.cli_mun_id = m.mun_id
 							"; 
 			$statement = $em->getConnection()->prepare($RAW_QUERY);
 			$statement->bindValue("idUser", $idUser );
@@ -92,9 +100,7 @@ class DefaultController extends Controller
 				
 				//2 = Cliente = representante
 				$roles = explode(",",$val['roles']);
-				//foreach( $rolsList[$clientId] as $elem )
-				//{
-				//var_dump($roles);
+
 					$representer = false;
 					for($i=0; $i < count($roles); $i++ )
 					{
@@ -108,8 +114,6 @@ class DefaultController extends Controller
 							$dataLocation[$num]['client'] = "no_representer";
 						}
 					}
-					
-				//}
 				/*
 					foreach( $rolsList[$clientId] as $elem )
 					{
