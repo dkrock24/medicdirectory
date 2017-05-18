@@ -411,4 +411,32 @@ class AgendaController extends Controller
 				
 		exit;
 	}
+	
+	
+	public function validConsulationAction( Request $request )
+	{
+		$appointment = $request->get("id");
+		
+		$locationId = $this->get('session')->get('locationId');
+		$em = $this->getDoctrine()->getManager();
+		
+		$diary_repo = $em->getRepository("AppBundle:Agenda")->find($appointment);
+		
+		
+		$data = $diary_repo->getAgeCit()->getCitPac()->getPacId();
+		
+		header("Content-Type: application/json");
+		
+		if( empty($data) )
+		{
+			echo json_encode(0);
+		}
+		else
+		{
+			echo json_encode($data);
+		}
+
+				
+		exit;
+	}
 }

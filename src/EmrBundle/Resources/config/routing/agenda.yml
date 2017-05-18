@@ -21,6 +21,9 @@ agenda_detail:
     path:     /detail/appointment
     defaults: { _controller: "EmrBundle:Agenda:getDetailAppointment" }
     
+agenda_valid_consulation:
+    path:     /valid/consulation
+    defaults: { _controller: "EmrBundle:Agenda:validConsulation" }
 
 #agenda_edit:
     #path:     /{id}/editar
