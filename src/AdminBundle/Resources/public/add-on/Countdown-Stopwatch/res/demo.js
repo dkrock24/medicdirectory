@@ -31,7 +31,7 @@ var Example1 = new (function() {
             }
         },
 		timerComplete = function() {
-            alert('Example 2: Countdown timer complete!');
+            //alert('Example 2: Countdown timer complete!');
         },
         init = function() {
             $stopwatch = $('#stopwatch');
@@ -68,7 +68,7 @@ var Example2 = new (function() {
             if (currentTime < 0) currentTime = 0;
         },
         timerComplete = function() {
-            alert('Example 2: Countdown timer complete!');
+            //alert('Example 2: Countdown timer complete!');
         },
         init = function() {
             $countdown = $('#countdown');

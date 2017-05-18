@@ -60,7 +60,6 @@ class DefaultController extends Controller
 							m.mun_nombre AS municipio
 						FROM
 							(SELECT
-								  cu.cli_usu_id as usuario,	 
 								cu.cli_usu_cli_id AS cliente,
 									GROUP_CONCAT(r.rol_id
 										SEPARATOR ',') AS roles
