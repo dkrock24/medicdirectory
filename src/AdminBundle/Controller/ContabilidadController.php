@@ -15,20 +15,12 @@ class ContabilidadController extends Controller {
 
     public function buscarAction(Request $request) {
 
-        $indexesToSearch = array('Clientes');
-        $options = array(
-            'result_offset' => 0,
-            'result_limit' => 1,
-        );
-        $sphinxSearch = $this->get('search.sphinxsearch.search');
-        $sphinxSearch->setMatchMode(SPH_MATCH_EXTENDED);
-        $sphinxSearch->setFilter('cli_activo', array(1), false);
-        $searchResults = $sphinxSearch->search($request->request->get('texto'), $indexesToSearch, $options);
+        $aRet = $this->get('srv_busqueda')->buscarClientes($request->request->get('texto'), 1);
 
-        $data = [];
-        $data['total'] = $searchResults['total_found'];
-        $data['sphinx'] = @$searchResults['matches'];
-        return new \Symfony\Component\HttpFoundation\JsonResponse($data);
+        $aJson = $aRet;
+
+
+        return new \Symfony\Component\HttpFoundation\JsonResponse($aJson);
     }
 
 }
