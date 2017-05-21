@@ -1477,8 +1477,7 @@
                 var representer_cc_number = $("#cc-number");
                 var representer_cc_exp = $("#cc-exp");
                 var representer_cc_cvc = $("#cc-cvc");
-                
-                
+                var representer_cc_brand = $(".cc-brand");
              
                 
                 $("#holder_loading").show();
@@ -1510,7 +1509,8 @@
                             payMethod: payMethod,
                             representer_cc_number: representer_cc_number.val(),
                             representer_cc_exp: representer_cc_exp.val(),
-                            representer_cc_cvc: representer_cc_cvc.val()
+                            representer_cc_cvc: representer_cc_cvc.val(),
+                            representer_cc_brand: representer_cc_brand.text()
                         },
                         error: function (data) {
                             $("#holder_loading").hide();

@@ -277,13 +277,15 @@ class ClienteController extends Controller
 			$exp = "";
 			$cvc = "";
 			$creditCardInfo = "";
+			$brand = "";
 			if( !empty($detail_payment) )
 			{
 				
 				$creditCard = unserialize($detail_payment);
-				$number = $creditCard['creaditcard']['number'];
-				$exp = $creditCard['creaditcard']['exp'];
-				$cvc = $creditCard['creaditcard']['cvc'];
+				$number = @$creditCard['creaditcard']['number'];
+				$exp = @$creditCard['creaditcard']['exp'];
+				$cvc = @$creditCard['creaditcard']['cvc'];
+				$brand = @$creditCard['creaditcard']['brand'];
 				$creditCardInfo = $this->ccMasking($number, $maskingCharacter = '*');
 			}
 			
@@ -298,6 +300,7 @@ class ClienteController extends Controller
 				'creditCard' => $creditCardInfo,
 				'exp'=>$exp,
 				'cvc'=>$cvc,
+				'brand'=>$brand,
 				'getUserRepresenter'=>$getUserRepresenter,
 				'getUsersLocation'=>$getUsersLocation,
 				'representerIsDoctorOrAssistant' => $representerIsDoctorOrAssistant,
@@ -471,6 +474,7 @@ class ClienteController extends Controller
 		$representer_cc_number = $request->get("representer_cc_number");
 		$representer_cc_exp = $request->get("representer_cc_exp");
 		$representer_cc_cvc = $request->get("representer_cc_cvc");
+		$representer_cc_brand = $request->get("representer_cc_brand");
 		
 		$payment = false;
 		if( ($representer_cc_number != "" ) && ($representer_cc_exp != "") && ($representer_cc_cvc !="") )
@@ -478,6 +482,7 @@ class ClienteController extends Controller
 			
 				$payment = array(
 					"creaditcard" => array(
+									"brand"=>$representer_cc_brand,
 									"number"=>$representer_cc_number, 
 									"exp"=>$representer_cc_exp, 
 									"cvc"=>$representer_cc_cvc

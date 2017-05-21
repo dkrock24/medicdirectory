@@ -527,7 +527,7 @@
                                                 <div class="row">
                                                     <div class="col-lg-6">
                                                         <div class="form-group">
-                                                            <label for="cc-number" class="control-label">Número de tarjeta <small class="text-muted">[<span class="cc-brand"></span>]</small></label>
+                                                            <label for="cc-number" class="control-label">Número de tarjeta <small class="text-muted">[<span class="cc-brand">{{ brand }}</span>]</small></label>
                                                           
                                                             {% if creditCard != "" %}
                                                                 <input id="cc-number" type="tel" class="input-lg form-control cc-number" autocomplete="cc-number" placeholder="{{ creditCard }}" readonly="readonly">
@@ -1161,6 +1161,7 @@
                         $("#cc-number").attr("placeholder", "{{ creditCard }}");
                         $("#cc-exp").attr("placeholder", "{{ exp }}");
                         $("#cc-cvc").attr("placeholder", "{{ cvc }}");
+                        $(".cc-brand").text("{{ brand }}");
                         //$(this).attr("placeholder", "Type your answer here");
                         $('.validation').removeClass('text-danger text-success');
                         $("#use-same-card").empty();
@@ -1185,7 +1186,7 @@
                         $("#cc-number").attr("placeholder", "•••• •••• •••• ••••");
                         $("#cc-exp").attr("placeholder", "MM / YY");
                         $("#cc-cvc").attr("placeholder", "•••");
-                        
+                        $(".cc-brand").empty();
                         
                         $("#cc-number").prop('readonly', false);
                         $("#cc-exp").prop('readonly', false);
@@ -1591,8 +1592,9 @@
                 var representer_cc_number = $("#cc-number");
                 var representer_cc_exp = $("#cc-exp");
                 var representer_cc_cvc = $("#cc-cvc");
+                var representer_cc_brand = $(".cc-brand");
              
-                console.log(locationUsers);
+                //console.log(locationUsers);
                 //return false;
                 $("#holder_loading").show();
                 $.ajax({
@@ -1621,7 +1623,8 @@
                             payMethod: payMethod,
                             representer_cc_number: representer_cc_number.val(),
                             representer_cc_exp: representer_cc_exp.val(),
-                            representer_cc_cvc: representer_cc_cvc.val()
+                            representer_cc_cvc: representer_cc_cvc.val(),
+                            representer_cc_brand: representer_cc_brand.text()
                         },
                         error: function (data) {
                             $("#holder_loading").hide();
@@ -1649,7 +1652,7 @@
                             {
                                // window.location = "{{ path('cliente_new') }}";
                                window.location.reload();
-                               // $("#holder_loading").hide();
+                               //$("#holder_loading").hide();
                             }
                             else
                             {
