@@ -1631,22 +1631,43 @@
 
                         //Attach click event handler to the marker.
                         google.maps.event.addListener(marker, "click", function (e) {
-                            var content = 'Latitude: ' + location.lat() + '<br />Longitude: ' + location.lng();
-                            content += "<br /><input type = 'button' value = 'Eliminar ubicación' onclick = '' id='btn-delete-map' />";
+                            var content = '<div style="margin-bottom: 5px;">Latitude: ' + location.lat() + '<br />Longitude: ' + location.lng();
+                            content += "</div><input type = 'button' value = 'Eliminar ubicación' onclick = '' id='btn-delete-map' class='btn btn-danger'/>";
                             var infoWindow = new google.maps.InfoWindow({
                                 content: content
                             });
                             infoWindow.open(map, marker);
                         });
                         //console.log(location.lat()+" - "+location.lng() );
-                        $("#appbundle_cliente_cliUbicacionLat").val(location.lat());
-                        $("#appbundle_cliente_cliUbicacionLon").val(location.lng());
+                        lat = location.lat();
+                        lon = location.lng();
                         //Add marker to the array.
                         DeleteMarker();
                         markers.push(marker);
                         //markers = marker;
                     });
                 };
+                
+                $("#btn-set-location").on("click", function(){
+                    if( markers.length > 0 )
+                    {
+                        $("#appbundle_cliente_cliUbicacionLat").val(lat);
+                        $("#appbundle_cliente_cliUbicacionLon").val(lon);
+                        $('#modalMap').modal('hide');
+                    }
+                    else
+                    {
+                        $.alert({
+                            icon: 'fa fa-times',
+                            title: 'Error!',
+                            content: "<p class='small'>Para ubicar el establecimiento haga click dentro del mapa</p>",
+                            type: 'red',
+                            typeAnimated: true,
+                        });
+                    }
+                    
+                });
+                
                 
                 $("body").on("click","#btn-delete-map", function(){
                     DeleteMarker();

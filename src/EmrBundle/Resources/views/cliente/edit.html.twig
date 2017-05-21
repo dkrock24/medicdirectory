@@ -658,8 +658,8 @@
                     <div id="dvMap" style="width:100%; height: 500px"></div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                    <!--<button type="button" class="btn btn-success">Ubicar establecimiento</button>-->
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Cerrar</button>
+                    <button type="button" class="btn btn-success" id="btn-set-location"><i class="fa fa-map-marker" aria-hidden="true"></i> Ubicar establecimiento</button>
                 </div>    
             </div>
         </div>
@@ -1704,14 +1704,20 @@
             //=====================================================
             //Google maps
             //=====================================================
+            
+           
+            
             var map
             if( $("#dvMap").size() == 1 )
             {
                 var markers = [];
                 var uniqueId = 1;
+                var lat = "13.684978";
+                var lon = "-89.263635";
+                var marker = "";
+                var myLatlng = "";
                 window.onload = function () {
-                    var lat = "13.684978";
-                    var lon = "-89.263635";
+                   
                     if( $.trim($("#appbundle_cliente_cliUbicacionLat").val() ) != "" && $("#appbundle_cliente_cliUbicacionLat").val() != 0 )
                     {
                         lat = $("#appbundle_cliente_cliUbicacionLat").val();
@@ -1724,10 +1730,38 @@
                     var mapOptions = {
                         center: new google.maps.LatLng(lat, lon),
                         zoom: 11,
-                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                        mapTypeId: google.maps.MapTypeId.ROADMAP,
+                       
                     };
+                    //alert(lat+" | "+lon);
                      map = new google.maps.Map(document.getElementById("dvMap"), mapOptions);
-
+                     /*
+                     var marker = new google.maps.Marker({
+                        position: {lat: 13.461750711103367, lng: -88.16116333007812},
+                        map: map,
+                        title: 'Hello World!'
+                      });
+                     */
+                    myLatlng = new google.maps.LatLng(lat,lon);
+                    
+                    
+                    marker = new google.maps.Marker({
+                        position: myLatlng,
+                        map: map,
+                        title: 'Hello World!',
+                        animation: google.maps.Animation.DROP,
+                      });
+                      marker.addListener('click', toggleBounce);
+                      var locationName = "{{ app.session.get('locationName') }}";
+                      var contentString = "<div class='' style='margin-bottom: 5px;'><strong>Establecimiento: "+locationName+"</strong></div>";
+                      contentString += "<div class='' style='margin-bottom: 0px;'><button type='button' class='btn btn-danger' id='btn-delete-location'>Eliminar ubicación</button></div>";
+                      var infowindow = new google.maps.InfoWindow({
+                        content: contentString
+                      });
+                      marker.addListener('click', function() {
+                        infowindow.open(map, marker);
+                      });
+                     // marker.setMap(map);
                     //Attach click event handler to the map.
                     google.maps.event.addListener(map, 'click', function (e) {
 
@@ -1746,22 +1780,63 @@
 
                         //Attach click event handler to the marker.
                         google.maps.event.addListener(marker, "click", function (e) {
-                            var content = 'Latitude: ' + location.lat() + '<br />Longitude: ' + location.lng();
-                            content += "<br /><input type = 'button' value = 'Eliminar ubicación' onclick = '' id='btn-delete-map' />";
+                            var content = '<div style="margin-bottom: 5px;">Latitude: ' + location.lat() + '<br />Longitude: ' + location.lng();
+                            content += "</div><input type = 'button' value = 'Eliminar ubicación' onclick = '' id='btn-delete-map' class='btn btn-danger'/>";
                             var infoWindow = new google.maps.InfoWindow({
                                 content: content
                             });
                             infoWindow.open(map, marker);
                         });
                         //console.log(location.lat()+" - "+location.lng() );
-                        $("#appbundle_cliente_cliUbicacionLat").val(location.lat());
-                        $("#appbundle_cliente_cliUbicacionLon").val(location.lng());
+                        lat = location.lat();
+                        lon = location.lng();
                         //Add marker to the array.
                         DeleteMarker();
                         markers.push(marker);
                         //markers = marker;
                     });
+                    
+                     
+                    
+                    
                 };
+                
+                
+                function toggleBounce() {
+                    if (marker.getAnimation() !== null) {
+                      marker.setAnimation(null);
+                    } else {
+                      marker.setAnimation(google.maps.Animation.BOUNCE);
+                    }
+                }
+                
+                $("#btn-set-location").on("click", function(){
+                    if( markers.length > 0 )
+                    {
+                        $("#appbundle_cliente_cliUbicacionLat").val(lat);
+                        $("#appbundle_cliente_cliUbicacionLon").val(lon);
+                        $('#modalMap').modal('hide');
+                    }
+                    else
+                    {
+                        $.alert({
+                            icon: 'fa fa-times',
+                            title: 'Error!',
+                            content: "<p class='small'>Para ubicar el establecimiento haga click dentro del mapa</p>",
+                            type: 'red',
+                            typeAnimated: true,
+                        });
+                    }
+                    
+                });
+                
+                $("body").on("click","#btn-delete-location", function(){
+                    marker.setMap(null);
+                    $("#appbundle_cliente_cliUbicacionLat").val("");
+                    $("#appbundle_cliente_cliUbicacionLon").val("");
+                    //$('#modalMap').modal('hide');
+                    
+                });
                 
                 $("body").on("click","#btn-delete-map", function(){
                     DeleteMarker();
@@ -1782,7 +1857,9 @@
                 
                 $('#modalMap').on('shown.bs.modal', function () {
                     google.maps.event.trigger(map, 'resize');
-                    
+                    return map.setCenter(myLatlng);
+                    //var mapNode = map.getDiv();
+                    //$('#map-canvas-modal').append(mapNode);
                     
                 })
             }
