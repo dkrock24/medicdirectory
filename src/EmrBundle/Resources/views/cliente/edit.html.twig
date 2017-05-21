@@ -1135,7 +1135,7 @@
                         var creditCard = "{{ creditCard }}";
                         if( creditCard != "" )
                         {
-                            $("#use-same-card").html("<button class='btn btn-info' id='use-same-card'>Usar tarjeta anterior</button>");
+                            $("#use-same-card").html("<span class='btn btn-info' id='btn-use-same-card'>Usar tarjeta anterior</span>");
                         }
                          
                     }
@@ -1153,7 +1153,7 @@
                     
                 });
                 
-                $("body").on("click","#use-same-card", function(){
+                $("body").on("click","#btn-use-same-card", function(){
                         $("#pay_2").find(".form-group").each(function(){
                             $(this).removeClass("has-error");
                             $(this).find("input[type='text']").val("");
@@ -1169,7 +1169,13 @@
                         {
                             $("body").append("<input type='hidden' value=''  id='val_cc_number'>");
                         }
+                        $("#cc-number").prop('readonly', true);
+                        $("#cc-exp").prop('readonly', true);
+                        $("#cc-cvc").prop('readonly', true);
                         $("body").find("#val_cc_number").val(1);
+                        
+                        $("#btn-check-credit-card").hide();
+                        $("#enable_card span").show();
                     });
                 
                 $("body").on("click","#enable_card span",function(){
@@ -1194,7 +1200,8 @@
                         $("#enable_card span").hide();
                         $("#btn-check-credit-card").show();
                         
-                        $("#use-same-card").html("<button class='btn btn-info' id='use-same-card'>Usar tarjeta anterior</button>");
+                        //$("#use-same-card").html("<button class='btn btn-info' id='use-same-card'>Usar tarjeta anterior</button>");
+                        $("#use-same-card").html("<span class='btn btn-info' id='btn-use-same-card'>Usar tarjeta anterior</span>");
                     });
                 
             }
