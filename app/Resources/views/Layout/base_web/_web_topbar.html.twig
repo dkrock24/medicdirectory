@@ -10,11 +10,11 @@
         </ul>
     </div>
     <div class="col-sm-6 col-xs-12 right">
-       <form class=""> 
+        <form   id="busqueda_global" action="{{ path('web_homepage') }}" method="GET" class="">
         <div class="input-group">
-             <input type="text" class="form-control" placeholder="Buscar médicos, hospitales, farmacias, proveedores">
+             <input name="b" type="text" class="form-control" placeholder="Buscar médicos, hospitales, farmacias, proveedores">
                  <span class="input-group-btn">
-                 <button class="btn btn-info" type="button">Buscar</button>
+                 <button type="submit" form="busqueda_global" class="btn btn-info">Buscar</button>
              </span>
          </div><!-- /input-group -->
        </form> 

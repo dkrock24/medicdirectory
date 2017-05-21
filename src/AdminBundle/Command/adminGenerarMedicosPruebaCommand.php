@@ -55,7 +55,10 @@ class adminGenerarMedicosPruebaCommand extends ContainerAwareCommand {
         // Generar usuarios
 
         for($i=0; $i <= $iCantidad ; $i++) {
-            $sUsuario = strtolower($aNombres[rand(0, count($aNombres))].'.'.$aApellidos[rand(0, count($aApellidos))]);
+            $nombre = $aNombres[rand(0, count($aNombres)-1)];
+            $apellido = $aApellidos[rand(0, count($aApellidos)-1)];
+            $sUsuario = strtolower($nombre.'.'.$apellido);
+
             $oUsuario = new \AppBundle\Entity\Usuario();
             $oUsuario->setUsuActivo(TRUE);
             $oUsuario->setUsuClave(sha1('123'));
@@ -65,10 +68,24 @@ class adminGenerarMedicosPruebaCommand extends ContainerAwareCommand {
             $oUsuario->setUsuFechaNacimiento( new \DateTime());
             $oUsuario->setUsuIdVendedor(1);
             $oUsuario->setUsuTitulo('Dr.');
+            $oUsuario->setUsuNombre($nombre . ' ' . $apellido);
             $oUsuario->setUsuGenero('m');
             $oUsuario->setUsuCorreo("{$sUsuario}@correo.com");
             $oUsuario->setUsuUsuario($sUsuario);
             $em->persist($oUsuario);
+
+            // Crear información de usuario
+
+            $oInfoUsuario = new \AppBundle\Entity\UsuarioInformacion();
+            $oInfoUsuario->setUsiUsuId($oUsuario);
+            $oInfoUsuario->setUsiCorreo ("{$sUsuario}@correo.com");
+            $oInfoUsuario->setUsiDireccion ("Calle " . $aApellidos[rand(0, count($aApellidos))]);
+            $oInfoUsuario->setUsiDiasTrabajo ("L-M-M-J-V-S");
+            $em->persist($oInfoUsuario);
+
+            $oUsuario->setUsuInformacion($oInfoUsuario);
+            $em->persist($oUsuario);
+
             $em->flush();
             $output->writeln($sUsuario);
         }
