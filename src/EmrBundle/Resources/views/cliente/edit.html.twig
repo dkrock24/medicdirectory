@@ -1716,6 +1716,7 @@
                 var lon = "-89.263635";
                 var marker = "";
                 var myLatlng = "";
+                var currentMarker = 1;
                 window.onload = function () {
                    
                     if( $.trim($("#appbundle_cliente_cliUbicacionLat").val() ) != "" && $("#appbundle_cliente_cliUbicacionLat").val() != 0 )
@@ -1810,6 +1811,15 @@
                     }
                 }
                 
+                $("body").on("click","#btn-delete-location", function(){
+                    marker.setMap(null);
+                    $("#appbundle_cliente_cliUbicacionLat").val("");
+                    $("#appbundle_cliente_cliUbicacionLon").val("");
+                    currentMarker = 0;
+                    //$('#modalMap').modal('hide');
+                    
+                });
+                
                 $("#btn-set-location").on("click", function(){
                     if( markers.length > 0 )
                     {
@@ -1819,24 +1829,24 @@
                     }
                     else
                     {
-                        $.alert({
-                            icon: 'fa fa-times',
-                            title: 'Error!',
-                            content: "<p class='small'>Para ubicar el establecimiento haga click dentro del mapa</p>",
-                            type: 'red',
-                            typeAnimated: true,
-                        });
+                        //alert(typeof(marker));
+                        if( currentMarker == 0 )
+                        {
+                            $.alert({
+                                icon: 'fa fa-map-marker',
+                                title: 'Error!',
+                                content: "<p class='small'>Para ubicar el establecimiento haga click dentro del mapa</p>",
+                                type: 'red',
+                                typeAnimated: true,
+                            });
+                        }else{
+                           $('#modalMap').modal('hide');
+                        }
                     }
                     
                 });
                 
-                $("body").on("click","#btn-delete-location", function(){
-                    marker.setMap(null);
-                    $("#appbundle_cliente_cliUbicacionLat").val("");
-                    $("#appbundle_cliente_cliUbicacionLon").val("");
-                    //$('#modalMap').modal('hide');
-                    
-                });
+                
                 
                 $("body").on("click","#btn-delete-map", function(){
                     DeleteMarker();
