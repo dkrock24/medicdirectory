@@ -37,7 +37,7 @@ class DefaultController extends Controller
         $medicos = $em->getRepository('AppBundle\Entity\Usuario')
             ->getUsuariosMedicos();
         
-        $esp_service = $this->get('catalogs');
+        $esp_service = $this->get('srv_catalogs');
         $esp = $esp_service->getEspecialidades();
         
         return $this->render('WebBundle:Doctores:index.html.twig',

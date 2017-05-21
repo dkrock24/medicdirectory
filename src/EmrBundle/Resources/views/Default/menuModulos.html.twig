@@ -1,0 +1,21 @@
+<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12"> <!-- col-lg-3 col-md-4 col-sm-4 col-xs-12 -->
+   <div class="panel panel-info">
+        <div class="panel-heading">
+            <h6 class="panel-title">Modulos<a class="heading-elements-toggle"><i class="icon-more"></i></a></h6>
+            <div class="heading-elements">
+                <ul class="icons-list">
+                    <li><a data-action="collapse"></a></li>
+                    <li><a data-action="reload"></a></li>
+                    <li><a data-action="close"></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="list-group">
+            {% for key, m in modulos %}
+                <a href="#" class="list-group-item activex">
+                     {{ m['modulo'] }}
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+</div>

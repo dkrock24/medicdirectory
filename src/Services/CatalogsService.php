@@ -38,5 +38,21 @@ class CatalogsService {
         
     }
     
+    public function getModulos(){
+        
+        $mod = $this->em->getRepository("AppBundle:Modulo")
+                ->findBy( array( 'modActivo' => 1 ) )
+                ;
+        
+        $modules = array();
+        
+        foreach( $mod as $modulo ){
+            $modules[] = $modulo->getModModulo();
+        }
+        
+        return $modules;
+        
+    }
+    
     
 }
