@@ -1,0 +1,71 @@
+<table class="table table-striped">
+    <tbody>
+        <tr>
+            <th>ID</th>
+            <td>{{ pago.hpaId }}</td>
+        </tr>
+        <tr>
+            <th>T. usuarios</th>
+            <td>{{ pago.hpaCantidadUsuariosCorte }}</td>
+        </tr>
+        <tr>
+            <th>Facturado</th>
+            <td>${{ pago.hpaMontoEsperado|number_format(2, '.', ',') }}</td>
+        </tr>
+        <tr>
+            <th>Cobrado</th>
+            <td>${{ pago.hpaMontoPagado|number_format(2, '.', ',') }}</td>
+        </tr>
+        <tr>
+            <th>F. corte</th>
+            <td>{{ pago.hpaFechaCrea|date('Y-M-d') }} </td>
+        </tr>
+        <tr>
+            <th>F. pago</th>
+            <td>{{ pago.hpaFechaPago ? pago.hpaFechaPago|date('Y-M-d') : '-'}} </td>
+        </tr>
+        <tr>
+            <th>Estado</th>
+            <td>
+                {% if ( pago.hpaEstado  == 0 ) %}
+                    Pendiente
+                {% elseif ( pago.hpaEstado == 1 ) %}
+                    Pagado
+                {% elseif ( pago.hpaEstado == 2 ) %}
+                    Denegado
+                {% elseif ( pago.hpaEstado == 3 ) %}
+                    Anulado
+                {% else %}
+                    Desconocido
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <th>Método pago</th>
+            <td>{{ pago.hpaMetodoPago.mepMetodoPago }} </td>
+        </tr>
+        <tr>
+            <th>Método pago</th>
+            <td>
+                {% if ( pago.hpaMetodoPago.mepMetodoPago == 'TCREDITO') %}
+                    <table class="table table-striped">
+                        <tr>
+                            <td>Tarjeta</td>
+                            <td>{{ pago.pagoDetalle.tarjeta}}</td>
+                        </tr>
+                        <tr>
+                            <td>CCV</td>
+                            <td>{{ pago.pagoDetalle.ccv}}</td>
+                        </tr>
+                        <tr>
+                            <td>Exp</td>
+                            <td>{{ pago.pagoDetalle.exp}}</td>
+                        </tr>
+                    </table>
+                {% else %}
+                    {{ pago.hpaPagoDetalle}}
+                {% endif %}
+            </td>
+        </tr>
+    </tbody>
+</table>

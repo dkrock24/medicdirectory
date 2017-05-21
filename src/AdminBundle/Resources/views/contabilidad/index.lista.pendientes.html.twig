@@ -1,0 +1,64 @@
+{% extends "Layout/base_admin/_admin_base.html.twig" %}
+
+{% block title_page %}
+    EMR || Contabilidad
+{% endblock %}
+
+{% block body %}
+    <h1>Pagos pendientes o denegados</h1>
+    <div id="contabilidad_contenedor_resultados" class="row">
+
+        <div class="panel panel-body">
+            <div id="contabilidad_resultados" >
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Cliente</th>
+                            <th>T. usuarios</th>
+                            <th>Facturado</th>
+                            <th>Cobrado</th>
+                            <th>F. corte</th>
+                            <th>F. pago</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        {% for pago in pagos %}
+                            <tr>
+                                <td>
+                                    <p>{{ pago.hpaCliente.cliNombreComercial }}</p>
+                                    <p class="text-muted text-size-small">{{ pago.hpaCliente.cliNombreFiscal  }} / {{ pago.hpaCliente.cliNombre }}</p>
+                                </td>
+                                <td>{{ pago.hpaCantidadUsuariosCorte }} </td>
+                                <td>${{ pago.hpaMontoEsperado|number_format(2, '.', ',') }} </td>
+                                <td>${{ pago.hpaMontoPagado|number_format(2, '.', ',') }} </td>
+                                <td>{{ pago.hpaFechaCrea|date('Y-M-d') }} </td>
+                                <td>{{ pago.hpaFechaPago ? pago.hpaFechaPago|date('Y-M-d') : '-'}} </td>
+                                <td>
+                                    <button class="btn btn-primary btn-ver-pago" data-id="{{pago.hpaId}}">
+                                        {% if ( pago.hpaEstado == 0 ) %}
+                                            Pendiente
+                                        {% elseif ( pago.hpaEstado == 1 ) %}
+                                            Pagado
+                                        {% elseif ( pago.hpaEstado == 2 ) %}
+                                            Denegado
+                                        {% elseif ( pago.hpaEstado == 3 ) %}
+                                            Anulado
+                                        {% else %}
+                                            Desconocido
+                                        {% endif %}
+                                    </button>
+                                </td>
+                            </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {% include 'AdminBundle:contabilidad:modal.html.twig' %}
+{% endblock %}
+
+{% use 'AdminBundle:contabilidad:parte.js.twig' %}

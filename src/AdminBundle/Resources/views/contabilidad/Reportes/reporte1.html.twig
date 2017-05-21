@@ -1,0 +1,38 @@
+<table class='table table-striped'>
+    <tr>
+        <th>Total vendido este mes ({{ 'now'|date('M/y') }})</th>
+        <td>${{ stat.total_vendido_mes|number_format(2, '.', ',') }} </td>
+    </tr>
+    <tr>
+        <th>Total vendido este año ({{ 'now'|date('Y') }})</th>
+        <td>${{ stat.total_vendido_anio|number_format(2, '.', ',') }} </td>
+    </tr>
+    <tr>
+        <th>Total vendido</th>
+        <td>${{ stat.total_vendido|number_format(2, '.', ',') }} </td>
+    </tr>
+    <tr>
+        <th>Total pagado este mes ({{ 'now'|date('M/y') }})</th>
+        <td>${{ stat.total_pagado_mes|number_format(2, '.', ',') }} </td>
+    </tr>
+    <tr>
+        <th>Total pagado este año ({{ 'now'|date('Y') }})</th>
+        <td>${{ stat.total_pagado_anio|number_format(2, '.', ',') }} </td>
+    </tr>
+    <tr>
+        <th>Total pagado</th>
+        <td>${{ stat.total_pagado|number_format(2, '.', ',') }} </td>
+    </tr>
+    <tr>
+        <th>Clientes registrados</th>
+        <td>{{ stat.total_clientes }}</td>
+    </tr>
+    <tr>
+        <th>Usuarios registrados</th>
+        <td>{{ stat.total_usuarios }}</td>
+    </tr>
+    <tr>
+        <th>Usuarios por cliente (prom.)</th>
+        <td>{{ stat.total_usuarios_x_cliente }}</td>
+    </tr>
+</table>

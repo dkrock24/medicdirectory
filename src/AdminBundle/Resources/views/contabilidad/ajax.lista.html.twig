@@ -1,0 +1,47 @@
+<h1>{{ cliente.cliNombreComercial }}</h1>
+<p class="text-muted text-size-small">{{ cliente.cliNombreFiscal  }} / {{ cliente.cliNombre }}</p>
+<hr />
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>T. usuarios</th>
+            <th>Facturado</th>
+            <th>Cobrado</th>
+            <th>F. corte</th>
+            <th>F. pago</th>
+            <th>Estado</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        {% for pago in pagos %}
+            <tr>
+                <td>{{ pago.hpaId }} </td>
+                <td>{{ pago.hpaCantidadUsuariosCorte }} </td>
+                <td>${{ pago.hpaMontoEsperado|number_format(2, '.', ',') }} </td>
+                <td>${{ pago.hpaMontoPagado|number_format(2, '.', ',') }} </td>
+                <td>{{ pago.hpaFechaCrea|date('Y-M-d') }} </td>
+                <td>{{ pago.hpaFechaPago ? pago.hpaFechaPago|date('Y-M-d') : '-'}}</td>
+                <td>
+                    <button class="btn btn-primary btn-ver-pago" data-id="{{pago.hpaId}}">
+                    {% if ( pago.hpaEstado == 0 ) %}
+                        Pendiente
+                    {% elseif ( pago.hpaEstado == 1 ) %}
+                        Pagado
+                    {% elseif ( pago.hpaEstado == 2 ) %}
+                        Denegado
+                    {% elseif ( pago.hpaEstado == 3 ) %}
+                        Anulado
+                    {% else %}
+                        Desconocido
+                    {% endif %}
+                    </button>
+                </td>
+            </tr>
+        {% endfor %}
+
+    </tbody>
+</table>
+
+{#{{ dump(sphinx) }}#}

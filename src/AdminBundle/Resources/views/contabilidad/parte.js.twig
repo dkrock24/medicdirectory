@@ -1,0 +1,32 @@
+{% block codejs %}
+    <script type='text/javascript'>
+        $(function () {
+
+            // Buscar un cliente
+            $('#contabilidad_buscar').click(function () {
+
+                $('#contabilidad_contenedor_resultados').hide();
+                $('#contabilidad_resultados').html('');
+                $('#contabilidad_resultados').load('{{ path('admin_contabilidad_buscar') }}', {texto: $('#contabilidad_buscar_texto').val(), tipo: $('#contabilidad_buscar_tipo').val()}, function (data) {
+                    $('#contabilidad_contenedor_resultados').show();
+                });
+            });
+
+            // Cargar un modal con los datos del pago, llamado desde #contabilidad_resultados
+            $(document).on('click', '.btn-ver-pago', function () {
+                $('#modal_pago .modal-body').html('');
+                $('#modal_pago .modal-footer').data('id', $(this).data('id'));
+                $('#modal_pago .modal-body').load('{{path('admin_contabilidad_ver_pago')}}', {id: $(this).data('id')}, function () {
+                    $('#modal_pago').modal('show');
+                });
+            });
+
+            // Procesar cambio de estado, llamado desde botón en footer de modal invocado por .btn-ver-pago
+            $(document).on('click', '#modal_pago .modal-footer .btn', function () {
+                $.post('{{path('admin_contabilidad_procesar_pago')}}', {id: $(this).parent().data('id'), estado: $(this).data('estado')});
+            });
+
+        });
+
+    </script>
+{% endblock %}
