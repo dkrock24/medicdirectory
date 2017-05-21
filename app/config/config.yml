@@ -80,8 +80,8 @@ sphinxsearch:
         Clientes: 'clientes'
         Pacientes: 'pacientes'
     searchd:
-        host:   %sphinxsearch_host%
-        port:   %sphinxsearch_port%
-        socket: %sphinxsearch_socket%
+        host:   "%sphinxsearch_host%"
+        port:   "%sphinxsearch_port%"
+        socket: "%sphinxsearch_socket%"
     indexer:
-        bin:    %sphinxsearch_indexer_bin%
+        bin:    "%sphinxsearch_indexer_bin%"

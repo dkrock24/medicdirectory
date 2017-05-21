@@ -44,25 +44,15 @@
         </div>
         <!-- /search field -->
     </div>
-    <div id="contabilidad_resultados" class="row" style="display:none;">
+    <div id="contabilidad_contenedor_resultados" class="row" style="display:none;">
 
         <div class="panel panel-body">
-            <p class="text-muted text-size-small"><span id='contabilidad_resultados_cantidad'>0</span></p>
-            <hr>
+            <div id="contabilidad_resultados" ></div>
         </div>
     </div>
-{% endblock %}
-{% block codejs %}
-    <script type='text/javascript'>
-        $(function () {
 
-            $('#contabilidad_buscar').click(function () {
+    {% include 'AdminBundle:contabilidad:modal.html.twig' %}
 
-                $('#contabilidad_resultados').hide();
-                $.post('{{ path('admin_contabilidad_buscar') }}', {texto: $('#contabilidad_buscar_texto').val(), tipo: $('#contabilidad_buscar_tipo').val()}, function (data) {
-                    $('#contabilidad_resultados').show();
-                });
-            });
-        });
-    </script>
 {% endblock %}
+
+{% use 'AdminBundle:contabilidad:parte.js.twig' %}

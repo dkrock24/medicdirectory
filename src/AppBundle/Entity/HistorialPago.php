@@ -5,8 +5,8 @@ namespace AppBundle\Entity;
 /**
  * HistorialPago
  */
-class HistorialPago
-{
+class HistorialPago {
+
     /**
      * @var integer
      */
@@ -72,14 +72,12 @@ class HistorialPago
      */
     private $hpaMetodoPago;
 
-
     /**
      * Get hpaId
      *
      * @return integer
      */
-    public function getHpaId()
-    {
+    public function getHpaId() {
         return $this->hpaId;
     }
 
@@ -90,8 +88,7 @@ class HistorialPago
      *
      * @return HistorialPago
      */
-    public function setHpaMontoEsperado($hpaMontoEsperado)
-    {
+    public function setHpaMontoEsperado($hpaMontoEsperado) {
         $this->hpaMontoEsperado = $hpaMontoEsperado;
 
         return $this;
@@ -102,8 +99,7 @@ class HistorialPago
      *
      * @return string
      */
-    public function getHpaMontoEsperado()
-    {
+    public function getHpaMontoEsperado() {
         return $this->hpaMontoEsperado;
     }
 
@@ -114,8 +110,7 @@ class HistorialPago
      *
      * @return HistorialPago
      */
-    public function setHpaMontoPagado($hpaMontoPagado)
-    {
+    public function setHpaMontoPagado($hpaMontoPagado) {
         $this->hpaMontoPagado = $hpaMontoPagado;
 
         return $this;
@@ -126,8 +121,7 @@ class HistorialPago
      *
      * @return string
      */
-    public function getHpaMontoPagado()
-    {
+    public function getHpaMontoPagado() {
         return $this->hpaMontoPagado;
     }
 
@@ -138,8 +132,7 @@ class HistorialPago
      *
      * @return HistorialPago
      */
-    public function setHpaFechaPago($hpaFechaPago)
-    {
+    public function setHpaFechaPago($hpaFechaPago) {
         $this->hpaFechaPago = $hpaFechaPago;
 
         return $this;
@@ -150,8 +143,7 @@ class HistorialPago
      *
      * @return \DateTime
      */
-    public function getHpaFechaPago()
-    {
+    public function getHpaFechaPago() {
         return $this->hpaFechaPago;
     }
 
@@ -162,8 +154,7 @@ class HistorialPago
      *
      * @return HistorialPago
      */
-    public function setHpaFechaCrea($hpaFechaCrea)
-    {
+    public function setHpaFechaCrea($hpaFechaCrea) {
         $this->hpaFechaCrea = $hpaFechaCrea;
 
         return $this;
@@ -174,8 +165,7 @@ class HistorialPago
      *
      * @return \DateTime
      */
-    public function getHpaFechaCrea()
-    {
+    public function getHpaFechaCrea() {
         return $this->hpaFechaCrea;
     }
 
@@ -186,8 +176,7 @@ class HistorialPago
      *
      * @return HistorialPago
      */
-    public function setHpaFechaMod($hpaFechaMod)
-    {
+    public function setHpaFechaMod($hpaFechaMod) {
         $this->hpaFechaMod = $hpaFechaMod;
 
         return $this;
@@ -198,8 +187,7 @@ class HistorialPago
      *
      * @return \DateTime
      */
-    public function getHpaFechaMod()
-    {
+    public function getHpaFechaMod() {
         return $this->hpaFechaMod;
     }
 
@@ -210,8 +198,7 @@ class HistorialPago
      *
      * @return HistorialPago
      */
-    public function setHpaComentario($hpaComentario)
-    {
+    public function setHpaComentario($hpaComentario) {
         $this->hpaComentario = $hpaComentario;
 
         return $this;
@@ -222,8 +209,7 @@ class HistorialPago
      *
      * @return string
      */
-    public function getHpaComentario()
-    {
+    public function getHpaComentario() {
         return $this->hpaComentario;
     }
 
@@ -234,8 +220,7 @@ class HistorialPago
      *
      * @return HistorialPago
      */
-    public function setHpaCantidadUsuariosCorte($hpaCantidadUsuariosCorte)
-    {
+    public function setHpaCantidadUsuariosCorte($hpaCantidadUsuariosCorte) {
         $this->hpaCantidadUsuariosCorte = $hpaCantidadUsuariosCorte;
 
         return $this;
@@ -246,8 +231,7 @@ class HistorialPago
      *
      * @return integer
      */
-    public function getHpaCantidadUsuariosCorte()
-    {
+    public function getHpaCantidadUsuariosCorte() {
         return $this->hpaCantidadUsuariosCorte;
     }
 
@@ -258,8 +242,7 @@ class HistorialPago
      *
      * @return HistorialPago
      */
-    public function setHpaEstado($hpaEstado)
-    {
+    public function setHpaEstado($hpaEstado) {
         $this->hpaEstado = $hpaEstado;
 
         return $this;
@@ -270,8 +253,7 @@ class HistorialPago
      *
      * @return integer
      */
-    public function getHpaEstado()
-    {
+    public function getHpaEstado() {
         return $this->hpaEstado;
     }
 
@@ -282,8 +264,7 @@ class HistorialPago
      *
      * @return HistorialPago
      */
-    public function setHpaPagoDetalle($hpaPagoDetalle)
-    {
+    public function setHpaPagoDetalle($hpaPagoDetalle) {
         $this->hpaPagoDetalle = $hpaPagoDetalle;
 
         return $this;
@@ -294,8 +275,7 @@ class HistorialPago
      *
      * @return string
      */
-    public function getHpaPagoDetalle()
-    {
+    public function getHpaPagoDetalle() {
         return $this->hpaPagoDetalle;
     }
 
@@ -306,8 +286,7 @@ class HistorialPago
      *
      * @return HistorialPago
      */
-    public function setHpaCliente(\AppBundle\Entity\Cliente $hpaCliente = null)
-    {
+    public function setHpaCliente(\AppBundle\Entity\Cliente $hpaCliente = null) {
         $this->hpaCliente = $hpaCliente;
 
         return $this;
@@ -318,8 +297,7 @@ class HistorialPago
      *
      * @return \AppBundle\Entity\Cliente
      */
-    public function getHpaCliente()
-    {
+    public function getHpaCliente() {
         return $this->hpaCliente;
     }
 
@@ -330,8 +308,7 @@ class HistorialPago
      *
      * @return HistorialPago
      */
-    public function setHpaUsuVerificado(\AppBundle\Entity\Usuario $hpaUsuVerificado = null)
-    {
+    public function setHpaUsuVerificado(\AppBundle\Entity\Usuario $hpaUsuVerificado = null) {
         $this->hpaUsuVerificado = $hpaUsuVerificado;
 
         return $this;
@@ -342,8 +319,7 @@ class HistorialPago
      *
      * @return \AppBundle\Entity\Usuario
      */
-    public function getHpaUsuVerificado()
-    {
+    public function getHpaUsuVerificado() {
         return $this->hpaUsuVerificado;
     }
 
@@ -354,8 +330,7 @@ class HistorialPago
      *
      * @return HistorialPago
      */
-    public function setHpaMetodoPago(\AppBundle\Entity\MetodoPago $hpaMetodoPago = null)
-    {
+    public function setHpaMetodoPago(\AppBundle\Entity\MetodoPago $hpaMetodoPago = null) {
         $this->hpaMetodoPago = $hpaMetodoPago;
 
         return $this;
@@ -366,8 +341,12 @@ class HistorialPago
      *
      * @return \AppBundle\Entity\MetodoPago
      */
-    public function getHpaMetodoPago()
-    {
+    public function getHpaMetodoPago() {
         return $this->hpaMetodoPago;
     }
+
+    public function getPagoDetalle() {
+        return json_decode($this->hpaPagoDetalle);
+    }
+
 }

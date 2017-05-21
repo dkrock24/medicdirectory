@@ -72,6 +72,11 @@ class cronFacturacionCommand extends ContainerAwareCommand {
 
             $dCosto = $this->obtenerCosto($oCliente, $iUsuarios);
 
+            // No guardar facturación de clientes sin usuarios
+            if ((float)$dCosto === 0.00) {
+                continue;
+            }
+
             $oHistorialPago = new \AppBundle\Entity\HistorialPago();
             $oHistorialPago->setHpaCliente($oCliente);
             $oHistorialPago->setHpaCantidadUsuariosCorte($iUsuarios);

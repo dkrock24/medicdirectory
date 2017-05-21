@@ -21,3 +21,26 @@ admin_contabilidad:
 admin_contabilidad_buscar:
     path:     /admin_contabilidad_buscar
     defaults: { _controller: AdminBundle:Contabilidad:buscar }
+
+admin_contabilidad_ver_pago:
+    path:     /admin_contabilidad_ver_pago
+    defaults: { _controller: AdminBundle:Contabilidad:verPago }
+    methods:  [POST]
+
+admin_contabilidad_procesar_pago:
+    path:     /admin_contabilidad_procesar_pago
+    defaults: { _controller: AdminBundle:Contabilidad:procesarPago }
+    methods:  [POST]
+
+admin_contabilidad_pagos_pendientes:
+    path:     /admin_contabilidad_pagos_pendientes
+    defaults: { _controller: AdminBundle:Contabilidad:pagosPendientes }
+
+admin_contabilidad_reporte:
+    path:     /admin_contabilidad_reporte
+    defaults: { _controller: AdminBundle:ContabilidadReportes:index}
+
+admin_contabilidad_reporte_ver:
+    path:     /admin_contabilidad_reporte_ver
+    defaults: { _controller: AdminBundle:ContabilidadReportes:ver }
+    methods:  [POST]

@@ -81,7 +81,23 @@
                         <a href="#"><i class="fa fa-file-text-o"></i> <span>Auditorias</span></a>
                     </li>
                     <li>
-                        <a href="{{ path('admin_contabilidad')}}"><i class="fa fa-money"></i> <span>Contabilidad</span></a>
+                        <a href="#"><i class="fa fa-dashboard"></i> <span>Contabilidad</span></a>
+                        <ul>
+                            <li>
+                                <a href="{{ path('admin_contabilidad')}}">
+                                    <i class="fa fa-money"></i>
+                                    <span>Ver cliente</span>
+                                </a>
+                                <a href="{{ path('admin_contabilidad_pagos_pendientes')}}">
+                                    <i class="fa fa-bank"></i>
+                                    <span>Pagos pendientes</span>
+                                </a>
+                                <a href="{{ path('admin_contabilidad_reporte')}}">
+                                    <i class="fa fa-dashboard"></i>
+                                    <span>Reportes</span>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-comments"></i> <span>Feedback</span></a>

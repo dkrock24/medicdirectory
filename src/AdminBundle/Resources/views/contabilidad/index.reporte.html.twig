@@ -1,0 +1,69 @@
+{% extends "Layout/base_admin/_admin_base.html.twig" %}
+
+{% block title_page %}
+    EMR || Reportes contables
+{% endblock %}
+
+{% block body %}
+    <!-- Search field -->
+    <div class="panel panel-flat">
+        <div class="panel-heading">
+            <h5 class="panel-title">Reporte contable</h5>
+            <div class="heading-elements">
+                <ul class="icons-list">
+                    <li><a data-action="collapse"></a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="panel-body">
+
+            <div class="input-group content-group">
+               
+                    <select id="contabilidad_buscar_tipo" class="form-control">
+                        <option value="1">Grandes totales</option>
+                        <option value="2">Vista anual</option>
+                        <option value="3">Proyección anualizada</option>
+                        <option value="4">Vista mensual</option>
+                        <option value="5">Vista grandes clientes</option>
+                        <option value="6">Vista grandes deudores</option>
+                    </select>
+                
+
+                <div class="input-group-btn">
+                    <button id="contabilidad_buscar" class="btn btn-primary">Ver</button>
+                </div>
+            </div>
+
+        </div>
+        <!-- /search field -->
+    </div>
+    <div id="contabilidad_contenedor_resultados" class="row" style="display:none;">
+
+        <div class="panel panel-body">
+            <div id="contabilidad_resultados" ></div>
+        </div>
+    </div>
+
+    {% include 'AdminBundle:contabilidad:modal.html.twig' %}
+
+{% endblock %}
+
+{% block codejs %}
+    <script type='text/javascript'>
+        $(function () {
+
+            // Buscar un cliente
+            $('#contabilidad_buscar').click(function () {
+
+                $('#contabilidad_contenedor_resultados').hide();
+                $('#contabilidad_resultados').html('');
+                $('#contabilidad_resultados').load('{{ path('admin_contabilidad_reporte_ver') }}', {tipo: $('#contabilidad_buscar_tipo').val()}, function (data) {
+                    $('#contabilidad_contenedor_resultados').show();
+                });
+            });
+
+        });
+
+    </script>
+{% endblock %}

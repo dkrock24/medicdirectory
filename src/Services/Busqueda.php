@@ -17,6 +17,16 @@ class Busqueda {
 
     public function buscarClientes($texto, $activos = null, $offset = 0, $limit = 1) {
 
+        $aRet = [];
+        $aRet['total'] = 0;
+        $aRet['total_encontrado'] = 0;
+        $aRet['resultados'] = [];
+        $aRet['ids'] = [];
+
+        if (empty($texto)) {
+            return $aRet;
+        }
+
         // Buscamos en el indice definido en el config.yml -> SphinxSearch
         // La configuración del indice esta en el archivo sphinx.conf del sistema
         $indexesToSearch = array('Clientes');
@@ -33,18 +43,15 @@ class Busqueda {
             $sphinxSearch->setFilter('cli_activo', array($activos), false);
         }
         $oResultado = $sphinxSearch->search($texto, $indexesToSearch, $options);
-
-        $aRet = [];
         $aRet['total'] = $oResultado['total'];
-        $aRet['resultados'] = [];
-        $aRet['ids'] = [];
+        $aRet['total_encontrado'] = $oResultado['total_found'];
+
 
         // Si tuvimos resultados entonces devolver los IDs ( cliente -> cli_id )
         if ($aRet['total'] > 0) {
-            foreach ($oResultado['matches'] as $id => $cliente){
+            foreach ($oResultado['matches'] as $id => $cliente) {
                 $aRet['ids'][] = $id;
             }
-
         }
 
         return $aRet;
