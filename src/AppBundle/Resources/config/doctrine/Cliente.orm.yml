@@ -106,16 +106,18 @@ AppBundle\Entity\Cliente:
             scale: 2
             column: cli_precio_por_usuario
         cliUbicacionLat:
-            type: decimal
-            nullable: true
-            precision: 9
-            scale: 6
+            type: string
+            nullable: false
+            length: 30
+            options:
+                fixed: false
             column: cli_ubicacion_lat
         cliUbicacionLon:
-            type: decimal
-            nullable: true
-            precision: 5
-            scale: 2
+            type: string
+            nullable: false
+            length: 30
+            options:
+                fixed: false
             column: cli_ubicacion_lon
         cliActivo:
             type: boolean
