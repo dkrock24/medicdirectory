@@ -193,11 +193,18 @@
                                     <div class="row">
                                         <div class="col-md-4">    
                                             <div class="form-group">
+                                                <div class="form_error"></div>
+                                                <label for="" class=" control-label"></label>
+                                                <div class=""><button type="button" id="btn-map" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Ubicación en Google map</button></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">    
+                                            <div class="form-group">
                                                 <div class="form_error">{{ form_errors(form.cliUbicacionLat)}}</div>
                                                 <label for="" class=" control-label">Latitud: </label>
                                                 <div class="">{# {{ form_widget(edit_form.espid) }} #}{{ form_widget(form.cliUbicacionLat,  { 'attr': {'class': '', 'required':false} } ) }}</div>
                                             </div>
-                                        </div>
+                                        </div>    
                                         <div class="col-md-4">    
                                             <div class="form-group">
                                                 <div class="form_error">{{ form_errors(form.cliUbicacionLon)}}</div>
@@ -548,6 +555,24 @@
             
         </div>
     </div>
+            
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="modalMap">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="gridSystemModalLabel">Mapa para ubicar el establecimiento</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="dvMap" style="width:100%; height: 500px"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <!--<button type="button" class="btn btn-success">Ubicar establecimiento</button>-->
+                </div>    
+            </div>
+        </div>
+    </div>        
         
 {% endblock %}
 
@@ -575,7 +600,7 @@
                 labels: {
                     current: "current step:",
                     pagination: "Pagination",
-                    finish: "Fin",
+                    finish: "Crear",
                     next: "Siguiente",
                     previous: "Anterior",
                     loading: "Loading ..."
@@ -1560,6 +1585,92 @@
             
             $('[data-toggle="tooltip"]').tooltip();
             //$("body").find(".ui-datepicker-year").select2();
+            
+             //=====================================================
+            //Google maps
+            //=====================================================
+            var map
+            if( $("#dvMap").size() == 1 )
+            {
+                var markers = [];
+                var uniqueId = 1;
+                window.onload = function () {
+                    var lat = "13.684978";
+                    var lon = "-89.263635";
+                    if( $.trim($("#appbundle_cliente_cliUbicacionLat").val() ) != "" && $("#appbundle_cliente_cliUbicacionLat").val() != 0 )
+                    {
+                        lat = $("#appbundle_cliente_cliUbicacionLat").val();
+                    }
+                        
+                    if( $.trim($("#appbundle_cliente_cliUbicacionLon").val() ) != "" && $("#appbundle_cliente_cliUbicacionLon").val() !=0 )
+                    {
+                        lon = $("#appbundle_cliente_cliUbicacionLon").val();
+                    }
+                    var mapOptions = {
+                        center: new google.maps.LatLng(lat, lon),
+                        zoom: 11,
+                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                    };
+                     map = new google.maps.Map(document.getElementById("dvMap"), mapOptions);
+
+                    //Attach click event handler to the map.
+                    google.maps.event.addListener(map, 'click', function (e) {
+
+                        //Determine the location where the user has clicked.
+                        var location = e.latLng;
+
+                        //Create a marker and placed it on the map.
+                        var marker = new google.maps.Marker({
+                            position: location,
+                            map: map
+                        });
+
+                        //Set unique id
+                        marker.id = uniqueId;
+                        uniqueId++;
+
+                        //Attach click event handler to the marker.
+                        google.maps.event.addListener(marker, "click", function (e) {
+                            var content = 'Latitude: ' + location.lat() + '<br />Longitude: ' + location.lng();
+                            content += "<br /><input type = 'button' value = 'Eliminar ubicación' onclick = '' id='btn-delete-map' />";
+                            var infoWindow = new google.maps.InfoWindow({
+                                content: content
+                            });
+                            infoWindow.open(map, marker);
+                        });
+                        //console.log(location.lat()+" - "+location.lng() );
+                        $("#appbundle_cliente_cliUbicacionLat").val(location.lat());
+                        $("#appbundle_cliente_cliUbicacionLon").val(location.lng());
+                        //Add marker to the array.
+                        DeleteMarker();
+                        markers.push(marker);
+                        //markers = marker;
+                    });
+                };
+                
+                $("body").on("click","#btn-delete-map", function(){
+                    DeleteMarker();
+                });
+                function DeleteMarker() {
+                    //Find and remove the marker from the Array
+                    for (var i = 0; i < markers.length; i++) {
+                        //if (markers[i].id == id) {
+                            //Remove the marker from Map                   
+                            markers[i].setMap(null);
+
+                            //Remove the marker from array.
+                            markers.splice(i, 1);
+                            return;
+                        //}
+                    }
+                };
+                
+                $('#modalMap').on('shown.bs.modal', function () {
+                    google.maps.event.trigger(map, 'resize');
+                    
+                    
+                })
+            }
             
         });
     </script>

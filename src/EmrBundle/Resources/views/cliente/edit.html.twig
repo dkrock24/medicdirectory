@@ -190,6 +190,13 @@
                                 <div class="row">
                                         <div class="col-md-4">    
                                             <div class="form-group">
+                                                <div class="form_error"></div>
+                                                <label for="" class=" control-label"></label>
+                                                <div class=""><button type="button" id="btn-map" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Ubicación en Google map</button></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">    
+                                            <div class="form-group">
                                                 <div class="form_error">{{ form_errors(edit_form.cliUbicacionLat)}}</div>
                                                 <label for="" class=" control-label">Latitud: </label>
                                                 <div class="">{# {{ form_widget(edit_form.espid) }} #}{{ form_widget(edit_form.cliUbicacionLat,  { 'attr': {'class': '', 'required':false} } ) }}</div>
@@ -201,8 +208,9 @@
                                                 <label for="" class=" control-label">Logitud: </label>
                                                 <div class="">{# {{ form_widget(edit_form.espid) }} #}{{ form_widget(edit_form.cliUbicacionLon,  { 'attr': {'class': '', 'required':false} } ) }}</div>
                                             </div>
-                                        </div>    
-                                    </div>            
+                                        </div> 
+                                            
+                                </div>            
                                        
                             </div>
                             <div class="col-lg-6">
@@ -520,27 +528,60 @@
                                                     <div class="col-lg-6">
                                                         <div class="form-group">
                                                             <label for="cc-number" class="control-label">Número de tarjeta <small class="text-muted">[<span class="cc-brand"></span>]</small></label>
-                                                            <input id="cc-number" type="tel" class="input-lg form-control cc-number" autocomplete="cc-number" placeholder="•••• •••• •••• ••••" required>
+                                                          
+                                                            {% if creditCard != "" %}
+                                                                <input id="cc-number" type="tel" class="input-lg form-control cc-number" autocomplete="cc-number" placeholder="{{ creditCard }}" readonly="readonly">
+                                                                {% set cardNumber = creditCard %}
+                                                            {% else %} 
+                                                                <input id="cc-number" type="tel" class="input-lg form-control cc-number" autocomplete="cc-number" placeholder="•••• •••• •••• ••••" required>
+                                                            {% endif %}
+                                                            
                                                         </div>
 
                                                         <div class="form-group">
                                                             <label for="cc-exp" class="control-label">Fecha de expiración</label>
-                                                            <input id="cc-exp" type="tel" class="input-lg form-control cc-exp" autocomplete="cc-exp" placeholder="MM / YY" required>
+                                                            {% if exp != "" %}
+                                                                <input id="cc-exp" type="tel" class="input-lg form-control cc-exp" autocomplete="cc-exp" placeholder="{{ exp }}" readonly="readonly">
+                                                            {% else %}
+                                                                <input id="cc-exp" type="tel" class="input-lg form-control cc-exp" autocomplete="cc-exp" placeholder="MM / YY" required>
+                                                            {% endif %}
                                                         </div>
 
                                                         <div class="form-group">
                                                             <label for="cc-cvc" class="control-label">CVC</label>
-                                                            <input id="cc-cvc" type="tel" class="input-lg form-control cc-cvc" autocomplete="off" placeholder="•••" required>
+                                                            {% if cvc != "" %}
+                                                                <input id="cc-cvc" type="tel" class="input-lg form-control cc-cvc" autocomplete="off" placeholder="{{ cvc }}" readonly="readonly">
+                                                            {% else %}
+                                                                <input id="cc-cvc" type="tel" class="input-lg form-control cc-cvc" autocomplete="off" placeholder="•••" required>
+                                                            {% endif %}
+                                                            
                                                         </div>
+                                                  
+                                                        {% if creditCard is defined and creditCard != "" %}
+                                                           
+                                                            {% set displayChange = "" %}
+                                                        {% else %}
+                                                            
+                                                             {% set displayChange = 'style=display:none' %}
+                                                        {% endif %}   
+                                                       <div id="enable_card" class="text-left" {{ displayChange }}><span class="btn btn-lg btn-primary">Cambiar datos de tarjeta</span></div>
                                                         <!--
                                                         <div class="form-group">
                                                             <label for="numeric" class="control-label">Restrict numeric</label>
                                                             <input id="numeric" type="tel" class="input-lg form-control" data-numeric>
                                                         </div>
                                                         -->
-                                                        <button id="btn-check-credit-card" class="btn btn-lg btn-primary"><i class="fa fa-credit-card-alt" aria-hidden="true"></i> Validar</button>
-
+                                                        {% if creditCard is defined and creditCard == "" %}
+                                                            {% set display = "" %}
+                                                            
+                                                        {% else %}
+                                                            
+                                                            {% set display = 'style=display:none' %}
+                                                        {% endif %}    
+                                                        <button id="btn-check-credit-card" class="btn btn-lg btn-primary" {{ display }}><i class="fa fa-credit-card-alt" aria-hidden="true"></i> Validar</button>
+                                                        
                                                         <h2 class="validation"></h2>
+                                                        <span id="use-same-card"></span>
                                                     </div>
                                                     <div class="col-lg-6">
                                                         
@@ -605,6 +646,24 @@
             </div>
         </div>
     </div>
+         
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="modalMap">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="gridSystemModalLabel">Mapa para ubicar el establecimiento</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="dvMap" style="width:100%; height: 500px"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <!--<button type="button" class="btn btn-success">Ubicar establecimiento</button>-->
+                </div>    
+            </div>
+        </div>
+    </div>        
     
     {#
     <ul>
@@ -646,7 +705,7 @@
                 labels: {
                     current: "current step:",
                     pagination: "Pagination",
-                    finish: "Fin",
+                    finish: "Guardar",
                     next: "Siguiente",
                     previous: "Anterior",
                     loading: "Loading ..."
@@ -719,14 +778,17 @@
                     {
                         if( $("#val_cc_number").size() == 0 )
                         {
-                            $.alert({
-                                icon: 'fa fa-credit-card-alt',
-                                title: 'Error!',
-                                content: 'Es necesario validar la tarjeta',
-                                type: 'red',
-                                typeAnimated: true,
-                            });
-                            return false;
+                            if( $("#cc-number").val() != "" || $("#cc-exp").val() != "" || $("#cc-cvc").val() != ""  )
+                            {    
+                                $.alert({
+                                    icon: 'fa fa-credit-card-alt',
+                                    title: 'Error!',
+                                    content: 'Ha actualizado los datos de la tarjeta por lo que es necesario validarla',
+                                    type: 'red',
+                                    typeAnimated: true,
+                                });
+                                return false;
+                            }
                         }
                         else if( $("#val_cc_number").val() != 1 )
                         {
@@ -886,6 +948,7 @@
                     //inject new section
                     $('#sections').prepend(section);
                     $('[data-toggle="tooltip"]').tooltip();
+                    //$("#newId").closest("fieldset").find("")
                     return false;
                 }
                 
@@ -1056,6 +1119,7 @@
                     
                     if( $('.validation').hasClass("text-success") )
                     {
+                        //$("#use-same-card").html("<button class='btn btn-info'></button>");
                         /*
                         creditCard['cc-number'] = $('.cc-number').val();
                         creditCard['cc-exp'] =  $('.cc-exp').val();
@@ -1068,6 +1132,12 @@
                         //console.log("cagada");
                         //creditCard = [];
                         val_cc_number = 0;
+                        var creditCard = "{{ creditCard }}";
+                        if( creditCard != "" )
+                        {
+                            $("#use-same-card").html("<button class='btn btn-info' id='use-same-card'>Usar tarjeta anterior</button>");
+                        }
+                         
                     }
                     
                     if( $("body").find("#val_cc_number").size() == 0 )
@@ -1077,10 +1147,55 @@
                     
                     $("body").find("#val_cc_number").val(val_cc_number);
                     
+                    
                     //e.preventDefault();
                     //return creditCard;
                     
                 });
+                
+                $("body").on("click","#use-same-card", function(){
+                        $("#pay_2").find(".form-group").each(function(){
+                            $(this).removeClass("has-error");
+                            $(this).find("input[type='text']").val("");
+                        });
+                        $("#cc-number").attr("placeholder", "{{ creditCard }}");
+                        $("#cc-exp").attr("placeholder", "{{ exp }}");
+                        $("#cc-cvc").attr("placeholder", "{{ cvc }}");
+                        //$(this).attr("placeholder", "Type your answer here");
+                        $('.validation').removeClass('text-danger text-success');
+                        $("#use-same-card").empty();
+                        if( $("body").find("#val_cc_number").size() == 0 )
+                        {
+                            $("body").append("<input type='hidden' value=''  id='val_cc_number'>");
+                        }
+                        $("body").find("#val_cc_number").val(1);
+                    });
+                
+                $("body").on("click","#enable_card span",function(){
+                        $("#pay_2").find(".form-group").each(function(){
+                            //$(this).removeClass("has-error");
+                            //$(this).find("input[type='text']").prop('readonly', false);
+                            
+                        });
+                        if( $("body").find("#val_cc_number").size() == 0 )
+                        {
+                            $("body").append("<input type='hidden' value=''  id='val_cc_number'>");
+                        }
+                        $("body").find("#val_cc_number").val(0);
+                        $("#cc-number").attr("placeholder", "•••• •••• •••• ••••");
+                        $("#cc-exp").attr("placeholder", "MM / YY");
+                        $("#cc-cvc").attr("placeholder", "•••");
+                        
+                        
+                        $("#cc-number").prop('readonly', false);
+                        $("#cc-exp").prop('readonly', false);
+                        $("#cc-cvc").prop('readonly', false);
+                        $("#enable_card span").hide();
+                        $("#btn-check-credit-card").show();
+                        
+                        $("#use-same-card").html("<button class='btn btn-info' id='use-same-card'>Usar tarjeta anterior</button>");
+                    });
+                
             }
             
             
@@ -1099,7 +1214,7 @@
                     {
                         $("#cc-number, #cc-exp, #cc-cvc").attr("required", false);
                     }else{
-                        $("#cc-number, #cc-exp, #cc-cvc").attr("required", true);
+                        //$("#cc-number, #cc-exp, #cc-cvc").attr("required", true);
                     }
                 });
                 
@@ -1107,7 +1222,7 @@
                 {
                     $("#cc-number, #cc-exp, #cc-cvc").attr("required", false);
                 }else{
-                    $("#cc-number, #cc-exp, #cc-cvc").attr("required", true);
+                    //$("#cc-number, #cc-exp, #cc-cvc").attr("required", true);
                 }
             }
             
@@ -1438,6 +1553,7 @@
                     $("#username").attr("readonly", false);
                     $("#gender").attr("readonly", false);
                     $('#gender option').prop('disabled', false);
+                    //$("#")
                 }
             }
             
@@ -1581,6 +1697,92 @@
             
             $('[data-toggle="tooltip"]').tooltip();
             //$("body").find(".ui-datepicker-year").select2();
+            
+            //=====================================================
+            //Google maps
+            //=====================================================
+            var map
+            if( $("#dvMap").size() == 1 )
+            {
+                var markers = [];
+                var uniqueId = 1;
+                window.onload = function () {
+                    var lat = "13.684978";
+                    var lon = "-89.263635";
+                    if( $.trim($("#appbundle_cliente_cliUbicacionLat").val() ) != "" && $("#appbundle_cliente_cliUbicacionLat").val() != 0 )
+                    {
+                        lat = $("#appbundle_cliente_cliUbicacionLat").val();
+                    }
+                        
+                    if( $.trim($("#appbundle_cliente_cliUbicacionLon").val() ) != "" && $("#appbundle_cliente_cliUbicacionLon").val() !=0 )
+                    {
+                        lon = $("#appbundle_cliente_cliUbicacionLon").val();
+                    }
+                    var mapOptions = {
+                        center: new google.maps.LatLng(lat, lon),
+                        zoom: 11,
+                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                    };
+                     map = new google.maps.Map(document.getElementById("dvMap"), mapOptions);
+
+                    //Attach click event handler to the map.
+                    google.maps.event.addListener(map, 'click', function (e) {
+
+                        //Determine the location where the user has clicked.
+                        var location = e.latLng;
+
+                        //Create a marker and placed it on the map.
+                        var marker = new google.maps.Marker({
+                            position: location,
+                            map: map
+                        });
+
+                        //Set unique id
+                        marker.id = uniqueId;
+                        uniqueId++;
+
+                        //Attach click event handler to the marker.
+                        google.maps.event.addListener(marker, "click", function (e) {
+                            var content = 'Latitude: ' + location.lat() + '<br />Longitude: ' + location.lng();
+                            content += "<br /><input type = 'button' value = 'Eliminar ubicación' onclick = '' id='btn-delete-map' />";
+                            var infoWindow = new google.maps.InfoWindow({
+                                content: content
+                            });
+                            infoWindow.open(map, marker);
+                        });
+                        //console.log(location.lat()+" - "+location.lng() );
+                        $("#appbundle_cliente_cliUbicacionLat").val(location.lat());
+                        $("#appbundle_cliente_cliUbicacionLon").val(location.lng());
+                        //Add marker to the array.
+                        DeleteMarker();
+                        markers.push(marker);
+                        //markers = marker;
+                    });
+                };
+                
+                $("body").on("click","#btn-delete-map", function(){
+                    DeleteMarker();
+                });
+                function DeleteMarker() {
+                    //Find and remove the marker from the Array
+                    for (var i = 0; i < markers.length; i++) {
+                        //if (markers[i].id == id) {
+                            //Remove the marker from Map                   
+                            markers[i].setMap(null);
+
+                            //Remove the marker from array.
+                            markers.splice(i, 1);
+                            return;
+                        //}
+                    }
+                };
+                
+                $('#modalMap').on('shown.bs.modal', function () {
+                    google.maps.event.trigger(map, 'resize');
+                    
+                    
+                })
+            }
             
         });
     </script>

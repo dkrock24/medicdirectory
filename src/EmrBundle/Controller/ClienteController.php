@@ -273,6 +273,21 @@ class ClienteController extends Controller
 			$statement->execute();
 			$currentPayment = $statement->fetchAll();
 			
+			$detail_payment = $currentPayment[0]['cli_pago_detalle'];
+			$exp = "";
+			$cvc = "";
+			$creditCardInfo = "";
+			if( !empty($detail_payment) )
+			{
+				
+				$creditCard = unserialize($detail_payment);
+				$number = $creditCard['creaditcard']['number'];
+				$exp = $creditCard['creaditcard']['exp'];
+				$cvc = $creditCard['creaditcard']['cvc'];
+				$creditCardInfo = $this->ccMasking($number, $maskingCharacter = '*');
+			}
+			
+			//exit();
 			
 			return $this->render('EmrBundle:cliente:edit.html.twig', array(
 				'cliente' => $cliente,
@@ -280,6 +295,9 @@ class ClienteController extends Controller
 				'edit_form' => $editForm->createView(),
 				'methodPay'=> $methodPay,
 				'currentPayment' => $currentPayment,
+				'creditCard' => $creditCardInfo,
+				'exp'=>$exp,
+				'cvc'=>$cvc,
 				'getUserRepresenter'=>$getUserRepresenter,
 				'getUsersLocation'=>$getUsersLocation,
 				'representerIsDoctorOrAssistant' => $representerIsDoctorOrAssistant,
@@ -293,6 +311,10 @@ class ClienteController extends Controller
 		}
         
     }
+	
+	function ccMasking($number, $maskingCharacter = 'X') {
+		return substr($number, 0, 4) . str_repeat($maskingCharacter, strlen($number) - 8) . substr($number, -4);
+	}
 
     /**
      * Deletes a cliente entity.
@@ -453,13 +475,15 @@ class ClienteController extends Controller
 		$payment = false;
 		if( ($representer_cc_number != "" ) && ($representer_cc_exp != "") && ($representer_cc_cvc !="") )
 		{
-			$payment = array(
-				"creaditcard" => array(
-								"number"=>$representer_cc_number, 
-								"exp"=>$representer_cc_exp, 
-								"cvc"=>$representer_cc_cvc
-					) 
+			
+				$payment = array(
+					"creaditcard" => array(
+									"number"=>$representer_cc_number, 
+									"exp"=>$representer_cc_exp, 
+									"cvc"=>$representer_cc_cvc
+						) 
 				);
+			
 		}
 		
 		
@@ -500,7 +524,11 @@ class ClienteController extends Controller
 			{
 				$client->setCliPagoDetalle(serialize($payment));
 			}else{
-				$client->setCliPagoDetalle("");
+				if( $payMethod != 2 ) //It's not Credit card
+				{
+					$client->setCliPagoDetalle("");
+				}
+				
 			}
 			
 			$client->setCliFechaRegistro(new \Datetime());
