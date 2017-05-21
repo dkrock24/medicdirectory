@@ -73,11 +73,14 @@ class ConsultaController extends Controller
 			throw $this->createNotFoundException('El paciente no fue encontrado en el establecimiento: '.$locationName );
 		}
 		
-		//echo $oPatient[0]->getPacNombre();
+		$patientAge = "";
+		if( !empty($oPatient[0]->getPacFechaNacimiento()) )
+		{
+			$age = date( 'Y/m/d', strtotime( $oPatient[0]->getPacFechaNacimiento()->format('Y-m-d') ) );
+			$servPatient = $this->get('srv_patient');
+			$patientAge = $servPatient->getAge( $age );
+		}
 		
-		
-		$servPatient = $this->get('srv_patient');
-		$patientAge = $servPatient->getAge("2000/12/12");
 		
 		
 		

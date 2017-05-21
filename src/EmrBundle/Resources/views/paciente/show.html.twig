@@ -281,8 +281,8 @@
                                                         <li class="dropdown">
                                                             <a href="#" class="label bg-danger-600 dropdown-toggle btn-sm" data-toggle="dropdown">Acción <span class="caret"></span></a>
                                                             <ul class="dropdown-menu dropdown-menu-right">
-                                                                {% if "6" in userRoles|keys  %}
-                                                                    <li><a href="#"><i class="icon-checkmark3" aria-hidden="true"></i> Iniciar Consulta</a></li>
+                                                                {% if "6" in userRoles|keys  and appointment.estado|lower  == "pendiente" %}
+                                                                    <li><a href="{{ path("consulta_new", { 'id': paciente.pacId }) }}"><i class="icon-checkmark3" aria-hidden="true"></i> Iniciar Consulta</a></li>
                                                                 {% endif %}
                                                                 <li><a href="{{ path("agenda_new")}}?d={{ appointment.id_doctor }}"><i class="icon-alarm" aria-hidden="true"></i> Actualizar</a></li>
                                                                 <li class="divider"></li>

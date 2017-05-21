@@ -343,7 +343,7 @@
             <div class="modal-footer">
                 <button class="btn"  data-dismiss="modal" aria-hidden="true"><i class="fa fa-times-circle-o" aria-hidden="true"></i> Cerrar</button>
                 <button type="submit" class="btn btn-danger" id="deleteButton"><i class="fa fa-trash" aria-hidden="true"></i> Eliminar</button>
-                <a href="" class="btn btn-success" id=""><i class="fa fa-medkit" aria-hidden="true"></i> Inicar Consulta</a>
+                <button class="btn btn-success" id="btn-medical-consultation"><i class="fa fa-medkit" aria-hidden="true"></i> Inicar Consulta</button>
             </div>
         </div>
     </div>
@@ -358,7 +358,30 @@
 {% block codejs %}
     <script>
         $(document).on("ready", function(){
-        //$(function(window,undefined){
+            
+            var normalize = (function() {
+                var from = "ÃÀÁÄÂÈÉËÊÌÍÏÎÒÓÖÔÙÚÜÛãàáäâèéëêìíïîòóöôùúüûÑñÇç", 
+                    to   = "AAAAAEEEEIIIIOOOOUUUUaaaaaeeeeiiiioooouuuunncc",
+                    mapping = {};
+
+                for(var i = 0, j = from.length; i < j; i++ )
+                    mapping[ from.charAt( i ) ] = to.charAt( i );
+
+                return function( str ) {
+                    var ret = [];
+                    for( var i = 0, j = str.length; i < j; i++ ) {
+                        var c = str.charAt( i );
+                        if( mapping.hasOwnProperty( str.charAt( i ) ) )
+                            ret.push( mapping[ c ] );
+                        else
+                            ret.push( c );
+                    }      
+                    return ret.join( '' );
+                }
+
+              })();
+            
+            //$(function(window,undefined){
             
             var d = "{{ app.request.query.get("d") }}";
             if( d != "")
@@ -544,12 +567,22 @@
                     starttime = $.fullCalendar.moment(event.start).format("dddd, MMMM Do YYYY, h:mm");
                     var bywhen = starttime + " – " + endtime;
                     $("#modalTitle").html(event.title);
+                    
+                    console.log( normalize(event.title) );
                     $("#modalWhen").text(bywhen);
                     $("#eventID").val(event.id);
                     $("#detailAppointment").empty();
                     $("#calendarModal").modal({backdrop: 'static', keyboard: false});
                     
-                    console.log("click");
+                    if( normalize(event.color) == "#0E77AE")
+                    {
+                        $("#btn-medical-consultation").show();
+                    }
+                    else
+                    {
+                        $("#btn-medical-consultation").hide();
+                    }
+                    console.log(event);
                 },
                 select: function(start, end, jsEvent) {  // click on empty time slot
                     endtime = $.fullCalendar.moment(end).format("h:mm");
@@ -874,6 +907,65 @@
                },        
            });
         }
+        
+        //======================================================================
+        //Valid the medical consulation from book
+        //======================================================================
+        
+        $("#btn-medical-consultation").on("click",function(){
+            startMedicalConsultation();
+        });
+        
+        function startMedicalConsultation(){  // 
+
+           //$("#calendarModal").modal("hide");
+           var eventID = $("#eventID").val();
+           $("#holder_loading").show();
+           $.ajax({
+               url: "{{ path('agenda_valid_consulation') }}",
+               data: "id="+eventID,
+               type: "POST",
+               success: function(json) {
+                   
+                   
+                   //console.log( json );
+                   
+                   if(json > 0)
+                    {   
+                        //$("#calendar").fullCalendar("removeEvents",eventID);
+                        var router = "{{ path('consulta_new', { 'id': "PLACEHOLDER" }) }}";
+                         router = router.replace("PLACEHOLDER", json);
+                        location.href = router;
+                    }
+                    else
+                    {
+                        $("#holder_loading").hide();
+                        $.alert({
+                            icon: 'fa fa-times',
+                            title: 'Error!',
+                            content: "<p class='small'>No se ha podido validar la consulta médica</p>",
+                            type: 'red',
+                            typeAnimated: true,
+                        }); 
+                    }    
+               },
+                error: function(json){
+                    $("#holder_loading").hide();  
+                    $.alert({
+                        icon: 'fa fa-times',
+                        title: 'Error!',
+                        content: "<p class='small'>Ha ocurrido un error al validar la consulta médica</p>",
+                        type: 'red',
+                        typeAnimated: true,
+                    });  
+                    
+                    return false;
+                   
+               }       
+           });
+
+       }
+        
         
         //======================================================================
         //Search patient
