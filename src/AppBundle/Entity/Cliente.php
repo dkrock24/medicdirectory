@@ -619,4 +619,43 @@ class Cliente
     {
         return $this->cliUbicacionLon;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $idEspecialidad;
+
+
+    /**
+     * Add idEspecialidad
+     *
+     * @param \AppBundle\Entity\Especialidad $idEspecialidad
+     *
+     * @return Cliente
+     */
+    public function addIdEspecialidad(\AppBundle\Entity\Especialidad $idEspecialidad)
+    {
+        $this->idEspecialidad[] = $idEspecialidad;
+
+        return $this;
+    }
+
+    /**
+     * Remove idEspecialidad
+     *
+     * @param \AppBundle\Entity\Especialidad $idEspecialidad
+     */
+    public function removeIdEspecialidad(\AppBundle\Entity\Especialidad $idEspecialidad)
+    {
+        $this->idEspecialidad->removeElement($idEspecialidad);
+    }
+
+    /**
+     * Get idEspecialidad
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getIdEspecialidad()
+    {
+        return $this->idEspecialidad;
+    }
 }

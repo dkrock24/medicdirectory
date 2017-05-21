@@ -58,4 +58,12 @@ AppBundle\Entity\Especialidad:
             inversedBy: null
             joinTable: null
             orderBy: null
+        idCliente:
+            targetEntity: Cliente
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: idEspecialidad
+            inversedBy: null
+            joinTable: null
+            orderBy: null
     lifecycleCallbacks: {  }

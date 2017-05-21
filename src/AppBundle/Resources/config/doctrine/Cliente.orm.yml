@@ -155,21 +155,21 @@ AppBundle\Entity\Cliente:
                     referencedColumnName: mep_id
             orphanRemoval: false
     manyToMany:
-        espid:
+        idEspecialidad:
             targetEntity: Especialidad
             cascade: {  }
             fetch: LAZY
             mappedBy: null
-            inversedBy: cliid
+            inversedBy: idCliente
             joinTable:
                 name: cliente_especialidad
                 joinColumns:
                     -
-                        name: cliId
+                        name: id_cliente
                         referencedColumnName: cli_id
                 inverseJoinColumns:
                     -
-                        name: espId
+                        name: id_especialidad
                         referencedColumnName: esp_id
             orderBy: null
     lifecycleCallbacks: {  }
