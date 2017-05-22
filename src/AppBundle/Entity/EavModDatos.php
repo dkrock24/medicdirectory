@@ -399,4 +399,33 @@ class EavModDatos
     {
         return $this->citaDato;
     }
+    /**
+     * @var \AppBundle\Entity\EavModCampos
+     */
+    private $campoDato;
+
+
+    /**
+     * Set campoDato
+     *
+     * @param \AppBundle\Entity\EavModCampos $campoDato
+     *
+     * @return EavModDatos
+     */
+    public function setCampoDato(\AppBundle\Entity\EavModCampos $campoDato = null)
+    {
+        $this->campoDato = $campoDato;
+
+        return $this;
+    }
+
+    /**
+     * Get campoDato
+     *
+     * @return \AppBundle\Entity\EavModCampos
+     */
+    public function getCampoDato()
+    {
+        return $this->campoDato;
+    }
 }

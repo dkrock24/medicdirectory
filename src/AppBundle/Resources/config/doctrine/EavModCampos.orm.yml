@@ -50,6 +50,13 @@ AppBundle\Entity\EavModCampos:
             options:
                 unsigned: true
             column: mod_camp_campo_padre
+        modCampEsCatalogo:
+            type: boolean
+            nullable: true
+            options:
+                default: 0
+                unsigned: true
+            column: mod_camp_es_catalogo
         modCampRequerido:
             type: integer
             nullable: false

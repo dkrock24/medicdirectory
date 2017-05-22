@@ -49,7 +49,7 @@ class ConsultaController extends Controller
 		
 		
 		return $this->render("EmrBundle:agenda:new.html.twig", array(
-			
+                    
 		));
         
     }
@@ -58,13 +58,16 @@ class ConsultaController extends Controller
 	public function medicalConsultationAction( Request $request )
 	{
 		$em = $this->getDoctrine()->getManager();
-		
+
+                $doctor = $this->getUser()->getUsuId();
+                
 		$patientId = $request->get('id');
 		$iLocationId = $this->get('session')->get('locationId');
 		$locationName = $this->get('session')->get('locationName');
 		
         $oPatient = $em->getRepository('AppBundle:Paciente')->findBy( array("pacId"=>$patientId, "pacCli"=>$iLocationId ) );
         
+            //-- Get all the modules which the user has access to.
                 $oUsuModulos = $em->getRepository('AppBundle:ClienteModulo')
                         ->findBy(
                                 array( 'cliModCli' => $iLocationId, 'cliModActivo' => 1 ), 
@@ -82,7 +85,6 @@ class ConsultaController extends Controller
                     );
                 }
                 
-                
 		
 		if( !isset($patientId) || empty($patientId) )
 		{
@@ -99,14 +101,15 @@ class ConsultaController extends Controller
 			$servPatient = $this->get('srv_patient');
 			$patientAge = $servPatient->getAge( $age );
 		}
-		
-		
-		
-		
+                
 		return $this->render("EmrBundle:consulta:new.html.twig", array(
 			"patient"=>$oPatient,
 			"age"=>$patientAge,
-                        "modulos"=>$modulos
+                        "modulos"=>$modulos,
+                    
+                        'usu_id' => $doctor,
+                        'cit_id' => null,
+                        'cli_id' => $iLocationId
 		));
 		
 	}

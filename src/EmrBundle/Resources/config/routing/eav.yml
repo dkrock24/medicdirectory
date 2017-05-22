@@ -3,5 +3,5 @@ eav_crear_menu_modulos:
     defaults: { _controller: "EmrBundle:EavModulos:crearMenuModulos" }
     
 eav_crear_form_modulo:
-    path:   /eav/crearFormMod/{mod_hash}
-    defaults: { _controller: "EmrBundle:EavModulos:crearFormModulo" }
+    path:   /eav/crearFormMod/{mod_hash}/{usu_id}/{pac_id}/{cli_id}/{cit_id}
+    defaults: { _controller: "EmrBundle:EavModulos:crearFormModulo", cit_id: null }

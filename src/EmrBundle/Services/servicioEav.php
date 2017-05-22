@@ -8,7 +8,7 @@
 
 namespace EmrBundle\Services;
 
-use \Symfony\Component\Form\Extension\Core\Type as Type;
+use Symfony\Component\Form\Extension\Core\Type as Type;
 
 /**
  * Description of servicioEav
@@ -109,41 +109,136 @@ class servicioEav {
     }
     
     
-    public function buildModuleForm( $mod_props ){
+    public function buildModuleForm( $mod_hash, 
+            $usu_id,
+            $pac_id,
+            $cli_id,
+            $cit_id,
+            $mod_props ){
         
+        $mod = $this->em->getRepository("AppBundle:Modulo")
+        ->findOneBy( array('modHashCode' => $mod_hash) );
+
+        $module = $mod->getModId();
+        
+        /* ***** QUERY FOR USER PROPS AND VALUES ******/
+        $sUsrProVal = "
+            select 
+                c.mod_camp_id as id_campo,
+                v.mod_dat_id as id_valor,
+                cv.mod_cat_val_id as id_valor_catalogo,
+                c.mod_camp_es_catalogo,
+                case
+                    when c.mod_camp_es_catalogo = 1 then cv.mod_cat_val_valor
+                    when c.mod_camp_es_catalogo = 0 then v.mod_dat_dato_valor
+                end as value
+                ,cvt._ids_vals_array
+            from 
+            eav_mod_campos c 
+            left join eav_mod_datos v on 
+                    v.mod_dat_usu_id = :usu_id and
+                    v.mod_dat_pac_id = :pac_id and
+                    v.mod_dat_cli_id = :cli_id and
+                    v.mod_dat_cit_id = :cit_id and
+                    v.mod_dat_activo = 1 and 
+                    v.mod_dat_mod_camp_id = c.mod_camp_id	
+                    and
+                    c.mod_camp_activo = 1 and 
+                    c.mod_camp_mod_secc_id 
+                    in  (select group_concat(mod_secc_id) from eav_mod_seccion where mod_secc_mod_id = :mod_id group by mod_secc_mod_id)
+
+            left join eav_mod_cat_valores cv on 
+                    v.mod_dat_dato_valor = cv.mod_cat_val_id
+            left join (
+                    select 
+                        mod_cat_val_camp_id,
+                        group_concat( concat(mod_cat_val_id,':', mod_cat_val_valor) separator ', ' )
+                        as _ids_vals_array
+                    FROM
+                    eav_mod_cat_valores
+                    group by mod_cat_val_camp_id
+            ) cvt on cvt.mod_cat_val_camp_id = c.mod_camp_id
+        ";
+        
+        $oStatement = $this->em->getConnection()->prepare($sUsrProVal);
+        $oStatement->bindValue('usu_id', $usu_id);
+        $oStatement->bindValue('pac_id', $pac_id);
+        $oStatement->bindValue('cli_id', $cli_id);
+        $oStatement->bindValue('cit_id', $cit_id);
+        $oStatement->bindValue('mod_id', $module);
+        $oStatement->execute();
+        
+        $oResult = $oStatement->fetchAll();
+        
+        $aFormCampData = array();
+        
+        
+        
+        foreach( $oResult as $campData ){
+            
+            $aCatValuesTemp = ( !is_null( $campData['_ids_vals_array'] ) ) ? explode(',', $campData['_ids_vals_array']) : null;
+            $aCatVlues = null;
+            
+            if( !is_null( $aCatValuesTemp ) ){
+                foreach( $aCatValuesTemp as $value ){
+                    $aValues = explode(":", $value);
+                    $aCatVlues[$aValues[1]] = $aValues[0];
+                }
+            }
+            
+            $aFormCampData[$campData['id_campo']] = array(
+                'id_valor' => $campData['id_valor'],
+                'id_valor_catalogo' => $campData['id_valor_catalogo'],
+                'valor' => $campData['value'],
+                'val_catalogo' => $aCatVlues,
+            );
+            
+        }
         
         $aModSecc = array();
         
         foreach( $mod_props as $kseccion => $vcampo ){
             
-            $oModuloForm = $this->form_factory->createBuilder()//$this->createFormBuilder()
+            $oModuloForm = $this->form_factory->createBuilder()
                 ->setAction( '' )
                 ->setMethod( 'POST' ) 
             ;
             
+            
+            
             foreach( $vcampo as $key => $vcamp_props ){
                 
-                $oModuloForm->add( $vcamp_props["camp_id"],
-                //Type\TextareaType::class,
-                    self::$aDataTypesMap[ $vcamp_props["tipo_campo"] ],
-                    array(
-                        "label" => $vcamp_props["campo"],
-                        //"disabled" => $vcampo["proReadOnly"],
-                        "data" => null
-                        //,"choices" => null
-                    ) 
-                );
+                if( $vcamp_props['tipo_campo'] == 'choice' ){
+                    
+                    $oModuloForm->add( $vcamp_props["camp_id"],
+                        self::$aDataTypesMap[ $vcamp_props["tipo_campo"] ],
+                        array(
+                            "label" => $vcamp_props["campo"],
+                            "data" => $aFormCampData[ $vcamp_props["camp_id"] ]["id_valor_catalogo"],
+                            "choices" => $aFormCampData[ $vcamp_props["camp_id"] ]["val_catalogo"]
+                        ) 
+                    );
+                    
+                }else if( $vcamp_props['tipo_campo'] == "checkbox" ){
+                    
+                }else{
+                    $oModuloForm->add( $vcamp_props["camp_id"],
+                        self::$aDataTypesMap[ $vcamp_props["tipo_campo"] ],
+                        array(
+                            "label" => $vcamp_props["campo"],
+                            "data" => $aFormCampData[ $vcamp_props["camp_id"] ]["valor"] 
+                        ) 
+                    );
+                    
+                }
             }
             
             $oModFormView = $oModuloForm->getForm()->createView();
             
             $aModSecc[$kseccion] = $oModFormView;
-           
         }
         
-        //return $oModFormView;
         return $aModSecc;
-        
         
     }
     

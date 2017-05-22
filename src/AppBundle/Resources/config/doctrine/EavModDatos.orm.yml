@@ -99,4 +99,12 @@ AppBundle\Entity\EavModDatos:
                 mod_dat_cit_id:
                     referencedColumnName: cit_id
             orphanRemoval: false
+        campoDato:
+            targetEntity: EavModCampos
+            cascade: {  }
+            fetch: LAZY
+            inversedBy: null
+            joinColumns:
+                mod_dat_mod_camp_id:
+                    referencedColumnName: mod_camp_id
     lifecycleCallbacks: {  }

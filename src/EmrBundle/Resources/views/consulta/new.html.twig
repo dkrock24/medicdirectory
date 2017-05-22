@@ -160,7 +160,10 @@
             <!-- Here goes the modules list -->
             {{ render( controller('EmrBundle:EavModulos:crearMenuModulos', { 'modulos': modulos } ) ) }}
             <!-- end of modules list -->
-            {{ render( controller( 'EmrBundle:EavModulos:crearFormModulo', { 'mod_hash': modulos[0]['mod_hash'] } ) ) }}
+            {{ render( controller( 'EmrBundle:EavModulos:crearFormModulo', 
+                { 'mod_hash': modulos[0]['mod_hash'], 
+                    'usu_id': usu_id, 'pac_id': patient[0].pacId, 'cli_id': cli_id, 'cit_id': cit_id } ) ) 
+            }}
             
         </div>
     </div>
@@ -178,8 +181,12 @@
             
             $(".mod-tab").click(function(){
                 var sTarget = $(this).attr('target');
-                var sUrl = "{{ url( 'eav_crear_form_modulo', {'mod_hash': 'PLACE_HOLDER'} ) }}";
-                sUrl = sUrl.replace( "PLACE_HOLDER", sTarget );
+                var sUrl = "{{ url( 'eav_crear_form_modulo', {'mod_hash': 'modhash', 'usu_id': 'usuid', 'pac_id': 'pacid', 'cli_id': 'cliid', 'cit_id': 'citid'} ) }}";
+                sUrl = sUrl.replace( "modhash", sTarget );
+                sUrl = sUrl.replace( "usuid", {{ usu_id }} );
+                sUrl = sUrl.replace( "pacid", {{ patient[0].pacId }} );
+                sUrl = sUrl.replace( "cliid", {{ cli_id }} );
+                sUrl = sUrl.replace( "citid", {{ cit_id }} );
                 
                 $("#mod-holder").load( sUrl );
             });

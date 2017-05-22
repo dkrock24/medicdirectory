@@ -428,4 +428,33 @@ class EavModCampos
     {
         return $this->modSeccion;
     }
+    /**
+     * @var boolean
+     */
+    private $modCampEsCatalogo = 0;
+
+
+    /**
+     * Set modCampEsCatalogo
+     *
+     * @param boolean $modCampEsCatalogo
+     *
+     * @return EavModCampos
+     */
+    public function setModCampEsCatalogo($modCampEsCatalogo)
+    {
+        $this->modCampEsCatalogo = $modCampEsCatalogo;
+
+        return $this;
+    }
+
+    /**
+     * Get modCampEsCatalogo
+     *
+     * @return boolean
+     */
+    public function getModCampEsCatalogo()
+    {
+        return $this->modCampEsCatalogo;
+    }
 }
