@@ -12,7 +12,7 @@
         </div>
         <div class="list-group">
             {% for key, m in modulos %}
-                <a href="#" class="list-group-item activex">
+                <a href="#{{ m['modulo']|replace({ ' ':'' }) }}" class="list-group-item activex mod-tab" >
                      {{ m['modulo'] }}
                 </a>
             {% endfor %}
