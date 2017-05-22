@@ -23,6 +23,10 @@ AppBundle\Entity\Modulo:
             options:
                 fixed: false
             column: mod_modulo
+        modHashCode:
+            type: binary
+            length: 40
+            column: mod_hash_code
         modOrden:
             type: integer
             nullable: false

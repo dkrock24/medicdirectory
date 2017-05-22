@@ -225,4 +225,33 @@ class Modulo
     {
         return $this->modEsp;
     }
+    /**
+     * @var binary
+     */
+    private $modHashCode;
+
+
+    /**
+     * Set modHashCode
+     *
+     * @param binary $modHashCode
+     *
+     * @return Modulo
+     */
+    public function setModHashCode($modHashCode)
+    {
+        $this->modHashCode = $modHashCode;
+
+        return $this;
+    }
+
+    /**
+     * Get modHashCode
+     *
+     * @return binary
+     */
+    public function getModHashCode()
+    {
+        return $this->modHashCode;
+    }
 }
