@@ -14,7 +14,7 @@ services:
         class:        Services\ConfigureSession
         arguments:     ["@doctrine.orm.entity_manager", "@session"]    
         
-    catalogs:
+    srv_catalogs:
         class:        Services\CatalogsService
         arguments:     [ "@doctrine.orm.entity_manager" ]
         arguments:     ["@doctrine.orm.entity_manager", "@session"]

@@ -58,9 +58,15 @@ class DefaultController extends Controller {
     public function indexDoctoresAction() {
         $em = $this->getDoctrine()->getManager();
         $medicos = $em->getRepository('AppBundle\Entity\Usuario')
+<<<<<<< HEAD
                 ->getUsuariosMedicos();
 
         $esp_service = $this->get('catalogs');
+=======
+            ->getUsuariosMedicos();
+        
+        $esp_service = $this->get('srv_catalogs');
+>>>>>>> db81caf6e8951c8ef07c12c5df025112c0a20372
         $esp = $esp_service->getEspecialidades();
 
         return $this->render('WebBundle:Doctores:index.html.twig', array(

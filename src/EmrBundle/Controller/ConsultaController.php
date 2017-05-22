@@ -64,6 +64,24 @@ class ConsultaController extends Controller
 		$locationName = $this->get('session')->get('locationName');
 		
         $oPatient = $em->getRepository('AppBundle:Paciente')->findBy( array("pacId"=>$patientId, "pacCli"=>$iLocationId ) );
+        
+                $oUsuModulos = $em->getRepository('AppBundle:ClienteModulo')
+                        ->findBy(
+                                array( 'cliModCli' => $iLocationId, 'cliModActivo' => 1 ), 
+                                array('cliModFechaCrea' => 'ASC')
+                        )
+                        ;
+                
+                $modulos = array();
+                
+                foreach( $oUsuModulos as $kmod => $modulo ){
+                    $modulos[] = array(
+                        "mod_id" => $modulo->getCliModMod()->getModId(),
+                        "modulo" => $modulo->getCliModMod()->getModModulo()
+                    );
+                }
+                
+                
 		
 		if( !isset($patientId) || empty($patientId) )
 		{
@@ -87,6 +105,7 @@ class ConsultaController extends Controller
 		return $this->render("EmrBundle:consulta:new.html.twig", array(
 			"patient"=>$oPatient,
 			"age"=>$patientAge,
+                        "modulos"=>$modulos
 		));
 		
 	}

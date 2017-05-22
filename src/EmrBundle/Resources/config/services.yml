@@ -3,4 +3,7 @@ services:
         class: EmrBundle\Form\TaskType
         arguments: ['@doctrine.orm.entity_manager']
         tags:
-            - { name: form.type }
+            - { name: form.type }        
+    srv_eav:
+        class: EmrBundle\Services\servicioEav
+        arguments: [ "@doctrine.orm.entity_manager", "@form.factory" ]
