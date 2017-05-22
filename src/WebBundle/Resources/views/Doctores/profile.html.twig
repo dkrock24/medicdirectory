@@ -5,7 +5,7 @@
         <div class="container">
             <ul class="list-unstyled list-inline">
                 <li><a href="{{ url('web_homepage') }}">Inicio</a></li>
-                <li><a href="{{ url('web_doctores') }}">Doctores</a></li>
+                <li><a href="{{ url('web_homepage') }}">Doctores</a></li>
                 <li class="active">Perfil</li>
             </ul>
         </div>
@@ -16,7 +16,7 @@
 {%block body %}
     <!-- Doctor Profile Starts -->
     <div class="row">
-        <div class="col-sm-5 col-xs-12">
+        <div class="col-sm-4 col-xs-12">
             <div class="profile-block">
                 <div class="panel panel-profile">
                     <div class="panel-heading">
@@ -27,11 +27,11 @@
                     <div class="panel-body">
                         <ul class="list-unstyled">
                             <li class="row">
-                                <span class="col-sm-4 col-xs-12"><b>Especialidad:</b> </span>
-                                <span class="col-sm-8 col-xs-12">
+                                <span class="col-sm-5 col-xs-12"><b>Especialidad:</b> </span>
+                                <span class="col-sm-7 col-xs-12">
                                     <ul>
                                         {% for e in medico.idEspecialidad %}
-                                            <i class="fa fa-check"></i>{{ e.espEspecialidad }}<br>
+                                            </i>{{ e.espEspecialidad }}<br>
                                         {% endfor %}
                                     </ul>
 
@@ -39,14 +39,14 @@
                                 </span>
                             </li>
                             <li class="row">
-                                <span class="col-sm-4 col-xs-12"><b>Educacion:</b></span>
+                                <span class="col-sm-5 col-xs-12"><b>Educacion:</b></span>
                                 
                                 {% if medico.usuInformacion.usiEducacion is empty %}
-                                    <span class="col-sm-8 col-xs-12"><b>{{ 'N/A' }}</b></span>
+                                    <span class="col-sm-7 col-xs-12"><b>{{ 'N/A' }}</b></span>
                                 {% else %}
-                                    <span class="col-sm-8 col-xs-12">
+                                    <span class="col-sm-7 col-xs-12">
                                     <ul>
-                                        <i class="fa fa-check"></i>{{ medico.usuInformacion.usiEducacion }}
+                                        </i>{{ medico.usuInformacion.usiEducacion }}
                                     </ul>
                                     
                                     </span>
@@ -54,13 +54,13 @@
                                 {% endif %}
                             </li>
                             <li class="row">
-                                <span class="col-sm-4 col-xs-12"><b>Dias de trabajo:</b></span>                                
+                                <span class="col-sm-5 col-xs-12"><b>Dias laborales:</b></span>                                
                                 {% if medico.usuInformacion.usiDiasTrabajo is empty %}
-                                    <span class="col-sm-8 col-xs-12"><b>{{ 'N/A' }}</b></span>
+                                    <span class="col-sm-7 col-xs-12"><b>{{ 'N/A' }}</b></span>
                                 {% else %}
-                                    <span class="col-sm-8 col-xs-12">
+                                    <span class="col-sm-7 col-xs-12">
                                     <ul>
-                                        <i class="fa fa-check"></i>{{ medico.usuInformacion.usiDiasTrabajo }}
+                                        </i>{{ medico.usuInformacion.usiDiasTrabajo }}
                                     </ul>
                                     
                                     </span>
@@ -68,14 +68,14 @@
                                 {% endif %}
                             </li>
                             <li class="row">
-                                <span class="col-sm-4 col-xs-12"><b>Contactos:</b></span>                                
+                                <span class="col-sm-5 col-xs-12"><b>Contactos:</b></span>                                
                                 {% if medico.usuInformacion.usiDiasTrabajo is empty %}
-                                    <span class="col-sm-8 col-xs-12"><b>{{ 'N/A' }}</b></span>
+                                    <span class="col-sm-7 col-xs-12"><b>{{ 'N/A' }}</b></span>
                                 {% else %}
-                                    <span class="col-sm-8 col-xs-12">
+                                    <span class="col-sm-7 col-xs-12">
                                     <ul>
-                                        <i class="fa fa-check"></i>{{ medico.usuInformacion.usiTelefono }}<br>
-                                        <i class="fa fa-check"></i>{{ medico.usuInformacion.usiCorreo }}<br>
+                                        </i>{{ medico.usuInformacion.usiTelefono }}<br>
+                                        </i>{{ medico.usuInformacion.usiCorreo }}<br>
                                     </ul>
                                     
                                     </span>
@@ -90,7 +90,7 @@
                                 <ul class="list-unstyled list-inline sm-links">
                                     <li><a target="_blank" href="{{ medico.usuInformacion.usiTwitter }}"><i class="fa fa-twitter"></i></a></li>
                                     <li><a target="_blank" href="{{ medico.usuInformacion.usiFb }}"><i class="fa fa-facebook"></i></a></li>
-                                    <li><a href="{{ medico.usuInformacion.usiTwitter }}"><i class="fa fa-skype"></i></a></li>
+                                    
                                 </ul>
                             </div>
                             <div class="col-lg-6 col-xs-12">
