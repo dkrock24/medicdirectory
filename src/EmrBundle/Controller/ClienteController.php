@@ -544,7 +544,7 @@ class ClienteController extends Controller
 			{
 				if (isset($clientId) && $clientId > 0) 
 				{
-					$RAW_QUERY = " delete from cliente_especialidad where cliId = $clientId ";
+					$RAW_QUERY = " delete from cliente_especialidad where id_cliente = $clientId ";
 					$statement = $em->getConnection()->prepare($RAW_QUERY);
 					$statement->execute();
 				}
@@ -552,7 +552,8 @@ class ClienteController extends Controller
 				for(	$i=0; $i < count($specialities); $i++ )
 				{
 					$spe_repo = $em->getRepository('AppBundle:Especialidad')->find($specialities[$i]);
-					$client->addEspid($spe_repo);
+					//$client->addEspid($spe_repo);
+					$client->addIdEspecialidad($spe_repo);
 				}
 			}
 				
