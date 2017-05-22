@@ -181,9 +181,9 @@
                                 <div class="row">
                                         <div class="col-md-12">    
                                             <div class="form-group">
-                                                <div class="form_error">{{ form_errors(edit_form.espid)}}</div>
+                                                <div class="form_error">{{ form_errors(edit_form.idEspecialidad)}}</div>
                                                 <label for="" class=" control-label">Tipos de especialidades asociadas al establecimiento: <span class="text-danger">*</span></label>
-                                                <div class="">{# {{ form_widget(edit_form.espid) }} #}{{ form_widget(edit_form.espid,  { 'attr': {'class': 'select', 'required':true} } ) }}</div>
+                                                <div class="">{# {{ form_widget(edit_form.idEspecialidad) }} #}{{ form_widget(edit_form.idEspecialidad,  { 'attr': {'class': 'select', 'required':true} } ) }}</div>
                                             </div>
                                         </div>    
                                 </div>
@@ -199,14 +199,14 @@
                                             <div class="form-group">
                                                 <div class="form_error">{{ form_errors(edit_form.cliUbicacionLat)}}</div>
                                                 <label for="" class=" control-label">Latitud: </label>
-                                                <div class="">{# {{ form_widget(edit_form.espid) }} #}{{ form_widget(edit_form.cliUbicacionLat,  { 'attr': {'class': '', 'required':false} } ) }}</div>
+                                                <div class="">{# {{ form_widget(edit_form.idEspecialidad) }} #}{{ form_widget(edit_form.cliUbicacionLat,  { 'attr': {'class': '', 'required':false} } ) }}</div>
                                             </div>
                                         </div>
                                         <div class="col-md-4">    
                                             <div class="form-group">
                                                 <div class="form_error">{{ form_errors(edit_form.cliUbicacionLon)}}</div>
                                                 <label for="" class=" control-label">Logitud: </label>
-                                                <div class="">{# {{ form_widget(edit_form.espid) }} #}{{ form_widget(edit_form.cliUbicacionLon,  { 'attr': {'class': '', 'required':false} } ) }}</div>
+                                                <div class="">{# {{ form_widget(edit_form.idEspecialidad) }} #}{{ form_widget(edit_form.cliUbicacionLon,  { 'attr': {'class': '', 'required':false} } ) }}</div>
                                             </div>
                                         </div> 
                                             
@@ -1580,7 +1580,7 @@
                 var locationNit = $("#appbundle_cliente_cliNit");
                 var phone_one = $("#appbundle_cliente_cliTelefono1");
                 var phone_two = $("#appbundle_cliente_cliTelefono2");
-                var specialities = $("#appbundle_cliente_espid");
+                var specialities = $("#appbundle_cliente_idEspecialidad");
                 
                 var lat = $("#appbundle_cliente_cliUbicacionLat");
                 var lon = $("#appbundle_cliente_cliUbicacionLon");

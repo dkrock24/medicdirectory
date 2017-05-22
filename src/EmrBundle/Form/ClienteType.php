@@ -58,7 +58,7 @@ class ClienteType extends AbstractType
 						//'preferred_choices' => array('108')
 					) )
 				*/
-				->add('espid')
+				->add('idEspecialidad')
 				->add('cliTipCli', \Symfony\Bridge\Doctrine\Form\Type\EntityType::class, array(
 						"class" => "AppBundle:TipoCliente",
 						//'required'    => true,
