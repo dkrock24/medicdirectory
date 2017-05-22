@@ -1,0 +1,7 @@
+eav_crear_menu_modulos:
+    path:     /eav/crearMenMod
+    defaults: { _controller: "EmrBundle:EavModulos:crearMenuModulos" }
+    
+eav_crear_form_modulo:
+    path:   /eav/crearFormMod/{mod_hash}
+    defaults: { _controller: "EmrBundle:EavModulos:crearFormModulo" }

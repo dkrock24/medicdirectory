@@ -10,12 +10,16 @@
                 </ul>
             </div>
         </div>
-        <div class="list-group">
+        {#<div class="list-group">#}
+        <div class="panel-body">
+            <div class="buttons-preview">
             {% for key, m in modulos %}
-                <a href="#{{ m['modulo']|replace({ ' ':'' }) }}" class="list-group-item activex mod-tab" >
+                <button class="btn btn-info btn-block mod-tab" target="{{ m['mod_hash'] }}">{{ m['modulo'] }}</button>
+               {# <a href="#{{ m['mod_hash'] }}" class="list-group-item activex mod-tab {% if loop.index == 1 %} active-mod {% endif %}" >
                      {{ m['modulo'] }}
-                </a>
+                </a>#}
             {% endfor %}
+            </div>
         </div>
     </div>
 </div>

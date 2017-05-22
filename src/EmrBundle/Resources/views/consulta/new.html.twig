@@ -160,7 +160,7 @@
             <!-- Here goes the modules list -->
             {{ render( controller('EmrBundle:EavModulos:crearMenuModulos', { 'modulos': modulos } ) ) }}
             <!-- end of modules list -->
-            {{ render( controller( 'EmrBundle:EavModulos:crearFormModulo', { 'mod_id': modulos[0]['mod_id'] } ) ) }}
+            {{ render( controller( 'EmrBundle:EavModulos:crearFormModulo', { 'mod_hash': modulos[0]['mod_hash'] } ) ) }}
             
         </div>
     </div>
@@ -176,7 +176,13 @@
 
             //var d = "{{ app.request.query.get("d") }}";
             
-
+            $(".mod-tab").click(function(){
+                var sTarget = $(this).attr('target');
+                var sUrl = "{{ url( 'eav_crear_form_modulo', {'mod_hash': 'PLACE_HOLDER'} ) }}";
+                sUrl = sUrl.replace( "PLACE_HOLDER", sTarget );
+                
+                $("#mod-holder").load( sUrl );
+            });
 
             function doDelete() {  // delete event 
 

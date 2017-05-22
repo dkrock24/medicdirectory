@@ -53,7 +53,12 @@ class servicioEav {
     }
 
     
-    public function getPropModulo( $mod_id ){
+    public function getPropModulo( $mod_hash ){
+        
+        $mod = $this->em->getRepository("AppBundle:Modulo")
+                ->findOneBy( array('modHashCode' => $mod_hash) );
+        
+        $module = $mod->getModId();
         
         $sQuery = "SELECT 
             sec.mod_secc_seccion AS seccion,
@@ -75,7 +80,7 @@ class servicioEav {
         ";
         
         $oStatement = $this->em->getConnection()->prepare($sQuery);
-        $oStatement->bindValue('mod_id', $mod_id);
+        $oStatement->bindValue('mod_id', $module);
         $oStatement->execute();
         
         $oResult = $oStatement->fetchAll();

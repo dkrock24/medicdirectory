@@ -18,9 +18,10 @@ class EavModulosController extends Controller
                 );
     }
     
-    public function crearFormModuloAction( $mod_id )
+    public function crearFormModuloAction( $mod_hash )
     {
-        $mod_props = $this->get('srv_eav')->getPropModulo($mod_id);
+        
+        $mod_props = $this->get('srv_eav')->getPropModulo($mod_hash);
         
         $mod_form = $this->get('srv_eav')->buildModuleForm( $mod_props );
         

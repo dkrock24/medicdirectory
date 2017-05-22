@@ -107,3 +107,9 @@ emr_consulta:
     resource: "@EmrBundle/Resources/config/routing/consulta.yml"
     prefix:   /consulta
     host:     "%emr_domain%"
+    
+#eav    
+emr_eav:
+    resource: "@EmrBundle/Resources/config/routing/eav.yml"
+    prefix:   /eav
+    host:     "%emr_domain%"    

@@ -77,6 +77,7 @@ class ConsultaController extends Controller
                 foreach( $oUsuModulos as $kmod => $modulo ){
                     $modulos[] = array(
                         "mod_id" => $modulo->getCliModMod()->getModId(),
+                        "mod_hash" => stream_get_contents( $modulo->getCliModMod()->getModHashCode() ),
                         "modulo" => $modulo->getCliModMod()->getModModulo()
                     );
                 }
