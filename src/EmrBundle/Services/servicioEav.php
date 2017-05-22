@@ -226,7 +226,10 @@ class servicioEav {
                         array(
                             "label" => $vcamp_props["campo"],
                             "data" => $aFormCampData[ $vcamp_props["camp_id"] ]["id_valor_catalogo"],
-                            "choices" => $aFormCampData[ $vcamp_props["camp_id"] ]["val_catalogo"]
+                            "choices" => $aFormCampData[ $vcamp_props["camp_id"] ]["val_catalogo"],
+                            'attr' => array(
+                                'data-value' => $aFormCampData[ $vcamp_props["camp_id"] ]["id_valor_catalogo"]
+                            )
                         ) 
                     );
                     
@@ -238,7 +241,10 @@ class servicioEav {
                         self::$aDataTypesMap[ $vcamp_props["tipo_campo"] ],
                         array(
                             "label" => $vcamp_props["campo"],
-                            "data" => $aFormCampData[ $vcamp_props["camp_id"] ]["valor"] 
+                            "data" => $aFormCampData[ $vcamp_props["camp_id"] ]["valor"],
+                            'attr' => array(
+                                'data-value' => $aFormCampData[ $vcamp_props["camp_id"] ]["valor"]
+                            )
                         ) 
                     );
                     

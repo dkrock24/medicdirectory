@@ -5,3 +5,7 @@ eav_crear_menu_modulos:
 eav_crear_form_modulo:
     path:   /eav/crearFormMod/{mod_hash}/{usu_id}/{pac_id}/{cli_id}/{cit_id}
     defaults: { _controller: "EmrBundle:EavModulos:crearFormModulo", cit_id: null }
+    
+eav_guardar_valor_form:
+    path:   /eav/guardarValorForm/{val_usu_id}/{val_pac_id}/{val_cli_id}/{val_cit_id}/{val_camp_id}/{value}
+    defaults: { _controller: "EmrBundle:EavModulos:guardarValorForm" }
