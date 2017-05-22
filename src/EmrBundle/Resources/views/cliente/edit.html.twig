@@ -1759,7 +1759,8 @@
                     marker = new google.maps.Marker({
                         position: myLatlng,
                         map: map,
-                        title: 'Hello World!',
+                        title: '',
+                        draggable: true,
                         animation: google.maps.Animation.DROP,
                       });
                       marker.addListener('click', toggleBounce);
@@ -1782,7 +1783,8 @@
                         //Create a marker and placed it on the map.
                         var marker = new google.maps.Marker({
                             position: location,
-                            map: map
+                            map: map,
+                            draggable: true,
                         });
 
                         //Set unique id

@@ -412,39 +412,7 @@ class Cliente
         return $this->cliMun;
     }
 
-    /**
-     * Add espid
-     *
-     * @param \AppBundle\Entity\Especialidad $espid
-     *
-     * @return Cliente
-     */
-    public function addEspid(\AppBundle\Entity\Especialidad $espid)
-    {
-        $this->espid[] = $espid;
-
-        return $this;
-    }
-
-    /**
-     * Remove espid
-     *
-     * @param \AppBundle\Entity\Especialidad $espid
-     */
-    public function removeEspid(\AppBundle\Entity\Especialidad $espid)
-    {
-        $this->espid->removeElement($espid);
-    }
-
-    /**
-     * Get espid
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getEspid()
-    {
-        return $this->espid;
-    }
+    
     /**
      * @var string
      */
