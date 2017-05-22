@@ -139,7 +139,9 @@ class servicioEav {
                     v.mod_dat_usu_id = :usu_id and
                     v.mod_dat_pac_id = :pac_id and
                     v.mod_dat_cli_id = :cli_id and
-                    v.mod_dat_cit_id = :cit_id and
+                    
+                    CIT_PLACE_HOLDER
+                    
                     v.mod_dat_activo = 1 and 
                     v.mod_dat_mod_camp_id = c.mod_camp_id	
                     and
@@ -160,15 +162,23 @@ class servicioEav {
             ) cvt on cvt.mod_cat_val_camp_id = c.mod_camp_id
         ";
         
-        $oStatement = $this->em->getConnection()->prepare($sUsrProVal);
+        if( !is_null( $cit_id ) ){
+            $sUsrProVal = str_replace('CIT_PLACE_HOLDER', 'v.mod_dat_cit_id = :cit_id and', $sUsrProVal);
+            $oStatement = $this->em->getConnection()->prepare($sUsrProVal);
+            $oStatement->bindValue('cit_id', $cit_id);
+        }else{
+            $sUsrProVal = str_replace('CIT_PLACE_HOLDER', '', $sUsrProVal);
+            $oStatement = $this->em->getConnection()->prepare($sUsrProVal);
+        }
+        
         $oStatement->bindValue('usu_id', $usu_id);
         $oStatement->bindValue('pac_id', $pac_id);
         $oStatement->bindValue('cli_id', $cli_id);
-        $oStatement->bindValue('cit_id', $cit_id);
         $oStatement->bindValue('mod_id', $module);
         $oStatement->execute();
         
         $oResult = $oStatement->fetchAll();
+        
         
         $aFormCampData = array();
         
@@ -182,7 +192,8 @@ class servicioEav {
             if( !is_null( $aCatValuesTemp ) ){
                 foreach( $aCatValuesTemp as $value ){
                     $aValues = explode(":", $value);
-                    $aCatVlues[$aValues[1]] = $aValues[0];
+                    $aCatVlues[ trim( $aValues[1] ) ] = trim( $aValues[0] );
+                    
                 }
             }
             
@@ -222,6 +233,7 @@ class servicioEav {
                 }else if( $vcamp_props['tipo_campo'] == "checkbox" ){
                     
                 }else{
+                    
                     $oModuloForm->add( $vcamp_props["camp_id"],
                         self::$aDataTypesMap[ $vcamp_props["tipo_campo"] ],
                         array(
