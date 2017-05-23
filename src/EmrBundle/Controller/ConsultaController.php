@@ -108,7 +108,7 @@ class ConsultaController extends Controller
                         "modulos"=>$modulos,
                     
                         'usu_id' => $doctor,
-                        'cit_id' => null,
+                        'cit_id' => 1,
                         'cli_id' => $iLocationId
 		));
 		
