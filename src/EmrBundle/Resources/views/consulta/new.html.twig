@@ -31,6 +31,10 @@
             width: 80px;
             font-weight: 500;
         }
+        
+        .loading-gif{
+            color: #39AED1
+        }
     </style>
     <style>
 
@@ -164,7 +168,7 @@
                 { 'mod_hash': modulos[0]['mod_hash'], 
                     'usu_id': usu_id, 'pac_id': patient[0].pacId, 'cli_id': cli_id, 'cit_id': cit_id } ) ) 
             }}
-            
+
         </div>
     </div>
 
@@ -194,6 +198,7 @@
             $('form.mod-form :input').each(function(){
                 $(this).blur(function(){
                     if( $(this).attr('data-value') != $(this).val() ){
+                        
                         var sUrl = "{{ url( 'eav_guardar_valor_form', { 'val_usu_id': 'usuid', 'val_pac_id': 'pacid', 'val_cli_id': 'cliid', 'val_cit_id': 'citid', 'val_camp_id': 'campid', 'value': 'val', } ) }}";
                         sUrl = sUrl.replace( "usuid", {{ usu_id }} );
                         sUrl = sUrl.replace( "pacid", {{ patient[0].pacId }} );
@@ -203,17 +208,19 @@
                         var camp_id = aCampo[1];
                         sUrl = sUrl.replace( "campid", camp_id );
                         sUrl = sUrl.replace( "val", $(this).val() );
-                        console.log( sUrl );
+                        
+                        var oInputLabel = $( "label[for='"+$(this).attr('id')+"']" ); 
+                        
                         $.post( sUrl, function(rdata){
-                            console.log( 'function' );
-                            console.log( rdata );
+                            oInputLabel.after("<i class='loading-gif'>&nbsp;&nbsp;<img src='{{ asset('bundles/admin/img/ajax-loader.gif') }}'> Guardando..</i>");
                         }).done(function(  ){
                             console.log( 'done' );
                         }).fail(function( error ){
                             console.log( 'fail' );
                             console.log( error.error() );
                         }).always(function(){
-                            console.log( 'always' );
+                            $(".loading-gif").css('color', '#3ABC63');
+                            $(".loading-gif").html('&nbsp;&nbsp;Listo.').fadeOut(3000);
                         })
                         ;
                     }else{
