@@ -567,12 +567,22 @@
                     <div id="dvMap" style="width:100%; height: 500px"></div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Cerrar</button>
-                    <button type="button" class="btn btn-success" id="btn-set-location"><i class="fa fa-map-marker" aria-hidden="true"></i> Ubicar establecimiento</button>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="text-left"><button class="btn btn-primary" id="find_btn">Encontrar mi ubicación</button></div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Cerrar</button>
+                            <button type="button" class="btn btn-success" id="btn-set-location"><i class="fa fa-map-marker" aria-hidden="true"></i> Ubicar establecimiento</button>
+                        </div>
+                    </div>
+                    
                 </div>    
             </div>
         </div>
-    </div>        
+    </div>
+            
+    
         
 {% endblock %}
 
@@ -1642,6 +1652,8 @@
                                 content: content
                             });
                             infoWindow.open(map, marker);
+                            
+                            
                         });
                         //console.log(location.lat()+" - "+location.lng() );
                         lat = location.lat();
@@ -1653,8 +1665,120 @@
                     });
                 };
                 
-                $("#btn-set-location").on("click", function(){
-                    if( markers.length > 0 )
+                
+                
+                
+                $("body").on("click","#btn-delete-map", function(){
+                    DeleteMarker();
+                });
+                function DeleteMarker() {
+                    //Find and remove the marker from the Array
+                    for (var i = 0; i < markers.length; i++) {
+                        //if (markers[i].id == id) {
+                            //Remove the marker from Map                   
+                            markers[i].setMap(null);
+
+                            //Remove the marker from array.
+                            markers.splice(i, 1);
+                            //return;
+                        //}
+                    }
+                    
+                };
+                
+                $('#modalMap').on('shown.bs.modal', function () {
+                    google.maps.event.trigger(map, 'resize');
+                })
+            }
+
+            
+            //var map;
+            var myLatlng = {lat: lat, lng: lon};
+            var geo = false;
+            /*
+                function initMap() {
+
+                    map = new google.maps.Map($("#map")[0], {
+                        center: myLatlng, //{lat: -34.397, lng: 150.644},
+                        zoom: 8
+                      });
+                }
+            */
+            $("#find_btn").click(function (){ //user click on button
+                DeleteMarker();
+
+                if ("geolocation" in navigator){
+                        navigator.geolocation.getCurrentPosition(show_location, show_error, {timeout:1000, enableHighAccuracy: true}); //position request
+                    }else{
+                        console.log("Browser doesn't support geolocation!");
+                }
+            }); 
+
+            //Success Callback
+            function show_location(position){
+                
+                
+                
+                //markers = [];
+
+                
+                infoWindow = new google.maps.InfoWindow({map: map});
+                //DeleteMarker();
+                var pos = {lat: position.coords.latitude, lng: position.coords.longitude};
+                infoWindow.setPosition(pos);
+                //infoWindow.setContent('User Location found.');
+                
+                
+                map.setCenter(pos);
+                
+                var marker = new google.maps.Marker({
+                    position: pos,
+                    //title:"Hello World!",
+                    draggable: true,
+                });
+                
+                infoWindow.close(map, marker);
+                // To add the marker to the map, call setMap();
+                marker.setMap(map);
+                
+                infoWindow.close(map, marker);
+                
+                lat = position.coords.latitude;
+                lon = position.coords.longitude;
+                geo = true;
+                
+                markers.push(marker);
+            }
+
+            //Error Callback
+            function show_error(error){
+               switch(error.code) {
+                    case error.PERMISSION_DENIED:
+                        alert("Permission denied by user.");
+                        break;
+                    case error.POSITION_UNAVAILABLE:
+                        alert("Location position unavailable.");
+                        break;
+                    case error.TIMEOUT:
+                        //alert("Request timeout.");
+                        break;
+                    case error.UNKNOWN_ERROR:
+                        alert("Unknown error.");
+                        break;
+                }
+            }
+            
+            /*
+            function setMapOnAll(map) {
+                for (var i = 0; i < markers.length; i++) {
+                  markers[i].setMap(map);
+                }
+              }
+            */
+            $("#btn-set-location").on("click", function(){
+                    
+                    //alert();
+                    if( markers.length > 0 || geo)
                     {
                         $("#appbundle_cliente_cliUbicacionLat").val(lat);
                         $("#appbundle_cliente_cliUbicacionLon").val(lon);
@@ -1672,32 +1796,9 @@
                     }
                     
                 });
-                
-                
-                $("body").on("click","#btn-delete-map", function(){
-                    DeleteMarker();
-                });
-                function DeleteMarker() {
-                    //Find and remove the marker from the Array
-                    for (var i = 0; i < markers.length; i++) {
-                        //if (markers[i].id == id) {
-                            //Remove the marker from Map                   
-                            markers[i].setMap(null);
 
-                            //Remove the marker from array.
-                            markers.splice(i, 1);
-                            return;
-                        //}
-                    }
-                };
-                
-                $('#modalMap').on('shown.bs.modal', function () {
-                    google.maps.event.trigger(map, 'resize');
-                    
-                    
-                })
-            }
-            
+            //https://developers.google.com/maps/documentation/javascript/examples/map-geolocation?hl=es-419
+            //https://www.sanwebe.com/2016/04/get-current-location-of-user-using-jquery
         });
     </script>
 {% endblock %}    

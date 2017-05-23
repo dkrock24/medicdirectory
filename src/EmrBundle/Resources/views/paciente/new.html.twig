@@ -5,11 +5,11 @@
 {% endblock %}
 
 {% block breadcrumb %}
-    {{ include('EmrBundle:Dashboard:_breadcrumb.html.twig' )  }}
+    {{ include('EmrBundle:paciente:_breadcrumb.html.twig' )  }}
 {% endblock %} 
 
 {% block submenutop %}
-    {{ include('EmrBundle:Dashboard:_submenu.html.twig' )  }}
+    {{ include('EmrBundle:paciente:_submenu.html.twig' )  }}
 {% endblock %} 
 
 {% block body %}
@@ -28,7 +28,8 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-8">         
+        <div class="col-lg-8">
+
             {#
             {{ form_start(form) }}
                 {{ form_widget(form) }}
@@ -46,11 +47,12 @@
                         </ul>
                     </div>
                 </div>
-                {{ form_start(form, {'attr': {'class': 'steps-basic'}}) }}
-                <div class="form_error">{{ form_errors(form)}}</div>
+                
                 <div class="panel-body">
+                    {{ form_start(form, {'attr': {'class': 'steps-basic'}}) }}
+                    <div class="form_error">{{ form_errors(form)}}</div>
                     <!-- Nav tabs -->
-                    <ul class="nav nav-tabs" role="tablist">
+                    <ul class="nav nav-tabs nav-tabs-highlight " role="tablist">
                         <li role="presentation" class="active"><a href="#personal_date" aria-controls="home" role="tab" data-toggle="tab"><i class="fa fa-list-alt"></i> Datos personales</a></li>
                         <li role="presentation"><a href="#address" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-map-o"></i> Domicilio/Telefónos</a></li>
                         <!--<li role="presentation"><a href="#phones" aria-controls="messages" role="tab" data-toggle="tab"></a></li>-->
