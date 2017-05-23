@@ -27,7 +27,7 @@ class ClienteType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 		//$builder = $this->createFormBuilder($article);
-        $builder->add('cliNombre')
+        $builder//->add('cliNombre')
 				->add('cliNombreFiscal')
 				->add('cliNit')
 				->add('cliTelefono1')

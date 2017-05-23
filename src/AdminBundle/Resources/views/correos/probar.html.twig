@@ -1,0 +1,102 @@
+{% extends "Layout/base_admin/_admin_base.html.twig" %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/admin/template_admin/assets/js/plugins/forms/selects/select2.min.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/admin/template_admin/assets/js/pages/form_select2.js')}}"></script>
+    <!-- /theme JS files -->
+{% endblock %}
+
+{% block title_page %}
+    EMR || Probar correos
+{% endblock %}
+
+{% block body %}
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Prueba de envío de correo</h3>
+        </div>
+
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-5">
+                    <select id="correo_plantilla_selector" data-placeholder="Escoja plantilla..." class="form-control select-size-lg">
+                        <option></option>
+                        {% for plantilla in plantillas %}
+                            <option value="{{ plantilla.id }}">{{ plantilla.nombre }}</option>
+                        {%  endfor %}
+                    </select>
+                </div>
+                <div class="col-md-5">
+                    <input type="text" id="correo_plantilla_destino" class="form-control input-lg" placeholder="vladimiroski@gmail.com, gioyrox@gmail.com"/>
+                </div>
+
+                <div class="col-md-2 text-right">
+                    <button id="correo_plantilla_probar" class="btn btn-default btn-lg" type="button"><i class="fa fa-check"></i> Probar</button>
+                </div>
+            </div>
+            <hr />
+            <div class="panel panel-flat panel-collapsed">
+                <div class="panel-heading">
+                    <h5 class="panel-title">Parametros</h5>
+                    <div class="heading-elements">
+                        <ul class="icons-list">
+                            <li><a data-action="collapse"></a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="correo_contenedor_parametros" class="panel-body"></div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 id="correo_plantilla_asunto" class="panel-title"></h3>
+                </div>
+                <div id="correo_plantilla_plantilla" class="panel-body"></div>
+            </div>
+
+        </div>
+    </div>
+    </div>
+
+{% endblock %}
+
+{% block codejs %}
+    <script type='text/javascript'>
+        $(function () {
+
+            $('#correo_plantilla_selector').change(function () {
+                $.post('{{ path('admin_correos_cargar') }}', {id: $(this).val()}, function(data){
+                    $('#correo_plantilla_nombre').val(data.titulo);
+                    $('#correo_plantilla_asunto').html(data.asunto);
+                    $('#correo_plantilla_plantilla').html(data.plantilla);
+
+                    $('#correo_contenedor_parametros').html('');
+                    if (data.parametros.length > 0) {
+                        for (var index in data.parametros) {
+                            $('<div class="row"><div class="col-md-2">'+data.parametros[index]+'</div><div class="col-md-10"><input type="text" class="form-control correo_prueba_parametro" data-parametro="'+data.parametros[index]+'" /></div></div>').appendTo('#correo_contenedor_parametros');
+                        }
+                    }
+
+                }, 'json');
+            });
+
+            $('#correo_plantilla_probar').click(function () {
+                var aParams = {};
+
+                $(".correo_prueba_parametro").each(function(){
+                    aParams[$(this).data('parametro')] = $(this).val();
+                });
+
+                $.post('{{ path('admin_correos_probar_enviar') }}', {
+                    nombre: $('#correo_plantilla_selector').select2('data')[0].text,
+                    destino: $('#correo_plantilla_destino').val(),
+                    parametros: aParams
+                }, function(data){
+                    alert(data);
+                });
+            });
+        });
+    </script>
+{% endblock %}

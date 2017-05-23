@@ -17,6 +17,7 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Search\SphinxsearchBundle\SphinxsearchBundle(),
+            new Gregwar\ImageBundle\GregwarImageBundle(),
             new AppBundle\AppBundle(),
             new WebBundle\WebBundle(),
             new AdminBundle\AdminBundle(),

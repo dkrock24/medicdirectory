@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+		xxxxxx
+	</title>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<link rel="stylesheet" href="weekly.css">
+
+	<script type="text/javascript" src="jquery.weekly.js"></script>
+
+	<script>
+		$(document).on("ready", function(){
+			$("#scheduleWeekly").weekly({
+				hour_format: 12,
+				//start_from: "09:00 AM" 
+			});
+			
+			//var schedule = [];
+			var schedule = {};
+			$("#btn-get-schedule").on("click", function(){
+
+				$(".weekly_day_label").each(function(){
+					var day = $(this).data("weeklyday");
+					var hoursList = [];
+					$("."+day).each(function(){
+						if( $(this).hasClass("active") )
+						{
+							var hour = $(this).closest(".weekly_column_hour").data("weeklyhour");
+							hoursList.push(hour);
+						}
+					});
+					schedule[day] = hoursList;
+				});
+				//console.log(schedule);
+				$.ajax({
+	                url: "recive.php",
+	                data: {
+	                    schedule: schedule,
+	                },
+	                error: function()
+	                {
+	                    $("#icon-loading").hide();
+	                    $.alert({
+	                        icon: 'glyphicon glyphicon-remove-sign',
+	                        title: " Error",
+	                        content: 'Ha ocurrido un error al tratar de enviar la información!',
+	                        type: 'red',
+	                        confirm: function(){
+	                        }
+	                    });
+	                },
+	                success: function(data) {
+	                    //var JSONObject = JSON.stringify(data);
+	                    //console.log(JSONObject);
+	                    
+	                    $("#icon-loading").hide();
+	                            
+	                },
+                	type: 'post'
+            	});
+
+			});
+
+		});
+		/*
+		//encontraremos un elemento y haremos que sus elementos sean seleccionables.
+		$('ul#opciones').weekly({ 
+		    multiple : false,
+		    onSelect : function(elems){  //en esta funcion se ejecutará código al seleccionar uno o varios elementos "elems"
+		        //mostrar en la consola los elementos seleccionados.
+		        console.log(elems);
+		    }
+		});
+		*/
+	</script>
+</head>
+<body>
+
+<button id="btn-get-schedule">Proceder</button>
+<div class="container">
+	<div class="row">
+		<div class="col-lg-4">
+			
+		</div>
+		<div class="col-lg-8"><div id="scheduleWeekly">x</div></div>
+	</div>
+</div>
+
+
+
+</body>
+</html>

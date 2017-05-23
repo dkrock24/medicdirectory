@@ -21,12 +21,13 @@
             padding:6px !important;
         }
     </style>
+    <link rel="stylesheet" href="{{ asset('bundles/admin/add-on/week/weekly.css') }}">
     <div class="row">
         <div class="col-lg-12">
 
             <!-- Check the notifications -->
             {% for message in app.session.flashbag().get("success") %}
-                <div class="alert alert-success"><i class="fa fa-check-circle"></i> {{message}}</div>
+                <div class="alert alert-success alert-styled-left alert-arrow-left alert-component"> {{message}}</div>
             {% endfor %}
             {% for message in app.session.flashbag().get("error") %}
                 <div class="alert alert-danger"><i class="fa fa-close"></i> {{message}}</div>
@@ -80,97 +81,83 @@
                         <div role="tabpanel" class="tab-pane active" id="personal_date">
                             <fieldset>
                                 <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <div class="form_error"></div>
-                                            <label for="" class=" control-label">Primer Nombre:</label>
-                                            <div class="">{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">    
-                                        <div class="form-group">
-                                            <div class="form_error"></div>
-                                            <label for="" class=" control-label">Segundo Nombre:</label>
-                                            <div class="">{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
-                                        </div>
-                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">Datos personales</div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="form_error"></div>
+                                                    <label for="" class=" control-label">Primer Nombre:</label>
+                                                    <div class=""><input type="text" class="form-control" value="{{ user.UsuNombre }}" id="nameone"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">    
+                                                <div class="form-group">
+                                                    <div class="form_error"></div>
+                                                    <label for="" class=" control-label">Segundo Nombre:</label>
+                                                    <div class=""><input type="text" class="form-control" value="{{ user.UsuSegundoNombre }}" id="nametwo"></div>
+                                                </div>
+                                            </div>
 
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <div class="form_error"></div>
-                                            <label for="" class=" control-label">Apellido Paterno:</label>
-                                            <div class="">{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="form_error"></div>
+                                                    <label for="" class=" control-label">Tercer Nombre:</label>
+                                                    <div class=""><input type="text" class="form-control" value="{{ user.UsuTercerNombre }}" id="namethree"></div>
+                                                </div>
+                                            </div>    
                                         </div>
-                                    </div>    
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <div class="form_error"></div>
-                                            <label for="" class=" control-label">Apellido Materno:</label>
-                                            <div class="">{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="form_error"></div>
+                                                    <label for="" class=" control-label">Primer Apellido:</label>
+                                                    <div class=""><input type="text" class="form-control" value="{{ user.UsuPrimerApellido }}" id="lastenameone"></div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="form_error"></div>
+                                                    <label for="" class="control-label">Segundo Apellido:</label>
+                                                    <div class=""><input type="text" class="form-control" value="{{ user.UsuSegundoApellido }}" id="lastnametwo"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="form_error"></div>
+                                                    <label for="" class="control-label">Fecha de Nacimiento:</label>
+                                                    <div class=""><input type="text" class="form-control" value="{{ user.UsuFechaNacimiento|date('Y-m-d') }}" id="birthdate" readonly="readonly"></div>
+                                                </div>
+                                            </div>    
                                         </div>
+
+                                        <div class="row">
+
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="form_error"></div>
+                                                    <label for="" class=" control-label">Título:</label>
+                                                    <div class="">
+                                                        <select id="title" class="select">
+                                                            <option value="Dr.">Dr.</option>
+                                                            <option value="Dra.">Dra.</option>
+                                                            <option value="Lcdo.">Lcdo.</option>
+                                                            <option value="Lcda.">Lcda.</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>    
+
+                                        </div>
+
                                     </div>
-
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <div class="form_error"></div>
-                                            <label for="" class="control-label">Genero:</label>
-                                            <div class="">{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
-                                        </div>
+                                    <div class="col-lg-6">
+                                         <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">Mi Horario</div>
+                                        <div id="scheduleWeekly"></div>
                                     </div>
-
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <div class="form_error"></div>
-                                            <label for="" class=" control-label">DUI:</label>
-                                            <div class="">{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
-                                        </div>
-                                    </div>   
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <div class="form_error"></div>
-                                            <label for="" class=" control-label">Tipo de Sangre:</label>
-                                            <div class="">{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <div class="form_error"></div>
-                                            <label for="" class=" control-label">Email:</label>
-                                            <div class="">{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
-                                        </div>
-                                    </div>    
-
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <div class="form_error"></div>
-                                            <label for="" class=" control-label">Estado Civil:</label>
-                                            <div class="">{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <div class="form_error"></div>
-                                            <label for="" class=" control-label">Fecha de nacimiento:</label>
-                                            <div class="">{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <div class="form_error"></div>
-                                            <label for="" class=" control-label">Estatus del paciente: </label>
-                                            <div class="">{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
-                                        </div>
-                                    </div>    
-                                </div>       
+                                </div>  
+                                       
                             </fieldset>
                         </div>
                         <div role="tabpanel" class="tab-pane" id="address">
@@ -264,37 +251,7 @@
                                                       </div>
                                                 </div>    
                                             </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <div class="panel panel-body border-top-primary ">
-                                                    <div class="form-horizontal">
-                                                       
-                                                        <div class="form-group">
-                                                          
-                                                          <div class="col-sm-12">
-                                                              <spav class="radio-inline">
-                                                                  Días laborales:<br>
-                                                              </span>
-                                                              {% for day in week|keys %}
-                                                                    <label class="checkbox-inline">
-                                                                        {% if day in daysDelected %}
-                                                                            <input type="checkbox" id="" value="{{ day }}" class="days" checked="checked">
-                                                                        {% else %}
-                                                                             <input type="checkbox" id="" value="{{ day }}" class="days">
-                                                                        {% endif %}
-                                                                        {{ day }}
-                                                                    </label>
-                                                              {% endfor%}
-                                                              {# {% set foo = "user.usuDiasTrabajo"|split(',') %}
-                                                              {{ user.usuDiasTrabajo }} #}
-                                                             
-                                                          </div>
-                                                        </div>
-                                                      </div>
-                                                </div>    
-                                            </div>
-                                        </div>                    
+                                        </div>                   
                                         <div class="row">
                                             <div class="col-lg-12">
                                                 <div class="panel panel-body border-top-primary ">
@@ -304,7 +261,7 @@
                                                           
                                                           <div class="col-sm-12">
                                                               <label class="radio-inline">
-                                                                Cambiar password?
+                                                                Cambiar Contraseña?
                                                               </label>
                                                               <label class="radio-inline">
                                                                 <input type="radio" name="radioPassword" id="" class="radioPassword" value="yes"> Si
@@ -316,13 +273,13 @@
                                                         </div>
                                                         <div id="change-password">
                                                             <div class="form-group">
-                                                                <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+                                                                <label for="inputPassword3" class="col-sm-2 control-label">Contraseña</label>
                                                                 <div class="col-sm-10">
                                                                   <input type="text" class="form-control" placeholder="Password" id="password">
                                                                 </div>
                                                               </div>
                                                               <div class="form-group">
-                                                                <label for="inputPassword3" class="col-sm-2 control-label">Repita Password</label>
+                                                                <label for="inputPassword3" class="col-sm-2 control-label">Repita Contraseña</label>
                                                                 <div class="col-sm-10">
                                                                   <input type="text" class="form-control" placeholder="Repita Password" id="repeat_password">
                                                                 </div>
@@ -399,7 +356,7 @@
                                                         Seleccione una opción:  &nbsp; &nbsp;
                                                         {% for type in imageType %}
                                                             <label class="radio-inline">
-                                                                <input type="radio" name="radioTypeImage" id="" value="{{ type.usuGalTipId }}"> {{ type.usuGalTipNombre }}
+                                                                <input type="radio" name="radioTypeImage" id="" value="{{ type.usuGalTipId }}" class="docs-toggles" > {{ type.usuGalTipNombre }}
                                                             </label>
                                                         {% endfor %}    
                                                     </div>
@@ -419,59 +376,45 @@
                             </fieldset>
                             
                         </div>
-                    </div>
+                    
 
                     
 
-                    <hr>
-                    <ul class="list-inline">
-                        <li>
-                            <button type="button" class="btn btn-primary btn-sm" id="btn-save-form">
-                                <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
-                                    Enviar datos
-                                </span>
-                            </button>
-                        </li>
-                        <li>
-                            <a href="" class="btn btn-info btn-sm"><i class="fa fa-list"></i> Ver como me ven</a>
-                        </li>
-                    </ul>
+                        <hr>
+                        <ul class="list-inline">
+                            <li>
+                                <button type="button" class="btn btn-primary btn-sm" id="btn-save-form">
+                                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
+                                        Enviar datos
+                                    </span>
+                                </button>
+                            </li>
+                            <li>
+                                <a href="" class="btn btn-info btn-sm"><i class="fa fa-list"></i> Ver como me ven</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
 
     </div>
-                                        
-                                                {#
-      <div id="jui-accordion-collapsible" class="ui-accordion ui-widget ui-helper-reset" role="tablist">
-									<span class="text-semibold ui-accordion-header ui-state-default ui-accordion-icons ui-corner-all" role="tab" id="ui-id-7" aria-controls="ui-id-8" aria-selected="false" aria-expanded="false" tabindex="-1"><span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span>Section 1</span>
-									<div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" id="ui-id-8" aria-labelledby="ui-id-7" role="tabpanel" style="display: none; height: 81px;" aria-hidden="true">
-										Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch.
-									</div>
-
-									<span class="text-semibold ui-accordion-header ui-state-default ui-accordion-icons ui-corner-all" role="tab" id="ui-id-9" aria-controls="ui-id-10" aria-selected="false" aria-expanded="false" tabindex="-1"><span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span>Section 2</span>
-									<div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" id="ui-id-10" aria-labelledby="ui-id-9" role="tabpanel" aria-hidden="true" style="display: none; height: 81px;">
-										Тon cupidatat skateboard dolor brunch. Тesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda.
-									</div>
-
-									<span class="text-semibold ui-accordion-header ui-state-default ui-accordion-icons ui-corner-all" role="tab" id="ui-id-11" aria-controls="ui-id-12" aria-selected="false" aria-expanded="false" tabindex="0"><span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span>Section 3</span>
-									<div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" id="ui-id-12" aria-labelledby="ui-id-11" role="tabpanel" aria-hidden="true" style="display: none; height: 81px;">
-										3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it.
-									</div>
-								</div>#}                                          
-    
+                                              
+    <script type="text/javascript" src="{{ asset('bundles/admin/add-on/week/jquery.weekly.js') }}"></script>
     {% endblock %}
 
     {% block codejs %}
         <script>
             $(document).on("ready", function () {
+                
+                
 
             {# {{ include('EmrBundle:paciente:_cropper.js.html.twig' )  }} #}
                     
                     var img_base64 = "";
                     
                     'use strict';
-
+                    
                     var console = window.console || {log: function () {}};
                     var URL = window.URL || window.webkitURL;
                     var $image = $('#image');
@@ -484,7 +427,7 @@
                     var $dataScaleX = $('#dataScaleX');
                     var $dataScaleY = $('#dataScaleY');
                     var options = {
-                        aspectRatio: 4 / 3,
+                        aspectRatio: 1 / 1,
                         preview: '.img-preview',
                         crop: function (e) {
                             $dataX.val(Math.round(e.x));
@@ -494,7 +437,9 @@
                             $dataRotate.val(e.rotate);
                             $dataScaleX.val(e.scaleX);
                             $dataScaleY.val(e.scaleY);
-                        }
+                        },
+                        cropBoxResizable: false,
+                        //setDragMode:false,
                         
                     };
                     var originalImageURL = $image.attr('src');
@@ -569,9 +514,15 @@
                             options.ready = function () {
                                 $image.cropper('setCropBoxData', cropBoxData);
                                 $image.cropper('setCanvasData', canvasData);
+                                
+                                console.log("aqui");
                             };
+                            
+                            console.log("aqui");
                         } else if (type === 'radio') {
                             options[name] = $this.val();
+                            
+                            console.log("alla");
                         }
 
                         $image.cropper('destroy').cropper(options);
@@ -796,7 +747,7 @@
                                         icon: 'glyphicon glyphicon-exclamation-sign',
                                         title: 'Info!',
                                         content: 'No hay información asociada al pais seleccionado <br>' + infoError,
-                                        type: 'blue',
+                                        type: 'red',
                                         typeAnimated: true,
                                     });
                                 }
@@ -808,24 +759,38 @@
                     
                     function saveFormAjax() {
                         
-                        
+                        //alert();
                         var address = $("#addressUser").val();
                         var phone = $("#phone").val();
                         var email = $("#email").val();
                         var password = $("#password").val();
+                        var repeat_password = $("#repeat_password").val();
                         var specialitiesList = $("#specialitiesList").val();
+                        var title = $("#title").val();
+                        
+                        if( password != repeat_password)
+                        {
+                            $.alert({
+                                icon: 'glyphicon glyphicon-exclamation-sign',
+                                title: 'Info!',
+                                content: 'Las contraseñas no son iguales',
+                                type: 'blue',
+                                typeAnimated: true,
+                            });
+                            return false;
+                        }
                         
                         var specialitiesList = []; 
                         $('#specialitiesList :selected').each(function(i, selected){ 
                           specialitiesList[i] = $(selected).val(); 
                         });
-                        
+                        /*
                         var day = [];
                         $(".days:checked").each(function(){
                              var opt = $(this).val();
                              day.push(opt);
                         });
-                        
+                        */
                         var social_network = [];
                         $("#table-social-network tbody tr").each(function(){
                             var trId = $(this).attr("id");
@@ -833,6 +798,28 @@
                             var td = {"id":trId, "url":txt};
                             social_network.push(td);
                         });
+                        
+                        //=====================================
+                        //Schedule
+                        //=====================================
+                        var schedule = {};
+                        $(".weekly_day_label").each(function(){
+                            var day = $(this).data("weeklyday");
+                            var hoursList = [];
+                            $("."+day).each(function(){
+                                if( $(this).hasClass("active") )
+                                {
+                                    var hour = $(this).closest(".weekly_column_hour").data("weeklyhour");
+                                    hoursList.push(hour);
+                                }
+                            });
+                            schedule[day] = hoursList;
+                        });
+                        
+                        //console.log(schedule);
+                        //======================================
+                        //End schedule
+                        //======================================
                         
                         //console.log(JSON.stringify(social_network));
                         //return false;
@@ -847,8 +834,9 @@
                             data: {
                                 address: address,phone: phone,
                                 specialitiesList:specialitiesList,
-                                email: email, password: password,
-                                day: day, social_network: (social_network), 
+                                email: email, password: password,title:title,
+                                schedule: schedule,
+                                social_network: (social_network), 
                                 profile:profile,
                                 img: img
                             },
@@ -888,6 +876,9 @@
                                      
                                     var routeShow = "{{ path('perfil_show') }}" //routeShow.replace("PLACEHOLDER", data);
                                     window.location.assign(routeShow);
+                                    //$("#holder_loading").hide();
+                                    
+                                    
                                      
                                      $("body").find(".cropper-container").remove();
                                      $(".img-preview").empty();
@@ -1114,13 +1105,21 @@
                         "action": true, // Undo / Redo buttons,
                         "color": true // Button to change color of font
                     });
+                    
+                    $("#title").val("{{ user.UsuTitulo }}").change();
 
+                            
 
 
                     // Style form components
                     $('.styled').uniform();
                     
                     
+                    $( "#birthdate" ).datepicker({
+                        changeMonth: true,
+                        changeYear: true,
+                        yearRange: '1945:'+(new Date).getFullYear()
+                    });
                     
                     $("div.bhoechie-tab-menu>div.list-group>a").click(function(e) {
                         e.preventDefault();
@@ -1131,7 +1130,34 @@
                         $("div.bhoechie-tab>div.bhoechie-tab-content").eq(index).addClass("active");
                     });
                     
+                    $('a[data-toggle=tab]').click(function(){
+                        
+                        
+                        
+                    });
                     
+                    $("#scheduleWeekly").weekly({
+                        hour_format: 12,
+                        //start_from: "09:00 AM" 
+                    });
+                    
+                    //=====================================
+                    //Set the schedule if exists
+                    //=====================================
+                    {% for key,value in schedule %}
+
+                        {% for hour in value %}
+                            $(".{{ key }}").each(function(){
+                                if( $(this).closest(".weekly_column_hour").data("weeklyhour") == "{{ hour }}" )
+                                {
+                                    $(this).addClass("active");
+                                }
+                            });
+
+                        {% endfor %} 
+                        
+                    {% endfor %}    
+
 
                 });
                 
