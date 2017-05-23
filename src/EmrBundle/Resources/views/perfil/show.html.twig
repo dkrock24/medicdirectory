@@ -17,6 +17,9 @@
         #change-password{
             display:none;
         }
+        #table-social-network td{
+            padding:6px !important;
+        }
     </style>
     <div class="row">
         <div class="col-lg-12">
@@ -214,7 +217,7 @@
                                                 <div class="panel panel-body border-top-primary ">
                                                     <div class="form-horizontal">
                                                         <div class="form-group">
-                                                          <label for="inputEmail3" class="col-sm-2 control-label">Sitio web</label>
+                                                          <label for="inputEmail3" class="col-sm-2 control-label">Sitio web:</label>
                                                           <div class="col-sm-10">
                                                             
                                                             <select class="form-control" id="social-network-list" class="select">
@@ -225,7 +228,7 @@
                                                           </div>
                                                         </div>
                                                         <div class="form-group">
-                                                          <label for="inputPassword3" class="col-sm-2 control-label">Url</label>
+                                                          <label for="inputPassword3" class="col-sm-2 control-label">Url:</label>
                                                           <div class="col-sm-10">
                                                             <input type="text" class="form-control" id="url" placeholder="Url">
                                                           </div>
@@ -236,22 +239,27 @@
                                                           </div>
                                                         </div>
                                                             <div id="socialList">
-                                                                <table class="table table-striped" id="table-social-network">
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th>Tipo</th>
-                                                                            <th>Url</th>
-                                                                            <th></th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                        <tr>
-                                                                            <td>xx</td>
-                                                                            <td>xxx</td>
-                                                                            <td><button class="btn btn-danger btn-sm removeNetwork">x</button><td>
-                                                                        </tr>
-                                                                    </tbody> 
-                                                                </table>
+                                                                <div class="table-responsive">
+                                                                    <table class="table table-striped" id="table-social-network">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>Tipo</th>
+                                                                                <th>Url</th>
+                                                                                <th></th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            {% for network in networkSelected %}
+                                                                                <tr id="{{ network.idSocialRed.idSocRed }}">
+                                                                                    <td>{{ network.idSocialRed.socRedNombre }}</td>
+                                                                                    <td>{{ network.usuSocUrl }}</td>
+                                                                                    <td><button class="btn btn-danger btn-sm removeNetwork">x</button></td>
+                                                                                </tr>
+                                                                            {% endfor %}    
+
+                                                                        </tbody> 
+                                                                    </table>
+                                                                </div>
                                                             </div>    
                                                       </div>
                                                 </div>    
@@ -270,9 +278,17 @@
                                                               </span>
                                                               {% for day in week|keys %}
                                                                     <label class="checkbox-inline">
-                                                                        <input type="checkbox" id="" value="{{ day }}" class="days"> {{ day }}
+                                                                        {% if day in daysDelected %}
+                                                                            <input type="checkbox" id="" value="{{ day }}" class="days" checked="checked">
+                                                                        {% else %}
+                                                                             <input type="checkbox" id="" value="{{ day }}" class="days">
+                                                                        {% endif %}
+                                                                        {{ day }}
                                                                     </label>
-                                                              {% endfor%}    
+                                                              {% endfor%}
+                                                              {# {% set foo = "user.usuDiasTrabajo"|split(',') %}
+                                                              {{ user.usuDiasTrabajo }} #}
+                                                             
                                                           </div>
                                                         </div>
                                                       </div>
@@ -330,9 +346,16 @@
                                                         <div class="">
                                                             <select id="specialitiesList" class="select" multiple>
                                                                 {% for speciality in specialities %}
-                                                                    <option value="{{ speciality.EspId }}">{{ speciality.EspEspecialidad }}</option>
+                                                                    {% if speciality.EspId in specialitiesSelected %}
+                                                                        <option value="{{ speciality.EspId }}" selected="selected">{{ speciality.EspEspecialidad }}</option>
+                                                                    {% else %}
+                                                                        <option value="{{ speciality.EspId }}" >{{ speciality.EspEspecialidad }}</option>
+                                                                    {% endif %}    
+                                                                    
                                                                 {% endfor %}
+                                                                
                                                             </select>
+                                                              
                                                         </div>
                                                     </div>
                                                 </div>
@@ -372,7 +395,16 @@
                                             <!-- Tab panes -->
                                             <div class="tab-content">
                                                 <div role="tabpanel" class="tab-pane active" id="pc">
-                                                    {{ include('EmrBundle:paciente:_cropper.html.twig' )  }}  
+                                                    <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">
+                                                        Seleccione una opción:  &nbsp; &nbsp;
+                                                        {% for type in imageType %}
+                                                            <label class="radio-inline">
+                                                                <input type="radio" name="radioTypeImage" id="" value="{{ type.usuGalTipId }}"> {{ type.usuGalTipNombre }}
+                                                            </label>
+                                                        {% endfor %}    
+                                                    </div>
+                                                    {{ include('EmrBundle:perfil:_cropper.html.twig' )  }} 
+                                                    
                                                 </div>
                                                 <div role="tabpanel" class="tab-pane" id="webcam">
                                                     {{ include('EmrBundle:paciente:_webcam.html.twig' )  }}
@@ -401,7 +433,7 @@
                             </button>
                         </li>
                         <li>
-                            <a href="{{ path('paciente_index') }}" class="btn btn-info btn-sm"><i class="fa fa-list"></i> Listar</a>
+                            <a href="" class="btn btn-info btn-sm"><i class="fa fa-list"></i> Ver como me ven</a>
                         </li>
                     </ul>
                 </div>
@@ -409,6 +441,24 @@
         </div>
 
     </div>
+                                        
+                                                {#
+      <div id="jui-accordion-collapsible" class="ui-accordion ui-widget ui-helper-reset" role="tablist">
+									<span class="text-semibold ui-accordion-header ui-state-default ui-accordion-icons ui-corner-all" role="tab" id="ui-id-7" aria-controls="ui-id-8" aria-selected="false" aria-expanded="false" tabindex="-1"><span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span>Section 1</span>
+									<div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" id="ui-id-8" aria-labelledby="ui-id-7" role="tabpanel" style="display: none; height: 81px;" aria-hidden="true">
+										Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch.
+									</div>
+
+									<span class="text-semibold ui-accordion-header ui-state-default ui-accordion-icons ui-corner-all" role="tab" id="ui-id-9" aria-controls="ui-id-10" aria-selected="false" aria-expanded="false" tabindex="-1"><span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span>Section 2</span>
+									<div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" id="ui-id-10" aria-labelledby="ui-id-9" role="tabpanel" aria-hidden="true" style="display: none; height: 81px;">
+										Тon cupidatat skateboard dolor brunch. Тesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda.
+									</div>
+
+									<span class="text-semibold ui-accordion-header ui-state-default ui-accordion-icons ui-corner-all" role="tab" id="ui-id-11" aria-controls="ui-id-12" aria-selected="false" aria-expanded="false" tabindex="0"><span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span>Section 3</span>
+									<div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" id="ui-id-12" aria-labelledby="ui-id-11" role="tabpanel" aria-hidden="true" style="display: none; height: 81px;">
+										3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it.
+									</div>
+								</div>#}                                          
     
     {% endblock %}
 
@@ -687,19 +737,6 @@
                     // Select2 selects
                     $('.select').select2();
 
-                    /*
-                    $("#appbundle_paciente_pacMun").empty();
-                    $("#appbundle_paciente_pais").on("change", function () {
-
-                        var id = $(this).val();
-                        if (id > 0)
-                        {
-                            getLocationsAjax(id)
-                        }
-                        //$("#appbundle_paciente_pacMun").append($('<option>', {value: 100000, text: 'new option'}));
-                    });
-                    */
-
                     function getLocationsAjax(id) {
                         $("#holder_loading").show();
 						$.ajax({
@@ -849,7 +886,7 @@
                                     //$('form[name$=appbundle_paciente]')[0].reset();
                                     
                                      
-                                    var routeShow = "{{ path('paciente_show') }}" //routeShow.replace("PLACEHOLDER", data);
+                                    var routeShow = "{{ path('perfil_show') }}" //routeShow.replace("PLACEHOLDER", data);
                                     window.location.assign(routeShow);
                                      
                                      $("body").find(".cropper-container").remove();
@@ -875,17 +912,6 @@
                             }
                         });
                     }
-                    
-                    /*
-                        
-                        $("#form_search_patients").submit(function(e){
-                            //
-                            e.preventDefault();
-                            searchPatients();
-                            
-                            return false;
-                        });
-                    */
                     
                     function searchPatients()
                     {
@@ -1045,6 +1071,7 @@
                             
                             var tr = "<tr id='"+social_net_id+"'><td>"+txt+"</td><td>"+url+"</td><td><button class='btn btn-danger btn-sm removeNetwork'>x</button></td></tr>";
                             $("#table-social-network").append(tr);
+                            $("#url").val("");
                         }
                     });
                     
@@ -1062,6 +1089,12 @@
                             $("#table-social-network").show();
                         }
                     });
+                    
+                   
+                    if( $('#table-social-network >tbody >tr').length == 0 )
+                    {
+                        $("#table-social-network").hide();
+                    }
                     
                     
                     //$("#listSpecialities")
@@ -1087,8 +1120,23 @@
                     // Style form components
                     $('.styled').uniform();
                     
+                    
+                    
+                    $("div.bhoechie-tab-menu>div.list-group>a").click(function(e) {
+                        e.preventDefault();
+                        $(this).siblings('a.active').removeClass("active");
+                        $(this).addClass("active");
+                        var index = $(this).index();
+                        $("div.bhoechie-tab>div.bhoechie-tab-content").removeClass("active");
+                        $("div.bhoechie-tab>div.bhoechie-tab-content").eq(index).addClass("active");
+                    });
+                    
+                    
 
                 });
+                
+                
+               
 
         </script>
     {% endblock %}    

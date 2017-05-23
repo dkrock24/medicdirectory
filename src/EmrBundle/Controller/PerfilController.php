@@ -13,6 +13,7 @@ use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 use \AppBundle\Entity\UsuarioEspecialidad;
+use \AppBundle\Entity\UsuarioSocial;
 /**
  * Paciente controller.
  *
@@ -32,14 +33,13 @@ class PerfilController extends Controller
      *
      */
     public function showAction(Request $request)
-    {
-        //$deleteForm = $this->createDeleteForm($paciente);
-		
+    {		
 		/*
 		$locationId = $this->get('session')->get('locationId');
 		$em = $this->getDoctrine()->getManager();
 		*/
 		$em = $this->getDoctrine()->getManager();
+		$userId = $this->getUser()->getUsuId();
 		//$listAppointment 
 		$patient = $this->get('srv_patient');
 		//$listAppointment = $patient->getAppointments( $paciente->getPacId() );
@@ -49,23 +49,44 @@ class PerfilController extends Controller
 		
 		$specialities = $em->getRepository('AppBundle:Especialidad')->findBy( array("espActivo"=>1) );
 		
+		$oUserSpeciality = $em->getRepository('AppBundle:UsuarioEspecialidad')->findBy( array("idUsuario"=>$userId) );
+		
+		$specialitiesSelected = array();
+		if ( count($oUserSpeciality) )
+		{
+			foreach( $oUserSpeciality as $esp )
+			{
+				$specialitiesSelected[] = $esp->getIdEspecialidad()->getEspId();
+				//echo $esp->getIdEspecialidad()->getEspId();
+			}
+		}		
 		$socials = $em->getRepository('AppBundle:SocialRedes')->findBy( array("socRedActivo"=>1) );
 		
-		$userId = $this->getUser()->getUsuId();
+		$networkSelected = $em->getRepository('AppBundle:UsuarioSocial')->findBy( array("idUsuario"=>$userId) );
+		
+		
 		$oUser = $em->getRepository('AppBundle:Usuario')->find( $userId );
 		
-		//$week = array("Lun","Mar","Mie","Jue","Vie","Sab","Dom");
 		$week = array("Lun"=>"Lun","Mar"=>"Mar","Mie"=>"Mie","Jue"=>"Jue","Vie"=>"Vie","Sab"=>"Sab","Dom"=>"Dom");
+		
+		$daysSelected = array();
+		if( $oUser->getUsuDiasTrabajo() != "" )
+		{
+			$daysSelected = explode(",", $oUser->getUsuDiasTrabajo() );
+		}
+		
+		
+		$oImageType = $em->getRepository('AppBundle:UsuarioGaleriaTipo')->findBy( array("usuGalTipActivo"=>1) );
 		
         return $this->render('EmrBundle:perfil:show.html.twig', array(
             'specialities' => $specialities,
+			"specialitiesSelected"=>$specialitiesSelected,
 			'socials'=>$socials,
+			"networkSelected"=>$networkSelected,
 			"week"=>$week,
-			"user"=>$oUser
-			//'listAppointment' => $listAppointment,
-			//'totalMedicalConsultation' =>$totalMedicalConsultation,
-			//'doctorstList' => $doctorstList,
-            //'delete_form' => $deleteForm->createView(),
+			"daysDelected"=>$daysSelected,
+			"user"=>$oUser,
+			"imageType"=>$oImageType
         ));
     }
 
@@ -95,28 +116,33 @@ class PerfilController extends Controller
 		$securityContext = $this->container->get('security.authorization_checker');
 		if ($securityContext->isGranted('IS_AUTHENTICATED_FULLY'))
 		{
-		
-			//var_dump($social_network);
 
-			
-			//}
-			
 			$em->getConnection()->beginTransaction(); // suspend auto-commit
 			$status = 0;
 			try
 			{
+				$oUser = $em->getRepository('AppBundle:Usuario')->find( $userId );
+				
 				//================
 				//Social Network
 				//================
+				$RAW_QUERY = "delete from usuario_social where id_usuario = $userId "; //2 = Cliente( Representante )
+				$statement = $em->getConnection()->prepare($RAW_QUERY);
+				$statement->execute();
 				foreach( $social_network as $sn)
 				{
 					
 					//$socials = $em->getRepository('AppBundle:UsuarioSocial')->findBy( array("socRedActivo"=>1) );
 					//echo $sn['id']." - ".$sn['url'];
+					$network = new UsuarioSocial();
+					$network->setIdUsuario( $oUser );
+					$oSocialNetwork = $em->getRepository('AppBundle:SocialRedes')->find( $sn['id'] );
+					$network->setIdSocialRed($oSocialNetwork);
+					$network->setUsuSocUrl($sn['url']);
+					$em->persist($network);			
+					$flush = $em->flush();
 				}
-				
-				$oUser = $em->getRepository('AppBundle:Usuario')->find( $userId );
-				
+
 				if( $oUser )
 				{
 					$oUser->setUsuCorreo($email);
@@ -162,6 +188,19 @@ class PerfilController extends Controller
 				$status = 1;  
 				//Call the service to upload file
 				$uFile = $this->get('srv_uploadFile');
+				
+				//Check if is update onf file
+				if( !empty($img) )
+				{
+					/*
+					$networkSelected = $em->getRepository('AppBundle:UsuarioGaleria')->findBy( array("idUsuario"=>$userId) );
+					
+					$currentImg = $oPatient->getPacFoto();
+					//$uFile->deleteFile($currentImg, $path="pacientes");
+					$uFile->deleteFile($currentImg, $path="pacientes", $pre_fix=false);
+					*/
+				}
+				
 
 
 				if( isset($userId) && $userId > 0 )

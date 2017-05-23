@@ -63,9 +63,9 @@ class adminGenerarClientesPruebaCommand extends ContainerAwareCommand {
 
         $sPago = json_encode($aPago);
         for($i=0; $i <= $iCantidad ; $i++) {
-            $sNombre = $aNombres[rand(0, count($aNombres))].' '.$aApellidos[rand(0, count($aApellidos))];
-            $sNombreComercial = 'Clinica ' . $aApellidos[rand(0, count($aApellidos))];
-            $sNombreFiscal = $aApellidos[rand(0, count($aApellidos))] . ' SA de CV';
+            $sNombre = $aNombres[rand(0, count($aNombres)-1)].' '.$aApellidos[rand(0, count($aApellidos)-1)];
+            $sNombreComercial = 'Clinica ' . $aApellidos[rand(0, count($aApellidos)-1)];
+            $sNombreFiscal = $aApellidos[rand(0, count($aApellidos)-1)] . ' SA de CV';
 
             $oCliente = new \AppBundle\Entity\Cliente();
 

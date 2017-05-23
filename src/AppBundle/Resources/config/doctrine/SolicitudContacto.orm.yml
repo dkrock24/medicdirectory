@@ -1,0 +1,49 @@
+AppBundle\Entity\SolicitudContacto:
+    type: entity
+    table: null
+    repositoryClass: AppBundle\Repository\SolicitudContactoRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        ip:
+            type: string
+            length: '16'
+        telefono:
+            type: string
+            length: '50'
+        correo:
+            type: string
+            length: '100'
+        fechaContacto:
+            type: datetime
+        comentario:
+            type: text
+        estado:
+            type: integer
+    manyToOne:
+        scCliente:
+            targetEntity: Cliente
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                sc_cli_id:
+                    referencedColumnName: cli_id
+            orphanRemoval: false
+        scUsuario:
+            targetEntity: Usuario
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                sc_usu_id:
+                    referencedColumnName: usu_id
+            orphanRemoval: false
+
+    lifecycleCallbacks: {  }

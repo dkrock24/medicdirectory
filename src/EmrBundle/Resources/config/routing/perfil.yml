@@ -3,8 +3,8 @@
 #    defaults: { _controller: "EmrBundle:Perfil:index" }
 #    methods:  GET
 
-paciente_show:
-    path:     /info
+perfil_show:
+    path:     /
     defaults: { _controller: "EmrBundle:Perfil:show" }
     #methods:  GET
 
