@@ -1,6 +1,10 @@
 AppBundle\Entity\UsuarioVistas:
     type: entity
     table: usuario_vistas
+    indexes:
+        IDX_9D110CD43F23EF9A:
+            columns:
+                - vis_usu_id
     id:
         visId:
             type: integer

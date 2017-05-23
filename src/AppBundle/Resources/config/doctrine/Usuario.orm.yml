@@ -5,9 +5,9 @@ AppBundle\Entity\Usuario:
         IDX_usuario:
             columns:
                 - usu_usuario
-        #IDX_2265B05D12023DFD:
-            #columns:
-                #- usu_informacion
+        usu_activo:
+            columns:
+                - usu_activo
     id:
         usuId:
             type: integer
@@ -145,15 +145,4 @@ AppBundle\Entity\Usuario:
             options:
                 fixed: false
             column: usu_dias_trabajos
-    #manyToOne:
-        #usuInformacion:
-            #targetEntity: UsuarioInformacion
-            #cascade: {  }
-            #fetch: LAZY
-            #mappedBy: null
-            #inversedBy: null
-            #joinColumns:
-            #    usu_informacion:
-            #        referencedColumnName: usi_id
-            #orphanRemoval: false
     lifecycleCallbacks: {  }

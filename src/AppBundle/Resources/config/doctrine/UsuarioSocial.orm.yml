@@ -2,12 +2,12 @@ AppBundle\Entity\UsuarioSocial:
     type: entity
     table: usuario_social
     indexes:
-        FK__social_redes:
-            columns:
-                - id_social_red
         FK__usuario:
             columns:
                 - id_usuario
+        FK__social_redes:
+            columns:
+                - id_social_red
     id:
         idUsuSoc:
             type: integer
@@ -19,14 +19,25 @@ AppBundle\Entity\UsuarioSocial:
             generator:
                 strategy: IDENTITY
     fields:
-        idSocialRed:
-            type: integer
+        usuSocUrl:
+            type: string
             nullable: false
+            length: 250
             options:
-                unsigned: true
-                default: '0'
-            column: id_social_red
+                fixed: false
+                default: ''
+            column: usu_soc_url
     manyToOne:
+        idSocialRed:
+            targetEntity: SocialRedes
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_social_red:
+                    referencedColumnName: id_soc_red
+            orphanRemoval: false
         idUsuario:
             targetEntity: Usuario
             cascade: {  }
