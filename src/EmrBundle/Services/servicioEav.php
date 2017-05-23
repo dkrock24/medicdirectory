@@ -147,7 +147,7 @@ class servicioEav {
                     and
                     c.mod_camp_activo = 1 and 
                     c.mod_camp_mod_secc_id 
-                    in  (select group_concat(mod_secc_id) from eav_mod_seccion where mod_secc_mod_id = :mod_id group by mod_secc_mod_id)
+                    in  (select mod_secc_id from eav_mod_seccion where mod_secc_mod_id = :mod_id)
 
             left join eav_mod_cat_valores cv on 
                     v.mod_dat_dato_valor = cv.mod_cat_val_id

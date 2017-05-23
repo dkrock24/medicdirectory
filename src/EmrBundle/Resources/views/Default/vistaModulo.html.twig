@@ -14,10 +14,8 @@
             <div role="tabpanel" class="tab-pane {% if loop.index == 1 %} active {% endif %}" id="{{ seccion|replace({' ':''}) }}">
                 {{ form_start( form, { 'attr': { 'class': 'mod-form' } } ) }}
                     {{ form_widget( form ) }}
-                    <input type="submit" value="Guardar" class="btn btn-info" />
                 {{ form_end( form ) }}
             </div>
         {% endfor %}
         </div>
-        
 </div>    
