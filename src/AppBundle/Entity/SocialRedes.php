@@ -110,4 +110,3 @@ class SocialRedes
         return $this->socRedActivo;
     }
 }
-

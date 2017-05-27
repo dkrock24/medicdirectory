@@ -81,4 +81,3 @@ class UsuarioSocial
         return $this->idUsuario;
     }
 }
-
