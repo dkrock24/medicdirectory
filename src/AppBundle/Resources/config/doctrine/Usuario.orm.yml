@@ -100,22 +100,4 @@ AppBundle\Entity\Usuario:
                 usu_informacion:
                     referencedColumnName: usi_id
             orphanRemoval: false
-    manyToMany:
-        idEspecialidad:
-            targetEntity: Especialidad
-            cascade: {  }
-            fetch: LAZY
-            mappedBy: null
-            inversedBy: idUsuario
-            joinTable:
-                name: usuarios_especialidad
-                joinColumns:
-                    -
-                        name: id_usuario
-                        referencedColumnName: usu_id
-                inverseJoinColumns:
-                    -
-                        name: id_especialidad
-                        referencedColumnName: esp_id
-            orderBy: null
     lifecycleCallbacks: {  }

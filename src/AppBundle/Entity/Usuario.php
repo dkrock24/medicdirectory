@@ -466,30 +466,6 @@ class Usuario implements \Symfony\Component\Security\Core\User\UserInterface
     }
 
     /**
-     * Add group
-     *
-     * @param \AppBundle\Entity\Especialidad $group
-     *
-     * @return Usuario
-     */
-    public function addGroup(\AppBundle\Entity\Especialidad $group)
-    {
-        $this->groups[] = $group;
-
-        return $this;
-    }
-
-    /**
-     * Remove group
-     *
-     * @param \AppBundle\Entity\Especialidad $group
-     */
-    public function removeGroup(\AppBundle\Entity\Especialidad $group)
-    {
-        $this->groups->removeElement($group);
-    }
-
-    /**
      * Get groups
      *
      * @return \Doctrine\Common\Collections\Collection
@@ -536,50 +512,6 @@ class Usuario implements \Symfony\Component\Security\Core\User\UserInterface
     public function getRol()
     {
         return $this->rol;
-    }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $idEspecialidad;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $idRol;
-
-
-    /**
-     * Add idEspecialidad
-     *
-     * @param \AppBundle\Entity\Especialidad $idEspecialidad
-     *
-     * @return Usuario
-     */
-    public function addIdEspecialidad(\AppBundle\Entity\Especialidad $idEspecialidad)
-    {
-        $this->idEspecialidad[] = $idEspecialidad;
-
-        return $this;
-    }
-
-    /**
-     * Remove idEspecialidad
-     *
-     * @param \AppBundle\Entity\Especialidad $idEspecialidad
-     */
-    public function removeIdEspecialidad(\AppBundle\Entity\Especialidad $idEspecialidad)
-    {
-        $this->idEspecialidad->removeElement($idEspecialidad);
-    }
-
-    /**
-     * Get idEspecialidad
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getIdEspecialidad()
-    {
-        return $this->idEspecialidad;
     }
 
     /**
