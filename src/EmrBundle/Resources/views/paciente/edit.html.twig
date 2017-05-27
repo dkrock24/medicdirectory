@@ -69,11 +69,12 @@
                 
                 
                 
-                {{ form_start(edit_form, {'attr': {'class': 'steps-basic'}}) }}
+                
                 <div class="form_error">{{ form_errors(edit_form)}}</div>
                 <div class="panel-body">
+                   {{ form_start(edit_form, {'attr': {'class': 'steps-basic'}}) }}
                     <!-- Nav tabs -->
-                    <ul class="nav nav-tabs" role="tablist">
+                    <ul class="nav nav-tabs nav-tabs-highlight " role="tablist">
                         <li role="presentation" class="active"><a href="#personal_date" aria-controls="home" role="tab" data-toggle="tab"><i class="fa fa-list-alt"></i> Datos personales</a></li>
                         <li role="presentation"><a href="#address" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-map-o"></i> Domicilio/Telefónos</a></li>
                         <!--<li role="presentation"><a href="#phones" aria-controls="messages" role="tab" data-toggle="tab"></a></li>-->
