@@ -1,0 +1,40 @@
+AppBundle\Entity\UsuarioSocial:
+    type: entity
+    table: usuario_social
+    indexes:
+        FK__social_redes:
+            columns:
+                - id_social_red
+        FK__usuario:
+            columns:
+                - id_usuario
+    id:
+        idUsuSoc:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            id: true
+            column: id_usu_soc
+            generator:
+                strategy: IDENTITY
+    fields:
+        idSocialRed:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+                default: '0'
+            column: id_social_red
+    manyToOne:
+        idUsuario:
+            targetEntity: Usuario
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_usuario:
+                    referencedColumnName: usu_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

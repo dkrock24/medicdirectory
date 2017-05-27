@@ -1,0 +1,49 @@
+AppBundle\Entity\UsuarioEspecialidad:
+    type: entity
+    table: usuario_especialidad
+    indexes:
+        IDX_E7C9F17BFCF8192D:
+            columns:
+                - id_usuario
+        IDX_E7C9F17B8F71118B:
+            columns:
+                - id_especialidad
+    id:
+        idUsuEsp:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            id: true
+            column: id_usu_esp
+            generator:
+                strategy: IDENTITY
+    fields:
+        descripcion:
+            type: text
+            nullable: true
+            length: 65535
+            options:
+                fixed: false
+    manyToOne:
+        idEspecialidad:
+            targetEntity: Especialidad
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_especialidad:
+                    referencedColumnName: esp_id
+            orphanRemoval: false
+        idUsuario:
+            targetEntity: Usuario
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_usuario:
+                    referencedColumnName: usu_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }
