@@ -547,4 +547,120 @@ class Usuario implements \Symfony\Component\Security\Core\User\UserInterface
     {
         return $this->idRol;
     }
+    /**
+     * @var string
+     */
+    private $usuSegundoNombre;
+
+    /**
+     * @var string
+     */
+    private $usuTercerNombre;
+
+    /**
+     * @var string
+     */
+    private $usuPrimerApellido;
+
+    /**
+     * @var string
+     */
+    private $usuSegundoApellido;
+
+
+    /**
+     * Set usuSegundoNombre
+     *
+     * @param string $usuSegundoNombre
+     *
+     * @return Usuario
+     */
+    public function setUsuSegundoNombre($usuSegundoNombre)
+    {
+        $this->usuSegundoNombre = $usuSegundoNombre;
+
+        return $this;
+    }
+
+    /**
+     * Get usuSegundoNombre
+     *
+     * @return string
+     */
+    public function getUsuSegundoNombre()
+    {
+        return $this->usuSegundoNombre;
+    }
+
+    /**
+     * Set usuTercerNombre
+     *
+     * @param string $usuTercerNombre
+     *
+     * @return Usuario
+     */
+    public function setUsuTercerNombre($usuTercerNombre)
+    {
+        $this->usuTercerNombre = $usuTercerNombre;
+
+        return $this;
+    }
+
+    /**
+     * Get usuTercerNombre
+     *
+     * @return string
+     */
+    public function getUsuTercerNombre()
+    {
+        return $this->usuTercerNombre;
+    }
+
+    /**
+     * Set usuPrimerApellido
+     *
+     * @param string $usuPrimerApellido
+     *
+     * @return Usuario
+     */
+    public function setUsuPrimerApellido($usuPrimerApellido)
+    {
+        $this->usuPrimerApellido = $usuPrimerApellido;
+
+        return $this;
+    }
+
+    /**
+     * Get usuPrimerApellido
+     *
+     * @return string
+     */
+    public function getUsuPrimerApellido()
+    {
+        return $this->usuPrimerApellido;
+    }
+
+    /**
+     * Set usuSegundoApellido
+     *
+     * @param string $usuSegundoApellido
+     *
+     * @return Usuario
+     */
+    public function setUsuSegundoApellido($usuSegundoApellido)
+    {
+        $this->usuSegundoApellido = $usuSegundoApellido;
+
+        return $this;
+    }
+
+    /**
+     * Get usuSegundoApellido
+     *
+     * @return string
+     */
+    public function getUsuSegundoApellido()
+    {
+        return $this->usuSegundoApellido;
+    }
 }

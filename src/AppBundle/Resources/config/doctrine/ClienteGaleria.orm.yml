@@ -1,0 +1,51 @@
+AppBundle\Entity\ClienteGaleria:
+    type: entity
+    table: cliente_galeria
+    id:
+        cliGalId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            id: true
+            column: cli_gal_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        cliGalHash:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+            column: cli_gal_hash
+        cliGalTipo:
+            type: string
+            nullable: false
+            length: 50
+            options:
+                fixed: false
+            column: cli_gal_tipo
+        cliGalFechaCrea:
+            type: datetime
+            nullable: false
+            options:
+                default: CURRENT_TIMESTAMP
+            column: cli_gal_fecha_crea
+        cliGalFechaMod:
+            type: datetime
+            nullable: true
+            column: cli_gal_fecha_mod
+        cliGalActivo:
+            type: boolean
+            nullable: false
+            options:
+                default: '1'
+            column: cli_gal_activo
+    manyToOne:
+        galCliente:
+            targetEntity: Cliente
+            joinColumn:
+                name: cli_gal_cliente_id
+                referencedColumnName: cli_id
+    lifecycleCallbacks: {  }

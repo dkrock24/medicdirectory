@@ -82,6 +82,34 @@ AppBundle\Entity\Usuario:
             options:
                 fixed: false
             column: usu_nombre
+        usuSegundoNombre:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: usu_segundo_nombre
+        usuTercerNombre:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: usu_tercer_nombre
+        usuPrimerApellido:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: usu_primer_apellido
+        usuSegundoApellido:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: usu_segundo_apellido
         usuCorreo:
             type: string
             nullable: false
