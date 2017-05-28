@@ -19,13 +19,14 @@ AppBundle\Entity\UsuarioSocial:
             generator:
                 strategy: IDENTITY
     fields:
-        idSocialRed:
-            type: integer
+        usuSocUrl:
+            type: string
             nullable: false
+            length: 250
             options:
-                unsigned: true
-                default: '0'
-            column: id_social_red
+                fixed: false
+                default: ''
+            column: uso_soc_url
     manyToOne:
         idUsuario:
             targetEntity: Usuario
@@ -36,5 +37,15 @@ AppBundle\Entity\UsuarioSocial:
             joinColumns:
                 id_usuario:
                     referencedColumnName: usu_id
+            orphanRemoval: false
+        idSocialRed:
+            targetEntity: SocialRedes
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_social_red:
+                    referencedColumnName: id_soc_red
             orphanRemoval: false
     lifecycleCallbacks: {  }

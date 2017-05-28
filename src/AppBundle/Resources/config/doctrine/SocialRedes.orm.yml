@@ -18,7 +18,7 @@ AppBundle\Entity\SocialRedes:
             length: 250
             options:
                 fixed: false
-                default: '0'
+                default: ''
             column: soc_red_nombre
         socPatron:
             type: string
@@ -26,7 +26,7 @@ AppBundle\Entity\SocialRedes:
             length: 250
             options:
                 fixed: false
-                default: '0'
+                default: ''
             column: soc_patron
         socRedActivo:
             type: boolean
