@@ -1,6 +1,25 @@
 AppBundle\Entity\UsuarioGaleria:
     type: entity
     table: usuario_galeria
+    indexes:
+        IDX_E0367BCEE90C84D3:
+            columns:
+                - gal_usu_id
+        IDX_E0367BCEFBA42282:
+            columns:
+                - gal_modulo_id
+        IDX_E0367BCE102971B9:
+            columns:
+                - gal_cliente_id
+        FK_usuario_galeria_usuario_galeria_tipo:
+            columns:
+                - gal_tipo
+        gal_activo:
+            columns:
+                - gal_activo
+        gal_hash:
+            columns:
+                - gal_hash
     id:
         galId:
             type: integer
@@ -19,13 +38,6 @@ AppBundle\Entity\UsuarioGaleria:
             options:
                 fixed: false
             column: gal_hash
-        galTipo:
-            type: string
-            nullable: false
-            length: 50
-            options:
-                fixed: false
-            column: gal_tipo
         galFechaCrea:
             type: datetime
             nullable: false
@@ -43,6 +55,16 @@ AppBundle\Entity\UsuarioGaleria:
                 default: '1'
             column: gal_activo
     manyToOne:
+        galCliente:
+            targetEntity: Cliente
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                gal_cliente_id:
+                    referencedColumnName: cli_id
+            orphanRemoval: false
         galUsuario:
             targetEntity: Usuario
             cascade: {  }
@@ -63,9 +85,14 @@ AppBundle\Entity\UsuarioGaleria:
                 gal_modulo_id:
                     referencedColumnName: mod_id
             orphanRemoval: false
-        galCliente:
-            targetEntity: Cliente
-            joinColumn:
-                name: gal_cliente_id
-                referencedColumnName: cli_id
+        galTipo:
+            targetEntity: UsuarioGaleriaTipo
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                gal_tipo:
+                    referencedColumnName: usu_gal_tip_id
+            orphanRemoval: false
     lifecycleCallbacks: {  }

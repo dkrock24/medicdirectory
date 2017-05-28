@@ -7,6 +7,7 @@ namespace AppBundle\Entity;
  */
 class UsuarioVistas
 {
+
     /**
      * @var integer
      */

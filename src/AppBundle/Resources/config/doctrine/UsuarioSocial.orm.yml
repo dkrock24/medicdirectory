@@ -2,12 +2,12 @@ AppBundle\Entity\UsuarioSocial:
     type: entity
     table: usuario_social
     indexes:
-        FK__social_redes:
-            columns:
-                - id_social_red
         FK__usuario:
             columns:
                 - id_usuario
+        FK__social_redes:
+            columns:
+                - id_social_red
     id:
         idUsuSoc:
             type: integer
@@ -26,18 +26,8 @@ AppBundle\Entity\UsuarioSocial:
             options:
                 fixed: false
                 default: ''
-            column: uso_soc_url
+            column: usu_soc_url
     manyToOne:
-        idUsuario:
-            targetEntity: Usuario
-            cascade: {  }
-            fetch: LAZY
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                id_usuario:
-                    referencedColumnName: usu_id
-            orphanRemoval: false
         idSocialRed:
             targetEntity: SocialRedes
             cascade: {  }
@@ -47,5 +37,15 @@ AppBundle\Entity\UsuarioSocial:
             joinColumns:
                 id_social_red:
                     referencedColumnName: id_soc_red
+            orphanRemoval: false
+        idUsuario:
+            targetEntity: Usuario
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_usuario:
+                    referencedColumnName: usu_id
             orphanRemoval: false
     lifecycleCallbacks: {  }
