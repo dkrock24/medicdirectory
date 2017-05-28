@@ -31,6 +31,11 @@ emr_paciente:
     resource: "@EmrBundle/Resources/config/routing/paciente.yml"
     prefix:   /paciente
     host:     "%emr_domain%"
+    
+emr_perfil:
+    resource: "@EmrBundle/Resources/config/routing/perfil.yml"
+    prefix:   /perfil
+    host:     "%emr_domain%"
 
 
 emr_invarea:

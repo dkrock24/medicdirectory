@@ -1,0 +1,42 @@
+#paciente_index:
+#    path:     /
+#    defaults: { _controller: "EmrBundle:Perfil:index" }
+#    methods:  GET
+
+paciente_show:
+    path:     /info
+    defaults: { _controller: "EmrBundle:Perfil:show" }
+    #methods:  GET
+
+perfil_form:
+    path: /detalle
+    defaults: { _controller: "EmrBundle:Perfil:formPerfil" }
+
+#paciente_new:
+#    path:     /nuevo
+#    defaults: { _controller: "EmrBundle:Paciente:new" }
+#    methods:  [GET, POST]
+
+#paciente_edit:
+#    path:     /{id}/editar
+#    defaults: { _controller: "EmrBundle:Paciente:edit" }
+#    methods:  [GET, POST]
+
+#paciente_delete:
+#    path:     /{id}/eliminar
+#    defaults: { _controller: "EmrBundle:Paciente:delete" }
+#    methods:  DELETE
+    
+    
+#paciente_form:
+#    path:     /form/paciente
+#    defaults: { _controller: "EmrBundle:Paciente:formPacientes" }
+    
+#paciente_search:
+#    path:     /search/patients
+#    defaults: { _controller: "EmrBundle:Paciente:searchPatients" }
+    
+#paciente_list:
+#    path:     /list
+#    defaults: { _controller: "EmrBundle:Paciente:getPatientsList" }
+        

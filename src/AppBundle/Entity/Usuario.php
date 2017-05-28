@@ -46,7 +46,27 @@ class Usuario implements \Symfony\Component\Security\Core\User\UserInterface
      * @var boolean
      */
     private $usuActivo = '1';
-
+	
+	/**
+     * @var string
+     */
+    private $usuDireccion;
+	
+	 /**
+     * @var string
+     */
+    private $usuInfoPerfil;
+	
+	 /**
+     * @var string
+     */
+    private $usuDiasTrabajo;
+	
+	 /**
+     * @var string
+     */
+    private $usuTelefono;
+	
 
     /**
      * Get usuId
@@ -662,5 +682,105 @@ class Usuario implements \Symfony\Component\Security\Core\User\UserInterface
     public function getUsuSegundoApellido()
     {
         return $this->usuSegundoApellido;
+    }
+	
+	
+	/**
+     * Set usuInfoPerfil
+     *
+     * @param string $usuInfoPerfil
+     *
+     * @return Usuario
+     */
+    public function setUsuInfoPerfil($usuInfoPerfil)
+    {
+        $this->usuInfoPerfil = $usuInfoPerfil;
+
+        return $this;
+    }
+
+    /**
+     * Get usuInfoPerfil
+     *
+     * @return string
+     */
+    public function getUsuInfoPerfil()
+    {
+        return $this->usuInfoPerfil;
+    }
+	
+	
+	/**
+     * Set usuDiasTrabajo
+     *
+     * @param string $usuDiasTrabajo
+     *
+     * @return Usuario
+     */
+    public function setUsuDiasTrabajo($usuDiasTrabajo)
+    {
+        $this->usuDiasTrabajo = $usuDiasTrabajo;
+
+        return $this;
+    }
+
+    /**
+     * Get usuDiasTrabajo
+     *
+     * @return string
+     */
+    public function getUsuDiasTrabajo()
+    {
+        return $this->usuDiasTrabajo;
+    }
+	
+	
+	/**
+     * Set usuDireccion
+     *
+     * @param string $usuDireccion
+     *
+     * @return Usuario
+     */
+    public function setUsuDireccion($usuDireccion)
+    {
+        $this->usuDireccion = $usuDireccion;
+
+        return $this;
+    }
+
+    /**
+     * Get usuDireccion
+     *
+     * @return string
+     */
+    public function getUsuDireccion()
+    {
+        return $this->usuDireccion;
+    }
+	
+	
+	/**
+     * Set usuTelefono
+     *
+     * @param string $usuTelefono
+     *
+     * @return Usuario
+     */
+    public function setUsuTelefono($usuTelefono)
+    {
+        $this->usuTelefono = $usuTelefono;
+
+        return $this;
+    }
+
+    /**
+     * Get usuTelefono
+     *
+     * @return string
+     */
+    public function getUsuTelefono()
+    {
+        return $this->usuTelefono;
     }
 }

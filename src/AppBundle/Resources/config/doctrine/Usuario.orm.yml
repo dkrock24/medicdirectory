@@ -5,9 +5,9 @@ AppBundle\Entity\Usuario:
         IDX_usuario:
             columns:
                 - usu_usuario
-        IDX_2265B05D12023DFD:
-            columns:
-                - usu_informacion
+        #IDX_2265B05D12023DFD:
+            #columns:
+                #- usu_informacion
     id:
         usuId:
             type: integer
@@ -117,15 +117,43 @@ AppBundle\Entity\Usuario:
             options:
                 fixed: false
             column: usu_correo
-    manyToOne:
-        usuInformacion:
-            targetEntity: UsuarioInformacion
-            cascade: {  }
-            fetch: LAZY
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                usu_informacion:
-                    referencedColumnName: usi_id
-            orphanRemoval: false
+        usuDireccion:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: usu_direccion
+        usuTelefono:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: usu_telefono
+        usuInfoPerfil:
+            type: text
+            nullable: true
+            length: 65535
+            options:
+                fixed: false
+            column: usu_info_perfil
+        usuDiasTrabajo:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+            column: usu_dias_trabajos
+    #manyToOne:
+        #usuInformacion:
+            #targetEntity: UsuarioInformacion
+            #cascade: {  }
+            #fetch: LAZY
+            #mappedBy: null
+            #inversedBy: null
+            #joinColumns:
+            #    usu_informacion:
+            #        referencedColumnName: usi_id
+            #orphanRemoval: false
     lifecycleCallbacks: {  }

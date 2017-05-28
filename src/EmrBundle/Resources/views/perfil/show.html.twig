@@ -1,19 +1,23 @@
 {% extends "Layout/base_emr/_clients_base.html.twig" %}
 
 {% block title_page %}
-    EMR || Nuevo Paciente
+    EMR || Perfil médico
 {% endblock %}
 
 {% block breadcrumb %}
-    {{ include('EmrBundle:Dashboard:_breadcrumb.html.twig' )  }}
+    {{ include('EmrBundle:perfil:_breadcrumb.html.twig' )  }}
 {% endblock %} 
 
 {% block submenutop %}
-    {{ include('EmrBundle:Dashboard:_submenu.html.twig' )  }}
+    {{ include('EmrBundle:perfil:_submenu.html.twig' )  }}
 {% endblock %} 
 
 {% block body %}
-    <h1>Nuevo Paciente</h1>
+    <style>
+        #change-password{
+            display:none;
+        }
+    </style>
     <div class="row">
         <div class="col-lg-12">
 
@@ -27,8 +31,28 @@
             <!-- End notifications -->
         </div>
     </div>
+    <div class="page-header-content">
+        <div class="page-title">
+            <h4>
+                <i class="fa fa-info-circle position-left"></i>
+                <span class="text-semibold">Home</span> - Perfil médico
+
+                <small class="display-block">Este perfil será mostrado en el sitio web</small></h4>
+            <a class="heading-elements-toggle"><i class="icon-more"></i></a><a class="heading-elements-toggle"><i class="icon-more"></i></a></div>
+
+        <div class="heading-elements">
+            <div class="heading-btn-group">
+
+                <a href="#" class="btn btn-link btn-float has-text"><i class="icon-bars-alt text-primary"></i><span>Statistics</span></a>
+                <a href="#" class="btn btn-link btn-float has-text"><i class="icon-calculator text-primary"></i> <span>Invoices</span></a>
+                <a href="#" class="btn btn-link btn-float has-text"><i class="icon-calendar5 text-primary"></i> <span>Schedule</span></a>
+
+            </div>
+        </div>
+
+    </div>        
     <div class="row">
-        <div class="col-lg-8">         
+        <div class="col-lg-12">         
             {#
             {{ form_start(form) }}
                 {{ form_widget(form) }}
@@ -36,24 +60,15 @@
             {{ form_end(form) }}
             #}
             <div class="panel panel-white">
-                <div class="panel-heading">
-                    <h6 class="panel-title"><i class="fa fa-user"></i> Información del paciente</h6>
-                    <div class="heading-elements">
-                        <ul class="icons-list">
-                            <li><a data-action="collapse"></a></li>
-                            <li><a data-action="reload"></a></li>
-                            <li><a data-action="close"></a></li>
-                        </ul>
-                    </div>
-                </div>
+                
                 
                 <div class="panel-body">
-                    {{ form_start(form, {'attr': {'class': 'steps-basic'}}) }}
-                    <div class="form_error">{{ form_errors(form)}}</div>
+                   
+                    <div class="form_error"></div>
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs nav-tabs-highlight " role="tablist">
                         <li role="presentation" class="active"><a href="#personal_date" aria-controls="home" role="tab" data-toggle="tab"><i class="fa fa-list-alt"></i> Datos personales</a></li>
-                        <li role="presentation"><a href="#address" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-map-o"></i> Domicilio/Telefónos</a></li>
+                        <li role="presentation"><a href="#address" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-address-book-o" aria-hidden="true"></i> Mi Perfil</a></li>
                         <!--<li role="presentation"><a href="#phones" aria-controls="messages" role="tab" data-toggle="tab"></a></li>-->
                         <li role="presentation"><a href="#picture" aria-controls="settings" role="tab" data-toggle="tab"><i class="fa fa-file-image-o"></i> Fotografía</a></li>
                     </ul>
@@ -64,49 +79,49 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <div class="form_error">{{ form_errors(form.pacNombre)}}</div>
+                                            <div class="form_error"></div>
                                             <label for="" class=" control-label">Primer Nombre:</label>
-                                            <div class="">{{ form_widget(form.pacNombre) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                            <div class="">{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
                                         </div>
                                     </div>
                                     <div class="col-md-4">    
                                         <div class="form-group">
-                                            <div class="form_error">{{ form_errors(form.pacSegNombre)}}</div>
+                                            <div class="form_error"></div>
                                             <label for="" class=" control-label">Segundo Nombre:</label>
-                                            <div class="">{{ form_widget(form.pacSegNombre) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                            <div class="">{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
                                         </div>
                                     </div>
 
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <div class="form_error">{{ form_errors(form.pacApellido)}}</div>
+                                            <div class="form_error"></div>
                                             <label for="" class=" control-label">Apellido Paterno:</label>
-                                            <div class="">{{ form_widget(form.pacApellido) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                            <div class="">{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
                                         </div>
                                     </div>    
                                 </div>
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <div class="form_error">{{ form_errors(form.pacSegApellido)}}</div>
+                                            <div class="form_error"></div>
                                             <label for="" class=" control-label">Apellido Materno:</label>
-                                            <div class="">{{ form_widget(form.pacSegApellido) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                            <div class="">{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
                                         </div>
                                     </div>
 
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <div class="form_error">{{ form_errors(form.pacGenero)}}</div>
+                                            <div class="form_error"></div>
                                             <label for="" class="control-label">Genero:</label>
-                                            <div class="">{{ form_widget(form.pacGenero) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                            <div class="">{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
                                         </div>
                                     </div>
 
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <div class="form_error">{{ form_errors(form.pacDui)}}</div>
+                                            <div class="form_error"></div>
                                             <label for="" class=" control-label">DUI:</label>
-                                            <div class="">{{ form_widget(form.pacDui) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                            <div class="">{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
                                         </div>
                                     </div>   
                                 </div>
@@ -114,25 +129,25 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <div class="form_error">{{ form_errors(form.pacTipSangre)}}</div>
+                                            <div class="form_error"></div>
                                             <label for="" class=" control-label">Tipo de Sangre:</label>
-                                            <div class="">{{ form_widget(form.pacTipSangre) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                            <div class="">{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
                                         </div>
                                     </div>
 
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <div class="form_error">{{ form_errors(form.pacEmail)}}</div>
+                                            <div class="form_error"></div>
                                             <label for="" class=" control-label">Email:</label>
-                                            <div class="">{{ form_widget(form.pacEmail) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                            <div class="">{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
                                         </div>
                                     </div>    
 
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <div class="form_error">{{ form_errors(form.pacEstadoCivil)}}</div>
+                                            <div class="form_error"></div>
                                             <label for="" class=" control-label">Estado Civil:</label>
-                                            <div class="">{{ form_widget(form.pacEstadoCivil) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                            <div class="">{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -140,16 +155,16 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <div class="form_error">{{ form_errors(form.pacFechaNacimiento)}}</div>
+                                            <div class="form_error"></div>
                                             <label for="" class=" control-label">Fecha de nacimiento:</label>
-                                            <div class="">{{ form_widget(form.pacFechaNacimiento) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                            <div class="">{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <div class="form_error">{{ form_errors(form.pacActivo)}}</div>
+                                            <div class="form_error"></div>
                                             <label for="" class=" control-label">Estatus del paciente: </label>
-                                            <div class="">{{ form_widget(form.pacActivo) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                            <div class="">{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
                                         </div>
                                     </div>    
                                 </div>       
@@ -160,51 +175,186 @@
                             <fieldset>
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <div class="form-group">
-                                            <div class="form_error">{{ form_errors(form.pais)}}</div>
-                                            <label for="" class=" control-label">Pais:</label>
-                                            <div class="">{{ form_widget(form.pais) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                        <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">Información de contacto</div>
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                            <div class="panel panel-body border-top-primary">
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <div class="form-group">
+                                                        <div class="form_error"></div>
+                                                        <label for="" class=" control-label">Dirección:</label>
+                                                        <div class=""><input type="text" class="form-control" id="addressUser" value="{{ user.UsuDireccion }}"></div>
+                                                    </div>
+                                                </div> 
+                                            </div>
+                                            <div class="row">
+                                                <div class="p">
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group">
+                                                            <div class="form_error"></div>
+                                                            <label for="" class=" control-label">Teléfono Establecimiento:</label>
+                                                            <div class=""><input type="text" class="form-control" id="phone" value="{{ user.UsuTelefono }}"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group">
+                                                            <div class="form_error"></div>
+                                                            <label for="" class=" control-label">Correo electronico:</label>
+                                                            <div class=""><input type="text" class="form-control" id="email" value="{{ user.UsuCorreo }}"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </div>
+                                            </div>
                                         </div>
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="panel panel-body border-top-primary ">
+                                                    <div class="form-horizontal">
+                                                        <div class="form-group">
+                                                          <label for="inputEmail3" class="col-sm-2 control-label">Sitio web</label>
+                                                          <div class="col-sm-10">
+                                                            
+                                                            <select class="form-control" id="social-network-list" class="select">
+                                                                {% for social in socials %}
+                                                                    <option value="{{ social.idSocRed }}">{{ social.SocRedNombre }}</option>
+                                                                {% endfor %}
+                                                            </select>
+                                                          </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                          <label for="inputPassword3" class="col-sm-2 control-label">Url</label>
+                                                          <div class="col-sm-10">
+                                                            <input type="text" class="form-control" id="url" placeholder="Url">
+                                                          </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                          <div class="col-sm-offset-2 col-sm-10 ">
+                                                            <button type="submit" class="btn btn-default" id="btn-add-social-network">Agregar</button>
+                                                          </div>
+                                                        </div>
+                                                            <div id="socialList">
+                                                                <table class="table table-striped" id="table-social-network">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Tipo</th>
+                                                                            <th>Url</th>
+                                                                            <th></th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>xx</td>
+                                                                            <td>xxx</td>
+                                                                            <td><button class="btn btn-danger btn-sm removeNetwork">x</button><td>
+                                                                        </tr>
+                                                                    </tbody> 
+                                                                </table>
+                                                            </div>    
+                                                      </div>
+                                                </div>    
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="panel panel-body border-top-primary ">
+                                                    <div class="form-horizontal">
+                                                       
+                                                        <div class="form-group">
+                                                          
+                                                          <div class="col-sm-12">
+                                                              <spav class="radio-inline">
+                                                                  Días laborales:<br>
+                                                              </span>
+                                                              {% for day in week|keys %}
+                                                                    <label class="checkbox-inline">
+                                                                        <input type="checkbox" id="" value="{{ day }}" class="days"> {{ day }}
+                                                                    </label>
+                                                              {% endfor%}    
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                </div>    
+                                            </div>
+                                        </div>                    
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="panel panel-body border-top-primary ">
+                                                    <div class="form-horizontal">
+                                                       
+                                                        <div class="form-group">
+                                                          
+                                                          <div class="col-sm-12">
+                                                              <label class="radio-inline">
+                                                                Cambiar password?
+                                                              </label>
+                                                              <label class="radio-inline">
+                                                                <input type="radio" name="radioPassword" id="" class="radioPassword" value="yes"> Si
+                                                              </label>
+                                                              <label class="radio-inline">
+                                                                  <input type="radio" name="radioPassword" id="" class="radioPassword" value="no" checked="checked"> No
+                                                              </label>
+                                                          </div>
+                                                        </div>
+                                                        <div id="change-password">
+                                                            <div class="form-group">
+                                                                <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+                                                                <div class="col-sm-10">
+                                                                  <input type="text" class="form-control" placeholder="Password" id="password">
+                                                                </div>
+                                                              </div>
+                                                              <div class="form-group">
+                                                                <label for="inputPassword3" class="col-sm-2 control-label">Repita Password</label>
+                                                                <div class="col-sm-10">
+                                                                  <input type="text" class="form-control" placeholder="Repita Password" id="repeat_password">
+                                                                </div>
+                                                              </div>
+                                                        </div>
+                                                      </div>
+                                                </div>    
+                                            </div>
+                                        </div>
+                                                            
+                                        
                                     </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <div class="form_error">{{ form_errors(form.pacMun)}}</div>
-                                            <label for="" class=" control-label">Municipio/departamento:</label>
-                                            <div class="">{{ form_widget(form.pacMun) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                    <div class="col-md-8">
+                                        <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">Experiencia Médica</div>
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="panel panel-body border-top-primary ">
+                                                    <div class="form-group">
+                                                        <div class="form_error"></div>
+                                                        <label for="" class=" control-label">Mis especialidades:</label>
+                                                        <div class="">
+                                                            <select id="specialitiesList" class="select" multiple>
+                                                                {% for speciality in specialities %}
+                                                                    <option value="{{ speciality.EspId }}">{{ speciality.EspEspecialidad }}</option>
+                                                                {% endfor %}
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div> 
                                         </div>
-                                    </div>    
-                                    <div class="col-md-4">    
-                                        <div class="form-group">
-                                            <div class="form_error">{{ form_errors(form.pacDireccion)}}</div>
-                                            <label for="" class=" control-label">Dirección:</label>
-                                            <div class="">{{ form_widget(form.pacDireccion) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="panel panel-body border-top-primary">
+                                                    <div class="form-group">
+                                                        <label for="" class=" control-label">Estudios/Experiencia Laboral/Cargos/Congreso/Etc</label>
+                                                        <div class="">
+                                                            <textarea cols="18" rows="18" id="profile_info" class="wysihtml5 wysihtml5-default form-control" placeholder="Describa su perfil..." style="height: 500px">
+                                                                {{ user.UsuInfoPerfil }}
+                                                            </textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>    
+                                    </div>       
                                 </div>
-                                
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <div class="form_error">{{ form_errors(form.pacTelCasa)}}</div>
-                                            <label for="" class=" control-label">Telefóno Casa:</label>
-                                            <div class="">{{ form_widget(form.pacTelCasa) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">    
-                                        <div class="form-group">
-                                            <div class="form_error">{{ form_errors(form.pacTelCelular)}}</div>
-                                            <label for="" class=" control-label">Celular:</label>
-                                            <div class="">{{ form_widget(form.pacTelCelular) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <div class="form_error">{{ form_errors(form.pacTelTrabajo)}}</div>
-                                            <label for="" class=" control-label">Teléfono Trabajo:</label>
-                                            <div class="">{{ form_widget(form.pacTelTrabajo) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
-                                        </div>
-                                    </div>    
-                                </div>        
+       
                             </fieldset>
 
                         </div>
@@ -239,7 +389,7 @@
                         </div>
                     </div>
 
-                    {{ form_end(form)}}
+                    
 
                     <hr>
                     <ul class="list-inline">
@@ -257,9 +407,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-4">
-            {{ include('EmrBundle:paciente:_search.html.twig' )  }}       
-        </div>
+
     </div>
     
     {% endblock %}
@@ -515,7 +663,7 @@
                                     $image.cropper('destroy').attr('src', uploadedImageURL).cropper(options);
                                     $inputImage.val('');
                                 } else {
-                                    window.alert('Please choose an image file.');
+                                    window.alert('Porfavor seleccione una imagen.');
                                 }
                             }
                         });
@@ -529,7 +677,7 @@
 
 
                     $("#btn-save-form").on("click", function () {
-                        saveFormAjax("");
+                        saveFormAjax();
                     });
 
 
@@ -539,7 +687,7 @@
                     // Select2 selects
                     $('.select').select2();
 
-
+                    /*
                     $("#appbundle_paciente_pacMun").empty();
                     $("#appbundle_paciente_pais").on("change", function () {
 
@@ -550,7 +698,7 @@
                         }
                         //$("#appbundle_paciente_pacMun").append($('<option>', {value: 100000, text: 'new option'}));
                     });
-
+                    */
 
                     function getLocationsAjax(id) {
                         $("#holder_loading").show();
@@ -621,83 +769,51 @@
                     }
                     
                     
-                    function saveFormAjax(id) {
+                    function saveFormAjax() {
                         
                         
-                        var firts_name = $("#appbundle_paciente_pacNombre").val();
-                        var middle_name = $("#appbundle_paciente_pacSegNombre").val();
-                        var last_name = $("#appbundle_paciente_pacApellido").val();
-                        var middle_last_name = $("#appbundle_paciente_pacSegApellido").val();
-                        var gender = $("#appbundle_paciente_pacGenero").val();
-                        var dui = $("#appbundle_paciente_pacDui").val();
-                        var blood_type = $("#appbundle_paciente_pacTipSangre").val();
-                        var email = $("#appbundle_paciente_pacEmail").val();
-                        var civil_state = $("#appbundle_paciente_pacEstadoCivil").val();
-                        var municipality = $("#appbundle_paciente_pacMun").val();
-                        var address = $("#appbundle_paciente_pacDireccion").val();
-                        var home_phone = $("#appbundle_paciente_pacTelCasa").val();
-                        var work_phone = $("#appbundle_paciente_pacTelTrabajo").val();
-                        var cellphone = $("#appbundle_paciente_pacTelTrabajo").val();
-                        var cellphone = $("#appbundle_paciente_pacTelTrabajo").val();
-                        /*
-                            var month = $("#appbundle_paciente_pacFechaNacimiento_month").val();
-                            var day = $("#appbundle_paciente_pacFechaNacimiento_day").val();
-                            var year = $("#appbundle_paciente_pacFechaNacimiento_year").val();
-                        */
-                        var birthdate = $("#appbundle_paciente_pacFechaNacimiento").val();
+                        var address = $("#addressUser").val();
+                        var phone = $("#phone").val();
+                        var email = $("#email").val();
+                        var password = $("#password").val();
+                        var specialitiesList = $("#specialitiesList").val();
+                        
+                        var specialitiesList = []; 
+                        $('#specialitiesList :selected').each(function(i, selected){ 
+                          specialitiesList[i] = $(selected).val(); 
+                        });
+                        
+                        var day = [];
+                        $(".days:checked").each(function(){
+                             var opt = $(this).val();
+                             day.push(opt);
+                        });
+                        
+                        var social_network = [];
+                        $("#table-social-network tbody tr").each(function(){
+                            var trId = $(this).attr("id");
+                            var txt = $("#"+trId).find("td").eq(1).text();
+                            var td = {"id":trId, "url":txt};
+                            social_network.push(td);
+                        });
+                        
+                        //console.log(JSON.stringify(social_network));
+                        //return false;
+                        var profile = $("#profile_info").val();
                         var img = img_base64;
-                       
-                        var err = 0;
-                        
-                        if( birthdate == "" )
-                        {
-                            msg = "Selecciones la fecha de nacimiento del paciente";
-                            err = 1;
-                        }
-                        
-                        if( middle_name != "" || last_name  != "" || middle_last_name != "" )
-                        {
-                            
-                        }
-                        else
-                        {
-                            msg = "Ingrese almenos un apellido del paciente";
-                            err = 1;
-                        }
-                        
-                        if( firts_name == "" )
-                        {
-                            msg = "Ingrese el primer nombre del paciente";
-                            err = 1;
-                        }
-                        
-                        
-                        
-                        
-                            
-                        if( err == 1 ){
-                            $.alert({
-                                icon: 'fa fa-remove',
-                                title: 'Error!',
-                                content: msg,
-                                type: 'red',
-                                typeAnimated: true,
-                            });
-                            return false;
-                        }         
-                        
+                             
+                        var routeShow = "{{ path('perfil_form') }}"
                         $("#holder_loading").show();
 						$.ajax({
                             type: "post",
-                            url: "{{ path('paciente_form') }}",
+                            url: routeShow,
                             data: {
-                                firts_name: firts_name, middle_name: middle_name,
-                                last_name: last_name, middle_last_name: middle_last_name,
-                                gender: gender, dui:dui, blood_type: blood_type,
-                                email: email, civil_state: civil_state, municipality: municipality,
-                                address: address, home_phone: home_phone, work_phone, cellphone: cellphone,
-                                date: birthdate, img: img, id:id
-                                
+                                address: address,phone: phone,
+                                specialitiesList:specialitiesList,
+                                email: email, password: password,
+                                day: day, social_network: (social_network), 
+                                profile:profile,
+                                img: img
                             },
                             error: function (data) {
                                 $("#holder_loading").hide();
@@ -712,7 +828,7 @@
                                             text: 'Intentar de nuevo',
                                             btnClass: 'btn-red',
                                             action: function () {
-                                                saveFormAjax("");
+                                                saveFormAjax();
                                             }
                                         },
                                         close: function () {
@@ -729,21 +845,12 @@
 
                                 if (data > 0)
                                 {
-                                    /*
-                                     $.alert({
-                                        icon: 'fa fa-check-circle',
-                                        title: 'Ok!',
-                                        content: 'El registro guardado con éxito',
-                                        type: 'green',
-                                        typeAnimated: true,
-                                     });
-                                     */
                                     
-                                    $('form[name$=appbundle_paciente]')[0].reset();
+                                    //$('form[name$=appbundle_paciente]')[0].reset();
                                     
-                                     var routeShow = "{{ path('paciente_show', { 'id': "PLACEHOLDER" }) }}";
-                                         routeShow = routeShow.replace("PLACEHOLDER", data);
-                                         window.location.assign(routeShow);
+                                     
+                                    var routeShow = "{{ path('paciente_show') }}" //routeShow.replace("PLACEHOLDER", data);
+                                    window.location.assign(routeShow);
                                      
                                      $("body").find(".cropper-container").remove();
                                      $(".img-preview").empty();
@@ -769,7 +876,7 @@
                         });
                     }
                     
-                   
+                    /*
                         
                         $("#form_search_patients").submit(function(e){
                             //
@@ -778,7 +885,7 @@
                             
                             return false;
                         });
-                    
+                    */
                     
                     function searchPatients()
                     {
@@ -909,6 +1016,76 @@
                         changeYear: true,
                         yearRange: '1945:'+(new Date).getFullYear()
                     });
+                    
+                    
+                    $(".radioPassword").change(function(){
+                        var opt = $(this).val();
+                        if( opt == "yes")
+                        {
+                            $("#change-password").show();
+                        }else{
+                            $("#change-password").hide();
+                        }
+                    });
+                    
+                    $("#btn-add-social-network").on("click", function(){
+                        var url = $("#url").val();
+                        var social_net_id = $("#social-network-list").val();
+                        var txt = $("#social-network-list option:selected").text();
+                        
+                        if( $.trim(url) != "" )
+                        {
+                            
+                            var rowCount = $('#table-social-network >tbody >tr').length;
+                            if( rowCount == 0 )
+                            {
+                                 $("#table-social-network").show();
+                            }
+
+                            
+                            var tr = "<tr id='"+social_net_id+"'><td>"+txt+"</td><td>"+url+"</td><td><button class='btn btn-danger btn-sm removeNetwork'>x</button></td></tr>";
+                            $("#table-social-network").append(tr);
+                        }
+                    });
+                    
+                    $("body").on("click",".removeNetwork", function(){
+                        
+                        $(this).closest("tr").remove();
+                        
+                        var rowCount = $('#table-social-network >tbody >tr').length;
+                        if( rowCount == 0 )
+                        {
+                            $("#table-social-network").hide();
+                        }
+                        else
+                        {
+                            $("#table-social-network").show();
+                        }
+                    });
+                    
+                    
+                    //$("#listSpecialities")
+                    //======================================================
+                    //======================================================
+                    // Default initialization
+                    // Simple toolbar
+                    $('.wysihtml5-default').wysihtml5({
+                        parserRules:  wysihtml5ParserRules,
+                        stylesheets: ["{{ asset('bundles/admin/template_clients/assets/css/components.css') }}  "],
+                        "font-styles": true, // Font styling, e.g. h1, h2, etc. Default true
+                        "emphasis": true, // Italics, bold, etc. Default true
+                        "lists": true, // (Un)ordered lists, e.g. Bullets, Numbers. Default true
+                        "html": false, // Button which allows you to edit the generated HTML. Default false
+                        "link": true, // Button to insert a link. Default true
+                        "image": false, // Button to insert an image. Default true,
+                        "action": true, // Undo / Redo buttons,
+                        "color": true // Button to change color of font
+                    });
+
+
+
+                    // Style form components
+                    $('.styled').uniform();
                     
 
                 });

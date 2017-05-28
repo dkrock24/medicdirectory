@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use \AppBundle\Entity\Usuario;
 use \AppBundle\Entity\Rol;
 use \AppBundle\Entity\ClienteUsuario;
-use \AppBundle\Entity\UsuariosRol;
+//use \AppBundle\Entity\UsuariosRol;
 
 /**
  * Cliente controller.

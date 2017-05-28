@@ -5,11 +5,11 @@
 {% endblock %}
 
 {% block breadcrumb %}
-    {{ include('EmrBundle:Dashboard:_breadcrumb.html.twig' )  }}
+    {{ include('EmrBundle:paciente:_breadcrumb.html.twig' )  }}
 {% endblock %} 
 
 {% block submenutop %}
-    {{ include('EmrBundle:Dashboard:_submenu.html.twig' )  }}
+    {{ include('EmrBundle:paciente:_submenu.html.twig' )  }}
 {% endblock %} 
 
 {% block body %}
@@ -28,7 +28,8 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-8">         
+        <div class="col-lg-8">
+
             {#
             {{ form_start(form) }}
                 {{ form_widget(form) }}
