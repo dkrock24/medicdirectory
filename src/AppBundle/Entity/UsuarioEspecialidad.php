@@ -7,7 +7,6 @@ namespace AppBundle\Entity;
  */
 class UsuarioEspecialidad
 {
-   
     /**
      * @var integer
      */
