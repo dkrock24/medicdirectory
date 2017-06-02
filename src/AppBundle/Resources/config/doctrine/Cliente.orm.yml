@@ -107,14 +107,14 @@ AppBundle\Entity\Cliente:
             column: cli_precio_por_usuario
         cliUbicacionLat:
             type: string
-            nullable: false
+            nullable: true
             length: 30
             options:
                 fixed: false
             column: cli_ubicacion_lat
         cliUbicacionLon:
             type: string
-            nullable: false
+            nullable: true
             length: 30
             options:
                 fixed: false
