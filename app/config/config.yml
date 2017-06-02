@@ -85,3 +85,6 @@ sphinxsearch:
         socket: "%sphinxsearch_socket%"
     indexer:
         bin:    "%sphinxsearch_indexer_bin%"
+
+gregwar_image:
+  throw_exception: true
