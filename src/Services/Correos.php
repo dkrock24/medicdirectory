@@ -17,15 +17,30 @@ class Correos {
         $this->mailer = $mailer;
     }
 
-    public function enviarCorreo(Request $request, $plantilla, array $variables, $para, $de = '') {
+    public function enviarCorreo ($plantilla, array $variables, $para, $de = '') {
+        $oPlantilla = $this->em->getRepository('AppBundle:PlantillaCorreo')->findOneBy(['nombre' => $plantilla]);
+
+        if (!$oPlantilla) {
+            return false;
+        }
+
+        $asunto = $oPlantilla->getAsunto();
+        $cuerpo = $oPlantilla->getPlantilla();
+
+        foreach ($variables as $variable => $valor) {
+            $asunto = str_replace('{{'.$variable.'}}',$valor,$asunto);
+            $cuerpo = str_replace('{{'.$variable.'}}',$valor,$cuerpo);
+        }
+
         $message = \Swift_Message ::newInstance()
-            ->setSubject('Hello Email')
+            ->setContentType('text/html')
+            ->setSubject($asunto)
             ->setFrom('elsalvadormedicos@gmail.com')
-            ->setTo($request->request->get('destino'))
-            ->setBody('You should see me from the profiler!')
+            ->setTo($para)
+            ->setBody($cuerpo)
         ;
 
-        $this->mailer->send($message);
+        return $this->mailer->send($message);
     }
 
 }

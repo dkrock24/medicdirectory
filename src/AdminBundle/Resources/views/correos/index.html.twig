@@ -40,7 +40,7 @@
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-md-10">
-                            <input id="correo_plantilla_nombre" type="text" class="form-control" value="">
+                            <input id="correo_plantilla_nombre" type="text" class="form-control" value="" placeholder="nombre de la plantilla">
                         </div>
 
                         <div class="col-md-2 text-right">
@@ -49,6 +49,8 @@
                     </div>
                 </div>
                 <div class="panel-body">
+                    <input type="text" id="correo_plantilla_asunto" class="form-control input-lg" placeholder="asunto del correo"/>
+                    <br />
                     <textarea id="correo_plantilla_plantilla" rows="18" class="wysihtml5 wysihtml5-min form-control"></textarea>
                 </div>
             </div>
@@ -65,6 +67,7 @@
             $('#correo_plantilla_selector').change(function () {
                $.post('{{ path('admin_correos_cargar') }}', {id: $(this).val()}, function(data){
                    $('#correo_plantilla_nombre').val(data.titulo);
+                   $('#correo_plantilla_asunto').val(data.asunto);
                    $('#correo_plantilla_plantilla').data("wysihtml5").editor.setValue(data.plantilla);
                    $('#correo_plantilla_nombre').trigger('keyup');
                }, 'json');
@@ -75,7 +78,7 @@
             });
 
             $('#correo_plantilla_guardar').click(function () {
-                $.post('{{ path('admin_correos_guardar') }}', {nombre: $('#correo_plantilla_nombre').val(), plantilla: $('#correo_plantilla_plantilla').val()}, function(data){
+                $.post('{{ path('admin_correos_guardar') }}', {nombre: $('#correo_plantilla_nombre').val(), asunto: $('#correo_plantilla_asunto').val(), plantilla: $('#correo_plantilla_plantilla').val()}, function(data){
                     alert(data);
                 });
             });

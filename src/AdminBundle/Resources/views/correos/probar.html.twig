@@ -37,7 +37,22 @@
                 </div>
             </div>
             <hr />
+            <div class="panel panel-flat panel-collapsed">
+                <div class="panel-heading">
+                    <h5 class="panel-title">Parametros</h5>
+                    <div class="heading-elements">
+                        <ul class="icons-list">
+                            <li><a data-action="collapse"></a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="panel-body"></div>
+            </div>
             <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 id="correo_plantilla_asunto" class="panel-title"></h3>
+                </div>
                 <div id="correo_plantilla_plantilla" class="panel-body"></div>
             </div>
 
@@ -54,6 +69,7 @@
             $('#correo_plantilla_selector').change(function () {
                 $.post('{{ path('admin_correos_cargar') }}', {id: $(this).val()}, function(data){
                     $('#correo_plantilla_nombre').val(data.titulo);
+                    $('#correo_plantilla_asunto').html(data.asunto);
                     $('#correo_plantilla_plantilla').html(data.plantilla);
                 }, 'json');
             });
