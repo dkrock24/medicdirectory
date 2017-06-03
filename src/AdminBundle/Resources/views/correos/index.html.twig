@@ -1,8 +1,47 @@
 {% extends "Layout/base_admin/_admin_base.html.twig" %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/admin/template_admin/assets/js/plugins/editors/wysihtml5/wysihtml5.min.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/admin/template_admin/assets/js/plugins/editors/wysihtml5/toolbar.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/admin/template_admin/assets/js/plugins/editors/wysihtml5/parsers.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/admin/template_admin/assets/js/plugins/editors/wysihtml5/locales/bootstrap-wysihtml5.ua-UA.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/admin/template_admin/assets/js/pages/editor_wysihtml5.js')}}"></script>
+    <!-- /theme JS files -->
+{% endblock %}
+
 {% block title_page %}
     EMR || Correos
 {% endblock %}
 
 {% block body %}
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Gestor de plantillas de correo</h3>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Nombre de plantilla...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">Crear</button>
+                        </span>
+                    </div><!-- /input-group -->
+                </div>
+                <div class="col-md-9">
+                    <div class="panel panel-default">
+                        <div id="correo_plantilla_nombre" class="panel-heading">Panel heading without title</div>
+                        <div id="correo_plantilla_contenido" class="panel-body">
+                            <textarea cols="18" rows="18" class="wysihtml5 wysihtml5-default form-control" placeholder="Enter text ..."></textarea>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
