@@ -44,3 +44,7 @@ admin_contabilidad_reporte_ver:
     path:     /admin_contabilidad_reporte_ver
     defaults: { _controller: AdminBundle:ContabilidadReportes:ver }
     methods:  [POST]
+
+admin_correos:
+    path: /admin_correos
+    defaults: { _controller: AdminBundle:Correos:index }
