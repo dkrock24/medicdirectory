@@ -48,3 +48,15 @@ admin_contabilidad_reporte_ver:
 admin_correos:
     path: /admin_correos
     defaults: { _controller: AdminBundle:Correos:index }
+admin_correos_guardar:
+    path: /admin_correos_guardar
+    defaults: { _controller: AdminBundle:Correos:guardar }
+admin_correos_cargar:
+    path: /admin_correos_cargar
+    defaults: { _controller: AdminBundle:Correos:cargar }
+admin_correos_probar:
+    path: /admin_correos_probar
+    defaults: { _controller: AdminBundle:Correos:probar }
+admin_correos_probar_enviar:
+    path: /admin_correos_probar_enviar
+    defaults: { _controller: AdminBundle:Correos:probarEnviar }

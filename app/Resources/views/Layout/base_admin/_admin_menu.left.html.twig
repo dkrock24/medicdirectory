@@ -81,7 +81,21 @@
                         <a href="#"><i class="fa fa-file-text-o"></i> <span>Auditorias</span></a>
                     </li>
                     <li>
-                        <a href="{{ path('admin_correos') }}"><i class="fa fa-envelope"></i> <span>Correo</span></a>
+                        <a href="#"><i class="fa fa-envelope"></i> <span>Correos</span></a>
+                        <ul>
+                            <li>
+                                <a href="{{ path('admin_correos') }}">
+                                    <i class="fa fa-edit"></i>
+                                    <span>Plantillas</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ path('admin_correos_probar') }}">
+                                    <i class="fa fa-check"></i>
+                                    <span>Probar</span>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-dashboard"></i> <span>Contabilidad</span></a>

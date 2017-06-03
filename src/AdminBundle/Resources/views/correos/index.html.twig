@@ -1,5 +1,10 @@
 {% extends "Layout/base_admin/_admin_base.html.twig" %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/admin/template_admin/assets/css/colors.css')}}" rel="stylesheet" type="text/css">
+{% endblock %}
+
 {% block javascripts %}
     {{ parent() }}
     <script type="text/javascript" src="{{ asset('bundles/admin/template_admin/assets/js/plugins/editors/wysihtml5/wysihtml5.min.js')}}"></script>
@@ -7,11 +12,13 @@
     <script type="text/javascript" src="{{ asset('bundles/admin/template_admin/assets/js/plugins/editors/wysihtml5/parsers.js')}}"></script>
     <script type="text/javascript" src="{{ asset('bundles/admin/template_admin/assets/js/plugins/editors/wysihtml5/locales/bootstrap-wysihtml5.ua-UA.js')}}"></script>
     <script type="text/javascript" src="{{ asset('bundles/admin/template_admin/assets/js/pages/editor_wysihtml5.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/admin/template_admin/assets/js/plugins/forms/selects/select2.min.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/admin/template_admin/assets/js/pages/form_select2.js')}}"></script>
     <!-- /theme JS files -->
 {% endblock %}
 
 {% block title_page %}
-    EMR || Correos
+    EMR || Plantilla correos
 {% endblock %}
 
 {% block body %}
@@ -20,28 +27,58 @@
         <div class="panel-heading">
             <h3 class="panel-title">Gestor de plantillas de correo</h3>
         </div>
+
         <div class="panel-body">
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Nombre de plantilla...">
-                        <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">Crear</button>
-                        </span>
-                    </div><!-- /input-group -->
-                </div>
-                <div class="col-md-9">
-                    <div class="panel panel-default">
-                        <div id="correo_plantilla_nombre" class="panel-heading">Panel heading without title</div>
-                        <div id="correo_plantilla_contenido" class="panel-body">
-                            <textarea cols="18" rows="18" class="wysihtml5 wysihtml5-default form-control" placeholder="Enter text ..."></textarea>
+            <select id="correo_plantilla_selector" data-placeholder="Escoja plantilla..." class="form-control select-size-lg">
+                <option></option>
+                {% for plantilla in plantillas %}
+                    <option value="{{ plantilla.id }}">{{ plantilla.nombre }}</option>
+                {%  endfor %}
+            </select>
+            <hr />
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <input id="correo_plantilla_nombre" type="text" class="form-control" value="">
+                        </div>
 
-
+                        <div class="col-md-2 text-right">
+                            <button id="correo_plantilla_guardar" disabled="disabled" class="btn btn-default" type="button"><i class="fa fa-floppy-o"></i> Guardar</button>
                         </div>
                     </div>
+                </div>
+                <div class="panel-body">
+                    <textarea id="correo_plantilla_plantilla" rows="18" class="wysihtml5 wysihtml5-min form-control"></textarea>
                 </div>
             </div>
         </div>
     </div>
+    </div>
 
+{% endblock %}
+
+{% block codejs %}
+    <script type='text/javascript'>
+        $(function () {
+
+            $('#correo_plantilla_selector').change(function () {
+               $.post('{{ path('admin_correos_cargar') }}', {id: $(this).val()}, function(data){
+                   $('#correo_plantilla_nombre').val(data.titulo);
+                   $('#correo_plantilla_plantilla').data("wysihtml5").editor.setValue(data.plantilla);
+                   $('#correo_plantilla_nombre').trigger('keyup');
+               }, 'json');
+            });
+
+            $('#correo_plantilla_nombre').keyup(function(){
+                $( "#correo_plantilla_guardar" ).attr( "disabled", $('#correo_plantilla_nombre').val().length == 0 );
+            });
+
+            $('#correo_plantilla_guardar').click(function () {
+                $.post('{{ path('admin_correos_guardar') }}', {nombre: $('#correo_plantilla_nombre').val(), plantilla: $('#correo_plantilla_plantilla').val()}, function(data){
+                    alert(data);
+                });
+            });
+        });
+    </script>
 {% endblock %}

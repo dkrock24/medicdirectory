@@ -2,6 +2,8 @@
 
 namespace Services;
 
+use Symfony\Component\HttpFoundation\Request;
+
 class Correos {
     /* @var $em \Doctrine\ORM\EntityManager */
 
@@ -15,8 +17,15 @@ class Correos {
         $this->mailer = $mailer;
     }
 
-    public function enviarCorreo($plantilla, array $variables, $para, $de = '') {
-        return false;
+    public function enviarCorreo(Request $request, $plantilla, array $variables, $para, $de = '') {
+        $message = \Swift_Message ::newInstance()
+            ->setSubject('Hello Email')
+            ->setFrom('elsalvadormedicos@gmail.com')
+            ->setTo($request->request->get('destino'))
+            ->setBody('You should see me from the profiler!')
+        ;
+
+        $this->mailer->send($message);
     }
 
 }
