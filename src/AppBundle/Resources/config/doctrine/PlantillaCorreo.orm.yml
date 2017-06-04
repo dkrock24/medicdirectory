@@ -16,7 +16,7 @@ AppBundle\Entity\PlantillaCorreo:
         asunto:
             type: string
             length: 255
-            unique: true
+            unique: false
         plantilla:
             type: text
         activo:
