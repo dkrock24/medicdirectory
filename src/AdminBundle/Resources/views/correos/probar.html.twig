@@ -47,7 +47,7 @@
                     </div>
                 </div>
 
-                <div class="panel-body"></div>
+                <div id="correo_contenedor_parametros" class="panel-body"></div>
             </div>
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -71,11 +71,29 @@
                     $('#correo_plantilla_nombre').val(data.titulo);
                     $('#correo_plantilla_asunto').html(data.asunto);
                     $('#correo_plantilla_plantilla').html(data.plantilla);
+
+                    $('#correo_contenedor_parametros').html('');
+                    if (data.parametros.length > 0) {
+                        for (var index in data.parametros) {
+                            $('<div class="row"><div class="col-md-2">'+data.parametros[index]+'</div><div class="col-md-10"><input type="text" class="form-control correo_prueba_parametro" data-parametro="'+data.parametros[index]+'" /></div></div>').appendTo('#correo_contenedor_parametros');
+                        }
+                    }
+
                 }, 'json');
             });
 
             $('#correo_plantilla_probar').click(function () {
-                $.post('{{ path('admin_correos_probar_enviar') }}', {nombre: $('#correo_plantilla_nombre').val(), destino: $('#correo_plantilla_destino').val()}, function(data){
+                var aParams = {};
+
+                $(".correo_prueba_parametro").each(function(){
+                    aParams[$(this).data('parametro')] = $(this).val();
+                });
+
+                $.post('{{ path('admin_correos_probar_enviar') }}', {
+                    nombre: $('#correo_plantilla_selector').select2('data')[0].text,
+                    destino: $('#correo_plantilla_destino').val(),
+                    parametros: aParams
+                }, function(data){
                     alert(data);
                 });
             });

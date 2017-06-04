@@ -69,6 +69,13 @@ class CorreosController extends Controller
         $json['asunto'] = $oPlantilla->getAsunto();
         $json['plantilla'] = $oPlantilla->getPlantilla();
 
+        // Encontremos los parametros
+        $aOut = [];
+        $json['parametros'] = [];
+
+        preg_match_all('/\{\{(.+?)\}\}/',$json['asunto'].$json['plantilla'], $aOut);
+        $json['parametros'] = array_merge($json['parametros'], array_values($aOut[1])) ;
+
         return new JsonResponse($json);
     }
 
@@ -82,8 +89,13 @@ class CorreosController extends Controller
     }
 
     public function probarEnviarAction(Request $request){
-        $this->get('srv_correos')->enviarCorreo('registro.reiniciar_clave',[],'vladimiroski@gmail.com');
+        $this->get('srv_correos')->enviarCorreo(
+            $request->request->get('nombre'),
+            $request->request->get('parametros'),
+            $request->request->get('destino')
+        );
 
+        print_r( $request->request->get('parametros') );
         return new Response('Correo enviado');
     }
 }
