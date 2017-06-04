@@ -1,4 +1,7 @@
 #!/bin/bash
+cd "$(dirname "$0")";
+php doctrine:database:drop --force
+php doctrine:database:create
 php bin/console doctrine:query:sql "SET GLOBAL foreign_key_checks=0"
 php bin/console doctrine:fixtures:load --purge-with-truncate --no-interaction
 php bin/console doctrine:query:sql "SET GLOBAL foreign_key_checks=1"
