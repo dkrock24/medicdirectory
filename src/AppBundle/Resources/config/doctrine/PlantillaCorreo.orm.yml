@@ -1,0 +1,24 @@
+AppBundle\Entity\PlantillaCorreo:
+    type: entity
+    table: null
+    repositoryClass: AppBundle\Repository\PlantillaCorreoRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        nombre:
+            type: string
+            length: 255
+            unique: true
+        asunto:
+            type: string
+            length: 255
+            unique: true
+        plantilla:
+            type: text
+        activo:
+            type: boolean
+    lifecycleCallbacks: {  }

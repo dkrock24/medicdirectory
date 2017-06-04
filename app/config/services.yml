@@ -25,3 +25,7 @@ services:
     srv_busqueda:
         class:        Services\Busqueda
         arguments:     ["@doctrine.orm.entity_manager", "@session", "@search.sphinxsearch.search"]
+
+    srv_correos:
+        class:        Services\Correos
+        arguments:     ["@doctrine.orm.entity_manager", "@session", "@mailer"]

@@ -54,10 +54,10 @@ class adminGenerarMedicosPruebaCommand extends ContainerAwareCommand {
 
         // Generar usuarios
 
-        for($i=0; $i <= $iCantidad ; $i++) {
-            $nombre = $aNombres[rand(0, count($aNombres)-1)];
-            $apellido = $aApellidos[rand(0, count($aApellidos)-1)];
-            $sUsuario = strtolower($nombre.'.'.$apellido);
+        for ($i = 0; $i <= $iCantidad; $i++) {
+            $nombre = $aNombres[rand(0, count($aNombres) - 1)];
+            $apellido = $aApellidos[rand(0, count($aApellidos) - 1)];
+            $sUsuario = strtolower($nombre . '.' . $apellido);
 
             $oUsuario = new \AppBundle\Entity\Usuario();
             $oUsuario->setUsuActivo(TRUE);
@@ -65,7 +65,7 @@ class adminGenerarMedicosPruebaCommand extends ContainerAwareCommand {
             $oUsuario->setUsuFechaCrea(new \DateTime());
             $oUsuario->setUsuFechaMod(new \DateTime());
             $oUsuario->setUsuFechaRegistro(new \DateTime());
-            $oUsuario->setUsuFechaNacimiento( new \DateTime());
+            $oUsuario->setUsuFechaNacimiento(new \DateTime());
             $oUsuario->setUsuIdVendedor(1);
             $oUsuario->setUsuTitulo('Dr.');
             $oUsuario->setUsuNombre($nombre . ' ' . $apellido);
@@ -74,22 +74,9 @@ class adminGenerarMedicosPruebaCommand extends ContainerAwareCommand {
             $oUsuario->setUsuUsuario($sUsuario);
             $em->persist($oUsuario);
 
-            // Crear información de usuario
-
-            $oInfoUsuario = new \AppBundle\Entity\UsuarioInformacion();
-            $oInfoUsuario->setUsiUsuId($oUsuario);
-            $oInfoUsuario->setUsiCorreo ("{$sUsuario}@correo.com");
-            $oInfoUsuario->setUsiDireccion ("Calle " . $aApellidos[rand(0, count($aApellidos))]);
-            $oInfoUsuario->setUsiDiasTrabajo ("L-M-M-J-V-S");
-            $em->persist($oInfoUsuario);
-
-            $oUsuario->setUsuInformacion($oInfoUsuario);
-            $em->persist($oUsuario);
-
             $em->flush();
             $output->writeln($sUsuario);
         }
-        
     }
 
 }
