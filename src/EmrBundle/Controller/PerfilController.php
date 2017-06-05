@@ -78,12 +78,35 @@ class PerfilController extends Controller
 		
 		$oImageType = $em->getRepository('AppBundle:UsuarioGaleriaTipo')->findBy( array("usuGalTipActivo"=>1) );
 		
+		$schedule = unserialize($oUser->getUsuDiasTrabajo());
+		
+		//var_dump($schedule);
+		//echo "<hr>";
+		//{{ user.UsuCorreo }}
+		
+		
+		/*
+		$days = array();
+		foreach($schedule as $item => $value)
+		{
+
+			echo $item;
+			for($h=0; $h < count($value); $h++)
+			{
+				echo $value[$h]."<br>";
+			}
+			echo "<hr>";
+			
+		}
+		*/
+		
         return $this->render('EmrBundle:perfil:show.html.twig', array(
             'specialities' => $specialities,
 			"specialitiesSelected"=>$specialitiesSelected,
 			'socials'=>$socials,
 			"networkSelected"=>$networkSelected,
 			"week"=>$week,
+			"schedule"=>$schedule,
 			"daysDelected"=>$daysSelected,
 			"user"=>$oUser,
 			"imageType"=>$oImageType
@@ -100,16 +123,18 @@ class PerfilController extends Controller
 		$address = $request->get('address');
 		$email = $request->get('email');
 		$password = $request->get('password');
-		$days = $request->get('day');
+		$title = $request->get("title");
+		//$days = $request->get('day');
+		$schedule = $request->get("schedule");
 		$social_network = $request->get('social_network');
 		$specialitiesList = $request->get("specialitiesList");
 		$profile = $request->get('profile');
 		$phone = $request->get('phone');
 		$img = $request->get('img');
+
+		//var_dump($schedule);
 		
-		//var_dump($specialitiesList);
 		//exit();
-		
 		$em = $this->getDoctrine()->getManager();
 		$userId = $this->getUser()->getUsuId();
 		
@@ -149,9 +174,23 @@ class PerfilController extends Controller
 					$oUser->setUsuTelefono($phone);
 					$oUser->setUsuDireccion($address);
 					$oUser->setUsuInfoPerfil($profile);
+					$oUser->setUsuTitulo($title);
+					
+					if( !empty($password) )
+					{
+						$oUser->setUsuClave( sha1($password) );
+					}
+					/*
 					if( count($days) > 0)
 					{
 						$oUser->setUsuDiasTrabajo(implode(",", $days));
+					}
+					*/
+					if( count($schedule) > 0 )
+					{
+						$oUser->setUsuDiasTrabajo(serialize($schedule) );
+					}else{
+						$oUser->setUsuDiasTrabajo("");
 					}
 					
 					$em->persist($oUser);			
@@ -187,123 +226,23 @@ class PerfilController extends Controller
 				
 				$status = 1;  
 				//Call the service to upload file
-				$uFile = $this->get('srv_uploadFile');
 				
 				//Check if is update onf file
 				if( !empty($img) )
 				{
+					$oUserGallery = $em->getRepository('AppBundle:UsuarioGaleria')->findBy( array( "galUsuId"=> $userId ) );
 					/*
-					$networkSelected = $em->getRepository('AppBundle:UsuarioGaleria')->findBy( array("idUsuario"=>$userId) );
-					
-					$currentImg = $oPatient->getPacFoto();
-					//$uFile->deleteFile($currentImg, $path="pacientes");
-					$uFile->deleteFile($currentImg, $path="pacientes", $pre_fix=false);
-					*/
-				}
-				
-
-
-				if( isset($userId) && $userId > 0 )
-				{
-					/*
-					//throw $this->createNotFoundException('The product does not exist');
-					$oPatient = $em->getRepository('AppBundle:Paciente')->findOneBy(array("pacId"=>$id));
-
-					if( $oPatient )
-					{
-						$oPatient->setPacNombre($firts_name);
-						$oPatient->setPacSegNombre($middle_name);
-						$oPatient->setPacApellido($last_name);
-						$oPatient->setPacSegApellido($middle_last_name);
-						$oPatient->setPacGenero($gender);
-						$oPatient->setPacDui($dui);
-						$oPatient->setPacTipSangre($blood_type);
-						$oPatient->setPacEmail($email);
-						$oPatient->setPacEstadoCivil($civil_state);
-						$oPatient->setPacMun( $municipality );
-						$oPatient->setPacDireccion($address);
-						$oPatient->setPacTelCasa($home_phone);
-						$oPatient->setPacTelTrabajo($work_phone);
-						$oPatient->setPacTelCelular($cellphone);
-						$oPatient->setPacFechaNacimiento(new \Datetime($date) );
-						$oPatient->setPacFechaMod(new \Datetime()); //Fecha de creacion
-						$isNew = false;
-						//Check if is update onf file
-						if( !empty($img) )
-						{
-							$currentImg = $oPatient->getPacFoto();
-
-							//$uFile->deleteFile($currentImg, $path="pacientes");
-
-							$uFile->deleteFile($currentImg, $path="pacientes", $pre_fix=false);
-
-						}
-
-					}
-					*/
-
-				}
-				else
-				{
-					/*
-					$oPatient = new Paciente();
-					$oPatient->setPacNombre($firts_name);
-					$oPatient->setPacSegNombre($middle_name);
-					$oPatient->setPacApellido($last_name);
-					$oPatient->setPacSegApellido($middle_last_name);
-					$oPatient->setPacGenero($gender);
-					$oPatient->setPacDui($dui);
-					$oPatient->setPacTipSangre($blood_type);
-					$oPatient->setPacEmail($email);
-					$oPatient->setPacEstadoCivil($civil_state);
-					$oPatient->setPacMun( $municipality );
-					$oPatient->setPacDireccion($address);
-					$oPatient->setPacTelCasa($home_phone);
-					$oPatient->setPacTelTrabajo($work_phone);
-					$oPatient->setPacTelCelular($cellphone);
-					if( !empty($date) )
-					{
-						$oPatient->setPacFechaNacimiento(new \Datetime($date) );
-					}
-
-					$oPatient->setPacFechaCrea(new \Datetime()); //Fecha de creacion
-					$iLocationId = $this->get('session')->get('locationId');
-					$iLocationObj = $em->getRepository("AppBundle:Cliente")->find($iLocationId);
-					$oPatient->setPacCli( $iLocationObj );
-
-					$isNew = true;
-					*/
-				}
-
-				/*
-				if( !empty($img) )
-				{
-					$upload = $uFile->startUploadFile($img, $path="pacientes", $pre_fix=false);
+					$uFile = $this->get('srv_uploadFile');
+					$upload = $uFile->startUploadFile($img, $path="perfil", $pre_fix=false);
 					if( $upload )
 					{
 						$oPatient->setPacFoto($upload);
 					}
+					*/
 				}
 
-				$em->persist($oPatient);			
-				$flush = $em->flush();
-				if ($flush == null)
-				{
-					//$status = 1; 
-					//success
-
-					if( isset($isNew) && $isNew == true )
-					{
-						$status = $oPatient->getPacId(); //new 
-					}else{
-						$status = 1;  // is update
-					}
-
-
-				}else{
-					$status = 0; //error
-				}
-				*/
+				$msg = "Registro actualizado con éxito";
+				$this->session->getFlashBag()->add("success", $msg);
 				$em->getConnection()->commit();
 			}
 			catch (\Exception $e)
