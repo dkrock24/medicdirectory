@@ -18,7 +18,7 @@ emr:
     defaults:
         domain: '%emr_domain%'
     requirements:
-        domain: '%emr_domain%'
+        domain: '^%emr_domain%$'
 
 # Rutas para manejo de cobros, ajustes del sistema, cambios de usuarios, etc.
 admin:
@@ -27,9 +27,14 @@ admin:
     defaults:
         domain: '%admin_domain%'
     requirements:
-        domain: '%admin_domain%'
+        domain: '^%admin_domain%$'
 
 # Sitio web publico
 web:
     resource: "@WebBundle/Resources/config/routing.yml"
     prefix:   /
+    host:     "%public_domain%"
+    defaults:
+        domain: '%public_domain%'
+    requirements:
+        domain: '^%public_domain%$'
