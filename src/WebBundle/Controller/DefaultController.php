@@ -118,14 +118,8 @@ class DefaultController extends Controller {
             ->setParameter('usuarioId',  $med_id)            
             ->getQuery()->getResult();
 
-        // Redes Sociales Por Medico.....
-            /*
-        $medico['redes'] = $em1->select('c')
-            ->from('AppBundle:UsuarioSocial','c')
-            ->innerJoin('AppBundle:SocialRedes','a','WITH','a.idSocRed = c.idSocialRed')            
-            ->where('c.idUsuario = :usuarioId')
-            ->setParameter('usuarioId',  $med_id)            
-            ->getQuery()->getResult();*/
+
+        $medico['redes'] = $em->getRepository('AppBundle:UsuarioSocial')->findAll(array("idUsuario" => $med_id));
 
         $medico['cliente']  = $em->getRepository('AppBundle:ClienteUsuario')->findOneBy(array("cliUsuUsu" => $med_id));
 
