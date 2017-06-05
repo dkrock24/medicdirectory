@@ -276,19 +276,142 @@
               Recortar Imagen
             </span>
           </button>
-           <!-- 
           <button type="button" class="btn btn-primary" data-method="getCroppedCanvas" data-option="{ &quot;width&quot;: 160, &quot;height&quot;: 90 }">
             <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="$">
               160&times;90
             </span>
           </button>
-            -->
           <button type="button" class="btn btn-primary" data-method="getCroppedCanvas" data-option="{ &quot;width&quot;: 320, &quot;height&quot;: 180 }">
             <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
               320&times;180
             </span>
           </button>
         </div>
+        
+       <div class="dropdown dropup docs-options" style="display:">
+          <button type="button" class="btn btn-primary btn-block dropdown-toggle" id="toggleOptions" data-toggle="dropdown" aria-expanded="true">
+            Toggle Options
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="toggleOptions" role="menu">
+            <li class="form-check" role="presentation">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="responsive" checked>
+                responsive
+              </label>
+            </li>
+            <li class="form-check" role="presentation">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="restore" checked>
+                restore
+              </label>
+            </li>
+            <li class="form-check" role="presentation">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="checkCrossOrigin" checked>
+                checkCrossOrigin
+              </label>
+            </li>
+            <li class="form-check" role="presentation">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="checkOrientation" checked>
+                checkOrientation
+              </label>
+            </li>
+
+            <li class="form-check" role="presentation">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="modal" checked>
+                modal
+              </label>
+            </li>
+            <li class="form-check" role="presentation">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="guides" checked>
+                guides
+              </label>
+            </li>
+            <li class="form-check" role="presentation">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="center" checked>
+                center
+              </label>
+            </li>
+            <li class="form-check" role="presentation">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="highlight" checked>
+                highlight
+              </label>
+            </li>
+            <li class="form-check" role="presentation">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="background" checked>
+                background
+              </label>
+            </li>
+
+            <li class="form-check" role="presentation">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="autoCrop" checked>
+                autoCrop
+              </label>
+            </li>
+            <li class="form-check" role="presentation">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="movable" checked>
+                movable
+              </label>
+            </li>
+            <li class="form-check" role="presentation">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="rotatable" checked>
+                rotatable
+              </label>
+            </li>
+            <li class="form-check" role="presentation">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="scalable" checked>
+                scalable
+              </label>
+            </li>
+            <li class="form-check" role="presentation">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="zoomable" checked>
+                zoomable
+              </label>
+            </li>
+            <li class="form-check" role="presentation">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="zoomOnTouch" checked>
+                zoomOnTouch
+              </label>
+            </li>
+            <li class="form-check" role="presentation">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="zoomOnWheel" checked>
+                zoomOnWheel
+              </label>
+            </li>
+            <li class="form-check" role="presentation">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="cropBoxMovable" checked>
+                cropBoxMovable
+              </label>
+            </li>
+            <li class="form-check" role="presentation">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="cropBoxResizable">
+                cropBoxResizable
+              </label>
+            </li>
+            <li class="form-check" role="presentation">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="toggleDragModeOnDblclick" checked>
+                toggleDragModeOnDblclick
+              </label>
+            </li>
+          </ul>
+        </div>   
 
         <!-- Show the cropped image in modal -->
         <div class="modal fade docs-cropped" id="getCroppedCanvasModal" aria-hidden="true" aria-labelledby="getCroppedCanvasTitle" role="dialog" tabindex="-1">
@@ -348,6 +471,7 @@
         </div>
           -->
       </div><!-- /.docs-toggles -->
+      
     </div>
   </div>
 

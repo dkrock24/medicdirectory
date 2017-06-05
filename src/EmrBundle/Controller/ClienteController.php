@@ -450,7 +450,14 @@ class ClienteController extends Controller
 		$phone_one = $request->get("phone_one");
 		$phone_two = $request->get("phone_two");
 		$specialities = $request->get("specialities");
-		$representerName = $request->get("representerName");
+		//$representerName = $request->get("representerName");
+		
+		$representerNameOne = $request->get("representerNameOne");
+		$representerNameTwo = $request->get("representerNameTwo");
+		$representerNameThree = $request->get("representerNameThree");
+		$representerLastNameOne = $request->get("representerLastNameOne");
+		$representerLastNameTwo = $request->get("representerLastNameTwo");
+		
 		
 		$comercial_name = $request->get("comercial_name");
 		$lon = $request->get("lon");
@@ -516,7 +523,7 @@ class ClienteController extends Controller
 
 			$client->setCliTelefono1($phone_one);
 			$client->setCliTelefono2($phone_two);
-			$client->setCliNombre($representerName);
+			//$client->setCliNombre($representerName);
 			
 			$client->setCliNombreComercial($comercial_name);
 			$client->setCliUbicacionLat($lat);
@@ -598,7 +605,14 @@ class ClienteController extends Controller
 			$oRepresenter->setUsuCorreo($representerEmail);
 			$oRepresenter->setUsuGenero($representerGender);
 			$oRepresenter->setUsuUsuario($representerUser);
-			$oRepresenter->setUsuNombre($representerName);
+			//$oRepresenter->setUsuNombre($representerName);
+			
+			$oRepresenter->setUsuNombre($representerNameOne);
+			$oRepresenter->setUsuSegundoNombre($representerNameTwo);
+			$oRepresenter->setUsuTercerNombre($representerNameThree);
+			$oRepresenter->setUsuPrimerApellido($representerLastNameOne);
+			$oRepresenter->setUsuSegundoApellido($representerLastNameTwo);
+			
 			$oRepresenter->setUsuFechaRegistro(new \Datetime());
 			$oRepresenter->setUsuFechaCrea(new \Datetime());
 			$oRepresenter->setUsuFechaNacimiento( new \DateTime($representerBirthDate) );
@@ -697,6 +711,28 @@ class ClienteController extends Controller
 							//$user = new Usuario();
 						//} 
 						//$user = new Usuario();
+						if( isset($locationListUsers[$i]['nameone']) && !empty($locationListUsers[$i]['nameone']) )
+						{
+							$user->setUsuNombre($locationListUsers[$i]['nameone']);
+						}
+						if( isset($locationListUsers[$i]['nametwo']) && !empty($locationListUsers[$i]['nametwo']) )
+						{
+							$user->setUsuSegundoNombre($locationListUsers[$i]['nametwo']);
+						}
+						if( isset($locationListUsers[$i]['namethree']) && !empty($locationListUsers[$i]['namethree']) )
+						{
+							$user->setUsuTercerNombre($locationListUsers[$i]['namethree']);
+						}
+						if( isset($locationListUsers[$i]['lastnameone']) && !empty($locationListUsers[$i]['lastnameone']) )
+						{
+							$user->setUsuPrimerApellido($locationListUsers[$i]['lastnameone']);
+						}
+						if( isset($locationListUsers[$i]['lastnametwo']) && !empty($locationListUsers[$i]['lastnametwo']) )
+						{
+							$user->setUsuSegundoApellido($locationListUsers[$i]['lastnametwo']);
+						}
+	
+							
 						if( isset($locationListUsers[$i]['name']) && !empty($locationListUsers[$i]['name']) )
 						{
 							$user->setUsuNombre( $locationListUsers[$i]['name']);
