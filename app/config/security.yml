@@ -35,7 +35,7 @@ security:
                 target: /login    
 
     access_control:
-        - { path: ^/cliente/new, roles: IS_AUTHENTICATED_ANONYMOUSLY  }
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY,  host: '^%public_domain%$' }
+        - { path: ^/, roles: ROLE_USER}
         

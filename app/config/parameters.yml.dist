@@ -18,9 +18,12 @@ parameters:
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
 
+    # HOST for public system
+    public_domain: emr.qualium.net
+    
     # HOST for Admin system
     admin_domain: admin.emr.qualium.net
-    
+
     # HOST for EMR system
     emr_domain: sistema.emr.qualium.net
 
