@@ -8,6 +8,9 @@ AppBundle\Entity\ClienteUsuario:
         FK_usuario_idx:
             columns:
                 - cli_usu_usu_id
+        usu_activo:
+            columns:
+                - usu_activo
     id:
         cliUsuId:
             type: integer

@@ -5,9 +5,6 @@ AppBundle\Entity\Usuario:
         IDX_usuario:
             columns:
                 - usu_usuario
-        usu_activo:
-            columns:
-                - usu_activo
     id:
         usuId:
             type: integer
