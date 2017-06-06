@@ -1,0 +1,8 @@
+img_convertir:
+    path:     /img/{ancho}/{alto}/{hash}.jpg
+    defaults: { _controller: AppBundle:Image:index }
+    methods: [GET]
+    requirements:
+      ancho: \d+
+      alto: \d+
+      hash: .{40}
