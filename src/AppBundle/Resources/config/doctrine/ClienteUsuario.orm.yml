@@ -10,7 +10,7 @@ AppBundle\Entity\ClienteUsuario:
                 - cli_usu_usu_id
         usu_activo:
             columns:
-                - usu_activo
+                - cli_usu_activo
     id:
         cliUsuId:
             type: integer
@@ -41,73 +41,73 @@ AppBundle\Entity\ClienteUsuario:
         cliUsuFechaRegistro:
             type: datetime
             nullable: false
-            column: usu_fecha_registro
+            column: cli_usu_fecha_registro
         cliUsuIdVendedor:
             type: integer
             nullable: true
             options:
                 unsigned: false
-            column: usu_id_vendedor
+            column: cli_usu_id_vendedor
         cliUsuFechaCrea:
             type: datetime
             nullable: true
-            column: usu_fecha_crea
+            column: cli_usu_fecha_crea
         cliUsuFechaMod:
             type: datetime
             nullable: true
-            column: usu_fecha_mod
+            column: cli_usu_fecha_mod
         cliUsuActivo:
             type: boolean
             nullable: false
             options:
                 default: '1'
-            column: usu_activo
+            column: cli_usu_activo
         cliUsuFechaNacimiento:
             type: date
             nullable: true
-            column: usu_fecha_nacimiento
+            column: cli_usu_fecha_nacimiento
         cliUsuTitulo:
             type: string
             nullable: true
             length: 10
             options:
                 fixed: false
-            column: usu_titulo
+            column: cli_usu_titulo
         cliUsuCorreo:
             type: string
             nullable: false
             length: 255
             options:
                 fixed: false
-            column: usu_correo
+            column: cli_usu_correo
         cliUsuDireccion:
             type: string
             nullable: true
             length: 255
             options:
                 fixed: false
-            column: usu_direccion
+            column: cli_usu_direccion
         cliUsuTelefono:
             type: string
             nullable: true
             length: 255
             options:
                 fixed: false
-            column: usu_telefono
+            column: cli_usu_telefono
         cliUsuInfoPerfil:
             type: text
             nullable: true
             length: 65535
             options:
                 fixed: false
-            column: usu_info_perfil
+            column: cli_usu_info_perfil
         cliUsuDiasTrabajo:
             type: text
             nullable: true
             length: 65535
             options:
                 fixed: false
-            column: usu_dias_trabajos
+            column: cli_usu_dias_trabajos
     uniqueConstraints:
         unique_idx:
           columns: [ cli_usu_usu_id, cli_usu_cli_id, cli_usu_rol_id ]
