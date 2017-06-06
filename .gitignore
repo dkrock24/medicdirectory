@@ -39,6 +39,8 @@
 
 # Build data
 /build/
+!/web/cache/gitkeep.txt
+/web/cache
 
 # Composer PHAR
 /composer.phar
