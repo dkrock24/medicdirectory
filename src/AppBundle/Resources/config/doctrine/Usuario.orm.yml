@@ -33,41 +33,6 @@ AppBundle\Entity\Usuario:
             options:
                 fixed: true
             column: usu_clave
-        usuFechaRegistro:
-            type: datetime
-            nullable: false
-            column: usu_fecha_registro
-        usuIdVendedor:
-            type: integer
-            nullable: true
-            options:
-                unsigned: false
-            column: usu_id_vendedor
-        usuFechaCrea:
-            type: datetime
-            nullable: true
-            column: usu_fecha_crea
-        usuFechaMod:
-            type: datetime
-            nullable: true
-            column: usu_fecha_mod
-        usuActivo:
-            type: boolean
-            nullable: false
-            options:
-                default: '1'
-            column: usu_activo
-        usuFechaNacimiento:
-            type: date
-            nullable: true
-            column: usu_fecha_nacimiento
-        usuTitulo:
-            type: string
-            nullable: true
-            length: 10
-            options:
-                fixed: false
-            column: usu_titulo
         usuGenero:
             type: string
             nullable: false
@@ -110,39 +75,4 @@ AppBundle\Entity\Usuario:
             options:
                 fixed: false
             column: usu_segundo_apellido
-        usuCorreo:
-            type: string
-            nullable: false
-            length: 255
-            options:
-                fixed: false
-            column: usu_correo
-        usuDireccion:
-            type: string
-            nullable: true
-            length: 255
-            options:
-                fixed: false
-            column: usu_direccion
-        usuTelefono:
-            type: string
-            nullable: true
-            length: 255
-            options:
-                fixed: false
-            column: usu_telefono
-        usuInfoPerfil:
-            type: text
-            nullable: true
-            length: 65535
-            options:
-                fixed: false
-            column: usu_info_perfil
-        usuDiasTrabajo:
-            type: text
-            nullable: true
-            length: 65535
-            options:
-                fixed: false
-            column: usu_dias_trabajos
     lifecycleCallbacks: {  }
