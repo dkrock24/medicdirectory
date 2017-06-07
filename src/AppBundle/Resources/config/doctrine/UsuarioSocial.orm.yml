@@ -39,13 +39,13 @@ AppBundle\Entity\UsuarioSocial:
                     referencedColumnName: id_soc_red
             orphanRemoval: false
         idUsuario:
-            targetEntity: Usuario
+            targetEntity: ClienteUsuario
             cascade: {  }
             fetch: LAZY
             mappedBy: null
             inversedBy: null
             joinColumns:
                 id_usuario:
-                    referencedColumnName: usu_id
+                    referencedColumnName:
             orphanRemoval: false
     lifecycleCallbacks: {  }
