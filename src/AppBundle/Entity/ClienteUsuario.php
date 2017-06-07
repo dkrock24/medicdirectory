@@ -458,4 +458,3 @@ class ClienteUsuario
         return $this->cliUsuRol;
     }
 }
-

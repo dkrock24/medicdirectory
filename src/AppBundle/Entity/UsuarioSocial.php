@@ -8,6 +8,7 @@ namespace AppBundle\Entity;
 class UsuarioSocial
 {
 
+
     /**
      * @var integer
      */
@@ -19,14 +20,14 @@ class UsuarioSocial
     private $usuSocUrl = '';
 
     /**
-     * @var \AppBundle\Entity\Usuario
-     */
-    private $idUsuario;
-
-    /**
      * @var \AppBundle\Entity\SocialRedes
      */
     private $idSocialRed;
+
+    /**
+     * @var \AppBundle\Entity\ClienteUsuario
+     */
+    private $idUsuario;
 
 
     /**
@@ -64,30 +65,6 @@ class UsuarioSocial
     }
 
     /**
-     * Set idUsuario
-     *
-     * @param \AppBundle\Entity\Usuario $idUsuario
-     *
-     * @return UsuarioSocial
-     */
-    public function setIdUsuario(\AppBundle\Entity\Usuario $idUsuario = null)
-    {
-        $this->idUsuario = $idUsuario;
-
-        return $this;
-    }
-
-    /**
-     * Get idUsuario
-     *
-     * @return \AppBundle\Entity\Usuario
-     */
-    public function getIdUsuario()
-    {
-        return $this->idUsuario;
-    }
-
-    /**
      * Set idSocialRed
      *
      * @param \AppBundle\Entity\SocialRedes $idSocialRed
@@ -109,5 +86,29 @@ class UsuarioSocial
     public function getIdSocialRed()
     {
         return $this->idSocialRed;
+    }
+
+    /**
+     * Set idUsuario
+     *
+     * @param \AppBundle\Entity\ClienteUsuario $idUsuario
+     *
+     * @return UsuarioSocial
+     */
+    public function setIdUsuario(\AppBundle\Entity\ClienteUsuario $idUsuario = null)
+    {
+        $this->idUsuario = $idUsuario;
+
+        return $this;
+    }
+
+    /**
+     * Get idUsuario
+     *
+     * @return \AppBundle\Entity\ClienteUsuario
+     */
+    public function getIdUsuario()
+    {
+        return $this->idUsuario;
     }
 }
