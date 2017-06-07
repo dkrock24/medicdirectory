@@ -240,14 +240,14 @@
             <div class="profile-block">
                 <div class="panel panel-profile">
                     <div class="panel-heading">
-                        <img src="{{ asset("bundles/web/images/doctors/perfil/profile-img1.jpg") }}" alt="Doctor Profile Image" class="img-responsive img-center-xs">
-                        <h3 class="panel-title">{{ medico.usuario.usuTitulo}}. {{ medico.usuario.usuPrimerApellido|title }} {{ medico.usuario.usuSegundoApellido|title }}</h3>
+                        <img src="{{ asset("bundles/web/images/doctors/profile-img1.jpg") }}" alt="Doctor Profile Image" class="img-responsive img-center-xs">
+                        <h3 class="panel-title">{{ medico.usuario.cliUsuTitulo}}. {{ medico.usuario.cliUsuUsu.usuPrimerApellido|title }} {{ medico.usuario.cliUsuUsu.usuSegundoApellido|title }}</h3>
                         <span class="panel-title">{{ medico.especialidad[0].idEspecialidad.espEspecialidad }}</span>
                     </div>
-                    <div class="panel-body">  
+                    <div class="panel-body">
                         <div class="row">
                             {% for c in medico.redes %}
-                                <a href="{{ c.usuSocUrl}}">
+                                <a href="{#{ c.usuSocUrl}#}">
                                     <span class="label label-primary">{{ c.idSocialRed.socRedNombre }}</span>
                                 </a>                                
                             {% endfor %}
@@ -275,11 +275,11 @@
                 <div class="inner">
                     <h4>
                         <a href="news-single.html">
-                        {{ medico.usuario.usuTitulo}}.
-                        {{ medico.usuario.usuNombre|title }}
-                        {{ medico.usuario.usuSegundoNombre|title }}
-                        {{ medico.usuario.usuPrimerApellido|title }}
-                        {{ medico.usuario.usuSegundoApellido|title }}
+                        {{ medico.usuario.cliUsuTitulo}}.
+                        {{ medico.usuario.cliUsuUsu.usuNombre|title }}
+                        {{ medico.usuario.cliUsuUsu.usuSegundoNombre|title }}
+                        {{ medico.usuario.cliUsuUsu.usuPrimerApellido|title }}
+                        {{ medico.usuario.cliUsuUsu.usuSegundoApellido|title }}
                         </a>
                     </h4>
                     <h5>
@@ -323,7 +323,7 @@
                             <tr>
                                 <td width="20%"><b>Información :</b> </td>
                                 <td width="80%">
-                                    {{ medico.usuario.usuInfoPerfil }}
+                                    {{ medico.usuario.cliUsuInfoPerfil }}
                                 </td>
                             </tr>
                             <tr>
@@ -343,7 +343,7 @@
                             <tr>
                                 <td><b>Dias Laborales: </b></td>
                                 <td>
-                                    {{ medico.usuario.usuDiasTrabajo }}                                 
+                                    {{ medico.usuario.cliUsuDiasTrabajo }}                                 
                                 </td>
                             </tr>
                             <tr>
@@ -352,11 +352,11 @@
                                     <table class="table-condensed">                                        
                                         <tr>
                                             <td>Email :</td>
-                                            <td>{{ medico.usuario.usuCorreo }}</td>                                         
+                                            <td>{{ medico.usuario.cliUsuCorreo }}</td>                                         
                                         </tr>
                                         <tr>     
                                             <td>Telefono :</td>                                     
-                                            <td>{{ medico.usuario.usuTelefono }}</td>
+                                            <td>{{ medico.usuario.cliUsuTelefono }}</td>
                                         </tr>
                                     </table> 
                                 </td>

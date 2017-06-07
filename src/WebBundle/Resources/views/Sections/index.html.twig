@@ -28,7 +28,7 @@
                 </div>
                 <div class="inner">
 
-                    <h5>{{ m.cliUsuUsu.usuTitulo }}. {{ m.cliUsuUsu.usuPrimerApellido }}  {{ m.cliUsuUsu.usuSegundoApellido }}</h5>
+                    <h5>{{ m.cliUsuTitulo }} {{ m.cliUsuUsu.usuPrimerApellido }}  {{ m.cliUsuUsu.usuSegundoApellido }}</h5>
                     <p class="designation">{{ m.cliUsuUsu.usuId}}</p> <!--  Cardiac Clinic, Health Care -->
                     <p class="divider"><i class="fa fa-plus-square"></i>
 
@@ -44,7 +44,7 @@
                                         </div>
                                     </td>
                                     <td width="90%">
-                                        <span class="text-muted text-size-small descripcion">{{ m.cliUsuUsu.usuDireccion }}</span>
+                                        <span class="text-muted text-size-small descripcion">{{ m.cliUsuDireccion }}</span>
                                     </td>
                                 </tr>
 
@@ -57,7 +57,7 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <span class="text-muted text-size-small descripcion">{{ m.cliUsuUsu.usuTelefono }}</span>
+                                        <span class="text-muted text-size-small descripcion">{{ m.cliUsuTelefono }}</span>
                                     </td>
                                 </tr>
 
@@ -70,7 +70,7 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <span class="text-muted text-size-small descripcion">{{ m.cliUsuUsu.usuCorreo }}</span>
+                                        <span class="text-muted text-size-small descripcion">{{ m.cliUsuCorreo }}</span>
                                     </td>
                                 </tr>
 
@@ -80,7 +80,7 @@
 
                     </p>
                 </div>							
-               <a href="{{ path( "web_doctores_perfil", {"med_id" : m.cliUsuUsu.usuId} ) }}" class="btn btn-secondary text-uppercase">Ver Perfil</a>                
+               <a href="{{ path( "web_doctores_perfil", {"med_id" : m.cliUsuId} ) }}" class="btn btn-secondary text-uppercase">Ver Perfil</a>                
                 <!-- /doctores -->
             </div>
         </li>

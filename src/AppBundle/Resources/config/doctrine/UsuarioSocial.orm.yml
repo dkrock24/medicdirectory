@@ -46,6 +46,6 @@ AppBundle\Entity\UsuarioSocial:
             inversedBy: null
             joinColumns:
                 id_usuario:
-                    referencedColumnName:
+                    referencedColumnName: cli_usu_id
             orphanRemoval: false
     lifecycleCallbacks: {  }

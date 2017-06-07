@@ -106,8 +106,8 @@ class DefaultController extends Controller {
         $medico = array();
         $em     = $this->getDoctrine()->getManager();
         $em1    = $this->getDoctrine()->getManager()->createQueryBuilder();
-        
-        $medico['usuario'] = $em->getRepository('AppBundle:Usuario')->findOneBy(array("usuId" => $med_id));
+
+        $medico['usuario'] = $em->getRepository('AppBundle:ClienteUsuario')->findOneBy(array("cliUsuId" => $med_id));
 
         // Obtener especialidades Por Medico
         $medico['especialidad'] = $em1->select('r')
@@ -119,7 +119,7 @@ class DefaultController extends Controller {
             ->getQuery()->getResult();
 
 
-        $medico['redes'] = $em->getRepository('AppBundle:UsuarioSocial')->findAll(array("idUsuario" => $med_id));
+        $medico['redes']    = $em->getRepository('AppBundle:UsuarioSocial')->findAll(array("idUsuario" => $med_id));
 
         $medico['cliente']  = $em->getRepository('AppBundle:ClienteUsuario')->findOneBy(array("cliUsuUsu" => $med_id));
 
@@ -129,7 +129,7 @@ class DefaultController extends Controller {
 
         return $this->render('WebBundle:Doctores:profile.html.twig', array(
                     "medico" => $medico
-                        )
+                    )
         );
     }
 
