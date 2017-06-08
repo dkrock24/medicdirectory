@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller {
 
+
     public function indexAction(Request $request) {
         /* @var $sParametros AppBundle\Services\servicioParametros */
         $sParametros = $this->get('parametros');
@@ -26,7 +27,19 @@ class DefaultController extends Controller {
 
         $repository = $this->getDoctrine()->getRepository('AppBundle:ClienteUsuario');
 
-        $query = $repository->createQueryBuilder('cu')->setMaxResults(30);
+        //$query = $repository->createQueryBuilder('cu')->setMaxResults(30);
+
+        // Raw Query
+        $RAW_QUERY  = "select *, group_concat(e.esp_especialidad SEPARATOR ', ') as especialidades from usuario u
+                        JOIN cliente_usuario as cu on cu.cli_usu_usu_id=u.usu_id
+                        JOIN usuario_especialidad AS es on u.usu_id=es.id_usuario
+                        JOIN  especialidad as e on e.esp_id=es.id_especialidad
+                        group by u.usu_id";
+        $statement  = $em->getConnection()->prepare($RAW_QUERY);
+        $statement->execute();                
+        $medicos    = $statement->fetchAll();
+
+
 
         $sBusqueda = $request->query->get('b');
 
@@ -34,6 +47,7 @@ class DefaultController extends Controller {
             $aRet = $this->get('srv_busqueda')->buscarUsuarios($sBusqueda, 1, 0, 30);
 
             if ($aRet['total'] > 0) {
+                //$query->innerJoin('AppBundle:UsuarioEspecialidad','r','WITH','r.idUsuario=cliUsuUsu.usuId');
                 $query->where('cu.cliUsuUsu IN (:usuarios)');
                 $query->setParameter('usuarios', $aRet['ids']);
             } else {
@@ -42,7 +56,7 @@ class DefaultController extends Controller {
 
         }
 
-        $medicos = $query->getQuery()->getResult();
+        //$medicos = $query->getQuery()->getResult();
 
         return $this->render(
                     'WebBundle:Sections:index.html.twig', array(

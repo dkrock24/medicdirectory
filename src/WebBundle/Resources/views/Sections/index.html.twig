@@ -12,12 +12,17 @@
 </style>
     {% set med_length = medicos|length %}
     {% set row_limit = med_length / 4 %}
+
     <ul id="doctors-grid" class="row grid">
     {% for m in medicos %}
+        
         <li class="col-md-3 col-sm-4 col-xs-12 doctors-grid" data-groups='["all", "healthcare"]' style="margin-bottom: 100px;">
-            <div class="bio-box">
+            
+            <div class="bio-box" >
+                <a href="{{ path( "web_doctores_perfil", {"med_id" : m.cli_usu_usu_id} ) }}">
                 <div class="profile-img">
                     <img data-src="{{ asset("bundles/web/images/doctors/doctor-bio-img6.jpg") }}" src="" alt="Doctor" class="lazy img-responsive img-center-sm img-center-xs" >
+                    <!--
                     <div class="overlay">
                         <ul class="list-unstyled list-inline sm-links">
                             <li><a href="#"><i class="fa fa-twitter"></i></a></li>
@@ -25,11 +30,14 @@
                             <li><a href="#"><i class="fa fa-skype"></i></a></li>
                         </ul>
                     </div>
+                    -->
                 </div>
                 <div class="inner">
 
-                    <h5>{{ m.cliUsuTitulo }} {{ m.cliUsuUsu.usuPrimerApellido }}  {{ m.cliUsuUsu.usuSegundoApellido }}</h5>
-                    <p class="designation">{{ m.cliUsuUsu.usuId}}</p> <!--  Cardiac Clinic, Health Care -->
+                    <h5>{{ m.cli_usu_titulo }} {{ m.usu_primer_apellido }}  {{ m.usu_segundo_apellido }}</h5>
+                    <p class="designation">
+                   {{ m.especialidades }}
+                    </p> <!--  Cardiac Clinic, Health Care -->
                     <p class="divider"><i class="fa fa-plus-square"></i>
 
                     <div class="table-responsive">
@@ -44,7 +52,7 @@
                                         </div>
                                     </td>
                                     <td width="90%">
-                                        <span class="text-muted text-size-small descripcion">{{ m.cliUsuDireccion }}</span>
+                                        <span class="text-muted text-size-small descripcion">{{ m.cli_usu_direccion }}</span>
                                     </td>
                                 </tr>
 
@@ -57,7 +65,7 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <span class="text-muted text-size-small descripcion">{{ m.cliUsuTelefono }}</span>
+                                        <span class="text-muted text-size-small descripcion">{{ m.cli_usu_telefono }}</span>
                                     </td>
                                 </tr>
 
@@ -70,7 +78,7 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <span class="text-muted text-size-small descripcion">{{ m.cliUsuCorreo }}</span>
+                                        <span class="text-muted text-size-small descripcion">{{ m.cli_usu_correo }}</span>
                                     </td>
                                 </tr>
 
@@ -80,10 +88,13 @@
 
                     </p>
                 </div>							
-               <a href="{{ path( "web_doctores_perfil", {"med_id" : m.cliUsuId} ) }}" class="btn btn-secondary text-uppercase">Ver Perfil</a>                
+               <a href="{{ path( "web_doctores_perfil", {"med_id" : m.cli_usu_usu_id} ) }}" class="btn btn-secondary text-uppercase">Ver Perfil</a>                
                 <!-- /doctores -->
+                </a>
             </div>
+            
         </li>
+        
     {% endfor  %}
     </ul>
 <!-- Aqui va el carousel {{NombreProyecto}} -->
