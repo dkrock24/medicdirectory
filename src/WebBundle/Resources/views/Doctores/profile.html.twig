@@ -15,6 +15,7 @@
 
 
 
+
 {%block body %}
 
 
@@ -39,23 +40,18 @@
     .central{
     text-align: center;
 }
+
+.descripciones_esp{
+    text-align: justify;
+}
+.cita_form{
+    display: none;
+}
 </style>
 
-<script src="{{ asset('bundles/web/js/jquery-1.10.2.min.js') }}"></script>
-<script src="{{ asset('bundles/web/js/jquery.mousewheel.pack.js?v=3.1.3.js') }}"></script>
-
-<script src="{{ asset('bundles/web/source/jquery.fancybox.pack.js?v=2.1.5') }}"></script>    
-<link href="{{ asset('bundles/web/source/jquery.fancybox.css?v=2.1.5') }}" rel="stylesheet">
-
-<link href="{{ asset('bundles/web/source/helpers/jquery.fancybox-buttons.css?v=1.0.5') }}" rel="stylesheet">
-<script src="{{ asset('bundles/web/source/helpers/jquery.fancybox-buttons.js?v=1.0.5') }}"></script>
-
-<link href="{{ asset('bundles/web/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7') }}" rel="stylesheet">
-<script src="{{ asset('bundles/web/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7') }}"></script>
-
-<script src="{{ asset('bundles/web/source/helpers/jquery.fancybox-media.js?v=1.0.6') }}"></script>
-
+<!--
 <script type="text/javascript">
+
         $(document).ready(function() {
             /*
              *  Simple image gallery. Uses default settings
@@ -227,12 +223,9 @@
                     }
                 });
             });
-
-
         });
 </script>
-
-
+-->
 
     <!-- Doctor Profile Starts -->
     <div class="row">
@@ -240,9 +233,13 @@
             <div class="profile-block">
                 <div class="panel panel-profile">
                     <div class="panel-heading">
-                        <img src="{{ asset("bundles/web/images/doctors/profile-img1.jpg") }}" alt="Doctor Profile Image" class="img-responsive img-center-xs">
-                        <h3 class="panel-title">{{ medico.usuario.cliUsuTitulo}}. {{ medico.usuario.cliUsuUsu.usuPrimerApellido|title }} {{ medico.usuario.cliUsuUsu.usuSegundoApellido|title }}</h3>
-                        <span class="panel-title">{{ medico.especialidad[0].idEspecialidad.espEspecialidad }}</span>
+                        <img src="{{ asset("bundles/web/images/profile-img1.jpg") }}" alt="Doctor Profile Image" class="img-responsive img-center-xs">
+                        <h3 class="panel-title">{{ medico.usuario.cliUsuTitulo}} {{ medico.usuario.cliUsuUsu.usuPrimerApellido|title }} {{ medico.usuario.cliUsuUsu.usuSegundoApellido|title }}</h3>
+                        <span class="panel-title">
+                        {%for e in medico.especialidad %}
+                            {{ e.idEspecialidad.espEspecialidad }} |
+                        {% endfor %}
+                        </span>
                     </div>
                     <div class="panel-body">
                         <div class="row">
@@ -257,14 +254,87 @@
                     <div class="panel-footer text-center-md text-center-sm text-center-xs">
                         <div class="row">
                             <div class="col-lg-6 col-xs-12">
-                                <a href="news-single.html" class="btn btn-secondary">
+                                <a href="{{ path( "web_homepage") }}" class="btn btn-secondary">
                                     <i class="fa fa-arrow-circle-left"></i> Regresar</a>
                             </div>
-                            <div class="col-lg-6 col-xs-12">
-                                <a href="" class="btn btn-secondary text-uppercase">Solicitar Cita</a>
+                            <div class="col-lg-6 col-xs-12">                            
+                                <a href="#" class="btn btn-secondary text-uppercase" id="solicitar_cita">Solicitar Cita</a>
                             </div>
                         </div>
                     </div>
+                    <div class="cita_form">
+                    <form id="solicitud_cita">
+                        <div class="row">
+                            <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">
+                                <button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
+                                <h6 class="alert-heading text-semibold">Ingresa la información Requerida.</h6>
+                                En breve te contactaremos para brindarte nuestros servicios.
+                            </div>
+                        </div>
+                        <input type="hidden" name="idCliente" id="idCliente" value="{{ medico.cliente.cliUsuCli.cliId }}" />
+                        <input type="hidden" name="idUsuario" id="idUsuario" value="{{ medico.cliente.cliUsuCli.cliId }}" />
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1"><i class="fa fa-user"></i></span>
+                                <input type="text" class="form-control" id="nombre_1" required="true" placeholder="Nombre Completo" aria-describedby="basic-addon1">
+                            </div>
+                            </div>
+                        </div>
+
+                        <br>
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1"><i class="fa fa-phone"></i></span>
+                                <input type="text" class="form-control" id="telefono_1" required="true" placeholder="Telefono" aria-describedby="basic-addon1">
+                            </div>
+                            </div>
+                        </div>
+
+                        <br>
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1"><i class="fa fa-envelope"></i></span>
+                                <input type="text" class="form-control" id="correo_1" placeholder="Correo" aria-describedby="basic-addon1">
+                            </div>
+                            </div>
+                        </div>
+
+                        <br>
+                        <div class="row">
+                            <div class="col-sm-6 col-xs-6">
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-calendar"></i></span>
+                                    <input type='text' class="form-control birth_date" id="fecha_1" readonly="1" placeholder="Fecha" />
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-xs-6">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+                                    <input type="text" class="form-control pickatime" id="hora_1" placeholder="Hora">
+                                </div>
+                            </div>                         
+                        </div>
+
+                        <br>
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">                            
+                                <textarea id="comentario" class="form-control" placeholder="Comentario"></textarea>                            
+                            </div>
+                        </div>
+
+                        <br>
+                        <div class="panel-footer text-center-md text-center-sm text-center-xs">
+                            <a href="#" id="solicitud" class="btn btn-secondary">
+                            <i class="fa fa-send"></i> Enviar</a>
+                        </div>
+                    </form>
+                    </div>
+
+                    
+
                 </div>
             </div>
         </div>
@@ -275,7 +345,7 @@
                 <div class="inner">
                     <h4>
                         <a href="news-single.html">
-                        {{ medico.usuario.cliUsuTitulo}}.
+                        {{ medico.usuario.cliUsuTitulo}}
                         {{ medico.usuario.cliUsuUsu.usuNombre|title }}
                         {{ medico.usuario.cliUsuUsu.usuSegundoNombre|title }}
                         {{ medico.usuario.cliUsuUsu.usuPrimerApellido|title }}
@@ -283,13 +353,16 @@
                         </a>
                     </h4>
                     <h5>
-                        {{ medico.especialidad[0].idEspecialidad.espEspecialidad }}
+                        {#{ medico.especialidad[0].idEspecialidad.espEspecialidad }#}
                     </h5>
                     <h6>
-                        <span>Establecimiento : </span>{{ medico.cliente.cliUsuCli.cliNombreComercial}}
+                        <span> </span>{{ medico.cliente.cliUsuCli.cliNombreComercial}}
                     </h6>
                     <h6>
-                        <span>Dirección : </span>{{ medico.cliente.cliUsuCli.cliDireccion}}
+                        <span> </span>{{ medico.cliente.cliUsuCli.cliDireccion}} /
+                                    {{ medico.cliente.cliUsuCli.cliMun.munNombre}} -
+                                    {{ medico.cliente.cliUsuCli.cliMun.munDep.depDepartamento}}
+                                    
                     </h6>
                     <ul class="list-unstyled list-inline post-meta">
                         <li>
@@ -312,14 +385,7 @@
                     <table class="table" width="100%" border=0>
 
                         <tbody>
-                            <tr>
-                                <td width="20%"><b>Dirección :</b> </td>
-                                <td width="80%">
-                                    {{ medico.cliente.cliUsuCli.cliMun.munNombre}} /
-                                    {{ medico.cliente.cliUsuCli.cliMun.munDep.depDepartamento}} /
-                                    {{ medico.cliente.cliUsuCli.cliDireccion}}
-                                </td>
-                            </tr>
+
                             <tr>
                                 <td width="20%"><b>Información :</b> </td>
                                 <td width="80%">
@@ -333,7 +399,9 @@
                                         {% for e in medico.especialidad %}
                                         <tr>
                                             <td>
-                                                {{e.idEspecialidad.espEspecialidad }} : {{e.descripcion }}
+                                                <section class="descripciones_esp">
+                                                    <i class="fa fa-check"></i><b> {{e.idEspecialidad.espEspecialidad }} :</b> {{e.descripcion }}
+                                                </section>
                                             </td>
                                         </tr>                                     
                                         {% endfor %}
@@ -343,7 +411,12 @@
                             <tr>
                                 <td><b>Dias Laborales: </b></td>
                                 <td>
-                                    {{ medico.usuario.cliUsuDiasTrabajo }}                                 
+                                    <table class="table-condensed"> 
+                                        <tr>
+                                            <td><i class="fa fa-briefcase"></i></td>
+                                            <td> {{ medico.usuario.cliUsuDiasTrabajo }}</td>                                         
+                                        </tr>
+                                    </table>                                  
                                 </td>
                             </tr>
                             <tr>
@@ -351,11 +424,11 @@
                                 <td>
                                     <table class="table-condensed">                                        
                                         <tr>
-                                            <td>Email :</td>
+                                            <td><i class="fa fa-envelope"></i></td>
                                             <td>{{ medico.usuario.cliUsuCorreo }}</td>                                         
                                         </tr>
                                         <tr>     
-                                            <td>Telefono :</td>                                     
+                                            <td><i class="fa fa-phone"></i></td>                                     
                                             <td>{{ medico.usuario.cliUsuTelefono }}</td>
                                         </tr>
                                     </table> 
@@ -383,6 +456,7 @@
     </div>
     <hr>
     <div class="row">
+    <!--
         <h4>GALERIA</h4>
         <p>
 
@@ -393,15 +467,89 @@
             <img src="{{ asset("bundles/web/images/galeria/1_s.jpg") }}" alt="" /></a>
 
         </p>
+        -->
     </div>
     <!-- Doctor Profile Ends -->
 
+</div>
+
 {% endblock %}
 
-{% block javascripts %}
+
+{% block codejs %}
+
+<script>
+
+    $(document).ready(function(){
+
+        $("#solicitar_cita").click(function(){
+            showForm();
+        });
+
+        $.datepicker.regional['es'] = {
+                        closeText: 'Cerrar',
+                        prevText: '< Ant',
+                        nextText: 'Sig >',
+                        currentText: 'Hoy',
+                        monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                        monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+                        dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+                        dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+                        dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
+                        weekHeader: 'Sm',
+                        dateFormat: 'yy-mm-dd',
+                        firstDay: 1,
+                        isRTL: false,
+                        showMonthAfterYear: false,
+                        yearSuffix: ''
+                    };
+                    $.datepicker.setDefaults($.datepicker.regional['es']);
+                    $( ".birth_date" ).datepicker({
+                        changeMonth: true,
+                        changeYear: true,
+                        //yearRange: '(new Date).getFullYear():'+(new Date).getFullYear()
+                    });
+        });
+
+    function showForm(){
+        $(".cita_form").show();
+    }
+
+    $('body').on('click', '#solicitud', function () {
+        var id = 1;
+        //validacion telefono
+        var telefono    = $("#telefono_1").val();
+        var nombre      = $("#nombre_1").val();
+        var correo      = $("#correo_1").val();
+        var idCliente   = $("#idCliente").val();
+        var idUsuario   = $("#idUsuario").val();
+        var comentario  = $("#comentario").text();
+        var fecha       = $("#fecha_1").val();
+        var hora        = $("#hora_1").val();
+
+
+        if(telefono!=null && nombre!=null && correo!=null)
+        {
+            $.ajax({
+            type: "post",
+            url: "{{ path('web_solicitar_cita') }}",
+            data: {idCliente: idCliente,idUsuario:idUsuario,telefono:telefono,nombre:nombre,correo:correo,comentario:comentario,fecha:fecha,hora:hora},
+                error: function (data) {
+                },
+                success: function (data) {
+                    alert(data);
+                }
+            });
+        }       
+
+        
+    });
 
 
 
+
+
+</script>
 
 {% endblock  %}
 
