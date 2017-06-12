@@ -310,14 +310,14 @@
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label>Email del representante:</label>
-                                                    <input type="text" value="{{ getUserRepresenter[0].usu_correo }}" name="email_representer" id="email_representer" placeholder="Email" class="form-control required">
+                                                    <input type="text" value="{{ getUserRepresenter[0].cli_usu_correo }}" name="email_representer" id="email_representer" placeholder="Email" class="form-control required">
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     
                                                     <label>Fecha nacimiento del representante: <span class="text-danger">*</span></label>
-                                                    <div class=""><input type="text" value="{{ getUserRepresenter[0].usu_fecha_nacimiento }}" id="birth_date" name="birth_date" class="form-control" required readonly="readonly"></div>
+                                                    <div class=""><input type="text" value="{{ getUserRepresenter[0].cli_usu_fecha_nacimiento }}" id="birth_date" name="birth_date" class="form-control" required readonly="readonly"></div>
                                                 </div>
 
                                             </div>
@@ -494,7 +494,7 @@
                                                                 <div class="col-lg-2 col-md-6 col-sm-6">
                                                                     <div class="form-group">
                                                                         <label class="control-label">Email:</label>
-                                                                        <input name="email[]" id="email{{ loop.index }}" value="{{ users.usu_correo }}" type="text" class="form-control inputAssEmail inputUser" />
+                                                                        <input name="email[]" id="email{{ loop.index }}" value="{{ users.cli_usu_correo }}" type="text" class="form-control inputAssEmail inputUser" />
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-2 col-md-6 col-sm-6">

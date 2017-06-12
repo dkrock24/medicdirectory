@@ -14,6 +14,8 @@ use Symfony\Component\HttpFoundation\Session\Session;
 
 use \AppBundle\Entity\UsuarioEspecialidad;
 use \AppBundle\Entity\UsuarioSocial;
+
+use \AppBundle\Entity\UsuarioGaleria;
 /**
  * Paciente controller.
  *
@@ -35,9 +37,12 @@ class PerfilController extends Controller
     public function showAction(Request $request)
     {		
 		/*
-		$locationId = $this->get('session')->get('locationId');
+		
 		$em = $this->getDoctrine()->getManager();
 		*/
+		
+		$locationId = $this->get('session')->get('locationId');
+		
 		$em = $this->getDoctrine()->getManager();
 		$userId = $this->getUser()->getUsuId();
 		//$listAppointment 
@@ -62,24 +67,40 @@ class PerfilController extends Controller
 		}		
 		$socials = $em->getRepository('AppBundle:SocialRedes')->findBy( array("socRedActivo"=>1) );
 		
-		$networkSelected = $em->getRepository('AppBundle:UsuarioSocial')->findBy( array("idUsuario"=>$userId) );
+		$oClientUser = $em->getRepository('AppBundle:ClienteUsuario')->findBy( array( "cliUsuUsu"=> $userId, "cliUsuCli"=>$locationId, "cliUsuRol"=>2 ) );
+		$networkSelected = $em->getRepository('AppBundle:UsuarioSocial')->findBy( array("idUsuario"=>$oClientUser[0]->getCliUsuId() ) );
 		
 		
-		$oUser = $em->getRepository('AppBundle:Usuario')->find( $userId );
+		//$oUser = $em->getRepository('AppBundle:Usuario')->find( $userId );
+		
+		//$oClientUser = $em->getRepository('AppBundle:ClienteUsuario')->findBy( array("cliUsuCli"=>$locationId, "cliUsuUsu"=>$userId) );
+		
+		//$orderBy = " ORDER BY ". $columns[$params['order'][0]['column']]."   ".$params['order'][0]['dir']."";
+		$RAW_QUERY = "SELECT * FROM cliente_usuario cu INNER JOIN usuario u ON cu.cli_usu_usu_id = u.usu_id WHERE cu.cli_usu_cli_id = $locationId AND cu.cli_usu_usu_id = $userId and cu.cli_usu_rol_id = 2 ";
+		$statement = $em->getConnection()->prepare($RAW_QUERY);
+		$statement->execute();
+		$oUser = $statement->fetchAll();
+		
+		//var_dump($oUser);
 		
 		$week = array("Lun"=>"Lun","Mar"=>"Mar","Mie"=>"Mie","Jue"=>"Jue","Vie"=>"Vie","Sab"=>"Sab","Dom"=>"Dom");
 		
 		$daysSelected = array();
-		if( $oUser->getUsuDiasTrabajo() != "" )
+		//if( $oClientUser[0]->getCliUsuDiasTrabajo() != "" )
+		if( $oUser[0]['cli_usu_dias_trabajos'] != "" )	
 		{
-			$daysSelected = explode(",", $oUser->getUsuDiasTrabajo() );
+			$daysSelected = explode(",", $oUser[0]['cli_usu_dias_trabajos']/*$oClientUser[0]->getCliUsuDiasTrabajo()*/ );
 		}
 		
 		
 		$oImageType = $em->getRepository('AppBundle:UsuarioGaleriaTipo')->findBy( array("usuGalTipActivo"=>1) );
 		
-		$schedule = unserialize($oUser->getUsuDiasTrabajo());
+		$schedule = unserialize($oUser[0]['cli_usu_dias_trabajos']/*$oClientUser[0]->getCliUsuDiasTrabajo()*/);
 		
+		
+		$oUserGallery = $em->getRepository('AppBundle:UsuarioGaleria')->findBy( array( "galUsuario"=> $userId,"galCliente"=> $locationId), array(
+                'galTipo' => 'ASC'
+            ) );
 		//var_dump($schedule);
 		//echo "<hr>";
 		//{{ user.UsuCorreo }}
@@ -109,6 +130,7 @@ class PerfilController extends Controller
 			"schedule"=>$schedule,
 			"daysDelected"=>$daysSelected,
 			"user"=>$oUser,
+			"userGallery"=>$oUserGallery,
 			"imageType"=>$oImageType
         ));
     }
@@ -118,6 +140,7 @@ class PerfilController extends Controller
 	
 	public function formPerfilAction( Request $request )
 	{
+		$locationId = $this->get('session')->get('locationId');
 		//exit();
 		//$id = $request->get('id');
 		$address = $request->get('address');
@@ -130,8 +153,27 @@ class PerfilController extends Controller
 		$specialitiesList = $request->get("specialitiesList");
 		$profile = $request->get('profile');
 		$phone = $request->get('phone');
+		$typeImage = $request->get("typeImage");
 		$img = $request->get('img');
-
+		
+		$galleryDeleteList = $request->get("galleryDeleteList");
+		$galleryDeleteList = json_decode($galleryDeleteList, true);
+		//var_dump($galleryDeleteList);
+		
+		$file1 = $request->files->get('file1');
+		$file2 = $request->files->get('file2');
+		$file3 = $request->files->get('file3');
+		$file4 = $request->files->get('file4');
+		$file5 = $request->files->get('file5');
+		
+		//echo "imagen.".$file1;
+		
+		$arrImages = array();
+		$arrImages[] = $file1;
+		$arrImages[] = $file2;
+		$arrImages[] = $file3;
+		$arrImages[] = $file4;
+		$arrImages[] = $file5;
 		//var_dump($schedule);
 		
 		//exit();
@@ -148,33 +190,39 @@ class PerfilController extends Controller
 			{
 				$oUser = $em->getRepository('AppBundle:Usuario')->find( $userId );
 				
+				$oClientUser = $em->getRepository('AppBundle:ClienteUsuario')->findBy( array( "cliUsuUsu"=> $userId, "cliUsuCli"=>$locationId, "cliUsuRol"=>2 ) );
 				//================
 				//Social Network
 				//================
-				$RAW_QUERY = "delete from usuario_social where id_usuario = $userId "; //2 = Cliente( Representante )
+				$RAW_QUERY = "delete from usuario_social where id_usuario = ".$oClientUser[0]->getCliUsuId()." "; //2 = Cliente( Representante )
 				$statement = $em->getConnection()->prepare($RAW_QUERY);
 				$statement->execute();
-				foreach( $social_network as $sn)
+				
+				$social_network = json_decode($social_network, true);
+				if( count($social_network) > 0 )
 				{
-					
-					//$socials = $em->getRepository('AppBundle:UsuarioSocial')->findBy( array("socRedActivo"=>1) );
-					//echo $sn['id']." - ".$sn['url'];
-					$network = new UsuarioSocial();
-					$network->setIdUsuario( $oUser );
-					$oSocialNetwork = $em->getRepository('AppBundle:SocialRedes')->find( $sn['id'] );
-					$network->setIdSocialRed($oSocialNetwork);
-					$network->setUsuSocUrl($sn['url']);
-					$em->persist($network);			
-					$flush = $em->flush();
-				}
+					foreach( $social_network as $sn)
+					{
 
-				if( $oUser )
+						//$socials = $em->getRepository('AppBundle:UsuarioSocial')->findBy( array("socRedActivo"=>1) );
+						//echo $sn['id']." - ".$sn['url'];
+						$network = new UsuarioSocial();
+						$orepoClientUser = $em->getRepository('AppBundle:ClienteUsuario')->find( $oClientUser[0]->getCliUsuId() );
+						$network->setIdUsuario( $orepoClientUser );
+						$oSocialNetwork = $em->getRepository('AppBundle:SocialRedes')->find( $sn['id'] );
+						$network->setIdSocialRed($oSocialNetwork);
+						$network->setUsuSocUrl($sn['url']);
+						$em->persist($network);			
+						$flush = $em->flush();
+					}
+				}
+				if( $oClientUser )
 				{
-					$oUser->setUsuCorreo($email);
-					$oUser->setUsuTelefono($phone);
-					$oUser->setUsuDireccion($address);
-					$oUser->setUsuInfoPerfil($profile);
-					$oUser->setUsuTitulo($title);
+					$oClientUser[0]->setCliUsuCorreo($email);
+					$oClientUser[0]->setCliUsuTelefono($phone);
+					$oClientUser[0]->setCliUsuDireccion($address);
+					$oClientUser[0]->setCliUsuInfoPerfil($profile);
+					$oClientUser[0]->setCliUsuTitulo($title);
 					
 					if( !empty($password) )
 					{
@@ -186,11 +234,12 @@ class PerfilController extends Controller
 						$oUser->setUsuDiasTrabajo(implode(",", $days));
 					}
 					*/
+					$schedule = json_decode($schedule, true);
 					if( count($schedule) > 0 )
 					{
-						$oUser->setUsuDiasTrabajo(serialize($schedule) );
+						$oClientUser[0]->setCliUsuDiasTrabajo(serialize($schedule) );
 					}else{
-						$oUser->setUsuDiasTrabajo("");
+						$oClientUser[0]->setCliUsuDiasTrabajo("");
 					}
 					
 					$em->persist($oUser);			
@@ -206,7 +255,8 @@ class PerfilController extends Controller
 					$RAW_QUERY = "delete from usuario_especialidad where id_usuario = $userId "; //2 = Cliente( Representante )
 					$statement = $em->getConnection()->prepare($RAW_QUERY);
 					$statement->execute();   
-					echo count($specialitiesList);
+					//echo count($specialitiesList);
+					$specialitiesList = json_decode($specialitiesList, true);
 					if( count($specialitiesList) > 0 )
 					{
 						for( $i = 0; $i < count($specialitiesList); $i++)
@@ -226,20 +276,101 @@ class PerfilController extends Controller
 				
 				$status = 1;  
 				//Call the service to upload file
-				
+				//Profile image
 				//Check if is update onf file
+				$uFile = $this->get('srv_uploadFile');
 				if( !empty($img) )
 				{
-					$oUserGallery = $em->getRepository('AppBundle:UsuarioGaleria')->findBy( array( "galUsuId"=> $userId ) );
-					/*
-					$uFile = $this->get('srv_uploadFile');
+					$oUserGallery = $em->getRepository('AppBundle:UsuarioGaleria')->findOneBy( array( "galUsuario"=> $userId,"galCliente"=> $locationId) );
+					
+					
 					$upload = $uFile->startUploadFile($img, $path="perfil", $pre_fix=false);
-					if( $upload )
+					if( !$oUserGallery )
 					{
-						$oPatient->setPacFoto($upload);
+						$oUserGallery = new UsuarioGaleria();
+						$oUserGallery->setGalHash($upload);
+						$oUserGallery->setGalFechaCrea(new \DateTime());
+						
+						$oClient = $em->getRepository('AppBundle:Cliente')->find( $locationId );
+						$oUserGallery->setGalCliente($oClient);
+						
+						$oUser = $em->getRepository('AppBundle:Usuario')->find( $userId );
+						$oUserGallery->setGalUsuario($oUser);
+						
+						$oGalleryType = $em->getRepository('AppBundle:UsuarioGaleriaTipo')->find( $typeImage );
+						$oUserGallery->setGalTipo($oGalleryType);
+						
 					}
-					*/
+					else
+					{
+						$current = $oUserGallery->getGalHash();
+						$uFile->deleteFile($current, $path="perfil", $pre_fix=false);
+						$oUserGallery->setGalHash($upload);
+					}
+					
+					$em->persist($oUserGallery);			
+					$flush = $em->flush();
+					
 				}
+				
+				for($i=0; $i < count($arrImages); $i++)
+				{
+					$img = $arrImages[$i];
+					if( !empty($img) )
+					{
+						$upload = $uFile->startUploadFile($img, $path="otras", $pre_fix=false);
+						
+						$oUserGallery = new UsuarioGaleria();
+						$oUserGallery->setGalHash($upload);
+						$oUserGallery->setGalFechaCrea(new \DateTime());
+						
+						$oClient = $em->getRepository('AppBundle:Cliente')->find( $locationId );
+						$oUserGallery->setGalCliente($oClient);
+						
+						$oUser = $em->getRepository('AppBundle:Usuario')->find( $userId );
+						$oUserGallery->setGalUsuario($oUser);
+						
+						$oGalleryType = $em->getRepository('AppBundle:UsuarioGaleriaTipo')->find( $typeImage );
+						$oUserGallery->setGalTipo($oGalleryType);
+						$em->persist($oUserGallery);			
+						$flush = $em->flush();
+						
+					}
+				}
+				
+				if( count($galleryDeleteList) > 0 )
+				{
+					$RAW_QUERY = "SELECT * FROM usuario_galeria WHERE gal_id in (".implode(",", $galleryDeleteList).") AND gal_usu_id = $userId "; 
+					$statement = $em->getConnection()->prepare($RAW_QUERY);
+					//$statement->bindValue("client", $clientId );
+					$statement->execute();
+					$getList = $statement->fetchAll();
+					
+					if( count($getList) > 0 )
+					{
+						foreach($getList as $item)
+						{
+							if($item['gal_tipo'] == 1)
+							{
+								$path="perfil";
+							}
+							else
+							{
+								$path="otras";
+							}
+							
+							$uFile->deleteFile($item['gal_hash'], $path, $pre_fix=false);
+						}
+						
+						
+						$RAW_QUERY = "delete from usuario_galeria  WHERE gal_id in (".implode(",", $galleryDeleteList).") AND gal_usu_id = $userId "; 
+						$statement = $em->getConnection()->prepare($RAW_QUERY);
+						$statement->execute();
+						
+					}
+					
+				}
+				
 
 				$msg = "Registro actualizado con éxito";
 				$this->session->getFlashBag()->add("success", $msg);

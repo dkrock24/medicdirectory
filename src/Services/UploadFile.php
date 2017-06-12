@@ -3,6 +3,7 @@
 namespace Services;
 
 use \AppBundle\Entity\Menu;
+use \Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class UploadFile {
 	
@@ -47,7 +48,12 @@ class UploadFile {
 			$path = $this->getUploadRootDir();
 		}
 		
-		if( $this->check_base_64($file) )
+		
+		$archivo = $file; 
+		$trozos = explode(".", $archivo); 
+		$extension = end($trozos);
+		
+		if( $this->check_base_64($file) && $extension != "tmp" )
 		{
 			//file_put_contents("images/".$filename, $data);
 			$filename = $this->getUniqueName( $pre_fix ).".png";//"test.png";
@@ -59,7 +65,18 @@ class UploadFile {
 		}
 		else
 		{
-			
+			//var_dump($file);
+			$filename = $this->getUniqueName( $pre_fix ).".jpg";//"test.png";
+			/*
+			if(move_uploaded_file($_FILES[$file]['tmp_name'], $path.$filenameh)) 
+			{ 
+				//echo "El archivo ". basename( $_FILES['uploadedfile']['name']). " ha sido subido";
+			}
+			*/
+			$file->move(
+                $path,
+                $path.$filename
+            );
 		}
 		
 		return $filename;
@@ -137,6 +154,7 @@ class UploadFile {
 	
 	public function thumbnailImage($image)
 	{
+		return true;
 		if( isset($image) && !empty($image) )
 		{	
 			$partes_ruta = pathinfo($image);

@@ -12,15 +12,292 @@
     #currentPicture img{
         max-width: 100%;
     }
+    /*
+     #drop-zone {
+        width: 100%;
+        min-height: 150px;
+        border: 3px dashed rgba(0, 0, 0, .3);
+        border-radius: 5px;
+        font-family: Arial;
+        text-align: center;
+        position: relative;
+        font-size: 20px;
+        color: #7E7E7E;
+      }
+      #drop-zone input {
+        position: absolute;
+        cursor: pointer;
+        left: 0px;
+        top: 0px;
+        opacity: 0;
+      }
+     
+
+      #drop-zone.mouse-over {
+        border: 3px dashed rgba(0, 0, 0, .3);
+        color: #7E7E7E;
+      }
+    
+
+      #clickHere {
+        display: inline-block;
+        cursor: pointer;
+        color: white;
+        font-size: 17px;
+        width: 150px;
+        border-radius: 4px;
+        background-color: #4679BD;
+        padding: 10px;
+      }
+      #clickHere:hover {
+        background-color: #376199;
+      }
+      #filename {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        font-size: 14px;
+        line-height: 1.5em;
+      }
+      .file-preview {
+        background: #ccc;
+        border: 5px solid #fff;
+        box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+        display: inline-block;
+        width: 60px;
+        height: 60px;
+        text-align: center;
+        font-size: 14px;
+        margin-top: 5px;
+      }
+      .closeBtn:hover {
+        color: red;
+      }
+      */
 </style>
 <!-- Content -->
   <div class="containerx">
     <div class="row">
         <div class="col-md-6">
           <!-- <h3>Demo:</h3> -->
-          <div class="img-container" style=""  id="bg-image-upload">
-            <img id="image" src="" alt="">
+          <div id="holder64image">
+            <div class="img-container" style=""  id="bg-image-upload">
+              <img id="image" src="" alt="">
+            </div>
+            <div class="row">
+              <div class="col-lg-12 docs-buttons">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-primary" data-method="setDragMode" data-option="move" title="Move">
+                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
+                      <span class="fa fa-arrows"></span>
+                    </span>
+                  </button>
+                  <button type="button" class="btn btn-primary" data-method="setDragMode" data-option="crop" title="Crop">
+                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
+                      <span class="fa fa-crop"></span>
+                    </span>
+                  </button>
+                </div>
+
+
+                <div class="btn-group">
+                  <button type="button" class="btn btn-primary" data-method="zoom" data-option="0.1" title="Zoom In">
+                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
+                      <span class="fa fa-search-plus"></span>
+                    </span>
+                  </button>
+                  <button type="button" class="btn btn-primary" data-method="zoom" data-option="-0.1" title="Zoom Out">
+                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
+                      <span class="fa fa-search-minus"></span>
+                    </span>
+                  </button>
+                </div>
+
+                <div class="btn-group">
+                  <button type="button" class="btn btn-primary" data-method="move" data-option="-10" data-second-option="0" title="Move Left">
+                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="Mover a la izquierda">
+                      <span class="fa fa-arrow-left"></span>
+                    </span>
+                  </button>
+                  <button type="button" class="btn btn-primary" data-method="move" data-option="10" data-second-option="0" title="Move Right">
+                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="Mover a la derecha">
+                      <span class="fa fa-arrow-right"></span>
+                    </span>
+                  </button>
+                  <button type="button" class="btn btn-primary" data-method="move" data-option="0" data-second-option="-10" title="Move Up">
+                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="Mover hacia arriba">
+                      <span class="fa fa-arrow-up"></span>
+                    </span>
+                  </button>
+                  <button type="button" class="btn btn-primary" data-method="move" data-option="0" data-second-option="10" title="Move Down">
+                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="Mover hacia abajo">
+                      <span class="fa fa-arrow-down"></span>
+                    </span>
+                  </button>
+                </div>
+
+                <div class="btn-group">
+                  <button type="button" class="btn btn-primary" data-method="rotate" data-option="-45" title="Rotate Left">
+                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="Rotar a la izquierda">
+                      <span class="fa fa-rotate-left"></span>
+                    </span>
+                  </button>
+                  <button type="button" class="btn btn-primary" data-method="rotate" data-option="45" title="Rotate Right">
+                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="Rotar a la derecha">
+                      <span class="fa fa-rotate-right"></span>
+                    </span>
+                  </button>
+                </div>
+
+                <div class="btn-group">
+                  <button type="button" class="btn btn-primary" data-method="scaleX" data-option="-1" title="Flip Horizontal">
+                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
+                      <span class="fa fa-arrows-h"></span>
+                    </span>
+                  </button>
+                  <button type="button" class="btn btn-primary" data-method="scaleY" data-option="-1" title="Flip Vertical">
+                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
+                      <span class="fa fa-arrows-v"></span>
+                    </span>
+                  </button>
+                </div>
+
+                <div class="btn-group">
+                  <button type="button" class="btn btn-primary" data-method="crop" title="Crop">
+                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
+                      <span class="fa fa-check"></span>
+                    </span>
+                  </button>
+                  <button type="button" class="btn btn-primary" data-method="clear" title="Clear">
+                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
+                      <span class="fa fa-remove"></span>
+                    </span>
+                  </button>
+                </div>
+
+
+                <div class="btn-group">
+                  <button type="button" class="btn btn-primary" data-method="disable" title="Disable">
+                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
+                      <span class="fa fa-lock"></span>
+                    </span>
+                  </button>
+                  <button type="button" class="btn btn-primary" data-method="enable" title="Enable">
+                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
+                      <span class="fa fa-unlock"></span>
+                    </span>
+                  </button>
+                </div>
+
+
+                <div class="btn-group">
+                  <button type="button" class="btn btn-primary" data-method="reset" title="Reset">
+                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
+                      <span class="fa fa-refresh"></span>
+                    </span>
+                  </button>
+                  <label class="btn btn-danger btn-upload" for="inputImage" title="Upload image file">
+                    <input type="file" class="sr-only" id="inputImage" name="file" accept=".jpg,.jpeg,.png,.gif,.bmp,.tiff">
+                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="Importar imagen con Blob URLs">
+                      <span class="fa fa-upload"></span>
+                    </span>
+                  </label>
+
+                </div>
+
+                <div class="btn-group btn-group-crop">
+                  <button type="button" class="btn btn-primary" data-method="getCroppedCanvas">
+                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
+                      Recortar Imagen
+                    </span>
+                  </button>
+                   <!-- 
+                  <button type="button" class="btn btn-primary" data-method="getCroppedCanvas" data-option="{ &quot;width&quot;: 160, &quot;height&quot;: 90 }">
+                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="$">
+                      160&times;90
+                    </span>
+                  </button>
+                    -->
+                  <button type="button" class="btn btn-primary" data-method="getCroppedCanvas" data-option="{ &quot;width&quot;: 320, &quot;height&quot;: 180 }">
+                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
+                      320&times;180
+                    </span>
+                  </button>
+                </div>
+
+                <!-- Show the cropped image in modal -->
+                <div class="modal fade docs-cropped" id="getCroppedCanvasModal" aria-hidden="true" aria-labelledby="getCroppedCanvasTitle" role="dialog" tabindex="-1">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="getCroppedCanvasTitle"><i class="fa fa-check-circle" aria-hidden="true"></i> Recorte seleccionado</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body"></div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <a class="btn btn-primary" id="download" href="javascript:void(0);" download="cropped.jpg" style="display:none">Download</a>
+
+                      </div>
+                    </div>
+                  </div>
+                </div><!-- /.modal -->
+
+                <button type="button" class="btn btn-primary" data-method="zoomTo" data-option="1">
+                  <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="cropper.zoomTo(1)">
+                    Zoom to 100%
+                  </span>
+                </button>
+              </div><!-- /.docs-buttons -->
+
+              <div class="col-md-3 docs-toggles">
+               <!--
+                <div class="btn-group d-flex flex-nowrap" data-toggle="buttons">
+                  <label class="btn btn-primary active">
+                    <input type="radio" class="sr-only" id="viewMode0" name="viewMode" value="0" checked>
+                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
+                      VM0
+                    </span>
+                  </label>
+                  <label class="btn btn-primary">
+                    <input type="radio" class="sr-only" id="viewMode1" name="viewMode" value="1">
+                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
+                      VM1
+                    </span>
+                  </label>
+                  <label class="btn btn-primary">
+                    <input type="radio" class="sr-only" id="viewMode2" name="viewMode" value="2">
+                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
+                      VM2
+                    </span>
+                  </label>
+                  <label class="btn btn-primary">
+                    <input type="radio" class="sr-only" id="viewMode3" name="viewMode" value="3">
+                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
+                      VM3
+                    </span>
+                  </label>
+                </div>
+                  -->
+              </div><!-- /.docs-toggles -->
+            </div>
           </div>
+            <div id="upload_drop_file" style="display:none">
+                <div id="" style="">
+                 <div id="drop-zone">
+                     
+                      <div id="clickHere">
+                        <input type="file" name="file1" id="file1" accept="image/x-png,image/gif,image/jpeg" class="form-control inputFile" style="margin-bottom:10px"/>
+                        <input type="file" name="file2" id="file2" accept="image/x-png,image/gif,image/jpeg" class="form-control inputFile" style="margin-bottom:10px"/>
+                        <input type="file" name="file3" id="file3" accept="image/x-png,image/gif,image/jpeg" class="form-control inputFile" style="margin-bottom:10px"/>
+                        <input type="file" name="file4" id="file4" accept="image/x-png,image/gif,image/jpeg" class="form-control inputFile" style="margin-bottom:10px"/>
+                        <input type="file" name="file5" id="file5" accept="image/x-png,image/gif,image/jpeg" class="form-control inputFile" style="margin-bottom:10px"/>
+                      </div>
+                      <div id='filename'></div>
+                    </div>
+                </div>  
+            </div>
         </div>
       {#  
       <div class="col-md-3">
@@ -32,114 +309,47 @@
         <div class="col-md-6">
             <div class="panel panel-info">
                 <div class="panel-heading">
-                  <div class="panel-title">Fotografía actual</div>
+                  <div class="panel-title">Mi Galería de imagenes</div>
                 </div>
                 <div class="panel-body" style="position: relative">
-                    <div class="currentPicture">
-                       <!-- get cuurent picture -->
-                       {% if imgCurrent is defined and imgCurrent != "" %}
-
-                       <img src="{{ asset('uploads/pacientes/'~imgCurrent) }}" class="img-thumbnail">
-                       {% else %}
-                           Este paciente no tiene foto
-                       {% endif %}
-                       
-                       <style>
-                           /*  bhoechie tab */
                     
-                        div.bhoechie-tab-menu{
-                          padding-right: 0;
-                          padding-left: 0;
-                          padding-bottom: 0;
-                        }
-                        div.bhoechie-tab-menu div.list-group{
-                          margin-bottom: 0;
-                        }
-                        div.bhoechie-tab-menu div.list-group>a{
-                          margin-bottom: 0;
-                        }
-                        div.bhoechie-tab-menu div.list-group>a .glyphicon,
-                        div.bhoechie-tab-menu div.list-group>a .fa {
-                          color: #5A55A3;
-                        }
-                        div.bhoechie-tab-menu div.list-group>a:first-child{
-                          border-top-right-radius: 0;
-                          -moz-border-top-right-radius: 0;
-                        }
-                        div.bhoechie-tab-menu div.list-group>a:last-child{
-                          border-bottom-right-radius: 0;
-                          -moz-border-bottom-right-radius: 0;
-                        }
-                        div.bhoechie-tab-menu div.list-group>a.active,
-                        div.bhoechie-tab-menu div.list-group>a.active .glyphicon,
-                        div.bhoechie-tab-menu div.list-group>a.active .fa{
-                          background-color: #5A55A3;
-                          background-image: #5A55A3;
-                          color: #ffffff;
-                        }
-                        div.bhoechie-tab-menu div.list-group>a.active:after{
-                          content: '';
-                          position: absolute;
-                          left: 100%;
-                          top: 50%;
-                          margin-top: -13px;
-                          border-left: 0;
-                          border-bottom: 13px solid transparent;
-                          border-top: 13px solid transparent;
-                          border-left: 10px solid #5A55A3;
-                        }
-
-                        div.bhoechie-tab-content{
-                          background-color: #ffffff;
-                          /* border: 1px solid #eeeeee; */
-                          /*
-                          padding-left: 20px;
-                          padding-top: 10px;
-                          */
-                          min-width: 100px;
-                          overflow-x: auto;
-                        }
-
-                        div.bhoechie-tab div.bhoechie-tab-content:not(.active){
-                          display: none;
-                        }
-                       </style>
-                        
-                       <div class="container">
-                           <div class="row">
-                               <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 bhoechie-tab-menu">
-                                       <div class="list-group">
-                                           {% for type in imageType %}
-                                                {% if loop.index0 == 0 %}
-                                                    {% set is_active = 'active' %}
+                    <div class="row">    
+                                            {% for image in userGallery %}
+                                                {% if image.galTipo.UsuGalTipId == 1 %}
+                                                    <div class="col-lg-3 col-md-3 col-sm-6">
+                                                        <div class="thumbnail">
+                                                            <img src="{{ asset('uploads/perfil/'~image.galHash) }}" style="max-width: 100%">
+                                                            <div class="caption">
+                                                                <h4>{{ image.galTipo.UsuGalTipNombre }}</h4>
+                                                                <p>
+                                                                    <label class="checkbox-inline">
+                                                                        <input type="checkbox" id="inlineCheckbox1" class="itemGallery" value="{{ image.galId }}"> Marcar para eliminar
+                                                                    </label>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 {% else %}
-                                                    {% set is_active = '' %}
+                                                    <div class="col-lg-3 col-md-3 col-sm-6">
+                                                        <div class="thumbnail">
+                                                            <img src="{{ asset('uploads/otras/'~image.galHash) }}"  style="max-width: 100%">
+                                                            <div class="caption">
+                                                                <h4>{{ image.galTipo.UsuGalTipNombre }}</h4>
+                                                                <p>
+                                                                    <label class="checkbox-inline">
+                                                                        <input type="checkbox" id="inlineCheckbox1" class="itemGallery" value="{{ image.galId }}"> Marcar para eliminar
+                                                                    </label>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 {% endif %}    
-                                                <a href="#" id="{{ type.usuGalTipId }}" class="list-group-item {{ is_active }} text-center">
-                                                    {{ type.usuGalTipNombre }}
-                                                </a>
-                                            {% endfor %}
-                                           <!--
-                                           <a href="#" class="list-group-item text-center">
-                                               <h4 class="glyphicon glyphicon-road"></h4><br/>Train
-                                           </a>
-                                           <a href="#" class="list-group-item text-center">
-                                               <h4 class="glyphicon glyphicon-home"></h4><br/>Hotel
-                                           </a>
-                                           <a href="#" class="list-group-item text-center">
-                                               <h4 class="glyphicon glyphicon-cutlery"></h4><br/>Restaurant
-                                           </a>
-                                           <a href="#" class="list-group-item text-center">
-                                               <h4 class="glyphicon glyphicon-credit-card"></h4><br/>Credit Card
-                                           </a>
-                                            -->
+                                                
+                                            {% endfor %}    
                                        </div>
-                                   </div>
-                               
-                           </div>
-                       </div>
-                      
-                </div>
+                    
+                    
+                   
                 </div>
              </div>
            
@@ -147,209 +357,9 @@
       </div>
           
     </div>
-    <div class="row">
-      <div class="col-md-9 docs-buttons">
-
-        
-        <div class="btn-group">
-          <button type="button" class="btn btn-primary" data-method="setDragMode" data-option="move" title="Move">
-            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
-              <span class="fa fa-arrows"></span>
-            </span>
-          </button>
-          <button type="button" class="btn btn-primary" data-method="setDragMode" data-option="crop" title="Crop">
-            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
-              <span class="fa fa-crop"></span>
-            </span>
-          </button>
-        </div>
-        
-
-        <div class="btn-group">
-          <button type="button" class="btn btn-primary" data-method="zoom" data-option="0.1" title="Zoom In">
-            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
-              <span class="fa fa-search-plus"></span>
-            </span>
-          </button>
-          <button type="button" class="btn btn-primary" data-method="zoom" data-option="-0.1" title="Zoom Out">
-            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
-              <span class="fa fa-search-minus"></span>
-            </span>
-          </button>
-        </div>
-
-        <div class="btn-group">
-          <button type="button" class="btn btn-primary" data-method="move" data-option="-10" data-second-option="0" title="Move Left">
-            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="Mover a la izquierda">
-              <span class="fa fa-arrow-left"></span>
-            </span>
-          </button>
-          <button type="button" class="btn btn-primary" data-method="move" data-option="10" data-second-option="0" title="Move Right">
-            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="Mover a la derecha">
-              <span class="fa fa-arrow-right"></span>
-            </span>
-          </button>
-          <button type="button" class="btn btn-primary" data-method="move" data-option="0" data-second-option="-10" title="Move Up">
-            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="Mover hacia arriba">
-              <span class="fa fa-arrow-up"></span>
-            </span>
-          </button>
-          <button type="button" class="btn btn-primary" data-method="move" data-option="0" data-second-option="10" title="Move Down">
-            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="Mover hacia abajo">
-              <span class="fa fa-arrow-down"></span>
-            </span>
-          </button>
-        </div>
-
-        <div class="btn-group">
-          <button type="button" class="btn btn-primary" data-method="rotate" data-option="-45" title="Rotate Left">
-            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="Rotar a la izquierda">
-              <span class="fa fa-rotate-left"></span>
-            </span>
-          </button>
-          <button type="button" class="btn btn-primary" data-method="rotate" data-option="45" title="Rotate Right">
-            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="Rotar a la derecha">
-              <span class="fa fa-rotate-right"></span>
-            </span>
-          </button>
-        </div>
-
-        <div class="btn-group">
-          <button type="button" class="btn btn-primary" data-method="scaleX" data-option="-1" title="Flip Horizontal">
-            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
-              <span class="fa fa-arrows-h"></span>
-            </span>
-          </button>
-          <button type="button" class="btn btn-primary" data-method="scaleY" data-option="-1" title="Flip Vertical">
-            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
-              <span class="fa fa-arrows-v"></span>
-            </span>
-          </button>
-        </div>
-
-        <div class="btn-group">
-          <button type="button" class="btn btn-primary" data-method="crop" title="Crop">
-            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
-              <span class="fa fa-check"></span>
-            </span>
-          </button>
-          <button type="button" class="btn btn-primary" data-method="clear" title="Clear">
-            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
-              <span class="fa fa-remove"></span>
-            </span>
-          </button>
-        </div>
-        
-        
-        <div class="btn-group">
-          <button type="button" class="btn btn-primary" data-method="disable" title="Disable">
-            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
-              <span class="fa fa-lock"></span>
-            </span>
-          </button>
-          <button type="button" class="btn btn-primary" data-method="enable" title="Enable">
-            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
-              <span class="fa fa-unlock"></span>
-            </span>
-          </button>
-        </div>
-        
-
-        <div class="btn-group">
-          <button type="button" class="btn btn-primary" data-method="reset" title="Reset">
-            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
-              <span class="fa fa-refresh"></span>
-            </span>
-          </button>
-          <label class="btn btn-danger btn-upload" for="inputImage" title="Upload image file">
-            <input type="file" class="sr-only" id="inputImage" name="file" accept=".jpg,.jpeg,.png,.gif,.bmp,.tiff">
-            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="Importar imagen con Blob URLs">
-              <span class="fa fa-upload"></span>
-            </span>
-          </label>
-
-        </div>
-
-        <div class="btn-group btn-group-crop">
-          <button type="button" class="btn btn-primary" data-method="getCroppedCanvas">
-            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
-              Recortar Imagen
-            </span>
-          </button>
-           <!-- 
-          <button type="button" class="btn btn-primary" data-method="getCroppedCanvas" data-option="{ &quot;width&quot;: 160, &quot;height&quot;: 90 }">
-            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="$">
-              160&times;90
-            </span>
-          </button>
-            -->
-          <button type="button" class="btn btn-primary" data-method="getCroppedCanvas" data-option="{ &quot;width&quot;: 320, &quot;height&quot;: 180 }">
-            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
-              320&times;180
-            </span>
-          </button>
-        </div>
-
-        <!-- Show the cropped image in modal -->
-        <div class="modal fade docs-cropped" id="getCroppedCanvasModal" aria-hidden="true" aria-labelledby="getCroppedCanvasTitle" role="dialog" tabindex="-1">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="getCroppedCanvasTitle"><i class="fa fa-check-circle" aria-hidden="true"></i> Recorte seleccionado</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body"></div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <a class="btn btn-primary" id="download" href="javascript:void(0);" download="cropped.jpg" style="display:none">Download</a>
-                
-              </div>
-            </div>
-          </div>
-        </div><!-- /.modal -->
-
-        <button type="button" class="btn btn-primary" data-method="zoomTo" data-option="1">
-          <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="cropper.zoomTo(1)">
-            Zoom to 100%
-          </span>
-        </button>
-
-      </div><!-- /.docs-buttons -->
-
-      <div class="col-md-3 docs-toggles">
-       <!--
-        <div class="btn-group d-flex flex-nowrap" data-toggle="buttons">
-          <label class="btn btn-primary active">
-            <input type="radio" class="sr-only" id="viewMode0" name="viewMode" value="0" checked>
-            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
-              VM0
-            </span>
-          </label>
-          <label class="btn btn-primary">
-            <input type="radio" class="sr-only" id="viewMode1" name="viewMode" value="1">
-            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
-              VM1
-            </span>
-          </label>
-          <label class="btn btn-primary">
-            <input type="radio" class="sr-only" id="viewMode2" name="viewMode" value="2">
-            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
-              VM2
-            </span>
-          </label>
-          <label class="btn btn-primary">
-            <input type="radio" class="sr-only" id="viewMode3" name="viewMode" value="3">
-            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
-              VM3
-            </span>
-          </label>
-        </div>
-          -->
-      </div><!-- /.docs-toggles -->
-    </div>
+    
   </div>
+ 
 
 
 

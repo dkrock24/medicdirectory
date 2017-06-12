@@ -251,7 +251,8 @@ class ClienteController extends Controller
 			$statement->execute();
 			$getUsersLocation = $statement->fetchAll();
 			
-			
+			//echo $cliente->getCliId();
+			//var_dump($getUsersLocation);
 			//==================================================================
 			//Get if the representer marked the checkbox as set representer date
 			//as doctor or assistant
@@ -602,7 +603,7 @@ class ClienteController extends Controller
 				}
 				//$oRepresenter->setUsuClave( sha1($representerPass) );
 			}
-			$oRepresenter->setUsuCorreo($representerEmail);
+			//$oRepresenter->setUsuCorreo($representerEmail);
 			$oRepresenter->setUsuGenero($representerGender);
 			$oRepresenter->setUsuUsuario($representerUser);
 			//$oRepresenter->setUsuNombre($representerName);
@@ -612,10 +613,11 @@ class ClienteController extends Controller
 			$oRepresenter->setUsuTercerNombre($representerNameThree);
 			$oRepresenter->setUsuPrimerApellido($representerLastNameOne);
 			$oRepresenter->setUsuSegundoApellido($representerLastNameTwo);
+			//$oRepresenter->setCliUsuFechaRegistro( new \DateTime() );
 			
-			$oRepresenter->setUsuFechaRegistro(new \Datetime());
-			$oRepresenter->setUsuFechaCrea(new \Datetime());
-			$oRepresenter->setUsuFechaNacimiento( new \DateTime($representerBirthDate) );
+			//$oRepresenter->setUsuFechaRegistro(new \Datetime());
+			//$oRepresenter->setUsuFechaCrea(new \Datetime());
+			//$oRepresenter->setUsuFechaNacimiento( new \DateTime($representerBirthDate) );
 			
 			if (isset($clientId) && $clientId > 0) 
 			{
@@ -671,22 +673,17 @@ class ClienteController extends Controller
 			$objUserRol->setCliUsuUsu($representer_repo); //setUsuRolUsuarios(  $representer_repo );
 			$objUserRol->setCliUsuCli($client_repo);
 			$objUserRol->setCliUsuRol( $role_representer_repo );
+			$objUserRol->setCliUsuFechaNacimiento( new \DateTime($representerBirthDate) );
+			$objUserRol->setCliUsuFechaRegistro(new \Datetime());
+			$objUserRol->setCliUsuCorreo($representerEmail);
 			$objUserRol->setCliUsuFechaCrea( new \DateTime() );
+			
 			$em->persist($objUserRol);
 			$flush = $em->flush();
 				
 			//Save all users related for this location establishment
 			if( count($locationListUsers) > 0 )
 			{
-				/*
-				if (isset($clientId) && $clientId > 0) 
-				{
-					//exit("c");
-					$RAW_QUERY = "delete from cliente_usuario where cli_usu_cli_id = $clientId ";
-					$statement = $em->getConnection()->prepare($RAW_QUERY);
-					$statement->execute();
-				}
-				*/
 				
 				for($i=0; $i < count($locationListUsers); $i++)
 				{
@@ -732,11 +729,12 @@ class ClienteController extends Controller
 							$user->setUsuSegundoApellido($locationListUsers[$i]['lastnametwo']);
 						}
 	
-							
+						/*	
 						if( isset($locationListUsers[$i]['name']) && !empty($locationListUsers[$i]['name']) )
 						{
 							$user->setUsuNombre( $locationListUsers[$i]['name']);
 						}
+						*/
 						$user->setUsuUsuario($locationListUsers[$i]['username']);
 						
 						if( isset($locationListUsers[$i]['password']) && !empty($locationListUsers[$i]['password']) )
@@ -744,14 +742,11 @@ class ClienteController extends Controller
 							$user->setUsuClave( sha1($locationListUsers[$i]['password']) );
 						}
 
-						if( isset($locationListUsers[$i]['email']) && !empty($locationListUsers[$i]['email']) )
-						{
-							$user->setUsuCorreo( $locationListUsers[$i]['email'] );
-						}
+						
 						
 						$user->setUsuGenero($locationListUsers[$i]['gender']);
-						$user->setUsuFechaRegistro(new \Datetime());
-						$user->setUsuFechaCrea(new \Datetime());
+						//$user->setUsuFechaRegistro(new \Datetime());
+						//$user->setUsuFechaCrea(new \Datetime());
 						
 						$role_repo = $em->getRepository('AppBundle:Rol')->find($locationListUsers[$i]['typeUser']);
 						//$user->addIdRol($role_repo);
@@ -768,11 +763,17 @@ class ClienteController extends Controller
 						$objUserRol->setUrolUsuId( $user_repo ); //user
 						$objUserRol->setUrolRolId( $role_repo ); //role
 						*/						
-						
+						$objUserRol->setCliUsuCorreo($locationListUsers[$i]['email']);
 						$objUserRol->setCliUsuUsu($user_repo); //setUsuRolUsuarios(  $representer_repo );
 						$objUserRol->setCliUsuCli($client_repo);
 						$objUserRol->setCliUsuRol( $role_repo );
+						$objUserRol->setCliUsuFechaRegistro(new \Datetime());
 						$objUserRol->setCliUsuFechaCrea( new \DateTime() );
+						
+						if( isset($locationListUsers[$i]['email']) && !empty($locationListUsers[$i]['email']) )
+						{
+							$objUserRol->setCliUsuCorreo( $locationListUsers[$i]['email'] );
+						}
 						
 						$em->persist($objUserRol);
 						$flush = $em->flush();
@@ -790,38 +791,17 @@ class ClienteController extends Controller
 						
 						
 						$objUserRol = new ClienteUsuario();
-						/*
-						$objUserRol->setUrolCliId( $client_repo ); // cliente 
-						$objUserRol->setUrolUsuId( $representer_repo ); //user
-						$objUserRol->setUrolRolId( $role_repo ); //role
-						*/
-						//exit("xxxx");
 						$objUserRol->setCliUsuUsu( $representer_repo );
 						$objUserRol->setCliUsuCli( $client_repo );
 						$objUserRol->setCliUsuRol($role_repo);
 						$objUserRol->setCliUsuFechaCrea( new \DateTime() );
-						
+						$objUserRol->setCliUsuFechaRegistro(new \Datetime());
+						$objUserRol->setCliUsuCorreo($representerEmail);
 						$em->persist($objUserRol);
 						$flush = $em->flush();
 						
 						
 					}
-					/*
-					//========================================
-					//Sava data in cliente_usuario
-					//========================================					
-					//$client_repo = $em->getRepository('AppBundle:Cliente')->find($lastClient);
-					$user_repo = $em->getRepository('AppBundle:Usuario')->find($lastUser);
-
-					$oClientUser = new ClienteUsuario();
-					$oClientUser->setCliUsuCli( $client_repo );
-					$oClientUser->setCliUsuFechaCrea( new \DateTime() );
-					$oClientUser->setCliUsuRol( $role_repo );
-					$oClientUser->setCliUsuUsu( $user_repo );
-					//$oClientUser->setCliUsuFechaCrea( new)
-					$em->persist($oClientUser);
-					$flush = $em->flush();
-					*/
 				}
 			}
 				

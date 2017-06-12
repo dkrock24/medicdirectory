@@ -56,348 +56,354 @@
 
     </div>        
     <div class="row">
-        <div class="col-lg-12">         
-            {#
-            {{ form_start(form) }}
-                {{ form_widget(form) }}
-                <button type="submit" class="btn btn-success"><i class="icon-newspaper"></i> Crear</button>
-            {{ form_end(form) }}
-            #}
-            <div class="panel panel-white">
-                
-                
-                <div class="panel-body">
-                   
-                    <div class="form_error"></div>
-                    <!-- Nav tabs -->
-                    <ul class="nav nav-tabs nav-tabs-highlight " role="tablist">
-                        <li role="presentation" class="active"><a href="#personal_date" aria-controls="home" role="tab" data-toggle="tab"><i class="fa fa-list-alt"></i> Datos personales</a></li>
-                        <li role="presentation"><a href="#address" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-address-book-o" aria-hidden="true"></i> Mi Perfil</a></li>
-                        <!--<li role="presentation"><a href="#phones" aria-controls="messages" role="tab" data-toggle="tab"></a></li>-->
-                        <li role="presentation"><a href="#picture" aria-controls="settings" role="tab" data-toggle="tab"><i class="fa fa-file-image-o"></i> Fotografía</a></li>
-                    </ul>
-                    <!-- Tab panes -->
-                    <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane active" id="personal_date">
-                            <fieldset>
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">Datos personales</div>
+        <form method="post" id="formulario" enctype="multipart/form-data"> 
+            <div class="col-lg-12">         
+                {#
+                {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                    <button type="submit" class="btn btn-success"><i class="icon-newspaper"></i> Crear</button>
+                {{ form_end(form) }}
+                #}
+                <div class="panel panel-white">
+
+
+                        <div class="panel-body">
+
+                            <div class="form_error"></div>
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs nav-tabs-highlight " role="tablist">
+                                <li role="presentation" class="active"><a href="#personal_date" aria-controls="home" role="tab" data-toggle="tab"><i class="fa fa-list-alt"></i> Datos personales</a></li>
+                                <li role="presentation"><a href="#address" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-address-book-o" aria-hidden="true"></i> Mi Perfil</a></li>
+                                <!--<li role="presentation"><a href="#phones" aria-controls="messages" role="tab" data-toggle="tab"></a></li>-->
+                                <li role="presentation"><a href="#picture" aria-controls="settings" role="tab" data-toggle="tab"><i class="fa fa-file-image-o"></i> Fotografía</a></li>
+                            </ul>
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane active" id="personal_date">
+                                    <fieldset>
                                         <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <div class="form_error"></div>
-                                                    <label for="" class=" control-label">Primer Nombre:</label>
-                                                    <div class=""><input type="text" class="form-control" value="{{ user.UsuNombre }}" id="nameone"></div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">    
-                                                <div class="form-group">
-                                                    <div class="form_error"></div>
-                                                    <label for="" class=" control-label">Segundo Nombre:</label>
-                                                    <div class=""><input type="text" class="form-control" value="{{ user.UsuSegundoNombre }}" id="nametwo"></div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <div class="form_error"></div>
-                                                    <label for="" class=" control-label">Tercer Nombre:</label>
-                                                    <div class=""><input type="text" class="form-control" value="{{ user.UsuTercerNombre }}" id="namethree"></div>
-                                                </div>
-                                            </div>    
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <div class="form_error"></div>
-                                                    <label for="" class=" control-label">Primer Apellido:</label>
-                                                    <div class=""><input type="text" class="form-control" value="{{ user.UsuPrimerApellido }}" id="lastenameone"></div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <div class="form_error"></div>
-                                                    <label for="" class="control-label">Segundo Apellido:</label>
-                                                    <div class=""><input type="text" class="form-control" value="{{ user.UsuSegundoApellido }}" id="lastnametwo"></div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <div class="form_error"></div>
-                                                    <label for="" class="control-label">Fecha de Nacimiento:</label>
-                                                    <div class=""><input type="text" class="form-control" value="{{ user.UsuFechaNacimiento|date('Y-m-d') }}" id="birthdate" readonly="readonly"></div>
-                                                </div>
-                                            </div>    
-                                        </div>
-
-                                        <div class="row">
-
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <div class="form_error"></div>
-                                                    <label for="" class=" control-label">Título:</label>
-                                                    <div class="">
-                                                        <select id="title" class="select">
-                                                            <option value="Dr.">Dr.</option>
-                                                            <option value="Dra.">Dra.</option>
-                                                            <option value="Lcdo.">Lcdo.</option>
-                                                            <option value="Lcda.">Lcda.</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>    
-
-                                        </div>
-
-                                    </div>
-                                    <div class="col-lg-6">
-                                         <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">Mi Horario</div>
-                                        <div id="scheduleWeekly"></div>
-                                    </div>
-                                </div>  
-                                       
-                            </fieldset>
-                        </div>
-                        <div role="tabpanel" class="tab-pane" id="address">
-
-                            <fieldset>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">Información de contacto</div>
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                            <div class="panel panel-body border-top-primary">
-                                            <div class="row">
-                                                <div class="col-lg-12">
-                                                    <div class="form-group">
-                                                        <div class="form_error"></div>
-                                                        <label for="" class=" control-label">Dirección:</label>
-                                                        <div class=""><input type="text" class="form-control" id="addressUser" value="{{ user.UsuDireccion }}"></div>
-                                                    </div>
-                                                </div> 
-                                            </div>
-                                            <div class="row">
-                                                <div class="p">
-                                                    <div class="col-lg-6">
+                                            <div class="col-lg-6">
+                                                <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">Datos personales</div>
+                                                <div class="row">
+                                                    <div class="col-md-4">
                                                         <div class="form-group">
                                                             <div class="form_error"></div>
-                                                            <label for="" class=" control-label">Teléfono Establecimiento:</label>
-                                                            <div class=""><input type="text" class="form-control" id="phone" value="{{ user.UsuTelefono }}"></div>
+                                                            <label for="" class=" control-label">Primer Nombre:</label>
+                                                            <div class=""><input type="text" class="form-control" value="{{ user[0].usu_nombre }}" id="nameone"></div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-6">
+                                                    <div class="col-md-4">    
                                                         <div class="form-group">
                                                             <div class="form_error"></div>
-                                                            <label for="" class=" control-label">Correo electronico:</label>
-                                                            <div class=""><input type="text" class="form-control" id="email" value="{{ user.UsuCorreo }}"></div>
+                                                            <label for="" class=" control-label">Segundo Nombre:</label>
+                                                            <div class=""><input type="text" class="form-control" value="{{ user[0].usu_segundo_nombre }}" id="nametwo"></div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <div class="panel panel-body border-top-primary ">
-                                                    <div class="form-horizontal">
-                                                        <div class="form-group">
-                                                          <label for="inputEmail3" class="col-sm-2 control-label">Sitio web:</label>
-                                                          <div class="col-sm-10">
-                                                            
-                                                            <select class="form-control" id="social-network-list" class="select">
-                                                                {% for social in socials %}
-                                                                    <option value="{{ social.idSocRed }}">{{ social.SocRedNombre }}</option>
-                                                                {% endfor %}
-                                                            </select>
-                                                          </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                          <label for="inputPassword3" class="col-sm-2 control-label">Url:</label>
-                                                          <div class="col-sm-10">
-                                                            <input type="text" class="form-control" id="url" placeholder="Url">
-                                                          </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                          <div class="col-sm-offset-2 col-sm-10 ">
-                                                            <button type="submit" class="btn btn-default" id="btn-add-social-network">Agregar</button>
-                                                          </div>
-                                                        </div>
-                                                            <div id="socialList">
-                                                                <div class="table-responsive">
-                                                                    <table class="table table-striped" id="table-social-network">
-                                                                        <thead>
-                                                                            <tr>
-                                                                                <th>Tipo</th>
-                                                                                <th>Url</th>
-                                                                                <th></th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                            {% for network in networkSelected %}
-                                                                                <tr id="{{ network.idSocialRed.idSocRed }}">
-                                                                                    <td>{{ network.idSocialRed.socRedNombre }}</td>
-                                                                                    <td>{{ network.usuSocUrl }}</td>
-                                                                                    <td><button class="btn btn-danger btn-sm removeNetwork">x</button></td>
-                                                                                </tr>
-                                                                            {% endfor %}    
 
-                                                                        </tbody> 
-                                                                    </table>
-                                                                </div>
-                                                            </div>    
-                                                      </div>
-                                                </div>    
-                                            </div>
-                                        </div>                   
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <div class="panel panel-body border-top-primary ">
-                                                    <div class="form-horizontal">
-                                                       
+                                                    <div class="col-md-4">
                                                         <div class="form-group">
-                                                          
-                                                          <div class="col-sm-12">
-                                                              <label class="radio-inline">
-                                                                Cambiar Contraseña?
-                                                              </label>
-                                                              <label class="radio-inline">
-                                                                <input type="radio" name="radioPassword" id="" class="radioPassword" value="yes"> Si
-                                                              </label>
-                                                              <label class="radio-inline">
-                                                                  <input type="radio" name="radioPassword" id="" class="radioPassword" value="no" checked="checked"> No
-                                                              </label>
-                                                          </div>
+                                                            <div class="form_error"></div>
+                                                            <label for="" class=" control-label">Tercer Nombre:</label>
+                                                            <div class=""><input type="text" class="form-control" value="{{ user[0].usu_tercer_nombre }}" id="namethree"></div>
                                                         </div>
-                                                        <div id="change-password">
+                                                    </div>    
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <div class="form_error"></div>
+                                                            <label for="" class=" control-label">Primer Apellido:</label>
+                                                            <div class=""><input type="text" class="form-control" value="{{ user[0].usu_primer_apellido }}" id="lastenameone"></div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <div class="form_error"></div>
+                                                            <label for="" class="control-label">Segundo Apellido:</label>
+                                                            <div class=""><input type="text" class="form-control" value="{{ user[0].usu_segundo_apellido }}" id="lastnametwo"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <div class="form_error"></div>
+                                                            <label for="" class="control-label">Fecha de Nacimiento:</label>
+                                                            <div class=""><input type="text" class="form-control" value="{{ user[0].cli_usu_fecha_nacimiento|date('Y-m-d') }}" id="birthdate" readonly="readonly"></div>
+                                                        </div>
+                                                    </div>    
+                                                </div>
+
+                                                <div class="row">
+
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <div class="form_error"></div>
+                                                            <label for="" class=" control-label">Título:</label>
+                                                            <div class="">
+                                                                <select id="title" class="select">
+                                                                    <option value="Dr.">Dr.</option>
+                                                                    <option value="Dra.">Dra.</option>
+                                                                    <option value="Lcdo.">Lcdo.</option>
+                                                                    <option value="Lcda.">Lcda.</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>    
+
+                                                </div>
+
+                                            </div>
+                                            <div class="col-lg-6">
+                                                 <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">Mi Horario</div>
+                                                <div id="scheduleWeekly"></div>
+                                            </div>
+                                        </div>  
+
+                                    </fieldset>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="address">
+
+                                    <fieldset>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">Información de contacto</div>
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                    <div class="panel panel-body border-top-primary">
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
                                                             <div class="form-group">
-                                                                <label for="inputPassword3" class="col-sm-2 control-label">Contraseña</label>
-                                                                <div class="col-sm-10">
-                                                                  <input type="text" class="form-control" placeholder="Password" id="password">
+                                                                <div class="form_error"></div>
+                                                                <label for="" class=" control-label">Dirección:</label>
+                                                                <div class=""><input type="text" class="form-control" id="addressUser" value="{{ user[0].cli_usu_direccion }}"></div>
+                                                            </div>
+                                                        </div> 
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="p">
+                                                            <div class="col-lg-6">
+                                                                <div class="form-group">
+                                                                    <div class="form_error"></div>
+                                                                    <label for="" class=" control-label">Teléfono Establecimiento:</label>
+                                                                    <div class=""><input type="text" class="form-control" id="phone" value="{{ user[0].cli_usu_telefono }}"></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <div class="form-group">
+                                                                    <div class="form_error"></div>
+                                                                    <label for="" class=" control-label">Correo electronico:</label>
+                                                                    <div class=""><input type="text" class="form-control" id="email" value="{{ user[0].cli_usu_correo }}"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <div class="panel panel-body border-top-primary ">
+                                                            <div class="form-horizontal">
+                                                                <div class="form-group">
+                                                                  <label for="inputEmail3" class="col-sm-2 control-label">Sitio web:</label>
+                                                                  <div class="col-sm-10">
+
+                                                                    <select class="form-control" id="social-network-list" class="select">
+                                                                        {% for social in socials %}
+                                                                            <option value="{{ social.idSocRed }}">{{ social.SocRedNombre }}</option>
+                                                                        {% endfor %}
+                                                                    </select>
+                                                                  </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                  <label for="inputPassword3" class="col-sm-2 control-label">Url:</label>
+                                                                  <div class="col-sm-10">
+                                                                    <input type="text" class="form-control" id="url" placeholder="Url">
+                                                                  </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                  <div class="col-sm-offset-2 col-sm-10 ">
+                                                                    <span  class="btn btn-default" id="btn-add-social-network">Agregar</span>
+                                                                  </div>
+                                                                </div>
+                                                                    <div id="socialList">
+                                                                        <div class="table-responsive">
+                                                                            <table class="table table-striped" id="table-social-network">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th>Tipo</th>
+                                                                                        <th>Url</th>
+                                                                                        <th></th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    {% for network in networkSelected %}
+                                                                                        <tr id="{{ network.idSocialRed.idSocRed }}">
+                                                                                            <td>{{ network.idSocialRed.socRedNombre }}</td>
+                                                                                            <td>{{ network.usuSocUrl }}</td>
+                                                                                            <td><button class="btn btn-danger btn-sm removeNetwork">x</button></td>
+                                                                                        </tr>
+                                                                                    {% endfor %}    
+
+                                                                                </tbody> 
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>    
+                                                              </div>
+                                                        </div>    
+                                                    </div>
+                                                </div>                   
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <div class="panel panel-body border-top-primary ">
+                                                            <div class="form-horizontal">
+
+                                                                <div class="form-group">
+
+                                                                  <div class="col-sm-12">
+                                                                      <label class="radio-inline">
+                                                                        Cambiar Contraseña?
+                                                                      </label>
+                                                                      <label class="radio-inline">
+                                                                        <input type="radio" name="radioPassword" id="" class="radioPassword" value="yes"> Si
+                                                                      </label>
+                                                                      <label class="radio-inline">
+                                                                          <input type="radio" name="radioPassword" id="" class="radioPassword" value="no" checked="checked"> No
+                                                                      </label>
+                                                                  </div>
+                                                                </div>
+                                                                <div id="change-password">
+                                                                    <div class="form-group">
+                                                                        <label for="inputPassword3" class="col-sm-2 control-label">Contraseña</label>
+                                                                        <div class="col-sm-10">
+                                                                          <input type="text" class="form-control" placeholder="Password" id="password">
+                                                                        </div>
+                                                                      </div>
+                                                                      <div class="form-group">
+                                                                        <label for="inputPassword3" class="col-sm-2 control-label">Repita Contraseña</label>
+                                                                        <div class="col-sm-10">
+                                                                          <input type="text" class="form-control" placeholder="Repita Password" id="repeat_password">
+                                                                        </div>
+                                                                      </div>
                                                                 </div>
                                                               </div>
-                                                              <div class="form-group">
-                                                                <label for="inputPassword3" class="col-sm-2 control-label">Repita Contraseña</label>
-                                                                <div class="col-sm-10">
-                                                                  <input type="text" class="form-control" placeholder="Repita Password" id="repeat_password">
+                                                        </div>    
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">Experiencia Médica</div>
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <div class="panel panel-body border-top-primary ">
+                                                            <div class="form-group">
+                                                                <div class="form_error"></div>
+                                                                <label for="" class=" control-label">Mis especialidades:</label>
+                                                                <div class="">
+                                                                    <select id="specialitiesList" class="select" multiple>
+                                                                        {% for speciality in specialities %}
+                                                                            {% if speciality.EspId in specialitiesSelected %}
+                                                                                <option value="{{ speciality.EspId }}" selected="selected">{{ speciality.EspEspecialidad }}</option>
+                                                                            {% else %}
+                                                                                <option value="{{ speciality.EspId }}" >{{ speciality.EspEspecialidad }}</option>
+                                                                            {% endif %}    
+
+                                                                        {% endfor %}
+
+                                                                    </select>
+
                                                                 </div>
-                                                              </div>
+                                                            </div>
                                                         </div>
-                                                      </div>
-                                                </div>    
-                                            </div>
-                                        </div>
-                                                            
-                                        
-                                    </div>
-                                    <div class="col-md-8">
-                                        <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">Experiencia Médica</div>
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <div class="panel panel-body border-top-primary ">
-                                                    <div class="form-group">
-                                                        <div class="form_error"></div>
-                                                        <label for="" class=" control-label">Mis especialidades:</label>
-                                                        <div class="">
-                                                            <select id="specialitiesList" class="select" multiple>
-                                                                {% for speciality in specialities %}
-                                                                    {% if speciality.EspId in specialitiesSelected %}
-                                                                        <option value="{{ speciality.EspId }}" selected="selected">{{ speciality.EspEspecialidad }}</option>
-                                                                    {% else %}
-                                                                        <option value="{{ speciality.EspId }}" >{{ speciality.EspEspecialidad }}</option>
-                                                                    {% endif %}    
-                                                                    
-                                                                {% endfor %}
-                                                                
-                                                            </select>
-                                                              
+                                                    </div> 
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <div class="panel panel-body border-top-primary">
+                                                            <div class="form-group">
+                                                                <label for="" class=" control-label">Estudios/Experiencia Laboral/Cargos/Congreso/Etc</label>
+                                                                <div class="">
+                                                                    <textarea cols="18" rows="18" id="profile_info" class="wysihtml5 wysihtml5-default form-control" placeholder="Describa su perfil..." style="height: 500px">
+                                                                        {{ user[0].cli_usu_info_perfil }}
+                                                                    </textarea>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div> 
+                                            </div>       
                                         </div>
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <div class="panel panel-body border-top-primary">
-                                                    <div class="form-group">
-                                                        <label for="" class=" control-label">Estudios/Experiencia Laboral/Cargos/Congreso/Etc</label>
-                                                        <div class="">
-                                                            <textarea cols="18" rows="18" id="profile_info" class="wysihtml5 wysihtml5-default form-control" placeholder="Describa su perfil..." style="height: 500px">
-                                                                {{ user.UsuInfoPerfil }}
-                                                            </textarea>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>       
+
+                                    </fieldset>
+
                                 </div>
-       
-                            </fieldset>
+                                <div role="tabpanel" class="tab-pane" id="picture">
+                                    <fieldset>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
 
-                        </div>
-                        <div role="tabpanel" class="tab-pane" id="picture">
-                            <fieldset>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            
-                                            <!-- Nav tabs -->
-                                            <ul class="nav nav-tabs" role="tablistUpload">
-                                              <li role="presentation" class="active"><a href="#pc" aria-controls="pc" role="tab" data-toggle="tab"><i class='fa fa-upload'></i> PC</a></li>
-                                              <li role="presentation"><a href="#webcam" aria-controls="webcam" role="tab" data-toggle="tab"><i class='fa fa-camera'></i> Carama web</a></li>
-                                            </ul>
-                                            <!-- Tab panes -->
-                                            <div class="tab-content">
-                                                <div role="tabpanel" class="tab-pane active" id="pc">
-                                                    <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">
-                                                        Seleccione una opción:  &nbsp; &nbsp;
-                                                        {% for type in imageType %}
-                                                            <label class="radio-inline">
-                                                                <input type="radio" name="radioTypeImage" id="" value="{{ type.usuGalTipId }}" class="docs-toggles" > {{ type.usuGalTipNombre }}
-                                                            </label>
-                                                        {% endfor %}    
+                                                    <!-- Nav tabs -->
+                                                    <ul class="nav nav-tabs" role="tablistUpload">
+                                                      <li role="presentation" class="active"><a href="#pc" aria-controls="pc" role="tab" data-toggle="tab"><i class='fa fa-upload'></i> PC</a></li>
+                                                      <li role="presentation"><a href="#webcam" aria-controls="webcam" role="tab" data-toggle="tab"><i class='fa fa-camera'></i> Carama web</a></li>
+                                                    </ul>
+                                                    <!-- Tab panes -->
+                                                    <div class="tab-content">
+                                                        <div role="tabpanel" class="tab-pane active" id="pc">
+                                                            <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">
+                                                                Seleccione una opción:  &nbsp; &nbsp;
+                                                                {% for type in imageType %}
+                                                                    <label class="radio-inline">
+                                                                        <input type="radio" name="radioTypeImage" id="" value="{{ type.usuGalTipId }}" class="docs-toggles" > {{ type.usuGalTipNombre }}
+                                                                    </label>
+                                                                {% endfor %}    
+                                                            </div>
+                                                            {{ include('EmrBundle:perfil:_cropper.html.twig' )  }} 
+
+                                                        </div>
+                                                        <div role="tabpanel" class="tab-pane" id="webcam">
+                                                            {{ include('EmrBundle:paciente:_webcam.html.twig' )  }}
+                                                        </div>
                                                     </div>
-                                                    {{ include('EmrBundle:perfil:_cropper.html.twig' )  }} 
-                                                    
+
+
                                                 </div>
-                                                <div role="tabpanel" class="tab-pane" id="webcam">
-                                                    {{ include('EmrBundle:paciente:_webcam.html.twig' )  }}
-                                                </div>
-                                            </div>
-                                            
-                                            
+                                            </div>   
                                         </div>
-                                    </div>   
+
+                                    </fieldset>
+
                                 </div>
-                                          
-                            </fieldset>
-                            
+
+
+
+
+                                <hr>
+                                <ul class="list-inline">
+                                    <li>
+                                        <button type="button" class="btn btn-primary btn-sm" id="btn-save-form">
+                                            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
+                                                Enviar datos
+                                            </span>
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <a href="" class="btn btn-info btn-sm"><i class="fa fa-list"></i> Ver como me ven</a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                    
 
-                    
 
-                        <hr>
-                        <ul class="list-inline">
-                            <li>
-                                <button type="button" class="btn btn-primary btn-sm" id="btn-save-form">
-                                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
-                                        Enviar datos
-                                    </span>
-                                </button>
-                            </li>
-                            <li>
-                                <a href="" class="btn btn-info btn-sm"><i class="fa fa-list"></i> Ver como me ven</a>
-                            </li>
-                        </ul>
-                    </div>
+
                 </div>
             </div>
-        </div>
-
+                                                    
+       </form>                                            
+                                                    
     </div>
                                               
     <script type="text/javascript" src="{{ asset('bundles/admin/add-on/week/jquery.weekly.js') }}"></script>
@@ -406,7 +412,7 @@
     {% block codejs %}
         <script>
             $(document).on("ready", function () {
-                
+                    
                 
 
             {# {{ include('EmrBundle:paciente:_cropper.js.html.twig' )  }} #}
@@ -757,6 +763,7 @@
                     }
                     
                     
+                    
                     function saveFormAjax() {
                         
                         //alert();
@@ -767,6 +774,7 @@
                         var repeat_password = $("#repeat_password").val();
                         var specialitiesList = $("#specialitiesList").val();
                         var title = $("#title").val();
+                        var typeImage = $('input[name=radioTypeImage]:checked').val();
                         
                         if( password != repeat_password)
                         {
@@ -783,6 +791,17 @@
                         var specialitiesList = []; 
                         $('#specialitiesList :selected').each(function(i, selected){ 
                           specialitiesList[i] = $(selected).val(); 
+                        });
+                        
+                        
+                        var galleryDeleteList = []; 
+                        $('.itemGallery').each(function(){ 
+                            //specialitiesList[i] = $(selected).val(); 
+                          
+                            if($(this).is(':checked')){
+                                galleryDeleteList.push( $(this).val() );
+                             }
+                          
                         });
                         /*
                         var day = [];
@@ -824,22 +843,65 @@
                         //console.log(JSON.stringify(social_network));
                         //return false;
                         var profile = $("#profile_info").val();
-                        var img = img_base64;
+                        if( typeImage == 1 )//it's profile image
+                        {
+                            var img = img_base64;
+                            //console.log(img);
+                        }else{
+                            var img = "";
+                            //alert("no");
+                        }    
+                       
+                        
+                        var formData = new FormData($("#formulario")[0]);
+                        //var input_titulo = "Mi titulo de prueba";
+                        //formData.append("titulo", input_titulo);
+                        
+                        formData.append("address", address);
+                        formData.append("phone", phone);
+                        formData.append("specialitiesList", JSON.stringify(specialitiesList));
+                        formData.append("email", email);
+                        formData.append("password", password);
+                        formData.append("title", title);
+                        formData.append("schedule", JSON.stringify(schedule));
+                        formData.append("social_network", JSON.stringify(social_network));
+                        formData.append("profile", profile);
+                        formData.append("typeImage", typeImage);
+                        formData.append("img", img);
+                        formData.append("galleryDeleteList", JSON.stringify(galleryDeleteList));
+                        
+                        /*var ruta = "upload.php";
+                        $.ajax({
+                            url: ruta,
+                            type: "POST",
+                            data: formData,
+                            contentType: false,
+                            processData: false,
+                            success: function(datos)
+                            {
+                                $("#respuesta").html(datos);
+                            }
+                        });
+                        */
                              
                         var routeShow = "{{ path('perfil_form') }}"
                         $("#holder_loading").show();
 						$.ajax({
-                            type: "post",
+                            type: "POST",
+                            contentType: false,
+                            processData: false,
                             url: routeShow,
-                            data: {
+                            data: formData, /*{
                                 address: address,phone: phone,
                                 specialitiesList:specialitiesList,
                                 email: email, password: password,title:title,
                                 schedule: schedule,
                                 social_network: (social_network), 
                                 profile:profile,
+                                typeImage:typeImage,
                                 img: img
                             },
+                            */
                             error: function (data) {
                                 $("#holder_loading").hide();
                                 $.confirm({
@@ -882,7 +944,7 @@
                                      
                                      $("body").find(".cropper-container").remove();
                                      $(".img-preview").empty();
-                                     $(".currentPicture").html("<img src='"+img+"' class='img-thumbnail'>");
+                                     //$(".currentPicture").html("<img src='"+img+"' class='img-thumbnail'>");
                                      
                                     //$("#appbundle_paciente_pacMun").append($('<option>', {value: 100000, text: 'new option'}));
                                 } else 
@@ -1066,6 +1128,9 @@
                         }
                     });
                     
+                    
+                    
+                    
                     $("body").on("click",".removeNetwork", function(){
                         
                         $(this).closest("tr").remove();
@@ -1106,7 +1171,7 @@
                         "color": true // Button to change color of font
                     });
                     
-                    $("#title").val("{{ user.UsuTitulo }}").change();
+                    $("#title").val("{{ user[0].cli_usu_titulo }}").change();
 
                             
 
@@ -1156,13 +1221,165 @@
 
                         {% endfor %} 
                         
-                    {% endfor %}    
+                    {% endfor %}   
+                        
+                        
+           /*             
+            var dropZoneId = "drop-zone";
+            var buttonId = "clickHere";
+            var mouseOverClass = "mouse-over";
 
+            var dropZone = $("#" + dropZoneId);
+            var ooleft = dropZone.offset().left;
+            var ooright = dropZone.outerWidth() + ooleft;
+            var ootop = dropZone.offset().top;
+            var oobottom = dropZone.outerHeight() + ootop;
+            var inputFile = dropZone.find("input");
+            
+            $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                document.getElementById(dropZoneId).addEventListener("dragover", function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                dropZone.addClass(mouseOverClass);
+                var x = e.pageX;
+                var y = e.pageY;
 
+                if (!(x < ooleft || x > ooright || y < ootop || y > oobottom)) {
+                    inputFile.offset({
+                        top: y - 15,
+                        left: x - 100
+                    });
+                } else {
+                    inputFile.offset({
+                        top: -400,
+                        left: -400
+                    });
+                }
+
+                }, true);
+
+                if (buttonId != "") {
+                      var clickZone = $("#" + buttonId);
+
+                      var oleft = clickZone.offset().left;
+                      var oright = clickZone.outerWidth() + oleft;
+                      var otop = clickZone.offset().top;
+                      var obottom = clickZone.outerHeight() + otop;
+
+                      $("#" + buttonId).mousemove(function (e) {
+                          var x = e.pageX;
+                          var y = e.pageY;
+                          if (!(x < oleft || x > oright || y < otop || y > obottom)) {
+                              inputFile.offset({
+                                  top: y - 15,
+                                  left: x - 160
+                              });
+                          } else {
+                              inputFile.offset({
+                                  top: -400,
+                                  left: -400
+                              });
+                          }
+                      });
+                  }
+
+                document.getElementById(dropZoneId).addEventListener("drop", function (e) {
+                    $("#" + dropZoneId).removeClass(mouseOverClass);
+                }, true);
+
+                inputFile.on('change', function (e) {
+                    $('#filename').html("");
+                    var fileNum = this.files.length,
+                        initial = 0,
+                        counter = 0,
+                        fileNames = "";
+
+                    var passFile = true;                     
+                    for (initial; initial < fileNum; initial++) {
+                        counter = counter + 1;
+                        fileNames += this.files[initial].name + '&nbsp;';
+
+                        var image = this.files[initial].name; 
+                        switch( this.files[initial].type )
+                        {
+                            case "image/jpeg":
+                            case "image/png":
+                            case "image/gif":
+                                break;
+                            default:
+                                $('#filename').empty();
+                                inputFile.val('');
+                                passFile = false; 
+                                break;          
+                        }
+                        if( !passFile )
+                        {
+                            alert("El archivo "+image+" no esta permitido");
+                            break;
+                        }
+                        //console.log(this.files[initial].type);
+
+                    }
+                    if(fileNum > 1){
+                        fileNames = 'Archivos seleccionados...';
+                    }
+                    else{
+                        fileNames = this.files[0].name + '&nbsp;';
+                    }
+
+                    $('#filename').append('<span class="fa-stack fa-lg"><i class="fa fa-file fa-stack-1x "></i><strong class="fa-stack-1x" style="color:#FFF; font-size:12px; margin-top:2px;">'+ fileNum + '</strong></span><span">' + fileNames + '</span>&nbsp;<span class="fa fa-times-circle fa-lg closeBtn" title="remove"></span><br>');
+
+                    // add remove event
+                    $('#filename').find('.closeBtn').click(function(){
+                        $('#filename').empty();
+                        inputFile.val('');
+                    });
+                  ///End change 
                 });
+            });
+            */
+            //$("input[name=radioTypeImage]").val("");
+            //$("input[value='1']").attr('checked', true);
+            $("input[name=radioTypeImage][value='1']").prop("checked",true);
+            $("input[name=radioTypeImage]").change(function(){
+                var item = $(this).val();
+                if( item == 1 )
+                {
+                    $(".inputFile").val("");
+                    $("#holder64image").show();
+                    $("#upload_drop_file").hide();    
+                }
+                else
+                {
+                    $("#holder64image").hide();
+                    $("#upload_drop_file").show();
+                }
+            });
+            
+            /*
+            $("#btn").on("click", function(){
+                        var formData = new FormData($("#formulario")[0]);
+
+                        var input_titulo = "Mi titulo de prueba";
+                        formData.append("titulo", input_titulo);
+                        var ruta = "upload.php";
+                        $.ajax({
+                            url: ruta,
+                            type: "POST",
+                            data: formData,
+                            contentType: false,
+                            processData: false,
+                            success: function(datos)
+                            {
+                                $("#respuesta").html(datos);
+                            }
+                        });
+                    });
+
+                    */
+        });
                 
-                
-               
+                    
 
         </script>
     {% endblock %}    
