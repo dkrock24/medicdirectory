@@ -14,6 +14,8 @@
     <link href="{{ asset('bundles/web/css/responsive.css') }}" rel="stylesheet">
     <link href="{{ asset('bundles/web/css/custom.css') }}" rel="stylesheet">
     <link href="{{ asset('bundles/web/css/components.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+
 
 {% endblock %}
 
@@ -125,6 +127,8 @@
 {% block javascripts %}
     <!-- Template JS Files -->
     <script src="{{ asset('bundles/web/js/jquery-1.11.3.min.js') }}"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+
     <script src="{{ asset('bundles/web/js/jquery-migrate-1.2.1.min.js') }}"></script>  
     <script src="{{ asset('bundles/web/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('bundles/web/js/plugins/camera/js/jquery.mobile.customized.min.js') }}"></script>
@@ -132,20 +136,33 @@
     <script src="{{ asset('bundles/web/js/plugins/camera/js/camera.min.js') }}"></script>  
     <script src="{{ asset('bundles/web/js/plugins/shuffle/jquery.shuffle.modernizr.min.js') }}"></script>
     <script src="{{ asset('bundles/web/js/plugins/magnific-popup/jquery.magnific-popup.min.js') }}"></script>
-    <script src="{{ asset('bundles/web/js/jquery-scrolltofixed-min.js') }}"></script>    
+    <script src="{{ asset('bundles/web/js/jquery-scrolltofixed-min.js') }}"></script>   
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> 
     <!-- <script src="https://maps.googleapis.com/maps/api/js"></script> !-->
     <script src="{{ asset('bundles/web/js/custom.js') }}"></script>
     <script src="{{ asset('bundles/web/js/jquery.lazy.min.js') }}"></script>
+
+
+    <script src="{{ asset('bundles/web/js/pickadate/bootstrap.min.js')  }}"></script>
+    <script src="{{ asset('bundles/web/js/pickadate/drilldown.js')  }}"></script>
+
+
+
+    <script src="{{ asset('bundles/web/js/pickadate/moment.min.js')  }}"></script>
+    <script src="{{ asset('bundles/web/js/pickadate/daterangepicker.js')  }}"></script>
+    <script src="{{ asset('bundles/web/js/pickadate/anytime.min.js') }}"></script>
+    <script src="{{ asset('bundles/web/js/pickadate/picker.js')      }}"></script>
+    <script src="{{ asset('bundles/web/js/pickadate/picker.date.js') }}"></script>
+    <script src="{{ asset('bundles/web/js/pickadate/picker.time.js') }}"></script>
+    <script src="{{ asset('bundles/web/js/pickadate/legacy.js')      }}"></script>
+    <script src="{{ asset('bundles/web/js/pickadate/picker_date.js') }}"></script>
+
     <script type="text/javascript">
-        $(function($) {
-            $("#doctors-grid .lazy").Lazy({
-                effect: "fadeIn",
-                effectTime: 1000,
-                threshold: 0
-                //,appendScroll: $('.bio-box')
-            });
-        });
+
     </script>
+
+    {% block codejs %}
+    {% endblock  %}
+
 {% endblock %}
-{% block codejs %}
-{% endblock  %}
+

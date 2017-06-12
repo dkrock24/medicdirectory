@@ -5,9 +5,12 @@ namespace WebBundle\Controller;
 use AppBundle\Entity\ClienteUsuario;
 use AppBundle\Entity\UsuarioVistas;
 use AppBundle\Entity\Cliente;
+use \AppBundle\Entity\SolicitudContacto;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class DefaultController extends Controller {
 
@@ -124,6 +127,7 @@ class DefaultController extends Controller {
         $medico['usuario'] = $em->getRepository('AppBundle:ClienteUsuario')->findOneBy(array("cliUsuId" => $med_id));
 
         // Obtener especialidades Por Medico
+        
         $medico['especialidad'] = $em1->select('r')
             ->from('AppBundle:Usuario','d')
             ->innerJoin('AppBundle:UsuarioEspecialidad','r','WITH','r.idUsuario=d.usuId')
@@ -188,6 +192,49 @@ class DefaultController extends Controller {
 
     public function indexTerminosAction() {
         return $this->render('WebBundle:Terminos:index.html.twig');
+    }
+
+    public function indexSolicitarAction(){
+
+        // Guardar Solicitud de Cita
+        $em = $this->getDoctrine()->getManager();
+        
+        //Cliente
+        $id_cliente =  $_POST['idCliente'];
+        $client_repo = $em->getRepository('AppBundle:Cliente')->find($id_cliente);
+
+        //Usuario
+        $id_usuario = $_POST['idUsuario'];
+        $usuario_repo = $em->getRepository('AppBundle:Usuario')->find($id_usuario);
+
+        // Dates
+        $fecha  = $_POST['fecha'];
+        $hora   = $_POST['hora'];
+        $strHora = $fecha." ".substr($hora,0,-2);
+        //$fecha_string = $strHora;
+
+        $ip = $this->getRealIP();         
+        $comentario = $_POST['comentario'];       
+
+        $oSolicitud = new SolicitudContacto();
+
+        $oSolicitud->setScCliente( $client_repo );
+        $oSolicitud->setScUsuario( $usuario_repo );
+        $oSolicitud->setIp( $ip );
+        $oSolicitud->setTelefono( $_POST['telefono'] );
+        $oSolicitud->setCorreo( $_POST['correo'] );
+        $oSolicitud->setComentario( $comentario );
+        $oSolicitud->setEstado(1);
+        $oSolicitud->setFechaContacto(new \DateTime($strHora));
+
+        $em->persist($oSolicitud);
+        $flush = $em->flush();
+
+        
+
+        $msg = "Registro creado con Exito";
+
+        return  $response = new JsonResponse(($msg));
     }
 
 }

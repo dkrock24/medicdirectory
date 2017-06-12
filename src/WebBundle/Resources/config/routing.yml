@@ -25,3 +25,7 @@ web_precios:
 web_terminos:
     path:     /terminos
     defaults: { _controller: WebBundle:Default:indexTerminos }
+
+web_solicitar_cita:
+    path:   /solicitar
+    defaults: { _controller: WebBundle:Default:indexSolicitar }
