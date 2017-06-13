@@ -25,6 +25,7 @@ AppBundle\Entity\Modulo:
             column: mod_modulo
         modHashCode:
             type: binary
+            nullable: true
             length: 40
             column: mod_hash_code
         modOrden:
@@ -36,7 +37,7 @@ AppBundle\Entity\Modulo:
         modCosto:
             type: decimal
             nullable: false
-            precision: 4
+            precision: 6
             scale: 2
             column: mod_costo
         modFechaCrea:
@@ -66,4 +67,9 @@ AppBundle\Entity\Modulo:
                 mod_esp_id:
                     referencedColumnName: esp_id
             orphanRemoval: false
+#    oneToMany:
+#        secciones:
+#            targetEntity: EavModSeccion
+#            cascade: [persist]
+#            mappedBy: modulos
     lifecycleCallbacks: {  }

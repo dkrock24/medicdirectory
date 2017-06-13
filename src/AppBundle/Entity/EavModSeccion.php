@@ -225,4 +225,6 @@ class EavModSeccion
     {
         return $this->modulos;
     }
+
+    
 }

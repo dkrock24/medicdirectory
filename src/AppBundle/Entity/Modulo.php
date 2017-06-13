@@ -40,7 +40,7 @@ class Modulo
     /**
      * @var boolean
      */
-    private $modActivo = '1';
+    private $modActivo = true;
 
     /**
      * @var \AppBundle\Entity\Especialidad
@@ -253,5 +253,55 @@ class Modulo
     public function getModHashCode()
     {
         return $this->modHashCode;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $secciones;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->secciones = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add seccione
+     *
+     * @param \AppBundle\Entity\EavModSeccion $seccione
+     *
+     * @return Modulo
+     */
+    public function addSeccione(\AppBundle\Entity\EavModSeccion $seccione)
+    {
+        $this->secciones[] = $seccione;
+
+        return $this;
+    }
+
+    /**
+     * Remove seccione
+     *
+     * @param \AppBundle\Entity\EavModSeccion $seccione
+     */
+    public function removeSeccione(\AppBundle\Entity\EavModSeccion $seccione)
+    {
+        $this->secciones->removeElement($seccione);
+    }
+
+    /**
+     * Get secciones
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSecciones()
+    {
+        return $this->secciones;
+    }
+    
+    public function __toString() {
+        return $this->modModulo;
     }
 }

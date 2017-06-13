@@ -1,0 +1,28 @@
+modulos_index:
+    path:     /
+    defaults: { _controller: "AdminBundle:Modulos:index" }
+    methods:  GET
+
+modulos_show:
+    path:     /{id}/show
+    defaults: { _controller: "AdminBundle:Modulos:show" }
+    methods:  GET
+
+modulos_new:
+    path:     /new
+    defaults: { _controller: "AdminBundle:Modulos:new" }
+    methods:  [GET, POST]
+
+modulos_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdminBundle:Modulos:edit" }
+    methods:  [GET, POST]
+
+modulos_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdminBundle:Modulos:delete" }
+    methods:  DELETE
+    
+modulos_delete_from_list:
+    path:     /list/delete/country
+    defaults: { _controller: "AdminBundle:Modulos:deleteCustom" }

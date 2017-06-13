@@ -53,11 +53,8 @@ AppBundle\Entity\EavModSeccion:
     manyToOne:
         modulos:
             targetEntity: Modulo
-            cascade: {  }
-            fetch: LAZY
-            inversedBy: null
-            joinColumns:
-                mod_secc_mod_id:
-                    referencedColumnName: mod_id
-            orphanRemoval: false
+            inversedBy: secciones
+            joinColumn:
+                name: mod_secc_mod_id
+                referencedColumnName: mod_id
     lifecycleCallbacks: {  }
