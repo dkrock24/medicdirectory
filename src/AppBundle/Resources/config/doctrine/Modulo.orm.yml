@@ -67,9 +67,9 @@ AppBundle\Entity\Modulo:
                 mod_esp_id:
                     referencedColumnName: esp_id
             orphanRemoval: false
-#    oneToMany:
-#        secciones:
-#            targetEntity: EavModSeccion
-#            cascade: [persist]
-#            mappedBy: modulos
+    oneToMany:
+        secciones:
+            targetEntity: EavModSeccion
+            cascade: [persist]
+            mappedBy: modSeccModId
     lifecycleCallbacks: {  }

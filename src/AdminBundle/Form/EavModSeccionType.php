@@ -6,7 +6,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-
 class EavModSeccionType extends AbstractType
 {
     /**
@@ -14,20 +13,7 @@ class EavModSeccionType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('modSeccModId')
-                ->add('modSeccSeccion', null, array(
-                    'label' => 'Nombre'
-                ))
-                ->add('modSeccOrden', null, array(
-                    'label' => 'Orden'
-                ))
-                ->add('modSeccActivo', null, array(
-                    'label' => 'Activa'
-                ))
-                ->add('modSeccFechaCrea')
-                ->add('modSeccFechaMod')
-                ->add('modulos')
-                ;
+        $builder->add('modSeccSeccion')->add('modSeccOrden')->add('modSeccActivo')->add('modSeccFechaCrea')->add('modSeccFechaMod')->add('modSeccModId');
     }
     
     /**
@@ -45,7 +31,7 @@ class EavModSeccionType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'appbundle_eavmodseccion';
+        return 'adminbundle_eavmodseccion';
     }
 
 

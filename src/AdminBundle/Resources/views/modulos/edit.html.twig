@@ -33,12 +33,13 @@
                 {{ form_row( edit_form.modActivo ) }}
                 <h4>Secciones:</h4>
                 {% for secc in secciones %}
-                    {{ form_row(edit_form.secciones.vars.prototype.modSeccSeccion, {'value': secc.modSeccSeccion}) }}
-                    {{ form_row(edit_form.secciones.vars.prototype.modSeccOrden, {'value': secc.modSeccOrden}) }}
-                    {{ form_row(edit_form.secciones.vars.prototype.modSeccActivo, {'value': secc.modSeccActivo}) }}
+                    {{ dump(secc) }}
+                    {#{{ form_start(secc, {'attr': {'name': secc.vars.value.modSeccId }}) }}
+                        {{ form_row(secc.modSeccSeccion) }}
+                        {{ form_row(secc.modSeccOrden) }}
+                        {{ form_row(secc.modSeccActivo) }}
+                    {{ form_end(secc, {'render_rest': false}) }}#}
                 {% endfor %}
-                {#<ul class="secciones" data-prototype="{{ form_row(edit_form.secciones.vars.prototype.modSeccSeccion)|e('html_attr') }} {{ form_row(edit_form.secciones.vars.prototype.modSeccOrden)|e('html_attr') }} {{ form_row(edit_form.secciones.vars.prototype.modSeccActivo)|e('html_attr') }}">#}
-                {#</ul>#}
                 <br>
                 <button type="submit" class="btn btn-success"><i class="icon-newspaper"></i>Guardar</button>
             {{ form_end(edit_form, {'render_rest': false}) }}

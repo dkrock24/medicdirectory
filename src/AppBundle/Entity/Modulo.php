@@ -18,6 +18,11 @@ class Modulo
     private $modModulo;
 
     /**
+     * @var binary
+     */
+    private $modHashCode;
+
+    /**
      * @var integer
      */
     private $modOrden;
@@ -43,10 +48,22 @@ class Modulo
     private $modActivo = true;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $secciones;
+
+    /**
      * @var \AppBundle\Entity\Especialidad
      */
     private $modEsp;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->secciones = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get modId
@@ -80,6 +97,30 @@ class Modulo
     public function getModModulo()
     {
         return $this->modModulo;
+    }
+
+    /**
+     * Set modHashCode
+     *
+     * @param binary $modHashCode
+     *
+     * @return Modulo
+     */
+    public function setModHashCode($modHashCode)
+    {
+        $this->modHashCode = $modHashCode;
+
+        return $this;
+    }
+
+    /**
+     * Get modHashCode
+     *
+     * @return binary
+     */
+    public function getModHashCode()
+    {
+        return $this->modHashCode;
     }
 
     /**
@@ -201,6 +242,46 @@ class Modulo
     {
         return $this->modActivo;
     }
+    
+    function setSecciones(\Doctrine\Common\Collections\Collection $secciones) {
+        $this->secciones = $secciones;
+    }
+
+    /**
+     * Add seccione
+     *
+     * @param \AppBundle\Entity\EavModSeccion $seccione
+     *
+     * @return Modulo
+     */
+    public function addSecciones(\AppBundle\Entity\EavModSeccion $seccione)
+    {
+//        $seccione->setModSeccModId( $this );
+        $seccione->setModSeccModId();
+        $this->secciones->add( $seccione );
+
+        return $this;
+    }
+
+    /**
+     * Remove seccione
+     *
+     * @param \AppBundle\Entity\EavModSeccion $seccione
+     */
+    public function removeSecciones(\AppBundle\Entity\EavModSeccion $seccione)
+    {
+        $this->secciones->removeElement($seccione);
+    }
+
+    /**
+     * Get secciones
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSecciones()
+    {
+        return $this->secciones;
+    }
 
     /**
      * Set modEsp
@@ -225,83 +306,10 @@ class Modulo
     {
         return $this->modEsp;
     }
-    /**
-     * @var binary
-     */
-    private $modHashCode;
-
-
-    /**
-     * Set modHashCode
-     *
-     * @param binary $modHashCode
-     *
-     * @return Modulo
-     */
-    public function setModHashCode($modHashCode)
-    {
-        $this->modHashCode = $modHashCode;
-
-        return $this;
-    }
-
-    /**
-     * Get modHashCode
-     *
-     * @return binary
-     */
-    public function getModHashCode()
-    {
-        return $this->modHashCode;
-    }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $secciones;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->secciones = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add seccione
-     *
-     * @param \AppBundle\Entity\EavModSeccion $seccione
-     *
-     * @return Modulo
-     */
-    public function addSeccione(\AppBundle\Entity\EavModSeccion $seccione)
-    {
-        $this->secciones[] = $seccione;
-
-        return $this;
-    }
-
-    /**
-     * Remove seccione
-     *
-     * @param \AppBundle\Entity\EavModSeccion $seccione
-     */
-    public function removeSeccione(\AppBundle\Entity\EavModSeccion $seccione)
-    {
-        $this->secciones->removeElement($seccione);
-    }
-
-    /**
-     * Get secciones
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getSecciones()
-    {
-        return $this->secciones;
-    }
     
     public function __toString() {
         return $this->modModulo;
     }
+    
 }
+
