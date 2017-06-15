@@ -43,7 +43,7 @@ class EavModSeccion
     private $modSeccModId;
 
 
-    /**
+        /**
      * Get modSeccId
      *
      * @return integer
@@ -196,5 +196,19 @@ class EavModSeccion
     {
         return $this->modSeccModId;
     }
+    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $modulos;
+    
+    // ...
+    public function addModulo(Modulo $modulo)
+    {
+        if (!$this->modulos->contains($modulo)) {
+            $this->modulos->add($modulo);
+        }
+    }
+    
 }
 

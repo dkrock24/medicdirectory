@@ -1,15 +1,15 @@
 {% extends "Layout/base_admin/_admin_base.html.twig" %}
 
 {% block title_page %}
-        EMR || Características del pais {{ pai.paiPais }}
+        EMR || Características del modulo {{ modulo.modModulo }}
 {% endblock %}
 
 {% block breadcrumb %}
-    {{ include('AdminBundle:pais:_breadcrumb.html.twig' )  }}
+    {{ include('AdminBundle:modulos:_breadcrumb.html.twig' )  }}
 {% endblock %} 
 
 {% block submenutop %}
-    {{ include('AdminBundle:pais:_submenu.html.twig' )  }}
+    {{ include('AdminBundle:modulos:_submenu.html.twig' )  }}
 {% endblock %}
 
 {% block body %}
@@ -30,31 +30,35 @@
                 <tbody>
                     <tr>
                         <th>Id</th>
-                        <td>{{ pai.paiId }}</td>
+                        <td>{{ modulo.modId}}</td>
                     </tr>
                     <tr>
-                        <th>País</th>
-                        <td>{{ pai.paiPais }}</td>
+                        <th>Modulo</th>
+                        <td>{{ modulo.modModulo }}</td>
                     </tr>
                     <tr>
-                        <th>Código</th>
-                        <td>{{ pai.paiCodigo }}</td>
+                        <th>Orden</th>
+                        <td>{{ modulo.modOrden }}</td>
                     </tr>
                     <tr>
-                        <th>Abreviatura</th>
-                        <td>{{ pai.paiAbreviatura }}</td>
+                        <th>Costo</th>
+                        <td>{{ modulo.modCosto }}</td>
+                    </tr>
+                    <tr>
+                        <th>Especialidad</th>
+                        <td>{{ modulo.modEsp.espEspecialidad }}</td>
                     </tr>
                     <tr>
                         <th>Fecha Creación</th>
-                        <td>{% if pai.paiFechaCrea %}{{ pai.paiFechaCrea|date('Y-m-d H:i:s') }}{% endif %}</td>
+                        <td>{% if modulo.modFechaCrea %}{{ modulo.modFechaCrea|date('Y-m-d H:i:s') }}{% endif %}</td>
                     </tr>
                     <tr>
                         <th>Fecha Actualizado</th>
-                        <td>{% if pai.paiFechaMod %}{{ pai.paiFechaMod|date('Y-m-d H:i:s') }}{% endif %}</td>
+                        <td>{% if modulo.modFechaMod %}{{ modulo.modFechaMod|date('Y-m-d H:i:s') }}{% endif %}</td>
                     </tr>
                     <tr>
                         <th>Activo</th>
-                        <td>{% if pai.paiActivo %}<span class="label label-success">Si</span>{% else %}<span class="label label-danger">No</span>{% endif %}</td>
+                        <td>{% if modulo.modActivo %}<span class="label label-success">Si</span>{% else %}<span class="label label-danger">No</span>{% endif %}</td>
                     </tr>
                 </tbody>
             </table>
@@ -65,13 +69,13 @@
                                    
     <ul class="list-inline">
         <li>
-            <a href="{{ path('pais_index') }}" class="btn btn-info"><i class="fa fa-list"></i> Listar</a>
+            <a href="{{ path('modulos_index') }}" class="btn btn-info"><i class="fa fa-list"></i> Listar</a>
         </li>
         <li>
-            <a href="{{ path('pais_new') }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Nuevo</a>
+            <a href="{{ path('modulos_new') }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Nuevo</a>
         </li>
         <li>
-            <a href="{{ path('pais_edit', { 'id': pai.paiId }) }}" class="btn bg-teal-400"><i class="fa fa-edit"></i> Editar</a>
+            <a href="{{ path('modulos_edit', { 'id': modulo.modId }) }}" class="btn bg-teal-400"><i class="fa fa-edit"></i> Editar</a>
         </li>
         <li>
             {{ form_start(delete_form) }}

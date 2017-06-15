@@ -111,7 +111,7 @@
             function sendAjax(id) {
                 $("#holder_loading").show(); 
                 $.ajax({
-		            type: "post",
+                    type: "post",
                     url: "{{ path('modulos_delete_from_list') }}",
                     data: {id:id},
                     error: function (data) {
@@ -143,13 +143,13 @@
                             $.alert({
                                 icon: 'fa fa-check-circle',
                                 title: 'Ok!',
-                                content: 'El registro fue eliminado con éxito',
+                                content: 'El registro fue desactivado con éxito',
                                 type: 'green',
                                 typeAnimated: true,
                             });
                             
                             //$("#tr_"+id).remove();
-                            table.row("#tr_"+id).remove().draw( false );
+                            {#table.row("#tr_"+id).remove().draw( false );#}
                         }
                         else
                         {
@@ -157,7 +157,7 @@
                             $.alert({
                                 icon: 'fa fa-remove',
                                 title: 'Error!',
-                                content: 'No se ha podido eliminar el regístro <br>'+infoError,
+                                content: 'No se ha podido desactivar el regístro <br>'+infoError,
                                 type: 'red',
                                 typeAnimated: true,
                             });

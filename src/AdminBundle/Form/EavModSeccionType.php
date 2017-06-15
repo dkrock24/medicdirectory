@@ -13,7 +13,9 @@ class EavModSeccionType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('modSeccSeccion')->add('modSeccOrden')->add('modSeccActivo')->add('modSeccFechaCrea')->add('modSeccFechaMod')->add('modSeccModId');
+        $builder->add('modSeccSeccion')->add('modSeccOrden')->add('modSeccActivo')
+                //->add('modSeccFechaCrea')->add('modSeccFechaMod')
+                ->add('modSeccModId');
     }
     
     /**

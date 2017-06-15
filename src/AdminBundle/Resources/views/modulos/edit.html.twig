@@ -32,16 +32,20 @@
                 {{ form_row( edit_form.modCosto ) }}
                 {{ form_row( edit_form.modActivo ) }}
                 <h4>Secciones:</h4>
-                {% for secc in secciones %}
-                    {{ dump(secc) }}
-                    {#{{ form_start(secc, {'attr': {'name': secc.vars.value.modSeccId }}) }}
-                        {{ form_row(secc.modSeccSeccion) }}
-                        {{ form_row(secc.modSeccOrden) }}
-                        {{ form_row(secc.modSeccActivo) }}
-                    {{ form_end(secc, {'render_rest': false}) }}#}
-                {% endfor %}
+                {#{{ dump(edit_form.secciones.0) }}#}
+                 {#{{ form_row( edit_form.secciones ) }}#}
+                <ul class="secciones">
+                    {% for secc in edit_form.secciones %}
+                        <li>
+                            {{ form_row( secc.modSeccSeccion ) }}
+                            {{ form_row( secc.modSeccOrden ) }}
+                            {{ form_row( secc.modSeccActivo ) }}
+                        </li>
+                    {% endfor %} 
+                </ul>
                 <br>
                 <button type="submit" class="btn btn-success"><i class="icon-newspaper"></i>Guardar</button>
+                {{ form_row(edit_form._token) }}
             {{ form_end(edit_form, {'render_rest': false}) }}
             <hr>    
         </div>
@@ -53,11 +57,11 @@
         <li>
             <a href="{{ path('modulos_new') }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Nuevo</a>
         </li>
-        <li>
+        {#<li>
             {{ form_start(delete_form) }}
                 <button type="submit" class="btn btn-danger"><i class="fa fa-remove"></i> Eliminar</button>
             {{ form_end(delete_form) }}
-        </li>
+        </li>#}
     </ul>
 {% endblock %}
 

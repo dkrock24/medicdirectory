@@ -256,8 +256,7 @@ class Modulo
      */
     public function addSecciones(\AppBundle\Entity\EavModSeccion $seccione)
     {
-//        $seccione->setModSeccModId( $this );
-        $seccione->setModSeccModId();
+        $seccione->addModulo( $this );
         $this->secciones->add( $seccione );
 
         return $this;
