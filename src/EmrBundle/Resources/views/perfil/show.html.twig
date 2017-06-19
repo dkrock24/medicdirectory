@@ -54,6 +54,9 @@
             </div>
         </div>
 
+        
+
+        
     </div>        
     <div class="row">
         <form method="post" id="formulario" enctype="multipart/form-data"> 
@@ -74,8 +77,9 @@
                             <ul class="nav nav-tabs nav-tabs-highlight " role="tablist">
                                 <li role="presentation" class="active"><a href="#personal_date" aria-controls="home" role="tab" data-toggle="tab"><i class="fa fa-list-alt"></i> Datos personales</a></li>
                                 <li role="presentation"><a href="#address" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-address-book-o" aria-hidden="true"></i> Mi Perfil</a></li>
-                                <!--<li role="presentation"><a href="#phones" aria-controls="messages" role="tab" data-toggle="tab"></a></li>-->
-                                <li role="presentation"><a href="#picture" aria-controls="settings" role="tab" data-toggle="tab"><i class="fa fa-file-image-o"></i> Fotografía</a></li>
+                                {% if roles.2 is defined %} {# 2 = Rol Medico #}
+                                    <li role="presentation"><a href="#picture" aria-controls="settings" role="tab" data-toggle="tab"><i class="fa fa-file-image-o"></i> Fotografía</a></li>
+                                {% endif %}
                             </ul>
                             <!-- Tab panes -->
                             <div class="tab-content">
@@ -132,31 +136,34 @@
                                                         </div>
                                                     </div>    
                                                 </div>
+                                                {% if roles.2 is defined %}        
+                                                    <div class="row">
 
-                                                <div class="row">
-
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <div class="form_error"></div>
-                                                            <label for="" class=" control-label">Título:</label>
-                                                            <div class="">
-                                                                <select id="title" class="select">
-                                                                    <option value="Dr.">Dr.</option>
-                                                                    <option value="Dra.">Dra.</option>
-                                                                    <option value="Lcdo.">Lcdo.</option>
-                                                                    <option value="Lcda.">Lcda.</option>
-                                                                </select>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <div class="form_error"></div>
+                                                                <label for="" class=" control-label">Título:</label>
+                                                                <div class="">
+                                                                    <select id="title" class="select">
+                                                                        <option value="Dr.">Dr.</option>
+                                                                        <option value="Dra.">Dra.</option>
+                                                                        <option value="Lcdo.">Lcdo.</option>
+                                                                        <option value="Lcda.">Lcda.</option>
+                                                                    </select>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                    </div>    
+                                                        </div>    
 
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                            
+                                            {% if roles.2 is defined %}   
+                                                <div class="col-lg-6">
+                                                     <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">Mi Horario</div>
+                                                    <div id="scheduleWeekly"></div>
                                                 </div>
-
-                                            </div>
-                                            <div class="col-lg-6">
-                                                 <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">Mi Horario</div>
-                                                <div id="scheduleWeekly"></div>
-                                            </div>
+                                            {% endif %}
                                         </div>  
 
                                     </fieldset>
@@ -167,92 +174,94 @@
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">Información de contacto</div>
-                                                <div class="row">
-                                                    <div class="col-lg-12">
-                                                    <div class="panel panel-body border-top-primary">
+                                                {% if roles.2 is defined %}   
                                                     <div class="row">
                                                         <div class="col-lg-12">
-                                                            <div class="form-group">
-                                                                <div class="form_error"></div>
-                                                                <label for="" class=" control-label">Dirección:</label>
-                                                                <div class=""><input type="text" class="form-control" id="addressUser" value="{{ user[0].cli_usu_direccion }}"></div>
-                                                            </div>
-                                                        </div> 
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="p">
-                                                            <div class="col-lg-6">
+                                                        <div class="panel panel-body border-top-primary">
+                                                        <div class="row">
+                                                            <div class="col-lg-12">
                                                                 <div class="form-group">
                                                                     <div class="form_error"></div>
-                                                                    <label for="" class=" control-label">Teléfono Establecimiento:</label>
-                                                                    <div class=""><input type="text" class="form-control" id="phone" value="{{ user[0].cli_usu_telefono }}"></div>
+                                                                    <label for="" class=" control-label">Dirección:</label>
+                                                                    <div class=""><input type="text" class="form-control" id="addressUser" value="{{ user[0].cli_usu_direccion }}"></div>
                                                                 </div>
-                                                            </div>
-                                                            <div class="col-lg-6">
-                                                                <div class="form-group">
-                                                                    <div class="form_error"></div>
-                                                                    <label for="" class=" control-label">Correo electronico:</label>
-                                                                    <div class=""><input type="text" class="form-control" id="email" value="{{ user[0].cli_usu_correo }}"></div>
+                                                            </div> 
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="p">
+                                                                <div class="col-lg-6">
+                                                                    <div class="form-group">
+                                                                        <div class="form_error"></div>
+                                                                        <label for="" class=" control-label">Teléfono Establecimiento:</label>
+                                                                        <div class=""><input type="text" class="form-control" id="phone" value="{{ user[0].cli_usu_telefono }}"></div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <div class="form-group">
+                                                                        <div class="form_error"></div>
+                                                                        <label for="" class=" control-label">Correo electronico:</label>
+                                                                        <div class=""><input type="text" class="form-control" id="email" value="{{ user[0].cli_usu_correo }}"></div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        </div>
+                                                        </div>
                                                     </div>
-                                                    </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-lg-12">
-                                                        <div class="panel panel-body border-top-primary ">
-                                                            <div class="form-horizontal">
-                                                                <div class="form-group">
-                                                                  <label for="inputEmail3" class="col-sm-2 control-label">Sitio web:</label>
-                                                                  <div class="col-sm-10">
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <div class="panel panel-body border-top-primary ">
+                                                                <div class="form-horizontal">
+                                                                    <div class="form-group">
+                                                                      <label for="inputEmail3" class="col-sm-2 control-label">Sitio web:</label>
+                                                                      <div class="col-sm-10">
 
-                                                                    <select class="form-control" id="social-network-list" class="select">
-                                                                        {% for social in socials %}
-                                                                            <option value="{{ social.idSocRed }}">{{ social.SocRedNombre }}</option>
-                                                                        {% endfor %}
-                                                                    </select>
-                                                                  </div>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                  <label for="inputPassword3" class="col-sm-2 control-label">Url:</label>
-                                                                  <div class="col-sm-10">
-                                                                    <input type="text" class="form-control" id="url" placeholder="Url">
-                                                                  </div>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                  <div class="col-sm-offset-2 col-sm-10 ">
-                                                                    <span  class="btn btn-default" id="btn-add-social-network">Agregar</span>
-                                                                  </div>
-                                                                </div>
-                                                                    <div id="socialList">
-                                                                        <div class="table-responsive">
-                                                                            <table class="table table-striped" id="table-social-network">
-                                                                                <thead>
-                                                                                    <tr>
-                                                                                        <th>Tipo</th>
-                                                                                        <th>Url</th>
-                                                                                        <th></th>
-                                                                                    </tr>
-                                                                                </thead>
-                                                                                <tbody>
-                                                                                    {% for network in networkSelected %}
-                                                                                        <tr id="{{ network.idSocialRed.idSocRed }}">
-                                                                                            <td>{{ network.idSocialRed.socRedNombre }}</td>
-                                                                                            <td>{{ network.usuSocUrl }}</td>
-                                                                                            <td><button class="btn btn-danger btn-sm removeNetwork">x</button></td>
+                                                                        <select class="form-control" id="social-network-list" class="select">
+                                                                            {% for social in socials %}
+                                                                                <option value="{{ social.idSocRed }}">{{ social.SocRedNombre }}</option>
+                                                                            {% endfor %}
+                                                                        </select>
+                                                                      </div>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                      <label for="inputPassword3" class="col-sm-2 control-label">Url:</label>
+                                                                      <div class="col-sm-10">
+                                                                        <input type="text" class="form-control" id="url" placeholder="Url">
+                                                                      </div>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                      <div class="col-sm-offset-2 col-sm-10 ">
+                                                                        <span  class="btn btn-default" id="btn-add-social-network">Agregar</span>
+                                                                      </div>
+                                                                    </div>
+                                                                        <div id="socialList">
+                                                                            <div class="table-responsive">
+                                                                                <table class="table table-striped" id="table-social-network">
+                                                                                    <thead>
+                                                                                        <tr>
+                                                                                            <th>Tipo</th>
+                                                                                            <th>Url</th>
+                                                                                            <th></th>
                                                                                         </tr>
-                                                                                    {% endfor %}    
+                                                                                    </thead>
+                                                                                    <tbody>
+                                                                                        {% for network in networkSelected %}
+                                                                                            <tr id="{{ network.idSocialRed.idSocRed }}">
+                                                                                                <td>{{ network.idSocialRed.socRedNombre }}</td>
+                                                                                                <td>{{ network.usuSocUrl }}</td>
+                                                                                                <td><button class="btn btn-danger btn-sm removeNetwork">x</button></td>
+                                                                                            </tr>
+                                                                                        {% endfor %}    
 
-                                                                                </tbody> 
-                                                                            </table>
-                                                                        </div>
-                                                                    </div>    
-                                                              </div>
-                                                        </div>    
+                                                                                    </tbody> 
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>    
+                                                                  </div>
+                                                            </div>    
+                                                        </div>
                                                     </div>
-                                                </div>                   
+                                                {% endif %}                                    
                                                 <div class="row">
                                                     <div class="col-lg-12">
                                                         <div class="panel panel-body border-top-primary ">
@@ -293,47 +302,49 @@
 
 
                                             </div>
-                                            <div class="col-md-8">
-                                                <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">Experiencia Médica</div>
-                                                <div class="row">
-                                                    <div class="col-lg-12">
-                                                        <div class="panel panel-body border-top-primary ">
-                                                            <div class="form-group">
-                                                                <div class="form_error"></div>
-                                                                <label for="" class=" control-label">Mis especialidades:</label>
-                                                                <div class="">
-                                                                    <select id="specialitiesList" class="select" multiple>
-                                                                        {% for speciality in specialities %}
-                                                                            {% if speciality.EspId in specialitiesSelected %}
-                                                                                <option value="{{ speciality.EspId }}" selected="selected">{{ speciality.EspEspecialidad }}</option>
-                                                                            {% else %}
-                                                                                <option value="{{ speciality.EspId }}" >{{ speciality.EspEspecialidad }}</option>
-                                                                            {% endif %}    
+                                            {% if roles.2 is defined %}    
+                                                <div class="col-md-8">
+                                                    <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">Experiencia Médica</div>
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <div class="panel panel-body border-top-primary ">
+                                                                <div class="form-group">
+                                                                    <div class="form_error"></div>
+                                                                    <label for="" class=" control-label">Mis especialidades:</label>
+                                                                    <div class="">
+                                                                        <select id="specialitiesList" class="select" multiple>
+                                                                            {% for speciality in specialities %}
+                                                                                {% if speciality.EspId in specialitiesSelected %}
+                                                                                    <option value="{{ speciality.EspId }}" selected="selected">{{ speciality.EspEspecialidad }}</option>
+                                                                                {% else %}
+                                                                                    <option value="{{ speciality.EspId }}" >{{ speciality.EspEspecialidad }}</option>
+                                                                                {% endif %}    
 
-                                                                        {% endfor %}
+                                                                            {% endfor %}
 
-                                                                    </select>
+                                                                        </select>
 
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                    </div> 
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-lg-12">
-                                                        <div class="panel panel-body border-top-primary">
-                                                            <div class="form-group">
-                                                                <label for="" class=" control-label">Estudios/Experiencia Laboral/Cargos/Congreso/Etc</label>
-                                                                <div class="">
-                                                                    <textarea cols="18" rows="18" id="profile_info" class="wysihtml5 wysihtml5-default form-control" placeholder="Describa su perfil..." style="height: 500px">
-                                                                        {{ user[0].cli_usu_info_perfil }}
-                                                                    </textarea>
+                                                        </div> 
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <div class="panel panel-body border-top-primary">
+                                                                <div class="form-group">
+                                                                    <label for="" class=" control-label">Estudios/Experiencia Laboral/Cargos/Congreso/Etc</label>
+                                                                    <div class="">
+                                                                        <textarea cols="18" rows="18" id="profile_info" class="wysihtml5 wysihtml5-default form-control" placeholder="Describa su perfil..." style="height: 500px">
+                                                                            {{ user[0].cli_usu_info_perfil }}
+                                                                        </textarea>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>       
+                                                </div> 
+                                            {% endif %}                        
                                         </div>
 
                                     </fieldset>

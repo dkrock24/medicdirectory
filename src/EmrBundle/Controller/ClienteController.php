@@ -169,6 +169,7 @@ class ClienteController extends Controller
      */
     public function editAction(Request $request, Cliente $cliente)
     {
+		
 
 		$securityContext = $this->container->get('security.authorization_checker');
 		if ($securityContext->isGranted('IS_AUTHENTICATED_FULLY'))
@@ -244,7 +245,7 @@ class ClienteController extends Controller
 								FROM cliente_usuario cu
 								INNER JOIN usuario u ON u.usu_id = cu.cli_usu_usu_id
 								
-								WHERE cu.cli_usu_cli_id  =:client AND cu.cli_usu_rol_id != 2
+								WHERE cu.cli_usu_cli_id  =:client AND cu.cli_usu_rol_id != 2 AND cu.cli_usu_activo = 1
 								#GROUP BY cu.cli_usu_rol_id";				
 			$statement = $em->getConnection()->prepare($RAW_QUERY);
 			$statement->bindValue("client", $cliente->getCliId() );
@@ -389,9 +390,9 @@ class ClienteController extends Controller
 			{
 				$available = 0; //in not available
 				
-				$email = $result[0]['usu_correo'];
+				$email = "";//$result[0]['usu_correo'];
 				$gender = $result[0]['usu_genero'];
-				$email =  $this->hide_mail( $email );
+				//$email =  $this->hide_mail( $email );
 			}
 			
 			
@@ -505,11 +506,13 @@ class ClienteController extends Controller
 		$em->getConnection()->beginTransaction(); // suspend auto-commit
 		try
 		{
+			//================================================================================================================
+			// Starts client register
+			//================================================================================================================
 			if (isset($clientId) && $clientId > 0) {
 				$client = $em->getRepository('AppBundle:Cliente')->find($clientId);
 			} else {
 				$client = new Cliente();
-				
 			}
 
 			$oMunicipality = $em->getRepository('AppBundle:Municipio')->find($municipality);
@@ -543,8 +546,7 @@ class ClienteController extends Controller
 				}
 				
 			}
-			
-			$client->setCliFechaRegistro(new \Datetime());
+			$client->setCliFechaRegistro(new \Datetime() );
 			$client->setCliFechaCrea(new \Datetime() );
 				
 			//Save all $specialities to this establashment
@@ -564,14 +566,17 @@ class ClienteController extends Controller
 					$client->addIdEspecialidad($spe_repo);
 				}
 			}
-				
 			$em->persist($client);
 			$flush = $em->flush();
 			$lastClient = $client->getCliId();
+			//================================================================================================================
+			// Ends client register
+			//================================================================================================================
+			
 				
-			//========================================
+			//================================================================================================================
 			//Save presenter's data as user in table usuario
-			//========================================
+			//================================================================================================================
 			if (isset($clientId) && $clientId > 0) 
 			{
 				$oRepresenter = $em->getRepository('AppBundle:Usuario')->findOneBy( array( "usuUsuario"=>$representerUser ) );
@@ -600,53 +605,50 @@ class ClienteController extends Controller
 				else
 				{
 					$oRepresenter->setUsuClave( sha1($representerPass) );
+
 				}
+				
+				
 				//$oRepresenter->setUsuClave( sha1($representerPass) );
 			}
-			//$oRepresenter->setUsuCorreo($representerEmail);
-			$oRepresenter->setUsuGenero($representerGender);
-			$oRepresenter->setUsuUsuario($representerUser);
-			//$oRepresenter->setUsuNombre($representerName);
 			
+			
+			$oRepresenter->setUsuGenero($representerGender);
+			$oRepresenter->setUsuUsuario($representerUser);			
 			$oRepresenter->setUsuNombre($representerNameOne);
 			$oRepresenter->setUsuSegundoNombre($representerNameTwo);
 			$oRepresenter->setUsuTercerNombre($representerNameThree);
 			$oRepresenter->setUsuPrimerApellido($representerLastNameOne);
 			$oRepresenter->setUsuSegundoApellido($representerLastNameTwo);
-			//$oRepresenter->setCliUsuFechaRegistro( new \DateTime() );
-			
-			//$oRepresenter->setUsuFechaRegistro(new \Datetime());
-			//$oRepresenter->setUsuFechaCrea(new \Datetime());
-			//$oRepresenter->setUsuFechaNacimiento( new \DateTime($representerBirthDate) );
+
 			
 			if (isset($clientId) && $clientId > 0) 
 			{
-				$RAW_QUERY = "SELECT cu.cli_usu_rol_id FROM cliente_usuario cu 
+				$RAW_QUERY = "SELECT cu.cli_usu_rol_id, cu.cli_usu_rol_id as iduser, u.usu_usuario  FROM cliente_usuario cu 
 								inner join usuario u on u.usu_id = cu.cli_usu_usu_id
-								WHERE cu.cli_usu_cli_id =:client
-							"; //5 = Cliente( Representante )
+								WHERE cu.cli_usu_cli_id =:client AND cu.cli_usu_rol_id != 2
+							"; // 2 = cliente = representante
 					$statement = $em->getConnection()->prepare($RAW_QUERY);
 					$statement->bindValue("client", $clientId );
 					$statement->execute();
 					$getUserList = $statement->fetchAll();
-				$deleteList = array();
+				//$deleteList = array();
+				$userListDB = array();
 				if( count($getUserList) )
 				{
 					foreach($getUserList as $k)
 					{
-						array_push($deleteList, $k['cli_usu_rol_id']);
+						array_push($userListDB, $k['usu_usuario']);
 					}
-					
-					if( count($deleteList) )
-					{
-						$RAW_QUERY = "delete from cliente_usuario where cli_usu_usu_id in (".  implode(",", $deleteList).") AND cli_usu_cli_id =  $clientId "; //2 = Cliente( Representante )
-						$statement = $em->getConnection()->prepare($RAW_QUERY);
-						$statement->execute();
-					}
+					/*
+						if( count($deleteList) )
+						{
+							$RAW_QUERY = "delete from cliente_usuario where cli_usu_usu_id in (".  implode(",", $deleteList).") AND cli_usu_cli_id =  $clientId "; //2 = Cliente( Representante )
+							$statement = $em->getConnection()->prepare($RAW_QUERY);
+							$statement->execute();
+						}
+					*/
 				}
-				//var_dump( $deleteList );
-				//echo implode(",", $deleteList);
-				//exit("v");
 			}
 			
 			$em->persist($oRepresenter);
@@ -654,34 +656,72 @@ class ClienteController extends Controller
 			$lastRepresenter = $oRepresenter->getUsuId();	
 			
 			$role_representer_repo = $em->getRepository('AppBundle:Rol')->find(2); //2 = Cliente( Representante )
-			//$oRepresenter->addIdRol($role_representer_repo); 
 
 			$client_repo = $em->getRepository('AppBundle:Cliente')->find($lastClient); // = Cliente( Representante )
-			//echo $lastRepresenter;
+	
 			$representer_repo = $em->getRepository("AppBundle:Usuario")->find($lastRepresenter);
 			
-			
+			/*
 			if (isset($clientId) && $clientId > 0) 
 			{
 				$RAW_QUERY = "delete from cliente_usuario where cli_usu_cli_id = $clientId ";
 				$statement = $em->getConnection()->prepare($RAW_QUERY);
 				$statement->execute();
 			}
+			*/
 			
-			//$lastRepresenter = $objUserRol->getUsuId();
-			$objUserRol = new ClienteUsuario();
-			$objUserRol->setCliUsuUsu($representer_repo); //setUsuRolUsuarios(  $representer_repo );
-			$objUserRol->setCliUsuCli($client_repo);
-			$objUserRol->setCliUsuRol( $role_representer_repo );
-			$objUserRol->setCliUsuFechaNacimiento( new \DateTime($representerBirthDate) );
-			$objUserRol->setCliUsuFechaRegistro(new \Datetime());
-			$objUserRol->setCliUsuCorreo($representerEmail);
-			$objUserRol->setCliUsuFechaCrea( new \DateTime() );
+			//Check if exist the representer in table cliente_usuario
+			$resUserRepresenter =  $this->checkExistUser($representerUser);
+			if( $resUserRepresenter )
+			{
+				if( count($resUserRepresenter) > 0 )
+				{
+					$resUserRepresenter->getUsuId();
+					
+					$objUserRol = $em->getRepository("AppBundle:ClienteUsuario")->findOneBy( array( "cliUsuUsu"=> $resUserRepresenter->getUsuId(), "cliUsuRol"=>2 ) );
+					
+					if( !$objUserRol )
+					{
+						$objUserRol = new ClienteUsuario();
+					}
+				}
+				else
+				{
+					$objUserRol = new ClienteUsuario();
+				}
+				
+				//Send email notification
+				if( !empty($representerPass) )
+				{	
+					if (isset($clientId) && $clientId > 0)
+					{
+						//Send email notification to representer
+						$this->sendMessage("cambio_password", $representerUser, $representerPass, $to=$representerEmail,$trom=false);
+					}
+					else
+					{
+						//Send email notification to representer
+						$this->sendMessage("nuevo_usuario", $representerUser, $representerPass, $to=$representerEmail,$trom=false);
+					}
+				}
+				$objUserRol->setCliUsuUsu($representer_repo); //setUsuRolUsuarios(  $representer_repo );
+				$objUserRol->setCliUsuCli($client_repo);
+				$objUserRol->setCliUsuRol( $role_representer_repo );
+				$objUserRol->setCliUsuFechaNacimiento( new \DateTime($representerBirthDate) );
+				$objUserRol->setCliUsuFechaRegistro(new \Datetime());
+				$objUserRol->setCliUsuCorreo($representerEmail);
+				$objUserRol->setCliUsuFechaCrea( new \DateTime() );
+
+				$em->persist($objUserRol);
+				$flush = $em->flush();
+			}
 			
-			$em->persist($objUserRol);
-			$flush = $em->flush();
+			
+			
+			
 				
 			//Save all users related for this location establishment
+			$currentList = array();
 			if( count($locationListUsers) > 0 )
 			{
 				
@@ -693,21 +733,16 @@ class ClienteController extends Controller
 						//========================================
 						//Save all users except the representer 
 						//========================================
-						//if (isset($clientId) && $clientId > 0)
-						//{
-							//Check if exists or is new in module edit, if not exists then the represented added a new user
-							$user = $em->getRepository('AppBundle:Usuario')->findOneBy( array( "usuUsuario"=>$locationListUsers[$i]['username'] ) );
-							if( !$user )
-							{
-								$user = new Usuario();
-							}
-						//}
-						//else
-						//{
-							//echo "aqui";
-							//$user = new Usuario();
-						//} 
-						//$user = new Usuario();
+
+						//Check if exists or is new in module edit, if not exists then the represented added a new user
+						$is_new = false;
+						$user = $em->getRepository('AppBundle:Usuario')->findOneBy( array( "usuUsuario"=>$locationListUsers[$i]['username'] ) );
+						if( !$user )
+						{
+							$user = new Usuario();
+							$is_new = true;
+						}
+
 						if( isset($locationListUsers[$i]['nameone']) && !empty($locationListUsers[$i]['nameone']) )
 						{
 							$user->setUsuNombre($locationListUsers[$i]['nameone']);
@@ -729,12 +764,6 @@ class ClienteController extends Controller
 							$user->setUsuSegundoApellido($locationListUsers[$i]['lastnametwo']);
 						}
 	
-						/*	
-						if( isset($locationListUsers[$i]['name']) && !empty($locationListUsers[$i]['name']) )
-						{
-							$user->setUsuNombre( $locationListUsers[$i]['name']);
-						}
-						*/
 						$user->setUsuUsuario($locationListUsers[$i]['username']);
 						
 						if( isset($locationListUsers[$i]['password']) && !empty($locationListUsers[$i]['password']) )
@@ -742,41 +771,95 @@ class ClienteController extends Controller
 							$user->setUsuClave( sha1($locationListUsers[$i]['password']) );
 						}
 
-						
-						
 						$user->setUsuGenero($locationListUsers[$i]['gender']);
-						//$user->setUsuFechaRegistro(new \Datetime());
-						//$user->setUsuFechaCrea(new \Datetime());
-						
 						$role_repo = $em->getRepository('AppBundle:Rol')->find($locationListUsers[$i]['typeUser']);
-						//$user->addIdRol($role_repo);
 						$em->persist($user);
 						$flush = $em->flush();
+						
+						
 
 						$lastUser = $user->getUsuId();
 						
 						$user_repo = $em->getRepository('AppBundle:Usuario')->find( $lastUser );
 						
-						$objUserRol = new ClienteUsuario();
-						/*
-						$objUserRol->setUrolCliId( $client_repo ); // cliente 
-						$objUserRol->setUrolUsuId( $user_repo ); //user
-						$objUserRol->setUrolRolId( $role_repo ); //role
-						*/						
-						$objUserRol->setCliUsuCorreo($locationListUsers[$i]['email']);
-						$objUserRol->setCliUsuUsu($user_repo); //setUsuRolUsuarios(  $representer_repo );
-						$objUserRol->setCliUsuCli($client_repo);
-						$objUserRol->setCliUsuRol( $role_repo );
-						$objUserRol->setCliUsuFechaRegistro(new \Datetime());
-						$objUserRol->setCliUsuFechaCrea( new \DateTime() );
 						
-						if( isset($locationListUsers[$i]['email']) && !empty($locationListUsers[$i]['email']) )
-						{
-							$objUserRol->setCliUsuCorreo( $locationListUsers[$i]['email'] );
+						//$locationListUsers[$i]['username']
+						$resUserLocation =  $this->checkExistUser($locationListUsers[$i]['username']);
+						if( $resUserLocation  )
+						{	
+							if( count($resUserLocation) > 0 )
+							{
+								$resUserLocation->getUsuId();
+
+								$objUserRol = $em->getRepository("AppBundle:ClienteUsuario")->findOneBy( array( "cliUsuUsu"=> $resUserLocation->getUsuId(), "cliUsuRol"=>array(3, 6) ) ); //3= asistente, 6 = medico
+
+								if( !$objUserRol )
+								{
+									$objUserRol = new ClienteUsuario();
+								}
+							}
+							else
+							{
+								$objUserRol = new ClienteUsuario();
+							}
+
+							$objUserRol->setCliUsuCorreo($locationListUsers[$i]['email']);
+							$objUserRol->setCliUsuUsu($user_repo); //setUsuRolUsuarios(  $representer_repo );
+							$objUserRol->setCliUsuCli($client_repo);
+							$objUserRol->setCliUsuRol( $role_repo );
+							$objUserRol->setCliUsuFechaRegistro(new \Datetime());
+							$objUserRol->setCliUsuFechaCrea( new \DateTime() );
+
+							if( isset($locationListUsers[$i]['email']) && !empty($locationListUsers[$i]['email']) )
+							{
+								$objUserRol->setCliUsuCorreo( $locationListUsers[$i]['email'] );
+							}
+							
+							$em->persist($objUserRol);
+							$flush = $em->flush();
+							
+							if( !empty($locationListUsers[$i]['password']) )
+							{
+								if (isset($clientId) && $clientId > 0)
+								{
+									//Send email notification to representer
+									if( !empty($locationListUsers[$i]['email']) )
+									{
+										if( $is_new == true)
+										{
+											$templateEmail = "nuevo_usuario";
+										}
+										else
+										{
+											$templateEmail = "cambio_password";
+										}
+										$this->sendMessage($templateEmail, $locationListUsers[$i]['username'], $locationListUsers[$i]['password'], $to=$locationListUsers[$i]['email'], $trom=false);
+										
+									}
+								}
+								else
+								{
+									//Send email notification to representer
+									if( !empty($locationListUsers[$i]['email']) )
+									{
+										if( $is_new == true)
+										{
+											$templateEmail = "nuevo_usuario";
+										}
+										else
+										{
+											$templateEmail = "cambio_password";
+										}
+										$this->sendMessage($templateEmail, $locationListUsers[$i]['username'], $locationListUsers[$i]['password'], $to=$locationListUsers[$i]['email'], $trom=false);
+										//$this->sendMessage("nuevo_usuario", $locationListUsers[$i]['username'], $locationListUsers[$i]['password'], $to=$locationListUsers[$i]['email'], $trom=false);
+									}
+								}
+							}
+							
+							
+							$currentList[] = $locationListUsers[$i]['username'];
+							
 						}
-						
-						$em->persist($objUserRol);
-						$flush = $em->flush();
 						
 						
 					}
@@ -786,25 +869,112 @@ class ClienteController extends Controller
 						//Save all rol per users 
 						//========================================
 						$role_repo = $em->getRepository('AppBundle:Rol')->find($locationListUsers[$i]['typeUser']);
-						//$oRepresenter->addIdRol($role_repo);
 						$lastUser = $oRepresenter->getUsuId();
 						
-						
-						$objUserRol = new ClienteUsuario();
-						$objUserRol->setCliUsuUsu( $representer_repo );
-						$objUserRol->setCliUsuCli( $client_repo );
-						$objUserRol->setCliUsuRol($role_repo);
-						$objUserRol->setCliUsuFechaCrea( new \DateTime() );
-						$objUserRol->setCliUsuFechaRegistro(new \Datetime());
-						$objUserRol->setCliUsuCorreo($representerEmail);
-						$em->persist($objUserRol);
-						$flush = $em->flush();
-						
-						
+						$resUserLocation =  $this->checkExistUser($locationListUsers[$i]['username']);
+						if( $resUserLocation  )
+						{	
+							$is_new = false;
+							if( count($resUserLocation) > 0 )
+							{
+								$resUserLocation->getUsuId();
+								
+								
+								$objUserRol = $em->getRepository("AppBundle:ClienteUsuario")->findOneBy( array( "cliUsuUsu"=> $resUserLocation->getUsuId(), "cliUsuRol"=>array(3, 6) ) ); //3= asistente, 6 = medico
+
+								if( !$objUserRol )
+								{
+									
+									$objUserRol = new ClienteUsuario();
+									$is_new = true;
+								}
+							}
+							else
+							{
+								
+								$objUserRol = new ClienteUsuario();
+								$is_new = true;
+							}
+							
+							//$objUserRol = new ClienteUsuario();
+							$objUserRol->setCliUsuUsu( $representer_repo );
+							$objUserRol->setCliUsuCli( $client_repo );
+							$objUserRol->setCliUsuRol($role_repo);
+							$objUserRol->setCliUsuFechaCrea( new \DateTime() );
+							$objUserRol->setCliUsuFechaRegistro(new \Datetime());
+							$objUserRol->setCliUsuCorreo($representerEmail);
+							$em->persist($objUserRol);
+							$flush = $em->flush();
+							
+							if( !empty($locationListUsers[$i]['password']) )
+							{
+								if (isset($clientId) && $clientId > 0)
+								{
+									//Send email notification to representer
+									if( !empty($locationListUsers[$i]['email']) )
+									{
+										
+										if( $is_new == true)
+										{
+											$templateEmail = "nuevo_usuario";
+										}
+										else
+										{
+											$templateEmail = "cambio_password";
+										}
+										$this->sendMessage($templateEmail, $locationListUsers[$i]['username'], $locationListUsers[$i]['password'], $to=$locationListUsers[$i]['email'], $trom=false);
+									}
+								}
+								else
+								{
+									//Send email notification to representer
+									if( !empty($locationListUsers[$i]['email']) )
+									{
+										if( $is_new == true)
+										{
+											$templateEmail = "nuevo_usuario";
+										}
+										else
+										{
+											$templateEmail = "cambio_password";
+										}
+										$this->sendMessage($templateEmail, $locationListUsers[$i]['username'], $locationListUsers[$i]['password'], $to=$locationListUsers[$i]['email'], $trom=false);
+									}
+								}
+							}
+							
+							$currentList[] = $locationListUsers[$i]['username'];
+						}
 					}
 				}
 			}
-				
+
+			
+			if( isset($clientId) && $clientId > 0 )
+			{	
+				$result=array_diff($userListDB,$currentList);
+				//$result=array_diff($a1,$a2);
+				if( count($result) > 0 )
+				{	
+					foreach($result as $username)
+					{
+						//echo $value;
+
+						$res = $this->checkExistUser($username);
+						if( $res && count($res) > 0 )
+						{
+							$userId = $res->getUsuId();
+							$RAW_QUERY = "UPDATE cliente_usuario SET cli_usu_activo = 0 WHERE cli_usu_cli_id =  $clientId AND cli_usu_usu_id = $userId AND ( cli_usu_rol_id in ( 3, 6 ) )";
+							$statement = $em->getConnection()->prepare($RAW_QUERY);
+							$statement->execute();
+						}
+					}
+				}
+			}
+			//print_r($result);
+			/*
+			
+			*/
 			//} 
 
 			$em->getConnection()->commit();
@@ -830,4 +1000,90 @@ class ClienteController extends Controller
 		
 		exit();
 	}
+	
+	public function checkExistUser($username)
+	{
+		$em = $this->getDoctrine()->getManager();
+		$username = trim($username);
+		if( isset( $username ) && !empty($username) )
+		{
+			$user_repo = $em->getRepository('AppBundle:Usuario')->findOneBy( array( "usuUsuario" => $username) );
+			//echo $user_repo[0]->getusuId();
+			return $user_repo;
+		}
+		return false;
+	}
+	
+	
+	public function sendMessage($typeTemplate, $username, $password, $to, $trom=false)
+	{
+		
+		//if( $typeMessage )
+		//nuevo_usuario
+		if( isset($typeTemplate) && !empty($typeTemplate) )
+		{
+			$srvMail = $this->get('srv_correos');
+			$plantilla =$typeTemplate;// "nuevo_usuario";
+
+			$locationName = $this->get('session')->get('locationName');
+
+			$variables['location'] = $locationName;
+			$variables['username'] = $username;
+			$variables['password'] = $password;
+
+			$srvParameter = $this->get('srv_parameters');
+			$link_sistema = $srvParameter->getParametro("link_sistema", $default_return_value = "");
+
+			$variables['link'] = $link_sistema;
+
+			//$para = "gialvarezlopez@gmail.com";
+			$res = $srvMail->enviarCorreo ($plantilla, $variables, $to, $de = '') ;
+		}
+		
+		/*
+		// Create Transport
+        $https['ssl']['verify_peer'] = FALSE;
+        $https['ssl']['verify_peer_name'] = FALSE;
+
+        $this->transport = \Swift_SmtpTransport::newInstance('smtp.gmail.com', 587, 'tls')
+           ->setUsername("")
+           ->setPassword("")
+           ->setStreamOptions($https)
+           ;
+        // Create Mailer with our Transport.
+        $this->mailer = \Swift_Mailer::newInstance($this->transport);
+		
+		
+		$to = "gialvarezlopez@gmail.com";
+		$from = "gialvarezlopez@gmail.com";
+		$message = \Swift_Message::newInstance()
+					->setSubject('Regístro de nuevo usuario')
+					->setFrom($from)
+					->setTo('gialvarezlopez@gmail.com')
+					->setBody(
+						$this->renderView(
+							'EmrBundle:cliente:mail.html.twig',
+							array('location'=>$location, 'link'=>$link, 'username' => $username, "password"=>$password)
+						)
+					);
+
+		# Send the message
+		//$this->get('mailer')->send($message);
+		$results = $this->mailer->send($message);
+		
+		*/
+		
+	}
+	
+	/*
+	public function checkClientUsers($clientId)
+	{
+		$em = $this->getDoctrine()->getManager();
+		if( isset( $clientId ) && $clientId > 0 )
+		{
+			$client_repo = $em->getRepository('AppBundle:ClienteUsuario')->findBy( array( "cliUsuCli" => $clientId) );
+		}
+		
+	}
+	*/
 }

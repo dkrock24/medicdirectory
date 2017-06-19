@@ -7,9 +7,14 @@ services:
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    srv_parameters:
+        class: AppBundle\Services\servicioParametros
+        arguments: ["@doctrine.orm.entity_manager", "@session"]
+
     srv_uploadFile:
         class:        Services\UploadFile
         arguments:     ["@doctrine.orm.entity_manager"]
+        
     srv_session:
         class:        Services\ConfigureSession
         arguments:     ["@doctrine.orm.entity_manager", "@session"]    
@@ -18,6 +23,7 @@ services:
         class:        Services\CatalogsService
         arguments:     [ "@doctrine.orm.entity_manager" ]
         arguments:     ["@doctrine.orm.entity_manager", "@session"]
+        
     srv_patient:
         class:        Services\Patient
         arguments:     ["@doctrine.orm.entity_manager", "@session"] 

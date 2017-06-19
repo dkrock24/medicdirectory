@@ -6,7 +6,7 @@ use AppBundle\Entity\Paciente;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
-
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 
@@ -40,6 +40,8 @@ class PerfilController extends Controller
 		
 		$em = $this->getDoctrine()->getManager();
 		*/
+		
+		$roles = $this->get('session')->get('userRoles');
 		
 		$locationId = $this->get('session')->get('locationId');
 		
@@ -76,10 +78,15 @@ class PerfilController extends Controller
 		//$oClientUser = $em->getRepository('AppBundle:ClienteUsuario')->findBy( array("cliUsuCli"=>$locationId, "cliUsuUsu"=>$userId) );
 		
 		//$orderBy = " ORDER BY ". $columns[$params['order'][0]['column']]."   ".$params['order'][0]['dir']."";
-		$RAW_QUERY = "SELECT * FROM cliente_usuario cu INNER JOIN usuario u ON cu.cli_usu_usu_id = u.usu_id WHERE cu.cli_usu_cli_id = $locationId AND cu.cli_usu_usu_id = $userId and cu.cli_usu_rol_id = 2 ";
+		$RAW_QUERY = "SELECT * FROM cliente_usuario cu INNER JOIN usuario u ON cu.cli_usu_usu_id = u.usu_id WHERE cu.cli_usu_cli_id = $locationId AND cu.cli_usu_usu_id = $userId and cu.cli_usu_rol_id IN (3,6) AND cu.cli_usu_activo = 1 ";
 		$statement = $em->getConnection()->prepare($RAW_QUERY);
 		$statement->execute();
 		$oUser = $statement->fetchAll();
+		
+		if( count($oUser) == 0 )
+		{
+			throw new AccessDeniedException('Lo sentimos tu no tienes rol de médico y/o asistente o tu cuenta ya no esta activa.');
+		}
 		
 		//var_dump($oUser);
 		
@@ -131,7 +138,8 @@ class PerfilController extends Controller
 			"daysDelected"=>$daysSelected,
 			"user"=>$oUser,
 			"userGallery"=>$oUserGallery,
-			"imageType"=>$oImageType
+			"imageType"=>$oImageType,
+			"roles"=>$roles
         ));
     }
 
@@ -190,7 +198,7 @@ class PerfilController extends Controller
 			{
 				$oUser = $em->getRepository('AppBundle:Usuario')->find( $userId );
 				
-				$oClientUser = $em->getRepository('AppBundle:ClienteUsuario')->findBy( array( "cliUsuUsu"=> $userId, "cliUsuCli"=>$locationId, "cliUsuRol"=>2 ) );
+				$oClientUser = $em->getRepository('AppBundle:ClienteUsuario')->findBy( array( "cliUsuUsu"=> $userId, "cliUsuCli"=>$locationId, "cliUsuRol"=>array(3,6) ) );
 				//================
 				//Social Network
 				//================
@@ -371,6 +379,14 @@ class PerfilController extends Controller
 					
 				}
 				
+				
+				if( !empty($password) && !empty($email) )
+				{
+					$templateEmail = "cambio_password";
+					$username = $this->getUser()->getUsuUsuario();
+					$this->sendMessage($templateEmail, $username, $password, $to = $email, $trom = false);
+				}
+				
 
 				$msg = "Registro actualizado con éxito";
 				$this->session->getFlashBag()->add("success", $msg);
@@ -389,6 +405,32 @@ class PerfilController extends Controller
 		
 	}
 	
+	public function sendMessage($typeTemplate, $username, $password, $to, $trom=false)
+	{
+		
+		//if( $typeMessage )
+		//nuevo_usuario
+		if( isset($typeTemplate) && !empty($typeTemplate) )
+		{
+			$srvMail = $this->get('srv_correos');
+			$plantilla =$typeTemplate;// "nuevo_usuario";
+
+			$locationName = $this->get('session')->get('locationName');
+
+			$variables['location'] = $locationName;
+			$variables['username'] = $username;
+			$variables['password'] = $password;
+
+			$srvParameter = $this->get('srv_parameters');
+			$link_sistema = $srvParameter->getParametro("link_sistema", $default_return_value = "");
+
+			$variables['link'] = $link_sistema;
+
+			//$para = "gialvarezlopez@gmail.com";
+			$res = $srvMail->enviarCorreo ($plantilla, $variables, $to, $de = '') ;
+		}
+		
+	}
 	
 	public function savePicture($img)
 	{
