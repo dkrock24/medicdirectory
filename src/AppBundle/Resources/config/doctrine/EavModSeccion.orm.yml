@@ -16,12 +16,12 @@ AppBundle\Entity\EavModSeccion:
             generator:
                 strategy: IDENTITY
     fields:
-        modSeccModId:
-            type: integer
-            nullable: false
-            options:
-                unsigned: true
-            column: mod_secc_mod_id
+#        modSeccModId:
+#            type: integer
+#            nullable: false
+#            options:
+#                unsigned: true
+#            column: mod_secc_mod_id
         modSeccSeccion:
             type: string
             nullable: false
@@ -51,13 +51,10 @@ AppBundle\Entity\EavModSeccion:
             nullable: true
             column: mod_secc_fecha_mod
     manyToOne:
-        modulos:
+        modSeccModId:
             targetEntity: Modulo
-            cascade: {  }
-            fetch: LAZY
-            inversedBy: null
-            joinColumns:
-                mod_secc_mod_id:
-                    referencedColumnName: mod_id
-            orphanRemoval: false
+            inversedBy: secciones
+            joinColumn:
+                name: mod_secc_mod_id
+                referencedColumnName: mod_id
     lifecycleCallbacks: {  }

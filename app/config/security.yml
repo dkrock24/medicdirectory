@@ -34,8 +34,17 @@ security:
                 path: /logout
                 target: /login    
 
+        api:
+            provider: doctrine_db_provider
+            pattern: ^/api
+            anonymous: ~
+            form_login: false
+            http_basic:
+              realm: "REST Service Realm"
+
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY,  host: '^%public_domain%$' }
         - { path: ^/, roles: ROLE_USER}
         

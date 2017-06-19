@@ -5,6 +5,10 @@ login:
 logout:
    path: /logout
 
+login_api:
+    path:     /api/login
+    defaults: { _controller: AppBundle:Security:loginApi }
+
 ##########################
 
 app:

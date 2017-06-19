@@ -9,6 +9,7 @@
 namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -31,6 +32,15 @@ class SecurityController extends Controller {
                     'last_username' => $lastUsername,
                     'error' => $error,
         ));
+    }
+
+    public function loginApiAction(Request $request) {
+        $authenticationUtils = $this->get('security.authentication_utils');
+
+        // get the login error if there is one
+        $error = $authenticationUtils->getLastAuthenticationError();
+
+        return new JsonResponse(['error' => $error]);
     }
 
 }

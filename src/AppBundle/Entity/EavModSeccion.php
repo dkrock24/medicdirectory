@@ -13,11 +13,6 @@ class EavModSeccion
     private $modSeccId;
 
     /**
-     * @var integer
-     */
-    private $modSeccModId;
-
-    /**
      * @var string
      */
     private $modSeccSeccion;
@@ -28,7 +23,7 @@ class EavModSeccion
     private $modSeccOrden;
 
     /**
-     * @var integer
+     * @var boolean
      */
     private $modSeccActivo = 1;
 
@@ -45,10 +40,10 @@ class EavModSeccion
     /**
      * @var \AppBundle\Entity\Modulo
      */
-    private $modulos;
+    private $modSeccModId;
 
 
-    /**
+        /**
      * Get modSeccId
      *
      * @return integer
@@ -56,30 +51,6 @@ class EavModSeccion
     public function getModSeccId()
     {
         return $this->modSeccId;
-    }
-
-    /**
-     * Set modSeccModId
-     *
-     * @param integer $modSeccModId
-     *
-     * @return EavModSeccion
-     */
-    public function setModSeccModId($modSeccModId)
-    {
-        $this->modSeccModId = $modSeccModId;
-
-        return $this;
-    }
-
-    /**
-     * Get modSeccModId
-     *
-     * @return integer
-     */
-    public function getModSeccModId()
-    {
-        return $this->modSeccModId;
     }
 
     /**
@@ -133,7 +104,7 @@ class EavModSeccion
     /**
      * Set modSeccActivo
      *
-     * @param integer $modSeccActivo
+     * @param boolean $modSeccActivo
      *
      * @return EavModSeccion
      */
@@ -147,7 +118,7 @@ class EavModSeccion
     /**
      * Get modSeccActivo
      *
-     * @return integer
+     * @return boolean
      */
     public function getModSeccActivo()
     {
@@ -203,26 +174,41 @@ class EavModSeccion
     }
 
     /**
-     * Set modulos
+     * Set modSeccModId
      *
-     * @param \AppBundle\Entity\Modulo $modulos
+     * @param \AppBundle\Entity\Modulo $modSeccModId
      *
      * @return EavModSeccion
      */
-    public function setModulos(\AppBundle\Entity\Modulo $modulos = null)
+    public function setModSeccModId(\AppBundle\Entity\Modulo $modSeccModId = null)
     {
-        $this->modulos = $modulos;
+        $this->modSeccModId = $modSeccModId;
 
         return $this;
     }
 
     /**
-     * Get modulos
+     * Get modSeccModId
      *
      * @return \AppBundle\Entity\Modulo
      */
-    public function getModulos()
+    public function getModSeccModId()
     {
-        return $this->modulos;
+        return $this->modSeccModId;
     }
+    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $modulos;
+    
+    // ...
+    public function addModulo(Modulo $modulo)
+    {
+        if (!$this->modulos->contains($modulo)) {
+            $this->modulos->add($modulo);
+        }
+    }
+    
 }
+

@@ -1,0 +1,68 @@
+{% extends "Layout/base_admin/_admin_base.html.twig" %}
+
+{% block title_page %}
+        EMR || Formulario de edición para modulos
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('AdminBundle:modulos:_breadcrumb.html.twig' )  }}
+{% endblock %} 
+
+{% block submenutop %}
+    {{ include('AdminBundle:modulos:_submenu.html.twig' )  }}
+{% endblock %}
+
+{% block body %}
+    <h1>Editar</h1>
+    <div class="row">
+        <div class="col-lg-6">
+            
+            <!-- Check the notifications -->
+            {% for message in app.session.flashbag().get("success") %}
+                <div class="alert alert-success"><i class="fa fa-check-circle"></i> {{message}}</div>
+            {% endfor %}
+            {% for message in app.session.flashbag().get("error") %}
+                <div class="alert alert-danger"><i class="fa fa-close"></i> {{message}}</div>
+            {% endfor %}
+            <!-- End notifications -->
+                {{ form_start(edit_form) }}
+                {{ form_row( edit_form.modModulo ) }}
+                {{ form_row( edit_form.modEsp ) }}
+                {{ form_row( edit_form.modOrden ) }}
+                {{ form_row( edit_form.modCosto ) }}
+                {{ form_row( edit_form.modActivo ) }}
+                <h4>Secciones:</h4>
+                {#{{ dump(edit_form.secciones.0) }}#}
+                 {#{{ form_row( edit_form.secciones ) }}#}
+                <ul class="secciones">
+                    {% for secc in edit_form.secciones %}
+                        <li>
+                            {{ form_row( secc.modSeccSeccion ) }}
+                            {{ form_row( secc.modSeccOrden ) }}
+                            {{ form_row( secc.modSeccActivo ) }}
+                        </li>
+                    {% endfor %} 
+                </ul>
+                <br>
+                <button type="submit" class="btn btn-success"><i class="icon-newspaper"></i>Guardar</button>
+                {{ form_row(edit_form._token) }}
+            {{ form_end(edit_form, {'render_rest': false}) }}
+            <hr>    
+        </div>
+    </div>
+    <ul class="list-inline">
+        <li>
+            <a href="{{ path('modulos_index') }}" class="btn btn-info"><i class="fa fa-list"></i> Listar</a>
+        </li>
+        <li>
+            <a href="{{ path('modulos_new') }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Nuevo</a>
+        </li>
+        {#<li>
+            {{ form_start(delete_form) }}
+                <button type="submit" class="btn btn-danger"><i class="fa fa-remove"></i> Eliminar</button>
+            {{ form_end(delete_form) }}
+        </li>#}
+    </ul>
+{% endblock %}
+
+{% use 'AdminBundle:modulos:edit_modulos.js.twig' %}
