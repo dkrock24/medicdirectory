@@ -457,4 +457,33 @@ class ClienteUsuario
     {
         return $this->cliUsuRol;
     }
+    /**
+     * @var boolean
+     */
+    private $cliUsuExponer = '1';
+
+
+    /**
+     * Set cliUsuExponer
+     *
+     * @param boolean $cliUsuExponer
+     *
+     * @return ClienteUsuario
+     */
+    public function setCliUsuExponer($cliUsuExponer)
+    {
+        $this->cliUsuExponer = $cliUsuExponer;
+
+        return $this;
+    }
+
+    /**
+     * Get cliUsuExponer
+     *
+     * @return boolean
+     */
+    public function getCliUsuExponer()
+    {
+        return $this->cliUsuExponer;
+    }
 }
