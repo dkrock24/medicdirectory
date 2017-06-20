@@ -483,7 +483,7 @@
                                                         <div class="form-group">
                                                             <label class="control-label">Tipo de usuario</label>
                                                             <select name="typeUser[]" id="typeUser" class="form-control" required>
-                                                                <option value="6">Doctor</option>
+                                                                <option value="6">Doctor/Doctora</option>
                                                                 <option value="3">Asistente</option>
                                                             </select>
                                                         </div>
@@ -492,7 +492,17 @@
                                                     <div class="col-lg-2 col-md-6 col-sm-6">
                                                         <div class="form-group">
                                                             <label class="control-label">&nbsp;<br><label>
-                                                            <a href="#" class='remove btn bg-danger-400 ' style="margin-top: 7px;" data-toggle="tooltip" data-placement="top" title="Remover Usuario"><b><i class="fa fa-user-times"></i></b></a>
+                                                            <div class="checkbox">
+                                                                <label>
+                                                                    <input type="checkbox" name="publicityWeb[]" checked="checked"> Publicitarlo en web
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                                        <div class="form-group text-right">
+
+                                                            <a href="#" class='remove btn bg-danger-400 ' style="margin-top: 7px;" data-toggle="tooltip" data-placement="top" title="Remover Usuario"><b><i class="fa fa-user-times"></i></b> </a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1051,6 +1061,11 @@
                     var lastnametwo = $(this).find("input[name='lastnametwo[]']");
                     var valLastNameTwo = $.trim( lastnametwo.val() );
                     
+                    var valPublicity = 0;
+                    if( $(this).find("input[name='publicityWeb[]']").prop('checked') ) {
+                        valPublicity = 1;
+                    }
+                    
                     var email = $(this).find("input[name='email[]']").val();
                     //var valEmail = $.trim( email.val() );
                     var username = $(this).find("input[name='username[]']");
@@ -1109,6 +1124,12 @@
                         msg = "Debe de validar el usuario a crear";
                     }
                     
+                    
+                    if ( email == "" )
+                    {
+                        msg = "Ingrese un email válido";
+                    }
+                    
                     if( msg != "")
                     {
                         
@@ -1134,7 +1155,7 @@
                     }
                     else
                     {
-                        item = {"nameone":valNameOne, "nametwo":valNameTwo, "namethree":valNameThree, "lastnameone":valLastNameOne, "lastnametwo":valLastNameTwo, "email":email, "username":valUsername, "password":valPassword, "gender":gender, "typeUser":typeUser };
+                        item = {"nameone":valNameOne, "nametwo":valNameTwo, "namethree":valNameThree, "lastnameone":valLastNameOne, "lastnametwo":valLastNameTwo, "email":email, "username":valUsername, "password":valPassword, "gender":gender, "typeUser":typeUser,"valPublicity":valPublicity };
                         users.push(item);
 
                         $(this).removeClass("border-warning-available");
@@ -1469,7 +1490,7 @@
                                                    $("#"+idInput).closest(".section").find(".inputUser").val("");
                                                    
                                                    $("#"+idInput).closest(".section").find(".inputAssName").attr("disabled", true);
-                                                   $("#"+idInput).closest(".section").find(".inputAssEmail").attr("disabled", true);
+                                                   $("#"+idInput).closest(".section").find(".inputAssEmail").attr("disabled", false);
                                                    $("#"+idInput).closest(".section").find(".inputAssPassword").attr("disabled", true);
                                                    $("#"+idInput).closest(".section").find(".selectAssGender option:not(:selected)").prop('disabled', true);
                                                    

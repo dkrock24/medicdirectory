@@ -98,6 +98,20 @@ class UploadFile {
 		return false;
 	}
 	
+	public function fileExist($path)
+	{
+		if( !empty($path) )
+		{
+			$fullPath = $this->getUploadRootDir().$path;
+			$file_exists = file_exists($fullPath);
+			if( $file_exists )
+			{
+				return true;
+			}
+			return false;
+		}		
+	}
+	
 	public function checkDir($dir=false)
 	{
 		$dirname = trim( $dir, "/" );

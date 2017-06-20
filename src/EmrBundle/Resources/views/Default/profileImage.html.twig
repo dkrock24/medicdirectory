@@ -1,0 +1,22 @@
+{% if  profilephoto != "" %}
+    <img src="{{ image('uploads/perfil/'~profilephoto).cropResize(20,20) }}">
+ {% else %}
+     
+    {% if userInfo.usuGenero|lower  == "m" %}
+
+        {% if roles.3 is defined %}
+            <img src="{{ image('bundles/admin/img/asistente-hombre.png').cropResize(20,20) }}">
+        {% else %}    
+            <img src="{{ image('bundles/admin/img/doctor.png').cropResize(20,20) }}" >
+        {% endif %} 
+
+    {% else %}
+        {% if roles.3 is defined %}
+            <img src="{{ image('bundles/admin/img/asistente-mujer.png').cropResize(20,20) }}">
+        {% else %}
+            <img src="{{ image('bundles/admin/img/doctora.png').cropResize(20,20) }}">
+        {% endif %} 
+
+    {% endif %}
+
+{% endif %}

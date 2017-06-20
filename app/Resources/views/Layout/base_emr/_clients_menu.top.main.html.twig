@@ -13,7 +13,9 @@
     <!-- Main navbar -->
 	<div class="navbar navbar-inverse">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="{{ path('emr_location') }}"><img src="{{ asset('bundles/admin/img/logo.png') }}" alt=""></a>
+			<a class="navbar-brand" href="{{ path('emr_location') }}">
+                <img src="{{ image('bundles/admin/img/logo.png').cropResize(45,45) }}" >
+            </a>
 
 			<ul class="nav navbar-nav pull-right visible-xs-block">
 				<li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
@@ -289,7 +291,8 @@
 				<li class="dropdown dropdown-user">
                     
 					<a class="dropdown-toggle" data-toggle="dropdown">
-						<img src="assets/images/placeholder.jpg" alt="">
+						{# <img src="assets/images/placeholder.jpg" alt=""> #}
+                        {{ render(controller('EmrBundle:Default:getThubmanlImageProfile')) }}
 						<span>{{ app.user.username }}</span>
 						<i class="caret"></i>
 					</a>

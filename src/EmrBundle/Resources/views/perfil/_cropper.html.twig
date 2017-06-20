@@ -12,6 +12,15 @@
     #currentPicture img{
         max-width: 100%;
     }
+    .thumbnailx{
+        border:solid 1px #ccc;
+        padding:5px;
+        text-align:center
+    }
+    .thumbnailx label{
+        padding-left:17px !important;
+        font-size:12px;
+    }
     /*
      #drop-zone {
         width: 100%;
@@ -316,9 +325,10 @@
                     <div class="row">    
                                             {% for image in userGallery %}
                                                 {% if image.galTipo.UsuGalTipId == 1 %}
-                                                    <div class="col-lg-3 col-md-3 col-sm-6">
-                                                        <div class="thumbnail">
-                                                            <img src="{{ asset('uploads/perfil/'~image.galHash) }}" style="max-width: 100%">
+                                                    <div class="col-lg-3 col-md-4 col-sm-6">
+                                                        <div class="thumbnailx">
+                                                            {# <img src="{{ asset('uploads/perfil/'~image.galHash) }}" style="max-width: 100%"> #}
+                                                            <img src="{{ image('uploads/perfil/'~image.galHash).cropResize(100,100) }}" style="max-width: 100%"/>
                                                             <div class="caption">
                                                                 <h4>{{ image.galTipo.UsuGalTipNombre }}</h4>
                                                                 <p>
@@ -330,9 +340,9 @@
                                                         </div>
                                                     </div>
                                                 {% else %}
-                                                    <div class="col-lg-3 col-md-3 col-sm-6">
-                                                        <div class="thumbnail">
-                                                            <img src="{{ asset('uploads/otras/'~image.galHash) }}"  style="max-width: 100%">
+                                                    <div class="col-lg-3 col-md-4 col-sm-6">
+                                                        <div class="thumbnailx">
+                                                            <img src="{{ image('uploads/otras/'~image.galHash).cropResize(100,100) }}"  style="max-width: 100%">
                                                             <div class="caption">
                                                                 <h4>{{ image.galTipo.UsuGalTipNombre }}</h4>
                                                                 <p>

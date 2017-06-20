@@ -31,17 +31,6 @@ class Correos {
             $asunto = str_replace('{{'.$variable.'}}',$valor,$asunto);
             $cuerpo = str_replace('{{'.$variable.'}}',$valor,$cuerpo);
         }
-		
-		$https['ssl']['verify_peer'] = FALSE;
-        $https['ssl']['verify_peer_name'] = FALSE;
-
-        $this->transport = \Swift_SmtpTransport::newInstance('smtp.gmail.com', 587, 'tls')
-           ->setUsername("gialvarezlopez@gmail.com")
-           ->setPassword("")
-           ->setStreamOptions($https)
-           ;
-        // Create Mailer with our Transport.
-        $this->mailer = \Swift_Mailer::newInstance($this->transport);
 
         $message = \Swift_Message ::newInstance()
             ->setContentType('text/html')

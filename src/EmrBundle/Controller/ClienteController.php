@@ -803,10 +803,15 @@ class ClienteController extends Controller
 								$objUserRol = new ClienteUsuario();
 							}
 
+							if( $is_new == false)
+							{
+								$objUserRol->setCliUsuFechaMod( new \DateTime() );
+							}	
 							$objUserRol->setCliUsuCorreo($locationListUsers[$i]['email']);
 							$objUserRol->setCliUsuUsu($user_repo); //setUsuRolUsuarios(  $representer_repo );
 							$objUserRol->setCliUsuCli($client_repo);
 							$objUserRol->setCliUsuRol( $role_repo );
+							$objUserRol->setCliUsuActivo( 1 );
 							$objUserRol->setCliUsuFechaRegistro(new \Datetime());
 							$objUserRol->setCliUsuFechaCrea( new \DateTime() );
 
@@ -814,7 +819,7 @@ class ClienteController extends Controller
 							{
 								$objUserRol->setCliUsuCorreo( $locationListUsers[$i]['email'] );
 							}
-							
+							$objUserRol->setCliUsuExponer($locationListUsers[$i]['valPublicity']);
 							$em->persist($objUserRol);
 							$flush = $em->flush();
 							
@@ -897,12 +902,18 @@ class ClienteController extends Controller
 							}
 							
 							//$objUserRol = new ClienteUsuario();
+							if( $is_new == false)
+							{
+								$objUserRol->setCliUsuFechaMod( new \DateTime() );
+							}
 							$objUserRol->setCliUsuUsu( $representer_repo );
 							$objUserRol->setCliUsuCli( $client_repo );
 							$objUserRol->setCliUsuRol($role_repo);
+							$objUserRol->setCliUsuActivo( 1 );
 							$objUserRol->setCliUsuFechaCrea( new \DateTime() );
 							$objUserRol->setCliUsuFechaRegistro(new \Datetime());
 							$objUserRol->setCliUsuCorreo($representerEmail);
+							$objUserRol->setCliUsuExponer($locationListUsers[$i]['valPublicity']);
 							$em->persist($objUserRol);
 							$flush = $em->flush();
 							
@@ -1036,7 +1047,6 @@ class ClienteController extends Controller
 
 			$variables['link'] = $link_sistema;
 
-			//$para = "gialvarezlopez@gmail.com";
 			$res = $srvMail->enviarCorreo ($plantilla, $variables, $to, $de = '') ;
 		}
 		

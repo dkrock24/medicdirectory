@@ -124,5 +124,36 @@ class DefaultController extends Controller
 		
 		return $this->render("EmrBundle:Default:noticeLocation.html.twig", array('msg'=>$msg));
 	}
+	
+	public function getThubmanlImageProfileAction( Request $request )
+	{
+
+		$roles = $this->get('session')->get('userRoles');	
+		$locationId = $this->get('session')->get('locationId');
+		$idUser =  $this->getUser()->getUsuId();
+			
+			
+		
+		if( isset($locationId) && !empty($locationId) )
+		{
+			$em = $this->getDoctrine()->getManager();
+			$profilephoto = "";
+			$oUser = $em->getRepository('AppBundle:Usuario')->find( $idUser );
+			$oProfileImage = $em->getRepository('AppBundle:UsuarioGaleria')->findOneBy( array("galUsuario"=>$idUser, "galCliente"=>$locationId, "galTipo"=>1) );
+			if( $oProfileImage )
+			{
+				$hashImg = $oProfileImage->getGalHash();
+				$srvImage = $this->get('srv_uploadFile');
+				$res = $srvImage->fileExist("perfil/".$hashImg);
+				if( $res )
+				{
+					$profilephoto = $hashImg;
+				}
+				
+			}
+		}
+		return $this->render("EmrBundle:Default:profileImage.html.twig", array("userInfo"=> $oUser,'profilephoto'=>$profilephoto));
+		
+	}
 
 }

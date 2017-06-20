@@ -36,6 +36,11 @@ emr_perfil:
     resource: "@EmrBundle/Resources/config/routing/perfil.yml"
     prefix:   /perfil
     host:     "%emr_domain%"
+    
+emr_checkImageProfile:
+    path:     /photo/user/profile
+    defaults: { _controller: EmrBundle:Default:getThubmanlImageProfileAction  }
+    host:     "%emr_domain%"    
 
 
 emr_invarea:
