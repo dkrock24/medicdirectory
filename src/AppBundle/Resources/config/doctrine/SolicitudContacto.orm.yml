@@ -9,6 +9,9 @@ AppBundle\Entity\SolicitudContacto:
             generator:
                 strategy: AUTO
     fields:
+        sc_nombre:
+            type: string
+            length: '255'
         ip:
             type: string
             length: '16'

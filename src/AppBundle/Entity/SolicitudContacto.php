@@ -254,4 +254,33 @@ class SolicitudContacto
     {
         return $this->scUsuario;
     }
+    /**
+     * @var string
+     */
+    private $sc_nombre;
+
+
+    /**
+     * Set scNombre
+     *
+     * @param string $scNombre
+     *
+     * @return SolicitudContacto
+     */
+    public function setScNombre($scNombre)
+    {
+        $this->sc_nombre = $scNombre;
+
+        return $this;
+    }
+
+    /**
+     * Get scNombre
+     *
+     * @return string
+     */
+    public function getScNombre()
+    {
+        return $this->sc_nombre;
+    }
 }
