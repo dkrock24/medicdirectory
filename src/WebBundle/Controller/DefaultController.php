@@ -213,17 +213,17 @@ class DefaultController extends Controller {
         $strHora = $fecha." ".substr($hora,0,-2);
         //$fecha_string = $strHora;
 
-        $ip = $this->getRealIP();         
-        $comentario = $_POST['comentario'];       
+        $ip = $this->getRealIP();            
 
         $oSolicitud = new SolicitudContacto();
 
         $oSolicitud->setScCliente( $client_repo );
         $oSolicitud->setScUsuario( $usuario_repo );
         $oSolicitud->setIp( $ip );
+        $oSolicitud->setScNombre( $_POST['nombre'] );
         $oSolicitud->setTelefono( $_POST['telefono'] );
         $oSolicitud->setCorreo( $_POST['correo'] );
-        $oSolicitud->setComentario( $comentario );
+        $oSolicitud->setComentario( $_POST['comentario'] );
         $oSolicitud->setEstado(1);
         $oSolicitud->setFechaContacto(new \DateTime($strHora));
 
