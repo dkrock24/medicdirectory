@@ -114,12 +114,19 @@
                         
                         $(".secc_ver").click(function(e){
                             var sec_id = $(this).parent().parent().parent().siblings(':first').text();
+                            var ver_url = "{{ path('secciones_modulos_show', {id: 'secc_id_holder'}) }}";
+                            ver_url = ver_url.replace('secc_id_holder', sec_id);
+                            window.open(ver_url, "_self");
                             e.preventDefault();
                         });
                         
                         $(".secc_editar").click(function(e){
                             var sec_id = $(this).parent().parent().parent().siblings(':first').text();
+                            var edit_url = "{{ path('secciones_modulos_edit', {id: 'secc_id_holder'}) }}";
+                            edit_url = edit_url.replace('secc_id_holder', sec_id);
+                            window.open(edit_url, "_self");
                             e.preventDefault();
+                            
                         });
                         
                         $(".secc_eliminar").click(function(e){

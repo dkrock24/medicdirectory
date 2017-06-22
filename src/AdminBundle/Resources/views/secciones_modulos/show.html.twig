@@ -1,19 +1,19 @@
 {% extends "Layout/base_admin/_admin_base.html.twig" %}
 
 {% block title_page %}
-        EMR || Características del modulo {{ modulo.modModulo }}
+        EMR || Características de la seccion {{ seccion.modSeccSeccion }}
 {% endblock %}
 
 {% block breadcrumb %}
-    {{ include('AdminBundle:secciones_modulos:_breadcrumb.html.twig' )  }}
+    {{ include('AdminBundle:modulos:_breadcrumb.html.twig' )  }}
 {% endblock %} 
 
 {% block submenutop %}
-    {{ include('AdminBundle:secciones_modulos:_submenu.html.twig' )  }}
+    {{ include('AdminBundle:modulos:_submenu.html.twig' )  }}
 {% endblock %}
 
 {% block body %}
-    <h1>País</h1>
+    <h1>Seccion</h1>
     <div class="row">
         <div class="col-lg-6">
             
@@ -25,40 +25,35 @@
                 <div class="alert alert-danger"><i class="fa fa-close"></i> {{message}}</div>
             {% endfor %}
             <!-- End notifications -->
-            
             <table class="table table-striped">
                 <tbody>
                     <tr>
                         <th>Id</th>
-                        <td>{{ modulo.modId}}</td>
+                        <td>{{ seccion.modSeccId}}</td>
+                    </tr>
+                    <tr>
+                        <th>Seccion</th>
+                        <td>{{ seccion.modSeccSeccion }}</td>
                     </tr>
                     <tr>
                         <th>Modulo</th>
-                        <td>{{ modulo.modModulo }}</td>
+                        <td>{{ seccion.modSeccModId }}</td>
                     </tr>
                     <tr>
                         <th>Orden</th>
-                        <td>{{ modulo.modOrden }}</td>
-                    </tr>
-                    <tr>
-                        <th>Costo</th>
-                        <td>{{ modulo.modCosto }}</td>
-                    </tr>
-                    <tr>
-                        <th>Especialidad</th>
-                        <td>{{ modulo.modEsp.espEspecialidad }}</td>
+                        <td>{{ seccion.modSeccOrden}}</td>
                     </tr>
                     <tr>
                         <th>Fecha Creación</th>
-                        <td>{% if modulo.modFechaCrea %}{{ modulo.modFechaCrea|date('Y-m-d H:i:s') }}{% endif %}</td>
+                        <td>{% if seccion.modSeccFechaCrea %}{{ seccion.modSeccFechaCrea|date('Y-m-d H:i:s') }}{% endif %}</td>
                     </tr>
                     <tr>
                         <th>Fecha Actualizado</th>
-                        <td>{% if modulo.modFechaMod %}{{ modulo.modFechaMod|date('Y-m-d H:i:s') }}{% endif %}</td>
+                        <td>{% if seccion.modSeccFechaMod %}{{ seccion.modSeccFechaMod|date('Y-m-d H:i:s') }}{% endif %}</td>
                     </tr>
                     <tr>
                         <th>Activo</th>
-                        <td>{% if modulo.modActivo %}<span class="label label-success">Si</span>{% else %}<span class="label label-danger">No</span>{% endif %}</td>
+                        <td>{% if seccion.modSeccActivo %}<span class="label label-success">Si</span>{% else %}<span class="label label-danger">No</span>{% endif %}</td>
                     </tr>
                 </tbody>
             </table>
@@ -75,12 +70,14 @@
             <a href="{{ path('secciones_modulos_new') }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Nuevo</a>
         </li>
         <li>
-            <a href="{{ path('secciones_modulos_edit', { 'id': modulo.modId }) }}" class="btn bg-teal-400"><i class="fa fa-edit"></i> Editar</a>
+            <a href="{{ path('secciones_modulos_edit', { 'id': seccion.modSeccId }) }}" class="btn bg-teal-400"><i class="fa fa-edit"></i> Editar</a>
         </li>
+        {% if seccion.modSeccActivo %}
         <li>
             {{ form_start(delete_form) }}
                 <button type="submit" class="btn btn-danger"><i class="fa fa-remove"></i> Eliminar</button>
             {{ form_end(delete_form) }}
         </li>
+        {% endif %}
     </ul>
 {% endblock %}

@@ -26,23 +26,10 @@
             {% endfor %}
             <!-- End notifications -->
                 {{ form_start(edit_form) }}
-                {{ form_row( edit_form.modModulo ) }}
-                {{ form_row( edit_form.modEsp ) }}
-                {{ form_row( edit_form.modOrden ) }}
-                {{ form_row( edit_form.modCosto ) }}
-                {{ form_row( edit_form.modActivo ) }}
-                <h4>Secciones:</h4>
-                {#{{ dump(edit_form.secciones.0) }}#}
-                 {#{{ form_row( edit_form.secciones ) }}#}
-                <ul class="secciones">
-                    {% for secc in edit_form.secciones %}
-                        <li>
-                            {{ form_row( secc.modSeccSeccion ) }}
-                            {{ form_row( secc.modSeccOrden ) }}
-                            {{ form_row( secc.modSeccActivo ) }}
-                        </li>
-                    {% endfor %} 
-                </ul>
+                {{ form_row( edit_form.modSeccSeccion ) }}
+                {{ form_row( edit_form.modSeccModId ) }}
+                {{ form_row( edit_form.modSeccOrden ) }}
+                {{ form_row( edit_form.modSeccActivo ) }}
                 <br>
                 <button type="submit" class="btn btn-success"><i class="icon-newspaper"></i>Guardar</button>
                 {{ form_row(edit_form._token) }}
@@ -59,5 +46,3 @@
         </li>
     </ul>
 {% endblock %}
-
-{% use 'AdminBundle:secciones_modulos:edit_modulos.js.twig' %}

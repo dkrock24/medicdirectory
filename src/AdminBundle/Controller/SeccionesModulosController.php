@@ -4,10 +4,18 @@ namespace AdminBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class SeccionesModulosController extends Controller
 {
+    
+    private $session;
+
+    public function __construct() {
+            $this->session = new Session();
+    }
+    
     public function indexAction()
     {
         
@@ -22,24 +30,101 @@ class SeccionesModulosController extends Controller
         ));
     }
 
-    public function showAction()
+    public function showAction(\AppBundle\Entity\EavModSeccion $seccion)
     {
+       
+        $deleteForm = $this->createDeleteForm($seccion);
+        
         return $this->render('AdminBundle:secciones_modulos:show.html.twig', array(
-            // ...
+            'seccion' => $seccion,
+            'delete_form' => $deleteForm->createView()
         ));
     }
-
-    public function newAction()
+    
+    private function createDeleteForm(\AppBundle\Entity\EavModSeccion $seccion)
     {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('secciones_modulos_delete', array('id' => $seccion->getModSeccId())))
+            ->setMethod('DELETE')
+            ->getForm()
+        ;
+    }
+
+    public function newAction( Request $request )
+    {
+        $seccion = new \AppBundle\Entity\EavModSeccion();
+        
+        $form = $this->createForm('AdminBundle\Form\EavModSeccionType', $seccion);
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+
+            $seccion->setModSeccFechaCrea(new \DateTime());
+
+            $em->persist($seccion);
+            $flush = $em->flush($seccion);
+
+            if ($flush == null)
+            {
+                    $msgBox = "Registro creado con éxito";
+                    $status = "success";
+            } else {
+                    $msgBox = "No se pudo crear el registro ";
+                    $status = "error";
+            }
+
+            $this->session->getFlashBag()->add($status,$msgBox);
+            return $this->redirectToRoute('secciones_modulos_index');
+        }
+        
+        
         return $this->render('AdminBundle:secciones_modulos:new.html.twig', array(
-            // ...
+            'form' => $form->createView()
         ));
     }
 
-    public function editAction()
+    public function editAction( Request $request, \AppBundle\Entity\EavModSeccion $secc_id )
     {
+        
+        $em = $this->getDoctrine()->getManager();
+        
+        $seccion = $em->getRepository('AppBundle:EavModSeccion')->find($secc_id);
+        
+        if (!$seccion) {
+            throw $this->createNotFoundException('No modulo found for id '.$id);
+        }
+        
+        $editForm = $this->createForm(\AdminBundle\Form\EavModSeccionType::class, $seccion);
+        
+        $editForm->handleRequest( $request );
+        
+        if( $editForm->isSubmitted() && $editForm->isValid() ){
+            
+            $seccion->setModSeccFechaMod( new \DateTime() );
+            
+            $em->persist($seccion);
+            
+            $flush = $em->flush();
+            
+            if ($flush == null)
+            {
+                    $msgBox = "Registro actualizado con éxito";
+                    $status = "success";
+            } else {
+                    $msgBox = "No se ha podido actualizar el registro ";
+                    $status = "error";
+            }
+
+            $this->session->getFlashBag()->add($status,$msgBox);
+            
+            return $this->redirectToRoute('secciones_modulos_edit', array('id' => $seccion->getModSeccId()) );
+            
+        }
+        
         return $this->render('AdminBundle:secciones_modulos:edit.html.twig', array(
-            // ...
+            'seccion' => $secc_id,
+            'edit_form' => $editForm->createView()
         ));
     }
 
