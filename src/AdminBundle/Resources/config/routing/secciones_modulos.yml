@@ -1,0 +1,29 @@
+secciones_modulos_index:
+    path:     /index
+    defaults: { _controller: AdminBundle:SeccionesModulos:index }
+    methods:  [GET, POST]
+
+secciones_modulos_show:
+    path:     /{id}/show
+    defaults: { _controller: AdminBundle:SeccionesModulos:show }
+    methods:  [GET, POST]
+
+secciones_modulos_new:
+    path:     /new
+    defaults: { _controller: AdminBundle:SeccionesModulos:new }
+    methods:  [GET, POST]
+
+secciones_modulos_edit:
+    path:     /{id}/edit
+    defaults: { _controller: AdminBundle:SeccionesModulos:edit }
+    methods:  [GET, POST]
+
+secciones_modulos_delete:
+    path:     /delete
+    defaults: { _controller: AdminBundle:SeccionesModulos:delete }
+    methods:  DELETE
+    
+secciones_modulos_list:
+    path:   /secciones_modulos_lista
+    defaults: { _controller: AdminBundle:SeccionesModulos:list}
+    methods:  [GET, POST]

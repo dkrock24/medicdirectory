@@ -1,0 +1,137 @@
+{% extends "Layout/base_admin/_admin_base.html.twig" %}
+
+{% block title_page %}
+        EMR || Listado de modulos
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('AdminBundle:secciones_modulos:_breadcrumb.html.twig' )  }}
+{% endblock %} 
+
+{% block submenutop %}
+    {{ include('AdminBundle:secciones_modulos:_submenu.html.twig' )  }}
+{% endblock %}
+
+{% block body %}
+    <h1>Lista de secciones por modulos</h1>
+    
+    <!-- Check the notifications -->
+    <div id="holder_msg">
+        {% for message in app.session.flashbag().get("success") %}
+            <div class="alert alert-success"><i class="fa fa-check-circle"></i> {{message}}</div>
+        {% endfor %}
+        {% for message in app.session.flashbag().get("error") %}
+            <div class="alert alert-danger"><i class="fa fa-close"></i> {{message}}</div>
+        {% endfor %}
+    </div>
+    <!-- End notifications -->
+    {% if modulos|length > 0%}
+        <select id="modulo-select" data-placeholder="Seleccone modulo..." class="select-size-xs">
+                <option></option>
+                {% for modulo in modulos %}
+                    <option value="{{ modulo.modId }}">{{ modulo.modModulo }}</option>
+                {% endfor %}
+        </select><br><br>
+        <div id="secc-mod-content"{#class="panel panel-flat"#}>
+            <table class="table table-striped mydtable">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Seccion</th>
+                        <th>Orden</th>
+                        <th>Fecha creación</th>
+                        <th>Fecha modificado</th>
+                        <th>Activo</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {#<tr>
+                        <td colspan="8"> <div class="alert alert-info" role=""><i class="fa fa-info-circle"></i> Seleccione un modulo para ver sus secciones</div></td>
+                    </tr>#}
+                </tbody>
+            </table>
+        </div>
+            
+        <br>
+    {% else %}
+        <div class="alert alert-info" role=""><i class="fa fa-info-circle"></i> No hay regístros creados</div>
+    {% endif %}    
+    <ul class="list-inline">
+        <li>
+            <a href="{{ path('secciones_modulos_new') }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Nuevo</a>
+        </li>
+    </ul>
+            
+    
+{% endblock %}
+
+{% block codejs %}
+    <script>
+        $(document).on("ready",function(){
+            Table = $(".mydtable").DataTable({
+                data:[],
+                columns: [
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    {
+                        "data": "Acciones",
+                        "defaultContent": "<ul class=\"list-inline\"><li>"+
+                                "<a href=\"#\" class=\"btn btn-default secc_ver\"><i class=\"fa fa-folder-open\"></i> Ver</a>"+
+                                "</li><li><a href=\"#\" class=\"btn bg-teal-400 secc_editar\" ><i class=\"fa fa-edit\"></i> Editar</a>"+
+                                "</li><li><button class=\"btn btn-danger delete secc_eliminar\"><i class=\"fa fa-remove\"></i> Eliminar</button>"+
+                                "</li></ul>"
+                        // 
+                    }
+                ],
+                rowCallback: function (row, data) {},
+                filter: false,
+                info: false, 
+                ordering: false,
+                processing: true,
+                retrieve: true        
+            });
+
+            $('#modulo-select').on('select2:select', function(e){  
+                
+                var id_mod = $(this).val();
+                var sUrl = "{{ path('secciones_modulos_list') }}";
+                
+                $.ajax({
+                    url: sUrl,
+                    type: "post",
+                    data: { id: id_mod, sEcho: 616 }
+                 }).done(function (result) {
+                        jdata = JSON.parse( result );
+                        Table.clear().draw();
+                        for ( x = 0; x < jdata['aaData'].length; x++ ){
+                           Table.row.add( jdata['aaData'][x] ).draw();
+                        }
+                        
+                        $(".secc_ver").click(function(e){
+                            var sec_id = $(this).parent().parent().parent().siblings(':first').text();
+                            e.preventDefault();
+                        });
+                        
+                        $(".secc_editar").click(function(e){
+                            var sec_id = $(this).parent().parent().parent().siblings(':first').text();
+                            e.preventDefault();
+                        });
+                        
+                        $(".secc_eliminar").click(function(e){
+                            var sec_id = $(this).parent().parent().parent().siblings(':first').text();
+                            e.preventDefault();
+                        });
+                        
+                    }).fail(function (jqXHR, textStatus, errorThrown) { 
+                        
+                    });
+            
+            });
+        });
+    </script>
+{% endblock %}

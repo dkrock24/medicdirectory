@@ -16,12 +16,6 @@ AppBundle\Entity\EavModCampos:
             generator:
                 strategy: IDENTITY
     fields:
-        modCampModSeccId:
-            type: integer
-            nullable: false
-            options:
-                unsigned: true
-            column: mod_camp_mod_secc_id
         modCampNombre:
             type: string
             nullable: false
@@ -103,13 +97,11 @@ AppBundle\Entity\EavModCampos:
                 mod_camp_tip_camp_id:
                     referencedColumnName: tip_camp_id
             orphanRemoval: false
-        modSeccion:
+        seccionCampo:
             targetEntity: EavModSeccion
-            cascade: {  }
             fetch: LAZY
-            inversedBy: null
+            inversedBy: campos
             joinColumns:
                 mod_camp_mod_secc_id:
                     referencedColumnName: mod_secc_id
-            orphanRemoval: false
     lifecycleCallbacks: {  }

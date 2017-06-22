@@ -210,5 +210,50 @@ class EavModSeccion
         }
     }
     
-}
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $campos;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->campos = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add campo
+     *
+     * @param \AppBundle\Entity\EavModCampos $campo
+     *
+     * @return EavModSeccion
+     */
+    public function addCampo(\AppBundle\Entity\EavModCampos $campo)
+    {
+        $this->campos[] = $campo;
+
+        return $this;
+    }
+
+    /**
+     * Remove campo
+     *
+     * @param \AppBundle\Entity\EavModCampos $campo
+     */
+    public function removeCampo(\AppBundle\Entity\EavModCampos $campo)
+    {
+        $this->campos->removeElement($campo);
+    }
+
+    /**
+     * Get campos
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCampos()
+    {
+        return $this->campos;
+    }
+}

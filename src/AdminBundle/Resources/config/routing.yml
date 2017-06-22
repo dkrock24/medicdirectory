@@ -17,7 +17,11 @@ admin_menu:
 admin_modulos:
     resource: "@AdminBundle/Resources/config/routing/modulos.yml"
     prefix:   /modulos
-    
+
+admin_secciones_modulos:
+    resource: "@AdminBundle/Resources/config/routing/secciones_modulos.yml"
+    prefix:   /secciones_modulos
+
 admin_contabilidad:
     path:     /admin_contabilidad
     defaults: { _controller: AdminBundle:Contabilidad:index }

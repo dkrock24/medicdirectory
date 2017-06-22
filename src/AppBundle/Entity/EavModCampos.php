@@ -457,4 +457,33 @@ class EavModCampos
     {
         return $this->modCampEsCatalogo;
     }
+    /**
+     * @var \AppBundle\Entity\EavModSeccion
+     */
+    private $seccionCampo;
+
+
+    /**
+     * Set seccionCampo
+     *
+     * @param \AppBundle\Entity\EavModSeccion $seccionCampo
+     *
+     * @return EavModCampos
+     */
+    public function setSeccionCampo(\AppBundle\Entity\EavModSeccion $seccionCampo = null)
+    {
+        $this->seccionCampo = $seccionCampo;
+
+        return $this;
+    }
+
+    /**
+     * Get seccionCampo
+     *
+     * @return \AppBundle\Entity\EavModSeccion
+     */
+    public function getSeccionCampo()
+    {
+        return $this->seccionCampo;
+    }
 }

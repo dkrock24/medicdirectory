@@ -5,11 +5,11 @@
 {% endblock %}
 
 {% block breadcrumb %}
-    {{ include('AdminBundle:modulos:_breadcrumb.html.twig' )  }}
+    {{ include('AdminBundle:secciones_modulos:_breadcrumb.html.twig' )  }}
 {% endblock %} 
 
 {% block submenutop %}
-    {{ include('AdminBundle:modulos:_submenu.html.twig' )  }}
+    {{ include('AdminBundle:secciones_modulos:_submenu.html.twig' )  }}
 {% endblock %}
 
 {% block body %}
@@ -43,9 +43,9 @@
     </div>
     <ul class="list-inline">
         <li>
-            <a href="{{ path('modulos_index') }}" class="btn btn-info"><i class="fa fa-list"></i> Listar</a>
+            <a href="{{ path('secciones_modulos_index') }}" class="btn btn-info"><i class="fa fa-list"></i> Listar</a>
         </li>
     </ul>
 {% endblock %}
 
-{% use 'AdminBundle:modulos:edit_modulos.js.twig' %}
+{% use 'AdminBundle:secciones_modulos:edit_secciones_modulos.js.twig' %}
