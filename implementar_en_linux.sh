@@ -1,4 +1,5 @@
 #!/bin/bash
+cd "$(dirname "$0")";
 git pull -f origin master && \
 composer.phar install && \
 php bin/console assets:install --symlink && \
