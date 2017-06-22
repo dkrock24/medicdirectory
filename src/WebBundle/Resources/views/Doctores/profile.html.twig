@@ -46,6 +46,7 @@
 }
 .cita_form{
     display: none;
+    padding: 10px;
 }
 </style>
 
@@ -288,7 +289,7 @@
                             <div class="col-sm-12 col-xs-12">
                             <div class="input-group">
                                 <span class="input-group-addon" id="basic-addon1"><i class="fa fa-phone"></i></span>
-                                <input type="text" pattern="[7][0-9][0-9][0-9][0-9][0-9][0-9][0-9]" class="form-control" id="telefono_1" required="true" placeholder="Telefono [7000-4000]" aria-describedby="basic-addon1">
+                                <input type="text" pattern="[7][0-9][0-9][0-9][0-9][0-9][0-9][0-9]" class="form-control" id="telefono_1" required="true" placeholder="Telefono" aria-describedby="basic-addon1">
                             </div>
                             </div>
                         </div>
@@ -516,6 +517,11 @@
 
     function showForm(){
         $(".cita_form").fadeIn();
+
+        $('html, body').animate({
+            scrollTop: $(".cita_form").offset().top-140
+        }, 2000);
+
     }
 
     $("#solicitud_cita").submit(function(){
