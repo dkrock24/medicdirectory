@@ -147,6 +147,7 @@ ul{
 }
 .caracteristicas{
 	text-align: left;
+	padding-left: 5px;
 }
 .arrow{
 	font-size: 12px;
@@ -158,14 +159,416 @@ ul{
 	margin-left: 5px;
 
 }
+
+/*
+ * Developer: Alireza Eskandarpour Shoferi
+ * Designer: Wouter de Bres (dribbble.com/wdeb)
+ *
+ * Distributed under the terms of the MIT license
+ * https://opensource.org/licenses/MIT
+ */
+.wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -190px 0 0 -468px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  color: #9f9f9f;
+  font-size: 15px;
+}
+.package {
+  box-sizing: border-box;
+  width: 301px;
+  height: 100%	;
+  border: 3px solid #e8e8e8;
+  border-radius: 7px;
+  display: inline-block;
+  padding: 24px;
+  text-align: center;
+  float: left;
+  -webkit-transition: margin-top 0.5s linear;
+  transition: margin-top 0.5s linear;
+  position: relative;
+  margin-right: 11px;
+}
+
+.name {
+  color: #565656;
+  font-weight: 300;
+  font-size: 3rem;
+  margin-top: 5px;
+}
+.price {
+  margin-top: 7px;
+  font-weight: bold;
+}
+.price::after {
+  content: " / Usuario por mes";
+  font-weight: normal;
+}
+hr {
+  background-color: #dedede;
+  border: none;
+  height: 1px;
+}
+.trial{
+	font-size: 3rem;
+}
+
+
+
+.brilliant {
+  border-color: #009bdb;
+}
+/* Triangle */
+.brilliant::before {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 64px 64px 0 0;
+  border-color: #009bdb transparent transparent transparent;
+  position: absolute;
+  left: 0;
+  top: 0;
+  content: "";
+}
+.brilliant::after {
+  font-family: "FontAwesome";
+  content: "\f00c";
+  color: white;
+  position: absolute;
+  left: 9px;
+  top: 6px;
+  text-shadow: 0 0 2px #37c5b6;
+  font-size: 1.4rem;
+}
+
+.package2 {
+  box-sizing: border-box;
+  width: 100%;
+  height: 350px;
+  border: 3px solid #e8e8e8;
+  border-radius: 7px;
+  display: inline-block;
+  padding: 24px;
+  text-align: center;
+  -webkit-transition: margin-top 0.5s linear;
+  transition: margin-top 0.5s linear;
+  position: relative;
+  margin-right: 11px;
+}
+.package2:hover {
+  border: 3px solid #62CBD8;
+  -webkit-transition: border 0.3s linear;
+  transition: border 0.3s linear;
+}
+
+.descripcion{
+	text-align: right;
+}
+
+.select {
+	position: relative;
+	z-index: 1;
+	display: block;
+	height: 100%;
+	overflow: hidden;
+	text-indent: 100%;
+	text-align: center;
+	white-space: nowrap;
+	color: white;
+	background: #46b8da;
+	text-decoration: none;
+}
+a{
+	text-decoration: none;
+}
+
+.select {
+    position: static;
+    display: inline-block;
+    height: auto;
+    padding: 1.3em 2em;
+    border-radius: 8px;
+    font-size: 1.4rem;
+    text-indent: 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+	transition: all .6s;
+	width: 100%;
+}
+
+.no-touch .select:hover {
+    background-color: #1bbc9d;
+	color: #ffffff;
+}
+
+.exclusive .select {
+    background-color: #1bbc9d;
+	color: #ffffff;
+}
+  
+.no-touch .exclusive .select:hover {
+    background-color: #24e0ba;
+}
+  
+.secondary-theme .exclusive .select {
+    background-color: #1bbc9d;
+}
+  
+.no-touch .secondary-theme .exclusive .select:hover {
+    background-color: #112e3c;
+}
+  
+.has-margins .select {
+    display: block;
+    padding: 1.7em 0;
+    border-radius: 0 0 4px 4px;
+}
+
+
 </style>
+
+<div class="container">	
+	<div class="row">
+		<div class="col-lg-3 col-md-3 col-sm-12">
+			<div class='package brilliant'>
+	    			<div class='name'>General</div>
+	    			<div class='price'>$29.95</div>
+	    			<div class='trial'>Gratis 30 Dias</div>
+	    			<hr>
+
+				<div class="caracteristicas">
+				    <div class="row">
+				    	<div class="col-lg-1 col-md-1 col-sm-1">
+				    		<strong><i class="fa fa-check-circle-o"></i></strong>
+				    	</div>
+				    	<div class="col-lg-10 col-md-10 col-sm-10">
+				    		Multiples Sucursales. Ideal para Administrar Hospitales, Policlinicos, Clinicas etc.
+				    	</div>
+				    </div>
+				    <div class="row">
+				    	<div class="col-lg-1 col-md-1 col-sm-1">
+				    		<strong><i class="fa fa-check-circle-o"></i></strong>
+				    	</div>
+				    	<div class="col-lg-10 col-md-10 col-sm-10">
+				    		Publicacion del Perfil Medico
+				    	</div>		    	
+				    </div>
+				    <div class="row">
+				    	<div class="col-lg-1 col-md-1 col-sm-1">
+				    		<strong><i class="fa fa-check-circle-o"></i></strong>
+				    	</div>
+				    	<div class="col-lg-10 col-md-10 col-sm-10">
+				    		Multiples Especialidades Medicas.
+				    	</div>		    	
+				    </div>
+				    <div class="row">
+				    	<div class="col-lg-1 col-md-1 col-sm-1">
+				    		<strong><i class="fa fa-check-circle-o"></i></strong>
+				    	</div>
+				    	<div class="col-lg-10 col-md-10 col-sm-10">
+				    		Citas Medicas.
+				    	</div>		    	
+				    </div>
+				    <div class="row">
+				    	<div class="col-lg-1 col-md-1 col-sm-1">
+				    		<strong><i class="fa fa-check-circle-o"></i></strong>
+				    	</div>
+				    	<div class="col-lg-10 col-md-10 col-sm-10">
+				    		Consulta Medicas
+				    	</div>		    	
+				    </div>
+				    <div class="row">
+				    	<div class="col-lg-1 col-md-1 col-sm-1">
+				    		<strong><i class="fa fa-check-circle-o"></i></strong>
+				    	</div>
+				    	<div class="col-lg-10 col-md-10 col-sm-10">
+				    		Agenda Medicas
+				    	</div>		    	
+				    </div>
+				    <div class="row">
+				    	<div class="col-lg-1 col-md-1 col-sm-1">
+				    		<strong><i class="fa fa-check-circle-o"></i></strong>
+				    	</div>
+				    	<div class="col-lg-10 col-md-10 col-sm-10">
+				    		Inventario de Medicamentos Internos.
+				    	</div>		    	
+				    </div>
+				    <div class="row">
+				    	<div class="col-lg-1 col-md-1 col-sm-1">
+				    		<strong><i class="fa fa-check-circle-o"></i></strong>
+				    	</div>
+				    	<div class="col-lg-10 col-md-10 col-sm-10">
+				    		24/7 - 365 Dias Activo
+				    	</div>		    	
+				    </div>
+				    <div class="row">
+				    	<div class="col-lg-1 col-md-1 col-sm-1">
+				    		<strong><i class="fa fa-check-circle-o"></i></strong>
+				    	</div>
+				    	<div class="col-lg-10 col-md-10 col-sm-10">
+				    		Soporte Tecnico Especializado.
+				    	</div>		    	
+				    </div>
+				    <div class="row">
+				    	<div class="col-lg-12 col-md-12 col-sm-12">
+				    		<br>
+				    		<div class='trial'>
+				    			<a class="select" href="{{ path('cliente_new') }}">Registrar</a>
+				    		</div>
+				    	</div>	    	
+				    </div>
+				</div>
+	  		</div>
+		</div>
+
+		<div class="col-lg-9 col-md-9 col-sm-12">
+			<div class="row">
+				<div class="col-lg-1 col-md-1 col-sm-12">
+			  	</div>
+
+			  	<div class="col-lg-5 col-md-5 col-sm-12">
+		    		<div class='package2'>
+		    			<div class='icon-price'><i class="fa fa-user-md fa-3x circled bg-skin central"></i></div>					    
+		    			<div class='name'>Roles y Usuarios</div>					    
+		    			<hr>
+		    			<span class="text-muted descripcion">
+							<i class="fa fa-check"></i>	Usuario Administrador.<br>
+							<i class="fa fa-check"></i>	Multiples Asistentes.<br>
+							<i class="fa fa-asterisk"></i> Usuarios Medicos Adicionales
+						</span>
+		  			</div>
+		  		</div>
+
+		  		<div class="col-lg-5 col-md-5 col-sm-12">
+		    		<div class='package2'>
+		    			<div class='icon-price'><i class="fa fa-list-alt fa-3x circled bg-skin central"></i></div>					    
+		    			<div class='name'>Publicacón</div>					    
+		    			<hr>
+		    			<span class="text-muted">
+							<i class="fa fa-check"></i>	Publicación del Perfil Medico.<br>
+							<i class="fa fa-check"></i>	Publicacón de las Sucursales Asociadas.<br>
+							<i class="fa fa-check"></i>	Publicacón de Dias Laborales.<br>
+							<i class="fa fa-check"></i>	Publicacón de Especialidades Asociadas al Medico.<br>
+							<i class="fa fa-asterisk"></i> Enlaces a Redes Sociales.
+						</span>
+		  			</div>
+		  		</div>
+			</div>
+
+			<!-- 2 -->
+
+			<div class="row">
+				<div class="col-lg-1 col-md-1 col-sm-12">
+			  	</div>
+
+			  	<div class="col-lg-5 col-md-5 col-sm-12">
+		    		<div class='package2'>
+		    			<div class='icon-price'><i class="fa fa-calendar fa-3x circled bg-skin central"></i></div>					    
+		    			<div class='name'>Agenda Medica</div>					    
+		    			<hr>
+		    			<span class="text-muted descripcion">
+							<i class="fa fa-check"></i>	Administración del Calendario para Citas por Medico.<br>
+							<i class="fa fa-check"></i>	Administración del Calendario para Eventos.<br>
+						</span>
+		  			</div>
+		  		</div>
+
+		  		<div class="col-lg-5 col-md-5 col-sm-12">
+		    		<div class='package2'>
+		    			<div class='icon-price'><i class="fa fa-stethoscope fa-3x circled bg-skin central"></i></div>					    
+		    			<div class='name'>Consulta Medica</div>					    
+		    			<hr>
+		    			<span class="text-muted">
+							<i class="fa fa-check"></i>	Modulo Especializado para el Control de la Cita Medica ha Pacientes.<br>
+							<i class="fa fa-check"></i>	Modulo Especializado para el Control de la Consulta Medica ha Pacientes.<br>													
+						</span>
+		  			</div>
+		  		</div>
+			</div>
+
+			<!-- 3 -->
+			
+			
+
+			<div class="row">
+				<div class="col-lg-1 col-md-1 col-sm-12">
+			  	</div>
+
+			  	<div class="col-lg-5 col-md-5 col-sm-12">
+		    		<div class='package2'>
+		    			<div class='icon-price'><i class="fa fa-check fa-3x circled bg-skin central"></i></div>					    
+		    			<div class='name'>Ciclo Medico</div>					    
+		    			<hr>
+		    			<span class="text-muted">
+							<i class="fa fa-check"></i>	El Sistema Engloba el Ciclo Medico desde la creacion del expediente/ficha medica del Paciente, Pasando por la agenda de Citas, la Creación de consulta, Diagnostico y Receta Medica. Entre otras funcionalidades.<br>
+						</span>
+		  			</div>
+		  		</div>
+
+		  		<div class="col-lg-5 col-md-5 col-sm-12">
+		    		<div class='package2'>
+		    			<div class='icon-price'><i class="fa fa-dashboard fa-3x circled bg-skin central"></i></div>					    
+		    			<div class='name'>Dashboard</div>					    
+		    			<hr>
+		    			<span class="text-muted">
+							<i class="fa fa-check"></i>	Indicadores Visuales Estadisticos.<br>
+												<i class="fa fa-check"></i>	Agenda del Medico.<br>
+												<i class="fa fa-check"></i>	Consultas Pendientes.<br>
+												<i class="fa fa-check"></i>	Etc.<br>
+						</span>
+		  			</div>
+		  		</div>
+			</div>
+
+			<!-- 4 -->
+
+			<div class="row">
+				<div class="col-lg-1 col-md-1 col-sm-12">
+			  	</div>
+
+			  	<div class="col-lg-5 col-md-5 col-sm-12">
+		    		<div class='package2'>
+		    			<div class='icon-price'><i class="fa fa-laptop fa-3x circled bg-skin central"></i></div>					    
+		    			<div class='name'>Multiplataforma</div>					    
+		    			<hr>
+		    			<span class="text-muted descripcion">
+							<i class="fa fa-check"></i>
+							Acceda utilizando Windows, Linux, Mac a través de su dispositivo móvil (smartphone o tablet), laptop o su computador personal.
+						</span>
+		  			</div>
+		  		</div>
+
+			  	<div class="col-lg-5 col-md-5 col-sm-12">
+		    		<div class='package2'>
+		    			<div class='icon-price'><i class="fa fa-file-excel-o fa-3x circled bg-skin central"></i></div>					    
+		    			<div class='name'>Reportes</div>					    
+		    			<hr>
+		    			<span class="text-muted descripcion">
+							<i class="fa fa-check"></i>	Generacón de Reportes Ecónomicos.<br>
+												<i class="fa fa-check"></i>	Generacón de Reportes Por Consultas.<br>
+												<i class="fa fa-check"></i>	Generacón de Reportes de Historicos.<br>
+												<i class="fa fa-check"></i>	Etc.<br>
+						</span>
+		  			</div>
+		  		</div>
+
+
+			</div>
+
+  		</div>
+	</div>
+</div>
+<!--
 <div class="container">		
 	
 
 	
 
 			<div class="row standard2">
-
+			
 				<div class="col-lg-3 col-md-3 col-sm-12">
 					<div class="plan">
 						<div class="header">
@@ -199,9 +602,9 @@ ul{
 						</div>		
 					</div>	
 								
-				</div>
+				</div> 
 
-				<div class="col-lg-9 col-md-9 col-sm-12">	
+				<div class="col-lg-12 col-md-12 col-sm-12">	
 					
 						<table class="table">
 							<tr>
@@ -211,9 +614,9 @@ ul{
 											<div class="media-body">
 												<h6 class="media-heading">Usuarios</h6>
 												<span class="text-muted">
-												<i class="fa fa-check"></i>	Creación de un usuario administrador.<br>
-												<i class="fa fa-check"></i>	Multiples Asistentes - Rol Secretaria.<br>
-												<i class="fa fa-asterisk"></i> Cobro Por Usuarios Medicos Extras
+												<i class="fa fa-check"></i>	Usuario Administrador.<br>
+												<i class="fa fa-check"></i>	Multiples Asistentes.<br>
+												<i class="fa fa-asterisk"></i> Usuarios Medicos Adicionales
 												</span>
 											</div>
 										</div>
@@ -234,7 +637,9 @@ ul{
 												<span class="text-muted">
 												<i class="fa fa-check"></i>	Publicación del Perfil Medico.<br>
 												<i class="fa fa-check"></i>	Publicacón de las Sucursales Asociadas.<br>
-												<i class="fa fa-asterisk"></i> Enlaces a Redes Sociales
+												<i class="fa fa-check"></i>	Publicacón de Dias Laborales.<br>
+												<i class="fa fa-check"></i>	Publicacón de Especialidades Asociadas al Medico.<br>
+												<i class="fa fa-asterisk"></i> Enlaces a Redes Sociales.
 												</span>
 											</div>
 										</div>
@@ -249,9 +654,10 @@ ul{
 												<h6 class="media-heading">Sistema EMR</h6>
 												<span class="text-muted">
 												<i class="fa fa-check"></i>	Creación y Administración de Multiples Instancias Medicas.<br>
-												<i class="fa fa-check"></i>	Ideal para Hospitales,Policlinicos,Clinicas etc.<br>
-												<i class="fa fa-check"></i> Administración de Especialidades Medicas.<br>
-												<i class="fa fa-check"></i> Administración de Inventario Medico.<br>
+												<i class="fa fa-check"></i>	Ideal para Administrar Hospitales,Policlinicos,Clinicas etc.<br>
+												<i class="fa fa-check"></i> Administración de Cualquier Tipo de Especialidades Medicas.<br>
+												<i class="fa fa-check"></i> Administración de Inventario de Medicamentos Internos.<br>
+												<i class="fa fa-check"></i> Creación y Administración de Proveedores.<br>
 												</span>
 											</div>
 										</div>
@@ -271,6 +677,9 @@ ul{
 												<h6 class="media-heading">Dashboard</h6>
 												<span class="text-muted">
 												<i class="fa fa-check"></i>	Indicadores Visuales Estadisticos.<br>
+												<i class="fa fa-check"></i>	Agenda del Medico.<br>
+												<i class="fa fa-check"></i>	Consultas Pendientes.<br>
+												<i class="fa fa-check"></i>	Etc.<br>
 												</span>
 											</div>
 										</div>
@@ -306,6 +715,7 @@ ul{
 												<h6 class="media-heading">Consulta Medica</h6>
 												<span class="text-muted">
 												<i class="fa fa-check"></i>	Modulo Especializado para el Control de la Cita Medica ha Pacientes.<br>
+												<i class="fa fa-check"></i>	Modulo Especializado para el Control de la Consulta Medica ha Pacientes.<br>
 																								
 												</span>
 											</div>
@@ -323,7 +733,7 @@ ul{
 												<i class="fa fa-check"></i>	Generacón de Reportes Ecónomicos.<br>
 												<i class="fa fa-check"></i>	Generacón de Reportes Por Consultas.<br>
 												<i class="fa fa-check"></i>	Generacón de Reportes de Historicos.<br>
-												<i class="fa fa-check"></i>	Mas.<br>
+												<i class="fa fa-check"></i>	Etc.<br>
 												</span>
 											</div>
 										</div>
@@ -341,8 +751,7 @@ ul{
 											<div class="media-body">
 												<h6 class="media-heading">Ciclo Medico</h6>
 												<span class="text-muted">
-												<i class="fa fa-check"></i>	El Sistema Engloba el Ciclo Medico desde el Registro del Paciente,
-												Pasando por la agenda de Citas, la Creación de consulta, Diagnostico y Receta Medica.<br>
+												<i class="fa fa-check"></i>	El Sistema Engloba el Ciclo Medico desde la creacion del expediente/ficha medica del Paciente, Pasando por la agenda de Citas, la Creación de consulta, Diagnostico y Receta Medica. Entre otras funcionalidades.<br>
 												</span>
 											</div>
 										</div>
@@ -354,4 +763,5 @@ ul{
 			</div>
 
 </div>
+-->
 {% endblock %}

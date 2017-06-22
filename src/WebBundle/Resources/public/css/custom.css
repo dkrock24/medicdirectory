@@ -40,3 +40,12 @@ Top bar
     position: relative;
     display: inline-block;
 }
+
+.nombre_sistema{
+    font-weight: 600;
+}
+
+.destacado{
+    color:#70C4E6;
+    
+}
