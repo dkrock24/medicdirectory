@@ -25,12 +25,12 @@
         {% endfor %}
     </div>
     <!-- End notifications -->
-    {% if modulos|length > 0%}
-        <select id="modulo-select" data-placeholder="Seleccone modulo..." class="select-size-xs">
-                <option></option>
-                {% for modulo in modulos %}
-                    <option value="{{ modulo.modId }}">{{ modulo.modModulo }}</option>
-                {% endfor %}
+        {% if modulos|length > 0%}
+            <select id="modulo-select" data-placeholder="Seleccone modulo..." class="select-size-xs">
+                    <option></option>
+                    {% for modulo in modulos %}
+                        <option value="{{ modulo.modId }}">{{ modulo.modModulo }}</option>
+                    {% endfor %}
         </select><br><br>
         <div id="secc-mod-content"{#class="panel panel-flat"#}>
             <table class="table table-striped mydtable">
@@ -52,11 +52,11 @@
                 </tbody>
             </table>
         </div>
-            
-        <br>
-    {% else %}
-        <div class="alert alert-info" role=""><i class="fa fa-info-circle"></i> No hay regístros creados</div>
-    {% endif %}    
+
+            <br>
+        {% else %}
+            <div class="alert alert-info" role=""><i class="fa fa-info-circle"></i> No hay regístros creados</div>
+        {% endif %}  
     <ul class="list-inline">
         <li>
             <a href="{{ path('secciones_modulos_new') }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Nuevo</a>
@@ -106,17 +106,17 @@
                     type: "post",
                     data: { id: id_mod, sEcho: 616 }
                  }).done(function (result) {
-                        jdata = JSON.parse( result );
-                        Table.clear().draw();
-                        for ( x = 0; x < jdata['aaData'].length; x++ ){
-                           Table.row.add( jdata['aaData'][x] ).draw();
-                        }
-                        
-                        setTableActionsEvents();
-                        
-                    }).fail(function (jqXHR, textStatus, errorThrown) { 
-                        
-                    });
+                    jdata = JSON.parse( result );
+                    Table.clear().draw();
+                    for ( x = 0; x < jdata['aaData'].length; x++ ){
+                       Table.row.add( jdata['aaData'][x] ).draw();
+                    }
+
+                    setTableActionsEvents();
+
+                }).fail(function (jqXHR, textStatus, errorThrown) { 
+
+                });
             
             });
             

@@ -21,6 +21,10 @@ admin_modulos:
 admin_secciones_modulos:
     resource: "@AdminBundle/Resources/config/routing/secciones_modulos.yml"
     prefix:   /secciones_modulos
+    
+admin_campos_modulos:
+    resource: "@AdminBundle/Resources/config/routing/campos_modulos.yml"
+    prefix: /campos_modulos
 
 admin_contabilidad:
     path:     /admin_contabilidad

@@ -1,0 +1,147 @@
+{% extends "Layout/base_admin/_admin_base.html.twig" %}
+
+{% block title_page %}
+        EMR || Listado de modulos
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('AdminBundle:secciones_modulos:_breadcrumb.html.twig' )  }}
+{% endblock %} 
+
+{% block submenutop %}
+    {{ include('AdminBundle:secciones_modulos:_submenu.html.twig' )  }}
+{% endblock %}
+
+{% block body %}
+    <h1>Lista de campos de modulos</h1>
+    
+    <!-- Check the notifications -->
+    <div id="holder_msg">
+        {% for message in app.session.flashbag().get("success") %}
+            <div class="alert alert-success"><i class="fa fa-check-circle"></i> {{message}}</div>
+        {% endfor %}
+        {% for message in app.session.flashbag().get("error") %}
+            <div class="alert alert-danger"><i class="fa fa-close"></i> {{message}}</div>
+        {% endfor %}
+    </div>
+    <!-- End notifications -->
+    
+    <div class="panel panel-flat">
+        <div class="panel-body">
+        {% if modulos|length > 0%}
+            <div class="form-group">
+                <label>Modulo</label>
+                <select id="modulo-select" data-placeholder="Seleccone modulo..." class="select-size-xs">
+                        <option></option>
+                        {% for modulo in modulos %}
+                            <option value="{{ modulo.modId }}">{{ modulo.modModulo }}</option>
+                        {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Seccion</label>
+                <select id="seccion-select" data-placeholder="Seleccone seccion..." class="select-size-xs">
+                        <option></option>
+                </select>
+            </div>
+                
+            <div class="form-group">
+                <label>Campos</label>
+                <table class="table table-striped mydtable">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Seccion</th>
+                            <th>Orden</th>
+                            <th>Fecha creación</th>
+                            <th>Fecha modificado</th>
+                            <th>Activo</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+    {% else %}
+        <div class="alert alert-info" role=""><i class="fa fa-info-circle"></i> No hay regístros creados</div>
+    {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block codejs %}
+    <script type="text/javascript">
+        $(document).ready(function(){
+            
+            Table = $(".mydtable").DataTable({
+                data:[],
+                columns: [
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    {
+                        "data": "Acciones",
+                        "defaultContent": "<ul class=\"list-inline\"><li>"+
+                                "<a href=\"#\" class=\"btn btn-default secc_ver\"><i class=\"fa fa-folder-open\"></i> Ver</a>"+
+                                "</li><li><a href=\"#\" class=\"btn bg-teal-400 secc_editar\" ><i class=\"fa fa-edit\"></i> Editar</a>"+
+                                "</li><li><button class=\"btn btn-danger delete secc_eliminar\"><i class=\"fa fa-remove\"></i> Eliminar</button>"+
+                                "</li></ul>"
+                        // 
+                    }
+                ],
+                rowCallback: function (row, data) {},
+                filter: false,
+                info: false, 
+                ordering: false,
+                processing: true,
+                retrieve: true        
+            });
+            
+            $('#modulo-select').on('select2:select', function(e){  
+
+                var id_mod = $(this).val();
+                var sUrl = "{{ path('campos_modulos_lista_secciones') }}";
+
+                $.ajax({
+                    url: sUrl,
+                    type: "post",
+                    data: { id_mod: id_mod }
+                 }).done(function (result) {
+                        var jresult = JSON.parse(result);
+                        $('#seccion-select').select2({
+                            data: jresult
+                        });
+                }).fail(function (jqXHR, textStatus, errorThrown) {
+                        console.log( errorThrown );
+                    });
+            });
+
+            $('#seccion-select').on('select2:select', function(e){
+                var id_secc = $(this).val();
+                var sUrl = "{{ path('campos_modulos_lista_campos') }}";
+                
+                $.ajax({
+                    url: sUrl,
+                    type: "post",
+                    data: { id: id_mod, sEcho: 616 }
+                 }).done(function (result) {
+                    jdata = JSON.parse( result );
+                    Table.clear().draw();
+                    for ( x = 0; x < jdata['aaData'].length; x++ ){
+                       Table.row.add( jdata['aaData'][x] ).draw();
+                    }
+
+                    setTableActionsEvents();
+
+                }).fail(function (jqXHR, textStatus, errorThrown) { 
+
+                });
+
+            });
+        });
+    </script>
+{% endblock %}

@@ -486,4 +486,79 @@ class EavModCampos
     {
         return $this->seccionCampo;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $camposHijo;
+
+    /**
+     * @var \AppBundle\Entity\EavModCampos
+     */
+    private $campoPadre;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->camposHijo = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add camposHijo
+     *
+     * @param \AppBundle\Entity\EavModCampos $camposHijo
+     *
+     * @return EavModCampos
+     */
+    public function addCamposHijo(\AppBundle\Entity\EavModCampos $camposHijo)
+    {
+        $this->camposHijo[] = $camposHijo;
+
+        return $this;
+    }
+
+    /**
+     * Remove camposHijo
+     *
+     * @param \AppBundle\Entity\EavModCampos $camposHijo
+     */
+    public function removeCamposHijo(\AppBundle\Entity\EavModCampos $camposHijo)
+    {
+        $this->camposHijo->removeElement($camposHijo);
+    }
+
+    /**
+     * Get camposHijo
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCamposHijo()
+    {
+        return $this->camposHijo;
+    }
+
+    /**
+     * Set campoPadre
+     *
+     * @param \AppBundle\Entity\EavModCampos $campoPadre
+     *
+     * @return EavModCampos
+     */
+    public function setCampoPadre(\AppBundle\Entity\EavModCampos $campoPadre = null)
+    {
+        $this->campoPadre = $campoPadre;
+
+        return $this;
+    }
+
+    /**
+     * Get campoPadre
+     *
+     * @return \AppBundle\Entity\EavModCampos
+     */
+    public function getCampoPadre()
+    {
+        return $this->campoPadre;
+    }
 }

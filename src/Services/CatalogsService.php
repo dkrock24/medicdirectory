@@ -53,6 +53,6 @@ class CatalogsService {
         return $modules;
         
     }
-    
+
     
 }
