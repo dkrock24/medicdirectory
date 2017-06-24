@@ -87,6 +87,27 @@ class InvTipoPresentacionController extends Controller
     {
         $deleteForm = $this->createDeleteForm($invTipoPresentacion);
 
+        // Validar Registros Para Cliente
+        $em = $this->getDoctrine()->getManager();
+        $idCliente = $this->get('session')->get('locationId');
+
+        $invList = $this->validarRegistros($invTipoPresentacion,$idCliente);
+
+        if($invList == null)
+        {
+            $msgBox = "No se pudo mostrar el elemento ";
+            $status = "error";
+
+            $invTipoPresentacions = $em->getRepository('AppBundle:InvTipoPresentacion')->findBy(array('itpCli' => $idCliente));
+
+            $this->session->getFlashBag()->add($status,$msgBox);
+
+            return $this->render('EmrBundle:invtipopresentacion:index.html.twig', array(
+                'invTipoPresentacions' => $invTipoPresentacions,
+            ));
+        }
+        // Fin de la Validacion
+
         return $this->render('EmrBundle:invtipopresentacion:show.html.twig', array(
             'invTipoPresentacion' => $invTipoPresentacion,
             'delete_form' => $deleteForm->createView(),
@@ -100,6 +121,28 @@ class InvTipoPresentacionController extends Controller
     public function editAction(Request $request, InvTipoPresentacion $invTipoPresentacion)
     {
         $deleteForm = $this->createDeleteForm($invTipoPresentacion);
+
+        // Validar Registros Para Cliente
+        $em = $this->getDoctrine()->getManager();
+        $idCliente = $this->get('session')->get('locationId');
+
+        $invList = $this->validarRegistros($invTipoPresentacion,$idCliente);
+
+        if($invList == null)
+        {
+            $msgBox = "No se pudo mostrar el elemento ";
+            $status = "error";
+
+            $invTipoPresentacions = $em->getRepository('AppBundle:InvTipoPresentacion')->findBy(array('itpCli' => $idCliente));
+
+            $this->session->getFlashBag()->add($status,$msgBox);
+
+            return $this->render('EmrBundle:invtipopresentacion:index.html.twig', array(
+                'invTipoPresentacions' => $invTipoPresentacions,
+            ));
+        }
+        // Fin de la Validacion
+
         $editForm = $this->createForm('EmrBundle\Form\InvTipoPresentacionType', $invTipoPresentacion);
         $editForm->handleRequest($request);
 
@@ -180,5 +223,19 @@ class InvTipoPresentacionController extends Controller
         }
         
         exit();
+    }
+
+    private function validarRegistros($invTipoPresentacion,$idCliente){        
+
+        $em = $this->getDoctrine()->getManager();
+        $RAW_QUERY = "SELECT *  FROM inv_tipo_presentacion where itp_cli_id =:idCliente and itp_id =:idInventario";
+
+        $statement = $em->getConnection()->prepare($RAW_QUERY);
+        $statement->bindValue("idCliente", $idCliente);
+        $statement->bindValue("idInventario", $invTipoPresentacion->getItpId());
+        $statement->execute();
+        $invList = $statement->fetchAll();
+
+        return $invList;
     }
 }

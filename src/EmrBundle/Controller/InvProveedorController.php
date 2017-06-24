@@ -95,6 +95,27 @@ class InvProveedorController extends Controller
     {
         $deleteForm = $this->createDeleteForm($invProveedor);
 
+        // Validar Registros Para Cliente
+        $em = $this->getDoctrine()->getManager();
+        $idCliente = $this->get('session')->get('locationId');
+
+        $invList = $this->validarRegistros($invProveedor,$idCliente);
+
+        if($invList == null)
+        {
+            $msgBox = "No se pudo mostrar el elemento ";
+            $status = "error";
+
+            $invProveedors = $em->getRepository('AppBundle:InvProveedor')->findBy(array('iprCli' => $idCliente));
+
+            $this->session->getFlashBag()->add($status,$msgBox);
+
+            return $this->render('EmrBundle:invproveedor:index.html.twig', array(
+                'invProveedors' => $invProveedors,
+            ));
+        }
+        // Fin de la Validacion
+
         return $this->render('EmrBundle:invproveedor:show.html.twig', array(
             'invProveedor' => $invProveedor,
             'delete_form' => $deleteForm->createView(),
@@ -108,7 +129,27 @@ class InvProveedorController extends Controller
     public function editAction(Request $request, InvProveedor $invProveedor)
     {
         $deleteForm = $this->createDeleteForm($invProveedor);
+
+        // Validar Registros Para Cliente
+        $em = $this->getDoctrine()->getManager();
         $idCliente = $this->get('session')->get('locationId');
+
+        $invList = $this->validarRegistros($invProveedor,$idCliente);
+
+        if($invList == null)
+        {
+            $msgBox = "No se pudo mostrar el elemento ";
+            $status = "error";
+
+            $invProveedors = $em->getRepository('AppBundle:InvProveedor')->findBy(array('iprCli' => $idCliente));
+
+            $this->session->getFlashBag()->add($status,$msgBox);
+
+            return $this->render('EmrBundle:invproveedor:index.html.twig', array(
+                'invProveedors' => $invProveedors,
+            ));
+        }
+        // Fin de la Validacion
         
         $editForm = $this->createForm('EmrBundle\Form\InvProveedorType', $invProveedor,array('security_context'=> $idCliente));
         $editForm->handleRequest($request);
@@ -163,7 +204,27 @@ class InvProveedorController extends Controller
     public function deleteCustomAction( Request $request )
     {
         $iId = $request->request->get('id');
-        //$iId = $request->query->get('id');
+        
+        // Validar Registros Para Cliente
+        $em = $this->getDoctrine()->getManager();
+        $idCliente = $this->get('session')->get('locationId');
+
+        $invList = $this->validarRegistros($iId,$idCliente);
+
+        if($invList == null)
+        {
+            $msgBox = "No se pudo mostrar el elemento ";
+            $status = "error";
+
+            $invProveedors = $em->getRepository('AppBundle:InvProveedor')->findBy(array('iprCli' => $idCliente));
+
+            $this->session->getFlashBag()->add($status,$msgBox);
+
+            return $this->render('EmrBundle:invproveedor:index.html.twig', array(
+                'invProveedors' => $invProveedors,
+            ));
+        }
+        // Fin de la Validacion
         
         if( isset($iId) && $iId > 0 )
         {
@@ -190,5 +251,19 @@ class InvProveedorController extends Controller
         }
         
         exit();
+    }
+
+    private function validarRegistros($invProveedor,$idCliente){        
+
+        $em = $this->getDoctrine()->getManager();
+        $RAW_QUERY = "SELECT *  FROM inv_proveedor where ipr_cli_id =:idCliente and ipr_id =:idInventario";
+
+        $statement = $em->getConnection()->prepare($RAW_QUERY);
+        $statement->bindValue("idCliente", $idCliente);
+        $statement->bindValue("idInventario", $invProveedor->getIprId());
+        $statement->execute();
+        $invList = $statement->fetchAll();
+
+        return $invList;
     }
 }

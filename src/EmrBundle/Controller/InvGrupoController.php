@@ -84,6 +84,27 @@ class InvGrupoController extends Controller
     {
         $deleteForm = $this->createDeleteForm($invGrupo);
 
+        // Validar Registros Para Cliente
+        $em = $this->getDoctrine()->getManager();
+        $idCliente = $this->get('session')->get('locationId');
+
+        $invList = $this->validarRegistros($invGrupo,$idCliente);
+
+        if($invList == null)
+        {
+            $msgBox = "No se pudo mostrar el elemento ";
+            $status = "error";
+
+            $invGrupos = $em->getRepository('AppBundle:InvGrupo')->findBy(array('igrCli' => $idCliente));
+
+            $this->session->getFlashBag()->add($status,$msgBox);
+
+            return $this->render('EmrBundle:invgrupo:index.html.twig', array(
+                'invGrupos' => $invGrupos,
+            ));
+        }
+        // Fin de la Validacion
+
         return $this->render('EmrBundle:invgrupo:show.html.twig', array(
             'invGrupo' => $invGrupo,
             'delete_form' => $deleteForm->createView(),
@@ -96,6 +117,28 @@ class InvGrupoController extends Controller
      */
     public function editAction(Request $request, InvGrupo $invGrupo)
     {
+
+        // Validar Registros Para Cliente
+        $em = $this->getDoctrine()->getManager();
+        $idCliente = $this->get('session')->get('locationId');
+
+        $invList = $this->validarRegistros($invGrupo,$idCliente);
+
+        if($invList == null)
+        {
+            $msgBox = "No se pudo mostrar el elemento ";
+            $status = "error";
+
+            $invGrupos = $em->getRepository('AppBundle:InvGrupo')->findBy(array('igrCli' => $idCliente));
+
+            $this->session->getFlashBag()->add($status,$msgBox);
+
+            return $this->render('EmrBundle:invgrupo:index.html.twig', array(
+                'invGrupos' => $invGrupos,
+            ));
+        }
+        // Fin de la Validacion
+
         $deleteForm = $this->createDeleteForm($invGrupo);
         $editForm = $this->createForm('EmrBundle\Form\InvGrupoType', $invGrupo);
         $editForm->handleRequest($request);
@@ -177,5 +220,19 @@ class InvGrupoController extends Controller
         }
         
         exit();
+    }
+
+    private function validarRegistros($invGrupo,$idCliente){        
+
+        $em = $this->getDoctrine()->getManager();
+        $RAW_QUERY = "SELECT * FROM inv_grupo where igr_cli_id =:idCliente and igr_id =:idInvGrupo";
+
+        $statement = $em->getConnection()->prepare($RAW_QUERY);
+        $statement->bindValue("idCliente", $idCliente);
+        $statement->bindValue("idInvGrupo", $invGrupo->getIgrId());
+        $statement->execute();
+        $invList = $statement->fetchAll();
+
+        return $invList;
     }
 }
