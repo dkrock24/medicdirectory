@@ -81,6 +81,10 @@ class EavModCampos
      * @var \AppBundle\Entity\EavModSeccion
      */
     private $modSeccion;
+    
+    public function __toString() {
+        return $this->modCampNombre;
+    }
 
 
     /**

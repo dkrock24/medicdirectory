@@ -13,7 +13,7 @@ campos_modulos_delete:
 campos_modulos_new:
     path:     /new
     defaults: { _controller: AdminBundle:CamposModulos:new }
-    
+     
 campos_modulos_lista_secciones:
     path: /lista_secciones
     defaults: { _controller: AdminBundle:CamposModulos:getSeccionesModulo }

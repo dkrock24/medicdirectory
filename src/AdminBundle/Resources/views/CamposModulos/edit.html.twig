@@ -1,7 +1,53 @@
-{% extends "::base.html.twig" %}
+{% extends "Layout/base_admin/_admin_base.html.twig" %}
 
-{% block title %}AdminBundle:CamposModulos:edit{% endblock %}
+{% block title_page %}
+        EMR || Formulario de edición para campos de modulos
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('AdminBundle:CamposModulos:_breadcrumb.html.twig' )  }}
+{% endblock %} 
+
+{% block submenutop %}
+    {{ include('AdminBundle:CamposModulos:_submenu.html.twig' )  }}
+{% endblock %}
 
 {% block body %}
-<h1>Welcome to the CamposModulos:edit page</h1>
+    <h1>Editar</h1>
+    <div class="row">
+        <div class="col-lg-6">
+            <!-- Check the notifications -->
+            {% for message in app.session.flashbag().get("success") %}
+                <div class="alert alert-success"><i class="fa fa-check-circle"></i> {{message}}</div>
+            {% endfor %}
+            {% for message in app.session.flashbag().get("error") %}
+                <div class="alert alert-danger"><i class="fa fa-close"></i> {{message}}</div>
+            {% endfor %}
+            <!-- End notifications -->
+                {{ form_start(edit_form) }}
+                {{ form_row( edit_form.modCampNombre ) }}
+                {{ form_row( edit_form.tipoCampos) }}
+                {{ form_row( edit_form.seccionCampo ) }}
+                {{ form_row( edit_form.modCampShowIfnull ) }}
+                {{ form_row( edit_form.modCampValorDefault ) }}
+                {{ form_row( edit_form.modCampRequerido) }}
+                {{ form_row( edit_form.modCampOrden) }}
+                {{ form_row( edit_form.modCampEsCatalogo) }}
+                {{ form_row( edit_form.campoPadre) }}
+                {{ form_row( edit_form.modCampActivo) }}
+                <br>
+                <button type="submit" class="btn btn-success"><i class="icon-newspaper"></i>Guardar</button>
+                {{ form_row(edit_form._token) }}
+            {{ form_end(edit_form, {'render_rest': false}) }}
+            <hr>    
+        </div>
+    </div>
+    <ul class="list-inline">
+        <li>
+            <a href="{{ path('campos_modulos_index') }}" class="btn btn-info"><i class="fa fa-list"></i> Listar</a>
+        </li>
+        <li>
+            <a href="{{ path('campos_modulos_new') }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Nuevo</a>
+        </li>
+    </ul>
 {% endblock %}

@@ -16,12 +16,6 @@ AppBundle\Entity\EavModSeccion:
             generator:
                 strategy: IDENTITY
     fields:
-#        modSeccModId:
-#            type: integer
-#            nullable: false
-#            options:
-#                unsigned: true
-#            column: mod_secc_mod_id
         modSeccSeccion:
             type: string
             nullable: false

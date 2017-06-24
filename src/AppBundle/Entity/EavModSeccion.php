@@ -42,6 +42,10 @@ class EavModSeccion
      */
     private $modSeccModId;
 
+    
+    public function __toString() {
+        return $this->modSeccSeccion;
+    }
 
         /**
      * Get modSeccId

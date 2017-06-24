@@ -16,6 +16,12 @@ AppBundle\Entity\EavModCampos:
             generator:
                 strategy: IDENTITY
     fields:
+        modCampModSeccId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            column: mod_camp_mod_secc_id
         modCampNombre:
             type: string
             nullable: false
@@ -38,12 +44,12 @@ AppBundle\Entity\EavModCampos:
             nullable: true
             length: 50
             column: mod_camp_valor_default
-#        modCampCampoPadre:
-#            type: integer
-#            nullable: true
-#            options:
-#                unsigned: true
-#            column: mod_camp_campo_padre
+        modCampCampoPadre:
+            type: integer
+            nullable: true
+            options:
+                unsigned: true
+            column: mod_camp_campo_padre
         modCampEsCatalogo:
             type: boolean
             nullable: true
@@ -106,8 +112,8 @@ AppBundle\Entity\EavModCampos:
                     referencedColumnName: mod_secc_id
         campoPadre:
             targetEntity: EavModCampos
-            joinColumn:
-                modCampCampoPadre:
+            joinColumns:
+                mod_camp_campo_padre:
                     referencedColumnName: mod_camp_id
     oneToMany:
         camposHijo:

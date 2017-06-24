@@ -22,7 +22,7 @@ class EavModCamposType extends AbstractType
                 ->add('modCampTipCampId')
                 ->add('modCampOrden')
                 ->add('modCampActivo')
-                ->add('modCampFechaCrea')
+//                ->add('modCampFechaCrea')
                 ->add('modCampFechaMod')
                 ->add('tipoCampos')
                 ->add('seccionCampo')
@@ -36,7 +36,7 @@ class EavModCamposType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AdminBundle\Entity\EavModCampos'
+            'data_class' => 'AppBundle\Entity\EavModCampos'
         ));
     }
 
