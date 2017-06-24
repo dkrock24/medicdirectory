@@ -28,7 +28,22 @@ class InvMovimientoController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $invMovimientos = $em->getRepository('AppBundle:InvMovimiento')->findAll();
+        $idCliente      = $this->get('session')->get('locationId');
+        $invMovimiento  = new Invmovimiento();
+
+        //$invMovimientos = $em->getRepository('AppBundle:InvMovimiento')->findBy(array('invCli' => $idCliente));
+
+        $em = $this->getDoctrine()->getManager();
+        $RAW_QUERY = "  SELECT * FROM inventario as I
+                        JOIN inv_movimiento as IM on I.inv_id=IM.imo_inv_id
+                        JOIN inv_tipo_movimiento as ITM on ITM.itm_id=IM.imo_itm_id
+                        where I.inv_cli_id=:idCliente";
+
+        $statement = $em->getConnection()->prepare($RAW_QUERY);
+        $statement->bindValue("idCliente", $idCliente);
+        $statement->execute();
+        $invMovimientos = $statement->fetchAll();
+
 
         return $this->render('EmrBundle:invmovimiento:index.html.twig', array(
             'invMovimientos' => $invMovimientos,
@@ -81,6 +96,38 @@ class InvMovimientoController extends Controller
     {
         $deleteForm = $this->createDeleteForm($invMovimiento);
 
+        // Validar Registros Para Cliente
+        $em = $this->getDoctrine()->getManager();
+        $idCliente = $this->get('session')->get('locationId');
+
+        $invList = $this->validarRegistros($invMovimiento,$idCliente);
+
+        if($invList == null)
+        {
+            $msgBox = "No se pudo mostrar el elemento ";
+            $status = "error";
+
+            //$invMovimientos = $em->getRepository('AppBundle:InvMovimiento')->findAll();
+
+            $em = $this->getDoctrine()->getManager();
+            $RAW_QUERY = "  SELECT * FROM inventario as I
+                            JOIN inv_movimiento as IM on I.inv_id=IM.imo_inv_id
+                            JOIN inv_tipo_movimiento as ITM on ITM.itm_id=IM.imo_itm_id
+                            where I.inv_cli_id=:idCliente";
+
+            $statement = $em->getConnection()->prepare($RAW_QUERY);
+            $statement->bindValue("idCliente", $idCliente);
+            $statement->execute();
+            $invMovimientos = $statement->fetchAll();
+
+            $this->session->getFlashBag()->add($status,$msgBox);
+
+            return $this->render('EmrBundle:invmovimiento:index.html.twig', array(
+                'invMovimientos' => $invMovimientos,
+            ));
+        }
+        // Fin de la Validacion
+
         return $this->render('EmrBundle:invmovimiento:show.html.twig', array(
             'invMovimiento' => $invMovimiento,
             'delete_form' => $deleteForm->createView(),
@@ -94,6 +141,28 @@ class InvMovimientoController extends Controller
     public function editAction(Request $request, InvMovimiento $invMovimiento)
     {
         $deleteForm = $this->createDeleteForm($invMovimiento);
+
+        // Validar Registros Para Cliente
+        $em = $this->getDoctrine()->getManager();
+        $idCliente = $this->get('session')->get('locationId');
+
+        $invList = $this->validarRegistros($invMovimiento,$idCliente);
+
+        if($invList == null)
+        {
+            $msgBox = "No se pudo mostrar el elemento ";
+            $status = "error";
+
+            $invMovimientos = $em->getRepository('AppBundle:InvMovimiento')->findAll();
+
+            $this->session->getFlashBag()->add($status,$msgBox);
+
+            return $this->render('EmrBundle:invmovimiento:index.html.twig', array(
+                'invMovimientos' => $invMovimientos,
+            ));
+        }
+        // Fin de la Validacion
+
         $editForm = $this->createForm('EmrBundle\Form\InvMovimientoType', $invMovimiento);
         $editForm->handleRequest($request);
 
@@ -174,5 +243,22 @@ class InvMovimientoController extends Controller
         }
         
         exit();
+    }
+
+    private function validarRegistros($invMovimiento,$idCliente){        
+
+        $em = $this->getDoctrine()->getManager();
+        $RAW_QUERY = "  SELECT * FROM inventario as I
+                        JOIN inv_movimiento as IM on I.inv_id=IM.imo_inv_id
+                        JOIN inv_tipo_movimiento as ITM on ITM.itm_id=IM.imo_itm_id
+                        where I.inv_cli_id=:idCliente and IM.imo_id=:idInvMovimiento";
+
+        $statement = $em->getConnection()->prepare($RAW_QUERY);
+        $statement->bindValue("idCliente", $idCliente);
+        $statement->bindValue("idInvMovimiento", $invMovimiento->getImoId());
+        $statement->execute();
+        $invList = $statement->fetchAll();
+
+        return $invList;
     }
 }

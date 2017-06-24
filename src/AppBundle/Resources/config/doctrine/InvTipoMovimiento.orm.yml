@@ -1,6 +1,10 @@
 AppBundle\Entity\InvTipoMovimiento:
     type: entity
     table: inv_tipo_movimiento
+    indexes:
+        FK_inv_tipomovimiento_cliente:
+            columns:
+                - itm_cli_id
     id:
         itmId:
             type: integer
@@ -42,4 +46,15 @@ AppBundle\Entity\InvTipoMovimiento:
             options:
                 default: '1'
             column: itm_activo
+    manyToOne:
+        itmCli:
+            targetEntity: Cliente
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                itm_cli_id:
+                    referencedColumnName: cli_id
+            orphanRemoval: false
     lifecycleCallbacks: {  }

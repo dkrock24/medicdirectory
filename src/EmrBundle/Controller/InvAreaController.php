@@ -86,6 +86,28 @@ class InvAreaController extends Controller
     {
         $deleteForm = $this->createDeleteForm($invArea);
 
+        // Validar Registros Para Cliente
+        $em = $this->getDoctrine()->getManager();
+        $idCliente = $this->get('session')->get('locationId');
+
+        $invList = $this->validarRegistros($invArea,$idCliente);
+
+        if($invList == null)
+        {
+            $msgBox = "No se pudo mostrar el elemento ";
+            $status = "error";
+
+            $invAreas = $em->getRepository('AppBundle:InvArea')->findBy(array('iarCli' => $idCliente));
+
+            $this->session->getFlashBag()->add($status,$msgBox);
+
+            return $this->render('EmrBundle:invarea:index.html.twig', array(
+                'invAreas' => $invAreas,
+            ));
+        }
+        // Fin de la Validacion
+
+
         return $this->render('EmrBundle:invarea:show.html.twig', array(
             'invArea' => $invArea,
             'delete_form' => $deleteForm->createView(),
@@ -99,6 +121,28 @@ class InvAreaController extends Controller
     public function editAction(Request $request, InvArea $invArea)
     {
         $deleteForm = $this->createDeleteForm($invArea);
+
+        // Validar Registros Para Cliente
+        $em = $this->getDoctrine()->getManager();
+        $idCliente = $this->get('session')->get('locationId');
+
+        $invList = $this->validarRegistros($invArea,$idCliente);
+
+        if($invList == null)
+        {
+            $msgBox = "No se pudo mostrar el elemento ";
+            $status = "error";
+
+            $invAreas = $em->getRepository('AppBundle:InvArea')->findBy(array('iarCli' => $idCliente));
+
+            $this->session->getFlashBag()->add($status,$msgBox);
+
+            return $this->render('EmrBundle:invarea:index.html.twig', array(
+                'invAreas' => $invAreas,
+            ));
+        }
+        // Fin de la Validacion
+
         $editForm = $this->createForm('EmrBundle\Form\InvAreaType', $invArea);
         $editForm->handleRequest($request);
 
@@ -179,5 +223,19 @@ class InvAreaController extends Controller
         }
         
         exit();
+    }
+
+    private function validarRegistros($invArea,$idCliente){        
+
+        $em = $this->getDoctrine()->getManager();
+        $RAW_QUERY = "SELECT * FROM inv_area where iar_cli_id =:idCliente and iar_id =:idInvArea";
+
+        $statement = $em->getConnection()->prepare($RAW_QUERY);
+        $statement->bindValue("idCliente", $idCliente);
+        $statement->bindValue("idInvArea", $invArea->getIarId());
+        $statement->execute();
+        $invList = $statement->fetchAll();
+
+        return $invList;
     }
 }

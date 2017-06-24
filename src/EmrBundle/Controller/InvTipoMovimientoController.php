@@ -85,6 +85,28 @@ class InvTipoMovimientoController extends Controller
     {
         $deleteForm = $this->createDeleteForm($invTipoMovimiento);
 
+        // Validar Registros Para Cliente
+        $em = $this->getDoctrine()->getManager();
+        $idCliente = $this->get('session')->get('locationId');
+
+        $invList = $this->validarRegistros($invTipoMovimiento,$idCliente);
+
+        if($invList == null)
+        {
+            $msgBox = "No se pudo mostrar el elemento ";
+            $status = "error";
+
+            $invTipoMovimientos = $em->getRepository('AppBundle:InvTipoMovimiento')->findBy(array('itmCli' => $idCliente));
+
+            $this->session->getFlashBag()->add($status,$msgBox);
+
+            return $this->render('EmrBundle:invtipomovimiento:index.html.twig', array(
+                'invTipoMovimientos' => $invTipoMovimientos,
+            ));
+        }
+        // Fin de la Validacion
+        
+
         return $this->render('EmrBundle:invtipomovimiento:show.html.twig', array(
             'invTipoMovimiento' => $invTipoMovimiento,
             'delete_form' => $deleteForm->createView(),
@@ -97,6 +119,28 @@ class InvTipoMovimientoController extends Controller
      */
     public function editAction(Request $request, InvTipoMovimiento $invTipoMovimiento)
     {
+
+        // Validar Registros Para Cliente
+        $em = $this->getDoctrine()->getManager();
+        $idCliente = $this->get('session')->get('locationId');
+
+        $invList = $this->validarRegistros($invTipoMovimiento,$idCliente);
+
+        if($invList == null)
+        {
+            $msgBox = "No se pudo mostrar el elemento ";
+            $status = "error";
+
+            $invTipoMovimientos = $em->getRepository('AppBundle:InvTipoMovimiento')->findBy(array('itmCli' => $idCliente));
+
+            $this->session->getFlashBag()->add($status,$msgBox);
+
+            return $this->render('EmrBundle:invtipomovimiento:index.html.twig', array(
+                'invTipoMovimientos' => $invTipoMovimientos,
+            ));
+        }
+        // Fin de la Validacion
+
         $deleteForm = $this->createDeleteForm($invTipoMovimiento);
         $editForm = $this->createForm('EmrBundle\Form\InvTipoMovimientoType', $invTipoMovimiento);
         $editForm->handleRequest($request);
@@ -178,5 +222,19 @@ class InvTipoMovimientoController extends Controller
         }
         
         exit();
+    }
+
+    private function validarRegistros($invTipoMovimiento,$idCliente){        
+
+        $em = $this->getDoctrine()->getManager();
+        $RAW_QUERY = "SELECT *  FROM inv_tipo_movimiento where itm_cli_id =:idCliente and itm_id =:invTipoMovimiento";
+
+        $statement = $em->getConnection()->prepare($RAW_QUERY);
+        $statement->bindValue("idCliente", $idCliente);
+        $statement->bindValue("invTipoMovimiento", $invTipoMovimiento->getItmId());
+        $statement->execute();
+        $invList = $statement->fetchAll();
+
+        return $invList;
     }
 }
