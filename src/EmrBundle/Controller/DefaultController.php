@@ -140,9 +140,7 @@ class DefaultController extends Controller
 		if( isset($locationId) && !empty($locationId) )
 		{
 			
-			
-			
-			
+
 			if( $oProfileImage )
 			{
 				$hashImg = $oProfileImage->getGalHash();

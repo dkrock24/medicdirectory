@@ -110,7 +110,7 @@ class DashboardController extends Controller
 				$statement->execute();
 				$oMessages = $statement->fetchAll();
 				
-				exit();
+			
 			}
 			else
 			{
