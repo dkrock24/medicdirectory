@@ -53,8 +53,10 @@ class DashboardController extends Controller
 			$start = date("Y-m-d");
 			$end = date("Y-m-d");
 			$filter = " AND a.age_usu_id = " . $idUser;
-			$RAW_QUERY = "SELECT a.age_id as id, a.age_fecha_inicio as start, a.age_fecha_fin as end, a.age_tipo_evento as tipo_evento FROM agenda a
+			$RAW_QUERY = "SELECT a.age_id as id, a.age_fecha_inicio as start, a.age_fecha_fin as end, a.age_tipo_evento as tipo_evento,  p.pac_nombre, p.pac_seg_nombre, p.pac_apellido, p.pac_seg_apellido,p.pac_dui
+								FROM agenda a
 								LEFT JOIN cita c on c.cit_id = a.age_cit_id
+								LEFT JOIN paciente p ON c.cit_pac_id = p.pac_id
 								AND c.cit_activo = 1
 								WHERE a.age_activo = 1
 								AND a.age_cli_id = $locationId "
@@ -64,7 +66,7 @@ class DashboardController extends Controller
 
 			$statement = $em->getConnection()->prepare($RAW_QUERY);
 			$statement->execute();
-			$rs = $statement->fetchAll();
+			$appointments = $statement->fetchAll();
 
 			$profilephoto = "";
 			$oProfileImage = $em->getRepository('AppBundle:UsuarioGaleria')->findOneBy( array("galUsuario"=>$idUser, "galCliente"=>$locationId, "galTipo"=>1) );
@@ -78,13 +80,41 @@ class DashboardController extends Controller
 					$profilephoto = $hashImg;
 				}
 			}
+			
+			
+			//Get unread messages
+			//$roles = $this->get('session')->get('userRoles');	
+			//$locationId = $this->get('session')->get('locationId');
+			//$idUser =  $this->getUser()->getUsuId();
+			//$em = $this->getDoctrine()->getManager();	
+
+			$unread = 0;
+			$oUnReadMessage = $em->getRepository('AppBundle:SolicitudContacto')->findBy( array("scUsuario"=>$idUser, "scCliente"=>$locationId, "estado"=>0) );
+			
+			if( count($oUnReadMessage) > 0 )
+			{
+				$unread = count($oUnReadMessage);
+			}
+
+			$RAW_QUERY = "SELECT * FROM solicitud_contacto WHERE sc_cli_id = $locationId AND sc_usu_id = $idUser ORDER BY fecha_contacto DESC LIMIT 20"; 
+			$statement = $em->getConnection()->prepare($RAW_QUERY);
+				//$statement->bindValue("idUser", $idUser );
+			$statement->execute();
+			$oMessages = $statement->fetchAll();
 		}
 
+		
+		
+		
+		
         //$em = $this->getDoctrine()->getManager();
         return $this->render('EmrBundle:Dashboard:dashboard.html.twig', array(
 			"profilephoto"=>$profilephoto,
 			"userInfo"=> $oUser,
 			"roles"=>$roles,
+			"messages"=>$oMessages,
+			'unReadMessage'=>$unread,
+			"appointments"=>$appointments
         ));
     }
 }

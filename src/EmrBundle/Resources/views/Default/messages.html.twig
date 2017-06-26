@@ -1,0 +1,171 @@
+{#
+{% if  profilephoto != "" %}
+    <img src="{{ image('uploads/perfil/'~profilephoto).cropResize(20,20) }}">
+ {% else %}
+     
+    {% if userInfo.usuGenero|lower  == "m" %}
+
+        {% if roles.3 is defined %}
+            <img src="{{ image('bundles/admin/img/asistente-hombre.png').cropResize(20,20) }}">
+        {% else %}    
+            <img src="{{ image('bundles/admin/img/doctor.png').cropResize(20,20) }}" >
+        {% endif %} 
+
+    {% else %}
+        {% if roles.3 is defined %}
+            <img src="{{ image('bundles/admin/img/asistente-mujer.png').cropResize(20,20) }}">
+        {% else %}
+            <img src="{{ image('bundles/admin/img/doctora.png').cropResize(20,20) }}">
+        {% endif %} 
+
+    {% endif %}
+
+{% endif %}
+#}
+
+
+<li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+        <i class="icon-bubbles4"></i>
+        <span class="visible-xs-inline-block position-right">Mensajes</span>
+        {#
+        {% if unread > 0 %}
+            
+        {% endif %}
+        #}
+        <span class="badge bg-warning-400 unread" id="unread">{{ unread }}</span>
+        
+       
+    </a>
+
+    <div class="dropdown-menu dropdown-content width-350">
+        <div class="dropdown-content-heading">
+            Mensajes
+            <ul class="icons-list">
+                <li><a href="#"><i class="icon-compose"></i></a></li>
+            </ul>
+        </div>
+        {% if messages|length > 0 %}
+            <ul class="media-list dropdown-content-body">
+                {% for message in messages %}
+                    <li class="media">
+                        {#
+                        <div class="media-left">
+                            <img src="assets/images/placeholder.jpg" class="img-circle img-sm" alt="">
+                            <span class="badge bg-danger-400 media-badge">5</span>
+                        </div>
+                        #}
+                        <div class="media-body">
+                            <a href="#" class="media-heading">
+                                {# <span class="text-semibold">James Alexander</span> #}
+                                <span class="media-annotation pull-right">{{ message.fecha_contacto }}</span>
+                            </a>
+
+                            <span class="text-muted">{{ message.comentario|slice(0, 100) }}</span>
+                            
+                            <button type="button" class="btn btn-info btn-xs openModal" id="msg_{{message.id}}" data-status="{{message.estado}}"><i class="icon-comment-discussion position-left"></i> Ver más</button>
+                        </div>
+                    </li>
+                {% endfor %}    
+            </ul>
+
+            <div class="dropdown-content-footer">
+                <a href="#" data-popup="tooltip" title=""><i class="icon-menu display-block"></i></a>
+            </div>
+        {% endif %}
+    </div>
+</li>
+<script>
+    $(document).on("ready",function(){
+        $(".openModal").on("click",function(){
+            
+            var id = $(this).attr("id");
+            id = id.replace( /^\D+/g, '');
+            var status = $(this).attr("data-status");
+            //alert(status);
+            getMessage(id, status);
+            
+        });
+        
+        function getMessage(id, status)
+        {
+            //$("#msg_1").attr("data-status","20");
+            // return false;
+            var id = id;
+            $("#holder_loading").show();
+            $.ajax({
+                    type: "post",
+                    url: "{{ path('emr_message_detail') }}",
+                    data: { id: id },
+                    error: function (data) {
+                        $("#holder_loading").hide();
+                        $.confirm({
+                            icon: 'fa fa-remove',
+                            title: 'Error!',
+                            content: 'Ha ocurrido un error al tratar de enviar la petición',
+                            type: 'red',
+                            typeAnimated: true,
+                            buttons: {
+                                tryAgain: {
+                                    text: 'Intentar de nuevo',
+                                    btnClass: 'btn-red',
+                                    action: function () {
+                                       getMessage();
+                                    }
+                                },
+                                close: function () {
+                                }
+                            }
+                        });
+
+                    },
+                    success: function (data) {
+                        $("#holder_loading").hide();
+                        
+                        var info = "";
+                        if( data.length > 0)
+                        {
+                            if( status == 0 )
+                            {
+                                var unread = $("#unread").text();
+                                if( parseInt(unread) > 0 )
+                                {
+                                    unread = unread - 1;
+                                }
+                                $(".unread").text(unread);
+                                $("#msg_"+id).attr("data-status","1");
+                                //console.log('ok');
+                            }
+                            
+                            for(i=0; i < data.length; i++)
+                            {
+                                info += "<p>"+data[i]['fecha_contacto']+"</p>";
+                                info += "<p>"+data[i]['telefono']+"</p>";
+                                info += "<p>"+data[i]['correo']+"</p>";
+                                info += "<p>"+data[i]['comentario']+"</p>";
+                            }            
+                            
+                            //data += "data";
+                            $("#bodyMessage").html(info);
+                            $("#modalMessage").modal({ backdrop: 'static' });
+                            
+						}
+                        else
+                        {
+                            $.alert({
+                                icon: 'glyphicon glyphicon-exclamation-sign',
+                                title: 'Info!',
+                                content: 'No se ha encontrado regístro',
+                                type: 'blue',
+                                typeAnimated: true,
+                             });
+                        }
+						
+					} 
+                    
+					//$("#result_search_patients").html(table);
+				});
+        }
+        
+    });
+</script>

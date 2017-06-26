@@ -1,5 +1,9 @@
 {% extends "Layout/base_emr/_clients_base.html.twig" %}
 
+{% block title_page %}
+        EMR || Bienvenido
+{% endblock %}
+
 {% block breadcrumb %}
     {{ include('EmrBundle:Dashboard:_breadcrumb.html.twig' )  }}
 {% endblock %} 
@@ -69,254 +73,262 @@
 
                                 {% endif %}
                                 <hr>
-                                <div id="datepickerSimple"></div>
+                                <h4><i class="icon-bubbles4"></i> Mensajes sin Leer <span class="badge bg-warning-400 unread">{{ unReadMessage }}</span> </h4>
                             </div>
                             <div class="col-lg-9 col-md-8 col-sm-8 col-xs-6">
                                 <!-- Quick stats boxes -->
-                                <div class="row">
-                                    
-                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                                        
-                                        <!-- Members online -->
-                                        <div class="panel bg-teal-400">
-                                            <div class="panel-body">
-                                                {#
-                                                <div class="heading-elements">
-                                                    <span class="heading-text badge bg-teal-800">+53,6%</span>
-                                                </div>
-                                                #}
-                                                <h5 class="no-margin"><i class="fa fa-money"></i> Ingresos</h5>
-                                               
-                                                <div class="text-muted text-size-small">489 avg</div>
-                                            </div>
-
-                                            <div class="container-fluid">
-                                                <div id="members-online"></div>
-                                            </div>
-                                        </div>
-                                        <!-- /members online -->
-                                        
-
-                                    </div>
-
-                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                                        <a href="{{ path('paciente_new') }}">
-                                            <!-- Current server load -->
-                                            <div class="panel bg-pink-400">
-                                                <div class="panel-body">
-                                                    {#
-                                                    <div class="heading-elements">
-                                                        <ul class="icons-list">
-                                                            <li class="dropdown">
-                                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-cog3"></i> <span class="caret"></span></a>
-                                                                <ul class="dropdown-menu dropdown-menu-right">
-                                                                    <li><a href="#"><i class="icon-sync"></i> Nuevo</a></li>
-                                                                    <li><a href="#"><i class="icon-list-unordered"></i> Listar</a></li>
-                                                                </ul>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                    #}
-                                                    <h5 class="no-margin"><i class="fa fa-plus-square"></i> Nuevo Paciente</h5>
-
-                                                    <div class="text-muted text-size-small">34.6% avg</div>
-                                                </div>
-
-                                                <div id="server-load"></div>
-                                            </div>
-                                            <!-- /current server load -->
-                                        </a>
-
-                                    </div>
-
-                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                                        
-                                        <a href="{{ path('agenda_new') }}?d={{ userInfo.usuId}}">
-                                            <!-- Today's revenue -->
-                                            <div class="panel bg-blue-400">
-                                                <div class="panel-body">
-                                                    {#
-                                                    <div class="heading-elements">
-                                                        <ul class="icons-list">
-                                                            <li><a data-action="reload"></a></li>
-                                                        </ul>
-                                                    </div>
-                                                    #}
-                                                    <h5 class="no-margin"><i class="fa fa-calendar"></i> Nueva Cita</h5>
-
-                                                    <div class="text-muted text-size-small">$37,578 avg</div>
-                                                </div>
-
-                                                <div id="today-revenue"></div>
-                                            </div>
-                                            <!-- /today's revenue -->
-                                        </a>
-
-                                    </div>
-                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                                        <a href="{{ path('perfil_show') }}">
-                                            <!-- Today's revenue -->
-                                            <div class="panel bg-grey-400">
-                                                <div class="panel-body">
-                                                    {#
-                                                    <div class="heading-elements">
-                                                        <ul class="icons-list">
-                                                            <li><a data-action="reload"></a></li>
-                                                        </ul>
-                                                    </div>
-                                                    #}
-                                                    <h5 class="no-margin"><i class="icon-user-plus"></i> Mi perfil</h5>
-
-                                                    <div class="text-muted text-size-small">$37,578 avg</div>
-                                                </div>
-
-                                                <div id="today-revenue"></div>
-                                            </div>
-                                            <!-- /today's revenue -->
-                                        </a>
-
-                                    </div>
-                                </div>
+                                
                                 <!-- /quick stats boxes -->
                                 
-                                <hr>
+                                
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="table-responsive">
-                                            <table class="table text-nowrap">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Mi agenda de Hoy</th>
-                                                        <th>Hora</th>
-                                                        <th>Estatus</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="media-left media-middle">
-                                                                <a href="#" class="btn bg-primary-400 btn-rounded btn-icon btn-xs">
-                                                                    <span class="letter-icon"></span>
-                                                                </a>
-                                                            </div>
-
-                                                            <div class="media-body">
-                                                                <div class="media-heading">
-                                                                    <a href="#" class="letter-icon-title">Sigma application</a>
+                                            {% if appointments|length > 0 %}
+                                                <table class="table text-nowrap">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Mi agenda de Hoy</th>
+                                                            <th>Hora</th>
+                                                            <th>Estatus</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="media-left media-middle">
+                                                                    <a href="#" class="btn bg-primary-400 btn-rounded btn-icon btn-xs">
+                                                                        <span class="letter-icon"></span>
+                                                                    </a>
                                                                 </div>
 
-                                                                <div class="text-muted text-size-small"><i class="icon-checkmark3 text-size-mini position-left"></i> New order</div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <span class="text-muted text-size-small">06:28 pm</span>
-                                                        </td>
-                                                        <td>
-                                                            <h6 class="text-semibold no-margin">$49.90</h6>
-                                                        </td>
-                                                    </tr>
+                                                                <div class="media-body">
+                                                                    <div class="media-heading">
+                                                                        <a href="#" class="letter-icon-title">Sigma application</a>
+                                                                    </div>
 
-                                                    <tr>
-                                                        <td>
-                                                            <div class="media-left media-middle">
-                                                                <a href="#" class="btn bg-danger-400 btn-rounded btn-icon btn-xs">
-                                                                    <span class="letter-icon"></span>
-                                                                </a>
-                                                            </div>
+                                                                    <div class="text-muted text-size-small"><i class="icon-checkmark3 text-size-mini position-left"></i> New order</div>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <span class="text-muted text-size-small">06:28 pm</span>
+                                                            </td>
+                                                            <td>
+                                                                <h6 class="text-semibold no-margin">$49.90</h6>
+                                                            </td>
+                                                        </tr>
 
-                                                            <div class="media-body">
-                                                                <div class="media-heading">
-                                                                    <a href="#" class="letter-icon-title">Alpha application</a>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="media-left media-middle">
+                                                                    <a href="#" class="btn bg-danger-400 btn-rounded btn-icon btn-xs">
+                                                                        <span class="letter-icon"></span>
+                                                                    </a>
                                                                 </div>
 
-                                                                <div class="text-muted text-size-small"><i class="icon-spinner11 text-size-mini position-left"></i> Renewal</div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <span class="text-muted text-size-small">04:52 pm</span>
-                                                        </td>
-                                                        <td>
-                                                            <h6 class="text-semibold no-margin">$90.50</h6>
-                                                        </td>
-                                                    </tr>
+                                                                <div class="media-body">
+                                                                    <div class="media-heading">
+                                                                        <a href="#" class="letter-icon-title">Alpha application</a>
+                                                                    </div>
 
-                                                    <tr>
-                                                        <td>
-                                                            <div class="media-left media-middle">
-                                                                <a href="#" class="btn bg-indigo-400 btn-rounded btn-icon btn-xs">
-                                                                    <span class="letter-icon"></span>
-                                                                </a>
-                                                            </div>
+                                                                    <div class="text-muted text-size-small"><i class="icon-spinner11 text-size-mini position-left"></i> Renewal</div>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <span class="text-muted text-size-small">04:52 pm</span>
+                                                            </td>
+                                                            <td>
+                                                                <h6 class="text-semibold no-margin">$90.50</h6>
+                                                            </td>
+                                                        </tr>
 
-                                                            <div class="media-body">
-                                                                <div class="media-heading">
-                                                                    <a href="#" class="letter-icon-title">Delta application</a>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="media-left media-middle">
+                                                                    <a href="#" class="btn bg-indigo-400 btn-rounded btn-icon btn-xs">
+                                                                        <span class="letter-icon"></span>
+                                                                    </a>
                                                                 </div>
 
-                                                                <div class="text-muted text-size-small"><i class="icon-lifebuoy text-size-mini position-left"></i> Support</div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <span class="text-muted text-size-small">01:26 pm</span>
-                                                        </td>
-                                                        <td>
-                                                            <h6 class="text-semibold no-margin">$60.00</h6>
-                                                        </td>
-                                                    </tr>
+                                                                <div class="media-body">
+                                                                    <div class="media-heading">
+                                                                        <a href="#" class="letter-icon-title">Delta application</a>
+                                                                    </div>
 
-                                                    <tr>
-                                                        <td>
-                                                            <div class="media-left media-middle">
-                                                                <a href="#" class="btn bg-success-400 btn-rounded btn-icon btn-xs">
-                                                                    <span class="letter-icon"></span>
-                                                                </a>
-                                                            </div>
+                                                                    <div class="text-muted text-size-small"><i class="icon-lifebuoy text-size-mini position-left"></i> Support</div>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <span class="text-muted text-size-small">01:26 pm</span>
+                                                            </td>
+                                                            <td>
+                                                                <h6 class="text-semibold no-margin">$60.00</h6>
+                                                            </td>
+                                                        </tr>
 
-                                                            <div class="media-body">
-                                                                <div class="media-heading">
-                                                                    <a href="#" class="letter-icon-title">Omega application</a>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="media-left media-middle">
+                                                                    <a href="#" class="btn bg-success-400 btn-rounded btn-icon btn-xs">
+                                                                        <span class="letter-icon"></span>
+                                                                    </a>
                                                                 </div>
 
-                                                                <div class="text-muted text-size-small"><i class="icon-lifebuoy text-size-mini position-left"></i> Support</div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <span class="text-muted text-size-small">11:46 am</span>
-                                                        </td>
-                                                        <td>
-                                                            <h6 class="text-semibold no-margin">$55.00</h6>
-                                                        </td>
-                                                    </tr>
+                                                                <div class="media-body">
+                                                                    <div class="media-heading">
+                                                                        <a href="#" class="letter-icon-title">Omega application</a>
+                                                                    </div>
 
-                                                    <tr>
-                                                        <td>
-                                                            <div class="media-left media-middle">
-                                                                <a href="#" class="btn bg-danger-400 btn-rounded btn-icon btn-xs">
-                                                                    <span class="letter-icon"></span>
-                                                                </a>
-                                                            </div>
+                                                                    <div class="text-muted text-size-small"><i class="icon-lifebuoy text-size-mini position-left"></i> Support</div>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <span class="text-muted text-size-small">11:46 am</span>
+                                                            </td>
+                                                            <td>
+                                                                <h6 class="text-semibold no-margin">$55.00</h6>
+                                                            </td>
+                                                        </tr>
 
-                                                            <div class="media-body">
-                                                                <div class="media-heading">
-                                                                    <a href="#" class="letter-icon-title">Alpha application</a>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="media-left media-middle">
+                                                                    <a href="#" class="btn bg-danger-400 btn-rounded btn-icon btn-xs">
+                                                                        <span class="letter-icon"></span>
+                                                                    </a>
                                                                 </div>
 
-                                                                <div class="text-muted text-size-small"><i class="icon-spinner11 text-size-mini position-left"></i> Renewal</div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <span class="text-muted text-size-small">10:29 am</span>
-                                                        </td>
-                                                        <td>
-                                                            <h6 class="text-semibold no-margin">$90.50</h6>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
+                                                                <div class="media-body">
+                                                                    <div class="media-heading">
+                                                                        <a href="#" class="letter-icon-title">Alpha application</a>
+                                                                    </div>
+
+                                                                    <div class="text-muted text-size-small"><i class="icon-spinner11 text-size-mini position-left"></i> Renewal</div>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <span class="text-muted text-size-small">10:29 am</span>
+                                                            </td>
+                                                            <td>
+                                                                <h6 class="text-semibold no-margin">$90.50</h6>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            {% else %}
+                                                <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">No hay citas/eventos creados</div>
+                                            {% endif %}
                                         </div>
-                                        <div class="text-right"><a href="" class="btn bg-teal-400">Ver agenda completa</a></div>
+                                        <div class="text-left"><a href="" class="btn bg-teal-400"><i class="fa fa-calendar"></i> Ver agenda completa</a></div>
                                     </div>
-                                    <div class="col-lg-6"></div>
+                                    <div class="col-lg-6">
+                                        <div id="datepickerSimple"></div>
+                                        <hr>
+                                        <div class="row">
+
+                                            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+
+                                                <!-- Members online -->
+                                                <div class="panel bg-teal-400">
+                                                    <div class="panel-body">
+                                                        {#
+                                                        <div class="heading-elements">
+                                                            <span class="heading-text badge bg-teal-800">+53,6%</span>
+                                                        </div>
+                                                        #}
+                                                        <h5 class="no-margin"><i class="icon-coins"></i> Ingresos</h5>
+
+                                                        {# <div class="text-muted text-size-small">489 avg</div> #}
+                                                    </div>
+
+                                                    <div class="container-fluid">
+                                                        <div id="members-online"></div>
+                                                    </div>
+                                                </div>
+                                                <!-- /members online -->
+
+
+                                            </div>
+
+                                            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                                                <a href="{{ path('paciente_new') }}">
+                                                    <!-- Current server load -->
+                                                    <div class="panel bg-pink-400">
+                                                        <div class="panel-body">
+                                                            {#
+                                                            <div class="heading-elements">
+                                                                <ul class="icons-list">
+                                                                    <li class="dropdown">
+                                                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-cog3"></i> <span class="caret"></span></a>
+                                                                        <ul class="dropdown-menu dropdown-menu-right">
+                                                                            <li><a href="#"><i class="icon-sync"></i> Nuevo</a></li>
+                                                                            <li><a href="#"><i class="icon-list-unordered"></i> Listar</a></li>
+                                                                        </ul>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                            #}
+                                                            <h5 class="no-margin"><i class="fa fa-plus-square"></i> Nuevo Paciente</h5>
+
+                                                            {# <div class="text-muted text-size-small">34.6% avg</div> #}
+                                                        </div>
+
+                                                        <div id="server-load"></div>
+                                                    </div>
+                                                    <!-- /current server load -->
+                                                </a>
+
+                                            </div>
+
+                                            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+
+                                                <a href="{{ path('agenda_new') }}?d={{ userInfo.usuId}}">
+                                                    <!-- Today's revenue -->
+                                                    <div class="panel bg-blue-400">
+                                                        <div class="panel-body">
+                                                            {#
+                                                            <div class="heading-elements">
+                                                                <ul class="icons-list">
+                                                                    <li><a data-action="reload"></a></li>
+                                                                </ul>
+                                                            </div>
+                                                            #}
+                                                            <h5 class="no-margin"><i class="fa fa-calendar"></i> Nueva Cita</h5>
+
+                                                            {# <div class="text-muted text-size-small">$37,578 avg</div> #}
+                                                        </div>
+
+                                                        <div id="today-revenue"></div>
+                                                    </div>
+                                                    <!-- /today's revenue -->
+                                                </a>
+
+                                            </div>
+                                            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                                                <a href="{{ path('perfil_show') }}">
+                                                    <!-- Today's revenue -->
+                                                    <div class="panel bg-grey-400">
+                                                        <div class="panel-body">
+                                                            {#
+                                                            <div class="heading-elements">
+                                                                <ul class="icons-list">
+                                                                    <li><a data-action="reload"></a></li>
+                                                                </ul>
+                                                            </div>
+                                                            #}
+                                                            <h5 class="no-margin"><i class="icon-user-plus"></i> Mi perfil</h5>
+
+                                                            {# <div class="text-muted text-size-small">$37,578 avg</div> #}
+                                                        </div>
+
+                                                        <div id="today-revenue"></div>
+                                                    </div>
+                                                    <!-- /today's revenue -->
+                                                </a>
+
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 
                             </div>
