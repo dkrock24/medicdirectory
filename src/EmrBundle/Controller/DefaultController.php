@@ -140,9 +140,7 @@ class DefaultController extends Controller
 		if( isset($locationId) && !empty($locationId) )
 		{
 			
-			
-			
-			
+
 			if( $oProfileImage )
 			{
 				$hashImg = $oProfileImage->getGalHash();
@@ -167,18 +165,29 @@ class DefaultController extends Controller
 		$em = $this->getDoctrine()->getManager();	
 		
 		$unread = 0;
-		$oUnReadMessage = $em->getRepository('AppBundle:SolicitudContacto')->findBy( array("scUsuario"=>$idUser, "scCliente"=>$locationId, "estado"=>0) );
-		if( count($oUnReadMessage) > 0 )
+		
+		if( $locationId != "")
 		{
-			$unread = count($oUnReadMessage);
+			$oUnReadMessage = $em->getRepository('AppBundle:SolicitudContacto')->findBy( array("scUsuario"=>$idUser, "scCliente"=>$locationId, "estado"=>0) );
+			if( count($oUnReadMessage) > 0 )
+			{
+				$unread = count($oUnReadMessage);
+			}
+			
+			$RAW_QUERY = "SELECT * FROM solicitud_contacto WHERE sc_cli_id = $locationId AND sc_usu_id = $idUser ORDER BY fecha_contacto DESC LIMIT 10"; 
+			$statement = $em->getConnection()->prepare($RAW_QUERY);
+			//$statement->bindValue("idUser", $idUser );
+			$statement->execute();
+			$oMessages = $statement->fetchAll();
+		}
+		else{
+			$oMessages = array();
 		}
 		
-		$RAW_QUERY = "SELECT * FROM solicitud_contacto WHERE sc_cli_id = $locationId AND sc_usu_id = $idUser ORDER BY fecha_contacto DESC LIMIT 10"; 
-		$statement = $em->getConnection()->prepare($RAW_QUERY);
-		//$statement->bindValue("idUser", $idUser );
-		$statement->execute();
-		$oMessages = $statement->fetchAll();
 		
+		
+		
+		//$oMessages = "";
 		return $this->render("EmrBundle:Default:messages.html.twig", array("messages"=> $oMessages, "unread"=>$unread));
 	}
 	
