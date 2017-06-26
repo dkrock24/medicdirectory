@@ -86,6 +86,27 @@ class InvTipoProveedorController extends Controller
     {
         $deleteForm = $this->createDeleteForm($invTipoProveedor);
 
+        // Validar Registros Para Cliente
+        $em = $this->getDoctrine()->getManager();
+        $idCliente = $this->get('session')->get('locationId');
+
+        $invList = $this->validarRegistros($invTipoProveedor,$idCliente);
+
+        if($invList == null)
+        {
+            $msgBox = "No se pudo mostrar el elemento ";
+            $status = "error";
+
+            $invTipoProveedors = $em->getRepository('AppBundle:InvTipoProveedor')->findBy(array('itprCli' => $idCliente));
+
+            $this->session->getFlashBag()->add($status,$msgBox);
+
+            return $this->render('EmrBundle:invtipoproveedor:index.html.twig', array(
+                'invTipoProveedors' => $invTipoProveedors,
+            ));
+        }
+        // Fin de la Validacion
+
         return $this->render('EmrBundle:invtipoproveedor:show.html.twig', array(
             'invTipoProveedor' => $invTipoProveedor,
             'delete_form' => $deleteForm->createView(),
@@ -97,7 +118,29 @@ class InvTipoProveedorController extends Controller
      *
      */
     public function editAction(Request $request, InvTipoProveedor $invTipoProveedor)
-    {
+    {       
+
+        // Validar Registros Para Cliente
+        $em = $this->getDoctrine()->getManager();
+        $idCliente = $this->get('session')->get('locationId');
+
+        $invList = $this->validarRegistros($invTipoProveedor,$idCliente);
+
+        if($invList == null)
+        {
+            $msgBox = "No se pudo mostrar el elemento ";
+            $status = "error";
+
+            $invTipoProveedors = $em->getRepository('AppBundle:InvTipoProveedor')->findBy(array('itprCli' => $idCliente));
+
+            $this->session->getFlashBag()->add($status,$msgBox);
+
+            return $this->render('EmrBundle:invtipoproveedor:index.html.twig', array(
+                'invTipoProveedors' => $invTipoProveedors,
+            ));
+        }
+        // Fin de la Validacion
+
         $deleteForm = $this->createDeleteForm($invTipoProveedor);
         $editForm = $this->createForm('EmrBundle\Form\InvTipoProveedorType', $invTipoProveedor);
         $editForm->handleRequest($request);
@@ -179,5 +222,19 @@ class InvTipoProveedorController extends Controller
         }
         
         exit();
+    }
+
+    private function validarRegistros($invTipoProveedor,$idCliente){        
+
+        $em = $this->getDoctrine()->getManager();        
+        $RAW_QUERY = "SELECT *  FROM inv_tipo_proveedor where itpr_cli_id =:idCliente and itpr_id =:idInvTipoInventario";
+
+        $statement = $em->getConnection()->prepare($RAW_QUERY);
+        $statement->bindValue("idCliente", $idCliente);
+        $statement->bindValue("idInvTipoInventario", $invTipoProveedor->getItprId());
+        $statement->execute();
+        $invList = $statement->fetchAll();
+
+        return $invList;
     }
 }

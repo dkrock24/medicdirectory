@@ -100,8 +100,33 @@ class InventarioController extends Controller
      */
     public function editAction(Request $request, Inventario $inventario)
     {
+        $idCliente  = $this->get('session')->get('locationId');
+
+        $em = $this->getDoctrine()->getManager();
+        $RAW_QUERY = "SELECT *  FROM inventario where inv_cli_id =:idCliente and inv_id =:idInventario";
+
+        $statement = $em->getConnection()->prepare($RAW_QUERY);
+        $statement->bindValue("idCliente", $idCliente);
+        $statement->bindValue("idInventario", $inventario->getInvid());
+        $statement->execute();
+        $invList = $statement->fetchAll();
+
+        if($invList == null)
+        {
+            $msgBox = "No se pudo mostrar el elemento ";
+            $status = "error";
+
+            $inventarios = $em->getRepository('AppBundle:Inventario')->findBy(array('invCli' => $idCliente));
+
+            $this->session->getFlashBag()->add($status,$msgBox);
+
+            return $this->render('EmrBundle:inventario:index.html.twig', array(
+                'inventarios' => $inventarios,
+            ));
+        }
+
         $deleteForm = $this->createDeleteForm($inventario);
-        $editForm = $this->createForm('AppBundle\Form\InventarioType', $inventario);
+        $editForm = $this->createForm('EmrBundle\Form\InventarioType', $inventario);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
@@ -110,7 +135,7 @@ class InventarioController extends Controller
             return $this->redirectToRoute('inventario_edit', array('invId' => $inventario->getInvid()));
         }
 
-        return $this->render('inventario/edit.html.twig', array(
+        return $this->render('EmrBundle:inventario:edit.html.twig', array(
             'inventario' => $inventario,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),

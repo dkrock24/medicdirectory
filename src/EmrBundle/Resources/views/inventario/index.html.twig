@@ -31,7 +31,7 @@
         <table class="table table-striped datatable-reorder">
         <thead>
             <tr>
-                <th>Id</th>
+                <th>#</th>
                 <th>Nombre</th>
                 <th>Grupo</th>
                 <th>Proveedor</th>
@@ -47,9 +47,10 @@
             </tr>
         </thead>
         <tbody>
+        {% set counter = 1 %}
         {% for inventario in inventarios %}
             <tr>
-                <td><a href="{{ path('inventario_show', { 'invId': inventario.invId }) }}">{{ inventario.invId }}</a></td>
+                <td>{{ counter }}</a></td>
                 <td>{{ inventario.invNombreComercial }}</td>
                 <td>{{ inventario.invGrpInv }}</td>
                 <td>{{ inventario.invProInv }}</td>
@@ -82,6 +83,7 @@
                     </ul>
                 </td>
             </tr>
+            {% set counter = counter + 1 %}
         {% endfor %}
         </tbody>
     </table>

@@ -91,6 +91,27 @@ class InvCategoriaController extends Controller
     {
         $deleteForm = $this->createDeleteForm($invCategorium);
 
+        // Validar Registros Para Cliente
+        $em = $this->getDoctrine()->getManager();
+        $idCliente = $this->get('session')->get('locationId');
+
+        $invList = $this->validarRegistros($invCategorium,$idCliente);
+
+        if($invList == null)
+        {
+            $msgBox = "No se pudo mostrar el elemento ";
+            $status = "error";
+
+            $invCategorias = $em->getRepository('AppBundle:InvCategoria')->findBy(array('icaCli' => $idCliente));
+
+            $this->session->getFlashBag()->add($status,$msgBox);
+
+            return $this->render('EmrBundle:invcategoria:index.html.twig', array(
+                'invCategorias' => $invCategorias,
+            ));
+        }
+        // Fin de la Validacion
+
         return $this->render('EmrBundle:invcategoria:show.html.twig', array(
             'invCategorium' => $invCategorium,
             'delete_form' => $deleteForm->createView(),
@@ -104,6 +125,29 @@ class InvCategoriaController extends Controller
     public function editAction(Request $request, InvCategoria $invCategorium)
     {
         $deleteForm = $this->createDeleteForm($invCategorium);
+
+        // Validar Registros Para Cliente
+        $em = $this->getDoctrine()->getManager();
+        $idCliente = $this->get('session')->get('locationId');
+
+        $invList = $this->validarRegistros($invCategorium,$idCliente);
+
+        if($invList == null)
+        {
+            $msgBox = "No se pudo mostrar el elemento ";
+            $status = "error";
+
+            $invCategorias = $em->getRepository('AppBundle:InvCategoria')->findBy(array('icaCli' => $idCliente));
+
+            $this->session->getFlashBag()->add($status,$msgBox);
+
+            return $this->render('EmrBundle:invcategoria:index.html.twig', array(
+                'invCategorias' => $invCategorias,
+            ));
+        }
+        // Fin de la Validacion
+
+
         $editForm = $this->createForm('EmrBundle\Form\InvCategoriaType', $invCategorium);
         $editForm->handleRequest($request);
 
@@ -199,5 +243,19 @@ class InvCategoriaController extends Controller
         }
         
         exit();
+    }
+
+    private function validarRegistros($invCategorium,$idCliente){        
+
+        $em = $this->getDoctrine()->getManager();
+        $RAW_QUERY = "SELECT *  FROM inv_categoria where ica_cli_id =:idCliente and ica_id =:idInvCategoria";
+
+        $statement = $em->getConnection()->prepare($RAW_QUERY);
+        $statement->bindValue("idCliente", $idCliente);
+        $statement->bindValue("idInvCategoria", $invCategorium->getIcaId());
+        $statement->execute();
+        $invList = $statement->fetchAll();
+
+        return $invList;
     }
 }

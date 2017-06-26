@@ -8,7 +8,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use AppBundle\Entity\Rol;
 use AppBundle\Entity\UsuarioGaleriaTipo;
 
-class UsuarioGaleriaTipoData implements FixtureInterface
+class SocialRedesData implements FixtureInterface
 {
     public function load(ObjectManager $manager)
     {

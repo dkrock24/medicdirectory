@@ -30,7 +30,7 @@
     <table class="table table-striped datatable-reorder">
         <thead>
             <tr>
-                <th>Id</th>
+                <th>#</th>
                 <th>Tipo</th>
                 <th>Valor</th>
                 <th>Descripcion</th>
@@ -41,29 +41,31 @@
             </tr>
         </thead>
         <tbody>
+         {% set counter = 1 %}
         {% for invMovimiento in invMovimientos %}
             <tr>
-                <td><a href="{{ path('invmovimiento_show', { 'imoId': invMovimiento.imoId }) }}">{{ invMovimiento.imoId }}</a></td>
-                <td>{{ invMovimiento.ImoItm.ItmTipo }}</td>
-                <td>{{ invMovimiento.imoValor }}</td>
-                <td>{{ invMovimiento.imoDescripcion }}</td>
-                <td>{% if invMovimiento.imoFechaCrea %}{{ invMovimiento.imoFechaCrea|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if invMovimiento.imoFechaMod %}{{ invMovimiento.imoFechaMod|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if invMovimiento.imoActivo %}Yes{% else %}No{% endif %}</td>
+                <td>{{ counter }}</a></td>
+                <td>{{ invMovimiento.itm_tipo }}</td>
+                <td>{{ invMovimiento.imo_valor }}</td>
+                <td>{{ invMovimiento.imo_descripcion }}</td>
+                <td>{% if invMovimiento.imo_fecha_crea %}{{ invMovimiento.imo_fecha_crea|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if invMovimiento.imo_fecha_mod %}{{ invMovimiento.imo_fecha_mod|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if invMovimiento.imo_activo %}Yes{% else %}No{% endif %}</td>
                 <td>
                     <ul class="list-inline">
                         <li class="dropdown">
                             <a href="#" class="btn btn bg-teal-400 dropdown-toggle btn-sm" data-toggle="dropdown">Acción <span class="caret"></span></a>
                                 <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a href="{{ path('invmovimiento_detalle', { 'imoId': invMovimiento.imoId }) }}"><i class="icon-folder"></i> Ver </a></li>
-                                    <li><a href="{{ path('invmovimiento_show', { 'imoId': invMovimiento.imoId }) }}"><i class="icon-pencil"></i> Editar</a></li>
+                                    <li><a href="{{ path('invmovimiento_detalle', { 'imoId': invMovimiento.imo_id }) }}"><i class="icon-folder"></i> Ver </a></li>
+                                    <li><a href="{{ path('invmovimiento_show', { 'imoId': invMovimiento.imo_id }) }}"><i class="icon-pencil"></i> Editar</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="#" id="{{ invMovimiento.imoId }}" class="delete"><i class="icon-trash"></i> Eliminar</a></li>
+                                    <li><a href="#" id="{{ invMovimiento.imo_id }}" class="delete"><i class="icon-trash"></i> Eliminar</a></li>
                                 </ul>
                         </li>
                     </ul>
                 </td>
             </tr>
+            {% set counter = counter + 1 %}
         {% endfor %}
         </tbody>
     </table>

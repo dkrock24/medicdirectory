@@ -41,9 +41,10 @@
             </tr>
         </thead>
         <tbody>
+        {% set counter = 1 %}
         {% for invMovimientoDetalle in invMovimientoDetalles %}
             <tr>
-                <td><a href="{{ path('invmovimientodetalle_show', { 'imdId': invMovimientoDetalle.imdId }) }}">{{ invMovimientoDetalle.imdId }}</a></td>
+                <td>{{ counter }}</a></td>
                 <td>{{ invMovimientoDetalle.imdUsuId }}</td>
                 <td>{{ invMovimientoDetalle.imdCantidad }}</td>
                 <td>{{ invMovimientoDetalle.imdPrecioEmitidio }}</td>
@@ -65,6 +66,7 @@
                     </ul>
                 </td>
             </tr>
+            {% set counter = counter + 1 %}
         {% endfor %}
         </tbody>
     </table>

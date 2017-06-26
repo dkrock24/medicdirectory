@@ -30,7 +30,7 @@
     <table class="table table-striped datatable-reorder">
         <thead>
             <tr>
-                <th>Id</th>
+                <th>#</th>
                 <th>Grupo</th>
                 <th>Creado</th>
                 <th>Modificado</th>
@@ -39,9 +39,10 @@
             </tr>
         </thead>
         <tbody>
+        {% set counter = 1 %}
         {% for invGrupo in invGrupos %}
             <tr>
-                <td><a href="{{ path('invgrupo_show', { 'igrId': invGrupo.igrId }) }}">{{ invGrupo.igrId }}</a></td>
+                <td>{{ counter }}</a></td>
                 <td>{{ invGrupo.igrGrupo }}</td>
                 <td>{% if invGrupo.igrFechaCreacion %}{{ invGrupo.igrFechaCreacion|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>{% if invGrupo.igrFechaMod %}{{ invGrupo.igrFechaMod|date('Y-m-d H:i:s') }}{% endif %}</td>
@@ -60,6 +61,7 @@
                     </ul>
                 </td>
             </tr>
+            {% set counter = counter + 1 %}
         {% endfor %}
         </tbody>
     </table>
