@@ -934,8 +934,9 @@
                    if(json > 0)
                     {   
                         //$("#calendar").fullCalendar("removeEvents",eventID);
-                        var router = "{{ path('consulta_new', { 'id': "PLACEHOLDER" }) }}";
+                        var router = "{{ path('consulta_new', { 'id': "PLACEHOLDER", 'cm':'EVENTID' }) }}";
                          router = router.replace("PLACEHOLDER", json);
+                         router = router.replace("EVENTID", eventID);
                         location.href = router;
                     }
                     else

@@ -59,10 +59,36 @@ class ConsultaController extends Controller
 	{
 		$em = $this->getDoctrine()->getManager();
 
-                $doctor = $this->getUser()->getUsuId();
-                
-		$patientId = $request->get('id');
+        $doctor = $this->getUser()->getUsuId();
+        
 		$iLocationId = $this->get('session')->get('locationId');
+		
+		$patientId = $request->get('id');
+		$diaryId = $request->get('cm');
+		
+		if( !$diaryId )
+		{
+			throw $this->createNotFoundException('Cita no valida');
+		}
+		
+		$oAppointment = $em->getRepository('AppBundle:Agenda')->find( $diaryId );
+		if( !$oAppointment )
+		{
+			throw $this->createNotFoundException('No existe la cita');
+		}
+		else if( $oAppointment->getAgeCit() == "" )
+		{
+			throw $this->createNotFoundException('No hay una cita programada en la agenda ');
+		}
+		else if( $oAppointment->getAgeCli()->getCliId() != $iLocationId )
+		{
+			throw $this->createNotFoundException('Cita no permitida para este establecimiento: '.$oAppointment->getAgeCli() );
+		}
+		
+		
+		
+		
+		
 		$locationName = $this->get('session')->get('locationName');
 		
         $oPatient = $em->getRepository('AppBundle:Paciente')->findBy( array("pacId"=>$patientId, "pacCli"=>$iLocationId ) );
@@ -76,15 +102,17 @@ class ConsultaController extends Controller
                         ;
                 
                 $modulos = array();
-                
-                foreach( $oUsuModulos as $kmod => $modulo ){
-                    $modulos[] = array(
-                        "mod_id" => $modulo->getCliModMod()->getModId(),
-                        "mod_hash" => stream_get_contents( $modulo->getCliModMod()->getModHashCode() ),
-                        "modulo" => $modulo->getCliModMod()->getModModulo()
-                    );
-                }
-                
+                if(count($oUsuModulos) > 0 )
+				{
+				
+					foreach( $oUsuModulos as $kmod => $modulo ){
+						$modulos[] = array(
+							"mod_id" => $modulo->getCliModMod()->getModId(),
+							"mod_hash" => stream_get_contents( $modulo->getCliModMod()->getModHashCode() ),
+							"modulo" => $modulo->getCliModMod()->getModModulo()
+						);
+					}
+				}
 		
 		if( !isset($patientId) || empty($patientId) )
 		{
@@ -101,15 +129,30 @@ class ConsultaController extends Controller
 			$servPatient = $this->get('srv_patient');
 			$patientAge = $servPatient->getAge( $age );
 		}
+		
+
+		//Historico
+		$RAW_QUERY = "SELECT a.age_id AS id, a.age_fecha_inicio AS start, a.age_fecha_fin AS end, a.age_tipo_evento AS tipo_evento,  a.age_estado
+					FROM agenda a
+					LEFT JOIN cita c ON c.cit_id = a.age_cit_id AND c.cit_activo = 1
+					LEFT JOIN paciente p ON c.cit_pac_id = p.pac_id
+					WHERE a.age_activo = 1 AND a.age_cli_id =:locationId AND c.cit_pac_id =:patientId";
+
+		$statement = $em->getConnection()->prepare($RAW_QUERY);
+		$statement->bindValue("locationId", $iLocationId);
+		$statement->bindValue("patientId", $patientId);
+		$statement->execute();
+		$historical  = $statement->fetchAll();
+		
                 
 		return $this->render("EmrBundle:consulta:new.html.twig", array(
 			"patient"=>$oPatient,
 			"age"=>$patientAge,
-                        "modulos"=>$modulos,
-                    
-                        'usu_id' => $doctor,
-                        'cit_id' => 1,
-                        'cli_id' => $iLocationId
+            "modulos"=>$modulos,
+            "historical"=>$historical,        
+            'usu_id' => $doctor,
+            'cit_id' => $oAppointment->getAgeCit()->getCitId(),
+            'cli_id' => $iLocationId
 		));
 		
 	}

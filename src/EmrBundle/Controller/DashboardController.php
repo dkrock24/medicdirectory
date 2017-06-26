@@ -55,7 +55,7 @@ class DashboardController extends Controller
 				$start = date("Y-m-d");
 				$end = date("Y-m-d");
 				$filter = " AND a.age_usu_id = " . $idUser;
-				$RAW_QUERY = "SELECT a.age_id as id, a.age_fecha_inicio as start, a.age_fecha_fin as end, a.age_tipo_evento as tipo_evento,  p.pac_nombre, p.pac_seg_nombre, p.pac_apellido, p.pac_seg_apellido,p.pac_dui
+				$RAW_QUERY = "SELECT a.age_id as id, a.age_fecha_inicio as start, a.age_fecha_fin as end, a.age_tipo_evento as tipo_evento, p.pac_id,  p.pac_nombre, p.pac_seg_nombre, p.pac_apellido, p.pac_seg_apellido,p.pac_dui, a.age_estado
 									FROM agenda a
 									LEFT JOIN cita c on c.cit_id = a.age_cit_id
 									LEFT JOIN paciente p ON c.cit_pac_id = p.pac_id
