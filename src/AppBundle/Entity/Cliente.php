@@ -82,6 +82,10 @@ class Cliente
      */
     private $espid;
 
+    public function __toString() {
+        return $this->cliNombre;
+    }
+    
     /**
      * Constructor
      */

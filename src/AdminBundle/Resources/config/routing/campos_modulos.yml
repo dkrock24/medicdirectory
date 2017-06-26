@@ -1,0 +1,23 @@
+campos_modulos_index:
+    path:     /index
+    defaults: { _controller: AdminBundle:CamposModulos:index }
+
+campos_modulos_edit:
+    path:     /{id}/edit
+    defaults: { _controller: AdminBundle:CamposModulos:edit }
+
+campos_modulos_delete:
+    path:     /delete
+    defaults: { _controller: AdminBundle:CamposModulos:delete }
+
+campos_modulos_new:
+    path:     /new
+    defaults: { _controller: AdminBundle:CamposModulos:new }
+     
+campos_modulos_lista_secciones:
+    path: /lista_secciones
+    defaults: { _controller: AdminBundle:CamposModulos:getSeccionesModulo }
+    
+campos_modulos_lista_campos:
+    path: /lista_campos
+    defaults: { _controller: AdminBundle:CamposModulos:tableList }

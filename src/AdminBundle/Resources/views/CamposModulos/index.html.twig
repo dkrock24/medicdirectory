@@ -1,0 +1,263 @@
+{% extends "Layout/base_admin/_admin_base.html.twig" %}
+
+{% block title_page %}
+        EMR || Listado de modulos
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('AdminBundle:secciones_modulos:_breadcrumb.html.twig' )  }}
+{% endblock %} 
+
+{% block submenutop %}
+    {{ include('AdminBundle:secciones_modulos:_submenu.html.twig' )  }}
+{% endblock %}
+
+{% block body %}
+    <h1>Lista de campos de modulos</h1>
+    
+    <!-- Check the notifications -->
+    <div id="holder_msg">
+        {% for message in app.session.flashbag().get("success") %}
+            <div class="alert alert-success"><i class="fa fa-check-circle"></i> {{message}}</div>
+        {% endfor %}
+        {% for message in app.session.flashbag().get("error") %}
+            <div class="alert alert-danger"><i class="fa fa-close"></i> {{message}}</div>
+        {% endfor %}
+    </div>
+    <!-- End notifications -->
+    
+    <div class="panel panel-flat">
+        <div class="panel-body">
+        {% if modulos|length > 0%}
+            <div class="form-group">
+                <label>Modulo</label>
+                <select id="modulo-select" class="select-size-xs"> {# data-placeholder="Seleccone modulo..."#}
+                        <option></option>
+                        {% for modulo in modulos %}
+                            <option value="{{ modulo.modId }}">{{ modulo.modModulo }}</option>
+                        {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Seccion</label>
+                <select id="seccion-select" class="select-size-xs"> {#data-placeholder="Seleccone seccion..."#}
+                        <option></option>
+                </select>
+            </div>
+                
+            <div class="form-group">
+                <label>Campos</label>
+                <table class="table table-striped mydtable">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Nombre</th>
+                            <th>Tipo</th>
+                            <th>Seccion</th>
+                            <th>Mostrar Siempre</th>
+                            <th>Valor Defecto</th>
+                            <th>Obligatorio</th>
+                            <th>Orden</th>
+                            <th>Es Catalogo</th>
+                            <th>Fecha Creación</th>
+                            <th>Fecha Modificado</th>
+                            <th>Activo</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+    {% else %}
+        <div class="alert alert-info" role=""><i class="fa fa-info-circle"></i> No hay regístros creados</div>
+    {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block codejs %}
+    <script type="text/javascript">
+        $(document).ready(function(){
+            
+            Table = $(".mydtable").DataTable({
+                data:[],
+                columns: [
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    {
+                        "data": "Acciones",
+                        "defaultContent": "<ul class=\"list-inline\">"+
+                                "<li><a href=\"#\" class=\"btn bg-teal-400 camp_editar\" ><i class=\"fa fa-edit\"></i> Editar</a>"+
+                                "</li><li><button class=\"btn btn-danger delete camp_eliminar\"><i class=\"fa fa-remove\"></i> Eliminar</button>"+
+                                "</li></ul>"
+                    }
+                ],
+                rowCallback: function (row, data) {},
+                filter: false,
+                info: false, 
+                ordering: false,
+                processing: true,
+                retrieve: true        
+            });
+            
+            $('#modulo-select').select2({
+                placeholder: 'seleccione modulo...'
+            });
+            $('#seccion-select').select2({
+                placeholder: 'seleccione seccion...'
+            });
+            
+            $('#modulo-select').on('select2:select', function(e){  
+                
+                var id_mod = $(this).val();
+                var sUrl = "{{ path('campos_modulos_lista_secciones') }}";
+
+                $.ajax({
+                    url: sUrl,
+                    type: "post",
+                    data: { id_mod: id_mod }
+                 }).done(function (result) {
+                     
+                        var jresult = JSON.parse(result);
+                        
+                        $('#seccion-select').html('<option></option>').select2({
+                            placeholder: 'seleccione seccion...',
+                            data: jresult
+                        });
+                        
+                }).fail(function (jqXHR, textStatus, errorThrown) {
+                        console.log( errorThrown );
+                    });
+            });
+
+            $('#seccion-select').on('select2:select', function(e){
+                var id_secc = $(this).val();
+                var sUrl = "{{ path('campos_modulos_lista_campos') }}";
+                
+                $.ajax({
+                    url: sUrl,
+                    type: "post",
+                    data: { id: id_secc, sEcho: 616 }
+                 }).done(function (result) {
+                     console.log( id_secc );
+                    jdata = JSON.parse( result );
+                    Table.clear().draw();
+                    for ( x = 0; x < jdata['aaData'].length; x++ ){
+                       Table.row.add( jdata['aaData'][x] ).draw();
+                    }
+                    
+                    setTableActionsEvents();
+
+                }).fail(function (jqXHR, textStatus, errorThrown) { 
+                    
+                });
+
+            });
+            
+            function setTableActionsEvents(){
+                        
+                $(".camp_editar").click(function(e){
+                    var sec_id = $(this).parent().parent().parent().siblings(':first').text();
+                    var edit_url = "{{ path('campos_modulos_edit', {id: 'camp_id_holder'}) }}";
+                    edit_url = edit_url.replace('camp_id_holder', sec_id);
+                    window.open(edit_url, "_self");
+                    e.preventDefault();
+
+                });
+
+                $(".camp_eliminar").click(function(e){
+                    var sec_id = $(this).parent().parent().parent().siblings(':first').text();
+                    sendAjax(sec_id);
+                    e.preventDefault();
+                });
+            }
+            
+            function sendAjax(id) {
+                $("#holder_loading").show(); 
+                $.ajax({
+                    type: "post",
+                    url: "{{ path('campos_modulos_delete') }}",
+                    data: {id:id},
+                    error: function (data) {
+                       $("#holder_loading").hide();
+                       $.confirm({
+                            icon: 'fa fa-remove',
+                            title: 'Error!',
+                            content: 'Ha ocurrido un error al tratar de enviar la petición',
+                            type: 'red',
+                            typeAnimated: true,
+                            buttons: {
+                                tryAgain: {
+                                    text: 'Intentar de nuevo',
+                                    btnClass: 'btn-red',
+                                    action: function(){
+                                        sendAjax(id);
+                                    }
+                                },
+                                close: function () {
+                                }
+                            }
+                        });
+                        
+                    },
+                    success: function (data) {
+                        $("#holder_loading").hide();
+                        if( data == 1)
+                        {
+                            $.alert({
+                                icon: 'fa fa-check-circle',
+                                title: 'Ok!',
+                                content: 'El registro fue desactivado con éxito',
+                                type: 'green',
+                                typeAnimated: true,
+                            });
+                        }
+                        else
+                        {
+                            var infoError = (data);
+                            $.alert({
+                                icon: 'fa fa-remove',
+                                title: 'Error!',
+                                content: 'No se ha podido desactivar el regístro <br>'+infoError,
+                                type: 'red',
+                                typeAnimated: true,
+                            });
+                        }
+                        
+                        var sUrl = "{{ path('campos_modulos_lista_campos') }}";
+                        var id_secc =  $('#seccion-select').val();
+                        $.ajax({
+                            url: sUrl,
+                            type: "post",
+                            data: { id: id_secc, sEcho: 616 }
+                        }).done(function (result) {
+                            jdata = JSON.parse( result );
+                            Table.clear().draw();
+                            console.log( jdata );
+                            for ( x = 0; x < jdata['aaData'].length; x++ ){
+                               Table.row.add( jdata['aaData'][x] ).draw();
+                            }
+                            
+                            setTableActionsEvents();
+                        });
+                        
+                    }
+                });
+                
+                
+            }
+            
+        });
+    </script>
+{% endblock %}

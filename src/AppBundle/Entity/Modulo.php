@@ -310,5 +310,28 @@ class Modulo
         return $this->modModulo;
     }
     
-}
 
+    /**
+     * Add seccione
+     *
+     * @param \AppBundle\Entity\EavModSeccion $seccione
+     *
+     * @return Modulo
+     */
+    public function addSeccione(\AppBundle\Entity\EavModSeccion $seccione)
+    {
+        $this->secciones[] = $seccione;
+
+        return $this;
+    }
+
+    /**
+     * Remove seccione
+     *
+     * @param \AppBundle\Entity\EavModSeccion $seccione
+     */
+    public function removeSeccione(\AppBundle\Entity\EavModSeccion $seccione)
+    {
+        $this->secciones->removeElement($seccione);
+    }
+}

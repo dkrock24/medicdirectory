@@ -13,6 +13,16 @@ class ClienteModulo
     private $cliMod;
 
     /**
+     * @var integer
+     */
+    private $cliModModId;
+
+    /**
+     * @var integer
+     */
+    private $cliModCliId;
+
+    /**
      * @var \DateTime
      */
     private $cliModFechaCrea = 'CURRENT_TIMESTAMP';
@@ -25,18 +35,21 @@ class ClienteModulo
     /**
      * @var boolean
      */
-    private $cliModActivo = '1';
-
-    /**
-     * @var \AppBundle\Entity\Cliente
-     */
-    private $cliModCli;
+    private $cliModActivo = true;
 
     /**
      * @var \AppBundle\Entity\Modulo
      */
     private $cliModMod;
 
+    /**
+     * @var \AppBundle\Entity\Cliente
+     */
+    private $cliModCli;
+
+    public function __toString() {
+        return $this->cliModCli->getCliNombre().'\\'.$this->cliModMod->getModModulo();
+    }
 
     /**
      * Get cliMod
@@ -46,6 +59,54 @@ class ClienteModulo
     public function getCliMod()
     {
         return $this->cliMod;
+    }
+
+    /**
+     * Set cliModModId
+     *
+     * @param integer $cliModModId
+     *
+     * @return ClienteModulo
+     */
+    public function setCliModModId($cliModModId)
+    {
+        $this->cliModModId = $cliModModId;
+
+        return $this;
+    }
+
+    /**
+     * Get cliModModId
+     *
+     * @return integer
+     */
+    public function getCliModModId()
+    {
+        return $this->cliModModId;
+    }
+
+    /**
+     * Set cliModCliId
+     *
+     * @param integer $cliModCliId
+     *
+     * @return ClienteModulo
+     */
+    public function setCliModCliId($cliModCliId)
+    {
+        $this->cliModCliId = $cliModCliId;
+
+        return $this;
+    }
+
+    /**
+     * Get cliModCliId
+     *
+     * @return integer
+     */
+    public function getCliModCliId()
+    {
+        return $this->cliModCliId;
     }
 
     /**
@@ -121,30 +182,6 @@ class ClienteModulo
     }
 
     /**
-     * Set cliModCli
-     *
-     * @param \AppBundle\Entity\Cliente $cliModCli
-     *
-     * @return ClienteModulo
-     */
-    public function setCliModCli(\AppBundle\Entity\Cliente $cliModCli = null)
-    {
-        $this->cliModCli = $cliModCli;
-
-        return $this;
-    }
-
-    /**
-     * Get cliModCli
-     *
-     * @return \AppBundle\Entity\Cliente
-     */
-    public function getCliModCli()
-    {
-        return $this->cliModCli;
-    }
-
-    /**
      * Set cliModMod
      *
      * @param \AppBundle\Entity\Modulo $cliModMod
@@ -167,4 +204,29 @@ class ClienteModulo
     {
         return $this->cliModMod;
     }
+
+    /**
+     * Set cliModCli
+     *
+     * @param \AppBundle\Entity\Cliente $cliModCli
+     *
+     * @return ClienteModulo
+     */
+    public function setCliModCli(\AppBundle\Entity\Cliente $cliModCli = null)
+    {
+        $this->cliModCli = $cliModCli;
+
+        return $this;
+    }
+
+    /**
+     * Get cliModCli
+     *
+     * @return \AppBundle\Entity\Cliente
+     */
+    public function getCliModCli()
+    {
+        return $this->cliModCli;
+    }
 }
+

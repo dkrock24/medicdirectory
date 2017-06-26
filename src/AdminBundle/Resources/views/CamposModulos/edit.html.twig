@@ -1,22 +1,21 @@
 {% extends "Layout/base_admin/_admin_base.html.twig" %}
 
 {% block title_page %}
-        EMR || Formulario de edición para secciones de modulos
+        EMR || Formulario de edición para campos de modulos
 {% endblock %}
 
 {% block breadcrumb %}
-    {{ include('AdminBundle:secciones_modulos:_breadcrumb.html.twig' )  }}
+    {{ include('AdminBundle:CamposModulos:_breadcrumb.html.twig' )  }}
 {% endblock %} 
 
 {% block submenutop %}
-    {{ include('AdminBundle:secciones_modulos:_submenu.html.twig' )  }}
+    {{ include('AdminBundle:CamposModulos:_submenu.html.twig' )  }}
 {% endblock %}
 
 {% block body %}
     <h1>Editar</h1>
     <div class="row">
         <div class="col-lg-6">
-            
             <!-- Check the notifications -->
             {% for message in app.session.flashbag().get("success") %}
                 <div class="alert alert-success"><i class="fa fa-check-circle"></i> {{message}}</div>
@@ -26,10 +25,16 @@
             {% endfor %}
             <!-- End notifications -->
                 {{ form_start(edit_form) }}
-                {{ form_row( edit_form.modSeccSeccion ) }}
-                {{ form_row( edit_form.modSeccModId ) }}
-                {{ form_row( edit_form.modSeccOrden ) }}
-                {{ form_row( edit_form.modSeccActivo ) }}
+                {{ form_row( edit_form.modCampNombre ) }}
+                {{ form_row( edit_form.tipoCampos) }}
+                {{ form_row( edit_form.seccionCampo ) }}
+                {{ form_row( edit_form.modCampShowIfnull ) }}
+                {{ form_row( edit_form.modCampValorDefault ) }}
+                {{ form_row( edit_form.modCampRequerido) }}
+                {{ form_row( edit_form.modCampOrden) }}
+                {{ form_row( edit_form.modCampEsCatalogo) }}
+                {{ form_row( edit_form.campoPadre) }}
+                {{ form_row( edit_form.modCampActivo) }}
                 <br>
                 <button type="submit" class="btn btn-success"><i class="icon-newspaper"></i>Guardar</button>
                 {{ form_row(edit_form._token) }}
@@ -39,10 +44,10 @@
     </div>
     <ul class="list-inline">
         <li>
-            <a href="{{ path('secciones_modulos_index') }}" class="btn btn-info"><i class="fa fa-list"></i> Listar</a>
+            <a href="{{ path('campos_modulos_index') }}" class="btn btn-info"><i class="fa fa-list"></i> Listar</a>
         </li>
         <li>
-            <a href="{{ path('secciones_modulos_new') }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Nuevo</a>
+            <a href="{{ path('campos_modulos_new') }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Nuevo</a>
         </li>
     </ul>
 {% endblock %}

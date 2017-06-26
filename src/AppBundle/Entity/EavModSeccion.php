@@ -25,7 +25,7 @@ class EavModSeccion
     /**
      * @var boolean
      */
-    private $modSeccActivo = 1;
+    private $modSeccActivo = true;
 
     /**
      * @var \DateTime
@@ -42,6 +42,10 @@ class EavModSeccion
      */
     private $modSeccModId;
 
+    
+    public function __toString() {
+        return $this->modSeccSeccion;
+    }
 
         /**
      * Get modSeccId

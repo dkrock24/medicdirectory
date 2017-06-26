@@ -21,7 +21,6 @@ secciones_modulos_edit:
 secciones_modulos_delete:
     path:     /delete
     defaults: { _controller: AdminBundle:SeccionesModulos:delete }
-    methods:  DELETE
     
 secciones_modulos_list:
     path:   /secciones_modulos_lista

@@ -1,19 +1,19 @@
 {% extends "Layout/base_admin/_admin_base.html.twig" %}
 
 {% block title_page %}
-        EMR || Formulario para crear una nueva seccion de modulo
+        EMR || Formulario para crear nuevo modulo
 {% endblock %}
 
 {% block breadcrumb %}
-    {{ include('AdminBundle:secciones_modulos:_breadcrumb.html.twig' )  }}
+    {{ include('AdminBundle:ClientesModulos:_breadcrumb.html.twig' )  }}
 {% endblock %} 
 
 {% block submenutop %}
-    {{ include('AdminBundle:secciones_modulos:_submenu.html.twig' )  }}
+    {{ include('AdminBundle:ClientesModulos:_submenu.html.twig' )  }}
 {% endblock %}
 
 {% block body %}
-    <h1>Nueva seccion de modulo</h1>
+    <h1>Asignacion de modulo a cliente</h1>
     <div class="row">
         <div class="col-lg-6">
             <!-- Check the notifications -->
@@ -24,13 +24,11 @@
                 <div class="alert alert-danger"><i class="fa fa-close"></i> {{message}}</div>
             {% endfor %}
             <!-- End notifications -->
-            
+            {{ dump(form) }}
             {{ form_start(form) }}
-                {{ form_row( form.modSeccSeccion ) }}
-                {{ form_row( form.modSeccModId ) }}
-                {{ form_row( form.modSeccOrden ) }}
-                {{ form_row( form.modSeccActivo ) }}
-                <br>
+                {{ form_row( form.cliModMod ) }}
+                {{ form_row( form.cliModCli ) }}
+                {{ form_row( form.cliModActivo ) }}
                 <button type="submit" class="btn btn-success"><i class="icon-newspaper"></i> Crear</button>
                 {{ form_row(form._token) }}
             {{ form_end(form, {'render_rest': false}) }}
@@ -39,7 +37,7 @@
     </div>
     <ul class="list-inline">
         <li>
-            <a href="{{ path('secciones_modulos_index') }}" class="btn btn-info"><i class="fa fa-list"></i> Listar</a>
+            <a href="{{ path('clientes_modulos_index') }}" class="btn btn-info"><i class="fa fa-list"></i> Listar</a>
         </li>
     </ul>
 {% endblock %}

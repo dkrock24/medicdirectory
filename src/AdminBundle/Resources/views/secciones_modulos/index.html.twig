@@ -25,12 +25,12 @@
         {% endfor %}
     </div>
     <!-- End notifications -->
-    {% if modulos|length > 0%}
-        <select id="modulo-select" data-placeholder="Seleccone modulo..." class="select-size-xs">
-                <option></option>
-                {% for modulo in modulos %}
-                    <option value="{{ modulo.modId }}">{{ modulo.modModulo }}</option>
-                {% endfor %}
+        {% if modulos|length > 0%}
+            <select id="modulo-select" data-placeholder="Seleccone modulo..." class="select-size-xs">
+                    <option></option>
+                    {% for modulo in modulos %}
+                        <option value="{{ modulo.modId }}">{{ modulo.modModulo }}</option>
+                    {% endfor %}
         </select><br><br>
         <div id="secc-mod-content"{#class="panel panel-flat"#}>
             <table class="table table-striped mydtable">
@@ -52,11 +52,11 @@
                 </tbody>
             </table>
         </div>
-            
-        <br>
-    {% else %}
-        <div class="alert alert-info" role=""><i class="fa fa-info-circle"></i> No hay regístros creados</div>
-    {% endif %}    
+
+            <br>
+        {% else %}
+            <div class="alert alert-info" role=""><i class="fa fa-info-circle"></i> No hay regístros creados</div>
+        {% endif %}  
     <ul class="list-inline">
         <li>
             <a href="{{ path('secciones_modulos_new') }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Nuevo</a>
@@ -106,32 +106,117 @@
                     type: "post",
                     data: { id: id_mod, sEcho: 616 }
                  }).done(function (result) {
-                        jdata = JSON.parse( result );
-                        Table.clear().draw();
-                        for ( x = 0; x < jdata['aaData'].length; x++ ){
-                           Table.row.add( jdata['aaData'][x] ).draw();
-                        }
-                        
-                        $(".secc_ver").click(function(e){
-                            var sec_id = $(this).parent().parent().parent().siblings(':first').text();
-                            e.preventDefault();
-                        });
-                        
-                        $(".secc_editar").click(function(e){
-                            var sec_id = $(this).parent().parent().parent().siblings(':first').text();
-                            e.preventDefault();
-                        });
-                        
-                        $(".secc_eliminar").click(function(e){
-                            var sec_id = $(this).parent().parent().parent().siblings(':first').text();
-                            e.preventDefault();
-                        });
-                        
-                    }).fail(function (jqXHR, textStatus, errorThrown) { 
-                        
-                    });
+                    jdata = JSON.parse( result );
+                    Table.clear().draw();
+                    for ( x = 0; x < jdata['aaData'].length; x++ ){
+                       Table.row.add( jdata['aaData'][x] ).draw();
+                    }
+
+                    setTableActionsEvents();
+
+                }).fail(function (jqXHR, textStatus, errorThrown) { 
+
+                });
             
             });
+            
+            function setTableActionsEvents(){
+                $(".secc_ver").click(function(e){
+                    var sec_id = $(this).parent().parent().parent().siblings(':first').text();
+                    var ver_url = "{{ path('secciones_modulos_show', {id: 'secc_id_holder'}) }}";
+                    ver_url = ver_url.replace('secc_id_holder', sec_id);
+                    window.open(ver_url, "_self");
+                    e.preventDefault();
+                });
+                        
+                $(".secc_editar").click(function(e){
+                    var sec_id = $(this).parent().parent().parent().siblings(':first').text();
+                    var edit_url = "{{ path('secciones_modulos_edit', {id: 'secc_id_holder'}) }}";
+                    edit_url = edit_url.replace('secc_id_holder', sec_id);
+                    window.open(edit_url, "_self");
+                    e.preventDefault();
+
+                });
+
+                $(".secc_eliminar").click(function(e){
+                    var sec_id = $(this).parent().parent().parent().siblings(':first').text();
+                    sendAjax(sec_id);
+                    e.preventDefault();
+                });
+            }
+            
+            function sendAjax(id) {
+                $("#holder_loading").show(); 
+                $.ajax({
+                    type: "post",
+                    url: "{{ path('secciones_modulos_delete') }}",
+                    data: {id:id},
+                    error: function (data) {
+                       $("#holder_loading").hide();
+                       $.confirm({
+                            icon: 'fa fa-remove',
+                            title: 'Error!',
+                            content: 'Ha ocurrido un error al tratar de enviar la petición',
+                            type: 'red',
+                            typeAnimated: true,
+                            buttons: {
+                                tryAgain: {
+                                    text: 'Intentar de nuevo',
+                                    btnClass: 'btn-red',
+                                    action: function(){
+                                        sendAjax(id);
+                                    }
+                                },
+                                close: function () {
+                                }
+                            }
+                        });
+                        
+                    },
+                    success: function (data) {
+                        $("#holder_loading").hide();
+                        if( data == 1)
+                        {
+                            $.alert({
+                                icon: 'fa fa-check-circle',
+                                title: 'Ok!',
+                                content: 'El registro fue desactivado con éxito',
+                                type: 'green',
+                                typeAnimated: true,
+                            });
+                        }
+                        else
+                        {
+                            var infoError = (data);
+                            $.alert({
+                                icon: 'fa fa-remove',
+                                title: 'Error!',
+                                content: 'No se ha podido desactivar el regístro <br>'+infoError,
+                                type: 'red',
+                                typeAnimated: true,
+                            });
+                        }
+                        
+                        var sUrl = "{{ path('secciones_modulos_list') }}";
+                        var id_mod =  $('#modulo-select').val();
+                        $.ajax({
+                            url: sUrl,
+                            type: "post",
+                            data: { id: id_mod, sEcho: 616 }
+                        }).done(function (result) {
+                            jdata = JSON.parse( result );
+                            Table.clear().draw();
+                            for ( x = 0; x < jdata['aaData'].length; x++ ){
+                               Table.row.add( jdata['aaData'][x] ).draw();
+                            }
+                            
+                            setTableActionsEvents();
+                        });
+                    }
+                        
+                });
+            }
+                
         });
     </script>
 {% endblock %}

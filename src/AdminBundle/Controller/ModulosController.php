@@ -159,7 +159,7 @@ class ModulosController extends Controller
 			$this->session->getFlashBag()->add($status,$msgBox);
         }
 
-        return $this->redirectToRoute('pais_index');
+        return $this->redirectToRoute('modulos_index');
     }
     
         /**
@@ -181,7 +181,6 @@ class ModulosController extends Controller
     public function deleteCustomAction( Request $request )
     {
             $iId = $request->request->get('id');
-            //$iId = $request->query->get('id');
 
             if( isset($iId) && $iId > 0 )
             {
