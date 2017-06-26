@@ -40,7 +40,17 @@ emr_perfil:
 emr_checkImageProfile:
     path:     /photo/user/profile
     defaults: { _controller: EmrBundle:Default:getThubmanlImageProfileAction  }
-    host:     "%emr_domain%"    
+    host:     "%emr_domain%" 
+
+emr_messages:
+    path:     /messages
+    defaults: { _controller: EmrBundle:Default:getAllMessagesAction  }
+    host:     "%emr_domain%"
+    
+emr_message_detail:
+    path:     /getmessage
+    defaults: { _controller: EmrBundle:Default:getDetailMessage  }
+    host:     "%emr_domain%"
 
 
 emr_invarea:
