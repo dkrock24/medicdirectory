@@ -19,6 +19,18 @@ AppBundle\Entity\ClienteModulo:
             generator:
                 strategy: IDENTITY
     fields:
+        cliModModId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            column: cli_mod_mod_id
+        cliModCliId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            column: cli_mod_cli_id
         cliModFechaCrea:
             type: datetime
             nullable: false
@@ -40,7 +52,6 @@ AppBundle\Entity\ClienteModulo:
             targetEntity: Modulo
             cascade: {  }
             fetch: LAZY
-            mappedBy: null
             inversedBy: null
             joinColumns:
                 cli_mod_mod_id:

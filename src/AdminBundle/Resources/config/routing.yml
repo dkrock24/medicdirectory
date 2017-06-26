@@ -22,6 +22,10 @@ admin_secciones_modulos:
     resource: "@AdminBundle/Resources/config/routing/secciones_modulos.yml"
     prefix:   /secciones_modulos
     
+admin_clientes_modulos:
+    resource: "@AdminBundle/Resources/config/routing/clientes_modulos.yml"
+    prefix:   /clientes_modulos
+    
 admin_campos_modulos:
     resource: "@AdminBundle/Resources/config/routing/campos_modulos.yml"
     prefix: /campos_modulos

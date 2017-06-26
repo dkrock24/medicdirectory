@@ -65,6 +65,8 @@ class CamposModulosController extends Controller
             }
 			
             $this->session->getFlashBag()->add($status,$msgBox);
+            
+            return $this->redirectToRoute('campos_modulos_edit', array('id' => $campo->getModCampId()));
         }
         
         return $this->render('AdminBundle:CamposModulos:edit.html.twig', array(
@@ -129,10 +131,6 @@ class CamposModulosController extends Controller
         );
         
         ;
-        
-    }
-    
-    public function tableList( Request $request ){
         
     }
     

@@ -1,0 +1,19 @@
+clientes_modulos_index:
+    path:     /index
+    defaults: { _controller: AdminBundle:ClientesModulos:index }
+
+clientes_modulos_new:
+    path:     /new
+    defaults: { _controller: AdminBundle:ClientesModulos:new }
+
+clientes_modulos_edit:
+    path:     /{id}/edit
+    defaults: { _controller: AdminBundle:ClientesModulos:edit }
+
+clientes_modulos_delete:
+    path:     /delete
+    defaults: { _controller: AdminBundle:ClientesModulos:delete }
+    
+clientes_modulos_lista_modulos:
+    path: /list
+    defaults: { _controller: AdminBundle:ClientesModulos:tableList}
