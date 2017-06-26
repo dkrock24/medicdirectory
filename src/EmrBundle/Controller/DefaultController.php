@@ -5,6 +5,7 @@ namespace EmrBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class DefaultController extends Controller
 {
@@ -131,15 +132,17 @@ class DefaultController extends Controller
 		$roles = $this->get('session')->get('userRoles');	
 		$locationId = $this->get('session')->get('locationId');
 		$idUser =  $this->getUser()->getUsuId();
-			
-			
+		$em = $this->getDoctrine()->getManager();	
+		$oUser = $em->getRepository('AppBundle:Usuario')->find( $idUser );
 		
+		$profilephoto = "";
+		$oProfileImage = $em->getRepository('AppBundle:UsuarioGaleria')->findOneBy( array("galUsuario"=>$idUser, "galCliente"=>$locationId, "galTipo"=>1) );
 		if( isset($locationId) && !empty($locationId) )
 		{
-			$em = $this->getDoctrine()->getManager();
-			$profilephoto = "";
-			$oUser = $em->getRepository('AppBundle:Usuario')->find( $idUser );
-			$oProfileImage = $em->getRepository('AppBundle:UsuarioGaleria')->findOneBy( array("galUsuario"=>$idUser, "galCliente"=>$locationId, "galTipo"=>1) );
+			
+			
+			
+			
 			if( $oProfileImage )
 			{
 				$hashImg = $oProfileImage->getGalHash();
@@ -153,6 +156,58 @@ class DefaultController extends Controller
 			}
 		}
 		return $this->render("EmrBundle:Default:profileImage.html.twig", array("userInfo"=> $oUser,'profilephoto'=>$profilephoto));
+		
+	}
+	
+	public function getAllMessagesAction( Request $request )
+	{
+		$roles = $this->get('session')->get('userRoles');	
+		$locationId = $this->get('session')->get('locationId');
+		$idUser =  $this->getUser()->getUsuId();
+		$em = $this->getDoctrine()->getManager();	
+		
+		$unread = 0;
+		$oUnReadMessage = $em->getRepository('AppBundle:SolicitudContacto')->findBy( array("scUsuario"=>$idUser, "scCliente"=>$locationId, "estado"=>0) );
+		if( count($oUnReadMessage) > 0 )
+		{
+			$unread = count($oUnReadMessage);
+		}
+		
+		$RAW_QUERY = "SELECT * FROM solicitud_contacto WHERE sc_cli_id = $locationId AND sc_usu_id = $idUser ORDER BY fecha_contacto DESC LIMIT 10"; 
+		$statement = $em->getConnection()->prepare($RAW_QUERY);
+		//$statement->bindValue("idUser", $idUser );
+		$statement->execute();
+		$oMessages = $statement->fetchAll();
+		
+		return $this->render("EmrBundle:Default:messages.html.twig", array("messages"=> $oMessages, "unread"=>$unread));
+	}
+	
+	public function getDetailMessageAction( Request $request )
+	{
+		
+		$id = $request->get("id");
+		
+		$roles = $this->get('session')->get('userRoles');	
+		$locationId = $this->get('session')->get('locationId');
+		$idUser =  $this->getUser()->getUsuId();
+		$em = $this->getDoctrine()->getManager();	
+		
+		
+		$RAW_QUERY = "SELECT * FROM solicitud_contacto WHERE sc_cli_id = $locationId AND sc_usu_id = $idUser AND id= $id"; 
+		$statement = $em->getConnection()->prepare($RAW_QUERY);
+		$statement->execute();
+		$oMessages = $statement->fetchAll();
+		
+		if( $oMessages && $oMessages[0]['estado'] == 0 )
+		{
+			$RAW_QUERY = "UPDATE solicitud_contacto SET estado = 1 WHERE id =  $id";
+			$statement = $em->getConnection()->prepare($RAW_QUERY);
+			$statement->execute();
+		}
+		
+		return  $response = new JsonResponse($oMessages);
+		exit();
+		
 		
 	}
 
