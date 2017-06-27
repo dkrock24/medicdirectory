@@ -1,0 +1,45 @@
+AppBundle\Entity\Contactanos:
+    type: entity
+    table: null
+    repositoryClass: AppBundle\Repository\ContactanosRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        conNombre:
+            type: string
+            nullable: true
+            length: 100
+            column: con_nombre
+        conEmail:
+            type: string
+            nullable: true
+            length: 50
+            column: con_email
+        conTipo:
+            type: string
+            length: 50
+            column: con_tipo
+        conIp:
+            type: string
+            nullable: true
+            length: 20
+            column: con_ip
+        conMensaje:
+            type: text
+            nullable: true
+            column: con_mensaje
+        conFechaCrea:
+            type: datetime
+            nullable: true
+            column: con_fecha_crea
+        conActivo:
+            type: boolean
+            nullable: false
+            options:
+                default: '1'
+            column: con_activo
+    lifecycleCallbacks: {  }

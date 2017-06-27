@@ -1,0 +1,129 @@
+{% extends 'Layout/base_web/_web_base.html.twig' %}
+
+{% block breadcrumb %}
+    <!-- Breadcrumb Starts -->
+    <div class="breadcrumb">
+        <div class="container">
+            <ul class="list-unstyled list-inline">
+                <li><a href="index.html">Inicio</a></li>
+                <li class="active">Precios</li>
+            </ul>
+        </div>
+    </div>      
+    <!-- Breadcrumb Ends -->
+{% endblock %}
+{%block body %}
+<style>
+
+
+</style>
+
+<div class="container">
+<form id="contactanos_id" method="post">
+    <div class="row">
+        <div class="col-sm-12 col-xs-12" id="msj"></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 col-xs-6">
+        <br>
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1"><i class="fa fa-user"></i></span>
+                <input type="text" class="form-control" id="nombre_contacto" required="true" placeholder="Nombre Completo" aria-describedby="basic-addon1">
+            </div>
+
+            <br>
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1"><i class="fa fa-envelope"></i></span>
+                <input type="email" class="form-control" id="email_contacto" required="true" placeholder="Correo Electronico" aria-describedby="basic-addon1">
+            </div>
+
+            <br>
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1"><i class="fa fa-chevron-down"></i></span>
+                <select class="form-control" id="tipo_contacto" name="tipo_contacto">
+                    <option selected value="general">
+                        Selecione Tema en Relación a su Pregunta:
+                    </option>
+    
+                    <option value="precios">
+                        Precios
+                    </option>
+    
+                    <option value="servicios">
+                        Servicios
+                    </option>
+    
+                    <option value="legal">
+                        Legal
+                    </option>
+
+                    <option value="otras">
+                        Otras
+                    </option>
+
+                </select>
+            </div>               
+
+        </div>
+
+        <div class="col-sm-6 col-xs-6">
+            <div class="span5">
+                <label>Mensaje</label> 
+                <textarea class="form-control" id="message" name="message" rows="7"></textarea>
+            </div>            
+            
+            <input type="submit" name="enviar" value="Enviar Consulta" class="btn btn-secondary col-sm-12 col-xs-12"/>
+        </div>
+    </div>
+</form>
+</div>
+
+{% endblock %}
+
+
+{% block codejs %}
+
+<script>
+
+    $(document).ready(function(){
+
+        $("#contactanos_id").submit(function(){
+            enviar_contacto();
+        });
+
+        function enviar_contacto(){
+            var nombre      = $("#nombre_contacto").val();
+            var email       = $("#email_contacto").val();
+            var tipo        = $("#tipo_contacto").val();
+            var mensaje     = $("#message").val();
+
+            if(nombre!=null && email!=null && tipo!=null)
+            {
+                $.ajax({
+                type: "post",
+                url: "{{ path('web_solicitar_contacto') }}",
+                data: { nombre: nombre, email: email ,tipo: tipo ,mensaje: mensaje },
+                    error: function (data) {
+                    },
+                    success: function (data) {
+                        //$(".cita_form").fadeOut();
+                        $("#msj").apend(data);
+                        $("#msj").show();
+
+                        $("#contactanos_id :input").each(function(){
+                            $(this).val('');
+                        });
+                        
+                    }
+                });
+            }   
+            else
+            {
+                alert("Campos Vacios");
+            }
+        }
+    });
+
+</script>
+
+{% endblock  %}

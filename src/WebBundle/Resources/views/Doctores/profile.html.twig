@@ -270,8 +270,8 @@
                         <div class="row">
                             <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">
                                 <button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
-                                <h6 class="alert-heading text-semibold">Ingresa la información Requerida.</h6>
-                                En breve te contactaremos para brindarte nuestros servicios.
+                                <h6 class="alert-heading text-semibold">Ingresa la información solicitada y en breve te contactaremos, para brindarte la ayuda que necesitas. <h6>
+                                <span class="clinica_mensaje"><p>Att:  {{ medico.cliente.cliUsuCli.cliNombreComercial}}</p></span>
                             </div>
                         </div>
                         
@@ -289,7 +289,7 @@
                             <div class="col-sm-12 col-xs-12">
                             <div class="input-group">
                                 <span class="input-group-addon" id="basic-addon1"><i class="fa fa-phone"></i></span>
-                                <input type="text" pattern="[7][0-9][0-9][0-9][0-9][0-9][0-9][0-9]" class="form-control" id="telefono_1" required="true" placeholder="Telefono" aria-describedby="basic-addon1">
+                                <input type="text" pattern="[2-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]" class="form-control" id="telefono_1" required="true" placeholder="Telefono" aria-describedby="basic-addon1">
                             </div>
                             </div>
                         </div>
@@ -360,7 +360,7 @@
                         {#{ medico.especialidad[0].idEspecialidad.espEspecialidad }#}
                     </h5>
                     <h6>
-                        <span> </span>{{ medico.cliente.cliUsuCli.cliNombreComercial}}
+                        <span class="nombre_clinica">{{ medico.cliente.cliUsuCli.cliNombreComercial}} </span>
                     </h6>
                     <h6>
                         <span> </span>{{ medico.cliente.cliUsuCli.cliDireccion}} /
@@ -517,6 +517,7 @@
 
     function showForm(){
         $(".cita_form").fadeIn();
+        $(".nombre_clinica")
 
         $('html, body').animate({
             scrollTop: $(".cita_form").offset().top-140
