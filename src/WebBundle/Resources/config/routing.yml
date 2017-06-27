@@ -29,3 +29,11 @@ web_terminos:
 web_solicitar_cita:
     path:   /solicitar
     defaults: { _controller: WebBundle:Default:indexSolicitar }
+
+web_contactanos:
+    path:     /contactanos
+    defaults: { _controller: WebBundle:Default:indexContactanos }
+
+web_solicitar_contacto:
+    path:     /solicitar2
+    defaults: { _controller: WebBundle:Default:indexContactos }

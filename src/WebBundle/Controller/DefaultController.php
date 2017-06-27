@@ -6,6 +6,7 @@ use AppBundle\Entity\ClienteUsuario;
 use AppBundle\Entity\UsuarioVistas;
 use AppBundle\Entity\Cliente;
 use \AppBundle\Entity\SolicitudContacto;
+use \AppBundle\Entity\Contactanos;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -233,6 +234,42 @@ class DefaultController extends Controller {
         
 
         $msg = "Registro creado con Exito";
+
+        return  $response = new JsonResponse(($msg));
+    }
+
+    public function indexContactanosAction(){
+        return $this->render('WebBundle:Contactanos:index.html.twig');
+    }
+
+    public function indexContactosAction()
+    {
+        // Guardar Contactanos
+        $em = $this->getDoctrine()->getManager();
+
+        $date = date("Y-m-d h:m:s");
+
+        // Dates
+        $nombre     = $_POST['nombre'];
+        $email      = $_POST['email'];
+        $tipo       = $_POST['tipo'];
+        $mensaje    = $_POST['mensaje'];
+        $ip         = $this->getRealIP();            
+
+        $oContactanos = new Contactanos();
+
+        $oContactanos->setConNombre( $nombre );
+        $oContactanos->setConEmail( $email );
+        $oContactanos->setConIp( $ip );
+        $oContactanos->setConTipo( $tipo );
+        $oContactanos->setConMensaje( $mensaje );      
+        $oContactanos->setConActivo(1);
+        $oContactanos->setConFechaCrea(new \Datetime());
+
+        $em->persist($oContactanos);
+        $flush = $em->flush();        
+
+        $msg = "Información Enviada Con Exito";
 
         return  $response = new JsonResponse(($msg));
     }
