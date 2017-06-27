@@ -17,6 +17,11 @@ emr_dashboard:
     defaults: { _controller: EmrBundle:Dashboard:dashboard  }
     host:     "%emr_domain%"
     
+emr_dashboard_appointment:
+    path:     /show/appointment
+    defaults: { _controller: EmrBundle:Dashboard:showAppointment  }
+    host:     "%emr_domain%"
+    
 emr_location:
     path:     /establecimiento
     defaults: { _controller: EmrBundle:Default:location  }

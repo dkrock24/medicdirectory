@@ -5,6 +5,7 @@ namespace EmrBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class DashboardController extends Controller
 {
@@ -51,24 +52,26 @@ class DashboardController extends Controller
 			//-----------------------------------
 			if( $locationId != "" )
 			{
-			
-				$start = date("Y-m-d");
-				$end = date("Y-m-d");
-				$filter = " AND a.age_usu_id = " . $idUser;
-				$RAW_QUERY = "SELECT a.age_id as id, a.age_fecha_inicio as start, a.age_fecha_fin as end, a.age_tipo_evento as tipo_evento, p.pac_id,  p.pac_nombre, p.pac_seg_nombre, p.pac_apellido, p.pac_seg_apellido,p.pac_dui, a.age_estado
-									FROM agenda a
-									LEFT JOIN cita c on c.cit_id = a.age_cit_id
-									LEFT JOIN paciente p ON c.cit_pac_id = p.pac_id
-									AND c.cit_activo = 1
-									WHERE a.age_activo = 1
-									AND a.age_cli_id = $locationId "
-						. " AND  (date(a.age_fecha_inicio) >= '" . $start . "' AND date(a.age_fecha_inicio) <= '" . $end . "') "
-						. $filter;
+				/*
+					$start = date("Y-m-d");
+					$end = date("Y-m-d");
+					$filter = " AND a.age_usu_id = " . $idUser;
+					$RAW_QUERY = "SELECT a.age_id as id, a.age_fecha_inicio as start, a.age_fecha_fin as end, a.age_tipo_evento as tipo_evento, p.pac_id,  p.pac_nombre, p.pac_seg_nombre, p.pac_apellido, p.pac_seg_apellido,p.pac_dui, a.age_estado
+										FROM agenda a
+										LEFT JOIN cita c on c.cit_id = a.age_cit_id
+										LEFT JOIN paciente p ON c.cit_pac_id = p.pac_id
+										AND c.cit_activo = 1
+										WHERE a.age_activo = 1
+										AND a.age_cli_id = $locationId "
+							. " AND  (date(a.age_fecha_inicio) >= '" . $start . "' AND date(a.age_fecha_inicio) <= '" . $end . "') "
+							. $filter;
 
 
-				$statement = $em->getConnection()->prepare($RAW_QUERY);
-				$statement->execute();
-				$appointments = $statement->fetchAll();
+					$statement = $em->getConnection()->prepare($RAW_QUERY);
+					$statement->execute();
+					$appointments = $statement->fetchAll();
+				*/
+				$appointments = $this->getCurrentAppointment($locationId, $idUser);
 			}else{
 				$appointments = array();
 			}
@@ -135,4 +138,49 @@ class DashboardController extends Controller
 			"appointments"=>$appointments
         ));
     }
+	
+	
+	public function getCurrentAppointment($locationId, $idUser, $date=false)
+	{
+		//$locationId = $this->get('session')->get('locationId');
+		//$idUser =  $this->getUser()->getUsuId();
+		$em = $this->getDoctrine()->getManager();
+		
+		$start = date("Y-m-d");
+		$end = date("Y-m-d");
+		if( ($date) && !empty($date) )
+		{
+			$start = $date;
+			$end = $date;
+		}
+		
+		$filter = " AND a.age_usu_id = " . $idUser;
+		$RAW_QUERY = "SELECT a.age_id as id, a.age_fecha_inicio as start, a.age_fecha_fin as end, a.age_tipo_evento as tipo_evento, p.pac_id,  p.pac_nombre, p.pac_seg_nombre, p.pac_apellido, p.pac_seg_apellido,p.pac_dui, a.age_estado
+									FROM agenda a
+									LEFT JOIN cita c on c.cit_id = a.age_cit_id
+									LEFT JOIN paciente p ON c.cit_pac_id = p.pac_id
+									AND c.cit_activo = 1
+									WHERE a.age_activo = 1
+									AND a.age_cli_id = $locationId "
+				. " AND  (date(a.age_fecha_inicio) >= '" . $start . "' AND date(a.age_fecha_inicio) <= '" . $end . "') "
+				. $filter;
+
+
+		$statement = $em->getConnection()->prepare($RAW_QUERY);
+		$statement->execute();
+		$appointments = $statement->fetchAll();
+		
+		return $appointments;
+	}
+	
+	public function showAppointmentAction( Request $request )
+	{
+		$idUser = $request->get("userId");
+		$date = $request->get("date");
+		$locationId = $this->get('session')->get('locationId');
+		$appointments = $this->getCurrentAppointment($locationId, $idUser, $date);
+		
+		return  $response = new JsonResponse($appointments);
+		exit();
+	}
 }
