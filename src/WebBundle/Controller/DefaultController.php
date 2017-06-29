@@ -195,6 +195,10 @@ class DefaultController extends Controller {
         return $this->render('WebBundle:Terminos:index.html.twig');
     }
 
+    public function indexPrivacidadAction() {
+        return $this->render('WebBundle:Terminos:privacidad.html.twig');
+    }
+
     public function indexSolicitarAction(){
 
         // Guardar Solicitud de Cita
@@ -234,7 +238,6 @@ class DefaultController extends Controller {
         
 
         $msg = "Registro creado con Exito";
-
         return  $response = new JsonResponse(($msg));
     }
 

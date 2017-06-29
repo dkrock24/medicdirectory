@@ -1,0 +1,28 @@
+contactanos_index:
+    path:     /
+    defaults: { _controller: "AdminBundle:Contactanos:index" }
+    methods:  GET
+
+contactanos_show:
+    path:     /{id}/show
+    defaults: { _controller: "AdminBundle:Contactanos:show" }
+    methods:  GET
+
+contactanos_new:
+    path:     /new
+    defaults: { _controller: "AdminBundle:Contactanos:new" }
+    methods:  [GET, POST]
+
+contactanos_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdminBundle:Contactanos:edit" }
+    methods:  [GET, POST]
+
+contactanos_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdminBundle:Contactanos:delete" }
+    methods:  DELETE
+
+contactanos_delete_from_list:
+    path:     /list/delete/contactanos
+    defaults: { _controller: "AdminBundle:Contactanos:deleteCustom" }

@@ -76,3 +76,7 @@ admin_correos_probar:
 admin_correos_probar_enviar:
     path: /admin_correos_probar_enviar
     defaults: { _controller: AdminBundle:Correos:probarEnviar }
+
+admin_contactanos:
+        resource: "@AdminBundle/Resources/config/routing/contactanos.yml"
+        prefix:   /contactanos

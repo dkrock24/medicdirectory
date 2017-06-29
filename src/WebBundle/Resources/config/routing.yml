@@ -26,6 +26,10 @@ web_terminos:
     path:     /terminos
     defaults: { _controller: WebBundle:Default:indexTerminos }
 
+web_privacidad:
+    path:     /privacidad
+    defaults: { _controller: WebBundle:Default:indexPrivacidad }
+
 web_solicitar_cita:
     path:   /solicitar
     defaults: { _controller: WebBundle:Default:indexSolicitar }

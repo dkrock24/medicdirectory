@@ -1,0 +1,169 @@
+{% extends "Layout/base_admin/_admin_base.html.twig" %}
+
+{% block title_page %}
+        EMR || Listado de Contactos
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('AdminBundle:contactanos:_breadcrumb.html.twig' )  }}
+{% endblock %} 
+
+{% block submenutop %}
+    {{ include('AdminBundle:contactanos:_submenu.html.twig' )  }}
+{% endblock %}
+
+{% block body %}
+    <h1>lista de Contactos</h1>
+
+    <!-- Check the notifications -->
+    <div id="holder_msg">
+        {% for message in app.session.flashbag().get("success") %}
+            <div class="alert alert-success"><i class="fa fa-check-circle"></i> {{message}}</div>
+        {% endfor %}
+        {% for message in app.session.flashbag().get("error") %}
+            <div class="alert alert-danger"><i class="fa fa-close"></i> {{message}}</div>
+        {% endfor %}
+    </div>
+    <!-- End notifications -->
+    {% if contactanos|length > 0%}
+    <table class="table table-striped datatable-reorder">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Tipo</th>
+                <th>IP</th>
+                <th>Mensaje</th>
+                <th>Fecha Creacion</th>
+                <th>Estado</th>
+                <th>Accion</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% set counter = 1 %}
+        {% for contactano in contactanos %}
+            <tr>
+                <td><a href="{{ path('contactanos_show', { 'id': contactano.id }) }}">{{ counter }}</a></td>
+                <td>{{ contactano.conNombre }}</td>
+                <td>{{ contactano.conEmail }}</td>
+                <td>{{ contactano.conTipo }}</td>
+                <td>{{ contactano.conIp }}</td>
+                <td>{{ contactano.conMensaje }}</td>
+                <td>{% if contactano.conFechaCrea %}{{ contactano.conFechaCrea|date("F jS \\a\\t g:ia") }}{% endif %}</td>
+                <td>{% if contactano.conActivo %}<span class="label label-danger">Pendiente</span>{% else %}<span class="label label-success">Completado</span>{% endif %}</td>
+                <td>
+                    <ul class="list-inline">
+                        <li>
+                            <a href="{{ path('contactanos_show', { 'id': contactano.id }) }}" class="btn btn-default"><i class="fa fa-folder-open"></i> Ver</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('contactanos_edit', { 'id': contactano.id }) }}" class="btn bg-teal-400" ><i class="fa fa-edit"></i> Editar</a>
+                        </li>
+                        <li>
+                            <button value="{{ contactano.id }}" class="btn btn-danger delete"><i class="fa fa-remove"></i> Eliminar</button>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            {% set counter = counter + 1 %}
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <div class="alert alert-info" role=""><i class="fa fa-info-circle"></i> No hay regístros creados</div>
+    {% endif %}  
+
+
+{% endblock %}
+
+{% block codejs %}
+    <script>
+        $(document).on("ready",function(){
+            
+            /*
+             * This works if you want to use datatable plugin 
+            */
+            var table = $('.datatable-reorder').DataTable({});
+            // Add placeholder to the datatable filter option
+            $('.dataTables_filter input[type=search]').attr('placeholder','Escribar para filtrar...');
+            // Enable Select2 select for the length option
+            $('.dataTables_length select').select2({
+                minimumResultsForSearch: Infinity,
+                width: 'auto'
+            });
+            //End
+            
+            
+            $('body').on("click",".delete",function () {
+                var id = $(this).val();
+                if( id > 0 )
+                {
+                    sendAjax(id);
+                }
+            });
+            
+            function sendAjax(id) {
+                $("#holder_loading").show(); 
+                $.ajax({
+                    type: "post",
+                    url: "{{ path('contactanos_delete_from_list') }}",
+                    data: {id:id},
+                    error: function (data) {
+                       $("#holder_loading").hide();
+                       $.confirm({
+                            icon: 'fa fa-remove',
+                            title: 'Error!',
+                            content: 'Ha ocurrido un error al tratar de enviar la petición',
+                            type: 'red',
+                            typeAnimated: true,
+                            buttons: {
+                                tryAgain: {
+                                    text: 'Intentar de nuevo',
+                                    btnClass: 'btn-red',
+                                    action: function(){
+                                        sendAjax(id);
+                                    }
+                                },
+                                close: function () {
+                                }
+                            }
+                        });
+                        
+                    },
+                    success: function (data) {
+                        $("#holder_loading").hide();
+                        if( data == 1)
+                        {
+                            $.alert({
+                                icon: 'fa fa-check-circle',
+                                title: 'Ok!',
+                                content: 'El registro fue eliminado con éxito',
+                                type: 'green',
+                                typeAnimated: true,
+                            });
+                            $(location).attr('href', '../contactanos');
+                            //$("#tr_"+id).remove();
+                            //window.location("contactanos");
+
+                            table.row("#tr_"+id).remove().draw( false );
+                        }
+                        else
+                        {
+                            var infoError = (data);
+                            $.alert({
+                                icon: 'fa fa-remove',
+                                title: 'Error!',
+                                content: 'No se ha podido eliminar el regístro <br>'+infoError,
+                                type: 'red',
+                                typeAnimated: true,
+                            });
+                        }
+                        
+                    }
+                });
+            }
+            
+        });
+    </script>
+{% endblock %}
