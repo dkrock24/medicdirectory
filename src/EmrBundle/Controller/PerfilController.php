@@ -70,6 +70,12 @@ class PerfilController extends Controller
 		$socials = $em->getRepository('AppBundle:SocialRedes')->findBy( array("socRedActivo"=>1) );
 		
 		$oClientUser = $em->getRepository('AppBundle:ClienteUsuario')->findBy( array( "cliUsuUsu"=> $userId, "cliUsuCli"=>$locationId, "cliUsuRol"=>2 ) );
+		if( !$oClientUser )
+		{
+			$msg = "Para editar tu perfil debes de inicar la administración de un establecimiento";
+			$this->session->getFlashBag()->add("error", $msg);
+			return $this->redirectToRoute('emr_location');
+		}
 		$networkSelected = $em->getRepository('AppBundle:UsuarioSocial')->findBy( array("idUsuario"=>$oClientUser[0]->getCliUsuId() ) );
 		
 		
