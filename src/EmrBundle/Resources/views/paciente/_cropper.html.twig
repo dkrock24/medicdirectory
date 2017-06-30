@@ -178,11 +178,13 @@
               Recortar Imagen
             </span>
           </button>
+          {#  
           <button type="button" class="btn btn-primary" data-method="getCroppedCanvas" data-option="{ &quot;width&quot;: 160, &quot;height&quot;: 90 }">
             <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="$">
               160&times;90
             </span>
           </button>
+          #}  
           <button type="button" class="btn btn-primary" data-method="getCroppedCanvas" data-option="{ &quot;width&quot;: 320, &quot;height&quot;: 180 }">
             <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
               320&times;180
@@ -211,7 +213,7 @@
         </div><!-- /.modal -->
 
         <button type="button" class="btn btn-primary" data-method="zoomTo" data-option="1">
-          <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="cropper.zoomTo(1)">
+          <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
             Zoom to 100%
           </span>
         </button>
