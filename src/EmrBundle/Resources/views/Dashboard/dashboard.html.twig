@@ -18,8 +18,9 @@
 		<div class="page-header-content">
 			<div class="page-title">
 				<h4>
-					<i class="icon-arrow-left52 position-left"></i>
-					<span class="text-semibold">Home</span> - Dashboard
+					<a href="{{ app.request.headers.get('referer') }}">
+                <i class="icon-arrow-left52 position-left"></i>
+                <span class="text-semibold">Regresar</span></a> - Dashboard
 					<small class="display-block">Buen día, {{ userInfo.usuNombre ~ userInfo.usuSegundoNombre ~ userInfo.usuTercerNombre ~ userInfo.usuPrimerApellido ~ userInfo.usuSegundoApellido }}!</small>
 				</h4>
 			</div>

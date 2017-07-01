@@ -43,12 +43,16 @@
     <div class="page-header-content">
         <div class="page-title">
             <h4>
+                <a href="{{ app.request.headers.get('referer') }}">
                 <i class="icon-arrow-left52 position-left"></i>
-                <span class="text-semibold">Establecimientos</span> - Edición de establecimiento
+                <span class="text-semibold">Regresar</span>
+                </a> - Edición de establecimiento
 
-                <small class="display-block">Formulario de cliente!</small></h4>
-            <a class="heading-elements-toggle"><i class="icon-more"></i></a></div>
-
+                <small class="display-block">Formulario del cliente!</small>
+            </h4>
+                
+               
+        {#    
         <div class="heading-elements">
             <div class="heading-btn-group">
                 <a href="#" class="btn btn-link btn-float has-text"><i class="icon-bars-alt text-primary"></i><span>Statistics</span></a>
@@ -56,8 +60,9 @@
                 <a href="#" class="btn btn-link btn-float has-text"><i class="icon-calendar5 text-primary"></i> <span>Schedule</span></a>
             </div>
         </div>
+        #}
+        </div>
     </div>
-    
     <div class="row">
         <div class="col-lg-12">
 

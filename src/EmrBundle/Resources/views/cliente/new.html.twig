@@ -48,9 +48,9 @@
     <div class="page-header-content">
         <div class="page-title">
             <h4>
-                <a href="http//www.medicos.sv">
+                <a href="{{ app.request.headers.get('referer') }}">
                 <i class="icon-arrow-left52 position-left"></i>
-                <span class="text-semibold">Sitio web</span></a> - Regístro de nuevo cliente
+                <span class="text-semibold">Regresar</span></a> - Regístro de nuevo cliente
 
                 <small class="display-block">Formulario para nuevo cliente!</small></h4>
             <a class="heading-elements-toggle"><i class="icon-more"></i></a></div>
@@ -89,6 +89,7 @@
     <div class="panel border-left-lg border-left-success">
         <div class="panel-heading">
             <h6 class="panel-title"><i class="fa fa-hospital-o"></i> Para regístrarse debe completar el siguiente formulario</h6>
+            {#
             <div class="heading-elements">
                 <ul class="icons-list">
                     <li><a data-action="collapse"></a></li>
@@ -96,6 +97,7 @@
                     <li><a data-action="close"></a></li>
                 </ul>
             </div>
+            #}
         </div>
         <div class="panel-body">
             

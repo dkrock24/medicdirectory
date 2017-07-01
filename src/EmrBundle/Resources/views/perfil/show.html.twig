@@ -37,13 +37,18 @@
     </div>
     <div class="page-header-content">
         <div class="page-title">
+            
             <h4>
-                <i class="fa fa-info-circle position-left"></i>
-                <span class="text-semibold">Home</span> - Perfil médico
+                <a href="{{ app.request.headers.get('referer') }}">
+                <i class="icon-arrow-left52 position-left"></i>
+                <span class="text-semibold">Regresar</span>
+                </a> - Perfil Médico
 
-                <small class="display-block">Este perfil será mostrado en el sitio web</small></h4>
-            <a class="heading-elements-toggle"><i class="icon-more"></i></a><a class="heading-elements-toggle"><i class="icon-more"></i></a></div>
+                <small class="display-block">Ingrese su experiencia médica</small>
+            </h4>
 
+        </div>
+         {#  
         <div class="heading-elements">
             <div class="heading-btn-group">
 
@@ -53,7 +58,7 @@
 
             </div>
         </div>
-
+         #}
         
 
         

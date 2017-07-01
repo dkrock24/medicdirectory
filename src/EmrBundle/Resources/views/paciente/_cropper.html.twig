@@ -39,7 +39,7 @@
                        <!-- get cuurent picture -->
                        {% if imgCurrent is defined and imgCurrent != "" %}
 
-                       <img src="{{ asset('uploads/pacientes/'~imgCurrent) }}" class="img-thumbnail">
+                       <img src="{{ asset('uploads/pacientes/'~imgCurrent)}}" class="img-thumbnail" style="max-width:100%">
                        {% else %}
                            Este paciente no tiene foto
                        {% endif %}

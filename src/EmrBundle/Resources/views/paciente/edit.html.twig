@@ -17,12 +17,26 @@
     <div class="page-header-content">
         <div class="page-title">
             <h4>
+                <a href="{{ app.request.headers.get('referer') }}">
+                <i class="icon-arrow-left52 position-left"></i>
+                <span class="text-semibold">Regresar</span>
+                </a> - Información del paciente
+
+                <small class="display-block">Formulario de edición</small>
+            </h4>
+            
+            
+            
+            
+            {#
+            <h4>
                 <i class="icon-arrow-left52 position-left"></i>
                 <span class="text-semibold">Home</span> - Edición de paciente
 
                 <small class="display-block">Expediente básico del paciente!</small></h4>
             <a class="heading-elements-toggle"><i class="icon-more"></i></a></div>
-
+            #}
+            {#
         <div class="heading-elements">
             <div class="heading-btn-group">
                 <a href="#" class="btn btn-link btn-float has-text"><i class="icon-bars-alt text-primary"></i><span>Statistics</span></a>
@@ -30,6 +44,7 @@
                 <a href="#" class="btn btn-link btn-float has-text"><i class="icon-calendar5 text-primary"></i> <span>Schedule</span></a>
             </div>
         </div>
+            #}
     </div>
     
     
@@ -48,7 +63,7 @@
     </div>
     
     <div class="row">
-        <div class="col-lg-8">         
+        <div class="col-lg-12">         
             {#        
             {{ form_start(edit_form) }}
                 {{ form_widget(edit_form) }}
@@ -56,6 +71,7 @@
             {{ form_end(edit_form) }}
             #}
             <div class="panel panel-white">
+                {#
                 <div class="panel-heading">
                     <h6 class="panel-title "><i class="fa fa-user"></i> Información del paciente</h6>
                     <div class="heading-elements">
@@ -66,228 +82,238 @@
                         </ul>
                     </div>
                 </div>
+                #}
                 
                 
                 
                 
                 <div class="form_error">{{ form_errors(edit_form)}}</div>
                 <div class="panel-body">
-                   {{ form_start(edit_form, {'attr': {'class': 'steps-basic'}}) }}
-                    <!-- Nav tabs -->
-                    <ul class="nav nav-tabs nav-tabs-highlight " role="tablist">
-                        <li role="presentation" class="active"><a href="#personal_date" aria-controls="home" role="tab" data-toggle="tab"><i class="fa fa-list-alt"></i> Datos personales</a></li>
-                        <li role="presentation"><a href="#address" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-map-o"></i> Domicilio/Telefónos</a></li>
-                        <!--<li role="presentation"><a href="#phones" aria-controls="messages" role="tab" data-toggle="tab"></a></li>-->
-                        <li role="presentation"><a href="#picture" aria-controls="settings" role="tab" data-toggle="tab"><i class="fa fa-file-image-o"></i> Fotografía</a></li>
-                    </ul>
-                    <!-- Tab panes -->
-                    <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane active" id="personal_date">
-                            <fieldset>
-                               
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <div class="form_error">{{ form_errors(edit_form.pacNombre)}}</div>
-                                            <label for="" class=" control-label">Primer Nombre:</label>
-                                            <div class="">{{ form_widget(edit_form.pacNombre) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
-                                            
-                                            
-                                            
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">    
-                                        <div class="form-group">
-                                            <div class="form_error">{{ form_errors(edit_form.pacSegNombre)}}</div>
-                                            <label for="" class=" control-label">Segundo Nombre:</label>
-                                            <div class="">{{ form_widget(edit_form.pacSegNombre) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
-                                        </div>
-                                    </div>
+                    <div class="row">
+                        <div class="col-lg-8">
+                            {{ form_start(edit_form, {'attr': {'class': 'steps-basic'}}) }}
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs nav-tabs-highlight " role="tablist">
+                                <li role="presentation" class="active"><a href="#personal_date" aria-controls="home" role="tab" data-toggle="tab"><i class="fa fa-list-alt"></i> Datos personales</a></li>
+                                <li role="presentation"><a href="#address" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-map-o"></i> Domicilio/Telefónos</a></li>
+                                <!--<li role="presentation"><a href="#phones" aria-controls="messages" role="tab" data-toggle="tab"></a></li>-->
+                                <li role="presentation"><a href="#picture" aria-controls="settings" role="tab" data-toggle="tab"><i class="fa fa-file-image-o"></i> Fotografía</a></li>
+                            </ul>
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane active" id="personal_date">
+                                    <fieldset>
 
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <div class="form_error">{{ form_errors(edit_form.pacApellido)}}</div>
-                                            <label for="" class=" control-label">Apellido Paterno:</label>
-                                            <div class="">{{ form_widget(edit_form.pacApellido) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
-                                        </div>
-                                    </div>    
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <div class="form_error">{{ form_errors(edit_form.pacSegApellido)}}</div>
-                                            <label for="" class=" control-label">Apellido Materno:</label>
-                                            <div class="">{{ form_widget(edit_form.pacSegApellido) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
-                                        </div>
-                                    </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="form_error">{{ form_errors(edit_form.pacNombre)}}</div>
+                                                    <label for="" class=" control-label">Primer Nombre:</label>
+                                                    <div class="">{{ form_widget(edit_form.pacNombre) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
 
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <div class="form_error">{{ form_errors(edit_form.pacGenero)}}</div>
-                                            <label for="" class="control-label">Genero:</label>
-                                            <div class="">{{ form_widget(edit_form.pacGenero) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
-                                        </div>
-                                    </div>
 
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <div class="form_error">{{ form_errors(edit_form.pacDui)}}</div>
-                                            <label for="" class=" control-label">DUI:</label>
-                                            <div class="">{{ form_widget(edit_form.pacDui) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
-                                        </div>
-                                    </div>   
-                                </div>
 
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <div class="form_error">{{ form_errors(edit_form.pacTipSangre)}}</div>
-                                            <label for="" class=" control-label">Tipo de Sangre:</label>
-                                            <div class="">{{ form_widget(edit_form.pacTipSangre) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <div class="form_error">{{ form_errors(edit_form.pacEmail)}}</div>
-                                            <label for="" class=" control-label">Email:</label>
-                                            <div class="">{{ form_widget(edit_form.pacEmail) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
-                                        </div>
-                                    </div>    
-
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <div class="form_error">{{ form_errors(edit_form.pacEstadoCivil)}}</div>
-                                            <label for="" class=" control-label">Estado Civil:</label>
-                                            <div class="">{{ form_widget(edit_form.pacEstadoCivil) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <div class="form_error">{{ form_errors(edit_form.pacFechaNacimiento)}}</div>
-                                            <label for="" class=" control-label">Fecha de nacimiento:</label>
-                                            <div class="">{{ form_widget(edit_form.pacFechaNacimiento) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <div class="form_error">{{ form_errors(edit_form.pacActivo)}}</div>
-                                            <label for="" class=" control-label">Estatus del paciente: </label>
-                                            <div class="">{{ form_widget(edit_form.pacActivo) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
-                                        </div>
-                                    </div>    
-                                </div>       
-                            </fieldset>
-                        </div>
-                        <div role="tabpanel" class="tab-pane" id="address">
-
-                            <fieldset>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <div class="form_error">{{ form_errors(edit_form.pais)}}</div>
-                                            <label for="" class=" control-label">Pais:</label>
-                                            <div class="">{{ form_widget(edit_form.pais) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <div class="form_error">{{ form_errors(edit_form.pacMun)}}</div>
-                                            <label for="" class=" control-label">Municipio/departamento:</label>
-                                            <div class="">{{ form_widget(edit_form.pacMun) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
-                                        </div>
-                                    </div>    
-                                    <div class="col-md-4">    
-                                        <div class="form-group">
-                                            <div class="form_error">{{ form_errors(edit_form.pacDireccion)}}</div>
-                                            <label for="" class=" control-label">Dirección:</label>
-                                            <div class="">{{ form_widget(edit_form.pacDireccion) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
-                                        </div>
-                                    </div>    
-                                </div>
-                                
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <div class="form_error">{{ form_errors(edit_form.pacTelCasa)}}</div>
-                                            <label for="" class=" control-label">Telefóno Casa:</label>
-                                            <div class="">{{ form_widget(edit_form.pacTelCasa) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">    
-                                        <div class="form-group">
-                                            <div class="form_error">{{ form_errors(edit_form.pacTelCelular)}}</div>
-                                            <label for="" class=" control-label">Celular:</label>
-                                            <div class="">{{ form_widget(edit_form.pacTelCelular) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <div class="form_error">{{ form_errors(edit_form.pacTelTrabajo)}}</div>
-                                            <label for="" class=" control-label">Teléfono Trabajo:</label>
-                                            <div class="">{{ form_widget(edit_form.pacTelTrabajo) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
-                                        </div>
-                                    </div>    
-                                </div>        
-                            </fieldset>
-
-                        </div>
-                        <div role="tabpanel" class="tab-pane" id="picture">
-                            <fieldset>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            
-                                            <!-- Nav tabs -->
-                                            <ul class="nav nav-tabs" role="tablistUpload">
-                                              <li role="presentation" class="active"><a href="#pc" aria-controls="pc" role="tab" data-toggle="tab"><i class='fa fa-upload'></i> PC</a></li>
-                                              <li role="presentation"><a href="#webcam" aria-controls="webcam" role="tab" data-toggle="tab"><i class='fa fa-camera'></i> Carama web</a></li>
-                                            </ul>
-                                            <!-- Tab panes -->
-                                            <div class="tab-content">
-                                                <div role="tabpanel" class="tab-pane active" id="pc">
-                                                    {{ include ('EmrBundle:paciente:_cropper.html.twig', {'imgCurrent': edit_form.pacFoto.vars.value } )   }}  
-                                                </div>
-                                                <div role="tabpanel" class="tab-pane" id="webcam">
-                                                    {{ include('EmrBundle:paciente:_webcam.html.twig' )  }}
                                                 </div>
                                             </div>
-                                            
-                                            
+                                            <div class="col-md-4">    
+                                                <div class="form-group">
+                                                    <div class="form_error">{{ form_errors(edit_form.pacSegNombre)}}</div>
+                                                    <label for="" class=" control-label">Segundo Nombre:</label>
+                                                    <div class="">{{ form_widget(edit_form.pacSegNombre) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="form_error">{{ form_errors(edit_form.pacApellido)}}</div>
+                                                    <label for="" class=" control-label">Apellido Paterno:</label>
+                                                    <div class="">{{ form_widget(edit_form.pacApellido) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                                </div>
+                                            </div>    
                                         </div>
-                                    </div>   
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="form_error">{{ form_errors(edit_form.pacSegApellido)}}</div>
+                                                    <label for="" class=" control-label">Apellido Materno:</label>
+                                                    <div class="">{{ form_widget(edit_form.pacSegApellido) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="form_error">{{ form_errors(edit_form.pacGenero)}}</div>
+                                                    <label for="" class="control-label">Genero:</label>
+                                                    <div class="">{{ form_widget(edit_form.pacGenero) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="form_error">{{ form_errors(edit_form.pacDui)}}</div>
+                                                    <label for="" class=" control-label">DUI:</label>
+                                                    <div class="">{{ form_widget(edit_form.pacDui) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                                </div>
+                                            </div>   
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="form_error">{{ form_errors(edit_form.pacTipSangre)}}</div>
+                                                    <label for="" class=" control-label">Tipo de Sangre:</label>
+                                                    <div class="">{{ form_widget(edit_form.pacTipSangre) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="form_error">{{ form_errors(edit_form.pacEmail)}}</div>
+                                                    <label for="" class=" control-label">Email:</label>
+                                                    <div class="">{{ form_widget(edit_form.pacEmail) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                                </div>
+                                            </div>    
+
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="form_error">{{ form_errors(edit_form.pacEstadoCivil)}}</div>
+                                                    <label for="" class=" control-label">Estado Civil:</label>
+                                                    <div class="">{{ form_widget(edit_form.pacEstadoCivil) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="form_error">{{ form_errors(edit_form.pacFechaNacimiento)}}</div>
+                                                    <label for="" class=" control-label">Fecha de nacimiento:</label>
+                                                    <div class="">{{ form_widget(edit_form.pacFechaNacimiento) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="form_error">{{ form_errors(edit_form.pacActivo)}}</div>
+                                                    <label for="" class=" control-label">Estatus del paciente: </label>
+                                                    <div class="">{{ form_widget(edit_form.pacActivo) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                                </div>
+                                            </div>    
+                                        </div>       
+                                    </fieldset>
                                 </div>
-                                          
-                            </fieldset>
-                            
+                                <div role="tabpanel" class="tab-pane" id="address">
+
+                                    <fieldset>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="form_error">{{ form_errors(edit_form.pais)}}</div>
+                                                    <label for="" class=" control-label">Pais:</label>
+                                                    <div class="">{{ form_widget(edit_form.pais) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="form_error">{{ form_errors(edit_form.pacMun)}}</div>
+                                                    <label for="" class=" control-label">Municipio/departamento:</label>
+                                                    <div class="">{{ form_widget(edit_form.pacMun) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                                </div>
+                                            </div>    
+                                            <div class="col-md-4">    
+                                                <div class="form-group">
+                                                    <div class="form_error">{{ form_errors(edit_form.pacDireccion)}}</div>
+                                                    <label for="" class=" control-label">Dirección:</label>
+                                                    <div class="">{{ form_widget(edit_form.pacDireccion) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                                </div>
+                                            </div>    
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="form_error">{{ form_errors(edit_form.pacTelCasa)}}</div>
+                                                    <label for="" class=" control-label">Telefóno Casa:</label>
+                                                    <div class="">{{ form_widget(edit_form.pacTelCasa) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">    
+                                                <div class="form-group">
+                                                    <div class="form_error">{{ form_errors(edit_form.pacTelCelular)}}</div>
+                                                    <label for="" class=" control-label">Celular:</label>
+                                                    <div class="">{{ form_widget(edit_form.pacTelCelular) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="form_error">{{ form_errors(edit_form.pacTelTrabajo)}}</div>
+                                                    <label for="" class=" control-label">Teléfono Trabajo:</label>
+                                                    <div class="">{{ form_widget(edit_form.pacTelTrabajo) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                                </div>
+                                            </div>    
+                                        </div>        
+                                    </fieldset>
+
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="picture">
+                                    <fieldset>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+
+                                                    <!-- Nav tabs -->
+                                                    <ul class="nav nav-tabs" role="tablistUpload">
+                                                        <li role="presentation" class="active"><a href="#pc" aria-controls="pc" role="tab" data-toggle="tab"><i class='fa fa-upload'></i> PC</a></li>
+                                                        <li role="presentation"><a href="#webcam" aria-controls="webcam" role="tab" data-toggle="tab"><i class='fa fa-camera'></i> Carama web</a></li>
+                                                    </ul>
+                                                    <!-- Tab panes -->
+                                                    <div class="tab-content">
+                                                        <div role="tabpanel" class="tab-pane active" id="pc">
+                                                            {{ include ('EmrBundle:paciente:_cropper.html.twig', {'imgCurrent': edit_form.pacFoto.vars.value } )   }}  
+                                                        </div>
+                                                        <div role="tabpanel" class="tab-pane" id="webcam">
+                                                            {{ include('EmrBundle:paciente:_webcam.html.twig' )  }}
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+                                            </div>   
+                                        </div>
+
+                                    </fieldset>
+
+                                </div>
+                            </div>
+
+                            {{ form_end(edit_form)}}
+                        </div>
+                        <div class="col-lg-4">
+                            {{ include('EmrBundle:paciente:_search.html.twig' )  }} 
                         </div>
                     </div>
 
-                    {{ form_end(edit_form)}}
-
                     <hr>
-                    <ul class="list-inline">
-                        <li>
-                            <button type="button" class="btn btn-primary btn-sm" id="btn-save-form">
-                                <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
-                                    Enviar datos
-                                </span>
-                            </button>
-                        </li>
-                        <li>
-                            {# {{ path('paciente_show', { 'id': id }) }} #}
-                            <a href="{{ path('paciente_show', { 'id': id }) }}" class='btn btn-default btn-sm'><i class='fa fa-folder-open'></i> Ver</a>
-                        </li>
-                    </ul>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <ul class="list-inline">
+                                <li>
+                                    <button type="button" class="btn btn-primary btn-sm" id="btn-save-form">
+                                        <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
+                                            Enviar datos
+                                        </span>
+                                    </button>
+                                </li>
+                                <li>
+                                    {# {{ path('paciente_show', { 'id': id }) }} #}
+                                    <a href="{{ path('paciente_show', { 'id': id }) }}" class='btn btn-default btn-sm'><i class='fa fa-folder-open'></i> Ver</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-4">
-            {{ include('EmrBundle:paciente:_search.html.twig' )  }}        
-        </div>                
+             
     </div>        
     
     

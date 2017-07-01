@@ -32,12 +32,16 @@
     <div class="page-header-content">
         <div class="page-title">
             <h4>
-                <i class="fa fa-info-circle position-left"></i>
-                <span class="text-semibold">Home</span> - Calendario de eventos
+                <a href="{{ app.request.headers.get('referer') }}">
+                <i class="icon-arrow-left52 position-left"></i>
+                <span class="text-semibold">Regresar</span>
+                </a> - Calendario de citas y eventos
 
-                <small class="display-block">Seleccione el horario que desea reservar para el evento</small></h4>
-            <a class="heading-elements-toggle"><i class="icon-more"></i></a><a class="heading-elements-toggle"><i class="icon-more"></i></a></div>
-
+                <small class="display-block">Seleccione el horario que desea reservar la cita o el evento</small>
+            </h4>
+            
+       </div>
+        {#        
         <div class="heading-elements">
             <div class="heading-btn-group">
 
@@ -47,7 +51,7 @@
 
             </div>
         </div>
-
+        #}
     </div>
     
     
