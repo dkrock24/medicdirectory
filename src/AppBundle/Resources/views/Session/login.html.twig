@@ -9,8 +9,18 @@
             background-position: center center;
             background-size: cover;
             background-repeat: no-repeat;
+            padding: 0px !important;
+            
+        }
+        #bg{
+            width:100%;
+            height: 100%
+            position: fixed;
+            z-index:-1;
+            background: rgba(0,0,0,0.6);
         }
     </style>
+    <div id="bg">
     <div class="page-container">
 
         <!-- Page content -->
@@ -89,6 +99,7 @@
         <!-- /page content -->
 
     </div>
+    </div>                            
 {% endblock %}
 
 {% block codejs %}
