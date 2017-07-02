@@ -321,42 +321,48 @@
                   <div class="panel-title">Mi Galería de imagenes</div>
                 </div>
                 <div class="panel-body" style="position: relative">
-                    
+
                     <div class="row">    
-                                            {% for image in userGallery %}
-                                                {% if image.galTipo.UsuGalTipId == 1 %}
-                                                    <div class="col-lg-3 col-md-4 col-sm-6">
-                                                        <div class="thumbnailx">
-                                                            {# <img src="{{ asset('uploads/perfil/'~image.galHash) }}" style="max-width: 100%"> #}
-                                                            <img src="{{ image('uploads/perfil/'~image.galHash).cropResize(100,100) }}" style="max-width: 100%"/>
-                                                            <div class="caption">
-                                                                <h4>{{ image.galTipo.UsuGalTipNombre }}</h4>
-                                                                <p>
-                                                                    <label class="checkbox-inline">
-                                                                        <input type="checkbox" id="inlineCheckbox1" class="itemGallery" value="{{ image.galId }}"> Marcar para eliminar
-                                                                    </label>
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                {% else %}
-                                                    <div class="col-lg-3 col-md-4 col-sm-6">
-                                                        <div class="thumbnailx">
-                                                            <img src="{{ image('uploads/otras/'~image.galHash).cropResize(100,100) }}"  style="max-width: 100%">
-                                                            <div class="caption">
-                                                                <h4>{{ image.galTipo.UsuGalTipNombre }}</h4>
-                                                                <p>
-                                                                    <label class="checkbox-inline">
-                                                                        <input type="checkbox" id="inlineCheckbox1" class="itemGallery" value="{{ image.galId }}"> Marcar para eliminar
-                                                                    </label>
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                {% endif %}    
-                                                
-                                            {% endfor %}    
-                                       </div>
+
+
+                        {% for image in userGallery %}
+                            {% if image.galTipo.UsuGalTipId == 1 %}
+                                {% if file_exists('uploads/perfil/'~image.galHash)  %}
+                                    <div class="col-lg-3 col-md-4 col-sm-6">
+                                        <div class="thumbnailx">
+                                            {# <img src="{{ asset('uploads/perfil/'~image.galHash) }}" style="max-width: 100%"> #}
+                                            <img src="{{ image('uploads/perfil/'~image.galHash).cropResize(100,100) }}" style="max-width: 100%"/>
+                                            <div class="caption">
+                                                <h4>{{ image.galTipo.UsuGalTipNombre }}</h4>
+                                                <p>
+                                                    <label class="checkbox-inline">
+                                                        <input type="checkbox" id="inlineCheckbox1" class="itemGallery" value="{{ image.galId }}"> Marcar para eliminar
+                                                    </label>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}                
+                            {% else %}
+                                {% if file_exists('uploads/otras/'~image.galHash)  %}
+                                    <div class="col-lg-3 col-md-4 col-sm-6">
+                                        <div class="thumbnailx">
+                                            <img src="{{ image('uploads/otras/'~image.galHash).cropResize(100,100) }}"  style="max-width: 100%">
+                                            <div class="caption">
+                                                <h4>{{ image.galTipo.UsuGalTipNombre }}</h4>
+                                                <p>
+                                                    <label class="checkbox-inline">
+                                                        <input type="checkbox" id="inlineCheckbox1" class="itemGallery" value="{{ image.galId }}"> Marcar para eliminar
+                                                    </label>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif%}                
+                            {% endif %}    
+
+                        {% endfor %}    
+                    </div>
                     
                     
                    

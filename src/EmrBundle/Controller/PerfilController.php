@@ -36,6 +36,10 @@ class PerfilController extends Controller
      */
     public function showAction(Request $request)
     {		
+		
+		//$ext = $this->get('app.file.twig.extension');
+		//echo $ext->prueba();
+		//echo "servicio";
 		/*
 		
 		$em = $this->getDoctrine()->getManager();
