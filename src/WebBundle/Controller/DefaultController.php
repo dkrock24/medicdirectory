@@ -274,7 +274,34 @@ class DefaultController extends Controller {
 
         $msg = "Información Enviada Con Exito";
 
+        $medicosSV = "medicoselsalvador@gmail.com";
+
+        $this->sendMessage("solicitar_cita", $nombre, $email,$tipo,$mensaje,$ip, $to=$medicosSV,$trom=false);
+        
+
         return  $response = new JsonResponse(($msg));
+    }
+
+    public function sendMessage($typeTemplate, $nombre, $email,$tipo,$mensaje,$ip, $to, $trom=false)
+    {
+        //solicitar_cita
+        if( isset($typeTemplate) && !empty($typeTemplate) )
+        {
+            $srvMail = $this->get('srv_correos');
+            $plantilla =$typeTemplate;// "solicitar_cita";
+
+            $variables['nombre_usuario '] = $nombre;
+            $variables['email']     = $email;
+            $variables['tipo']      = $tipo;
+            $variables['mensaje']   = $mensaje;
+            $variables['ip']        = $ip;
+
+            $srvParameter = $this->get('srv_parameters');
+            //$link_sistema = $srvParameter->getParametro("link_sistema", $default_return_value = "");
+            //$variables['link'] = $link_sistema;
+
+            $res = $srvMail->enviarCorreo ($plantilla, $variables, $to, $de = '') ;
+        }
     }
 
 }
