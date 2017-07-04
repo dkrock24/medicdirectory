@@ -205,17 +205,24 @@ class DefaultController extends Controller {
         $em = $this->getDoctrine()->getManager();
         
         //Cliente
-        $id_cliente =  $_POST['idCliente'];
-        $client_repo = $em->getRepository('AppBundle:Cliente')->find($id_cliente);
+        $id_cliente     =  $_POST['idCliente'];
+        $client_repo    = $em->getRepository('AppBundle:Cliente')->find($id_cliente);
 
         //Usuario
-        $id_usuario = $_POST['idUsuario'];
-        $usuario_repo = $em->getRepository('AppBundle:Usuario')->find($id_usuario);
+        $id_usuario     = $_POST['idUsuario'];
+        $usuario_repo   = $em->getRepository('AppBundle:Usuario')->find($id_usuario);
+
+        //Obteniendo correo del establecimiento.
+        $emailClinica   = $em->getRepository('AppBundle:ClienteUsuario')->findOneBy(array("cliUsuCli" => $id_cliente));
 
         // Dates
-        $fecha  = $_POST['fecha'];
-        $hora   = $_POST['hora'];
-        $strHora = $fecha." ".substr($hora,0,-2);
+        $fecha      = $_POST['fecha'];
+        $hora       = $_POST['hora'];
+        $nombre     = $_POST['nombre'];
+        $telefono   = $_POST['telefono'];
+        $correo     = $_POST['correo'];
+        $comentario = $_POST['comentario'];
+        $strHora    = $fecha." ".substr($hora,0,-2);
         //$fecha_string = $strHora;
 
         $ip = $this->getRealIP();            
@@ -225,19 +232,21 @@ class DefaultController extends Controller {
         $oSolicitud->setScCliente( $client_repo );
         $oSolicitud->setScUsuario( $usuario_repo );
         $oSolicitud->setIp( $ip );
-        $oSolicitud->setScNombre( $_POST['nombre'] );
-        $oSolicitud->setTelefono( $_POST['telefono'] );
-        $oSolicitud->setCorreo( $_POST['correo'] );
-        $oSolicitud->setComentario( $_POST['comentario'] );
+        $oSolicitud->setScNombre( $nombre );
+        $oSolicitud->setTelefono( $telefono );
+        $oSolicitud->setCorreo( $correo );
+        $oSolicitud->setComentario( $comentario );
         $oSolicitud->setEstado(1);
         $oSolicitud->setFechaContacto(new \DateTime($strHora));
-
+        
         $em->persist($oSolicitud);
         $flush = $em->flush();
 
-        
-
         $msg = "Registro creado con Exito";
+
+        //Notificar a la clinica de solicitud de cita
+        $this->sendMessage("solicitar_cita", $nombre, $telefono, $correo, $comentario,$strHora, $to=$emailClinica[0]->getCliUsuCorreo,$trom=false);
+
         return  $response = new JsonResponse(($msg));
     }
 
@@ -276,7 +285,7 @@ class DefaultController extends Controller {
 
         $medicosSV = "medicoselsalvador@gmail.com";
 
-        $this->sendMessage("solicitar_cita", $nombre, $email,$tipo,$mensaje,$ip, $to=$medicosSV,$trom=false);
+        $this->sendMessage("contactanos", $nombre, $email,$tipo,$mensaje,$ip, $to=$medicosSV,$trom=false);
         
 
         return  $response = new JsonResponse(($msg));
@@ -288,13 +297,35 @@ class DefaultController extends Controller {
         if( isset($typeTemplate) && !empty($typeTemplate) )
         {
             $srvMail = $this->get('srv_correos');
-            $plantilla =$typeTemplate;// "solicitar_cita";
+            $plantilla =$typeTemplate;// "contactanos";
 
             $variables['nombre_usuario '] = $nombre;
             $variables['email']     = $email;
             $variables['tipo']      = $tipo;
             $variables['mensaje']   = $mensaje;
             $variables['ip']        = $ip;
+
+            $srvParameter = $this->get('srv_parameters');
+            //$link_sistema = $srvParameter->getParametro("link_sistema", $default_return_value = "");
+            //$variables['link'] = $link_sistema;
+
+            $res = $srvMail->enviarCorreo ($plantilla, $variables, $to, $de = '') ;
+        }
+    }
+
+    public function sendMessageCliente($typeTemplate, $nombre, $telefono,$correo,$comentario,$strHora, $to, $trom=false)
+    {
+        //solicitar_cita
+        if( isset($typeTemplate) && !empty($typeTemplate) )
+        {
+            $srvMail = $this->get('srv_correos');
+            $plantilla =$typeTemplate;// "solicitar_cita";
+
+            $variables['nombre_usuario '] = $nombre;
+            $variables['telefono']      = $telefono;
+            $variables['email']         = $correo;
+            $variables['mensaje']       = $comentario;
+            $variables['fecha']         = $strHora;
 
             $srvParameter = $this->get('srv_parameters');
             //$link_sistema = $srvParameter->getParametro("link_sistema", $default_return_value = "");
