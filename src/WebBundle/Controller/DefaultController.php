@@ -6,6 +6,7 @@ use AppBundle\Entity\ClienteUsuario;
 use AppBundle\Entity\UsuarioVistas;
 use AppBundle\Entity\Cliente;
 use \AppBundle\Entity\SolicitudContacto;
+use \AppBundle\Entity\Contactanos;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,6 +38,8 @@ class DefaultController extends Controller {
                         JOIN cliente_usuario as cu on cu.cli_usu_usu_id=u.usu_id
                         JOIN usuario_especialidad AS es on u.usu_id=es.id_usuario
                         JOIN  especialidad as e on e.esp_id=es.id_especialidad
+                        JOIN usuario_galeria as ug on ug.gal_usu_id=cu.cli_usu_usu_id
+                        WHERE ug.gal_modulo_id is null and ug.gal_tipo=1
                         group by u.usu_id";
         $statement  = $em->getConnection()->prepare($RAW_QUERY);
         $statement->execute();                
@@ -126,6 +129,8 @@ class DefaultController extends Controller {
 
         $medico['usuario'] = $em->getRepository('AppBundle:ClienteUsuario')->findOneBy(array("cliUsuId" => $med_id));
 
+        $medico['galeria'] = $em->getRepository('AppBundle:UsuarioGaleria')->findOneBy(array("galUsuario"=>1,"galTipo"=>1,"galModulo"=>null));
+
         // Obtener especialidades Por Medico
         
         $medico['especialidad'] = $em1->select('r')
@@ -194,23 +199,34 @@ class DefaultController extends Controller {
         return $this->render('WebBundle:Terminos:index.html.twig');
     }
 
+    public function indexPrivacidadAction() {
+        return $this->render('WebBundle:Terminos:privacidad.html.twig');
+    }
+
     public function indexSolicitarAction(){
 
         // Guardar Solicitud de Cita
         $em = $this->getDoctrine()->getManager();
         
         //Cliente
-        $id_cliente =  $_POST['idCliente'];
-        $client_repo = $em->getRepository('AppBundle:Cliente')->find($id_cliente);
+        $id_cliente     =  $_POST['idCliente'];
+        $client_repo    = $em->getRepository('AppBundle:Cliente')->find($id_cliente);
 
         //Usuario
-        $id_usuario = $_POST['idUsuario'];
-        $usuario_repo = $em->getRepository('AppBundle:Usuario')->find($id_usuario);
+        $id_usuario     = $_POST['idUsuario'];
+        $usuario_repo   = $em->getRepository('AppBundle:Usuario')->find($id_usuario);
+
+        //Obteniendo correo del establecimiento.
+        $emailClinica   = $em->getRepository('AppBundle:ClienteUsuario')->findOneBy(array("cliUsuCli" => $id_cliente));
 
         // Dates
-        $fecha  = $_POST['fecha'];
-        $hora   = $_POST['hora'];
-        $strHora = $fecha." ".substr($hora,0,-2);
+        $fecha      = $_POST['fecha'];
+        $hora       = $_POST['hora'];
+        $nombre     = $_POST['nombre'];
+        $telefono   = $_POST['telefono'];
+        $correo     = $_POST['correo'];
+        $comentario = $_POST['comentario'];
+        $strHora    = $fecha." ".substr($hora,0,-2);
         //$fecha_string = $strHora;
 
         $ip = $this->getRealIP();            
@@ -220,21 +236,107 @@ class DefaultController extends Controller {
         $oSolicitud->setScCliente( $client_repo );
         $oSolicitud->setScUsuario( $usuario_repo );
         $oSolicitud->setIp( $ip );
-        $oSolicitud->setScNombre( $_POST['nombre'] );
-        $oSolicitud->setTelefono( $_POST['telefono'] );
-        $oSolicitud->setCorreo( $_POST['correo'] );
-        $oSolicitud->setComentario( $_POST['comentario'] );
+        $oSolicitud->setScNombre( $nombre );
+        $oSolicitud->setTelefono( $telefono );
+        $oSolicitud->setCorreo( $correo );
+        $oSolicitud->setComentario( $comentario );
         $oSolicitud->setEstado(1);
         $oSolicitud->setFechaContacto(new \DateTime($strHora));
-
+        
         $em->persist($oSolicitud);
         $flush = $em->flush();
 
-        
-
         $msg = "Registro creado con Exito";
 
+        //Notificar a la clinica de solicitud de cita
+        $this->sendMessage("solicitar_cita", $nombre, $telefono, $correo, $comentario,$strHora, $to=$emailClinica[0]->getCliUsuCorreo,$trom=false);
+
         return  $response = new JsonResponse(($msg));
+    }
+
+    public function indexContactanosAction(){
+        return $this->render('WebBundle:Contactanos:index.html.twig');
+    }
+
+    public function indexContactosAction()
+    {
+        // Guardar Contactanos
+        $em = $this->getDoctrine()->getManager();
+
+        $date = date("Y-m-d h:m:s");
+
+        // Dates
+        $nombre     = $_POST['nombre'];
+        $email      = $_POST['email'];
+        $tipo       = $_POST['tipo'];
+        $mensaje    = $_POST['mensaje'];
+        $ip         = $this->getRealIP();            
+
+        $oContactanos = new Contactanos();
+
+        $oContactanos->setConNombre( $nombre );
+        $oContactanos->setConEmail( $email );
+        $oContactanos->setConIp( $ip );
+        $oContactanos->setConTipo( $tipo );
+        $oContactanos->setConMensaje( $mensaje );      
+        $oContactanos->setConActivo(1);
+        $oContactanos->setConFechaCrea(new \Datetime());
+
+        $em->persist($oContactanos);
+        $flush = $em->flush();        
+
+        $msg = "Información Enviada Con Exito";
+
+        $medicosSV = "medicoselsalvador@gmail.com";
+
+        $this->sendMessage("contactanos", $nombre, $email,$tipo,$mensaje,$ip, $to=$medicosSV,$trom=false);
+        
+
+        return  $response = new JsonResponse(($msg));
+    }
+
+    public function sendMessage($typeTemplate, $nombre, $email,$tipo,$mensaje,$ip, $to, $trom=false)
+    {
+        //solicitar_cita
+        if( isset($typeTemplate) && !empty($typeTemplate) )
+        {
+            $srvMail = $this->get('srv_correos');
+            $plantilla =$typeTemplate;// "contactanos";
+
+            $variables['nombre_usuario '] = $nombre;
+            $variables['email']     = $email;
+            $variables['tipo']      = $tipo;
+            $variables['mensaje']   = $mensaje;
+            $variables['ip']        = $ip;
+
+            $srvParameter = $this->get('srv_parameters');
+            //$link_sistema = $srvParameter->getParametro("link_sistema", $default_return_value = "");
+            //$variables['link'] = $link_sistema;
+
+            $res = $srvMail->enviarCorreo ($plantilla, $variables, $to, $de = '') ;
+        }
+    }
+
+    public function sendMessageCliente($typeTemplate, $nombre, $telefono,$correo,$comentario,$strHora, $to, $trom=false)
+    {
+        //solicitar_cita
+        if( isset($typeTemplate) && !empty($typeTemplate) )
+        {
+            $srvMail = $this->get('srv_correos');
+            $plantilla =$typeTemplate;// "solicitar_cita";
+
+            $variables['nombre_usuario '] = $nombre;
+            $variables['telefono']      = $telefono;
+            $variables['email']         = $correo;
+            $variables['mensaje']       = $comentario;
+            $variables['fecha']         = $strHora;
+
+            $srvParameter = $this->get('srv_parameters');
+            //$link_sistema = $srvParameter->getParametro("link_sistema", $default_return_value = "");
+            //$variables['link'] = $link_sistema;
+
+            $res = $srvMail->enviarCorreo ($plantilla, $variables, $to, $de = '') ;
+        }
     }
 
 }

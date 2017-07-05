@@ -133,24 +133,42 @@
                                         Consultas anteriores
                                     </div>
                                     <div>
-                                        <table class="table table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>Fecha</th>
-                                                    <th>Acción</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>2017-01-12</td>
-                                                    <td>Vista previa</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>2017-02-12</td>
-                                                    <td>Vista previa</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                       
+                                        {% if historical|length > 0 %}
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Fecha</th>
+                                                        <th>Estado</th>
+                                                        <th>Acción</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>        
+                                            {% for data in historical %}
+                                                
+                                                    
+                                                        <tr>
+                                                            <td>{{ data.start }}</td>
+                                                            <td>
+                                                                {% if data.age_estado == "p" %}
+                                                                                Pendiente
+                                                                {% elseif data.age_estado == "a" %}
+                                                                                Anulada
+                                                                {% elseif data.age_estado == "c" %}
+                                                                                En curso
+                                                                {% elseif data.age_estado == "t" %}
+                                                                                Finalizada
+                                                                {% endif %}
+                                                            </td>
+                                                            <td><button class="btn btn-default btn-xs"> <i class="fa fa-search" aria-hidden="true"></i> Vista previa</button></td>
+                                                        </tr>
+                                                    
+                                            {% endfor %} 
+                                                </tbody>
+                                            </table>
+                                        {% else %}
+                                            Este paciente no tiene historico de citas aún
+                                        {% endif %}    
                                     </div>
                                 </div>
                             </div>
@@ -161,10 +179,12 @@
             <!-- Here goes the modules list -->
             {{ render( controller('EmrBundle:EavModulos:crearMenuModulos', { 'modulos': modulos } ) ) }}
             <!-- end of modules list -->
+            {% if modulos|length > 0 %}
             {{ render( controller( 'EmrBundle:EavModulos:crearFormModulo', 
                 { 'mod_hash': modulos[0]['mod_hash'], 
                     'usu_id': usu_id, 'pac_id': patient[0].pacId, 'cli_id': cli_id, 'cit_id': cit_id } ) ) 
             }}
+            {% endif %}
         </div>
     </div>
 
@@ -197,7 +217,7 @@
                     sUrl = sUrl.replace( "usuid", {{ usu_id }} );
                     sUrl = sUrl.replace( "pacid", {{ patient[0].pacId }} );
                     sUrl = sUrl.replace( "cliid", {{ cli_id }} );
-                    sUrl = sUrl.replace( "citid", 1 ); // <================= NEED TO GET CITA_ID FROM SESSION.
+                    sUrl = sUrl.replace( "citid", {{ cit_id }} ); // <================= NEED TO GET CITA_ID FROM SESSION.
                     var aCampo = input.attr('id').split("_");
                     var camp_id = aCampo[1];
                     sUrl = sUrl.replace( "campid", camp_id );

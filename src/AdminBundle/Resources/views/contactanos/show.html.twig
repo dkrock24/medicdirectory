@@ -1,0 +1,77 @@
+{% extends "Layout/base_admin/_admin_base.html.twig" %}
+
+{% block title_page %}
+        EMR || Datos Contactos
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('AdminBundle:contactanos:_breadcrumb.html.twig' )  }}
+{% endblock %} 
+
+{% block submenutop %}
+    {{ include('AdminBundle:contactanos:_submenu.html.twig' )  }}
+{% endblock %}
+
+{% block body %}
+    <h1>Detalle Contacto</h1>
+
+    <!-- Check the notifications -->
+    {% for message in app.session.flashbag().get("success") %}
+        <div class="alert alert-success"><i class="fa fa-check-circle"></i> {{message}}</div>
+    {% endfor %}
+    {% for message in app.session.flashbag().get("error") %}
+        <div class="alert alert-danger"><i class="fa fa-close"></i> {{message}}</div>
+    {% endfor %}
+    <!-- End notifications -->
+
+    <table class="table table-striped">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ contactano.id }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ contactano.conNombre }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ contactano.conEmail }}</td>
+            </tr>
+            <tr>
+                <th>Tipo Pregunta</th>
+                <td>{{ contactano.conTipo }}</td>
+            </tr>
+            <tr>
+                <th>Ip</th>
+                <td>{{ contactano.conIp }}</td>
+            </tr>
+            <tr>
+                <th>Mensaje</th>
+                <td>{{ contactano.conMensaje }}</td>
+            </tr>
+            <tr>
+                <th>Fecha Creación</th>
+                <td>{% if contactano.conFechaCrea %}{{ contactano.conFechaCrea|date("F jS \\a\\t g:ia") }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Conactivo</th>
+                <td>{% if contactano.conActivo %}<span class="label label-danger">Pendiente</span>{% else %}<span class="label label-success">Completado</span>{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul class="list-inline">
+        <li>
+            <a href="{{ path('contactanos_index') }}" class="btn btn-info"><i class="fa fa-list"></i> Listar</a>
+        </li>
+        <li>
+            <a href="{{ path('contactanos_edit', { 'id': contactano.id }) }}"  class="btn bg-teal-400"><i class="fa fa-edit"></i> Editar</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <button type="submit" class="btn btn-danger"><i class="fa fa-remove"></i> Eliminar</button>
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

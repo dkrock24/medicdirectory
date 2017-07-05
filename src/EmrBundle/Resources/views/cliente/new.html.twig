@@ -42,15 +42,19 @@
             display: none;
         }
     </style>
+    
+    <script type="text/javascript" src="{{ asset('bundles/admin/add-on/Jquery-mask/jquery.mask.js') }}"></script>
+    
     <div class="page-header-content">
         <div class="page-title">
             <h4>
+                <a href="{{ app.request.headers.get('referer') }}">
                 <i class="icon-arrow-left52 position-left"></i>
-                <span class="text-semibold">Website</span> - Regístro de nuevo cliente
+                <span class="text-semibold">Regresar</span></a> - Regístro de nuevo cliente
 
                 <small class="display-block">Formulario para nuevo cliente!</small></h4>
             <a class="heading-elements-toggle"><i class="icon-more"></i></a></div>
-
+        {#    
         <div class="heading-elements">
             <div class="heading-btn-group">
                 <a href="#" class="btn btn-link btn-float has-text"><i class="icon-bars-alt text-primary"></i><span>Statistics</span></a>
@@ -58,6 +62,7 @@
                 <a href="#" class="btn btn-link btn-float has-text"><i class="icon-calendar5 text-primary"></i> <span>Schedule</span></a>
             </div>
         </div>
+        #}
     </div>
     
     <div class="row">
@@ -83,7 +88,8 @@
             
     <div class="panel border-left-lg border-left-success">
         <div class="panel-heading">
-            <h6 class="panel-title"><i class="fa fa-hospital-o"></i> Para regístrarse es necesario completar el formulario de abajo</h6>
+            <h6 class="panel-title"><i class="fa fa-hospital-o"></i> Para regístrarse debe completar el siguiente formulario</h6>
+            {#
             <div class="heading-elements">
                 <ul class="icons-list">
                     <li><a data-action="collapse"></a></li>
@@ -91,6 +97,7 @@
                     <li><a data-action="close"></a></li>
                 </ul>
             </div>
+            #}
         </div>
         <div class="panel-body">
             
@@ -144,14 +151,14 @@
                                         <div class="col-md-4">    
                                             <div class="form-group">
                                                 <div class="form_error">{{ form_errors(form.cliMun)}}</div>
-                                                <label for="" class=" control-label">Municipio del establecimiento: <span class="text-danger">*</span></label>
+                                                <label for="" class=" control-label">Municipio: <span class="text-danger">*</span></label>
                                                 <div class="">{{ form_widget(form.cliMun) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
                                             </div>
                                         </div>    
                                         <div class="col-md-8">
                                             <div class="form-group">
                                                 <div class="form_error">{{ form_errors(form.cliDireccion)}}</div>
-                                                <label for="" class=" control-label">Dirección del establecimiento: <span class="text-danger">*</span></label>
+                                                <label for="" class=" control-label">Dirección: <span class="text-danger">*</span></label>
                                                 <div class="">{{ form_widget(form.cliDireccion) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
                                             </div>
                                         </div>
@@ -160,7 +167,7 @@
                                         <div class="col-md-4">    
                                             <div class="form-group">
                                                 <div class="form_error">{{ form_errors(form.cliNit)}}</div>
-                                                <label for="" class=" control-label">Nit del establecimiento: <span class="text-danger">*</span></label>
+                                                <label for="" class=" control-label">Nit: <span class="text-danger">*</span></label>
                                                 <div class="">{{ form_widget(form.cliNit) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
                                             </div>
                                         </div>
@@ -228,7 +235,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <div class="form_error"></div>
-                                                <label for="" class=" control-label">Nombre Representante: <span class="text-danger">*</span></label>
+                                                <label for="" class=" control-label">Primer Nombre: <span class="text-danger">*</span></label>
                                                 {# 
                                                 {% if addLocationToUser|length > 0 %}
                                                      <div class="">{{ form_widget(form.cliNombre,  { 'attr': {'class': 'c4', 'value':addLocationToUser.usuNombre} } ) }}</div>
@@ -301,7 +308,7 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label>Genero del presentante: <span class="text-danger">*</span></label>
+                                                    <label>Genero: <span class="text-danger">*</span></label>
                                                     <select name="gender_representer"  id="gender_representer" data-placeholder="Genero..." required class="select">
                                                         {% if addLocationToUser|length > 0 %}
                                                             {% if addLocationToUser.usuUsuario == "m" %}
@@ -329,12 +336,12 @@
                                             #}
                                             {% if addLocationToUser|length > 0 %}
                                                 <div class="form-group has-success has-feedback">
-                                                    <label>Usuario del representante: <span class="text-danger">*</span></label>
+                                                    <label>Usuario: <span class="text-danger">*</span></label>
                                                     <input type="text" name="user_representer" id="user_representer" value="{{ addLocationToUser.usuUsuario }}" placeholder="Usuario" class="form-control required" readonly="readonly">
                                                     <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
                                                 </div>
                                                 <div class="form-group">
-                                                        <label>Password del representante:</label>
+                                                        <label>Password:</label>
                                                         <input type="password" id="password_representer" value="deafult"  name="password_representer" placeholder="Password" class="form-control" disabled="disabled">
                                                 </div>
                                                 <div class="form-group">
@@ -343,17 +350,17 @@
                                                 </div>
                                             {% else %}
                                                 <div class="form-group">
-                                                    <label>Usuario del representante: <span class="text-danger">*</span></label>
+                                                    <label>Usuario: <span class="text-danger">*</span></label>
                                                     <input type="text" name="user_representer" id="user_representer" placeholder="Usuario" class="form-control required">
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label>Password del representante: <span class="text-danger">*</span></label>
-                                                    <input type="password" id="password_representer" name="password_representer" placeholder="Password" class="form-control required">
+                                                    <label>Contraseña: <span class="text-danger">*</span></label>
+                                                    <input type="password" id="password_representer" name="password_representer" placeholder="Contraseña" class="form-control required">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label>Repita Password: <span class="text-danger">*</span></label>
-                                                    <input type="password" id="password_representer_repeat" name="password_representer_repeat" placeholder="Repita Password" class="form-control required">
+                                                    <label>Repita Contraseña: <span class="text-danger">*</span></label>
+                                                    <input type="password" id="password_representer_repeat" name="password_representer_repeat" placeholder="Repita Contraseña" class="form-control required">
                                                 </div>
                                             {% endif %}    
                                         </div>
@@ -362,11 +369,11 @@
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <label>Email del representante: <span class="text-danger">*</span></label>
+                                                        <label>Correo Electrónico: <span class="text-danger">*</span></label>
                                                         {% if addLocationToUser|length > 0 %}
-                                                            <input type="text" name="email_representer" id="email_representer" value="{{ addLocationToUser.usuCorreo }}" placeholder="Email" class="form-control required" readonly="readonly">
+                                                            <input type="email" name="email_representer" id="email_representer" value="{# {{  addLocationToUser.usuCorreo }} #}" placeholder="Email" class="form-control required" >
                                                         {% else %}
-                                                            <input type="text" name="email_representer" id="email_representer" placeholder="Email" class="form-control required">
+                                                            <input type="email" name="email_representer" id="email_representer" placeholder="Email" class="form-control required">
                                                         {% endif %}    
                                                         
                                                     </div>
@@ -374,20 +381,20 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         
-                                                        <label>Fecha nacimiento del representante: <span class="text-danger">*</span></label>
+                                                        <label>Fecha nacimiento: <span class="text-danger">*</span></label>
                                                         {% if addLocationToUser|length > 0 %}
-                                                            <div class=""><input type="text" id="birth_date" value="{{ addLocationToUser.usuFechaNacimiento|date('Y-m-d') }}" name="birth_date" class="form-control" required readonly="readonly"></div>
+                                                            <div class=""><input type="text" id="birth_date" value="{# {{ addLocationToUser.usuFechaNacimiento|date('Y-m-d') }} #}" name="birth_date" class="form-control" required ></div>
                                                         {% else %}
                                                             <div class=""><input type="text" id="birth_date" name="birth_date" class="form-control" required readonly="readonly"></div>
                                                         {% endif %}    
                                                         
                                                     </div>
                                                 </div>
-                                                <div class="col-md-12">
+                                                <div class="col-md-12" style="display:none">
                                                     <div class="form-group">
                                                         <div>&nbsp;</div>
                                                         <div class="checkbox">
-                                                            <label><input type="checkbox" value="" name="user_representer_doctor" id="user_representer_doctor" class="user_representer_doctor" ><span clas="">
+                                                            <label><input type="checkbox" value="" name="user_representer_doctor" id="user_representer_doctor" class="user_representer_doctor" checked="checked"><span clas="">
                                                                Quiero asociar mis datos de representante para usarlo como un doctor de este establecimiento    
                                                             </span></label>
                                                         </div>
@@ -400,7 +407,7 @@
                             </div>
 
                     </fieldset>
-                    <h6>Drs/Asistentes</h6>
+                    <h6>Creación de médicos y asistentes</h6>
                     <fieldset title="3">
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -447,13 +454,13 @@
                                                     </div>
                                                     <div class="col-lg-2 col-md-6 col-sm-6">
                                                         <div class="form-group">
-                                                            <label class="control-label">Email</label>
+                                                            <label class="control-label">Correo Electrónico</label>
                                                             <input name="email[]" id="email" value="" type="text" class="form-control inputAssEmail inputUser" />
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-2 col-md-6 col-sm-6">
                                                         <div class="form-group">
-                                                            <label class="control-label">Username(Usuario)</label>
+                                                            <label class="control-label">Usuario</label>
                                                             <input name="username[]" id="username" value="" type="text" class="form-control user_to_location" required/>
                                                         </div>
                                                     </div>
@@ -469,13 +476,13 @@
                                                     </div>
                                                     <div class="col-lg-2 col-md-6 col-sm-6">
                                                         <div class="form-group">
-                                                            <label class="control-label">Password</label>
+                                                            <label class="control-label">Contraseña</label>
                                                             <input name="password[]" id="password_user" value="" type="password" class="form-control inputAssPassword inputUser" placeholder="" />
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-2 col-md-6 col-sm-6">
                                                         <div class="form-group">
-                                                            <label class="control-label">Repita Password</label>
+                                                            <label class="control-label">Repita Contraseña</label>
                                                             <input name="repeatpassword[]" id="password_user_again" value="" type="password" class="form-control inputAssPassword inputUser" placeholder=""/>
                                                         </div>
                                                     </div>
@@ -686,6 +693,11 @@
      
     <script>
         $(document).on("ready", function(){
+            
+            $('#appbundle_cliente_cliNit').mask("9999-999999-999-9", {placeholder: "____-______-___-_"});
+            $('#appbundle_cliente_cliTelefono1').mask("9999-9999", {placeholder: "____-____"});
+            $('#appbundle_cliente_cliTelefono2').mask("9999-9999", {placeholder: "____-____"});
+            
             
             var users = [];
             //var creditCard = [];
@@ -1731,10 +1743,29 @@
                 yearSuffix: ''
             };
             $.datepicker.setDefaults($.datepicker.regional['es']);
+            
+            var start = new Date();
+            start.setFullYear(start.getFullYear() - 75);
+            var end = new Date();
+            end.setFullYear(end.getFullYear() - 18);
+            /*
+            $('#birth_date').datepicker({
+                changeMonth: true,
+                changeYear: true,
+                minDate: start,
+                maxDate: end,
+                yearRange: start.getFullYear() + ':' + end.getFullYear()
+            });
+            */
+            
             $( "#birth_date" ).datepicker({
                 changeMonth: true,
                 changeYear: true,
-                yearRange: '1945:'+(new Date).getFullYear()
+                minDate: start,
+                //maxDate: end,
+                //yearRange: '1945:'+(new Date).getFullYear()
+                 yearRange: start.getFullYear() + ':' + end.getFullYear()
+                 
             });
             
             $('[data-toggle="tooltip"]').tooltip();

@@ -1,3 +1,6 @@
+parameters:
+    app.file.twig.extension.class: EmrBundle\Twig\Extension\TwigExtension
+
 services:
     app.form.type.task:
         class: EmrBundle\Form\TaskType
@@ -7,3 +10,9 @@ services:
     srv_eav:
         class: EmrBundle\Services\servicioEav
         arguments: [ "@doctrine.orm.entity_manager", "@form.factory" ]
+        
+    app.file.twig.extension:
+        #class: %app.file.twig.extension.class%
+        class: EmrBundle\Twig\Extension\TwigExtension
+        tags:
+            - { name: twig.extension }    

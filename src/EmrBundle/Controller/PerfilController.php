@@ -36,6 +36,10 @@ class PerfilController extends Controller
      */
     public function showAction(Request $request)
     {		
+		
+		//$ext = $this->get('app.file.twig.extension');
+		//echo $ext->prueba();
+		//echo "servicio";
 		/*
 		
 		$em = $this->getDoctrine()->getManager();
@@ -44,7 +48,8 @@ class PerfilController extends Controller
 		$roles = $this->get('session')->get('userRoles');
 		
 		$locationId = $this->get('session')->get('locationId');
-		
+		//echo $locationId."---";
+		//exit();
 		$em = $this->getDoctrine()->getManager();
 		$userId = $this->getUser()->getUsuId();
 		//$listAppointment 
@@ -69,7 +74,13 @@ class PerfilController extends Controller
 		}		
 		$socials = $em->getRepository('AppBundle:SocialRedes')->findBy( array("socRedActivo"=>1) );
 		
-		$oClientUser = $em->getRepository('AppBundle:ClienteUsuario')->findBy( array( "cliUsuUsu"=> $userId, "cliUsuCli"=>$locationId, "cliUsuRol"=>2 ) );
+		$oClientUser = $em->getRepository('AppBundle:ClienteUsuario')->findBy( array( "cliUsuUsu"=> $userId, "cliUsuCli"=>$locationId, "cliUsuActivo"=>1 ) );
+		if( !$oClientUser )
+		{
+			$msg = "Para editar tú perfil antes debes de inicar la administración de un establecimiento";
+			$this->session->getFlashBag()->add("error", $msg);
+			return $this->redirectToRoute('emr_location');
+		}
 		$networkSelected = $em->getRepository('AppBundle:UsuarioSocial')->findBy( array("idUsuario"=>$oClientUser[0]->getCliUsuId() ) );
 		
 		

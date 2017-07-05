@@ -41,20 +41,26 @@
     <div class="dropdown-menu dropdown-content width-350">
         <div class="dropdown-content-heading">
             Mensajes
+            {#
             <ul class="icons-list">
                 <li><a href="#"><i class="icon-compose"></i></a></li>
             </ul>
+            #}
         </div>
         {% if messages|length > 0 %}
             <ul class="media-list dropdown-content-body">
                 {% for message in messages %}
                     <li class="media">
-                        {#
+                        
                         <div class="media-left">
+                            {#
                             <img src="assets/images/placeholder.jpg" class="img-circle img-sm" alt="">
                             <span class="badge bg-danger-400 media-badge">5</span>
+                            #}
+                            <span class="badge bg-danger-400 media-badge"><i class="fa fa-envelope" aria-hidden="true"></i></span>
+                             
                         </div>
-                        #}
+                        
                         <div class="media-body">
                             <a href="#" class="media-heading">
                                 {# <span class="text-semibold">James Alexander</span> #}
@@ -62,8 +68,14 @@
                             </a>
 
                             <span class="text-muted">{{ message.comentario|slice(0, 100) }}</span>
-                            
-                            <button type="button" class="btn btn-info btn-xs openModal" id="msg_{{message.id}}" data-status="{{message.estado}}"><i class="icon-comment-discussion position-left"></i> Ver más</button>
+                            {#
+                            <button type="button" class="btn btn-info btn-xs openModal" id="msg_{{message.id}}" data-status="{{message.estado}}">
+                                <i class="icon-comment-discussion position-left"></i> Ver más
+                            </button>
+                            #}
+                            <span class="label label-default openModal" id="msg_{{message.id}}" data-status="{{message.estado}}" style="cursor: pointer">
+                                Ver más
+                            </span>
                         </div>
                     </li>
                 {% endfor %}    
@@ -72,6 +84,17 @@
             <div class="dropdown-content-footer">
                 <a href="#" data-popup="tooltip" title=""><i class="icon-menu display-block"></i></a>
             </div>
+        {% else %}
+            <ul class="media-list dropdown-content-body">
+                <li class="media">
+                    <div class="media-body">
+
+                        {# <span class="text-semibold">James Alexander</span> #}
+                        <span class="media-annotation pull-left">:( No hay mensajes disponibles</span>
+
+                    </div>
+                </li>
+            </ul
         {% endif %}
     </div>
 </li>

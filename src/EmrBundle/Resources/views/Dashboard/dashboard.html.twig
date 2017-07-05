@@ -18,18 +18,21 @@
 		<div class="page-header-content">
 			<div class="page-title">
 				<h4>
-					<i class="icon-arrow-left52 position-left"></i>
-					<span class="text-semibold">Home</span> - Dashboard
+					<a href="{{ app.request.headers.get('referer') }}">
+                <i class="icon-arrow-left52 position-left"></i>
+                <span class="text-semibold">Regresar</span></a> - Dashboard
 					<small class="display-block">Buen día, {{ userInfo.usuNombre ~ userInfo.usuSegundoNombre ~ userInfo.usuTercerNombre ~ userInfo.usuPrimerApellido ~ userInfo.usuSegundoApellido }}!</small>
 				</h4>
 			</div>
 
 			<div class="heading-elements">
+                {#
 				<div class="heading-btn-group">
 					<a href="#" class="btn btn-link btn-float has-text"><i class="icon-bars-alt text-primary"></i><span>Statistics</span></a>
 					<a href="#" class="btn btn-link btn-float has-text"><i class="icon-calculator text-primary"></i> <span>Invoices</span></a>
 					<a href="#" class="btn btn-link btn-float has-text"><i class="icon-calendar5 text-primary"></i> <span>Schedule</span></a>
 				</div>
+                #}
 			</div>
 		</div>
 	</div>
@@ -83,9 +86,9 @@
                                 
                                 <div class="row">
                                     <div class="col-lg-6">
-                                        <div class="table-responsive">
+                                        <div class="table-responsivex" id="result_appointment">
                                             {% if appointments|length > 0 %}
-                                                <table class="table text-nowrap">
+                                                <table class="table text-nowrap" id="table_result_appointment">
                                                     <thead>
                                                         <tr>
                                                             <th>Mi agenda de Hoy</th>
@@ -94,132 +97,75 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="media-left media-middle">
-                                                                    <a href="#" class="btn bg-primary-400 btn-rounded btn-icon btn-xs">
-                                                                        <span class="letter-icon"></span>
-                                                                    </a>
-                                                                </div>
-
-                                                                <div class="media-body">
-                                                                    <div class="media-heading">
-                                                                        <a href="#" class="letter-icon-title">Sigma application</a>
+                                                        {% for appointment in appointments %}
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="media-left media-middle">
+                                                                        {% if( appointment.pac_id != "" ) %}
+                                                                        <a href="{{ path('consulta_new',{'id':appointment.pac_id,'cm':appointment.id}) }}" class="btn bg-primary-400  btn-xs">
+                                                                            <span class="letter-iconx">Procesar</span>
+                                                                        </a>
+                                                                        {% endif %}    
                                                                     </div>
 
-                                                                    <div class="text-muted text-size-small"><i class="icon-checkmark3 text-size-mini position-left"></i> New order</div>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <span class="text-muted text-size-small">06:28 pm</span>
-                                                            </td>
-                                                            <td>
-                                                                <h6 class="text-semibold no-margin">$49.90</h6>
-                                                            </td>
-                                                        </tr>
+                                                                    <div class="media-body">
+                                                                        <div class="media-heading">
+                                                                            <a href="#" class="letter-icon-title">{{ appointment.pac_nombre ~" "~ appointment.pac_seg_nombre ~" "~ appointment.pac_apellido ~" "~ appointment.pac_seg_apellido }}</a>
+                                                                        </div>
 
-                                                        <tr>
-                                                            <td>
-                                                                <div class="media-left media-middle">
-                                                                    <a href="#" class="btn bg-danger-400 btn-rounded btn-icon btn-xs">
-                                                                        <span class="letter-icon"></span>
-                                                                    </a>
-                                                                </div>
-
-                                                                <div class="media-body">
-                                                                    <div class="media-heading">
-                                                                        <a href="#" class="letter-icon-title">Alpha application</a>
+                                                                        <div class="text-muted text-size-small"><i class="icon-checkmark3 text-size-mini position-left"></i> 
+                                                                            {# 
+                                                                            //Events type
+                                                                                //1 = Cita Médica
+                                                                                //2 = Evento Personal
+                                                                                //3 = Ausente
+                                                                                //4 = Receso
+                                                                                //5 = Otros
+                                                                            #}
+                                                                            {% if appointment.tipo_evento  == 1 %}
+                                                                                Cita Médica
+                                                                            {% elseif appointment.tipo_evento == 2 %}
+                                                                                Evento Personal
+                                                                            {% elseif appointment.tipo_evento == 3 %}
+                                                                                Ausente
+                                                                            {% elseif appointment.tipo_evento == 4 %}
+                                                                                Receso
+                                                                            {% else %}
+                                                                                Otros
+                                                                            {% endif %}    
+                                                                        </div>
                                                                     </div>
-
-                                                                    <div class="text-muted text-size-small"><i class="icon-spinner11 text-size-mini position-left"></i> Renewal</div>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <span class="text-muted text-size-small">04:52 pm</span>
-                                                            </td>
-                                                            <td>
-                                                                <h6 class="text-semibold no-margin">$90.50</h6>
-                                                            </td>
-                                                        </tr>
-
-                                                        <tr>
-                                                            <td>
-                                                                <div class="media-left media-middle">
-                                                                    <a href="#" class="btn bg-indigo-400 btn-rounded btn-icon btn-xs">
-                                                                        <span class="letter-icon"></span>
-                                                                    </a>
-                                                                </div>
-
-                                                                <div class="media-body">
-                                                                    <div class="media-heading">
-                                                                        <a href="#" class="letter-icon-title">Delta application</a>
-                                                                    </div>
-
-                                                                    <div class="text-muted text-size-small"><i class="icon-lifebuoy text-size-mini position-left"></i> Support</div>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <span class="text-muted text-size-small">01:26 pm</span>
-                                                            </td>
-                                                            <td>
-                                                                <h6 class="text-semibold no-margin">$60.00</h6>
-                                                            </td>
-                                                        </tr>
-
-                                                        <tr>
-                                                            <td>
-                                                                <div class="media-left media-middle">
-                                                                    <a href="#" class="btn bg-success-400 btn-rounded btn-icon btn-xs">
-                                                                        <span class="letter-icon"></span>
-                                                                    </a>
-                                                                </div>
-
-                                                                <div class="media-body">
-                                                                    <div class="media-heading">
-                                                                        <a href="#" class="letter-icon-title">Omega application</a>
-                                                                    </div>
-
-                                                                    <div class="text-muted text-size-small"><i class="icon-lifebuoy text-size-mini position-left"></i> Support</div>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <span class="text-muted text-size-small">11:46 am</span>
-                                                            </td>
-                                                            <td>
-                                                                <h6 class="text-semibold no-margin">$55.00</h6>
-                                                            </td>
-                                                        </tr>
-
-                                                        <tr>
-                                                            <td>
-                                                                <div class="media-left media-middle">
-                                                                    <a href="#" class="btn bg-danger-400 btn-rounded btn-icon btn-xs">
-                                                                        <span class="letter-icon"></span>
-                                                                    </a>
-                                                                </div>
-
-                                                                <div class="media-body">
-                                                                    <div class="media-heading">
-                                                                        <a href="#" class="letter-icon-title">Alpha application</a>
-                                                                    </div>
-
-                                                                    <div class="text-muted text-size-small"><i class="icon-spinner11 text-size-mini position-left"></i> Renewal</div>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <span class="text-muted text-size-small">10:29 am</span>
-                                                            </td>
-                                                            <td>
-                                                                <h6 class="text-semibold no-margin">$90.50</h6>
-                                                            </td>
-                                                        </tr>
+                                                                </td>
+                                                                <td>
+                                                                    <span class="text-muted text-size-small">{{ appointment.start}}</span>
+                                                                </td>
+                                                                <td>
+                                                                    <h6 class="text-semibold no-margin">
+                                                                        {# 
+                                                                            p=pendiente, a=anulada, c=curso, t=terminada
+                                                                        #}
+                                                                        {% if appointment.tipo_evento == 1 %}
+                                                                            {% if appointment.age_estado == "p" %}
+                                                                                Pendiente
+                                                                            {% elseif appointment.age_estado == "a" %}
+                                                                                Anulada
+                                                                            {% elseif appointment.age_estado == "c" %}
+                                                                                En curso
+                                                                            {% elseif appointment.age_estado == "t" %}
+                                                                                Finalizada
+                                                                            {% endif %}    
+                                                                        {% endif %}
+                                                                    </h6>
+                                                                </td>
+                                                            </tr>
+                                                        {% endfor %}    
                                                     </tbody>
                                                 </table>
                                             {% else %}
-                                                <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">No hay citas/eventos creados</div>
+                                                <div class="alert alert-danger alert-styled-left alert-arrow-left alert-component">No hay citas/eventos creados</div>
                                             {% endif %}
                                         </div>
-                                        <div class="text-left"><a href="" class="btn bg-teal-400"><i class="fa fa-calendar"></i> Ver agenda completa</a></div>
+                                        <div class="text-left"><a href="{{ path('agenda_new') }}?d={{ userInfo.usuId}}" class="btn bg-teal-400 btn-sm"><i class="fa fa-calendar"></i> Ver agenda completa</a><hr></div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div id="datepickerSimple"></div>
@@ -253,7 +199,7 @@
                                             <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                                                 <a href="{{ path('paciente_new') }}">
                                                     <!-- Current server load -->
-                                                    <div class="panel bg-pink-400">
+                                                    <div class="panel bg-success-400">
                                                         <div class="panel-body">
                                                             {#
                                                             <div class="heading-elements">
@@ -375,21 +321,187 @@
                 $.datepicker.setDefaults($.datepicker.regional['es']);               
                 $( "#datepickerSimple" ).datepicker({
                     onSelect: function (dateText, inst) {
-                        /*
-                        if( d == "")
+
+                        var date = dateText;
+                        getAppointments(date);
+                     }
+                });
+            }
+            
+            if( $("body").find("#table_result_appointment").size() == 1 )
+            {
+                $("body").find("#table_result_appointment").DataTable({
+                                "searching": false,
+                                "bFilter": false,
+                                "bInfo": false,
+                                "bLengthChange": false,
+                                "pageLength": 10,
+                                //"autoWidth": true,
+                                "language":{
+                                    oPaginate: {
+                                        sFirst: "Primero",
+                                        sLast: "último",
+                                        sNext: "Siguiente",
+                                        sPrevious: "Anterior"
+                                    },
+                                },
+                                //"order": [[ 0, "desc" ]]
+                            });
+            }
+            
+            function getAppointments(date)
+            {
+                $("#holder_loading").show();
+                $.ajax({
+                    type: "post",
+                    url: "{{ path('emr_dashboard_appointment') }}",
+                    data: { date: date, userId: {{ userInfo.usuId }}  },
+                    error: function (data) {
+                        $("#holder_loading").hide();
+                        $.confirm({
+                            icon: 'fa fa-remove',
+                            title: 'Error!',
+                            content: 'Ha ocurrido un error al tratar de enviar la petición',
+                            type: 'red',
+                            typeAnimated: true,
+                            buttons: {
+                                tryAgain: {
+                                    text: 'Intentar de nuevo',
+                                    btnClass: 'btn-red',
+                                    action: function () {
+                                        getAppointments();
+                                    }
+                                },
+                                close: function () {
+                                }
+                            }
+                        });
+                    },
+                    success: function (data) {
+                        $("#holder_loading").hide();
+                        if( data.length > 0)
                         {
-                            var doctorMsg = "";
-                                      
-                            $.alert({
-                                icon: 'glyphicon glyphicon-exclamation-sign',
-                                title: 'Info!',
-                                content: "<p class='small'>Debes seleccionar la agenda de un doctor para agendar los eventos</p> <hr>"+doctorMsg,
-                                type: 'red',
-                                typeAnimated: true,
+                            var table = "<table class='table text-nowrap' id='table_result_appointment'><thead><tr><th>Mi Agenda de hoy</th><th>Hora</th><th>Estatus</th></tr></thead><tbody>";
+                            for(i=0; i < data.length; i++)
+                            {    
+                                //var routeEdit = "{{ path('paciente_edit', { 'id': "PLACEHOLDER" }) }}";
+                                //routeEdit = routeEdit.replace("PLACEHOLDER", data[i]['pac_id']);
+                                            
+                                var routeShow = "{{ path('consulta_new',{'id':'HOLDERPACID','cm':'HOLDERAPPOINTMENTID'}) }}";
+                                routeShow = routeShow.replace("HOLDERPACID", data[i]['pac_id']);
+                                routeShow = routeShow.replace("HOLDERAPPOINTMENTID", data[i]['id']);
+                                
+                                            
+                                var btn_group = "<div class='media-left media-middle'>";
+                                if( data[i]['pac_id'] != "" )
+                                {
+                                    btn_group += "<a href='"+routeShow+"' class='btn bg-primary-400  btn-xs'>";
+                                    btn_group += "<span class='letter-iconx'>Procesar</span>";
+                                    btn_group += "</a>";
+                                }
+                                btn_group += "</div>";
+                                btn_group += "<div class='media-body'>";
+                                btn_group += "<div class='media-heading'>";
+                                btn_group += "<a href='#' class='letter-icon-title'>";
+                                btn_group += data[i]['pac_nombre']+" "+data[i]['pac_seg_nombre']+" "+data[i]['pac_apellido']+" "+data[i]['pac_seg_apellido'];
+                                btn_group += "</a>";
+                                
+
+                                btn_group += "<div class='text-muted text-size-small'><i class='icon-checkmark3 text-size-mini position-left'></i>"; 
+                                                                            {# 
+                                                                            //Events type
+                                                                                //1 = Cita Médica
+                                                                                //2 = Evento Personal
+                                                                                //3 = Ausente
+                                                                                //4 = Receso
+                                                                                //5 = Otros
+                                                                            #}
+                                var eventType = "";                                                                        
+                                switch(data[i]['tipo_evento'])
+                                {
+                                    case "1":
+                                        eventType = "Cita Médica";
+                                        break;
+                                    case "2":
+                                        eventType = "Evento Personal";
+                                        break;
+                                    case "3":
+                                        eventType = "Ausente";
+                                        break;
+                                    case "4":
+                                        eventType = "Receso";
+                                        break;
+                                    default:
+                                        eventType = "Otros";
+                                }
+                                btn_group += eventType;
+                                btn_group += "</div>";
+                                btn_group += "</div>";
+                                
+                                            
+                                table += "<tr>";
+                                table += "<td>"+btn_group+"</td>";
+                                table += "<td><span class='text-muted text-size-small'>"+data[i]['start']+"</span></td>";
+                                
+                                var status = "";
+                                status += "<h6 class='text-semibold no-margin'>";
+                                if( data[i]['tipo_evento'] == 1 )
+                                {     
+                                    switch(data[i]['age_estado'])
+                                    {
+                                        case "p":
+                                            status += "Pendiente";
+                                            break;
+                                        case "a":
+                                            status += "Anulada";
+                                            break;
+                                        case "c":
+                                            status += "En curso";
+                                            break;
+                                        case "t":
+                                            status += "Finalizada";
+                                            break;   
+                                    }
+                                }
+                                {# 
+                                     p=pendiente, a=anulada, c=curso, t=terminada
+                                #}
+ 
+                                status += "</h6>";
+                                
+                                table += "<td>"+status+"</td>";
+
+                                table += "</tr>";
+                            }
+                            table += "</body></table>";
+                        }
+                        else
+                        {
+                            table = "<br><div class='alert alert-danger alert-styled-left alert-arrow-left alert-component'> No se han encontrado regístros</div>";
+                        }
+                        $("#result_appointment").html(table);
+                        if( $("body").find("#table_result_appointment").size() == 1 )
+                        {
+                            $("body").find("#table_result_appointment").DataTable({
+                                "searching": false,
+                                "bFilter": false,
+                                "bInfo": false,
+                                "bLengthChange": false,
+                                "pageLength": 10,
+                                //"autoWidth": true,
+                                "language":{
+                                    oPaginate: {
+                                        sFirst: "Primero",
+                                        sLast: "último",
+                                        sNext: "Siguiente",
+                                        sPrevious: "Anterior"
+                                    },
+                                },
+                                //"order": [[ 0, "desc" ]]
                             });
                         }
-                        */
-                     }
+                                    
+                    }
                 });
             }
         });

@@ -9,7 +9,7 @@ consulta_show:
     #methods:  GET
 
 consulta_new:
-    path:     /medica/{id}
+    path:     /medica/{id}/{cm}
     defaults: { _controller: "EmrBundle:Consulta:medicalConsultation" }
     #methods:  [GET, POST]
     

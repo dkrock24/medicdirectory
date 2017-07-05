@@ -3,6 +3,24 @@
 
 {% block body %}
     <!-- Page container -->
+    <style>
+        body{
+            background-image: url("{{ image('bundles/admin/img/bg-doctor.jpg') }}");
+            background-position: center center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            padding: 0px !important;
+            
+        }
+        #bg{
+            width:100%;
+            height: 100%
+            position: fixed;
+            z-index:-1;
+            background: rgba(0,0,0,0.5);
+        }
+    </style>
+    <div id="bg">
     <div class="page-container">
 
         <!-- Page content -->
@@ -19,19 +37,19 @@
                             <div class="text-center">
                                 {# <div class="icon-object border-slate-300 text-slate-300"><i class="icon-reading"></i></div> #}
                                 <img src="{{ asset('bundles/admin/img/logo.png') }}" class="img-circle" style="max-width:110px;" alt="">
-                                <h5 class="content-group">Login para acceder a tu cuenta <small class="display-block">Ingresa tus credenciales abajo</small></h5>
+                                <h5 class="content-group">Inicia sesión para acceder a tu cuenta <small class="display-block">Ingresa tus credenciales abajo</small></h5>
 
                             </div>
 
                             <div class="form-group has-feedback has-feedback-left">
-                                <input type="text" name="_username" class="form-control" placeholder="Username" value="{{ last_username }}">
+                                <input type="text" name="_username" class="form-control" placeholder="Usuario" value="{{ last_username }}">
                                 <div class="form-control-feedback">
                                     <i class="icon-user text-muted"></i>
                                 </div>
                             </div>
 
                             <div class="form-group has-feedback has-feedback-left">
-                                <input type="password" name="_password" class="form-control" placeholder="Password">
+                                <input type="password" name="_password" class="form-control" placeholder="Contraseña">
                                 <div class="form-control-feedback">
                                     <i class="icon-lock2 text-muted"></i>
                                 </div>
@@ -42,12 +60,24 @@
                             {% endif %}
 
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary btn-block">Sign in <i class="icon-circle-right2 position-right"></i></button>
+                                <button type="submit" class="btn btn-primary btn-block">Iniciar Sesión <i class="icon-circle-right2 position-right"></i></button>
                             </div>
-
-                            <div class="text-center">
-                                <a href="login_password_recover.html">Forgot password?</a>
+                            <div class="content-divider text-muted form-group"><span>No tienes una cuenta?</span></div>
+                            <div class="form-group">
+                                <a href="{{ path('cliente_new') }}" class="btn bg-teal btn-block">Regístrate Aquí<i class="icon-arrow-right14 position-right"></i></a>
                             </div>
+                            <div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <a href="https:medicos.sv">Ir al sitio web</a>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="text-center">
+                                            <a href="login_password_recover.html">Olvidó su contraseña?</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>    
                         </div>
                     </form>
                     <!-- /simple login form -->
@@ -55,7 +85,7 @@
 
                     <!-- Footer -->
                     <div class="footer text-muted text-center">
-                        &copy; 2017. <a href="#">EMR </a> </a>
+                        &copy; 2017. <a href="#">EMR </a> 
                     </div>
                     <!-- /footer -->
 
@@ -69,6 +99,7 @@
         <!-- /page content -->
 
     </div>
+    </div>                            
 {% endblock %}
 
 {% block codejs %}

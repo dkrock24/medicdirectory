@@ -1,0 +1,28 @@
+{% extends "Layout/base_admin/_admin_base.html.twig" %}
+
+{% block title_page %}
+        EMR || Listado de Contactos
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('AdminBundle:contactanos:_breadcrumb.html.twig' )  }}
+{% endblock %} 
+
+{% block submenutop %}
+    {{ include('AdminBundle:contactanos:_submenu.html.twig' )  }}
+{% endblock %}
+
+{% block body %}
+    <h1>Contactano creation</h1>
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <input type="submit" value="Create" />
+    {{ form_end(form) }}
+
+    <ul>
+        <li>
+            <a href="{{ path('contactanos_index') }}">Back to the list</a>
+        </li>
+    </ul>
+{% endblock %}
