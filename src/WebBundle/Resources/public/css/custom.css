@@ -49,3 +49,13 @@ Top bar
     color:#70C4E6;
     
 }
+
+.eslogan{
+        font-size: 10px;
+        color: black;
+        display: inline-block;
+        float: left;
+        margin-left: 60px;
+        margin-top: -10px;
+        font-style: oblique;
+    }

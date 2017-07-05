@@ -38,6 +38,8 @@ class DefaultController extends Controller {
                         JOIN cliente_usuario as cu on cu.cli_usu_usu_id=u.usu_id
                         JOIN usuario_especialidad AS es on u.usu_id=es.id_usuario
                         JOIN  especialidad as e on e.esp_id=es.id_especialidad
+                        JOIN usuario_galeria as ug on ug.gal_usu_id=cu.cli_usu_usu_id
+                        WHERE ug.gal_modulo_id is null and ug.gal_tipo=1
                         group by u.usu_id";
         $statement  = $em->getConnection()->prepare($RAW_QUERY);
         $statement->execute();                
@@ -126,6 +128,8 @@ class DefaultController extends Controller {
         $em1    = $this->getDoctrine()->getManager()->createQueryBuilder();
 
         $medico['usuario'] = $em->getRepository('AppBundle:ClienteUsuario')->findOneBy(array("cliUsuId" => $med_id));
+
+        $medico['galeria'] = $em->getRepository('AppBundle:UsuarioGaleria')->findOneBy(array("galUsuario"=>1,"galTipo"=>1,"galModulo"=>null));
 
         // Obtener especialidades Por Medico
         
