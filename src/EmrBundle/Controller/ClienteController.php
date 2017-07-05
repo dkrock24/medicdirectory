@@ -472,6 +472,8 @@ class ClienteController extends Controller
 		$representerPass = $request->get("representerPass");
 		$representerBirthDate = $request->get("representerBirthDate");
 		
+		$referralId = $request->get("referralId");
+		
 		//Location List users 
 		$locationListUsers = $request->get("locationUsers");
 		
@@ -620,7 +622,7 @@ class ClienteController extends Controller
 			$oRepresenter->setUsuTercerNombre($representerNameThree);
 			$oRepresenter->setUsuPrimerApellido($representerLastNameOne);
 			$oRepresenter->setUsuSegundoApellido($representerLastNameTwo);
-
+			//$oRepresenter->setUsu	
 			
 			if (isset($clientId) && $clientId > 0) 
 			{
@@ -711,7 +713,7 @@ class ClienteController extends Controller
 				$objUserRol->setCliUsuFechaRegistro(new \Datetime());
 				$objUserRol->setCliUsuCorreo($representerEmail);
 				$objUserRol->setCliUsuFechaCrea( new \DateTime() );
-
+				$objUserRol->setCliUsuIdVendedor($referralId);
 				$em->persist($objUserRol);
 				$flush = $em->flush();
 			}
@@ -814,6 +816,7 @@ class ClienteController extends Controller
 							$objUserRol->setCliUsuActivo( 1 );
 							$objUserRol->setCliUsuFechaRegistro(new \Datetime());
 							$objUserRol->setCliUsuFechaCrea( new \DateTime() );
+							$objUserRol->setCliUsuIdVendedor($referralId);
 
 							if( isset($locationListUsers[$i]['email']) && !empty($locationListUsers[$i]['email']) )
 							{
@@ -914,6 +917,7 @@ class ClienteController extends Controller
 							$objUserRol->setCliUsuFechaRegistro(new \Datetime());
 							$objUserRol->setCliUsuCorreo($representerEmail);
 							$objUserRol->setCliUsuExponer($locationListUsers[$i]['valPublicity']);
+							$objUserRol->setCliUsuIdVendedor($referralId);
 							$em->persist($objUserRol);
 							$flush = $em->flush();
 							

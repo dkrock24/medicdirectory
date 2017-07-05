@@ -43,6 +43,8 @@ security:
               realm: "REST Service Realm"
 
     access_control:
+        - { path: ^/cliente/available/user, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/cliente/valida/form, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/cliente/nuevo, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
