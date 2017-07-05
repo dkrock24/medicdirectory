@@ -34,7 +34,7 @@
                 <select id="modulo-select" class="select-size-xs"> {# data-placeholder="Seleccone modulo..."#}
                         <option></option>
                         {% for modulo in modulos %}
-                            <option value="{{ modulo.modId }}">{{ modulo.modModulo }}</option>
+                            <option {% if mod_id is not null%} {% if mod_id == modulo.modId %} selected {% endif %} {% endif %} value="{{ modulo.modId }}">{{ modulo.modModulo }}</option>
                         {% endfor %}
                 </select>
             </div>
@@ -72,6 +72,11 @@
     {% else %}
         <div class="alert alert-info" role=""><i class="fa fa-info-circle"></i> No hay regístros creados</div>
     {% endif %}
+        <ul class="list-inline">
+            <li>
+                <a href="{{ path('campos_modulos_new') }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Crear campo</a>
+            </li>
+        </ul>
         </div>
     </div>
 {% endblock %}

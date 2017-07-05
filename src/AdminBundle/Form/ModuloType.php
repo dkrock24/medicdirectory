@@ -13,7 +13,22 @@ class ModuloType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('modModulo')->add('modHashCode')->add('modOrden')->add('modCosto')->add('modActivo')->add('modEsp');
+        $builder->add('modModulo', null, array(
+            'label' => 'Modulo'
+        ))
+        ->add('modHashCode')
+        ->add('modOrden', null, array(
+            'label' => 'Orden en vista'
+        ))
+        ->add('modCosto', null, array(
+            'label' => 'Costo'
+        ))
+        ->add('modActivo', null, array(
+            'label' => 'Activo'
+        ))
+        ->add('modEsp', null, array(
+            'label' => 'Especialidad'
+        ));
         
         $builder->add( 'secciones', \Symfony\Component\Form\Extension\Core\Type\CollectionType::class, array(
             'entry_type' => EavModSeccionType::class,

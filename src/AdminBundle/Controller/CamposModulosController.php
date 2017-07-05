@@ -21,8 +21,23 @@ class CamposModulosController extends Controller
         $em = $this->getDoctrine()->getManager();
         $modulos = $em->getRepository('AppBundle:Modulo')->findBy(array( 'modActivo' => 1 ))
                 ;
+        
+        $mod_id = null;
+        $secc_id = null;
+        
+        if( null !== $this->session->get('modCampNew_mod_id') && null !== $this->session->get('modCampNew_secc_id') ){
+            
+            $mod_id = $this->session->get('modCampNew_mod_id');
+            $secc_id = $this->session->get('modCampNew_secc_id');
+            
+            $this->session->remove('modCampNew_mod_id');
+            $this->session->remove('modCampNew_secc_id');
+        }
+        
         return $this->render('AdminBundle:CamposModulos:index.html.twig', array(
-            'modulos' => $modulos
+            'modulos' => $modulos,
+            'mod_id' => $mod_id,
+            'secc_id' => $secc_id
         ));
     }
     
@@ -99,10 +114,46 @@ class CamposModulosController extends Controller
         exit;
     }
 
-    public function newAction()
+    public function newAction( Request $request )
     {
+        $mod_camp = new \AppBundle\Entity\EavModCampos();
+        
+        $form = $this->createForm(\AdminBundle\Form\EavModCamposType::class, $mod_camp);
+        
+        $form->handleRequest( $request );
+        
+        $mod_id = null;
+        $secc_id = null;
+        
+        if( $form->isSubmitted() && $form->isValid() ){
+            $em = $this->getDoctrine()->getManager();
+            
+            $mod_camp->setModCampFechaCrea( new \DateTime() );
+
+            $mod_id = $mod_camp->getSeccionCampo()->getModSeccModId()->getModId();
+            $secc_id = $mod_camp->getSeccionCampo()->getModSeccId();
+            
+            
+            $em->persist($mod_camp);
+            $flush = $em->flush();
+
+            if( $flush == null ){
+                    $msgBox = "Registro creado con éxito";
+                    $status = "success";
+            } else {
+                    $msgBox = "No se pudo crear el registro ";
+                    $status = "error";
+            }
+
+            $this->session->set('modCampNew_mod_id', $mod_id);
+            $this->session->set('modCampNew_secc_id', $secc_id);
+            $this->session->getFlashBag()->add($status,$msgBox);
+            return $this->redirectToRoute('campos_modulos_index');
+            
+        }
+        
         return $this->render('AdminBundle:CamposModulos:new.html.twig', array(
-            // ...
+            'form' => $form->createView()
         ));
     }
     

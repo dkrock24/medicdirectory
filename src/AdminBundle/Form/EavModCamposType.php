@@ -13,20 +13,38 @@ class EavModCamposType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('modCampNombre')
-                ->add('modCampNombreCorto')
-                ->add('modCampShowIfnull')
-                ->add('modCampValorDefault')
-                ->add('modCampEsCatalogo')
-                ->add('modCampRequerido')
-                ->add('modCampTipCampId')
-                ->add('modCampOrden')
-                ->add('modCampActivo')
+        $builder->add('modCampNombre', null, array(
+            'label' => 'Nombre del campo'
+        ))
+        ->add('modCampNombreCorto')
+        ->add('modCampShowIfnull', null, array(
+            'label' => 'Mostrar si vacio'
+        ))
+        ->add('modCampValorDefault', null, array(
+            'label' => 'Valor por defecto'
+        ))
+        ->add('modCampEsCatalogo', null, array(
+            'label' => 'Es catalogo'
+        ))
+        ->add('modCampRequerido', null, array(
+            'label' => 'Es obligatorio'
+        ))
+        ->add('modCampTipCampId')
+        ->add('modCampOrden', null, array(
+            'label' => 'Orden en vista'
+        ))
+        ->add('modCampActivo', null, array(
+            'label' => 'Activo'
+        ))
 //                ->add('modCampFechaCrea')
-                ->add('modCampFechaMod')
-                ->add('tipoCampos')
-                ->add('seccionCampo')
-                ->add('campoPadre')
+        ->add('modCampFechaMod')
+        ->add('tipoCampos', null, array(
+            'label' => 'Tipo de campo'
+        ))
+        ->add('seccionCampo', null, array(
+            'label' => 'Seccion del campo'
+        ))
+        ->add('campoPadre')
                 ;
     }
     

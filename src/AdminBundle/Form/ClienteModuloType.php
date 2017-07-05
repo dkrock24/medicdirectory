@@ -15,9 +15,15 @@ class ClienteModuloType extends AbstractType
     {
         $builder//->add('cliModFechaCrea')
                 //->add('cliModFechaMod')
-                ->add('cliModMod')
-                ->add('cliModCli')
-                ->add('cliModActivo');
+                ->add('cliModMod', null, array(
+            'label' => 'Modulo'
+        ))
+                ->add('cliModCli', null, array(
+            'label' => 'Cliente'
+        ))
+                ->add('cliModActivo', null, array(
+            'label' => 'Activo'
+        ));
     }
     
     /**

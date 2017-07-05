@@ -58,7 +58,7 @@ AppBundle\Entity\EavModCampos:
                 unsigned: true
             column: mod_camp_es_catalogo
         modCampRequerido:
-            type: integer
+            type: boolean
             nullable: false
             options:
                 default: 0
