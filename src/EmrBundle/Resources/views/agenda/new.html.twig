@@ -822,6 +822,10 @@
                    },
                    true);
                    
+                   $("#form_search_patients").show();
+                   $("#input_search_patients,#title").val("");
+                   $("#newSearch,#divUserPatient").hide();
+                   
                },
                error: function(json){
                   // alert(json.id);

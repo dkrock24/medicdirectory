@@ -74,7 +74,9 @@ class PerfilController extends Controller
 		}		
 		$socials = $em->getRepository('AppBundle:SocialRedes')->findBy( array("socRedActivo"=>1) );
 		
-		$oClientUser = $em->getRepository('AppBundle:ClienteUsuario')->findBy( array( "cliUsuUsu"=> $userId, "cliUsuCli"=>$locationId, "cliUsuActivo"=>1 ) );
+		//ECHO $locationId;
+		
+		$oClientUser = $em->getRepository('AppBundle:ClienteUsuario')->findBy( array( "cliUsuUsu"=> $userId, "cliUsuCli"=>$locationId, "cliUsuActivo"=>1,"cliUsuRol"=>array(3,6) ) ); //6=medico
 		if( !$oClientUser )
 		{
 			$msg = "Para editar tú perfil antes debes de inicar la administración de un establecimiento";
@@ -83,7 +85,8 @@ class PerfilController extends Controller
 		}
 		$networkSelected = $em->getRepository('AppBundle:UsuarioSocial')->findBy( array("idUsuario"=>$oClientUser[0]->getCliUsuId() ) );
 		
-		
+		//ECHO $oClientUser[0]->getCliUsuId()."--";
+		//ECHO COUNT($networkSelected);
 		//$oUser = $em->getRepository('AppBundle:Usuario')->find( $userId );
 		
 		//$oClientUser = $em->getRepository('AppBundle:ClienteUsuario')->findBy( array("cliUsuCli"=>$locationId, "cliUsuUsu"=>$userId) );

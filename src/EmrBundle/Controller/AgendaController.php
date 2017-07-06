@@ -373,6 +373,7 @@ class AgendaController extends Controller
 			if( $diary_repo )
 			{
 				$is_appointment = $diary_repo->getAgeCit();
+				//var_dump($is_appointment);
 				if( !empty($is_appointment) )
 				{
 					$name1 = $diary_repo->getAgeCit()->getCitPac()->getPacNombre();
@@ -383,16 +384,16 @@ class AgendaController extends Controller
 					
 					$data['fullname'] = trim($fullName);
 					$data['email'] = $diary_repo->getAgeCit()->getCitPac()->getPacEmail();
-					$date['dui'] = $diary_repo->getAgeCit()->getCitPac()->getPacDui();
+					$data['dui'] = $diary_repo->getAgeCit()->getCitPac()->getPacDui();
 					$data['notes'] = $diary_repo->getAgeCit()->getCitNotas();
 					$data['room'] = $diary_repo->getAgeCit()->getCitSala();
 					$data['appointment'] = 1;
-
+					
 				}else{
-
+					echo "xxxxxxxxx";
 					$data['fullname'] = "";
 					$data['email'] = "";
-					$date['dui'] = "";
+					$data['dui'] = "";
 					$data['notes'] = $diary_repo->getAgeNotas();
 					$data['room'] = "";
 					$data['appointment'] = 0;
