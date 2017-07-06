@@ -9,7 +9,7 @@ services:
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
     srv_parameters:
         class: AppBundle\Services\servicioParametros
-        arguments: ["@doctrine.orm.entity_manager", "@session"]
+        arguments: ["@doctrine.orm.entity_manager", "@logs"]
 
     srv_uploadFile:
         class:        Services\UploadFile
