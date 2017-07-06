@@ -405,6 +405,17 @@
                                     </div>
                                 </div>            
                             </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-10"></div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <div class="form_error"></div>
+                                        <label for="" class=" control-label">Puedes ingresar el código de la persona que te ha referido(opcional):</label>
+                                        <div class=""><input type="text" value="" placeholder="" class="form-control" id="referralId" name="referralId"></div>
+                                    </div>
+                                </div>
+                            </div>
 
                     </fieldset>
                     <h6>Creación de médicos y asistentes</h6>
@@ -1634,6 +1645,8 @@
                 var representerEmail = $("#email_representer");
                 var representerPass = $("#password_representer");
                 
+                var referralId= $("#referralId");
+                
                 var locationUsers = checkAvilableUser();
                 var payMethod = $('input:radio[name=optionPay]:checked').val();
                 var representer_cc_number = $("#cc-number");
@@ -1676,7 +1689,8 @@
                             representer_cc_number: representer_cc_number.val(),
                             representer_cc_exp: representer_cc_exp.val(),
                             representer_cc_cvc: representer_cc_cvc.val(),
-                            representer_cc_brand: representer_cc_brand.text()
+                            representer_cc_brand: representer_cc_brand.text(),
+                            referralId: referralId.val()
                         },
                         error: function (data) {
                             $("#holder_loading").hide();
