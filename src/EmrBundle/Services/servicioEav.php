@@ -103,10 +103,6 @@ class servicioEav {
         return $aModProps;
     }
     
-    public function getUserModData( $user_id )
-    {
-        
-    }
     
     
     public function buildModuleForm( $mod_hash, 

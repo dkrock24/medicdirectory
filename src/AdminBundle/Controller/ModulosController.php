@@ -46,6 +46,7 @@ class ModulosController extends Controller
             $em = $this->getDoctrine()->getManager();
 
             $modulo->setModFechaCrea(new \DateTime());
+            $modulo->setModHashCode( hash('sha1', $modulo->getModId().$modulo->getModModulo()) );
             
             foreach( $modulo->getSecciones()->toArray() as $mod_secc ){
                 $mod_secc->setModSeccFechaCrea( new \DateTime() );
