@@ -169,7 +169,7 @@ class PerfilController extends Controller
 		$email = $request->get('email');
 		$password = $request->get('password');
 		$title = $request->get("title");
-		//$days = $request->get('day');
+		$birth_date = $request->get('birth_date');
 		$schedule = $request->get("schedule");
 		$social_network = $request->get('social_network');
 		$specialitiesList = $request->get("specialitiesList");
@@ -181,7 +181,7 @@ class PerfilController extends Controller
 		$galleryDeleteList = $request->get("galleryDeleteList");
 		$galleryDeleteList = json_decode($galleryDeleteList, true);
 		//var_dump($galleryDeleteList);
-		
+		//exit("sali");
 		$file1 = $request->files->get('file1');
 		$file2 = $request->files->get('file2');
 		$file3 = $request->files->get('file3');
@@ -244,8 +244,23 @@ class PerfilController extends Controller
 					$oClientUser[0]->setCliUsuTelefono($phone);
 					$oClientUser[0]->setCliUsuDireccion($address);
 					$oClientUser[0]->setCliUsuInfoPerfil($profile);
+					if( !empty($birth_date) && $birth_date != "" )
+					{
+						$oClientUser[0]->setCliUsuFechaNacimiento( new \DateTime($birth_date));
+					}
+					else
+					{
+						$oClientUser[0]->setCliUsuFechaNacimiento(null);
+					}
+					
+					if( empty($title) )
+					{
+						$title = null;
+					}
 					$oClientUser[0]->setCliUsuTitulo($title);
 					
+					
+						
 					if( !empty($password) )
 					{
 						$oUser->setUsuClave( sha1($password) );

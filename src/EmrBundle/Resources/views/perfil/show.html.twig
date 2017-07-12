@@ -92,6 +92,7 @@
                                     <fieldset>
                                         <div class="row">
                                             <div class="col-lg-6">
+                                                {# {{ dump(user)}} #}
                                                 <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">Datos personales</div>
                                                 <div class="row">
                                                     <div class="col-md-4">
@@ -137,7 +138,7 @@
                                                         <div class="form-group">
                                                             <div class="form_error"></div>
                                                             <label for="" class="control-label">Fecha de Nacimiento:</label>
-                                                            <div class=""><input type="text" class="form-control" value="{{ user[0].cli_usu_fecha_nacimiento|date('Y-m-d') }}" id="birthdate" readonly="readonly"></div>
+                                                            <div class=""><input type="text" class="form-control" value="{{ user[0].cli_usu_fecha_nacimiento }}" id="birth_date" readonly="readonly"></div>
                                                         </div>
                                                     </div>    
                                                 </div>
@@ -790,6 +791,7 @@
                         var repeat_password = $("#repeat_password").val();
                         var specialitiesList = $("#specialitiesList").val();
                         var title = $("#title").val();
+                        var birth_date = $("#birth_date").val();
                         var typeImage = $('input[name=radioTypeImage]:checked').val();
                         
                         if( password != repeat_password)
@@ -873,7 +875,12 @@
                         //var input_titulo = "Mi titulo de prueba";
                         //formData.append("titulo", input_titulo);
                         
+                        if( title == null)
+                        {
+                            title = "";
+                        }
                         formData.append("address", address);
+                        formData.append("birth_date",birth_date);
                         formData.append("phone", phone);
                         formData.append("specialitiesList", JSON.stringify(specialitiesList));
                         formData.append("email", email);
@@ -1106,10 +1113,28 @@
                         yearSuffix: ''
                     };
                     $.datepicker.setDefaults($.datepicker.regional['es']);
-                    $( ".birth_date" ).datepicker({
+                    var start = new Date();
+                    start.setFullYear(start.getFullYear() - 75);
+                    var end = new Date();
+                    end.setFullYear(end.getFullYear() - 18);
+                    /*
+                    $('#birth_date').datepicker({
                         changeMonth: true,
                         changeYear: true,
-                        yearRange: '1945:'+(new Date).getFullYear()
+                        minDate: start,
+                        maxDate: end,
+                        yearRange: start.getFullYear() + ':' + end.getFullYear()
+                    });
+                    */
+
+                    $( "#birth_date" ).datepicker({
+                        changeMonth: true,
+                        changeYear: true,
+                        minDate: start,
+                        //maxDate: end,
+                        //yearRange: '1945:'+(new Date).getFullYear()
+                         yearRange: start.getFullYear() + ':' + end.getFullYear()
+
                     });
                     
                     

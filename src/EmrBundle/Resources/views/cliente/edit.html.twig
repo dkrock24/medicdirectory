@@ -1883,11 +1883,37 @@
                 yearSuffix: ''
             };
             $.datepicker.setDefaults($.datepicker.regional['es']);
+            var start = new Date();
+            start.setFullYear(start.getFullYear() - 75);
+            var end = new Date();
+            end.setFullYear(end.getFullYear() - 18);
+            /*
+            $('#birth_date').datepicker({
+                changeMonth: true,
+                changeYear: true,
+                minDate: start,
+                maxDate: end,
+                yearRange: start.getFullYear() + ':' + end.getFullYear()
+            });
+            */
+            
+            $( "#birth_date" ).datepicker({
+                changeMonth: true,
+                changeYear: true,
+                minDate: start,
+                //maxDate: end,
+                //yearRange: '1945:'+(new Date).getFullYear()
+                 yearRange: start.getFullYear() + ':' + end.getFullYear()
+                 
+            });
+            /*
+            $.datepicker.setDefaults($.datepicker.regional['es']);
             $( "#birth_date" ).datepicker({
                 changeMonth: true,
                 changeYear: true,
                 yearRange: '1945:'+(new Date).getFullYear()
             });
+            */
             
             $("ul[role='tablist'] li").each(function(){
                 $(this).addClass("done");
