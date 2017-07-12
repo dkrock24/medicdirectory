@@ -97,9 +97,9 @@
                                                 {% if "6" in userRoles|keys  %}
                                                     {% if app.user.usuId == doctor.usu_id %}
                                                     <tr id="d_{{ doctor.usu_id }}">
-                                                        <td>{{ doctor.usu_nombre }}</td>
+                                                        <td>{{ doctor.usu_nombre|capitalize~" "~doctor.usu_segundo_nombre|capitalize~" "~doctor.usu_tercer_nombre|capitalize~" "~doctor.usu_primer_apellido|capitalize~" "~doctor.usu_segundo_apellido|capitalize }}</td>
                                                         <td>
-                                                            <a href="" class="btn btn-primary btn-sm" data-popup="tooltip" title="" data-original-title="Mandar email"><i class="fa fa-envelope-o" aria-hidden="true"></i> </a>
+                                                            {# <a href="" class="btn btn-primary btn-sm" data-popup="tooltip" title="" data-original-title="Mandar email"><i class="fa fa-envelope-o" aria-hidden="true"></i> </a> #}
                                                             {% if app.request.query.get("p") == "" %}
                                                                 <a href="{{ path('agenda_new') }}?d={{ doctor.usu_id}}" class="btn btn-success btn-sm" data-popup="tooltip" title="" data-original-title="Ver Agenda"><i class="fa fa-calendar"></i></a>
                                                             {% else %}
@@ -112,9 +112,9 @@
                                                    
                                                    
                                                     <tr id="d_{{ doctor.usu_id }}">
-                                                        <td>{{ doctor.usu_nombre }}</td>
+                                                        <td>{{ doctor.usu_nombre|capitalize~" "~doctor.usu_segundo_nombre|capitalize~" "~doctor.usu_tercer_nombre|capitalize~" "~doctor.usu_primer_apellido|capitalize~" "~doctor.usu_segundo_apellido|capitalize }}</td>
                                                         <td>
-                                                            <a href="" class="btn btn-primary btn-sm" data-popup="tooltip" title="" data-original-title="Mandar email"><i class="fa fa-envelope-o" aria-hidden="true"></i> </a>
+                                                            {#<a href="" class="btn btn-primary btn-sm" data-popup="tooltip" title="" data-original-title="Mandar email"><i class="fa fa-envelope-o" aria-hidden="true"></i> </a>#}
                                                             {% if app.request.query.get("p") == "" %}
                                                                 <a href="{{ path('agenda_new') }}?d={{ doctor.usu_id}}" class="btn btn-success btn-sm" data-popup="tooltip" title="" data-original-title="Ver Agenda"><i class="fa fa-calendar"></i></a>
                                                             {% else %}
@@ -347,7 +347,9 @@
             <div class="modal-footer">
                 <button class="btn"  data-dismiss="modal" aria-hidden="true"><i class="fa fa-times-circle-o" aria-hidden="true"></i> Cerrar</button>
                 <button type="submit" class="btn btn-danger" id="deleteButton"><i class="fa fa-trash" aria-hidden="true"></i> Eliminar</button>
-                <button class="btn btn-success" id="btn-medical-consultation"><i class="fa fa-medkit" aria-hidden="true"></i> Inicar Consulta</button>
+                {% if "6" in userRoles|keys  %}
+                    <button class="btn btn-success" id="btn-medical-consultation"><i class="fa fa-medkit" aria-hidden="true"></i> Inicar Consulta</button>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -814,7 +816,7 @@
                    $("#calendar").fullCalendar("renderEvent",
                    {
                        id: json.id,
-                       title: title,
+                       title: $( "#eventType option:selected" ).text(),//title,
                        start: startTime,
                        end: endTime,
                        color: color,
@@ -833,7 +835,7 @@
                   $("#calendar").fullCalendar("renderEvent",
                    {
                        id: json.id,
-                       title: title,
+                       title: $( "#eventType option:selected" ).text(),//title,
                        start: startTime,
                        end: endTime,
                        color: color,
