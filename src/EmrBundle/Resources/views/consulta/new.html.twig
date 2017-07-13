@@ -222,11 +222,13 @@
                     var camp_id = aCampo[1];
                     sUrl = sUrl.replace( "campid", camp_id );
                     var valor_mandar = null;
-                    if( input.val() == "") ){
+                    
+                    if( input.val() == ""){
                         valor_mandar = "value_holder";
                     }else{
                         valor_mandar = input.val();
                     }
+                    
                     sUrl = sUrl.replace( "val", valor_mandar );
 
                     
