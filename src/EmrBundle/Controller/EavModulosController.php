@@ -55,8 +55,14 @@ class EavModulosController extends Controller
                     )
                 );
         
+        if( $value == "value_holder" ){
+            $final_value = null;
+        }else{
+            $final_value = $value;
+        }
+        
         if( !is_null( $iValId ) ){
-            $iValId->setModDatDatoValor( $value );
+            $iValId->setModDatDatoValor( $final_value );
             $iValId->setModDatFechaMod( new \DateTime );
             $em->persist($iValId);
             $em->flush();
@@ -78,7 +84,7 @@ class EavModulosController extends Controller
             $camp_id = $em->getRepository('AppBundle:EavModCampos')->findOneBy(array( 'modCampId' => $val_camp_id ));
             $iValId->setCampoDato( $camp_id );
             
-            $iValId->setModDatDatoValor( $value );
+            $iValId->setModDatDatoValor( $final_value );
             $iValId->setModDatFechaCrea( new \DateTime );
             
             $em->persist($iValId);

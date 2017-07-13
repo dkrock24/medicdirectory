@@ -221,7 +221,13 @@
                     var aCampo = input.attr('id').split("_");
                     var camp_id = aCampo[1];
                     sUrl = sUrl.replace( "campid", camp_id );
-                    sUrl = sUrl.replace( "val", input.val() );
+                    var valor_mandar = null;
+                    if( input.val() == "") ){
+                        valor_mandar = "value_holder";
+                    }else{
+                        valor_mandar = input.val();
+                    }
+                    sUrl = sUrl.replace( "val", valor_mandar );
 
                     
                     $.post( sUrl, function(rdata){
