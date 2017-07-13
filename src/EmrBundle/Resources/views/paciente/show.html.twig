@@ -25,13 +25,26 @@
     </style>
 
     <div class="page-header-content">
+        
+        <div class="page-title">
+            <h4>
+                <a href="{{ app.request.headers.get('referer') }}">
+                <i class="icon-arrow-left52 position-left"></i>
+                <span class="text-semibold">Regresar</span>
+                </a> - Datos del paciente
+
+                <small class="display-block">Expediente básico del paciente!</small>
+            </h4>
+       </div>
+        
+        {#
         <div class="page-title">
             <h4>
                 <i class="icon-arrow-left52 position-left"></i>
                 <span class="text-semibold">Home</span> - Datos del paciente
 
                 <small class="display-block">Expediente básico del paciente!</small></h4>
-            <a class="heading-elements-toggle"><i class="icon-more"></i></a></div>
+            <a class="heading-elements-toggle"><i class="icon-more"></i></a></div> #}
         {#    
         <div class="heading-elements">
             <div class="heading-btn-group">
@@ -65,7 +78,7 @@
                             <ul class="icons-list">
                                 <li><a data-action="collapse"></a></li>
                                 <!-- <li><a data-action="reload"></a></li> -->
-                                <li><a data-action="close"></a></li>
+                                {# <li><a data-action="close"></a></li> #}
                             </ul>
                         </div>
                     </div>
@@ -92,7 +105,7 @@
                             <ul class="icons-list">
                                 <li><a data-action="collapse"></a></li>
                                 <!-- <li><a data-action="reload"></a></li>-->
-                                <li><a data-action="close"></a></li>
+                                {# <li><a data-action="close"></a></li> #}
                             </ul>
                         </div>
                     </div>
@@ -122,7 +135,7 @@
                             <ul class="icons-list">
                                 <li><a data-action="collapse"></a></li>
                                 <!-- <li><a data-action="reload"></a></li> -->
-                                <li><a data-action="close"></a></li>
+                                {# <li><a data-action="close"></a></li> #}
                             </ul>
                         </div>
                     </div>
@@ -130,7 +143,7 @@
                         <div class="well well-sm">
                             <div class='split'>
                                 <h5>Nombre completo:</h5>
-                                <div>{{ paciente.pacNombre }} {{ paciente.pacSegNombre }} {{ paciente.pacApellido }} {{ paciente.pacSegApellido }}</div>
+                                <div>{{ paciente.pacNombre|capitalize }} {{ paciente.pacSegNombre|capitalize }} {{ paciente.pacApellido|capitalize }} {{ paciente.pacSegApellido|capitalize }}</div>
                             </div>
                             <div class='split'>
                                 <div class="row">
@@ -160,7 +173,29 @@
                                     <div class="col-lg-4 col-md-4 col-sm-4">
                                         <h5>Estado Civil</h5>
                                         <div>
-                                            {{ paciente.pacEstadoCivil }}    
+                                            {# {{ paciente.pacGenero|lower }}----- #}
+                                            {% if paciente.pacGenero|lower == "m" %}
+                                                {% if paciente.pacEstadoCivil == "s" %}
+                                                    Soltero
+                                                {% elseif paciente.pacEstadoCivil == "c" %}
+                                                    Casado
+                                                {% elseif paciente.pacEstadoCivil == "d" %}
+                                                    Divorciado 
+                                                {% elseif paciente.pacEstadoCivil == "v" %}
+                                                    Viudo     
+                                                {% endif %}    
+                                            {% else %}
+                                                {% if paciente.pacEstadoCivil == "s" %}
+                                                    Soltera
+                                                {% elseif paciente.pacEstadoCivil == "c" %}
+                                                    Casada
+                                                {% elseif paciente.pacEstadoCivil == "d" %}
+                                                    Divorciada 
+                                                {% elseif paciente.pacEstadoCivil == "v" %}
+                                                    Viuda     
+                                                {% endif %}
+                                            {% endif %}    
+                                              
                                         </div>
                                     </div>
                                         <div class="col-lg-4 col-md-4 col-sm-4">
@@ -244,7 +279,7 @@
                             <ul class="icons-list">
                                 <li><a data-action="collapse"></a></li>
                                 <!-- <li><a data-action="reload"></a></li>-->
-                                <li><a data-action="close"></a></li>
+                                {# <li><a data-action="close"></a></li> #}
                             </ul>
                         </div>
                     </div>
@@ -253,8 +288,8 @@
                         
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs" role="tablist">
-                          <li role="presentation" class="active"><a href="#books" aria-controls="books" role="tab" data-toggle="tab">Citas &nbsp;<span class="badge bg-danger-400 pull-right">{{ listAppointment|length }}</span></a></li>
-                          <li role="presentation"><a href="#doctors" aria-controls="doctors" role="tab" data-toggle="tab">Historial Médico  &nbsp;<span class="badge bg-danger-400 pull-right">{{ doctorstList|length }}</span></a></li>
+                          <li role="presentation" class="active"><a href="#books" aria-controls="books" role="tab" data-toggle="tab">Citas &nbsp;<span class="badge bg-info-400 pull-right">{{ listAppointment|length }}</span></a></li>
+                          <li role="presentation"><a href="#doctors" aria-controls="doctors" role="tab" data-toggle="tab">Historial Médico  &nbsp;<span class="badge bg-info-400 pull-right">{{ doctorstList|length }}</span></a></li>
                         </ul>
                         <!-- Tab panes -->
                         <div class="tab-content">
@@ -272,10 +307,19 @@
                                     </thead>
                                     <tbody>
                                         {% for appointment in listAppointment %}
-                                            <tr>
+                                            <tr id="app_{{ appointment.age_id }}">
                                                 <td><small>{{ appointment.fecha_inicio }}</small></td>
                                                 <td>
-                                                    {{ appointment.estado }}
+                                                    
+                                                    {% if appointment.estado == "Anulada" %}
+                                                        <span class="label label-default">{{ appointment.estado }}</span>
+                                                    {% elseif appointment.estado == "Pendiente" %}
+                                                        <span class="label label-primary">{{ appointment.estado }}</span>
+                                                    {% elseif appointment.estado == "Terminada"  %}
+                                                        <span class="label label-success">{{ appointment.estado }}</span>
+                                                    {% else %}    
+                                                        {{ appointment.estado }}
+                                                    {% endif %}    
                                                 </td>
                                                 <td>
                                                         
@@ -284,12 +328,12 @@
                                                             <a href="#" class="label bg-danger-600 dropdown-toggle btn-sm" data-toggle="dropdown">Acción <span class="caret"></span></a>
                                                             <ul class="dropdown-menu dropdown-menu-right">
                                                                 {% if "6" in userRoles|keys  and appointment.estado|lower  == "pendiente" %}
-                                                                    <li><a href="{{ path("consulta_new", { 'id': paciente.pacId,'cm':appointment.id_agenda }) }}"><i class="icon-checkmark3" aria-hidden="true"></i> Iniciar Consulta</a></li>
+                                                                    <li><a href="{{ path("consulta_new", { 'id': paciente.pacId,'cm':appointment.id_agenda }) }}"><i class="icon-checkmark3" aria-hidden="true"></i> Procesar Consulta</a></li>
                                                                 {% endif %}
                                                                 <li><a href="{{ path("agenda_new")}}?d={{ appointment.id_doctor }}"><i class="icon-alarm" aria-hidden="true"></i> Actualizar</a></li>
                                                                 <li class="divider"></li>
                                                                 {# <li><a href="#"><i class="icon-spinner2 spinner"></i> En curso</a></li> #}
-                                                                <li><a href="#"><i class="fa fa-calendar-times-o" aria-hidden="true"></i> Cancelar</a></li>
+                                                                <li><a href="#" class="delete_appointment"><i class="fa fa-calendar-times-o" aria-hidden="true"></i> Cancelar</a></li>
                                                                 <li><a href="#"><i class="icon-cross2" aria-hidden="true"></i> Cerrar menú</a></li>
                                                             </ul>
                                                         </li>
@@ -321,7 +365,7 @@
                                 
                                 <div class="list-group-divider"></div>
                                 <div>
-                                    <a href="{{ path('agenda_new', {'p':paciente.pacId}) }}" class="btn btn-success btn-sm"><i class="fa fa-calendar"></i> Nueva cita</a>
+                                    <a href="{{ path('agenda_new', {'p':paciente.pacId}) }}" class="btn btn-info btn-sm"><i class="fa fa-calendar"></i> Nueva cita</a>
                                     
                                 </div>
                             </div>
@@ -331,7 +375,7 @@
                                         <h5>Médicos que han atendido al paciente</h5>
                                         <ul class="list-group">
                                         {% for  doctor in  doctorstList %}
-                                            <li class="list-group-item"> <i class="fa fa-user-md" aria-hidden="true"></i> {{ doctor.doctor }}</li>
+                                            <li class="list-group-item"> <i class="fa fa-user-md" aria-hidden="true"></i>{{ doctor.title_doctor|capitalize~" "~doctor.usu_nombre|capitalize~" "~doctor.usu_segundo_nombre|capitalize~" "~doctor.usu_tercer_nombre|capitalize~" "~doctor.usu_primer_apellido|capitalize~" "~doctor.usu_segundo_apellido|capitalize }}</li>
                                         {% endfor %}
                                         </ul>
                                    
@@ -386,6 +430,101 @@
                             return false;
                         });
                     
+                    
+                    $(".delete_appointment").on("click", function(e){
+                        
+                        var id = $(this).closest("tr").attr("id");
+                        var id = id.replace(/[^0-9]/g,'');
+                        //alert(id);
+                        if(id > 0 )
+                        {    
+                            $.confirm({
+                                title: 'Confirme!',
+                                content: 'Esta se guro de cancelar la cita para este paciente?',
+                                buttons: {
+                                    /*
+                                    confirm: function () {
+                                        $.alert('Confirmed!');
+                                    },
+                                    cancel: function () {
+                                        $.alert('Canceled!');
+                                    },
+                                    */
+                                    yes: {
+                                        text: 'Si',
+                                        btnClass: 'btn-green',
+                                        keys: ['enter', 'shift'],
+                                        action: function(){
+                                            //$.alert('Something else?');
+                                            doDelete(id);
+                                        }
+                                    },
+                                    somethingElse: {
+                                        text: 'No',
+                                        btnClass: 'btn-red',
+                                        keys: ['enter', 'shift'],
+                                        action: function(){
+                                            return false;
+                                            //$.alert('Something else?');
+                                        }
+                                    }
+                                }
+                            });
+                        }
+                        
+                        e.preventDefault();
+                    });
+                    
+                    function doDelete(id){  // delete event 
+
+                        $("#calendarModal").modal("hide");
+                        var eventID = id;//$("#eventID").val();
+                        $("#holder_loading").show();
+                        $.ajax({
+                            url: "{{ path('agenda_valida') }}",
+                            data: "action=delete&id="+eventID,
+                            type: "POST",
+                            success: function(json) {
+                                $("#holder_loading").hide();
+                                if(json == 1)
+                                 {   
+                                    $("#app_"+id).closest("tr").find("td").eq(1).html("<span class='label label-default'>Anulada</span>"); 
+                                    $.alert({
+                                        icon: 'fa fa-user-md',
+                                        title: 'Ok!',
+                                        content: "<p class=''>La cita médica del paciente ha sido cancelada con éxito</p>",
+                                        type: 'green',
+                                        typeAnimated: true,
+                                    });
+                                    return false;
+                                 }    
+                                 else
+                                 {
+                                    $.alert({
+                                        icon: 'fa fa-times',
+                                        title: 'Error!',
+                                        content: "<p class=''>Ha ocurrido un error al intentar cancelar la cita del paciente</p>",
+                                        type: 'red',
+                                        typeAnimated: true,
+                                    });
+                                    return false;
+                                 }
+                            },
+                             error: function(json){
+                                 $.alert({
+                                     icon: 'fa fa-times',
+                                     title: 'Error!',
+                                     content: "<p class='small'>No se ha podido eliminar el evento</p>",
+                                     type: 'red',
+                                     typeAnimated: true,
+                                 });  
+                                 $("#holder_loading").hide();  
+                                 return false;
+
+                            }       
+                        });
+
+                    }
                     
                     function searchPatients()
                     {
