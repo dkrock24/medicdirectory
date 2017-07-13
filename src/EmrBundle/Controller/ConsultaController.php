@@ -133,7 +133,6 @@ class ConsultaController extends Controller
                     }
                 }
                 
-                var_dump( $modulos );
 		
 		if( !isset($patientId) || empty($patientId) )
 		{
