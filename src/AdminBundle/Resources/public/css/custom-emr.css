@@ -105,3 +105,7 @@ Loading
 .page-header-content .page-title{
     padding-top: 0px !important;
 }
+
+.dropdown-menu{
+    min-width: 200px !important;
+}
