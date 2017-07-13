@@ -36,7 +36,7 @@ class Patient {
 		//===========================================
 		//Get all user's appointment 
 		//============================================
-		$RAW_QUERY = "SELECT u.usu_id as id_doctor, u.usu_nombre AS doctor, a.age_id AS id_agenda, a.age_fecha_inicio AS fecha_inicio, a.age_fecha_fin AS fecha_fin, 
+		$RAW_QUERY = "SELECT a.age_id, u.usu_id as id_doctor, u.usu_nombre AS doctor, a.age_id AS id_agenda, a.age_fecha_inicio AS fecha_inicio, a.age_fecha_fin AS fecha_fin, 
 						CASE a.age_estado 
 						WHEN 'p' THEN 'Pendiente' 
 						WHEN 'a' THEN 'Anulada'
@@ -66,12 +66,14 @@ class Patient {
 		//Get all user's appointment 
 		//============================================
 		//$locationId = $this->session->get('locationId');
-		$RAW_QUERY = "SELECT u.usu_id as id_doctor, u.usu_nombre AS doctor
+		$RAW_QUERY = "SELECT u.*, cu.cli_usu_titulo as title_doctor
 						FROM cita c
 						INNER JOIN agenda a ON c.cit_id = a.age_cit_id
 						LEFT JOIN usuario u ON c.cit_usu_id = u.usu_id
+						LEFT JOIN cliente_usuario cu ON u.usu_id = cu.cli_usu_usu_id
 						WHERE c.cit_cli_id =:idClient
 						AND c.cit_pac_id =:patientId
+						AND cu.cli_usu_rol_id = 6
 						GROUP BY u.usu_id "; 
 		$statement = $this->em->getConnection()->prepare($RAW_QUERY);
 		$statement->bindValue("patientId", $idUser );
