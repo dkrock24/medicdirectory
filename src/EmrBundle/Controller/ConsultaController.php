@@ -111,7 +111,7 @@ class ConsultaController extends Controller
 //                        \Doctrine\Common\Util\Debug::dump( $oUsuModulosGenerales );
 //                echo '</pre>';
 //                
-//                $modulos = array();
+                $modulos = array();
                 if(count($oUsuModulos) > 0 )
                 {
                     foreach( $oUsuModulos as $kmod => $modulo ){
