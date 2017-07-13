@@ -107,15 +107,18 @@ class ConsultaController extends Controller
                             array( 'modFechaCrea' => 'ASC' )
                         )
                         ;
-                
-                $modulos = array();
-                if(count($oUsuModulos) > 0 )
+//                echo '<pre>';
+//                        \Doctrine\Common\Util\Debug::dump( $oUsuModulosGenerales );
+//                echo '</pre>';
+//                
+//                $modulos = array();
+                if(count($oUsuModulosGenerales) > 0 )
                 {
-                    foreach( $oUsuModulos as $kmod => $modulo ){
+                    foreach( $oUsuModulosGenerales as $kmod => $modulo ){
                         $modulos[] = array(
-                                "mod_id" => $modulo->getCliModMod()->getModId(),
-                                "mod_hash" => stream_get_contents( $modulo->getCliModMod()->getModHashCode() ),
-                                "modulo" => $modulo->getCliModMod()->getModModulo()
+                                "mod_id" => $modulo->getModId(),
+                                "mod_hash" => stream_get_contents( $modulo->getModHashCode() ),
+                                "modulo" => $modulo->getModModulo()
                         );
                     }
                 }
@@ -129,6 +132,8 @@ class ConsultaController extends Controller
                         );
                     }
                 }
+                
+                var_dump( $modulos );
 		
 		if( !isset($patientId) || empty($patientId) )
 		{
