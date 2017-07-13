@@ -18,12 +18,12 @@ class DefaultController extends Controller {
 
     public function indexAction(Request $request) {
         /* @var $sParametros AppBundle\Services\servicioParametros */
-        $sParametros = $this->get('parametros');
+        //$sParametros = $this->get('parametros');
 
         /* @var $em \Doctrine\ORM\EntityManager */
         $em = $this->getDoctrine()->getManager();
 
-        $NombreProyecto = $sParametros->getParametro("nombreProyecto");
+        //$NombreProyecto = $sParametros->getParametro("nombreProyecto");
 
         // Cambié el repository por un DQL para controlar el filtro y limite
         // Rafa, si te enfocaras estas cosas no pasaran
@@ -66,7 +66,7 @@ class DefaultController extends Controller {
 
         return $this->render(
                     'WebBundle:Sections:index.html.twig', array(
-                    'NombreProyecto' => $NombreProyecto,
+                    //'NombreProyecto' => $NombreProyecto,
                     'medicos' => $medicos
                     )
         );

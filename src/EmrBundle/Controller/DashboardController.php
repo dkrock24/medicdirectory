@@ -125,7 +125,7 @@ class DashboardController extends Controller
 		}
 
 		
-		
+		$oDoctorsList = $em->getRepository('AppBundle:ClienteUsuario')->findBy( array("cliUsuRol"=>6, "cliUsuCli"=>$locationId, "cliUsuActivo"=>1) );
 		
 		
         //$em = $this->getDoctrine()->getManager();
@@ -135,7 +135,8 @@ class DashboardController extends Controller
 			"roles"=>$roles,
 			"messages"=>$oMessages,
 			'unReadMessage'=>$unread,
-			"appointments"=>$appointments
+			"appointments"=>$appointments,
+			"doctorsList"=>$oDoctorsList
         ));
     }
 	
@@ -163,7 +164,8 @@ class DashboardController extends Controller
 									WHERE a.age_activo = 1
 									AND a.age_cli_id = $locationId "
 				. " AND  (date(a.age_fecha_inicio) >= '" . $start . "' AND date(a.age_fecha_inicio) <= '" . $end . "') "
-				. $filter;
+				. $filter.
+				" ORDER BY (date(a.age_fecha_inicio)) ASC ";
 
 
 		$statement = $em->getConnection()->prepare($RAW_QUERY);
