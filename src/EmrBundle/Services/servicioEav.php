@@ -212,8 +212,15 @@ class servicioEav {
             ;
             
             
-            
+
+            $bRequired = false;
             foreach( $vcampo as $key => $vcamp_props ){
+
+                if( $vcamp_props["requerido"] == 1 ){
+                    $bRequired = true;
+                }else{
+                    $bRequired = false;
+                }
                 
                 if( $vcamp_props['tipo_campo'] == 'choice' ){
                     
@@ -225,7 +232,8 @@ class servicioEav {
                             "choices" => $aFormCampData[ $vcamp_props["camp_id"] ]["val_catalogo"],
                             'attr' => array(
                                 'data-value' => $aFormCampData[ $vcamp_props["camp_id"] ]["id_valor_catalogo"]
-                            )
+                            ),
+                            'required' => $bRequired
                         ) 
                     );
                     
@@ -240,7 +248,8 @@ class servicioEav {
                             "data" => $aFormCampData[ $vcamp_props["camp_id"] ]["valor"],
                             'attr' => array(
                                 'data-value' => $aFormCampData[ $vcamp_props["camp_id"] ]["valor"]
-                            )
+                            ),
+                            'required' => $bRequired
                         ) 
                     );
                     

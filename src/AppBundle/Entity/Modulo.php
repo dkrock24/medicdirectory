@@ -334,4 +334,33 @@ class Modulo
     {
         $this->secciones->removeElement($seccione);
     }
+    /**
+     * @var boolean
+     */
+    private $modGeneral = 0;
+
+
+    /**
+     * Set modGeneral
+     *
+     * @param boolean $modGeneral
+     *
+     * @return Modulo
+     */
+    public function setModGeneral($modGeneral)
+    {
+        $this->modGeneral = $modGeneral;
+
+        return $this;
+    }
+
+    /**
+     * Get modGeneral
+     *
+     * @return boolean
+     */
+    public function getModGeneral()
+    {
+        return $this->modGeneral;
+    }
 }

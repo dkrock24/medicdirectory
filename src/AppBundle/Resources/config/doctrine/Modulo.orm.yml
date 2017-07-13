@@ -40,6 +40,12 @@ AppBundle\Entity\Modulo:
             precision: 6
             scale: 2
             column: mod_costo
+        modGeneral:
+            type: boolean
+            nullable: false
+            options:
+                default: 0
+            column: mod_general
         modFechaCrea:
             type: datetime
             nullable: false
