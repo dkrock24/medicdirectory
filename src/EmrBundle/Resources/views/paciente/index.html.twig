@@ -73,7 +73,7 @@
             <a href="{{ path('paciente_new') }}" class="btn btn-primary btn-sm"><i class="fa fa-plus-circle"></i> Nuevo</a>
         </li>
     </ul>
-
+            
 {% endblock %}
 
 {% block codejs %}
@@ -100,7 +100,12 @@
                             var buttonID = data[5];
                             var routeShow = "{{ path('paciente_show', { 'id': "PLACEHOLDER" }) }}";
                             var routeEdit = "{{ path('paciente_edit', { 'id': "PLACEHOLDER" }) }}";
-                            var routeAgenda = "{{ path('agenda_new', { 'p': "PLACEHOLDER" }) }}";
+                            {% if "6" in roles|keys %}
+                                var routeAgenda = "{{ path('agenda_new', {'d':app.user.usuId , 'p': "PLACEHOLDER" }) }}";
+                            {% else %}
+                                var routeAgenda = "{{ path('agenda_new', { 'p': "PLACEHOLDER" }) }}";
+                            {% endif %}    
+                            
 
                             routeShow = routeShow.replace("PLACEHOLDER", buttonID);
                             routeEdit = routeEdit.replace("PLACEHOLDER", buttonID);

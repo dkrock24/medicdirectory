@@ -84,6 +84,8 @@ class Cliente
 
     public function __toString() {
         return $this->cliNombre;
+		//var_dump($this->cliNombre);
+		//die();
     }
     
     /**

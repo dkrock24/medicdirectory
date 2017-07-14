@@ -43,8 +43,11 @@ class PacienteController extends Controller
 		//echo $res->getCliNombre();
 		//echo count($res);
 		
+		$roles = $this->get('session')->get('userRoles');
+		
         return $this->render('EmrBundle:paciente:index.html.twig', array(
             'pacientes' => $pacientes,
+			'roles'=>$roles
         ));
     }
 

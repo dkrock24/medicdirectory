@@ -34,7 +34,7 @@ AppBundle\Entity\Cliente:
             column: cli_nombre
         cliNombreComercial:
             type: string
-            nullable: false
+            nullable: true
             length: 50
             options:
                 fixed: false

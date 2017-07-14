@@ -531,7 +531,7 @@ class ClienteController extends Controller
 			$client->setCliTelefono2($phone_two);
 			//$client->setCliNombre($representerName);
 			
-			$client->setCliNombreComercial($comercial_name);
+			$client->setCliNombre($comercial_name);
 			$client->setCliUbicacionLat($lat);
 			$client->setCliUbicacionLon($lon);
 			

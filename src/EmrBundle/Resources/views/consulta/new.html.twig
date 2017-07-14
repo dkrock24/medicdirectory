@@ -176,7 +176,10 @@
                     </div>
                 </div>
             </div>
-            <!-- Here goes the modules list -->
+                                    <div class="row">
+                                        <div class="col-lg-3"></div>
+                                        <div class="col-lg-9">
+                                            <!-- Here goes the modules list -->
             {{ render( controller('EmrBundle:EavModulos:crearMenuModulos', { 'modulos': modulos } ) ) }}
             <!-- end of modules list -->
             {% if modulos|length > 0 %}
@@ -185,6 +188,8 @@
                     'usu_id': usu_id, 'pac_id': patient[0].pacId, 'cli_id': cli_id, 'cit_id': cit_id } ) ) 
             }}
             {% endif %}
+                                        </div>
+                                    </div>
         </div>
     </div>
 
