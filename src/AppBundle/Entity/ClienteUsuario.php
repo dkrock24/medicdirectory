@@ -486,4 +486,33 @@ class ClienteUsuario
     {
         return $this->cliUsuExponer;
     }
+    /**
+     * @var integer
+     */
+    private $cliUsuJvpm;
+
+
+    /**
+     * Set cliUsuJvpm
+     *
+     * @param integer $cliUsuJvpm
+     *
+     * @return ClienteUsuario
+     */
+    public function setCliUsuJvpm($cliUsuJvpm)
+    {
+        $this->cliUsuJvpm = $cliUsuJvpm;
+
+        return $this;
+    }
+
+    /**
+     * Get cliUsuJvpm
+     *
+     * @return integer
+     */
+    public function getCliUsuJvpm()
+    {
+        return $this->cliUsuJvpm;
+    }
 }

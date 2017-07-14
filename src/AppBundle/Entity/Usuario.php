@@ -76,11 +76,6 @@ class Usuario implements \Symfony\Component\Security\Core\User\UserInterface {
      */
     private $usuSegundoApellido;
 
-	/**
-     * @var integer
-     */
-    private $usuJvpm;
-
     /**
      * Get usuId
      *
@@ -281,30 +276,5 @@ class Usuario implements \Symfony\Component\Security\Core\User\UserInterface {
     public function getUsuSegundoApellido()
     {
         return $this->usuSegundoApellido;
-    }
-	
-	
-	/**
-     * Set usuJvpm
-     *
-     * @param integer $usuJvpm
-     *
-     * @return Usuario
-     */
-    public function setUsuJvpm($usuJvmp)
-    {
-        $this->usuJvpm = $usuJvpm;
-
-        return $this;
-    }
-
-    /**
-     * Get usuJvpm
-     *
-     * @return integer
-     */
-    public function getUsuJvpm()
-    {
-        return $this->usuJvpm;
     }
 }

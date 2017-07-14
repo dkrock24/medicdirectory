@@ -114,6 +114,13 @@ AppBundle\Entity\ClienteUsuario:
             options:
                 default: '1'
             column: cli_usu_exponer
+        cliUsuJvpm:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: cli_usu_jvpm
+
     uniqueConstraints:
         unique_idx:
           columns: [ cli_usu_usu_id, cli_usu_cli_id, cli_usu_rol_id ]

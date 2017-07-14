@@ -72,10 +72,4 @@ AppBundle\Entity\Usuario:
             options:
                 fixed: false
             column: usu_segundo_apellido
-        usuJvpm:
-            type: integer
-            nullable: true
-            options:
-                unsigned: false
-            column: usu_jvpm    
     lifecycleCallbacks: {  }
