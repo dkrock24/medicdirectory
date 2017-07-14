@@ -39,7 +39,7 @@ class DefaultController extends Controller {
                         JOIN usuario_especialidad AS es on u.usu_id=es.id_usuario
                         JOIN  especialidad as e on e.esp_id=es.id_especialidad
                         JOIN usuario_galeria as ug on ug.gal_usu_id=cu.cli_usu_usu_id
-                        WHERE ug.gal_modulo_id is null and ug.gal_tipo=1
+                        WHERE ug.gal_modulo_id is null and ug.gal_tipo=1 and cu.cli_usu_rol_id=6
                         group by u.usu_id";
         $statement  = $em->getConnection()->prepare($RAW_QUERY);
         $statement->execute();                
@@ -127,9 +127,9 @@ class DefaultController extends Controller {
         $em     = $this->getDoctrine()->getManager();
         $em1    = $this->getDoctrine()->getManager()->createQueryBuilder();
 
-        $medico['usuario'] = $em->getRepository('AppBundle:ClienteUsuario')->findOneBy(array("cliUsuId" => $med_id));
+        $medico['usuario'] = $em->getRepository('AppBundle:ClienteUsuario')->findOneBy(array("cliUsuUsu" => $med_id,"cliUsuRol"=>6));
 
-        $medico['galeria'] = $em->getRepository('AppBundle:UsuarioGaleria')->findOneBy(array("galUsuario"=>1,"galTipo"=>1,"galModulo"=>null));
+        $medico['galeria'] = $em->getRepository('AppBundle:UsuarioGaleria')->findOneBy(array("galUsuario"=>$med_id,"galTipo"=>1,"galModulo"=>null));
 
         // Obtener especialidades Por Medico
         
@@ -142,7 +142,7 @@ class DefaultController extends Controller {
             ->getQuery()->getResult();
 
 
-        $medico['redes']    = $em->getRepository('AppBundle:UsuarioSocial')->findAll(array("idUsuario" => $med_id));
+        $medico['redes']    = $em->getRepository('AppBundle:UsuarioSocial')->findBy(array("idUsuario" => $medico['usuario']->getCliUsuId()));
 
         $medico['cliente']  = $em->getRepository('AppBundle:ClienteUsuario')->findOneBy(array("cliUsuUsu" => $med_id));
 
