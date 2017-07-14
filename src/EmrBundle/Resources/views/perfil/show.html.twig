@@ -142,6 +142,7 @@
                                                         </div>
                                                     </div>    
                                                 </div>
+                                                        
                                                 {% if roles.6 is defined %}        
                                                     <div class="row">
 
@@ -158,7 +159,14 @@
                                                                     </select>
                                                                 </div>
                                                             </div>
-                                                        </div>    
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <div class="form_error"></div>
+                                                                <label for="" class="control-label">J.V.P.M</label>
+                                                                <div class=""><input type="text" class="form-control" value="{{ user[0].cli_usu_jvpm }}" id="jvpm" ></div>
+                                                            </div>
+                                                        </div>
 
                                                     </div>
                                                 {% endif %}
@@ -791,6 +799,7 @@
                         var repeat_password = $("#repeat_password").val();
                         var specialitiesList = $("#specialitiesList").val();
                         var title = $("#title").val();
+                        var jvpm = $("#jvpm").val();
                         var birth_date = $("#birth_date").val();
                         var typeImage = $('input[name=radioTypeImage]:checked').val();
                         
@@ -886,6 +895,7 @@
                         formData.append("email", email);
                         formData.append("password", password);
                         formData.append("title", title);
+                        formData.append("jvpm", jvpm);
                         formData.append("schedule", JSON.stringify(schedule));
                         formData.append("social_network", JSON.stringify(social_network));
                         formData.append("profile", profile);
