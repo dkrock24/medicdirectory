@@ -57,6 +57,7 @@ class PacienteController extends Controller
      */
     public function newAction(Request $request)
     {
+		$roles = $this->get('session')->get('userRoles');
         $paciente = new Paciente();
         $form = $this->createForm('EmrBundle\Form\PacienteType', $paciente);
         $form->handleRequest($request);
@@ -72,6 +73,7 @@ class PacienteController extends Controller
         return $this->render('EmrBundle:paciente:new.html.twig', array(
             'paciente' => $paciente,
             'form' => $form->createView(),
+			'roles'=>$roles
         ));
     }
 
@@ -81,6 +83,7 @@ class PacienteController extends Controller
      */
     public function showAction(Paciente $paciente)
     {
+		$roles = $this->get('session')->get('userRoles');
         $deleteForm = $this->createDeleteForm($paciente);
 		
 		/*
@@ -101,6 +104,7 @@ class PacienteController extends Controller
 			'totalMedicalConsultation' =>$totalMedicalConsultation,
 			'doctorstList' => $doctorstList,
             'delete_form' => $deleteForm->createView(),
+			'roles'=>$roles
         ));
     }
 
@@ -110,6 +114,7 @@ class PacienteController extends Controller
      */
     public function editAction(Request $request, Paciente $paciente)
     {
+		$roles = $this->get('session')->get('userRoles');
         $deleteForm = $this->createDeleteForm($paciente);
         $editForm = $this->createForm('EmrBundle\Form\PacienteType', $paciente);
         $editForm->handleRequest($request);
@@ -127,7 +132,8 @@ class PacienteController extends Controller
             'paciente' => $paciente,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-			'id' => $paciente->getPacId()
+			'id' => $paciente->getPacId(),
+			'roles'=>$roles
         ));
     }
 
