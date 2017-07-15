@@ -44,7 +44,7 @@ class EavModSeccion
 
     
     public function __toString() {
-        return $this->modSeccSeccion;
+        return "Modulo: ".$this->getModSeccModId()." >> Seccion: ".$this->modSeccSeccion;
     }
 
         /**
