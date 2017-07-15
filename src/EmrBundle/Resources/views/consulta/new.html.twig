@@ -714,6 +714,21 @@
                         $("#mod-holder").html(moduleActive+""+data);
                         
                         $("body").find("#moduleActivated").html("<strong><span class'bg-success text-highlight'>"+info+"</span></strong>");
+                        
+                        $('body').find("form.mod-form :input").each(function(){
+                            //console.log("x");
+                            $(this).on("change  paste", function(){
+                            //$(this).blur( function(){
+                                //if( $(this).attr('data-value') != $(this).val() ){
+                                    var tries = 1;
+                                    var oInputLabel = $( "label[for='"+$(this).attr('id')+"']" );
+                                    oInputLabel.after("<i class='loading-gif'>&nbsp;&nbsp;<img src='{{ asset('bundles/admin/img/ajax-loader.gif') }}'> Guardando..</i>");  
+                                    $(".loading-gif").css('color', '#39AED1');
+                                    guardarEavForm( $(this), tries );
+                                //}
+                            });
+                        });
+                        
                     },
                     error: function (data) {
                         $.alert({
@@ -780,7 +795,8 @@
                 }
             }
             
-            $('form.mod-form :input').each(function(){
+            $('body').find("form.mod-form :input").each(function(){
+                //console.log("x");
                 $(this).on("change  paste", function(){
                 //$(this).blur( function(){
                     //if( $(this).attr('data-value') != $(this).val() ){
