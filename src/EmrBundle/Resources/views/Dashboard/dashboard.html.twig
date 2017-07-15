@@ -51,7 +51,7 @@
                 <div class="panel panel-flat">
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-lg-3 col-md-4 col-sm-4 col-xs-6">
+                            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-6">
 
                                 {% if  profilephoto != "" %}
                                     <div style="text-align:center;"><img src="{{ image('uploads/perfil/'~profilephoto).cropResize(200,200) }}" class="img-thumbnailx" style="max-width:100% "></div>
@@ -78,14 +78,14 @@
                                 <hr>
                                 <h4><i class="icon-bubbles4"></i> Mensajes sin Leer <span class="badge bg-warning-400 unread">{{ unReadMessage }}</span> </h4>
                             </div>
-                            <div class="col-lg-9 col-md-8 col-sm-8 col-xs-6">
+                            <div class="col-lg-10 col-md-8 col-sm-8 col-xs-6">
                                 <!-- Quick stats boxes -->
                                 
                                 <!-- /quick stats boxes -->
                                 
                                 
                                 <div class="row">
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-7">
                                         {% if doctorsList|length > 0 and roles.3 is defined %}
                                                 <label>Lista de doctores disponibles</label>
                                                 <select id="doctorsList" class="select form-control">
@@ -99,7 +99,7 @@
                                                 </select>
                                                 <hr>
                                             {% endif %}
-                                        <div class="table-responsivex" id="result_appointment">
+                                        <div class="table-responsive" id="result_appointment">
                                                 
                                             {% if appointments|length > 0 %}
                                                 <table class="table text-nowrap" id="table_result_appointment">
@@ -109,11 +109,14 @@
                                                                 {% if roles.3 is defined %}
                                                                     Agenda (Doctor)
                                                                 {% else %}
-                                                                    Mi agenda de Hoy
-                                                                {% endif %}    
+                                                                    Tipo de agenda
+                                                                {% endif %}
+                                                                (<span id="labelDateUpdate">{{ "now"|date("Y-m-d") }}</span>)
                                                             </th>
-                                                            <th>Hora</th>
+                                                            <th>Hora Inicio</th>
+                                                            <th>Hora Fin</th>
                                                             <th>Estatus</th>
+                                                            <th>Actualizar</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -168,10 +171,15 @@
                                                                     </div>
                                                                 </td>
                                                                 <td>
-                                                                    <span class="text-muted text-size-small">{{ appointment.start}}</span>
+                                                                    <span class="text-muted text-size-small">{{ appointment.start|date("h:i:s A") }} {#{{ appointment.start}} #}</span>
+                                                                    
                                                                 </td>
                                                                 <td>
-                                                                    <h6 class="text-semibold no-margin">
+                                                                    <span class="text-muted text-size-small">{{ appointment.end|date("h:i:s A") }} {#{{ appointment.start}} #}</span>
+                                                                    
+                                                                </td>
+                                                                <td>
+                                                                    <span class="text-muted text-size-small">
                                                                         {# 
                                                                             p=pendiente, a=anulada, c=curso, t=terminada
                                                                         #}
@@ -186,7 +194,10 @@
                                                                                 Finalizada
                                                                             {% endif %}    
                                                                         {% endif %}
-                                                                    </h6>
+                                                                    </span>
+                                                                </td>
+                                                                <td>
+                                                                    <button class="btn btn-default btnUpdateAppointment" id="cm_{{appointment.id}}"><i class="fa fa-refresh" aria-hidden="true"></i> </button>
                                                                 </td>
                                                             </tr>
                                                         {% endfor %}    
@@ -205,7 +216,7 @@
                                         </div>
                                         <div class="text-left"><a href="{{ path('agenda_new') }}?d={{ userInfo.usuId}}" class="btn bg-teal-400 btn-sm"><i class="fa fa-calendar"></i> Ver agenda completa</a><hr></div>
                                     </div>
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-5">
                                         <div id="datepickerSimple"></div>
                                         <hr>
                                         <div class="row">
@@ -327,7 +338,7 @@
 
 		</div>
 		<!-- /page content -->
-
+        {{ include('EmrBundle:Dashboard:_modals.html.twig' )  }} 
 	</div>
 	<!-- /page container -->
 {% endblock %}
@@ -380,7 +391,14 @@
                         {% endif %}
                         
                         var date = dateText;
-                        getAppointments(date);
+                        getAppointments(date,"result_appointment");
+                     }
+                });
+                
+                $("#datepickerSimpleUpdate").datepicker({
+                    onSelect: function (dateText, inst) {                        
+                        var date = dateText;
+                        getAppointments(date,"result_update_appointment");
                      }
                 });
             }
@@ -406,6 +424,64 @@
                             });
             }
             
+            $('#tabReCalendar').click(function (e) {
+                $("#btn-re-appointment").show();
+                $("#btn-cancel-appointment").hide();
+            });
+            
+            $("#tabCancel").click(function (e) {
+                //e.preventDefault()
+                //$(this).tab('show')
+                $("#btn-cancel-appointment").show();
+                $("#btn-re-appointment").hide();
+            });
+            
+            $("body").on("click",".btnUpdateAppointment",function(){
+                {#
+                var dateSelected = $("#dateSelected").val();
+                
+                if( dateSelected == "" )
+                {
+                    
+                    var date = $("#labelDateUpdate").text();
+                }
+                else
+                {
+                    var date = dateSelected;
+                }
+                #}
+                $('#tabs li:eq(0) a').tab('show');         
+                //$("#tabs").tabs("option", "active", 2);            
+                            
+                var date = $("#labelDateUpdate").text();
+                $('#datepickerSimpleUpdate').datepicker( "setDate", date );
+                
+                var start = $.trim($(this).closest("tr").find("td").eq(1).text());
+                var start = start.split(":");
+                var hourStart = start[0];
+                var minutesStart = start[1];
+                
+                var end = $.trim($(this).closest("tr").find("td").eq(2).text());
+                var end = end.split(":");
+                var hourEnd = end[0];
+                var minutesEnd = end[1];
+                
+                //alert(hourStart+" - "+minutesStart+" | "+hourEnd+" - "+minutesEnd);
+                
+                $("#hoursStart").val(hourStart);
+                $("#minutesStart").val(minutesStart);
+                
+                $("#hoursEnd").val(hourEnd);
+                $("#minutesEnd").val(minutesEnd);
+                
+                //if( renderToUpdate != "result_update_appointment" )
+                
+                $("#dateSelected").val(date);
+                getAppointments(date,"result_update_appointment");
+                $("#updateApponintment").modal({backdrop: 'static', keyboard: false});
+            });
+            
+            
             $("#doctorsList").change(function(){
                 var id = $(this).val();
                 if(id != "" && id > 0 )
@@ -427,7 +503,7 @@
                 }
             }
             
-            function getAppointments(date)
+            function getAppointments(date, renderToUpdate)
             {
                 $("#holder_loading").show();
                 
@@ -466,7 +542,19 @@
                         $("#holder_loading").hide();
                         if( data.length > 0)
                         {
-                            var table = "<table class='table text-nowrap' id='table_result_appointment'><thead><tr><th>Mi Agenda de hoy</th><th>Hora</th><th>Estatus</th></tr></thead><tbody>";
+                            if( renderToUpdate != "result_update_appointment" )
+                            {
+                                var th = "<th>Actualizar</th>";
+                                var tableID = "table_result_appointment";
+                                var labelUpdate = "labelDateUpdate";
+                            }
+                            else
+                            {
+                                var tableID = "table_result_appointment_update";
+                                var th = "";
+                                var labelUpdate = "labelDate";
+                            }
+                            var table = "<div class='table-responsive'><table class='table text-nowrap' id='"+tableID+"'><thead><tr><th>Tipo de agenda (<span id='"+labelUpdate+"'></span>)</th><th>Hora Inicio</th><th>Estatus</th>"+th+"<th>Hora Fin</th></tr></thead><tbody>";
                             for(i=0; i < data.length; i++)
                             {    
                                 //var routeEdit = "{{ path('paciente_edit', { 'id': "PLACEHOLDER" }) }}";
@@ -518,9 +606,17 @@
                                     btn_group += fullname;
                                     btn_group += "</span>";
                                 {% else %}
-                                    btn_group += "<a href='"+routeShow+"' class='letter-icon-title' data-toggle='tooltip' data-placement='top' title='Procesar Consulta'>";
-                                    btn_group += fullname;
-                                    btn_group += "</a>";
+                                    if( renderToUpdate != "result_update_appointment" )
+                                    {
+                                        btn_group += "<a href='"+routeShow+"' class='letter-icon-title' data-toggle='tooltip' data-placement='top' title='Procesar Consulta'>";
+                                        btn_group += fullname;
+                                        btn_group += "</a>";
+                                    }    
+                                    else{
+                                        btn_group += "<span class='letter-icon-title'>";
+                                        btn_group += fullname;
+                                        btn_group += "</span>";
+                                    }
                                 {% endif %}    
                                 {#
                                 btn_group += "<a href='"+routeShow+"' class='letter-icon-title' data-toggle='tooltip' data-placement='top' title='Procesar Consulta'>";
@@ -562,10 +658,20 @@
                                             
                                 table += "<tr>";
                                 table += "<td>"+btn_group+"</td>";
-                                table += "<td><span class='text-muted text-size-small'>"+data[i]['start']+"</span></td>";
+                                var stringDate = data[i]['start'];
+                                var stringDate = stringDate.split(" ");
+                                var hourType = moment(stringDate[1], ["HH:mm:ss"]).format("hh:mm:ss A");
+                                //alert(f);
+                                table += "<td><span class='text-muted text-size-small'>"+hourType+"</span></td>";
+                                
+                                
+                                var stringDate = data[i]['end'];
+                                var stringDate = stringDate.split(" ");
+                                var hourType = moment(stringDate[1], ["HH:mm:ss"]).format("hh:mm:ss A");
+                                table += "<td><span class='text-muted text-size-small'>"+hourType+"</span></td>";
                                 
                                 var status = "";
-                                status += "<h6 class='text-semibold no-margin'>";
+                                status += "<span class='text-muted text-size-small'>";
                                 if( data[i]['tipo_evento'] == 1 )
                                 {     
                                     switch(data[i]['age_estado'])
@@ -588,13 +694,18 @@
                                      p=pendiente, a=anulada, c=curso, t=terminada
                                 #}
  
-                                status += "</h6>";
+                                status += "</span>";
                                 
-                                table += "<td>"+status+"</td>";
-
+                               table += "<td>"+status+"</td>";
+                                 //btn = " "
+                                if( renderToUpdate != "result_update_appointment" )
+                                {
+                                    table += "<td><button class='btn btn-default btnUpdateAppointment' id='cm_"+data[i]['id']+"'><i class='fa fa-refresh' aria-hidden='true'></i> </button></td>";
+                                }
+                                
                                 table += "</tr>";
                             }
-                            table += "</body></table>";
+                            table += "</body></table></div>";
                         }
                         else
                         {
@@ -605,10 +716,23 @@
                             {% endif %}    
                             table = "<div class='alert alert-danger alert-styled-left alert-arrow-left alert-component'>"+doc+"  </div>";
                         }
-                        $("#result_appointment").html(table);
-                        if( $("body").find("#table_result_appointment").size() == 1 )
+                        
+                        if( renderToUpdate == "result_update_appointment" )
                         {
-                            $("body").find("#table_result_appointment").DataTable({
+                            $("#result_update_appointment").html(table);
+                            //$("#labelDateUpdate").html("("+date+")");
+                        }
+                        else
+                        {
+                           $("#result_appointment").html(table);
+                           //$("#labelDateUpdate").html("("+date+")");
+                        }
+                        
+                        $("#"+labelUpdate).html(date);
+                        
+                        if( $("body").find("#"+tableID).size() == 1 )
+                        {
+                            $("body").find("#"+tableID).DataTable({
                                 "searching": false,
                                 "bFilter": false,
                                 "bInfo": false,

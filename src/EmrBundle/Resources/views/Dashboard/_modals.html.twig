@@ -1,0 +1,170 @@
+<!-- Modal -->
+<style>
+    .form-group label {
+    float: left;
+    text-align: left;
+    font-weight: normal;
+}
+
+.form-group select {
+    display: inline-block;
+    width: auto;
+    vertical-align: middle;
+}
+</style>
+<div class="modal fade " id="updateApponintment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Nueva Cita</h4>
+      </div>
+      <div class="modal-body">
+          
+          <div id="tabs">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+              <li role="presentation" class="active"><a href="#reAppointment" aria-controls="home" role="tab" data-toggle="tab" id="tabReCalendar">Re agendar evento</a></li>
+              <li role="presentation"><a href="#cancelAppointment" aria-controls="profile" role="tab" data-toggle="tab" id="tabCancel">Eliminar Evento</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="reAppointment">
+                    <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">
+                        Seleccione la fecha y hora para re-agendar el evento
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4">
+                            <div id="datepickerSimpleUpdate"></div>
+                        </div>
+                        <div class="col-lg-8 col-md-8">
+                            <div class="rowx">
+
+                              <div class="form-inline">
+                                      <div class="form-group">
+                                          <label> <i class="fa fa-clock-o"></i> Hora de Inicio
+                                              <select class="form-control" id="hoursStart">
+                                                  <option value="00">12:00 AM</option>
+                                                  <option value="01">1:00 AM</option>
+                                                  <option value="02">2:00 AM</option>
+                                                  <option value="03">3:00 AM</option>
+                                                  <option value="04">4:00 AM</option>
+                                                  <option value="05">5:00 AM</option>
+                                                  <option value="06">6:00 AM</option>
+                                                  <option value="07">7:00 AM</option>
+                                                  <option value="08">8:00 AM</option>
+                                                  <option value="09">9:00 AM</option>
+                                                  <option value="10">10:00 AM</option>
+                                                  <option value="11">11:00 AM</option>
+                                                  <option value="12">12:00 PM</option>
+                                                  <option value="13">01:00 PM</option>
+                                                  <option value="14">02:00 PM</option>
+                                                  <option value="15">03:00 PM</option>
+                                                  <option value="16">04:00 PM</option>
+                                                  <option value="17">05:00 PM</option>
+                                                  <option value="18">06:00 PM</option>
+                                                  <option value="19">07:00 PM</option>
+                                                  <option value="20">08:00 PM</option>
+                                                  <option value="21">09:00 PM</option>
+                                                  <option value="22">10:00 PM</option>
+                                                  <option value="23">11:00 PM</option>
+                                              </select>
+                                          </label>
+                                      </div>
+
+                                      <div class="form-group" style="margin-left: 0px;">
+                                          <label> 
+                                              <select class="form-control" id="minutesStart">
+                                                <option value="00">00</option>
+                                                <option value="30">30</option>
+                                              </select>
+                                          </label>
+                                      </div> 
+                                      <div class="form-group">
+                                            <label> <i class="fa fa-clock-o"></i> Hora Fin
+                                                <select class="form-control" id="hoursEnd">
+                                                    <option value="00">12:00 AM</option>
+                                                    <option value="01">1:00 AM</option>
+                                                    <option value="02">2:00 AM</option>
+                                                    <option value="03">3:00 AM</option>
+                                                    <option value="04">4:00 AM</option>
+                                                    <option value="05">5:00 AM</option>
+                                                    <option value="06">6:00 AM</option>
+                                                    <option value="07">7:00 AM</option>
+                                                    <option value="08">8:00 AM</option>
+                                                    <option value="09">9:00 AM</option>
+                                                    <option value="10">10:00 AM</option>
+                                                    <option value="11">11:00 AM</option>
+                                                    <option value="12">12:00 PM</option>
+                                                    <option value="13">01:00 PM</option>
+                                                    <option value="14">02:00 PM</option>
+                                                    <option value="15">03:00 PM</option>
+                                                    <option value="16">04:00 PM</option>
+                                                    <option value="17">05:00 PM</option>
+                                                    <option value="18">06:00 PM</option>
+                                                    <option value="19">07:00 PM</option>
+                                                    <option value="20">08:00 PM</option>
+                                                    <option value="21">09:00 PM</option>
+                                                    <option value="22">10:00 PM</option>
+                                                    <option value="23">11:00 PM</option>
+                                                </select>
+                                            </label>
+                                        </div>
+                                        <div class="form-group" style="margin-left: 0px;">
+                                            <label> 
+                                                <select class="form-control" id="minutesEnd">
+                                                  <option value="00">00</option>
+                                                  <option value="30">30</option>
+                                                </select>
+                                            </label>
+                                        </div>
+                              </div>
+                              <br>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-9">
+                                      <label>Nota:</label>
+                                      <input type="text" id="title" value="" placeholder="Nota" class="form-control" autocomplete="off">
+                                </div>
+                                <div class="col-lg-3">
+                                      <label># Consultorio:</label>
+                                      <input type="text" id="room" value="" placeholder="# Consultorio" class="form-control" autocomplete="off">
+                                </div>
+
+
+                            </div>    
+                            <div class="">
+                               <br>  
+                              <div id="result_update_appointment">
+                                No se ha validado aún la disponibilidad
+                              </div>
+                          </div>
+                            {# <div><button class="btn btn-success">Validar disponibilidad</button></div> #}
+                            <input type="hidden" id="dateSelected" value="">
+                            <input type="hidden" id="is_available" value="0">
+                        </div>
+
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="cancelAppointment">
+                    
+                </div>
+            </div>
+
+          </div>
+          
+          
+          
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-danger" id="btn-cancel-appointment" style="display:none"><i class="fa fa-calendar" aria-hidden="true"></i> Cancelar Evento</button>
+        <button type="button" class="btn btn-success" id="btn-re-appointment"><i class="fa fa-calendar" aria-hidden="true"></i> Re-agendar</button>
+      </div>
+    </div>
+  </div>
+</div>

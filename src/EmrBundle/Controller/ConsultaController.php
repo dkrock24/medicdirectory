@@ -5,7 +5,7 @@ namespace EmrBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
-
+use Symfony\Component\Validator\Constraints\DateTime;
 
 
 class ConsultaController extends Controller
@@ -35,6 +35,7 @@ class ConsultaController extends Controller
 			return $this->redirectToRoute("emr_location");
 		}
 		*/
+		
 		$RAW_QUERY = "SELECT u.* FROM cliente_usuario cu
 						
 						INNER JOIN usuario u on cu.cli_usu_usu_id = u.usu_id 
@@ -53,6 +54,8 @@ class ConsultaController extends Controller
 		));
         
     }
+	
+	
 	
 	
 	public function medicalConsultationAction( Request $request )
@@ -164,16 +167,97 @@ class ConsultaController extends Controller
 		$statement->execute();
 		$historical  = $statement->fetchAll();
 		
-                
+        
+		$historicalDetail = $this->patientHistory($iLocationId, $patientId);
+		
+		
+		//$appStart = $oAppointment->getAgeFechaInicio()->format('Y-m-d :H:i:s');
+		//$appEnd = $oAppointment->getAgeFechaFin()->format('Y-m-d :H:i:s');
+		
+		$appStart = new \DateTime( $oAppointment->getAgeFechaInicio()->format('Y-m-d H:i:s') );
+		$appEnd = new \DateTime( $oAppointment->getAgeFechaFin()->format('Y-m-d H:i:s') );
+		$fecha = $appStart->diff($appEnd);
+		//printf('%d años, %d meses, %d días, %d horas, %d minutos', $fecha->y, $fecha->m, $fecha->d, $fecha->h, $fecha->i);
+		$hours =  $fecha->h;
+		$minutes = $fecha->i;
+		//var_dump($fecha);
+		//echo ('%d años, %d meses, %d días, %d horas, %d minutos', $fecha->y, $fecha->m, $fecha->d, $fecha->h, $fecha->i);
+		
+		//echo date('Y-m-d', strtotime($oAppointment->getAgeFechaInicio()));
+		
 		return $this->render("EmrBundle:consulta:new.html.twig", array(
 			"patient"=>$oPatient,
 			"age"=>$patientAge,
             "modulos"=>$modulos,
-            "historical"=>$historical,        
+            "historical"=>$historical, 
+			'historialDetail' => $historicalDetail,
+			"hours"=>$hours,
+			"minutes"=>$minutes,
             'usu_id' => $doctor,
             'cit_id' => $oAppointment->getAgeCit()->getCitId(),
             'cli_id' => $iLocationId
 		));
+		
+	}
+	
+	public function patientHistory($iLocationId, $patientId)
+	{
+		$em = $this->getDoctrine()->getManager();
+		$arr = array();
+		if( isset($patientId) && is_numeric($patientId) )
+		{
+			//================================================
+			//cancelated
+			//================================================
+			$RAW_QUERY = "SELECT count(*) as total
+					FROM agenda a
+					LEFT JOIN cita c ON c.cit_id = a.age_cit_id
+					WHERE a.age_tipo_evento=1 and a.age_cli_id =:locationId and c.cit_pac_id =:patientId and ( a.age_activo = 0 OR a.age_estado = 'a')"; //a= anulada
+			
+			$statement = $em->getConnection()->prepare($RAW_QUERY);
+			$statement->bindValue("locationId", $iLocationId);
+			$statement->bindValue("patientId", $patientId);
+			$statement->execute();
+			$historical  = $statement->fetchAll();
+			
+			$arr['cancelated'] = $historical[0]['total'];
+			
+			
+			//================================================
+			//Already processed
+			//================================================
+			$RAW_QUERY = "SELECT count(*) as total
+					FROM agenda a
+					LEFT JOIN cita c ON c.cit_id = a.age_cit_id
+					WHERE a.age_tipo_evento=1 and a.age_cli_id =:locationId and c.cit_pac_id =:patientId and a.age_activo = 1 and a.age_estado = 't'"; //Finalizada
+			
+			$statement = $em->getConnection()->prepare($RAW_QUERY);
+			$statement->bindValue("locationId", $iLocationId);
+			$statement->bindValue("patientId", $patientId);
+			$statement->execute();
+			$historical  = $statement->fetchAll();
+			
+			$arr['processed'] = $historical[0]['total'];
+			
+			
+			//================================================
+			//Pending
+			//================================================
+			$RAW_QUERY = "SELECT count(*) as total
+					FROM agenda a
+					LEFT JOIN cita c ON c.cit_id = a.age_cit_id
+					WHERE a.age_tipo_evento=1 and a.age_cli_id =:locationId and c.cit_pac_id =:patientId and a.age_activo = 1 and a.age_estado = 'P'"; //Pendiente
+			
+			$statement = $em->getConnection()->prepare($RAW_QUERY);
+			$statement->bindValue("locationId", $iLocationId);
+			$statement->bindValue("patientId", $patientId);
+			$statement->execute();
+			$historical  = $statement->fetchAll();
+			
+			$arr['pending'] = $historical[0]['total'];
+			
+		}
+		return $arr;
 		
 	}
 	

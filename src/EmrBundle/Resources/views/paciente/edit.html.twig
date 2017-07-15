@@ -326,6 +326,13 @@
         <li>
             <a href="{{ path('paciente_new') }}" class="btn btn-primary btn-sm"><i class="fa fa-plus-circle"></i> Nuevo</a>
         </li>
+        <li>
+            {% if "6" in roles|keys %}
+                <a href="{{ path('agenda_new', {'d':app.user.usuId , 'p': id }) }}" class="btn btn-info btn-sm"><i class="fa fa-calendar"></i> Agregar Cita</a>
+            {% else %}
+                <a href="{{ path('agenda_new', {'d':app.user.usuId , 'p': id }) }}" class="btn btn-info btn-sm"><i class="fa fa-calendar"></i> Agregar Cita</a>
+            {% endif %}
+        </li>
         {#
         <li>
             {{ form_start(delete_form) }}

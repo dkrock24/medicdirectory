@@ -1,21 +1,32 @@
-<div id="mod-holder" class="col-lg-9 col-md-8 col-sm-8 col-xs-12"> <!--  -->
-        <ul class="nav nav-tabs" role="tablist"> <!-- class="nav nav-tabs nav-justified p-5" -->
-            {% for seccion, form in form_modulo %}
-                <li role="presentation" class="{% if loop.index == 1 %}active{% endif %}">
-                    <a href="#{{ seccion|replace( {' ' : ''} ) }}" role="tab" id="{{ seccion|replace({' ':''}) }}-tab" data-toggle="tab" aria-controls="{{ seccion|replace({' ':''}) }}" >
-                        {{ seccion }}
-                    </a>
-                </li>
-            {% endfor %}
-        </ul>
 
-        <div class="tab-content">
-        {% for seccion, form in form_modulo %}
-            <div role="tabpanel" class="tab-pane {% if loop.index == 1 %} active {% endif %}" id="{{ seccion|replace({' ':''}) }}">
-                {{ form_start( form, { 'attr': { 'class': 'mod-form' } } ) }}
-                    {{ form_widget( form ) }}
-                {{ form_end( form ) }}
+
+{#<div class="panel panel-flat border-left-lg border-left-info">#}
+<div class="">
+<div class="panel-bodyX">
+    
+        <div id="mod-holder" class=""> <!--  -->
+            <div class='alert alert-info alert-styled-left alert-arrow-left alert-component'> Módulo activo: <span id='moduleActivated'></span></div>
+            <ul class="nav nav-tabs nav-tabs-highlight " role="tablist"> <!-- class="nav nav-tabs nav-justified p-5" -->
+                {% for seccion, form in form_modulo %}
+                    <li role="presentation" class="{% if loop.index == 1 %}active{% endif %}">
+                        <a href="#{{ seccion|replace( {' ' : ''} ) }}" role="tab" id="{{ seccion|replace({' ':''}) }}-tab" data-toggle="tab" aria-controls="{{ seccion|replace({' ':''}) }}" >
+                            {{ seccion }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <div class="tab-content">
+                {% for seccion, form in form_modulo %}
+                    <div role="tabpanel" class="tab-pane {% if loop.index == 1 %} active {% endif %}" id="{{ seccion|replace({' ':''}) }}">
+                        {{ form_start( form, { 'attr': { 'class': 'mod-form' } } ) }}
+                        {{ form_widget( form ) }}
+                        {{ form_end( form ) }}
+                    </div>
+                {% endfor %}
             </div>
-        {% endfor %}
         </div>
-</div>    
+    </div>
+</div>
+      
+ 
