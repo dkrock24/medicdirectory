@@ -80,9 +80,10 @@
                             </div>
                         </div>
                         <div class="panel-body" style="padding-bottom: 10px;">
-                            <p>Consultas Canceladas: 0</p>
-                            <p>Consultas Procesadas: 5</p>
-                            <p>Consultas Pendientes: 0</p>
+                            
+                            <p>Consultas recibidas: <span class="badge badge-flat border-grey text-grey-600"> {{ historialDetail.processed }}</span></p>
+                            <p>Consultas Pendientes: <span class="badge badge-flat border-grey text-grey-600"> {{ historialDetail.pending }}</span></p>
+                            <p>Consultas Canceladas: <span class="badge badge-flat border-grey text-grey-600"> {{ historialDetail.cancelated }}</span></p>
                         </div>
                     </div>
                 </div>
@@ -321,6 +322,17 @@
                 $("#newApponintment").modal({backdrop: 'static', keyboard: false});
             });
             
+            if( $("#modulesList .mod-tab").size() > 0 )
+            {
+                $("#modulesList .mod-tab").each(function(){
+                    var info = $(this).text();;
+                    $("#moduleActivated").html("<strong><span class'bg-success text-highlight'>"+info+"</span></strong>");
+                    return false;
+                });
+            } 
+            
+            
+            
             if( $("#datepickerSimple").size() == 1 )
             {
                 
@@ -346,22 +358,6 @@
                 $( "#datepickerSimple" ).datepicker({
                     onSelect: function (dateText, inst) {
                         
-                        {#
-                        {% if roles.3 is defined %}
-                          var userId =  $("#doctorsList").val();
-                          //alert(userId);
-                          if(userId == "")
-                          {
-                                $.alert({
-                                    icon: 'fa fa-remove',
-                                    title: 'Error!',
-                                    content: 'Debe de seleccionar un doctor para ver agenda',
-                                    type: 'red',
-                                });
-                                return false;
-                          }
-                        {% endif %}
-                        #}
                         var date = dateText;
                         getAppointments(date);
                         
@@ -588,7 +584,7 @@
                 sUrl = sUrl.replace( "pacid", {{ patient[0].pacId }} );
                 sUrl = sUrl.replace( "cliid", {{ cli_id }} );
                 sUrl = sUrl.replace( "citid", {{ cit_id }} );
-                
+                var info = $(this).text();
                 //$("#mod-holder").load( sUrl );
                 $("#holder_loading").show();
                 $.ajax({
@@ -599,6 +595,8 @@
                         $("#holder_loading").hide();
                         var moduleActive = ""//"<div class='alert alert-info alert-styled-left alert-arrow-left alert-component'> Módulo activo: <span id='moduleActivated'></span></div>";
                         $("#mod-holder").html(moduleActive+""+data);
+                        
+                        $("body").find("#moduleActivated").html("<strong><span class'bg-success text-highlight'>"+info+"</span></strong>");
                     },
                     error: function (data) {
                         $.alert({
@@ -615,6 +613,7 @@
             });
             
             function guardarEavForm( input, tries = 0 ){
+  
                 if( tries < 3 ){
                     var sUrl = "{{ url( 'eav_guardar_valor_form', { 'val_usu_id': 'usuid', 'val_pac_id': 'pacid', 'val_cli_id': 'cliid', 'val_cit_id': 'citid', 'val_camp_id': 'campid', 'value': 'val', } ) }}";
                     sUrl = sUrl.replace( "usuid", {{ usu_id }} );
