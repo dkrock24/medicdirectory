@@ -365,8 +365,11 @@
                                 
                                 <div class="list-group-divider"></div>
                                 <div>
-                                    <a href="{{ path('agenda_new', {'p':paciente.pacId}) }}" class="btn btn-info btn-sm"><i class="fa fa-calendar"></i> Nueva cita</a>
-                                    
+                                    {% if "6" in roles|keys %}
+                                        <a href="{{ path('agenda_new', {'d':app.user.usuId,'p':paciente.pacId}) }}" class="btn btn-info btn-sm"><i class="fa fa-calendar"></i> Nueva cita</a>
+                                    {% else %}
+                                        <a href="{{ path('agenda_new', {'p':paciente.pacId}) }}" class="btn btn-info btn-sm"><i class="fa fa-calendar"></i> Nueva cita</a>
+                                    {% endif %}    
                                 </div>
                             </div>
                             <div role="tabpanel" class="tab-pane" id="doctors">
@@ -411,11 +414,13 @@
         <li>
             <a href="{{ path('paciente_edit', { 'id': paciente.pacId }) }}" class="btn bg-teal-400 btn-sm"><i class="fa fa-edit"></i> Editar</a>
         </li>
+        {#
         <li>
             {{ form_start(delete_form) }}
-                <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-remove"></i> Eliminar</button>
+                <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-remove"></i> Eliminar</button> 
             {{ form_end(delete_form) }}
         </li>
+        #}
     </ul>        
 {% endblock %}
 
@@ -581,12 +586,20 @@
                                             var routeShow = "{{ path('paciente_show', { 'id': "PLACEHOLDER" }) }}";
                                             routeShow = routeShow.replace("PLACEHOLDER", data[i]['pac_id']);
                                             
+                                            {% if "6" in roles|keys %}
+                                                var routeAgenda = "{{ path('agenda_new', {'d':app.user.usuId , 'p': "PLACEHOLDER" }) }}";
+                                            {% else %}
+                                                var routeAgenda = "{{ path('agenda_new', { 'p': "PLACEHOLDER" }) }}";
+                                            {% endif %}
+                                            routeAgenda = routeAgenda.replace("PLACEHOLDER", data[i]['pac_id']);
+                                            
                                             var btn_group = "<div class='btn-group' role='group'>";
                                                 btn_group += "<button type='button' class='label bg-danger-400 dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>";
                                                 btn_group += "Acción";
                                                 btn_group += "<span class='caret'></span>";
                                                 btn_group += "</button>";
                                                 btn_group += "<ul class='dropdown-menu dropdown-menu-right'>";
+                                                btn_group += "<li><a href='"+routeAgenda+"'><i class='fa fa-calendar'></i> Crear cita</a></li>";
                                                 btn_group += "<li><a href='"+routeShow+"'><i class='fa fa-folder-open'></i> Ver</a></li>";
                                                 btn_group += "<li><a href='"+routeEdit+"'><i class='fa fa-edit'></i> Editar</a></li>";
                                                 btn_group += "</ul>";

@@ -169,6 +169,7 @@ class PerfilController extends Controller
 		$email = $request->get('email');
 		$password = $request->get('password');
 		$title = $request->get("title");
+		$jvpm = $request->get("jvpm");
 		$birth_date = $request->get('birth_date');
 		$schedule = $request->get("schedule");
 		$social_network = $request->get('social_network');
@@ -258,6 +259,12 @@ class PerfilController extends Controller
 						$title = null;
 					}
 					$oClientUser[0]->setCliUsuTitulo($title);
+					
+					if( isset($jvpm) )
+					{
+						$oClientUser[0]->setCliUsuJvpm($jvpm);
+					}	
+					
 					
 					
 						
