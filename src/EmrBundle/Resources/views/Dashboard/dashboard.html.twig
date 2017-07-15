@@ -51,7 +51,7 @@
                 <div class="panel panel-flat">
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-lg-3 col-md-4 col-sm-4 col-xs-6">
+                            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-6">
 
                                 {% if  profilephoto != "" %}
                                     <div style="text-align:center;"><img src="{{ image('uploads/perfil/'~profilephoto).cropResize(200,200) }}" class="img-thumbnailx" style="max-width:100% "></div>
@@ -78,14 +78,14 @@
                                 <hr>
                                 <h4><i class="icon-bubbles4"></i> Mensajes sin Leer <span class="badge bg-warning-400 unread">{{ unReadMessage }}</span> </h4>
                             </div>
-                            <div class="col-lg-9 col-md-8 col-sm-8 col-xs-6">
+                            <div class="col-lg-10 col-md-8 col-sm-8 col-xs-6">
                                 <!-- Quick stats boxes -->
                                 
                                 <!-- /quick stats boxes -->
                                 
                                 
                                 <div class="row">
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-7">
                                         {% if doctorsList|length > 0 and roles.3 is defined %}
                                                 <label>Lista de doctores disponibles</label>
                                                 <select id="doctorsList" class="select form-control">
@@ -99,7 +99,7 @@
                                                 </select>
                                                 <hr>
                                             {% endif %}
-                                        <div class="table-responsivex" id="result_appointment">
+                                        <div class="table-responsive" id="result_appointment">
                                                 
                                             {% if appointments|length > 0 %}
                                                 <table class="table text-nowrap" id="table_result_appointment">
@@ -216,7 +216,7 @@
                                         </div>
                                         <div class="text-left"><a href="{{ path('agenda_new') }}?d={{ userInfo.usuId}}" class="btn bg-teal-400 btn-sm"><i class="fa fa-calendar"></i> Ver agenda completa</a><hr></div>
                                     </div>
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-5">
                                         <div id="datepickerSimple"></div>
                                         <hr>
                                         <div class="row">
@@ -554,7 +554,7 @@
                                 var th = "";
                                 var labelUpdate = "labelDate";
                             }
-                            var table = "<table class='table text-nowrap' id='"+tableID+"'><thead><tr><th>Tipo de agenda (<span id='"+labelUpdate+"'></span>)</th><th>Hora Inicio</th><th>Estatus</th>"+th+"<th>Hora Fin</th></tr></thead><tbody>";
+                            var table = "<div class='table-responsive'><table class='table text-nowrap' id='"+tableID+"'><thead><tr><th>Tipo de agenda (<span id='"+labelUpdate+"'></span>)</th><th>Hora Inicio</th><th>Estatus</th>"+th+"<th>Hora Fin</th></tr></thead><tbody>";
                             for(i=0; i < data.length; i++)
                             {    
                                 //var routeEdit = "{{ path('paciente_edit', { 'id': "PLACEHOLDER" }) }}";
@@ -668,7 +668,7 @@
                                 var stringDate = data[i]['end'];
                                 var stringDate = stringDate.split(" ");
                                 var hourType = moment(stringDate[1], ["HH:mm:ss"]).format("hh:mm:ss A");
-                                table += "<td><span class='text-muted text-size-small'>"+hourType+"</span></td>";;
+                                table += "<td><span class='text-muted text-size-small'>"+hourType+"</span></td>";
                                 
                                 var status = "";
                                 status += "<span class='text-muted text-size-small'>";
@@ -705,7 +705,7 @@
                                 
                                 table += "</tr>";
                             }
-                            table += "</body></table>";
+                            table += "</body></table></div>";
                         }
                         else
                         {

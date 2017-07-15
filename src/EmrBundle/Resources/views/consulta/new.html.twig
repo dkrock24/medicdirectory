@@ -437,7 +437,7 @@
                         $("#holder_loading").hide();
                         if( data.length > 0)
                         {
-                            var table = "<table class='table text-nowrap' id='table_result_appointment'><thead><tr><th>Tipo de agenda <span id='labelDate'></span></th><th>Hora</th><th>Estatus</th></tr></thead><tbody>";
+                            var table = "<div class='table-responsive'><table class='table text-nowrap' id='table_result_appointment'><thead><tr><th>Tipo de agenda <span id='labelDate'></span></th><th>Hora Inicio</th><th>Hora Fin</th><th>Estatus</th></tr></thead><tbody>";
                             for(i=0; i < data.length; i++)
                             {    
                                 //var routeEdit = "{{ path('paciente_edit', { 'id': "PLACEHOLDER" }) }}";
@@ -533,6 +533,12 @@
                                 //alert(f);
                                 table += "<td><span class='text-muted text-size-small'>"+hourType+"</span></td>";
                                 
+                                
+                                var stringDate = data[i]['end'];
+                                var stringDate = stringDate.split(" ");
+                                var hourType = moment(stringDate[1], ["HH:mm:ss"]).format("hh:mm:ss A");
+                                table += "<td><span class='text-muted text-size-small'>"+hourType+"</span></td>";;
+                                
                                 var status = "";
                                 status += "<h6 class='text-semibold no-margin'>";
                                 if( data[i]['tipo_evento'] == 1 )
@@ -563,7 +569,7 @@
 
                                 table += "</tr>";
                             }
-                            table += "</body></table>";
+                            table += "</body></table></div>";
                             
                         }
                         else
