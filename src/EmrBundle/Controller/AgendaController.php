@@ -390,7 +390,7 @@ class AgendaController extends Controller
 					$data['appointment'] = 1;
 					
 				}else{
-					echo "xxxxxxxxx";
+					//echo "xxxxxxxxx";
 					$data['fullname'] = "";
 					$data['email'] = "";
 					$data['dui'] = "";

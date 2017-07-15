@@ -1,0 +1,134 @@
+<!-- Modal -->
+<style>
+    .form-group label {
+    float: left;
+    text-align: left;
+    font-weight: normal;
+}
+
+.form-group select {
+    display: inline-block;
+    width: auto;
+    vertical-align: middle;
+}
+</style>
+<div class="modal fade " id="newApponintment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Nueva Cita</h4>
+      </div>
+      <div class="modal-body">
+          <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">
+              Seleccione la fecha y hora para la nueva cita médica
+          </div>
+          <div class="row">
+              <div class="col-lg-4 col-md-4">
+                  <div id="datepickerSimple"></div>
+              </div>
+              <div class="col-lg-8 col-md-8">
+                  <div class="rowx">
+                    
+                    <div class="form-inline">
+                            <div class="form-group">
+                                <label> <i class="fa fa-clock-o"></i> Hora de Inicio
+                                    <select class="form-control" id="hoursStart">
+                                        <option value="00">1:00 AM</option>
+                                        <option value="01">1:00 AM</option>
+                                        <option value="02">2:00 AM</option>
+                                        <option value="03">3:00 AM</option>
+                                        <option value="04">4:00 AM</option>
+                                        <option value="05">5:00 AM</option>
+                                        <option value="06">6:00 AM</option>
+                                        <option value="07">7:00 AM</option>
+                                        <option value="08">8:00 AM</option>
+                                        <option value="09">9:00 AM</option>
+                                        <option value="10">10:00 AM</option>
+                                        <option value="11">11:00 AM</option>
+                                        <option value="12">12:00 PM</option>
+                                        <option value="13">01:00 PM</option>
+                                        <option value="14">02:00 PM</option>
+                                        <option value="15">03:00 PM</option>
+                                        <option value="16">04:00 PM</option>
+                                        <option value="17">05:00 PM</option>
+                                        <option value="18">06:00 PM</option>
+                                        <option value="19">07:00 PM</option>
+                                        <option value="20">08:00 PM</option>
+                                        <option value="21">09:00 PM</option>
+                                        <option value="22">10:00 PM</option>
+                                        <option value="23">11:00 PM</option>
+                                    </select>
+                                </label>
+                            </div>
+
+                            <div class="form-group" style="margin-left: 0px;">
+                                <label> 
+                                    <select class="form-control" id="minutesStart">
+                                      <option value="00">00</option>
+                                      <option value="00">30</option>
+                                    </select>
+                                </label>
+                            </div> 
+                            <div class="form-group">
+                                  <label> <i class="fa fa-clock-o"></i> Hora Fin
+                                      <select class="form-control" id="hoursEnd">
+                                          <option value="00">1:00 AM</option>
+                                          <option value="01">1:00 AM</option>
+                                          <option value="02">2:00 AM</option>
+                                          <option value="03">3:00 AM</option>
+                                          <option value="04">4:00 AM</option>
+                                          <option value="05">5:00 AM</option>
+                                          <option value="06">6:00 AM</option>
+                                          <option value="07">7:00 AM</option>
+                                          <option value="08">8:00 AM</option>
+                                          <option value="09">9:00 AM</option>
+                                          <option value="10">10:00 AM</option>
+                                          <option value="11">11:00 AM</option>
+                                          <option value="12">12:00 PM</option>
+                                          <option value="13">01:00 PM</option>
+                                          <option value="14">02:00 PM</option>
+                                          <option value="15">03:00 PM</option>
+                                          <option value="16">04:00 PM</option>
+                                          <option value="17">05:00 PM</option>
+                                          <option value="18">06:00 PM</option>
+                                          <option value="19">07:00 PM</option>
+                                          <option value="20">08:00 PM</option>
+                                          <option value="21">09:00 PM</option>
+                                          <option value="22">10:00 PM</option>
+                                          <option value="23">11:00 PM</option>
+                                      </select>
+                                  </label>
+                              </div>
+                              <div class="form-group" style="margin-left: 0px;">
+                                  <label> 
+                                      <select class="form-control" id="minutesEnd">
+                                        <option value="00">00</option>
+                                        <option value="00">30</option>
+                                      </select>
+                                  </label>
+                              </div>
+                    </div>
+                    <br>
+                    
+                  </div>
+                  <br>
+                  <div class="col-lg-5x">
+                    <div id="result_appointment">
+                      No se ha validado aún la disponibilidad
+                    </div>
+                </div>
+                  {# <div><button class="btn btn-success">Validar disponibilidad</button></div> #}
+                  <input type="hidden" id="dateSelected" value="">
+                  <input type="hidden" id="is_available" value="0">
+              </div>
+              
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-success"><i class="fa fa-calendar" aria-hidden="true"></i> Crear Cita</button>
+      </div>
+    </div>
+  </div>
+</div>

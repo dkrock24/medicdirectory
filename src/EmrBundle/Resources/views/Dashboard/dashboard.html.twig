@@ -109,7 +109,7 @@
                                                                 {% if roles.3 is defined %}
                                                                     Agenda (Doctor)
                                                                 {% else %}
-                                                                    Mi agenda de Hoy
+                                                                    Mi agenda
                                                                 {% endif %}    
                                                             </th>
                                                             <th>Hora</th>
@@ -466,7 +466,7 @@
                         $("#holder_loading").hide();
                         if( data.length > 0)
                         {
-                            var table = "<table class='table text-nowrap' id='table_result_appointment'><thead><tr><th>Mi Agenda de hoy</th><th>Hora</th><th>Estatus</th></tr></thead><tbody>";
+                            var table = "<table class='table text-nowrap' id='table_result_appointment'><thead><tr><th>Mi Agenda</th><th>Hora</th><th>Estatus</th></tr></thead><tbody>";
                             for(i=0; i < data.length; i++)
                             {    
                                 //var routeEdit = "{{ path('paciente_edit', { 'id': "PLACEHOLDER" }) }}";
