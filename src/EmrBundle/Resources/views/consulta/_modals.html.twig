@@ -34,7 +34,7 @@
                             <div class="form-group">
                                 <label> <i class="fa fa-clock-o"></i> Hora de Inicio
                                     <select class="form-control" id="hoursStart">
-                                        <option value="00">1:00 AM</option>
+                                        <option value="00">12:00 AM</option>
                                         <option value="01">1:00 AM</option>
                                         <option value="02">2:00 AM</option>
                                         <option value="03">3:00 AM</option>
@@ -66,14 +66,14 @@
                                 <label> 
                                     <select class="form-control" id="minutesStart">
                                       <option value="00">00</option>
-                                      <option value="00">30</option>
+                                      <option value="30">30</option>
                                     </select>
                                 </label>
                             </div> 
                             <div class="form-group">
                                   <label> <i class="fa fa-clock-o"></i> Hora Fin
                                       <select class="form-control" id="hoursEnd">
-                                          <option value="00">1:00 AM</option>
+                                          <option value="00">12:00 AM</option>
                                           <option value="01">1:00 AM</option>
                                           <option value="02">2:00 AM</option>
                                           <option value="03">3:00 AM</option>
@@ -104,7 +104,7 @@
                                   <label> 
                                       <select class="form-control" id="minutesEnd">
                                         <option value="00">00</option>
-                                        <option value="00">30</option>
+                                        <option value="30">30</option>
                                       </select>
                                   </label>
                               </div>
@@ -112,8 +112,21 @@
                     <br>
                     
                   </div>
-                  <br>
-                  <div class="col-lg-5x">
+                 
+                  <div class="row">
+                      <div class="col-lg-9">
+                            <label>Nota:</label>
+                            <input type="text" id="title" value="" placeholder="Nota" class="form-control" autocomplete="off">
+                      </div>
+                      <div class="col-lg-3">
+                            <label># Consultorio:</label>
+                            <input type="text" id="room" value="" placeholder="# Consultorio" class="form-control" autocomplete="off">
+                      </div>
+                        
+                      
+                  </div>    
+                  <div class="">
+                     <br>  
                     <div id="result_appointment">
                       No se ha validado aún la disponibilidad
                     </div>
@@ -127,7 +140,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-success"><i class="fa fa-calendar" aria-hidden="true"></i> Crear Cita</button>
+        <button type="button" class="btn btn-success" id="btn-create-appointment"><i class="fa fa-calendar" aria-hidden="true"></i> Crear Cita</button>
       </div>
     </div>
   </div>

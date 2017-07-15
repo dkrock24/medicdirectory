@@ -56,7 +56,7 @@
                 <a href="#" class="btn btn-link btn-float has-text"><i class="icon-calculator text-primary"></i> <span>Siguiente Consulta</span></a>
                 #}
                 
-                <a href="{{ path('agenda_new') }}?d={{ app.user.usuId }}" class="btn btn-link btn-float has-text"><i class="icon-calendar5 text-primary"></i> <span>Mi Agenda</span></a>
+                <a href="{{ path('agenda_new') }}?d={{ app.user.usuId }}" class="btn btn-link btn-float has-text"><i class="icon-calendar5 text-primary"></i> <span>Tipo de agenda</span></a>
 
             </div>
         </div>
@@ -82,7 +82,7 @@
                         <div class="panel-body" style="padding-bottom: 10px;">
                             
                             <p>Consultas recibidas: <span class="badge badge-flat border-grey text-grey-600"> {{ historialDetail.processed }}</span></p>
-                            <p>Consultas Pendientes: <span class="badge badge-flat border-grey text-grey-600"> {{ historialDetail.pending }}</span></p>
+                            <p>Consultas Pendientes: <span class="badge badge-flat border-grey text-grey-600" id="pendingAppointment"> {{ historialDetail.pending }}</span></p>
                             <p>Consultas Canceladas: <span class="badge badge-flat border-grey text-grey-600"> {{ historialDetail.cancelated }}</span></p>
                         </div>
                     </div>
@@ -230,19 +230,21 @@
                         </div>
                         <div class="panel-body text-center">
                             <div class="timer-time timer-container">
-                                <h6>Tiempo de la consulta: 30 Min</h6>
+                                <h6>Tiempo programado = Horas: {{ hours }}, Minutos: {{ minutes }} </h6>
                                 <span id="stopwatch">00:00:00</span>
                                 <p>
                                     <input class='btn btn-primary' type='button' value='Iniciar/Pausar' onclick='Example1.Timer.toggle();' />
                                     <input class='btn btn-primary' type='button' value='Finalizar Consulta' onclick='Example1.resetStopwatch();' />
                                 </p>
-                                <hr>
-                                <div class="btn-group">
+                                
+                                
+                            </div>
+                            <hr>    
+                            <div class="btn-group">
                                     {#<button class="btn btn-success" data-toggle="modal" data-target="#newApponintment" data-backdrop="static" data-keyboard="false" style="margin-bottom: 10px;"><i class="fa fa-calendar" aria-hidden="true" ></i> Agendar nueva consulta</button>#}
                                     <button class="btn btn-success" id="btn_appointment" style="margin-bottom: 10px;"><i class="fa fa-calendar" aria-hidden="true" ></i> Agendar nueva consulta</button>
                                     <button class="btn btn-success" style="margin-bottom: 10px;"><i class="fa fa-address-card-o" aria-hidden="true"></i> Histórico de conultas</button>
-                                </div>
-                            </div>
+                             </div>    
                         </div>
                     </div>
                     
@@ -302,6 +304,7 @@
         </div>
     </div>
                                 
+                                
     {{ include('EmrBundle:consulta:_modals.html.twig' )  }}                           
 {% endblock %}
 
@@ -315,13 +318,11 @@
             //$(".datepicker").datepicker();
             
             //ui-datepicker-current-day
-            $("#btn_appointment").on("click",function(){
-                $("body").find(".ui-datepicker-current-day").removeClass("ui-datepicker-current-day");
-                var date = "{{ "now"|date("Y-m-d") }}";
-                getAppointments(date);
-                $("#newApponintment").modal({backdrop: 'static', keyboard: false});
-            });
-            
+            /*
+            $("#room").on("change  paste", function(){
+                console.log("cambio");
+            })
+            */
             if( $("#modulesList .mod-tab").size() > 0 )
             {
                 $("#modulesList .mod-tab").each(function(){
@@ -332,6 +333,9 @@
             } 
             
             
+            $("#btn-create-appointment").on("click",function(){
+                doAppointment();
+            });
             
             if( $("#datepickerSimple").size() == 1 )
             {
@@ -355,15 +359,31 @@
                    yearSuffix: ''
                 };
                 $.datepicker.setDefaults($.datepicker.regional['es']);               
-                $( "#datepickerSimple" ).datepicker({
+                var calendar = $( "#datepickerSimple" ).datepicker({
                     onSelect: function (dateText, inst) {
                         
                         var date = dateText;
+                        $("#dateSelected").val(date);
                         getAppointments(date);
                         
                      }
                 });
             }
+            
+            $("#btn_appointment").on("click",function(){
+                var dateSelected = $("#dateSelected").val();
+                if( dateSelected == "" )
+                {
+                    var date = "{{ "now"|date("Y-m-d") }}";
+                }
+                else
+                {
+                    var date = dateSelected;
+                }
+                $("#dateSelected").val(date);
+                getAppointments(date);
+                $("#newApponintment").modal({backdrop: 'static', keyboard: false});
+            });
             
             function capitalize(string){
                 //return string.charAt(0).toUpperCase() + string.slice(1);
@@ -417,7 +437,7 @@
                         $("#holder_loading").hide();
                         if( data.length > 0)
                         {
-                            var table = "<table class='table text-nowrap' id='table_result_appointment'><thead><tr><th>Mi Agenda</th><th>Hora</th><th>Estatus</th></tr></thead><tbody>";
+                            var table = "<table class='table text-nowrap' id='table_result_appointment'><thead><tr><th>Tipo de agenda <span id='labelDate'></span></th><th>Hora</th><th>Estatus</th></tr></thead><tbody>";
                             for(i=0; i < data.length; i++)
                             {    
                                 //var routeEdit = "{{ path('paciente_edit', { 'id': "PLACEHOLDER" }) }}";
@@ -507,7 +527,11 @@
                                             
                                 table += "<tr>";
                                 table += "<td>"+btn_group+"</td>";
-                                table += "<td><span class='text-muted text-size-small'>"+data[i]['start']+"</span></td>";
+                                var stringDate = data[i]['start'];
+                                var stringDate = stringDate.split(" ");
+                                var hourType = moment(stringDate[1], ["HH:mm:ss"]).format("hh:mm:ss A");
+                                //alert(f);
+                                table += "<td><span class='text-muted text-size-small'>"+hourType+"</span></td>";
                                 
                                 var status = "";
                                 status += "<h6 class='text-semibold no-margin'>";
@@ -540,6 +564,7 @@
                                 table += "</tr>";
                             }
                             table += "</body></table>";
+                            
                         }
                         else
                         {
@@ -547,6 +572,7 @@
                             table = "<div class='alert alert-danger alert-styled-left alert-arrow-left alert-component'>"+doc+"  </div>";
                         }
                         $("#result_appointment").html(table);
+                        $("#labelDate").html("("+date+")");
                         if( $("body").find("#table_result_appointment").size() == 1 )
                         {
                             $("body").find("#table_result_appointment").DataTable({
@@ -564,7 +590,7 @@
                                         sPrevious: "Anterior"
                                     },
                                 },
-                                "order": [[ 1, "asc" ]]
+                                "order": [[ 1, "desc" ]]
                             });
                             
                             $('[data-toggle="tooltip"]').tooltip();
@@ -574,7 +600,92 @@
                 });
             }
             
-            
+            function doAppointment()
+            { // add event
+
+                //$("#createEventModal").modal("hide");
+                var title = $("#title").val();
+                
+                var hoursStart = $("#hoursStart").val();
+                var minutesStart = $("#minutesStart").val();
+                
+                var hoursEnd = $("#hoursEnd").val();
+                var minutesEnd = $("#minutesEnd").val();
+                var dateSelected = $("#dateSelected").val();
+                
+                
+                
+                //2017-07-16T13:30:00
+                var startTime = dateSelected+"T"+hoursStart+":"+minutesStart+":00";  //$("#startTime").val();
+                var endTime = dateSelected+"T"+hoursEnd+":"+minutesEnd+":00"; //$("#endTime").val();
+                var doctorId = {{ app.user.usuId }};//$("#doctorId").val();
+                var setUserAppointmentId = {{ patient[0].pacId }};
+                var room = $("#room").val();
+                var eventType = 1;// 1 = Cita medica
+                //alert(startTime+" - "+endTime);
+                
+                //================================
+                //Validate the date 
+                //================================
+                var fecha1 = moment( dateSelected+" "+hoursStart+":"+minutesStart+":00", "YYYY-MM-DD HH:mm:ss" );
+                var fecha2 = moment( dateSelected+" "+hoursEnd+":"+minutesEnd+":00", "YYYY-MM-DD HH:mm:ss" );
+                //var fecha1 = moment("2016-09-30 07:30:00", "YYYY-MM-DD HH:mm:ss");
+                //var fecha2 = moment("2016-10-03 07:30:00", "YYYY-MM-DD HH:mm:ss");
+                var diff = fecha2.diff(fecha1, 'm'); // Diff in minutes
+                
+                if( diff <= 0 )
+                {
+                    $.alert({
+                            icon: 'fa fa-clock-o',
+                            title: 'Error!',
+                            content: "<p class=''>La hora fin debe ser mayor a la hora de inicio</p>",
+                            type: 'red',
+                            typeAnimated: true,
+                        });
+                        return false;
+                }
+                //console.log(fecha1+ " | "+ fecha2);
+                //console.log(diff);
+                //return false;
+                
+                $("#holder_loading").show();
+                $.ajax({
+
+                    url: "{{ path('agenda_valida') }}",
+                    data: "action=add&title="+title+"&start="+startTime+"&end="+endTime+"&doctor="+doctorId+"&patient="+setUserAppointmentId+"&room="+room+"&eventType="+eventType,
+                    type: "POST",
+                    success: function(json) {
+                        //alert(json.id);
+                        $("#holder_loading").hide();
+                        $('#newApponintment').modal('hide');
+                        var pending = $("#pendingAppointment");
+                        var current = pending.text();
+                        var totalPending = parseInt(current)+1;
+                        pending.html(totalPending);
+                        //$("#pendingAppointment").html();
+                        $("#title,#room").val("");
+                        $.alert({
+                            icon: 'fa fa-calendar',
+                            title: 'Ok!',
+                            content: "<p class=''>Cita creada con éxito</p>",
+                            type: 'green',
+                            typeAnimated: true,
+                        });
+
+                    },
+                    error: function(json){
+                       // alert(json.id);
+                       $("#holder_loading").hide(); 
+                       $.alert({
+                            icon: 'fa fa-clock-o',
+                            title: 'Error!',
+                            content: "<p class=''>Ha ocurrido un error inesperado al intentar crear la cita</p>",
+                            type: 'red',
+                            typeAnimated: true,
+                        });
+                    }
+                });
+            }
             
             $(".mod-tab").click(function(){
                 var sTarget = $(this).attr('target');
@@ -612,8 +723,8 @@
                 });
             });
             
-            function guardarEavForm( input, tries = 0 ){
-  
+            function guardarEavForm( input, tries = 0, currentInfo ){
+                console.log(currentInfo);
                 if( tries < 3 ){
                     var sUrl = "{{ url( 'eav_guardar_valor_form', { 'val_usu_id': 'usuid', 'val_pac_id': 'pacid', 'val_cli_id': 'cliid', 'val_cit_id': 'citid', 'val_camp_id': 'campid', 'value': 'val', } ) }}";
                     sUrl = sUrl.replace( "usuid", {{ usu_id }} );
@@ -664,14 +775,15 @@
             }
             
             $('form.mod-form :input').each(function(){
-                $(this).blur( function(){
-                    if( $(this).attr('data-value') != $(this).val() ){
+                $(this).on("change  paste", function(){
+                //$(this).blur( function(){
+                    //if( $(this).attr('data-value') != $(this).val() ){
                         var tries = 1;
                         var oInputLabel = $( "label[for='"+$(this).attr('id')+"']" );
                         oInputLabel.after("<i class='loading-gif'>&nbsp;&nbsp;<img src='{{ asset('bundles/admin/img/ajax-loader.gif') }}'> Guardando..</i>");  
                         $(".loading-gif").css('color', '#39AED1');
                         guardarEavForm( $(this), tries );
-                    }
+                    //}
                 });
             });
 

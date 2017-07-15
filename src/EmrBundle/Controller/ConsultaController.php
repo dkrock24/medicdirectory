@@ -5,7 +5,7 @@ namespace EmrBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
-
+use Symfony\Component\Validator\Constraints\DateTime;
 
 
 class ConsultaController extends Controller
@@ -170,12 +170,29 @@ class ConsultaController extends Controller
         
 		$historicalDetail = $this->patientHistory($iLocationId, $patientId);
 		
+		
+		//$appStart = $oAppointment->getAgeFechaInicio()->format('Y-m-d :H:i:s');
+		//$appEnd = $oAppointment->getAgeFechaFin()->format('Y-m-d :H:i:s');
+		
+		$appStart = new \DateTime( $oAppointment->getAgeFechaInicio()->format('Y-m-d H:i:s') );
+		$appEnd = new \DateTime( $oAppointment->getAgeFechaFin()->format('Y-m-d H:i:s') );
+		$fecha = $appStart->diff($appEnd);
+		//printf('%d años, %d meses, %d días, %d horas, %d minutos', $fecha->y, $fecha->m, $fecha->d, $fecha->h, $fecha->i);
+		$hours =  $fecha->h;
+		$minutes = $fecha->i;
+		//var_dump($fecha);
+		//echo ('%d años, %d meses, %d días, %d horas, %d minutos', $fecha->y, $fecha->m, $fecha->d, $fecha->h, $fecha->i);
+		
+		//echo date('Y-m-d', strtotime($oAppointment->getAgeFechaInicio()));
+		
 		return $this->render("EmrBundle:consulta:new.html.twig", array(
 			"patient"=>$oPatient,
 			"age"=>$patientAge,
             "modulos"=>$modulos,
             "historical"=>$historical, 
 			'historialDetail' => $historicalDetail,
+			"hours"=>$hours,
+			"minutes"=>$minutes,
             'usu_id' => $doctor,
             'cit_id' => $oAppointment->getAgeCit()->getCitId(),
             'cli_id' => $iLocationId
