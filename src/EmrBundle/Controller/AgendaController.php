@@ -148,6 +148,9 @@ class AgendaController extends Controller
 		//Event Type
 		$eventType = $request->get("eventType");
 		
+		//reason
+		$reason_delete = $request->get("reason");
+		
 		$locationId = $this->get('session')->get('locationId');
 		$client_repo = $em->getRepository("AppBundle:Cliente")->find($locationId);
 		
@@ -315,13 +318,22 @@ class AgendaController extends Controller
 					
 					if( empty($appointment) )
 					{
-						$em->remove($oDiary_repo);
+						//$em->remove($oDiary_repo);
+						$oDiary_repo->setAgeActivo(0);
+						$oDiary_repo->setAgeEstado("a");
+						$oDiary_repo->setAgeFechaMod(new \Datetime("now"));
 						$em->flush(); 
 					}
 					else
 					{
+						if( isset($reason_delete) && $reason_delete != "" )
+						{
+							$oDiary_repo->setAgeNotas($reason_delete);
+						}
+						
 						$oDiary_repo->setAgeActivo(0);
 						$oDiary_repo->setAgeEstado("a");
+						$oDiary_repo->setAgeFechaMod(new \Datetime("now"));
 						$em->persist( $oDiary_repo );
 						$em->flush(); 
 					}

@@ -128,6 +128,12 @@ class DashboardController extends Controller
 		$oDoctorsList = $em->getRepository('AppBundle:ClienteUsuario')->findBy( array("cliUsuRol"=>6, "cliUsuCli"=>$locationId, "cliUsuActivo"=>1) );
 		
 		
+		$aMedicalAppointmentCanceled = $this->getAppointmentStatus($locationId, $idUser, $date=false, 0, $all = false, $eventType=1);
+		
+		$aNoMedicalAppointmentCanceled = $this->getAppointmentStatus($locationId, $idUser, $date=false, 0, $all = false, $eventType=false, "t");
+		
+		$aAppointemntDone = $this->getAppointmentStatus($locationId, $idUser, $date=false, 0, $all = false, $eventType=false);
+		
         //$em = $this->getDoctrine()->getManager();
         return $this->render('EmrBundle:Dashboard:dashboard.html.twig', array(
 			"profilephoto"=>$profilephoto,
@@ -136,6 +142,9 @@ class DashboardController extends Controller
 			"messages"=>$oMessages,
 			'unReadMessage'=>$unread,
 			"appointments"=>$appointments,
+			"appointmentsMedicalCanceled"=>$aMedicalAppointmentCanceled,
+			"otherAppointmentCanceled" => $aNoMedicalAppointmentCanceled,
+			"appointmentDone" => $aAppointemntDone,
 			"doctorsList"=>$oDoctorsList
         ));
     }
@@ -165,6 +174,75 @@ class DashboardController extends Controller
 									AND a.age_cli_id = $locationId "
 				. " AND  (date(a.age_fecha_inicio) >= '" . $start . "' AND date(a.age_fecha_inicio) <= '" . $end . "') "
 				. $filter.
+				" ORDER BY (date(a.age_fecha_inicio)) ASC ";
+
+
+		$statement = $em->getConnection()->prepare($RAW_QUERY);
+		$statement->execute();
+		$appointments = $statement->fetchAll();
+		
+		return $appointments;
+	}
+	
+	
+	
+	public function getAppointmentStatus($locationId, $idUser, $date=false, $active=0, $all = false, $eventType=false, $ageStatus=false)
+	{
+		//$locationId = $this->get('session')->get('locationId');
+		//$idUser =  $this->getUser()->getUsuId();
+		$em = $this->getDoctrine()->getManager();
+		
+		$start = date("Y-m-d");
+		$end = date("Y-m-d");
+		
+		$filterDate = "";
+		if( ($date) && !empty($date) )
+		{
+			$start = $date;
+			$end = $date;
+			$filterDate =  " AND  (date(a.age_fecha_inicio) >= '" . $start . "' AND date(a.age_fecha_inicio) <= '" . $end . "') ";
+		}
+		
+		if( $eventType == 1 && isset($eventType))
+		{
+			$filterEvent = " AND a.age_tipo_evento = 1";
+		}else{
+			$filterEvent = " AND a.age_tipo_evento <> 1";
+		}	
+		
+		if( !$all )
+		{
+			$filerFields = " count(*) AS  total ";
+		}
+		else
+		{
+			$filerFields = " a.age_id as id, a.age_fecha_inicio as start, a.age_fecha_fin as end, a.age_tipo_evento as tipo_evento, p.pac_id,  p.pac_nombre, p.pac_seg_nombre, p.pac_apellido, p.pac_seg_apellido,p.pac_dui, a.age_estado ";
+		}
+		
+		if( $active == 0 )
+		{
+			$filterActivo = " a.age_activo = 0 ";
+		}else{
+			$filterActivo = " a.age_activo = 1 ";
+		}
+		
+		if( $ageStatus )
+		{
+			$filterStatus = " AND age_estado = 't' ";
+		}	
+		else{
+			$filterStatus = "";
+		}
+		$filter = " AND a.age_usu_id = " . $idUser;
+		$RAW_QUERY = "SELECT $filerFields
+									FROM agenda a
+									LEFT JOIN cita c on c.cit_id = a.age_cit_id
+									LEFT JOIN paciente p ON c.cit_pac_id = p.pac_id
+									AND c.cit_activo = 1
+									WHERE $filterActivo
+									AND a.age_cli_id = $locationId ".$filterEvent
+				. $filterDate
+				. $filter.$filterStatus.
 				" ORDER BY (date(a.age_fecha_inicio)) ASC ";
 
 

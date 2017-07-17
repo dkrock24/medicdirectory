@@ -130,7 +130,7 @@
                                       <label>Nota:</label>
                                       <input type="text" id="title" value="" placeholder="Nota" class="form-control" autocomplete="off">
                                 </div>
-                                <div class="col-lg-3">
+                                <div class="col-lg-3" id="div_room">
                                       <label># Consultorio:</label>
                                       <input type="text" id="room" value="" placeholder="# Consultorio" class="form-control" autocomplete="off">
                                 </div>
@@ -146,12 +146,15 @@
                             {# <div><button class="btn btn-success">Validar disponibilidad</button></div> #}
                             <input type="hidden" id="dateSelected" value="">
                             <input type="hidden" id="is_available" value="0">
+                            <input type="hidden" id="appointmentId" value="">
+                            <input type="hidden" id="is_appointment" value="">
                         </div>
 
                     </div>
                 </div>
                 <div role="tabpanel" class="tab-pane" id="cancelAppointment">
-                    
+                    <label>Por qué desea cancar el evento/cita?</label>
+                    <textarea class="form-control" placeholder="Ingrese el motivo" id="reason_delete"></textarea>
                 </div>
             </div>
 
@@ -162,7 +165,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-danger" id="btn-cancel-appointment" style="display:none"><i class="fa fa-calendar" aria-hidden="true"></i> Cancelar Evento</button>
+        <button type="button" class="btn btn-danger" id="btn-cancel-appointment" style="display:none"><i class="fa fa-calendar" aria-hidden="true"></i> Eliminar Evento</button>
         <button type="button" class="btn btn-success" id="btn-re-appointment"><i class="fa fa-calendar" aria-hidden="true"></i> Re-agendar</button>
       </div>
     </div>

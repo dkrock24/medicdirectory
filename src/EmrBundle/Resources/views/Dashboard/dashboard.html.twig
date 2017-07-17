@@ -21,7 +21,7 @@
 					<a href="{{ app.request.headers.get('referer') }}">
                 <i class="icon-arrow-left52 position-left"></i>
                 <span class="text-semibold">Regresar</span></a> - Dashboard
-					<small class="display-block">Buen día, {{ userInfo.usuNombre ~ userInfo.usuSegundoNombre ~ userInfo.usuTercerNombre ~ userInfo.usuPrimerApellido ~ userInfo.usuSegundoApellido }}!</small>
+					<small class="display-block">Buen día, {{ userInfo.usuNombre ~" "~ userInfo.usuSegundoNombre ~" "~ userInfo.usuTercerNombre ~" "~ userInfo.usuPrimerApellido ~" "~ userInfo.usuSegundoApellido }}!</small>
 				</h4>
 			</div>
 
@@ -76,7 +76,27 @@
 
                                 {% endif %}
                                 <hr>
-                                <h4><i class="icon-bubbles4"></i> Mensajes sin Leer <span class="badge bg-warning-400 unread">{{ unReadMessage }}</span> </h4>
+                                <ul class="list-group">
+                                    <li class="list-group-item active">
+                                      <span class="badge bg-warning-400 unread">{{ unReadMessage }}</span>
+                                      <i class="icon-bubbles4"></i> Mensajes sin Leer
+                                    </li>
+                                    {% if roles.6 is defined %}
+                                    <li class="list-group-item">
+                                      <span class="badge bg-success-400 unread" id="toOk">{{ (appointmentDone[0]['total']) }} </span>
+                                      <i class="fa fa-medkit"></i> Consulta  procesadas 
+                                    </li>    
+                                    <li class="list-group-item">
+                                      <span class="badge bg-warning-400 unread" id="maCanceled">{{ (appointmentsMedicalCanceled[0]['total']) }} </span>
+                                      <i class="fa fa-calendar-times-o"></i> Citas médicas anuladas 
+                                    </li>
+                                    <li class="list-group-item">
+                                      <span class="badge bg-warning-400 unread" id="oeCanceled">{{ (otherAppointmentCanceled[0]['total']) }}</span>
+                                      <i class="fa fa-calendar-minus-o"></i> Otros oventos anulados
+                                    </li>
+                                    {% endif %}
+                                  </ul>
+                               
                             </div>
                             <div class="col-lg-10 col-md-8 col-sm-8 col-xs-6">
                                 <!-- Quick stats boxes -->
@@ -121,7 +141,7 @@
                                                     </thead>
                                                     <tbody>
                                                         {% for appointment in appointments %}
-                                                            <tr>
+                                                            <tr id="tr_{{ appointment.id }}">
                                                                 <td>
                                                                     {#
                                                                     <div class="media-left media-middle">
@@ -398,6 +418,7 @@
                 $("#datepickerSimpleUpdate").datepicker({
                     onSelect: function (dateText, inst) {                        
                         var date = dateText;
+                        $("#dateSelected").val(date);
                         getAppointments(date,"result_update_appointment");
                      }
                 });
@@ -436,6 +457,8 @@
                 $("#btn-re-appointment").hide();
             });
             
+            var htmlTr = "";
+            var patient_id = "";
             $("body").on("click",".btnUpdateAppointment",function(){
                 {#
                 var dateSelected = $("#dateSelected").val();
@@ -457,16 +480,24 @@
                 $('#datepickerSimpleUpdate').datepicker( "setDate", date );
                 
                 var start = $.trim($(this).closest("tr").find("td").eq(1).text());
+                var start = moment(start, ["h:mm A"]).format("HH:mm");
+                var type = start.split(" ");
                 var start = start.split(":");
                 var hourStart = start[0];
                 var minutesStart = start[1];
                 
                 var end = $.trim($(this).closest("tr").find("td").eq(2).text());
+                var end = moment(end, ["h:mm A"]).format("HH:mm");
                 var end = end.split(":");
                 var hourEnd = end[0];
                 var minutesEnd = end[1];
                 
+                //htmlTr = $(this).closest("tr").html();
+                var id = $(this).attr("id").replace(/[^0-9]/gi, '');
                 //alert(hourStart+" - "+minutesStart+" | "+hourEnd+" - "+minutesEnd);
+                $("#appointmentId").val(id);
+                
+                //console.log(htmlTr);
                 
                 $("#hoursStart").val(hourStart);
                 $("#minutesStart").val(minutesStart);
@@ -539,7 +570,7 @@
                         });
                     },
                     success: function (data) {
-                        $("#holder_loading").hide();
+                        
                         if( data.length > 0)
                         {
                             if( renderToUpdate != "result_update_appointment" )
@@ -656,7 +687,7 @@
                                 btn_group += "</div>";
                                 
                                             
-                                table += "<tr>";
+                                table += "<tr id='tr_"+data[i]['id']+"'>";
                                 table += "<td>"+btn_group+"</td>";
                                 var stringDate = data[i]['start'];
                                 var stringDate = stringDate.split(" ");
@@ -752,10 +783,297 @@
                             
                             $('[data-toggle="tooltip"]').tooltip();
                         }
+                        
+                        
+                        if( renderToUpdate != "result_update_appointment" )
+                        {
+                            $("#holder_loading").hide();
+                        }
+                        else
+                        {
+                            //console.log("x");
+                            getNotes(appointmentId);
+                        }
                                     
                     }
                 });
             }
+            
+            function getNotes(appointmentId)
+            {
+                //return false;
+                appointmentId = $("#appointmentId").val();
+                $("#holder_loading").show();
+                $.ajax({
+
+                    url: "{{ path('agenda_detail') }}",
+                    //data: "id="+appointmentId ,
+                    data: { id: appointmentId},
+                    type: "POST",
+                    success: function(json) {
+                       $("#holder_loading").hide();
+                       if( json.res == 1)
+                        {
+                            var room = (json.room != null)?json.room:"";
+                            //var dui = (json.dui != null)?json.dui:"";
+                            //var email = (json.email != null)?json.email:"";
+                            var notes = (json.notes != null)?json.notes:"";
+                            if( json.appointment == 1 )
+                            {
+                                //It's appointment                                
+                                $("#div_room").show();
+                            }
+                            else
+                            {
+                                $("#div_room").hide();
+                                // It's not appointment
+                            }
+                            $("#is_appointment").val(json.appointment);
+                            $("#room").val(room);
+                            $("#title").val(notes);
+                            //$("#detailAppointment").html("<hr>"+moreDetail);
+                        }
+                        else
+                        {
+                            $.alert({
+                                 icon: 'fa fa-times',
+                                 title: 'Info!',
+                                 content: 'Ha ocurrido un error inesperado al intentar mostrar el comentario',
+                                 type: 'red',
+                                 typeAnimated: true,
+                             });
+                        }
+
+                    },
+                    error: function(json){
+                       // alert(json.id);
+                       $("#holder_loading").hide(); 
+                       $.alert({
+                            icon: 'fa fa-clock-o',
+                            title: 'Error!',
+                            content: "<p class=''>Ha ocurrido un error inesperado al intentar mostrar el comentario</p>",
+                            type: 'red',
+                            typeAnimated: true,
+                        });
+                    }
+                });
+            }
+            
+            $("#btn-re-appointment").on("click",function(){
+                doAppointment();
+            });
+            
+            function doAppointment()
+            { // add event
+
+                //$("#createEventModal").modal("hide");
+                var title = $("#title").val();
+                
+                var hoursStart = $("#hoursStart").val();
+                var minutesStart = $("#minutesStart").val();
+                
+                var hoursEnd = $("#hoursEnd").val();
+                var minutesEnd = $("#minutesEnd").val();
+                var dateSelected = $("#dateSelected").val();
+                
+                
+                
+                //2017-07-16T13:30:00
+                var startTime = dateSelected+"T"+hoursStart+":"+minutesStart+":00";  //$("#startTime").val();
+                var endTime = dateSelected+"T"+hoursEnd+":"+minutesEnd+":00"; //$("#endTime").val();
+                //var doctorId = {{ app.user.usuId }};//$("#doctorId").val();
+                var appointmentId = $("#appointmentId").val();
+                var room = $("#room").val();
+                //var eventType = 1;// 1 = Cita medica
+
+                
+                //================================
+                //Validate the date 
+                //================================
+                var fecha1 = moment( dateSelected+" "+hoursStart+":"+minutesStart+":00", "YYYY-MM-DD HH:mm:ss" );
+                var fecha2 = moment( dateSelected+" "+hoursEnd+":"+minutesEnd+":00", "YYYY-MM-DD HH:mm:ss" );
+                //var fecha1 = moment("2016-09-30 07:30:00", "YYYY-MM-DD HH:mm:ss");
+                //var fecha2 = moment("2016-10-03 07:30:00", "YYYY-MM-DD HH:mm:ss");
+                var diff = fecha2.diff(fecha1, 'm'); // Diff in minutes
+                //console.log(diff);
+                if( diff <= 0 )
+                {
+                    $.alert({
+                            icon: 'fa fa-clock-o',
+                            title: 'Error!',
+                            content: "<p class=''>La hora fin debe ser mayor a la hora de inicio</p>",
+                            type: 'red',
+                            typeAnimated: true,
+                        });
+                        return false;
+                }
+                //console.log(fecha1+ " | "+ fecha2);
+                //console.log(diff);
+                //return false;
+                if( appointmentId == "" )
+                {
+                    $.alert({
+                            icon: 'fa fa-user-circle-o',
+                            title: 'Error!',
+                            content: "<p class=''>No ha podido identificar al paciente</p>",
+                            type: 'red',
+                            typeAnimated: true,
+                        });
+                        return false;
+                }
+                
+                $("#holder_loading").show();
+                $.ajax({
+
+                    url: "{{ path('agenda_valida') }}",
+                    //data: "action=update&title="+title+"&start="+startTime+"&end="+endTime+"&doctor="+doctorId+"&patient="+setUserAppointmentId+"&room="+room+"&eventType="+eventType,
+                    data: "action=update&title="+title+"&start="+startTime+"&end="+endTime+"&id="+appointmentId ,
+                    type: "POST",
+                    success: function(json) {
+                        //alert(json.id);
+                        $("#holder_loading").hide();
+                        $('#newApponintment').modal('hide');
+                        var pending = $("#pendingAppointment");
+                        var current = pending.text();
+                        var totalPending = parseInt(current)+1;
+                        pending.html(totalPending);
+                        //$("#pendingAppointment").html();
+                        $("#title,#room").val("");
+                        $.alert({
+                            icon: 'fa fa-calendar',
+                            title: 'Ok!',
+                            content: "<p class=''>Cita actualiza con éxito</p>",
+                            type: 'green',
+                            typeAnimated: true,
+                        });
+                        
+                        var date = $("#labelDateUpdate").text();
+                        var newDate = $("#dateSelected").val();
+                        //console.log(date+" - "+newDate);
+                        if( date == newDate )
+                        {
+                            var hs = $("#hoursStart option:selected").text()//hoursStart+":"+minutesStart+":00+";
+                            var ms = $("#minutesStart").val();
+                            var he = $("#hoursEnd option:selected").text();
+                            var me = $("#minutesEnd").val();
+                            
+                            hs = hs.split(" ");
+                            he = he.split(" ");
+                            
+                            var newHourStart = hs[0]+":"+ms+" "+hs[1];
+                            var newHourEnd = he[0]+":"+me+" "+he[1];
+                            
+                            $("#cm_"+appointmentId).closest("tr").find("td").eq(1).html("<span class='text-muted text-size-small'>"+newHourStart+"</span>");
+                            $("#cm_"+appointmentId).closest("tr").find("td").eq(2).html("<span class='text-muted text-size-small'>"+newHourEnd+"</span>");
+                            getAppointments(date,"result_update_appointment");
+                            //htmlTr
+                            //$("#table_result_appointment").append("<tr>"+htmlTr+"<tr>");
+                            //console.log(htmlTr);
+                            
+                            //var dt = moment(hs, ["h:mm A"]).format("hh:mm");
+                            //console.log(dt);
+                        }else{
+                            id = $("#cm_"+appointmentId).closest("tr").attr("id");
+                            //console.log(id);
+                            var table = $('#table_result_appointment').DataTable();
+                            table.row('#tr_'+id).remove().draw( false );
+                            checkItemTrTable();
+                        }
+
+                    },
+                    error: function(json){
+                       // alert(json.id);
+                       $("#holder_loading").hide(); 
+                       $.alert({
+                            icon: 'fa fa-clock-o',
+                            title: 'Error!',
+                            content: "<p class=''>Ha ocurrido un error inesperado al intentar actualizar la cita</p>",
+                            type: 'red',
+                            typeAnimated: true,
+                        });
+                    }
+                });
+            }
+            
+            
+            $("#btn-cancel-appointment").on("click",function(){
+                doDelete()
+            });
+            function doDelete(){  // delete event 
+
+                $("#calendarModal").modal("hide");
+                var eventID = $("#appointmentId").val();
+                var reason = $("#reason_delete").val();
+                $("#holder_loading").show();
+                $.ajax({
+                    url: "{{ path('agenda_valida') }}",
+                    data: "action=delete&id="+eventID+"&reason="+reason,
+                    type: "POST",
+                    success: function(json) {
+                        $("#holder_loading").hide();
+                        if(json == 1)
+                         {   
+                             //$("#calendar").fullCalendar("removeEvents",eventID);
+                            $("#updateApponintment").modal("hide");
+                             //id = $("#cm_"+appointmentId).closest("tr").attr("id");
+                            //console.log(id);
+                            $("#btn-cancel-appointment").hide();
+                            $("#btn-re-appointment").show();
+                            var table = $('#table_result_appointment').DataTable();
+                            table.row('#tr_'+eventID).remove().draw( false );
+                            checkItemTrTable();
+                            
+                            {% if roles.6 is defined %} //6 =medico
+                                var is_appointment = $("#is_appointment").val();
+                                if( is_appointment == 1 )
+                                {
+                                    circle = "maCanceled";
+                                }else{
+                                    circle = "oeCanceled";
+                                }
+
+                                var total = $("#"+circle).text();
+                                total = parseInt(total);
+                                $("#"+circle).text(total+1);
+                            {% endif %}
+                            //alert("if"+eventID);
+                         }    
+                         else
+                         {
+                             //alert("else");
+                             return false;
+                         }
+                    },
+                     error: function(json){
+                         $.alert({
+                             icon: 'fa fa-times',
+                             title: 'Error!',
+                             content: "<p class='small'>No se ha podido eliminar el evento/cita</p>",
+                             type: 'red',
+                             typeAnimated: true,
+                         });  
+                         $("#holder_loading").hide();  
+                         return false;
+
+                    }       
+                });
+
+            }
+            //var dt = moment("04:00", ["h:mm A"]).format("hh:mm");
+            //console.log(dt);
+            
+            function checkItemTrTable()
+            {
+               // $("#table_result_appointment").
+                if ($('body').find("#table_result_appointment >tbody >tr").size() == 0){
+                    //alert ( "No hay filas en la tabla!!" );
+                    $("#result_appointment").html("<div class='alert alert-danger alert-styled-left alert-arrow-left alert-component'>No hay citas/eventos creados para la fecha <strong>"+$("#labelDateUpdate").text()+"</strong></div>");
+                }else{
+                    //console.log($('body #table_result_appointment >tbody >tr').size());
+                }        
+            }
+            
+            //console.log( $('body').find("#table_result_appointment >tbody >tr").size() );
         });
     </script>
 {% endblock %} 
