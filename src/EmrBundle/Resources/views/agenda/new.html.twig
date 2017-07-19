@@ -337,8 +337,8 @@
                 <div style="margin-top:5px;"><span><strong>Fecha: </strong></span><span id="modalWhen"></span></div>
                 <div>
                     <div id="detailAppointment"></div>
-                    <hr>
-                    <button type="button" class="btn btn-info  btn-xs btn-show-more" > Ver más <i class="fa fa-plus-circle"></i></button>
+                    
+                    {# <hr> <button type="button" class="btn btn-info  btn-xs btn-show-more" > Ver más <i class="fa fa-plus-circle"></i></button> #}
                     <hr>
                 </div>
             </div>
@@ -589,7 +589,8 @@
                     {
                         $("#btn-medical-consultation").hide();
                     }
-                    console.log(event);
+                    //console.log(event.id);
+                    getMoreDetailAppoitment(event.id);
                 },
                 select: function(start, end, jsEvent) {  // click on empty time slot
                     endtime = $.fullCalendar.moment(end).format("h:mm");
@@ -604,8 +605,9 @@
                     
                     //$("#createEventModal").modal("toggle");
                     $("#createEventModal").modal({backdrop: 'static', keyboard: false});
+                    //console.log("cccc");
+                    //console.log("select");
                     
-                    console.log("select");
 
                 },
                 eventDrop: function(event, delta){ // event drag and drop
@@ -707,7 +709,14 @@
                 $.confirm({
                     icon: 'fa fa-exclamation-triangle',
                     title: 'Confirme',
-                    content: 'Esta seguro de cancelar el evento?',
+                    //content: 'Esta seguro de cancelar el evento?',
+                    content: '' +
+                    '<form action="" class="formName">' +
+                    '<div class="form-group">' +
+                    '<label>Esta seguro de cancelar el evento?</label>' +
+                    '<textarea placeholder="Ingrese un comentario" class="name form-control" id="comment" ></textarea>' +
+                    '</div>' +
+                    '</form>',
                     type: 'red',
                     typeAnimated: true,
                     buttons: {
@@ -715,7 +724,8 @@
                             text: 'Si',
                             btnClass: 'btn-green',
                             action: function () {
-                                doDelete(); //send data to delete function
+                                var comment = this.$content.find('#comment').val();
+                                doDelete(comment); //send data to delete function
                             }
                         },
                         tryClose: {
@@ -731,14 +741,14 @@
 
        
 
-        function doDelete(){  // delete event 
+        function doDelete(comment){  // delete event 
 
            $("#calendarModal").modal("hide");
            var eventID = $("#eventID").val();
            $("#holder_loading").show();
            $.ajax({
                url: "{{ path('agenda_valida') }}",
-               data: "action=delete&id="+eventID,
+               data: "action=delete&id="+eventID+"&reason="+comment,
                type: "POST",
                success: function(json) {
                    $("#holder_loading").hide();
@@ -863,7 +873,7 @@
         
         $(".btn-show-more").on("click", function(){
             var eventId =  $("#eventID").val();
-            getMoreDetailAppoitment(eventId)
+            getMoreDetailAppoitment(eventId);
         });
         function getMoreDetailAppoitment(id)
         {
@@ -882,13 +892,21 @@
                    if( json.res == 1)
                    {
                        var moreDetail = "";
+                       if( json.notes != "" )
+                        {
+                            var notes = json.notes;
+                        }
+                        else
+                        {
+                            var notes = "N/A";
+                        }
                        if( json.appointment == 1 )
                        {
                            //It's appointment
                            var room = (json.room != null)?json.room:"N/A";
                            var dui = (json.dui != null)?json.dui:"N/A";
                            var email = (json.email != null)?json.email:"N/A";
-                           var notes = (json.notes != null)?json.notes:"N/A";
+                           //var notes = (json.notes != null)?json.notes:"N/A";
                            moreDetail += "<div><span><strong># Consultorio:</strong> </span><span>"+ room+"</span></div>";
                            moreDetail += "<div><span><strong>Nombre del paciente:</strong> </span><span>"+json.fullname+"</span></div>";
                            moreDetail += "<div><span><strong>DUI:</strong> </span><span>"+dui+"</span></div>";
@@ -898,8 +916,10 @@
                        else
                        {
                            // It's not appointment
-                           var notes = (json.notes != null)?json.notes:"N/A";
+                           
+                            //var notes = (json.notes != null || json.notes != "")?json.notes:"N/A";
                            moreDetail += "<div><span><strong>Notas:</strong> </span><span>"+notes+"</span></div>";
+                           //alert(moreDetail);
                        }
                        
                        $("#detailAppointment").html("<hr>"+moreDetail);

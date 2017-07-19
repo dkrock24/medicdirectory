@@ -13,7 +13,9 @@ consulta_new:
     defaults: { _controller: "EmrBundle:Consulta:medicalConsultation" }
     #methods:  [GET, POST]
     
-    
+consulta_procesa:
+    path:     /procesa/consulta
+    defaults: { _controller: "EmrBundle:Consulta:processAppointment" }    
 
 #agenda_edit:
     #path:     /{id}/editar

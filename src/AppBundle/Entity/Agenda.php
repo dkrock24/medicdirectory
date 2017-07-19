@@ -43,6 +43,11 @@ class Agenda
     private $ageFechaMod;
 	
 	/**
+     * @var \DateTime
+     */
+    private $ageFechaCapturaDatos;
+	
+	/**
      * @var integer
      */
     private $ageTipoEvento;
@@ -159,7 +164,8 @@ class Agenda
     {
         return $this->ageFechaFin;
     }
-    /**
+    
+	/**
      * Set ageFechaCrea
      *
      * @param \DateTime $ageFechaCrea
@@ -205,6 +211,31 @@ class Agenda
     public function getAgeFechaMod()
     {
         return $this->ageFechaMod;
+    }
+	
+	
+	/**
+     * Set ageFechaCapturaDatos
+     *
+     * @param \DateTime $ageFechaCapturaDatos
+     *
+     * @return Agenda
+     */
+    public function setAgeFechaCapturaDatos($ageFechaCapturaDatos)
+    {
+        $this->ageFechaCapturaDatos = $ageFechaCapturaDatos;
+
+        return $this;
+    }
+
+    /**
+     * Get ageFechaCapturaDatos
+     *
+     * @return \DateTime
+     */
+    public function getAgeFechaCapturaDatos()
+    {
+        return $this->ageFechaCapturaDatos;
     }
 	
 	

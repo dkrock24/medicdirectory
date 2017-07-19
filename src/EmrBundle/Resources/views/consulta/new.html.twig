@@ -33,9 +33,51 @@
         }
         
     </style>
-    <style>
-
-    </style>
+    <script src="{{ asset('bundles/admin/add-on/Countdown-Stopwatch/jquery.timer.js') }}"></script>
+    {# <script src="{{ asset('bundles/admin/add-on/Countdown-Stopwatch/res/demo.js') }}"></script> #}
+    <script>
+        var Example1 = new (function() {
+            var $stopwatch, // Stopwatch element on the page
+                incrementTime = 70, // Timer speed in milliseconds
+                //currentTime = 180000, // Current time in hundredths of a second // 3200 = 32 segundos, 1000 = 10 segundos
+                currentTime = {{ currentMilisecundsDiff }}, // Current time in hundredths of a second // 3200 = 32 segundos, 1000 = 10 segundos
+                updateTimer = function() {
+                    $stopwatch.html(formatTime(currentTime));
+                    currentTime += incrementTime / 10;
+                    if (currentTime == 50) {
+                        //alert("zzz");
+                        //Example1.Timer.stop();
+                        timerComplete();
+                        //Example1.resetCountdown();
+                        //return;
+                    }
+                },
+                timerComplete = function() {
+                    //alert('Example 2: Countdown timer complete!');
+                },
+                init = function() {
+                    $stopwatch = $('#stopwatch');
+                    Example1.Timer = $.timer(updateTimer, incrementTime, false);
+                };
+            this.resetStopwatch = function() {
+                currentTime = 0;
+                this.Timer.stop().once();
+            };
+            $(init);
+         });
+         // Common functions
+        function pad(number, length) {
+            var str = '' + number;
+            while (str.length < length) {str = '0' + str;}
+            return str;
+        }
+        function formatTime(time) {
+            var min = parseInt(time / 6000),
+                sec = parseInt(time / 100) - (min * 60),
+                hundredths = pad(time - (sec * 100) - (min * 6000), 2);
+            return (min > 0 ? pad(min, 2) : "00") + ":" + pad(sec, 2) + ":" + hundredths;
+        }
+    </script>
     <div class="page-header-content">
         
         <div class="page-title">
@@ -56,7 +98,7 @@
                 <a href="#" class="btn btn-link btn-float has-text"><i class="icon-calculator text-primary"></i> <span>Siguiente Consulta</span></a>
                 #}
                 
-                <a href="{{ path('agenda_new') }}?d={{ app.user.usuId }}" class="btn btn-link btn-float has-text"><i class="icon-calendar5 text-primary"></i> <span>Tipo de agenda</span></a>
+                <a href="{{ path('agenda_new') }}?d={{ app.user.usuId }}" class="btn btn-link btn-float has-text"><i class="icon-calendar5 text-primary"></i> <span>Mi Agenda</span></a>
 
             </div>
         </div>
@@ -229,16 +271,41 @@
                             </div>
                         </div>
                         <div class="panel-body text-center">
-                            <div class="timer-time timer-container">
-                                <h6>Tiempo programado = Horas: {{ hours }}, Minutos: {{ minutes }} </h6>
+                            
+                                {% if statusAppointment == "p" or statusAppointment == "c" %}
+                                <div class="timer-time timer-container">    
+                                <h6>Tiempo agendado:
+                                    {{ hours }}
+                                    {% if hours > 1 %}
+                                        Horas
+                                    {% else %}
+                                        Hora
+                                    {% endif %}
+                                    Con {{ minutes }}
+                                    {% if minutes > 1 or minutes == 0 %}
+                                        Minutos
+                                    {% else %}
+                                        Minuto
+                                    {% endif %}    
+                                </h6>
                                 <span id="stopwatch">00:00:00</span>
                                 <p>
-                                    <input class='btn btn-primary' type='button' value='Iniciar/Pausar' onclick='Example1.Timer.toggle();' />
-                                    <input class='btn btn-primary' type='button' value='Finalizar Consulta' onclick='Example1.resetStopwatch();' />
+                                    {# <input class='btn btn-primary' id="btn_start_appointment" type='button' value='Iniciar/Pausar' onclick='Example1.Timer.toggle();' /> #}
+                                    <input class='btn btn-primary' id="btn_start_appointment" type='button' value='Iniciar/Pausar' onclick='' />
+                                    <input class='btn btn-primary' id="btn_end_appointment" type='button' value='Finalizar Consulta' onclick='Example1.resetStopwatch();' />
                                 </p>
+                                </div>
+                                {% elseif statusAppointment == "t" %}
+                                    <div class="alert alert-success alert-styled-left alert-arrow-left alert-component">Esta consulta ya ha sido procesada</div>
+                                {% else %}
+                                    <div class="alert alert-danger alert-styled-left alert-arrow-left alert-component">Esta consulta ya no está disponible para procesar</div>
+                                {% endif %}    
                                 
                                 
-                            </div>
+                                
+                                <input type="hidden" id="app_status" value="">
+                                <input type="hidden" id="currentMilisecundsDiff" value="{{ currentMilisecundsDiff }}">
+                            
                             <hr>    
                             <div class="btn-group">
                                     {#<button class="btn btn-success" data-toggle="modal" data-target="#newApponintment" data-backdrop="static" data-keyboard="false" style="margin-bottom: 10px;"><i class="fa fa-calendar" aria-hidden="true" ></i> Agendar nueva consulta</button>#}
@@ -303,8 +370,8 @@
             
         </div>
     </div>
-                                
-                                
+                               
+             
     {{ include('EmrBundle:consulta:_modals.html.twig' )  }}                           
 {% endblock %}
 
@@ -312,6 +379,131 @@
 {% block codejs %}
     <script>
         $(document).on("ready", function () {
+            var currentMilisecundsDiff = {{ currentMilisecundsDiff }};
+            if( currentMilisecundsDiff > 0 )
+            {
+                Example1.Timer.toggle();
+                $("#app_status").val("started");
+            }
+            $("#btn_start_appointment").on("click",function(){
+                
+               var status = $("#app_status").val();
+               if( status == "" )
+               {
+                   actionAppointement("add");
+               }
+               else
+               {
+                   if( status == "started" )
+                   {
+                       $("#app_status").val("stopped");
+                   }
+                   else
+                   {
+                       $("#app_status").val("started");
+                   }
+                   Example1.Timer.toggle();
+               }
+                //
+            });
+            
+            $("#btn_end_appointment").on("click",function(){
+                actionAppointement("finish");
+            });
+            
+            function actionAppointement(action)
+            {
+                 $("#holder_loading").show();
+                $.ajax({
+                    
+                    url: "{{ path('consulta_procesa') }}",
+                    data: "action="+action+"&cm="+{{ app.request.get("cm") }},
+                    type: "POST",
+                    success: function(json) {
+                        //alert(json);
+                        $("#holder_loading").hide();
+                        if( json == 1 )
+                        {
+                            if(action == "add")
+                            {    
+                                Example1.Timer.toggle();
+                                $("#app_status").val("started");
+                            }
+                            else
+                            {
+                                $("#app_status").val("finshed");
+                                Example1.resetStopwatch();
+                                
+                                $.confirm({
+                                    icon: 'fa fa-remove',
+                                    title: 'Ok',
+                                    content: 'La consulta ha sido finalizada con éxito, desea agendar nueva cita a este paciente?',
+                                    type: 'green',
+                                    typeAnimated: true,
+                                    buttons: {
+                                        tryAppointment: {
+                                            text: 'Si, Agendar',
+                                            btnClass: 'btn-green',
+                                            action: function () {
+                                                var date = "{{ "now"|date("Y-m-d") }}";
+                                                getAppointments(date);
+                                                $("#newApponintment").modal({backdrop: 'static', keyboard: false});
+                                            }
+                                        },
+                                        tryDashboard: {
+                                            text: 'Mi dashboard',
+                                            btnClass: 'btn-blue',
+                                            action: function () {
+                                                location.href = "{{ path('emr_dashboard') }}";
+                                                //getAppointments();
+                                            }
+                                        },
+                                        tryAgenda: {
+                                            text: 'Mi agenda',
+                                            btnClass: 'btn-default',
+                                            action: function () {
+                                                location.href = "{{ path('agenda_new') }}?d={{ app.user.usuid}}";
+                                            }
+                                        },    
+                                    }
+                                });
+                            }
+                        }
+                        else
+                        {
+                            $.alert({
+                                icon: 'fa fa-clock-o',
+                                title: 'Error!',
+                                content: "<p class=''>Ha ocurrido un error inesperado al intentar iniciar la consulta, si el problema persiste No utilize el cronometro</p>",
+                                type: 'red',
+                                typeAnimated: true,
+                            });
+                        }
+                        /*
+                        $("#title,#room").val("");
+                        $.alert({
+                            icon: 'fa fa-calendar',
+                            title: 'Ok!',
+                            content: "<p class=''>Cita creada con éxito</p>",
+                            type: 'green',
+                            typeAnimated: true,
+                        });
+                        */
+
+                    },
+                    error: function(json){
+                       $("#holder_loading").hide(); 
+                       $.alert({
+                            icon: 'fa fa-clock-o',
+                            title: 'Error!',
+                            content: "<p class=''>Ha ocurrido un error inesperado al intentar iniciar la consulta</p>",
+                            type: 'red',
+                            typeAnimated: true,
+                        });
+                    }
+                });
+            }
+            
             //$(function(window,undefined){
 
             //var d = "{{ app.request.query.get("d") }}";
@@ -715,19 +907,21 @@
                         
                         $("body").find("#moduleActivated").html("<strong><span class'bg-success text-highlight'>"+info+"</span></strong>");
                         
-                        $('body').find("form.mod-form :input").each(function(){
-                            //console.log("x");
-                            $(this).on("change  paste", function(){
-                            //$(this).blur( function(){
-                                //if( $(this).attr('data-value') != $(this).val() ){
-                                    var tries = 1;
-                                    var oInputLabel = $( "label[for='"+$(this).attr('id')+"']" );
-                                    oInputLabel.after("<i class='loading-gif'>&nbsp;&nbsp;<img src='{{ asset('bundles/admin/img/ajax-loader.gif') }}'> Guardando..</i>");  
-                                    $(".loading-gif").css('color', '#39AED1');
-                                    guardarEavForm( $(this), tries );
-                                //}
+                        {% if statusAppointment == "p" or statusAppointment == "c" %}
+                            $('body').find("form.mod-form :input").each(function(){
+                                //console.log("x");
+                                $(this).on("change  paste", function(){
+                                //$(this).blur( function(){
+                                    //if( $(this).attr('data-value') != $(this).val() ){
+                                        var tries = 1;
+                                        var oInputLabel = $( "label[for='"+$(this).attr('id')+"']" );
+                                        oInputLabel.after("<i class='loading-gif'>&nbsp;&nbsp;<img src='{{ asset('bundles/admin/img/ajax-loader.gif') }}'> Guardando..</i>");  
+                                        $(".loading-gif").css('color', '#39AED1');
+                                        guardarEavForm( $(this), tries );
+                                    //}
+                                });
                             });
-                        });
+                        {% endif %}
                         
                     },
                     error: function (data) {
@@ -795,20 +989,24 @@
                 }
             }
             
-            $('body').find("form.mod-form :input").each(function(){
-                //console.log("x");
-                $(this).on("change  paste", function(){
-                //$(this).blur( function(){
-                    //if( $(this).attr('data-value') != $(this).val() ){
-                        var tries = 1;
-                        var oInputLabel = $( "label[for='"+$(this).attr('id')+"']" );
-                        oInputLabel.after("<i class='loading-gif'>&nbsp;&nbsp;<img src='{{ asset('bundles/admin/img/ajax-loader.gif') }}'> Guardando..</i>");  
-                        $(".loading-gif").css('color', '#39AED1');
-                        guardarEavForm( $(this), tries );
-                    //}
+            
+            {% if statusAppointment == "p" or statusAppointment == "c" %}
+                $('body').find("form.mod-form :input").each(function(){
+                    //console.log("x");
+                    $(this).on("change  paste", function(){
+                    //$(this).blur( function(){
+                        //if( $(this).attr('data-value') != $(this).val() ){
+                            var tries = 1;
+                            var oInputLabel = $( "label[for='"+$(this).attr('id')+"']" );
+                            oInputLabel.after("<i class='loading-gif'>&nbsp;&nbsp;<img src='{{ asset('bundles/admin/img/ajax-loader.gif') }}'> Guardando..</i>");  
+                            $(".loading-gif").css('color', '#39AED1');
+                            guardarEavForm( $(this), tries );
+                        //}
+                    });
                 });
-            });
-
+                
+            {% endif %}
+            
             function doDelete() {  // delete event 
 
                 $("#calendarModal").modal("hide");

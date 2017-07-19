@@ -50,6 +50,10 @@ AppBundle\Entity\Agenda:
             type: datetime
             nullable: true
             column: age_fecha_mod
+        ageFechaCapturaDatos:
+            type: datetime
+            nullable: true
+            column: age_fecha_captura_datos    
         ageTipoEvento:
             type: integer
             nullable: true

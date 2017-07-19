@@ -130,9 +130,9 @@ class DashboardController extends Controller
 		
 		$aMedicalAppointmentCanceled = $this->getAppointmentStatus($locationId, $idUser, $date=false, 0, $all = false, $eventType=1);
 		
-		$aNoMedicalAppointmentCanceled = $this->getAppointmentStatus($locationId, $idUser, $date=false, 0, $all = false, $eventType=false, "t");
-		
-		$aAppointemntDone = $this->getAppointmentStatus($locationId, $idUser, $date=false, 0, $all = false, $eventType=false);
+		$aNoMedicalAppointmentCanceled = $this->getAppointmentStatus($locationId, $idUser, $date=false, 0, $all = false, $eventType=false);
+		//var_dump($aNoMedicalAppointmentCanceled);
+		$aAppointemntDone = $this->getAppointmentStatus($locationId, $idUser, $date=false, 1, $all = false, $eventType=1, "t");
 		
         //$em = $this->getDoctrine()->getManager();
         return $this->render('EmrBundle:Dashboard:dashboard.html.twig', array(

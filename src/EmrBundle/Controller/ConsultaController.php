@@ -180,10 +180,30 @@ class ConsultaController extends Controller
 		//printf('%d años, %d meses, %d días, %d horas, %d minutos', $fecha->y, $fecha->m, $fecha->d, $fecha->h, $fecha->i);
 		$hours =  $fecha->h;
 		$minutes = $fecha->i;
-		//var_dump($fecha);
-		//echo ('%d años, %d meses, %d días, %d horas, %d minutos', $fecha->y, $fecha->m, $fecha->d, $fecha->h, $fecha->i);
 		
-		//echo date('Y-m-d', strtotime($oAppointment->getAgeFechaInicio()));
+		
+		//echo $diaryId."-";
+		//echo $oAppointment->getAgeFechaCapturaDatos();
+		
+		//echo $data;
+		//var_dump($data);
+		//echo $oAppointment->getAgeFechaCapturaDatos()->format('Y-m-d H:i:s');
+		//=====================
+		//Count up
+		//====================
+		$currentMilisecundsDiff = 0;
+		if( $oAppointment->getAgeFechaCapturaDatos() != "" )
+		{	
+			$dateStartInfo = $oAppointment->getAgeFechaCapturaDatos()->format('Y-m-d H:i:s');
+			$dateEndInfo = date("Y-m-d H:i:s");
+			$currentMilisecundsDiff = ( strtotime($dateEndInfo) - strtotime($dateStartInfo) ) * 100;
+		}
+		
+		//End
+		//=====================
+		
+		
+		$oAppointment->getAgeEstado();
 		
 		return $this->render("EmrBundle:consulta:new.html.twig", array(
 			"patient"=>$oPatient,
@@ -193,6 +213,8 @@ class ConsultaController extends Controller
 			'historialDetail' => $historicalDetail,
 			"hours"=>$hours,
 			"minutes"=>$minutes,
+			"currentMilisecundsDiff"=>$currentMilisecundsDiff,
+			'statusAppointment'=>$oAppointment->getAgeEstado(),
             'usu_id' => $doctor,
             'cit_id' => $oAppointment->getAgeCit()->getCitId(),
             'cli_id' => $iLocationId
@@ -259,6 +281,44 @@ class ConsultaController extends Controller
 		}
 		return $arr;
 		
+	}
+	
+	
+	public function processAppointmentAction( Request $request )
+	{
+		header("Content-Type: application/json");
+		
+		$em = $this->getDoctrine()->getManager();
+
+        $doctor = $this->getUser()->getUsuId();
+        
+		$iLocationId = $this->get('session')->get('locationId');
+		
+		$diaryId = $request->get('cm');
+		
+		$action = $request->get('action');
+		
+		$oAppointment = $em->getRepository('AppBundle:Agenda')->findBy( array("ageId"=>$diaryId, "ageCli"=>$iLocationId ) );
+		//$oAppointment = $em->getRepository('AppBundle:Agenda')->find( 28  );
+		if( $oAppointment )
+		{
+			if( $action == "add" )
+			{	
+				$oAppointment[0]->setAgeFechaCapturaDatos( new \DateTime("now") );
+				$oAppointment[0]->setAgeEstado( 'c' ); //c= en curso
+			}
+			else
+			{
+				$oAppointment[0]->setAgeEstado( 't' ); //t=terminada, finalizada
+			}
+			$em->persist( $oAppointment[0] );
+			$em->flush();
+			echo 1;
+		}
+		//echo count($oAppointment);
+		//$oAppointment->setAgeFechaCapturaDatos( new \DateTime("now") );
+		//echo $oAppointment->getAgeFechaCapturaDatos()->format("Y-m-d")."xxxxxxxx";
+		exit();
 	}
 	
 

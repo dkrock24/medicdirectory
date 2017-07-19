@@ -322,6 +322,10 @@ class AgendaController extends Controller
 						$oDiary_repo->setAgeActivo(0);
 						$oDiary_repo->setAgeEstado("a");
 						$oDiary_repo->setAgeFechaMod(new \Datetime("now"));
+						if( isset($reason_delete) && !empty($reason_delete) )
+						{	
+							$oDiary_repo->setAgeNotas($reason_delete);
+						}
 						$em->flush(); 
 					}
 					else
@@ -334,6 +338,10 @@ class AgendaController extends Controller
 						$oDiary_repo->setAgeActivo(0);
 						$oDiary_repo->setAgeEstado("a");
 						$oDiary_repo->setAgeFechaMod(new \Datetime("now"));
+						if( isset($reason_delete) && !empty($reason_delete) )
+						{	
+							$oDiary_repo->setAgeNotas($reason_delete);
+						}
 						$em->persist( $oDiary_repo );
 						$em->flush(); 
 					}
