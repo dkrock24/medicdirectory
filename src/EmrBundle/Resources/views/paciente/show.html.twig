@@ -322,22 +322,25 @@
                                                     {% endif %}    
                                                 </td>
                                                 <td>
-                                                        
+                                                    {% if appointment.estado == "Pendiente" %}    
                                                     <ul class="list list-unstyled text-right">
                                                         <li class="dropdown">
-                                                            <a href="#" class="label bg-danger-600 dropdown-toggle btn-sm" data-toggle="dropdown">Acción <span class="caret"></span></a>
+                                                            <a href="#" class="btn btn-default dropdown-toggle btn-smxxxx" data-toggle="dropdown">Acción <span class="caret"></span></a>
                                                             <ul class="dropdown-menu dropdown-menu-right">
                                                                 {% if "6" in userRoles|keys  and appointment.estado|lower  == "pendiente" %}
-                                                                    <li><a href="{{ path("consulta_new", { 'id': paciente.pacId,'cm':appointment.id_agenda }) }}"><i class="icon-checkmark3" aria-hidden="true"></i> Procesar Consulta</a></li>
+                                                                    <li><a href="{{ path("consulta_new", { 'id': paciente.pacId,'cm':appointment.id_agenda }) }}" class="pross_appointment"><i class="icon-checkmark3" aria-hidden="true"></i> Procesar Consulta</a></li>
                                                                 {% endif %}
-                                                                <li><a href="{{ path("agenda_new")}}?d={{ appointment.id_doctor }}"><i class="icon-alarm" aria-hidden="true"></i> Actualizar</a></li>
+                                                                <li><a href="{{ path("agenda_new")}}?d={{ appointment.id_doctor }}" class="update_appointment"><i class="icon-alarm" aria-hidden="true"></i> Actualizar</a></li>
                                                                 <li class="divider"></li>
                                                                 {# <li><a href="#"><i class="icon-spinner2 spinner"></i> En curso</a></li> #}
+                                                               
                                                                 <li><a href="#" class="delete_appointment"><i class="fa fa-calendar-times-o" aria-hidden="true"></i> Cancelar</a></li>
+                                                                
                                                                 <li><a href="#"><i class="icon-cross2" aria-hidden="true"></i> Cerrar menú</a></li>
                                                             </ul>
                                                         </li>
                                                     </ul>
+                                                   {% endif %}             
                                                 </td>
                                             </tr>
                                             {#
@@ -366,9 +369,9 @@
                                 <div class="list-group-divider"></div>
                                 <div>
                                     {% if "6" in roles|keys %}
-                                        <a href="{{ path('agenda_new', {'d':app.user.usuId,'p':paciente.pacId}) }}" class="btn btn-info btn-sm"><i class="fa fa-calendar"></i> Nueva cita</a>
+                                        <a href="{{ path('agenda_new', {'d':app.user.usuId,'p':paciente.pacId}) }}" class="btn btn-success btn-sm"><i class="fa fa-calendar"></i> Agendar nueva cita</a>
                                     {% else %}
-                                        <a href="{{ path('agenda_new', {'p':paciente.pacId}) }}" class="btn btn-info btn-sm"><i class="fa fa-calendar"></i> Nueva cita</a>
+                                        <a href="{{ path('agenda_new', {'p':paciente.pacId}) }}" class="btn btn-success btn-sm"><i class="fa fa-calendar"></i> Agendar nueva cita</a>
                                     {% endif %}    
                                 </div>
                             </div>
@@ -444,8 +447,20 @@
                         if(id > 0 )
                         {    
                             $.confirm({
-                                title: 'Confirme!',
-                                content: 'Esta se guro de cancelar la cita para este paciente?',
+                                //title: 'Confirme!',
+                                //content: 'Esta seguro de cancelar la cita para este paciente?',
+                                icon: 'fa fa-exclamation-triangle',
+                                title: 'Confirme',
+                                //content: 'Esta seguro de cancelar el evento?',
+                                content: '' +
+                                '<form action="" class="formName">' +
+                                '<div class="form-group">' +
+                                '<label>Esta seguro de cancelar la cita para este paciente?</label>' +
+                                '<textarea placeholder="Ingrese un comentario" class="name form-control" id="comment" ></textarea>' +
+                                '</div>' +
+                                '</form>',
+                                type: 'red',
+                                typeAnimated: true,
                                 buttons: {
                                     /*
                                     confirm: function () {
@@ -461,7 +476,9 @@
                                         keys: ['enter', 'shift'],
                                         action: function(){
                                             //$.alert('Something else?');
-                                            doDelete(id);
+                                            var comment = this.$content.find('#comment').val();
+                                            //doDelete(comment); //send data to delete function
+                                            doDelete(id, comment);
                                         }
                                     },
                                     somethingElse: {
@@ -469,7 +486,7 @@
                                         btnClass: 'btn-red',
                                         keys: ['enter', 'shift'],
                                         action: function(){
-                                            return false;
+                                            //return false;
                                             //$.alert('Something else?');
                                         }
                                     }
@@ -480,20 +497,26 @@
                         e.preventDefault();
                     });
                     
-                    function doDelete(id){  // delete event 
+                    function doDelete(id, comment){  // delete event 
 
                         $("#calendarModal").modal("hide");
                         var eventID = id;//$("#eventID").val();
                         $("#holder_loading").show();
                         $.ajax({
                             url: "{{ path('agenda_valida') }}",
-                            data: "action=delete&id="+eventID,
+                            data: "action=delete&id="+eventID+"&reason="+comment,
                             type: "POST",
                             success: function(json) {
                                 $("#holder_loading").hide();
                                 if(json == 1)
                                  {   
-                                    $("#app_"+id).closest("tr").find("td").eq(1).html("<span class='label label-default'>Anulada</span>"); 
+                                    $("#app_"+id).closest("tr").find("td").eq(1).html("<span class='label label-default'>Anulada</span>");
+                                    //$("#app_"+id).closest("tr").find(".pross_appointment").remove();
+                                    //$("#app_"+id).closest("tr").find(".delete_appointment").remove();
+                                    //$("#app_"+id).closest("tr").find(".update_appointment").remove();
+                                    $("#app_"+id).closest("tr").find("ul").remove();
+                                    //update_appointment
+                                    
                                     $.alert({
                                         icon: 'fa fa-user-md',
                                         title: 'Ok!',

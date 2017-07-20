@@ -15,7 +15,11 @@ consulta_new:
     
 consulta_procesa:
     path:     /procesa/consulta
-    defaults: { _controller: "EmrBundle:Consulta:processAppointment" }    
+    defaults: { _controller: "EmrBundle:Consulta:processAppointment" } 
+    
+consulta_estado_cita:
+    path:     /proceso/actual
+    defaults: { _controller: "EmrBundle:Consulta:isRunningAppointment" } 
 
 #agenda_edit:
     #path:     /{id}/editar

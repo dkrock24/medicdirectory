@@ -85,7 +85,7 @@
 					<a href="{{ path('emr_dashboard') }}">
                 <i class="icon-arrow-left52 position-left"></i>
                 <span class="text-semibold">Dashboard</span></a> - Consulta Médica
-					<small class="display-block">Formulario de consulta de pacient</small>
+					<small class="display-block">Formulario de consulta del paciente</small>
 				</h4>
 		</div>
         
@@ -261,7 +261,7 @@
             
             <div class="row">
                 <div class="col-lg-3 col-md-4 ">
-                    <div class="panel panel-info">
+                    <div class="panel panel-info" id="appointmentControl">
                         <div class="panel-heading">
                             <h6 class="panel-title">Cronómetro de consulta<a class="heading-elements-toggle"><i class="icon-more"></i></a></h6>
                             <div class="heading-elements">
@@ -273,10 +273,10 @@
                         <div class="panel-body text-center">
                             
                                 {% if statusAppointment == "p" or statusAppointment == "c" %}
-                                <div class="timer-time timer-container">    
+                                <div class="timer-time timer-container" >    
                                 <h6>Tiempo agendado:
                                     {{ hours }}
-                                    {% if hours > 1 %}
+                                    {% if hours > 1 or hours == 0 %}
                                         Horas
                                     {% else %}
                                         Hora
@@ -291,8 +291,13 @@
                                 <span id="stopwatch">00:00:00</span>
                                 <p>
                                     {# <input class='btn btn-primary' id="btn_start_appointment" type='button' value='Iniciar/Pausar' onclick='Example1.Timer.toggle();' /> #}
-                                    <input class='btn btn-primary' id="btn_start_appointment" type='button' value='Iniciar/Pausar' onclick='' />
-                                    <input class='btn btn-primary' id="btn_end_appointment" type='button' value='Finalizar Consulta' onclick='Example1.resetStopwatch();' />
+                                    {% if currentMilisecundsDiff == 0 %}
+                                        <input class='btn btn-primary' id="btn_start_appointment" type='button' value='Iniciar Consulta' onclick='' />
+                                    {% else %} 
+                                        <input class='btn btn-primary' id="btn_end_appointment" type='button' value='Finalizar Consulta' onclick='Example1.resetStopwatch();'/>
+                                    {% endif %}
+                                    <input class='btn btn-primary' id="btn_end_appointment" type='button' value='Finalizar Consulta' onclick='Example1.resetStopwatch();' style="display:none" />
+                                    
                                 </p>
                                 </div>
                                 {% elseif statusAppointment == "t" %}
@@ -403,6 +408,7 @@
                        $("#app_status").val("started");
                    }
                    Example1.Timer.toggle();
+                   
                }
                 //
             });
@@ -428,6 +434,8 @@
                             {    
                                 Example1.Timer.toggle();
                                 $("#app_status").val("started");
+                                $("#btn_start_appointment").remove();
+                                $("#btn_end_appointment").show();
                             }
                             else
                             {
@@ -435,15 +443,16 @@
                                 Example1.resetStopwatch();
                                 
                                 $.confirm({
-                                    icon: 'fa fa-remove',
+                                    icon: 'fa fa-medkit',
                                     title: 'Ok',
-                                    content: 'La consulta ha sido finalizada con éxito, desea agendar nueva cita a este paciente?',
+                                    columnClass: 'medium',
+                                    content: 'La consulta ha sido finalizada con éxito, desea agendar nueva cita a este paciente?<hr>',
                                     type: 'green',
                                     typeAnimated: true,
                                     buttons: {
                                         tryAppointment: {
                                             text: 'Si, Agendar',
-                                            btnClass: 'btn-green',
+                                            btnClass: 'btn-green btn-sm',
                                             action: function () {
                                                 var date = "{{ "now"|date("Y-m-d") }}";
                                                 getAppointments(date);
@@ -451,16 +460,16 @@
                                             }
                                         },
                                         tryDashboard: {
-                                            text: 'Mi dashboard',
-                                            btnClass: 'btn-blue',
+                                            text: 'Ir a Mi dashboard',
+                                            btnClass: 'btn-blue btn-sm',
                                             action: function () {
                                                 location.href = "{{ path('emr_dashboard') }}";
                                                 //getAppointments();
                                             }
                                         },
                                         tryAgenda: {
-                                            text: 'Mi agenda',
-                                            btnClass: 'btn-default',
+                                            text: 'Ir a mi agenda',
+                                            btnClass: 'btn-default btn-sm',
                                             action: function () {
                                                 location.href = "{{ path('agenda_new') }}?d={{ app.user.usuid}}";
                                             }
@@ -732,22 +741,22 @@
                                 table += "<td><span class='text-muted text-size-small'>"+hourType+"</span></td>";;
                                 
                                 var status = "";
-                                status += "<h6 class='text-semibold no-margin'>";
+                                status += "<span text-muted text-size-small'>";
                                 if( data[i]['tipo_evento'] == 1 )
                                 {     
                                     switch(data[i]['age_estado'])
                                     {
                                         case "p":
-                                            status += "Pendiente";
+                                            status += "<span class='text-primary'>Pendiente</span>";
                                             break;
                                         case "a":
-                                            status += "Anulada";
+                                            status += "<span class='text-danger'>Anulada</span>";
                                             break;
                                         case "c":
-                                            status += "En curso";
+                                            status += "<span class='text-primary'>En curso</span>";
                                             break;
                                         case "t":
-                                            status += "Finalizada";
+                                            status += "<span class='text-success'>Finalizada</span>";
                                             break;   
                                     }
                                 }
@@ -755,7 +764,7 @@
                                      p=pendiente, a=anulada, c=curso, t=terminada
                                 #}
  
-                                status += "</h6>";
+                                status += "</span>";
                                 
                                 table += "<td>"+status+"</td>";
 

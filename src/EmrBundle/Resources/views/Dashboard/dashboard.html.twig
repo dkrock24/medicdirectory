@@ -84,7 +84,7 @@
                                     {% if roles.6 is defined %}
                                     <li class="list-group-item">
                                       <span class="badge bg-success-400 unread" id="toOk">{{ (appointmentDone[0]['total']) }} </span>
-                                      <i class="fa fa-medkit"></i> Consulta  procesadas 
+                                      <i class="fa fa-medkit"></i> Consultas  procesadas 
                                     </li>    
                                     <li class="list-group-item">
                                       <span class="badge bg-warning-400 unread" id="maCanceled">{{ (appointmentsMedicalCanceled[0]['total']) }} </span>
@@ -159,7 +159,7 @@
                                                                                 <span  class="letter-icon-title">{{ appointment.pac_nombre|capitalize ~" "~ appointment.pac_seg_nombre|capitalize ~" "~ appointment.pac_apellido|capitalize ~" "~ appointment.pac_seg_apellido|capitalize }}</span>
                                                                             {% else %}
                                                                                 {% if appointment.pac_id is defined and appointment.pac_id > 0 %}
-                                                                                    <a href="{{ path('consulta_new',{'id':appointment.pac_id,'cm':appointment.id}) }}" class="letter-icon-title" data-toggle="tooltip" data-placement="top" title="Procesar Consulta">{{ appointment.pac_nombre|capitalize ~" "~ appointment.pac_seg_nombre|capitalize ~" "~ appointment.pac_apellido|capitalize ~" "~ appointment.pac_seg_apellido|capitalize }}</a>
+                                                                                    <a href="{{ path('consulta_new',{'id':appointment.pac_id,'cm':appointment.id}) }}" class="letter-icon-title" data-toggle="tooltip" data-placement="top" title="">{{ appointment.pac_nombre|capitalize ~" "~ appointment.pac_seg_nombre|capitalize ~" "~ appointment.pac_apellido|capitalize ~" "~ appointment.pac_seg_apellido|capitalize }}</a>
                                                                                 {% else %}
                                                                                     <span  class="letter-icon-title">{{ appointment.pac_nombre|capitalize ~" "~ appointment.pac_seg_nombre|capitalize ~" "~ appointment.pac_apellido|capitalize ~" "~ appointment.pac_seg_apellido|capitalize }}</span>
                                                                                 {% endif %}    
@@ -205,13 +205,13 @@
                                                                         #}
                                                                         {% if appointment.tipo_evento == 1 %}
                                                                             {% if appointment.age_estado == "p" %}
-                                                                                Pendiente
+                                                                                <span class="text-primary">Pendiente</span>
                                                                             {% elseif appointment.age_estado == "a" %}
-                                                                                Anulada
+                                                                                <span class="text-danger">Anulada</span>
                                                                             {% elseif appointment.age_estado == "c" %}
-                                                                                En curso
+                                                                                <span class="text-primary">En curso</span>
                                                                             {% elseif appointment.age_estado == "t" %}
-                                                                                Finalizada
+                                                                                <span class="text-success">Finalizada</span>
                                                                             {% endif %}    
                                                                         {% endif %}
                                                                     </span>
@@ -585,7 +585,7 @@
                                 var th = "";
                                 var labelUpdate = "labelDate";
                             }
-                            var table = "<div class='table-responsive'><table class='table text-nowrap' id='"+tableID+"'><thead><tr><th>Tipo de agenda (<span id='"+labelUpdate+"'></span>)</th><th>Hora Inicio</th><th>Estatus</th>"+th+"<th>Hora Fin</th></tr></thead><tbody>";
+                            var table = "<div class='table-responsive'><table class='table text-nowrap' id='"+tableID+"'><thead><tr><th>Tipo de agenda (<span id='"+labelUpdate+"'></span>)</th><th>Hora Inicio</th><th>Hora Fin </th><th>Estatus</th>"+th+"</tr></thead><tbody>";
                             for(i=0; i < data.length; i++)
                             {    
                                 //var routeEdit = "{{ path('paciente_edit', { 'id': "PLACEHOLDER" }) }}";
@@ -639,7 +639,7 @@
                                 {% else %}
                                     if( renderToUpdate != "result_update_appointment" )
                                     {
-                                        btn_group += "<a href='"+routeShow+"' class='letter-icon-title' data-toggle='tooltip' data-placement='top' title='Procesar Consulta'>";
+                                        btn_group += "<a href='"+routeShow+"' class='letter-icon-title' data-toggle='tooltip' data-placement='top' title=''>";
                                         btn_group += fullname;
                                         btn_group += "</a>";
                                     }    
@@ -708,16 +708,16 @@
                                     switch(data[i]['age_estado'])
                                     {
                                         case "p":
-                                            status += "Pendiente";
+                                            status += "<span class='text-primary'>Pendiente</span>";
                                             break;
                                         case "a":
-                                            status += "Anulada";
+                                            status += "<span class='text-danger'>Anulada</span>";
                                             break;
                                         case "c":
-                                            status += "En curso";
+                                            status += "<span class='text-primary'>En curso</span>";
                                             break;
                                         case "t":
-                                            status += "Finalizada";
+                                            status += "<span class='text-success'>Finalizada</span>";
                                             break;   
                                     }
                                 }

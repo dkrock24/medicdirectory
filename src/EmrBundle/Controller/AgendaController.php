@@ -402,6 +402,7 @@ class AgendaController extends Controller
 					$lastName2 = $diary_repo->getAgeCit()->getCitPac()->getPacSegApellido();
 					$fullName = $name1." ".$name2." ".$lastName1." ".$lastName2;
 					
+					$data['patient_id'] = $diary_repo->getAgeCit()->getCitPac()->getPacId();
 					$data['fullname'] = trim($fullName);
 					$data['email'] = $diary_repo->getAgeCit()->getCitPac()->getPacEmail();
 					$data['dui'] = $diary_repo->getAgeCit()->getCitPac()->getPacDui();
@@ -411,6 +412,7 @@ class AgendaController extends Controller
 					
 				}else{
 					//echo "xxxxxxxxx";
+					$data['patient_id'] = "";
 					$data['fullname'] = "";
 					$data['email'] = "";
 					$data['dui'] = "";

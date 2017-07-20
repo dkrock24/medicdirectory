@@ -1,0 +1,27 @@
+{# empty Twig template #}
+{% if appointmentActived == 1 %}
+    
+    <div class="" id="alert-appointment-running" style="display:none">
+        <div class="alert alert-warning">
+            <div class="text-center">
+                {% if roles.6 is defined %}
+                    <a href="{{ path("consulta_new",{ 'id':patientId, 'cm':cm } ) }}"><span class="label label-warning"><i class="fa fa-stethoscope" aria-hidden="true"></i> En este momento hay una consulta en curso, click aquí para ir a la consulta<span></a> 
+                {% else %}
+                    <span class="label label-warning"><i class="fa fa-stethoscope" aria-hidden="true"></i> En este momento hay una consulta en curso<span>
+                {% endif %}    
+                
+                            {# <a href="{{ path("consulta_new",{ 'id':patientId, 'cm':cm } ) }}" class="btn btn-warning btn-sm">Ir a la consulta</a> #}
+            </div>
+        </div>
+    </div>
+{% endif %}
+<script>
+    $(document).on("ready",function(){
+        if( $("#appointmentControl").size() > 0 )
+        {
+            $("#alert-appointment-running").remove();
+        }else{
+            $("#alert-appointment-running").show();
+        }
+    });
+</script>

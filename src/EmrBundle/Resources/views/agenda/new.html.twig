@@ -879,7 +879,7 @@
         {
             $("#holder_loading").show();
             $.ajax({
-
+               //var id = id; 
                url: "{{ path('agenda_detail') }}",
                data: { id: id},
                type: "POST",
@@ -912,6 +912,10 @@
                            moreDetail += "<div><span><strong>DUI:</strong> </span><span>"+dui+"</span></div>";
                            moreDetail += "<div><span><strong>Email:</strong> </span><span>"+email+"</span></div>";
                            moreDetail += "<div><span><strong>Notas:</strong> </span><span>"+notes+"</span></div>";
+                           
+                           var routeShow = "{{ path('paciente_show', { 'id': "PLACEHOLDER" }) }}";
+                            routeShow = routeShow.replace("PLACEHOLDER", json.patient_id);
+                           moreDetail += "<div><br><a href='"+routeShow+"'><i class='fa fa-address-card-o' aria-hidden='true'></i> Ver expediente del paciente</a></div>";
                        }
                        else
                        {

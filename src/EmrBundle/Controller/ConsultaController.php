@@ -322,4 +322,38 @@ class ConsultaController extends Controller
 	}
 	
 
+	public function isRunningAppointmentAction( Request $request )
+	{
+		$em = $this->getDoctrine()->getManager();
+
+        $doctor = $this->getUser()->getUsuId();
+        
+		$iLocationId = $this->get('session')->get('locationId');
+		if( $iLocationId )
+		{	
+
+			$userRoles = $this->get('session')->get('userRoles');
+
+			$oAppointment = $em->getRepository('AppBundle:Agenda')->findBy( array("ageUsu"=>$doctor, "ageCli"=>$iLocationId,"ageEstado"=>"c" ) );
+			$appointmentActived = 0;
+			$id = "";
+			$cm = "";
+			$patientId = "";
+			if( $oAppointment )
+			{
+				$appointmentActived = 1;
+				$cm = $oAppointment[0]->getAgeId();
+
+				$patientId = $oAppointment[0]->getAgeCit()->getCitPac()->getPacId();
+			}
+
+			return $this->render("EmrBundle:consulta:_appointmentStatus.html.twig", array(
+				'appointmentActived' => $appointmentActived,
+				"cm"=>$cm,
+				"patientId"	=> $patientId,
+				"roles"=>$userRoles
+			));
+		}
+	}
+	
 }
