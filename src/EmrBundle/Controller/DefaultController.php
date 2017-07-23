@@ -153,7 +153,7 @@ class DefaultController extends Controller
 				
 			}
 		}
-		return $this->render("EmrBundle:Default:profileImage.html.twig", array("userInfo"=> $oUser,'profilephoto'=>$profilephoto));
+		return $this->render("EmrBundle:Default:profileImage.html.twig", array("userInfo"=> $oUser,'profilephoto'=>$profilephoto,'roles'=>$roles));
 		
 	}
 	

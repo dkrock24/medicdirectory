@@ -172,9 +172,13 @@ class AgendaController extends Controller
 				{
 					$filter = " AND a.age_usu_id = ".$doctorId;
 				}
-				$RAW_QUERY = "SELECT a.age_id as id, a.age_fecha_inicio as start, a.age_fecha_fin as end, a.age_tipo_evento as tipo_evento FROM agenda a
+				$RAW_QUERY = "SELECT a.age_id as id, a.age_fecha_inicio as start, a.age_fecha_fin as end, a.age_tipo_evento as tipo_evento,
+								p.pac_nombre, p.pac_seg_nombre, p.pac_apellido, p.pac_seg_apellido
+								FROM agenda a
 								LEFT JOIN cita c on c.cit_id = a.age_cit_id
+								
 								AND c.cit_activo = 1
+								LEFT JOIN paciente p ON c.cit_pac_id = p.pac_id
 								WHERE a.age_activo = 1
 								AND a.age_cli_id = $locationId "
 								
@@ -202,7 +206,7 @@ class AgendaController extends Controller
 					{
 						case 1:
 							$color = "#0E77AE";
-							$event = " Cita médica";
+							$event = " Cita médica: ".$key['pac_nombre']." ".$key['pac_seg_nombre']." ".$key['pac_apellido']." ".$key['pac_seg_apellido'] ;
 							break;
 						case 2:
 							$color = "#26A69A";

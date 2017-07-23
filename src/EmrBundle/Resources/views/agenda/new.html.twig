@@ -265,7 +265,8 @@
                 
                 <div class ="form-group" id="divSearchPatient">
                     <div class="field">
-                        <label class="control-label" for="title" id="titlePatient">Añadir paciente:</label>
+                        
+                        <div><label class="control-label" for="title" id="titlePatient">Buscar paciente:</label> <span style="float:right" ><a href="" id="new_patient" data-toggle="modal" data-target="#userModal" data-backdrop="static" data-keyboard="false">Crear paciente</a></span></div>
                         <form id="form_search_patients">
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="Nombre o DUI" id="input_search_patients" autocomplete="off">
@@ -313,7 +314,7 @@
             </div>
             <div class="modal-footer">
                 <button class="btn" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times-circle-o" aria-hidden="true"></i> Cerrar</button>
-                <button type="submit" class="btn btn-success" id="submitButton"><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar</button>
+                <button type="submit" class="btn btn-success" id="submitButton"><i class="fa fa-floppy-o" aria-hidden="true"></i> Crear Evento</button>
             </div>
         </div>
     </div>
@@ -354,6 +355,105 @@
         </div>
     </div>
 </div>
+
+<div id="userModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Datos básicos del paciente</h4>
+            </div>
+
+            <div id="modalBody" class="modal-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+
+                            <label for="" class=" control-label">Primer Nombre:</label>
+                            <div class=""><input type="text" class="form-control" id="name1"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">    
+                        <div class="form-group">
+
+                            <label for="" class=" control-label">Segundo Nombre:</label>
+                            <div class=""><input type="text" class="form-control" id="name2"></div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+
+                            <label for="" class=" control-label">Apellido Paterno:</label>
+                            <div class=""><input type="text" class="form-control" id="surename1"></div>
+                        </div>
+                    </div>    
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+
+                            <label for="" class=" control-label">Apellido Materno:</label>
+                            <div class=""><input type="text" class="form-control" id="surename2"></div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="" class="control-label">Genero:</label>
+                            <div class="">
+                                <select id="gender" name="gender" class="form-control select">
+                                    <option value="M">Masculino</option>
+                                    <option value="F">Femenino</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="" class=" control-label">DUI:</label>
+                            <div class=""><input type="text" class="form-control" id="dui"></div>
+                        </div>
+                    </div>   
+                </div>
+                <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="" class=" control-label">Telefóno Casa:</label>
+                        <div class=""><input type="text" class="form-control" id="phonehouse"></div>
+                    </div>
+                </div>
+                <div class="col-md-4">    
+                    <div class="form-group">
+                        <label for="" class=" control-label">Celular:</label>
+                        <div class=""><input type="text" class="form-control" id="cellphone"></div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="" class=" control-label">Teléfono Trabajo:</label>
+                        <div class=""><input type="text" class="form-control" id="phonework"></div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="" class=" control-label">Email:</label>
+                        <div class=""><input type="text" class="form-control" id="email"></div>
+                    </div>
+                </div>    
+            </div>
+            </div>
+            
+
+            <div class="modal-footer">
+                <button class="btn"  data-dismiss="modal" aria-hidden="true"><i class="fa fa-times-circle-o" aria-hidden="true"></i> Cerrar</button>
+                <button type="submit" class="btn btn-success" id="btnCreatePatient"><i class="fa fa-address-card" aria-hidden="true"></i> Crear Paciente</button>
+            </div>
+        </div>
+    </div>
+</div>            
 
 <!--Modal-->
 
@@ -448,7 +548,7 @@
             // Add events
             // ------------------------------
             var initialLocaleCode = 'es-do';
-
+            {#
             // Event colors
             var eventColors = [
                 {
@@ -500,7 +600,7 @@
                     className: "xxx",
 				}
 			];
-
+            #}
             // Initialization
             // ------------------------------
             // Agenda view
@@ -516,7 +616,12 @@
                 //default: 30,
                 locale: initialLocaleCode,
                 //defaultDate: '2017-04-29',
-                defaultView: 'agendaWeek',
+                {% if "6" in userRoles|keys  %} //Doctors
+                    defaultView: 'agendaDay',        
+                {% else %}
+                    defaultView: 'agendaWeek',
+                {% endif %}    
+                
                 editable: true,
                 eventLimit: true, // allow "more" link when too many events
                 navLinks: true, // can click day/week names to navigate views
@@ -796,22 +901,22 @@
 			{
                 case "1":
                     color = "#0E77AE";
-					event = " Cita médica";
+					event = $( "#eventType option:selected" ).text()+" :"+$("#setUserAppointmentName").val();//" Cita médica";
 					break;
 				case "2":
                     color = "#26A69A";
-					event = " Evento Personal ";
+					event = $( "#eventType option:selected" ).text();//" Evento Personal ";
 					break;
 				case "3":
                     color = "#3a3a3a";
-					event = " Ausente ";
+					event = $( "#eventType option:selected" ).text();//" Ausente ";
 					break;
 				case "4":
                     color = "#93c54b";
-					event = "Receso";	
+					event = $( "#eventType option:selected" ).text();//"Receso";	
                 default:
                     color = "#FF7043";
-					event = "Otros";
+					event = $( "#eventType option:selected" ).text();//"Otros";
 					break;
 			}
            
@@ -826,7 +931,7 @@
                    $("#calendar").fullCalendar("renderEvent",
                    {
                        id: json.id,
-                       title: $( "#eventType option:selected" ).text(),//title,
+                       title: event,//$( "#eventType option:selected" ).text(),//title,
                        start: startTime,
                        end: endTime,
                        color: color,
@@ -845,7 +950,7 @@
                   $("#calendar").fullCalendar("renderEvent",
                    {
                        id: json.id,
-                       title: $( "#eventType option:selected" ).text(),//title,
+                       title: event,//$( "#eventType option:selected" ).text(),//title,
                        start: startTime,
                        end: endTime,
                        color: color,
@@ -1181,6 +1286,108 @@
                     }
             {% endif %}        
             
+        }
+        
+        $("#btnCreatePatient").on("click",function(){
+            createPatient();
+        });
+        function createPatient()
+        {
+            var firts_name = $("#name1").val();
+            var middle_name = $("#name2").val();
+            var last_name = $("#surename1").val();
+            var middle_last_name = $("#surename2").val();
+            var gender = $("#gender").val();
+            var dui = $("#dui").val();
+            var home_phone = $("#phonehouse").val();
+            var work_phone = $("#phonework").val();
+            var cellphone = $("#cellphone").val();
+            var email = $("#email").val();
+            $("#holder_loading").show();
+						$.ajax({
+                            type: "post",
+                            url: "{{ path('paciente_form') }}",
+                            data: {
+                                firts_name: firts_name, middle_name: middle_name,
+                                last_name: last_name, middle_last_name: middle_last_name,
+                                gender: gender, dui:dui, 
+                                home_phone: home_phone, work_phone: work_phone, cellphone: cellphone,
+                                address: "", email: email
+                                
+                            },
+                            error: function (data) {
+                                $("#holder_loading").hide();
+                                $.confirm({
+                                    icon: 'fa fa-remove',
+                                    title: 'Error!',
+                                    content: 'Ha ocurrido un error al tratar de enviar la petición',
+                                    type: 'red',
+                                    typeAnimated: true,
+                                    buttons: {
+                                        tryAgain: {
+                                            text: 'Intentar de nuevo',
+                                            btnClass: 'btn-red',
+                                            action: function () {
+                                                createPatient("");
+                                            }
+                                        },
+                                        close: function () {
+                                        }
+                                    }
+                                });
+
+                            },
+                            success: function (data) {
+                                $("#holder_loading").hide();
+
+                                //console.log(data.length);
+
+
+                                if (data > 0)
+                                {
+                                    
+                                     $.alert({
+                                        icon: 'fa fa-check-circle',
+                                        title: 'Ok!',
+                                        content: 'El registro guardado con éxito',
+                                        type: 'green',
+                                        typeAnimated: true,
+                                     });
+                                     
+                                     
+                                     //$("body").find(".cropper-container").remove();
+                                     //$(".img-preview").empty();
+                                     $("#setUserAppointmentId").val(data);
+                                     $("#userModal").modal("hide");
+                                     //$(".currentPicture").html("<img src='"+img+"' class='img-thumbnail'>");
+                                     
+                                    $("#setUserAppointmentName").val(firts_name+" "+middle_name+" "+last_name+" "+middle_last_name);
+                    
+                                    $("#result_search_patients").empty();
+                                    $("#titlePatient").text("Nombre del paciente:");
+
+                                    $("#form_search_patients").hide();
+
+                                    $("#divUserPatient").show();
+
+                                    if( $("body").find("#newSearch").size() == 0 )
+                                    {
+                                        $( "#result_search_patients" ).after( "<p class='text-right' id='newSearch'><a href='#'>Nueva busqueda</a></p>" );
+                                    }
+                                } else 
+                                {
+                                    var infoError = (data);
+                                    $.alert({
+                                        icon: 'glyphicon glyphicon-exclamation-sign',
+                                        title: 'Info!',
+                                        content: 'Ocurrio un error al intentar guardar la información <br>' + infoError,
+                                        type: 'blue',
+                                        typeAnimated: true,
+                                    });
+                                }
+
+                            }
+                        });
         }
         
         function setModalMaxHeight(element) {
