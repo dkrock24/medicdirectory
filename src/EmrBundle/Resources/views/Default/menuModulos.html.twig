@@ -25,7 +25,9 @@
 <div id="modulesList">
     <div class="buttons-preview">
         {% for key, m in modulos %}
+            {% if m['mod_hash'] is defined %}
             <button class="btn bg-teal-400 btn-labeled btn-block mod-tab" target="{{ m['mod_hash'] }}">{{ m['modulo'] }}</button>
+            {% endif %}
         {% endfor %}
     </div>
 </div>

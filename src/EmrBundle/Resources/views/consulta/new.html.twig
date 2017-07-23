@@ -157,10 +157,10 @@
                                             <div class="col-lg-7 col-md-7 col-sm-12">
                                                 
                                                 <div style="float: left; max-width: 100px;">
-                                                    {% if  paciente.pacFoto is defined and paciente.pacFoto != "" %}
+                                                    {% if  patient[0].pacFoto is defined and patient[0].pacFoto != "" %}
                                                     <div style="text-align:center;"><img src="{{ asset("uploads/pacientes/"~paciente.pacFoto) }}" class="img-thumbnailx" style="max-width:85% "></div>
                                                     {% else %}
-                                                        {% if paciente.pacGenero is defined and paciente.pacGenero|lower  == "m" %}
+                                                        {% if patient[0].pacGenero is defined and patient[0].pacGenero|lower  == "m" %}
                                                         <div  style="text-align:center"><img src="{{ asset('bundles/admin/img/man.png') }}" class="img-thumbnailx" style="max-width:80% "></div>
                                                         {% else %}
                                                         <div  style="text-align:center"><img src="{{ asset('bundles/admin/img/girl.png') }}" class="img-thumbnailx" style="max-width:80% "></div>
