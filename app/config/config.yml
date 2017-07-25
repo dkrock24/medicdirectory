@@ -38,6 +38,11 @@ framework:
 
 # Twig Configuration
 twig:
+    globals:
+            ga_tracking_public: "%ga_tracking_public%"
+            public_domain: "%public_domain%"
+            admin_domain: "%admin_domain%"
+            emr_domain: "%emr_domain%"
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
     form_themes: 

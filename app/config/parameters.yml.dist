@@ -33,3 +33,6 @@ parameters:
     sphinxsearch_socket: ~
     sphinxsearch_indexer_bin: indexer
 
+    ga_tracking_public: UA-103163157-1
+    ga_tracking_emr:
+    ga_tracking_admin:
