@@ -72,7 +72,7 @@ class adminGenerarClientesPruebaCommand extends ContainerAwareCommand {
             $oCliente->setCliNombre($sNombre);
             $oCliente->setCliNombreComercial($sNombreComercial);
             $oCliente->setCliNombreFiscal($sNombreFiscal);
-            $oCliente->setCliNit(mt_rand(pow(10, 13), pow(10, 14)));
+            $oCliente->setCliNit(mt_rand(pow(10, 10), pow(10, 10)));
             $oCliente->setCliActivo(TRUE);
             $oCliente->setCliDireccion('Direccion generada');
             $oCliente->setCliFechaCrea(new \DateTime());

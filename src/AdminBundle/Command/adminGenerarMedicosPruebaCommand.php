@@ -60,17 +60,9 @@ class adminGenerarMedicosPruebaCommand extends ContainerAwareCommand {
             $sUsuario = strtolower($nombre . '.' . $apellido);
 
             $oUsuario = new \AppBundle\Entity\Usuario();
-            $oUsuario->setUsuActivo(TRUE);
             $oUsuario->setUsuClave(sha1('123'));
-            $oUsuario->setUsuFechaCrea(new \DateTime());
-            $oUsuario->setUsuFechaMod(new \DateTime());
-            $oUsuario->setUsuFechaRegistro(new \DateTime());
-            $oUsuario->setUsuFechaNacimiento(new \DateTime());
-            $oUsuario->setUsuIdVendedor(1);
-            $oUsuario->setUsuTitulo('Dr.');
             $oUsuario->setUsuNombre($nombre . ' ' . $apellido);
             $oUsuario->setUsuGenero('m');
-            $oUsuario->setUsuCorreo("{$sUsuario}@correo.com");
             $oUsuario->setUsuUsuario($sUsuario);
             $em->persist($oUsuario);
 
