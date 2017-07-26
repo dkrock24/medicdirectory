@@ -20,10 +20,10 @@ class wsLoginController extends Controller
 
         $json = [];
         $json['resultado'] = "0";
-        
+
         if ($usuario instanceof Usuario) {
             $json['resultado'] = "1";
-            $json['usuario'] = $usuario->getUsuNombre();
+            $json['usuario'] = $usuario->getUsuUsuario();
             $json['nombre1'] = $usuario->getUsuNombre();
             $json['nombre2'] = $usuario->getUsuSegundoNombre();
             $json['nombre3'] = $usuario->getUsuTercerNombre();
