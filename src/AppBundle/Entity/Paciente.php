@@ -633,4 +633,62 @@ class Paciente
     {
         return $this->pacMun;
     }
+    /**
+     * @var string
+     */
+    private $pacOcupacion;
+
+    /**
+     * @var string
+     */
+    private $pacResponsable;
+
+
+    /**
+     * Set pacOcupacion
+     *
+     * @param string $pacOcupacion
+     *
+     * @return Paciente
+     */
+    public function setPacOcupacion($pacOcupacion)
+    {
+        $this->pacOcupacion = $pacOcupacion;
+
+        return $this;
+    }
+
+    /**
+     * Get pacOcupacion
+     *
+     * @return string
+     */
+    public function getPacOcupacion()
+    {
+        return $this->pacOcupacion;
+    }
+
+    /**
+     * Set pacResponsable
+     *
+     * @param string $pacResponsable
+     *
+     * @return Paciente
+     */
+    public function setPacResponsable($pacResponsable)
+    {
+        $this->pacResponsable = $pacResponsable;
+
+        return $this;
+    }
+
+    /**
+     * Get pacResponsable
+     *
+     * @return string
+     */
+    public function getPacResponsable()
+    {
+        return $this->pacResponsable;
+    }
 }
