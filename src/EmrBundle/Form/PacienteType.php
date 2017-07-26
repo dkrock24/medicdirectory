@@ -29,6 +29,8 @@ class PacienteType extends AbstractType
 				//->add('pacFechaMod')
 				->add('pacApellido')
 				->add('pacSegApellido')
+				->add('pacOcupacion')
+				->add('pacResponsable')
 				->add('pacGenero', ChoiceType::class, array(
 					'attr'   =>  array(
 					'class'   => 'form-control select'),

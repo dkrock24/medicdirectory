@@ -193,12 +193,29 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
+                                                    <div class="form_error">{{ form_errors(form.pacOcupacion)}}</div>
+                                                    <label for="" class=" control-label">Ocupación:</label>
+                                                    <div class="">{{ form_widget(form.pacOcupacion) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                                </div>
+                                            </div>    
+                                            <div class="col-md-4">
+                                                <div class="form-group">
                                                     <div class="form_error">{{ form_errors(edit_form.pacActivo)}}</div>
                                                     <label for="" class=" control-label">Estatus del paciente: </label>
                                                     <div class="">{{ form_widget(edit_form.pacActivo) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
                                                 </div>
                                             </div>    
-                                        </div>       
+                                        </div>
+                                        <div class="row">
+                                            <hr>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="form_error">{{ form_errors(form.pacResponsable)}}</div>
+                                                    <label for="" class=" control-label">Nombre del responsable de este paciente?:</label>
+                                                    <div class="">{{ form_widget(form.pacResponsable) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                                </div>
+                                            </div>
+                                        </div>        
                                     </fieldset>
                                 </div>
                                 <div role="tabpanel" class="tab-pane" id="address">
@@ -726,6 +743,8 @@
                         var home_phone = $("#appbundle_paciente_pacTelCasa").val();
                         var work_phone = $("#appbundle_paciente_pacTelTrabajo").val();
                         var cellphone = $("#appbundle_paciente_pacTelTrabajo").val();
+                        var occupation = $("#appbundle_paciente_pacOcupacion").val();
+                        var responsable = $("#appbundle_paciente_pacResponsable").val();
                         /*
                             var month = $("#appbundle_paciente_pacFechaNacimiento_month").val();
                             var day = $("#appbundle_paciente_pacFechaNacimiento_day").val();
@@ -779,7 +798,8 @@
                                 gender: gender, dui:dui, blood_type: blood_type,
                                 email: email, civil_state: civil_state, municipality: municipality,
                                 address: address, home_phone: home_phone, work_phone, cellphone: cellphone,
-                                date: birthdate, img: img, id:id
+                                date: birthdate, img: img, id:id,
+                                responsable: responsable, occupation: occupation
                                 
                             },
                             error: function (data) {

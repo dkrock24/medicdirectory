@@ -322,6 +322,10 @@ class PacienteController extends Controller
 		
 		$work_phone = $request->get('work_phone');
 		$cellphone = $request->get('cellphone');
+		
+		$occupation = $request->get('occupation');
+		$responsable = $request->get('responsable');
+		
 		$date = $request->get('date');
 		$img = $request->get('img');
 		
@@ -364,6 +368,8 @@ class PacienteController extends Controller
 					$oPatient->setPacTelCelular($cellphone);
 					$oPatient->setPacFechaNacimiento(new \Datetime($date) );
 					$oPatient->setPacFechaMod(new \Datetime()); //Fecha de creacion
+					$oPatient->setPacResponsable($responsable);
+					$oPatient->setPacOcupacion($occupation);
 					$isNew = false;
 					//Check if is update onf file
 					if( !empty($img) )
@@ -399,6 +405,8 @@ class PacienteController extends Controller
 				$oPatient->setPacTelCasa($home_phone);
 				$oPatient->setPacTelTrabajo($work_phone);
 				$oPatient->setPacTelCelular($cellphone);
+				$oPatient->setPacResponsable($responsable);
+				$oPatient->setPacOcupacion($occupation);
 				if( !empty($date) )
 				{
 					$oPatient->setPacFechaNacimiento(new \Datetime($date) );

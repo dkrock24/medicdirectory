@@ -142,13 +142,25 @@
                     <div class="panel-body no-border no-padding-top">
                         <div class="well well-sm">
                             <div class='split'>
-                                <h5>Nombre completo:</h5>
-                                <div>{{ paciente.pacNombre|capitalize }} {{ paciente.pacSegNombre|capitalize }} {{ paciente.pacApellido|capitalize }} {{ paciente.pacSegApellido|capitalize }}</div>
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-4 col-sm-4">
+                                        <h5>Nombre:</h5>
+                                        <div>{{ paciente.pacNombre|capitalize }} {{ paciente.pacSegNombre|capitalize }} {{ paciente.pacApellido|capitalize }} {{ paciente.pacSegApellido|capitalize }}</div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4">
+                                            <h5>DUI:</h5>
+                                            {{ paciente.pacDui }}
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4">
+                                            <h5>Ocupación:</h5>
+                                            {{ paciente.pacOcupacion }}
+                                    </div>
+                                </div>
                             </div>
                             <div class='split'>
                                 <div class="row">
                                     <div class="col-lg-4 col-md-4 col-sm-4">
-                                        <h5>Género</h5>
+                                        <h5>Género:</h5>
                                         <div>
                                             {% if paciente.pacGenero|lower == "m" %}
                                                 Masculino
@@ -157,21 +169,8 @@
                                             {% endif %}    
                                         </div>
                                     </div>
-                                        <div class="col-lg-4 col-md-4 col-sm-4">
-                                            <h5>Tipo Sangre:</h5>
-                                            {{ paciente.pacTipSangre }}
-                                        </div>
-
-                                        <div class="col-lg-4 col-md-4 col-sm-4">
-                                            <h5>DUI</h5>
-                                            {{ paciente.pacDui }}
-                                        </div>
-                                </div>
-                            </div>
-                            <div class='split'>
-                                <div class="row">
                                     <div class="col-lg-4 col-md-4 col-sm-4">
-                                        <h5>Estado Civil</h5>
+                                        <h5>Estado Civil:</h5>
                                         <div>
                                             {# {{ paciente.pacGenero|lower }}----- #}
                                             {% if paciente.pacGenero|lower == "m" %}
@@ -197,35 +196,53 @@
                                             {% endif %}    
                                               
                                         </div>
+                                    </div>    
+                                    <div class="col-lg-4 col-md-4 col-sm-4">
+                                            <h5>Tipo Sangre:</h5>
+                                            {{ paciente.pacTipSangre }}
                                     </div>
+
+                                        
+                                </div>
+                            </div>
+                            <div class='split'>
+                                <div class="row">
+                                    
                                         <div class="col-lg-4 col-md-4 col-sm-4">
                                             <h5>Fecha de nacimiento:</h5>
                                             {% if paciente.pacFechaNacimiento %}{{ paciente.pacFechaNacimiento|date('Y-m-d') }}{% endif %}
                                         </div>
 
                                         <div class="col-lg-4 col-md-4 col-sm-4">
-                                            <h5>Email</h5>
+                                            <h5>Email:</h5>
                                             {{ paciente.pacEmail }}
                                         </div>
+                                        
+                                         <div class="col-lg-4 col-md-4 col-sm-4">
+                                            <h5>Telefono Trabajo:</h5>
+                                            <div>
+                                                {{ paciente.pacTelTrabajo }}    
+                                            </div>
+                                        </div>
+                                        
                                 </div>
                             </div>
                             <div class='split'>
                                 <div class="row">
-                                    <div class="col-lg-4 col-md-4 col-sm-4">
-                                        <h5>Telefono Trabajo:</h5>
-                                        <div>
-                                            {{ paciente.pacTelTrabajo }}    
-                                        </div>
-                                    </div>
+                                   
                                     <div class="col-lg-4 col-md-4 col-sm-4">
                                         <h5>Telefóno Casa:</h5>
                                         {{ paciente.pacTelCasa }}
                                     </div>
 
-                                        <div class="col-lg-4 col-md-4 col-sm-4">
-                                            <h5>Celular:</h5>
-                                            {{ paciente.pacTelCelular }}
-                                        </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4">
+                                        <h5>Celular:</h5>
+                                        {{ paciente.pacTelCelular }}
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4">
+                                        <h5>Persona a responsable:</h5>
+                                        {{ paciente.pacResponsable }}
+                                    </div>
                                 </div>
                             </div>
                             <div class='split'>

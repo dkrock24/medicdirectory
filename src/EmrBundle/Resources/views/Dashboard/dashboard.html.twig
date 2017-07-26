@@ -217,7 +217,9 @@
                                                                     </span>
                                                                 </td>
                                                                 <td>
-                                                                    <button class="btn btn-default btnUpdateAppointment" id="cm_{{appointment.id}}"><i class="fa fa-refresh" aria-hidden="true"></i> </button>
+                                                                    {% if appointment.age_estado != "t" %}
+                                                                        <button class="btn btn-default btnUpdateAppointment" id="cm_{{appointment.id}}"><i class="fa fa-refresh" aria-hidden="true"></i> </button>
+                                                                    {% endif %}
                                                                 </td>
                                                             </tr>
                                                         {% endfor %}    
@@ -731,7 +733,13 @@
                                  //btn = " "
                                 if( renderToUpdate != "result_update_appointment" )
                                 {
-                                    table += "<td><button class='btn btn-default btnUpdateAppointment' id='cm_"+data[i]['id']+"'><i class='fa fa-refresh' aria-hidden='true'></i> </button></td>";
+                                    
+                                    table += "<td>";
+                                    if( data[i]['age_estado'] != "t")
+                                    {    
+                                        table += "<button class='btn btn-default btnUpdateAppointment' id='cm_"+data[i]['id']+"'><i class='fa fa-refresh' aria-hidden='true'></i> </button>";
+                                    }
+                                    table += "</td>";
                                 }
                                 
                                 table += "</tr>";

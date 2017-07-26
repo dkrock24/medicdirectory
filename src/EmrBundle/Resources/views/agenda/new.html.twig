@@ -32,9 +32,10 @@
     <div class="page-header-content">
         <div class="page-title">
             <h4>
-                <a href="{{ app.request.headers.get('referer') }}">
+                {# <a href="{{ app.request.headers.get('referer') }}"> #}
+                <a href="{{ path('emr_dashboard') }}"> 
                 <i class="icon-arrow-left52 position-left"></i>
-                <span class="text-semibold">Regresar</span>
+                <span class="text-semibold">Dashboard</span>
                 </a> - Calendario de citas y eventos
 
                 <small class="display-block">Seleccione el horario que desea reservar la cita o el evento</small>
@@ -1303,6 +1304,63 @@
             var work_phone = $("#phonework").val();
             var cellphone = $("#cellphone").val();
             var email = $("#email").val();
+            
+            if(firts_name != "" || middle_name != "")
+            {
+                
+            }
+            else
+            {
+                $.alert({
+                    icon: 'glyphicon glyphicon-exclamation-sign',
+                    title: 'Info!',
+                    content: 'Ingrese al menos un nombre',
+                    type: 'red',
+                    typeAnimated: true,
+                });
+                return false;
+            }
+            
+            if( last_name != "" || middle_last_name != "")
+            {
+                
+            }
+            else
+            {
+                $.alert({
+                    icon: 'glyphicon glyphicon-exclamation-sign',
+                    title: 'Info!',
+                    content: 'Ingrese al menos un apellido',
+                    type: 'red',
+                    typeAnimated: true,
+                });
+                return false;
+            }
+            
+            if(home_phone != "" )
+            {
+               
+            }
+            else if( work_phone != "" )
+            {
+                
+            }
+            else if( cellphone != "" )
+            {
+                
+            }
+            else
+            {
+                 $.alert({
+                    icon: 'glyphicon glyphicon-exclamation-sign',
+                    title: 'Info!',
+                    content: 'Ingrese al menos un número de teléfono',
+                    type: 'red',
+                    typeAnimated: true,
+                });
+                return false;
+            }
+            
             $("#holder_loading").show();
 						$.ajax({
                             type: "post",
@@ -1346,15 +1404,6 @@
                                 if (data > 0)
                                 {
                                     
-                                     $.alert({
-                                        icon: 'fa fa-check-circle',
-                                        title: 'Ok!',
-                                        content: 'El registro guardado con éxito',
-                                        type: 'green',
-                                        typeAnimated: true,
-                                     });
-                                     
-                                     
                                      //$("body").find(".cropper-container").remove();
                                      //$(".img-preview").empty();
                                      $("#setUserAppointmentId").val(data);
@@ -1374,6 +1423,27 @@
                                     {
                                         $( "#result_search_patients" ).after( "<p class='text-right' id='newSearch'><a href='#'>Nueva busqueda</a></p>" );
                                     }
+                                    
+                                    $.alert({
+                                        icon: 'fa fa-check-circle',
+                                        title: 'Ok!',
+                                        content: 'El registro se ha creado con éxito',
+                                        type: 'green',
+                                        typeAnimated: true,
+                                        buttons: {
+                                            tryAgain: {
+                                                text: 'Ok',
+                                                btnClass: 'btn-green',
+                                                action: function (e) {
+                                                   
+                                                }
+                                            },
+                                            
+                                        }
+                                        
+                                     });
+                                    return false;
+                                    
                                 } else 
                                 {
                                     var infoError = (data);
@@ -1384,6 +1454,7 @@
                                         type: 'blue',
                                         typeAnimated: true,
                                     });
+                                    return false;
                                 }
 
                             }
