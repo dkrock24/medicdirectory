@@ -64,6 +64,13 @@ AppBundle\Entity\Cita:
             options:
                 default: '1'
             column: cit_activo
+        citReceta:
+            type: text
+            nullable: true
+            length: 65535
+            options:
+                fixed: false
+            column: cit_receta
     manyToOne:
         citPac:
             targetEntity: Paciente

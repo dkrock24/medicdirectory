@@ -255,4 +255,33 @@ class Cita
     {
         return $this->citUsu;
     }
+    /**
+     * @var string
+     */
+    private $citReceta;
+
+
+    /**
+     * Set citReceta
+     *
+     * @param string $citReceta
+     *
+     * @return Cita
+     */
+    public function setCitReceta($citReceta)
+    {
+        $this->citReceta = $citReceta;
+
+        return $this;
+    }
+
+    /**
+     * Get citReceta
+     *
+     * @return string
+     */
+    public function getCitReceta()
+    {
+        return $this->citReceta;
+    }
 }
