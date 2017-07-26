@@ -352,13 +352,13 @@
             {#{ dump(medico)}#}
                 <div class="inner">
                     <h4>
-                        <a href="news-single.html">
+                        
                         {{ medico.usuario.cliUsuTitulo}}
                         {{ medico.usuario.cliUsuUsu.usuNombre|title }}
                         {{ medico.usuario.cliUsuUsu.usuSegundoNombre|title }}
                         {{ medico.usuario.cliUsuUsu.usuPrimerApellido|title }}
                         {{ medico.usuario.cliUsuUsu.usuSegundoApellido|title }}
-                        </a>
+                        
                     </h4>
                     <h5>
                         {#{ medico.especialidad[0].idEspecialidad.espEspecialidad }#}
@@ -417,14 +417,33 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><b>Dás Laborales: </b></td>
-                                <td>
-                                    <table class="table-condensed"> 
-                                        <tr>
-                                            <td><i class="fa fa-briefcase"></i></td>
-                                            <td> {{ medico.usuario.cliUsuDiasTrabajo }}</td>                                         
-                                        </tr>
-                                    </table>                                  
+                                <td colspan="2">
+                                <b>Dás Laborales: </b>
+                                {% if horario|length %}
+
+                                                <table class="table table-striped text-center" style="table-layout: fixed;">
+                                                <tr>
+                                                {% for key, horas in horario %}  
+                                                    <th class="text-center">
+                                                    {% if ( key == hoy) %}
+                                                        <span style="color:#009bdb">{{ key }}</span>
+                                                    {% else %}
+                                                        {{ key }}
+                                                    {% endif %}
+                                                    </th>                         
+                                                {% endfor %}
+                                                </tr>
+                                                <tr>
+                                                {% for key, horas in horario %} 
+                                                    <td>
+                                                        {{ horas|raw }}
+                                                    </td>   
+                                                {% endfor %}
+                                                </tr>
+                                                </table>
+                                {% else %}
+                                    N/A
+                                {% endif %}
                                 </td>
                             </tr>
                             <tr>

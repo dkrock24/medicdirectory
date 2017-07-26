@@ -13,7 +13,7 @@
         }, options );
  		
  		var element = this;
- 		var days = ["Lun", "Mar","Mir","Jue","Vie","Sab","Dom"];
+ 		var days = ["Lun", "Mar","Mie","Jue","Vie","Sab","Dom"];
 
  		element.html("<div id='weekly_container'><div id='weekly_days'></div><div id='weekly_scroll'><div id='weekly_schedule'></div></div></div>");
  		

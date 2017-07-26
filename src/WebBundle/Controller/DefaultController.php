@@ -144,14 +144,47 @@ class DefaultController extends Controller {
 
         $medico['redes']    = $em->getRepository('AppBundle:UsuarioSocial')->findBy(array("idUsuario" => $medico['usuario']->getCliUsuId()));
 
-        $medico['cliente']  = $em->getRepository('AppBundle:ClienteUsuario')->findOneBy(array("cliUsuUsu" => $med_id));
+        $medico['cliente']  = $em->getRepository('AppBundle:ClienteUsuario')->findOneBy(array("cliUsuUsu" => $med_id,"cliUsuRol"=>6));
 
         $vistas  = $em->getRepository('AppBundle:UsuarioVistas')->findBy(array("visUsuario" => $med_id));
 
         $medico['vistas'] = count($vistas);
+        //\Doctrine\Common\Util\Debug::dump($medico['cliente']);
+        //var_dump($medico['cliente']->getCliUsuDiasTrabajo());
+        $horaDias = array();
+        $hoy = "";
+        if($medico['cliente']->getCliUsuDiasTrabajo()!=""){
+            $arr = unserialize($medico['cliente']->getCliUsuDiasTrabajo());
+            //var_dump($arr);
+
+            $num = 1;
+            
+            $horaDias = array();
+            $dias = array(1 => "Mon", 2 => "Mar", 3 => "Mie", 4 => "Jue", 5 => "Vie", 6 => "Sab", 7 => "Dom");
+            $hoy = $dias[date("N")];
+
+            foreach ($arr as $key => $value) 
+            {
+                if ( count($value) > 0 )
+                {
+                    $hd = "";
+                    $cadena = $this->rangos($value);
+                    $hd .= $cadena;
+                    $horaDias[$key] = $hd;
+                }
+
+                $num++; 
+            }
+
+            //var_dump($horaDias);
+
+        }
+        
 
         return $this->render('WebBundle:Doctores:profile.html.twig', array(
-                    "medico" => $medico
+                    "medico" => $medico,
+                    "horario" => $horaDias,
+                    "hoy" => $hoy
                     )
         );
     }
@@ -337,6 +370,78 @@ class DefaultController extends Controller {
 
             $res = $srvMail->enviarCorreo ($plantilla, $variables, $to, $de = '') ;
         }
+    }
+
+    public function calcular_tiempo_trasnc($hora1,$hora2)
+    {
+        $separar[1]=explode(':',$hora1);
+        $separar[2]=explode(':',$hora2);
+
+        $total_minutos_trasncurridos[1] = ($separar[1][0]*60)+$separar[1][1];
+        $total_minutos_trasncurridos[2] = ($separar[2][0]*60)+$separar[2][1];
+        $total_minutos_trasncurridos = $total_minutos_trasncurridos[1]-$total_minutos_trasncurridos[2];
+        if($total_minutos_trasncurridos<=59){
+            //return($total_minutos_trasncurridos.' Minutos');
+            return($total_minutos_trasncurridos);   
+        } 
+        else if($total_minutos_trasncurridos>59)
+        {
+            $HORA_TRANSCURRIDA = round($total_minutos_trasncurridos/60);
+            if($HORA_TRANSCURRIDA<=9)
+            {
+                $HORA_TRANSCURRIDA='0'.$HORA_TRANSCURRIDA;
+            }
+            $MINUITOS_TRANSCURRIDOS = $total_minutos_trasncurridos%60;
+            if($MINUITOS_TRANSCURRIDOS<=9) 
+            {
+                $MINUITOS_TRANSCURRIDOS='0'.$MINUITOS_TRANSCURRIDOS;
+            }   
+            //return ($HORA_TRANSCURRIDA.':'.$MINUITOS_TRANSCURRIDOS.' Horas');
+            return $Minutos = ($HORA_TRANSCURRIDA * 60)+$MINUITOS_TRANSCURRIDOS;
+
+        } 
+    }
+
+    public function rangos($arr)
+    {
+        $pros = 1;
+        $total = count($arr);
+        $cadena = "";
+        $block = false;
+        for($i=0; $i < count($arr); $i++)
+        {
+            if($pros < $total)
+            {
+                $res = abs( $this->calcular_tiempo_trasnc($hora1=$arr[$i],$hora2=$arr[$i+1]) );
+                if( $pros == 1 )
+                {
+                    $cadena .= date('ga', strtotime($arr[$i]));
+                }
+                else
+                {
+                    if( $res != 60 )
+                    {
+                        $cadena .= " <i>a</i> ". date('ga', strtotime($arr[$i]));
+                        $block=true;
+                    }
+                    else
+                    {
+                        if( $block )
+                        {
+                            $cadena .= "<br /> ". date('ga', strtotime($arr[$i]));
+                            $block = false;
+                        }   
+                    }
+                }
+            }
+            else
+            {
+                $cadena .= " <i>a</i> " .date('ga', strtotime($arr[$i]));
+            }
+            $pros++;
+
+        }
+        return $cadena;
     }
 
 }
