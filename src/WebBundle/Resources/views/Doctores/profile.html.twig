@@ -377,15 +377,15 @@
                             <i class="fa fa-eye"></i>Visitas {{ medico.vistas }}
                         </li>
                         <li>
-                            <i class="fa fa-user"></i> By <a href="#">Admin</a>
+                            <i class="fa fa-envelope"></i> {{ medico.usuario.cliUsuCorreo }}
                         </li>
                         <li>
                             <a href="#">
-                                <i class="fa fa-comments-o"></i> 10 Comments
+                                <i class="fa fa-user"></i> {{ medico.usuario.cliUsuTelefono }}
                             </a>
                         </li>
                         <li>
-                            <i class="fa fa-building"></i><i class="fa fa-phone"></i>
+                            <i class="fa fa-hospital-o"></i>                            
                             {{ medico.cliente.cliUsuCli.clitelefono1 }} |
                             {{ medico.cliente.cliUsuCli.clitelefono2 }}
                         </li>
@@ -418,7 +418,7 @@
                             </tr>
                             <tr>
                                 <td colspan="2">
-                                <b>Dás Laborales: </b>
+                                <b>Dás Laborales: </b><br><br>
                                 {% if horario|length %}
 
                                                 <table class="table table-striped text-center" style="table-layout: fixed;">
@@ -446,6 +446,7 @@
                                 {% endif %}
                                 </td>
                             </tr>
+                            <!--
                             <tr>
                                 <td><b>Contactos:</b></td>
                                 <td>
@@ -461,19 +462,9 @@
                                     </table> 
                                 </td>
                             </tr>
-                            <tr>
-                                <td colspan="2">
-                                    <div>
-                                        <!--
-                                        <i class="fa fa-3x circled bg-skin central">24</i>
-                                        <i class="fa fa-youtube fa-3x circled bg-skin central"></i>
-                                        <i class="fa fa-twitter fa-3x circled bg-skin central"></i>
-                                        <i class="fa fa-linkedin fa-3x circled bg-skin central"></i>       
-                                        -->
 
-                                    </div>                                    
-                                </td>
-                            </tr>
+                            -->
+
                          </tbody>
                     </table>
                         
