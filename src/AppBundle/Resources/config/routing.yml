@@ -6,3 +6,8 @@ img_convertir:
       ancho: \d+
       alto: \d+
       hash: .{40}
+
+ws_login:
+    path: /ws/login
+    defaults: { _controller: AppBundle:wsLogin:wsLogin }
+    methods: [POST]
