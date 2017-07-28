@@ -158,7 +158,7 @@
                                                 
                                                 <div style="float: left; max-width: 100px;">
                                                     {% if  patient[0].pacFoto is defined and patient[0].pacFoto != "" %}
-                                                    <div style="text-align:center;"><img src="{{ asset("uploads/pacientes/"~paciente.pacFoto) }}" class="img-thumbnailx" style="max-width:85% "></div>
+                                                    <div style="text-align:center;"><img src="{{ asset("uploads/pacientes/"~patient[0].pacFoto) }}" class="img-thumbnailx" style="max-width:85% "></div>
                                                     {% else %}
                                                         {% if patient[0].pacGenero is defined and patient[0].pacGenero|lower  == "m" %}
                                                         <div  style="text-align:center"><img src="{{ asset('bundles/admin/img/man.png') }}" class="img-thumbnailx" style="max-width:80% "></div>
@@ -893,7 +893,7 @@
                     }
                 });
             }
-            
+            //setClassForm();
             $(".mod-tab").click(function(){
                 var sTarget = $(this).attr('target');
                 var sUrl = "{{ url( 'eav_crear_form_modulo', {'mod_hash': 'modhash', 'usu_id': 'usuid', 'pac_id': 'pacid', 'cli_id': 'cliid', 'cit_id': 'citid'} ) }}";
@@ -910,6 +910,9 @@
                     //data: "action=delete&id=" + eventID,
                     type: "POST",
                     success: function (data) {
+
+                        setClassForm();
+
                         $("#holder_loading").hide();
                         var moduleActive = ""//"<div class='alert alert-info alert-styled-left alert-arrow-left alert-component'> Módulo activo: <span id='moduleActivated'></span></div>";
                         $("#mod-holder").html(moduleActive+""+data);
@@ -945,6 +948,8 @@
                                     });
                                 }
                             });
+
+                            setClassForm();
                         {% endif %}
                         
                     },
@@ -995,6 +1000,7 @@
                         console.log( "setting data-value to: "+input.val() );
                         input.attr("data-value", input.val());
                         input.val(input.val());
+
                     }).fail(function( error ){
                         tries++;
                         $('.loading-gif').replaceWith("<i class='loading-gif'>&nbsp;&nbsp;<img src='{{ asset('bundles/admin/img/ajax-loader.gif') }}'>&nbsp;&nbsp;Tratando de guardar datos nuevamente, por favor espere...</i>");
@@ -1018,6 +1024,8 @@
                 
                     $('.loading-gif').replaceWith("");
                 }
+
+
             }
             
             
@@ -1195,7 +1203,17 @@
                 });
             }
 
-
+            function setClassForm()
+            {
+                //alert();
+                $("body").find("#mod-holder .tab-pane").each(function(){
+                    console.log("r");
+                    $(this).find(".form-group").each(function(){
+                        $(this).find("input[type='checkbox']").closest('.form-group').removeClass("form-group");
+                        console.log("xx");
+                    });
+                });
+            }
 
 
             function setModalMaxHeight(element) {
