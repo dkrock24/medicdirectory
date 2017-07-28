@@ -239,7 +239,11 @@ class servicioEav {
                     
                 }else if( $vcamp_props['tipo_campo'] == "checkbox" ){
                     //***
-                    $checkValue = (bool) $aFormCampData[ $vcamp_props["camp_id"] ]["valor"];
+                    //$checkValue = (bool) $aFormCampData[ $vcamp_props["camp_id"] ]["valor"];
+                    $checkValue =  $aFormCampData[ $vcamp_props["camp_id"] ]["valor"];
+//                    echo 'HERE ========================><br>';
+//                    var_dump($checkValue);
+//                    exit;
                     $oModuloForm->add( $vcamp_props["camp_id"],
                         self::$aDataTypesMap[ $vcamp_props["tipo_campo"] ],
                         array(
