@@ -232,28 +232,25 @@ class servicioEav {
                             "choices" => $aFormCampData[ $vcamp_props["camp_id"] ]["val_catalogo"],
                             'attr' => array(
                                 'data-value' => $aFormCampData[ $vcamp_props["camp_id"] ]["id_valor_catalogo"]
-                            ),
-                            'required' => $bRequired
+                            )
                         ) 
                     );
                     
-                }else if( $vcamp_props['tipo_campo'] == "checkbox" ){
-                    //***
-                    //$checkValue = (bool) $aFormCampData[ $vcamp_props["camp_id"] ]["valor"];
+                }else if( $vcamp_props['tipo_campo'] == "checkbox" || $vcamp_props['tipo_campo'] == "radio"){
+                    
                     $checkValue =  $aFormCampData[ $vcamp_props["camp_id"] ]["valor"];
-//                    echo 'HERE ========================><br>';
-//                    var_dump($checkValue);
-//                    exit;
+                    
                     $oModuloForm->add( $vcamp_props["camp_id"],
-                        self::$aDataTypesMap[ $vcamp_props["tipo_campo"] ],
+                        //self::$aDataTypesMap[ $vcamp_props["tipo_campo"] ],
+                        Type\ChoiceType::class,
                         array(
                             "label" => $vcamp_props["campo"],
-                            //"data" => $checkValue,
-                            "value" => $checkValue,
+                            //"value" => $checkValue,
+                            "expanded" => true,
+                            "choices" => $aFormCampData[ $vcamp_props["camp_id"] ]["val_catalogo"],
                             'attr' => array(
-                                'data-value' => $checkValue//$aFormCampData[ $vcamp_props["camp_id"] ]["valor"]
-                            ),
-                            'required' => $bRequired
+                                'data-value' => $aFormCampData[ $vcamp_props["camp_id"] ]["id_valor_catalogo"]
+                            )
                         ) 
                     );
                     //***
@@ -266,8 +263,7 @@ class servicioEav {
                             "data" => $aFormCampData[ $vcamp_props["camp_id"] ]["valor"],
                             'attr' => array(
                                 'data-value' => $aFormCampData[ $vcamp_props["camp_id"] ]["valor"]
-                            ),
-                            'required' => $bRequired
+                            )
                         ) 
                     );
                     
