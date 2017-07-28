@@ -1,0 +1,88 @@
+AppBundle\Entity\SoporteCasos:
+    type: entity
+    table: soporte_casos
+    indexes:
+        fecha_creacion:
+            columns:
+                - fecha_creacion
+        fecha_actualizacion:
+            columns:
+                - fecha_actualizacion
+        FK_2:
+            columns:
+                - usuario_creador_id
+        FK_soporte_casos_usuario:
+            columns:
+                - usuario_asignado_id
+        FK_soporte_casos_soporte_temas:
+            columns:
+                - tema_id
+        FK_soporte_casos_soporte_estados:
+            columns:
+                - estado_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        asunto:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        fechaCreacion:
+            type: datetime
+            nullable: true
+            column: fecha_creacion
+        fechaActualizacion:
+            type: datetime
+            nullable: true
+            column: fecha_actualizacion
+    manyToOne:
+        usuarioCreador:
+            targetEntity: ClienteUsuario
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                usuario_creador_id:
+                    referencedColumnName: cli_usu_id
+            orphanRemoval: false
+        estado:
+            targetEntity: SoporteEstados
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                estado_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        tema:
+            targetEntity: SoporteTemas
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                tema_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        usuarioAsignado:
+            targetEntity: Usuario
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                usuario_asignado_id:
+                    referencedColumnName: usu_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

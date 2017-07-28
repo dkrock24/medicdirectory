@@ -1,11 +1,12 @@
 <?php
 
 namespace AppBundle\Entity;
+use \Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Usuario
  */
-class Usuario implements \Symfony\Component\Security\Core\User\UserInterface {
+class Usuario implements UserInterface {
 
     public function eraseCredentials() {
 
@@ -16,7 +17,14 @@ class Usuario implements \Symfony\Component\Security\Core\User\UserInterface {
     }
 
     public function getRoles() {
-        return array('ROLE_USER');
+        $ROL = [];
+        $ROL[] = 'ROLE_USER';
+
+        if ($this->getUsuEsAdmin()) {
+            $ROL[] = 'ROLE_ADMIN';
+        }
+
+        return $ROL;
     }
 
     public function getSalt() {
@@ -276,5 +284,34 @@ class Usuario implements \Symfony\Component\Security\Core\User\UserInterface {
     public function getUsuSegundoApellido()
     {
         return $this->usuSegundoApellido;
+    }
+    /**
+     * @var boolean
+     */
+    private $usuEsAdmin;
+
+
+    /**
+     * Set usuEsAdmin
+     *
+     * @param boolean $usuEsAdmin
+     *
+     * @return Usuario
+     */
+    public function setUsuEsAdmin($usuEsAdmin)
+    {
+        $this->usuEsAdmin = $usuEsAdmin;
+
+        return $this;
+    }
+
+    /**
+     * Get usuEsAdmin
+     *
+     * @return boolean
+     */
+    public function getUsuEsAdmin()
+    {
+        return $this->usuEsAdmin;
     }
 }

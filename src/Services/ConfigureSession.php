@@ -45,10 +45,13 @@ class ConfigureSession {
 					$locationName = $key->getCliUsuCli()->getCliNombre();
 					$municipalityName = $key->getCliUsuCli()->getCliMun()->getMunNombre();
 					$municipalityId = $key->getCliUsuCli()->getCliMun()->getMunId();
+
+                    $this->session->set('cliUsuCli', $key->getCliUsuId());
 				}
 			}
 			if (in_array($iLocationId, $myLocation))
 			{
+				$this->session->set('locationId', $iLocationId);
 				$this->session->set('locationId', $iLocationId);
 				$this->session->set('locationName', $locationName);
 				$this->session->set('municipalityId', $municipalityId);
