@@ -114,27 +114,39 @@ class ConsultaController extends Controller
 //                        \Doctrine\Common\Util\Debug::dump( $oUsuModulosGenerales );
 //                echo '</pre>';
 //                
+                $hash_handler = null;
                 $modulos = array();
                 if(count($oUsuModulos) > 0 )
                 {
                     foreach( $oUsuModulos as $kmod => $modulo ){
+                        $hash_handler = $modulo->getCliModMod()->getModHashCode();
                         $modulos[] = array(
                                 "mod_id" => $modulo->getCliModMod()->getModId(),
-                                "mod_hash" => stream_get_contents( $modulo->getCliModMod()->getModHashCode() ),
+                                "mod_hash" => stream_get_contents( $hash_handler ),
                                 "modulo" => $modulo->getCliModMod()->getModModulo()
                         );
+                        rewind($hash_handler);
                     }
                 }
                 
                 if( count( $oUsuModulosGenerales ) > 0 ){
                     foreach( $oUsuModulosGenerales as $kmod => $modulo ){
-                        $modulos[] = array(
+                        $hash_handler = $modulo->getModHashCode();
+                        $mod_general = array(
                                 "mod_id" => $modulo->getModId(),
-                                "mod_hash" => stream_get_contents( $modulo->getModHashCode() ),
+                                "mod_hash" => stream_get_contents( $hash_handler ),
                                 "modulo" => $modulo->getModModulo()
                         );
+                        
+                        //-- Fix to avoid having a module twice when this is assigned to a client and it's a
+                        //-- "general" module at the same time.
+                        if( !in_array( $mod_general , $modulos) ){
+                            $modulos[] = $mod_general;
+                        }
+                        rewind($hash_handler);
                     }
                 }
+                
                 
 		
 		if( !isset($patientId) || empty($patientId) )

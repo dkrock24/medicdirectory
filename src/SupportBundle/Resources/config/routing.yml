@@ -1,0 +1,12 @@
+support_homepage_crear:
+    path:     /soporte/crear
+    defaults: { _controller: SupportBundle:Default:crear }
+    host:     "%emr_domain%"
+
+support_homepage_listar:
+    path:     /soporte/listar
+    defaults: { _controller: SupportBundle:Default:listar }
+
+support_homepage_ver:
+    path:     /soporte/ver/{id}
+    defaults: { _controller: SupportBundle:Default:listar }

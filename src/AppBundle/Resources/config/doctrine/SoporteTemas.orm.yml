@@ -1,0 +1,29 @@
+AppBundle\Entity\SoporteTemas:
+    type: entity
+    table: soporte_temas
+    indexes:
+        activo:
+            columns:
+                - activo
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        tema:
+            type: string
+            nullable: false
+            length: 100
+            options:
+                fixed: false
+        activo:
+            type: boolean
+            nullable: false
+            options:
+                default: '1'
+    lifecycleCallbacks: {  }

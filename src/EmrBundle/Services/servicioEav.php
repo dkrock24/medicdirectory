@@ -38,8 +38,8 @@ class servicioEav {
         'date' => Type\DateType::class,
         'datetime' => Type\DateTimeType::class,
         'time' => Type\TimeType::class,
-        'birthday' => Type\Birthday::class,
-        'checkbox' => Type\Checkbox::class,
+        'birthday' => Type\BirthdayType::class,
+        'checkbox' => Type\CheckboxType::class,
         'radio' => Type\RadioType::class,
         'file' => Type\FileType::class,
     );
@@ -238,7 +238,25 @@ class servicioEav {
                     );
                     
                 }else if( $vcamp_props['tipo_campo'] == "checkbox" ){
-                    
+                    //***
+                    //$checkValue = (bool) $aFormCampData[ $vcamp_props["camp_id"] ]["valor"];
+                    $checkValue =  $aFormCampData[ $vcamp_props["camp_id"] ]["valor"];
+//                    echo 'HERE ========================><br>';
+//                    var_dump($checkValue);
+//                    exit;
+                    $oModuloForm->add( $vcamp_props["camp_id"],
+                        self::$aDataTypesMap[ $vcamp_props["tipo_campo"] ],
+                        array(
+                            "label" => $vcamp_props["campo"],
+                            //"data" => $checkValue,
+                            "value" => $checkValue,
+                            'attr' => array(
+                                'data-value' => $checkValue//$aFormCampData[ $vcamp_props["camp_id"] ]["valor"]
+                            ),
+                            'required' => $bRequired
+                        ) 
+                    );
+                    //***
                 }else{
                     
                     $oModuloForm->add( $vcamp_props["camp_id"],

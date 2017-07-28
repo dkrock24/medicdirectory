@@ -1,3 +1,12 @@
+support:
+    resource: "@SupportBundle/Resources/config/routing.yml"
+    prefix:   /
+    host:     "%emr_domain%"
+    defaults:
+        domain: '%emr_domain%'
+    requirements:
+        domain: '^%emr_domain%$'
+
 # no tocar ni ponerle host
 login:
     path:     /login

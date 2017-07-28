@@ -158,7 +158,7 @@
                                                 
                                                 <div style="float: left; max-width: 100px;">
                                                     {% if  patient[0].pacFoto is defined and patient[0].pacFoto != "" %}
-                                                    <div style="text-align:center;"><img src="{{ asset("uploads/pacientes/"~paciente.pacFoto) }}" class="img-thumbnailx" style="max-width:85% "></div>
+                                                    <div style="text-align:center;"><img src="{{ asset("uploads/pacientes/"~patient[0].pacFoto) }}" class="img-thumbnailx" style="max-width:85% "></div>
                                                     {% else %}
                                                         {% if patient[0].pacGenero is defined and patient[0].pacGenero|lower  == "m" %}
                                                         <div  style="text-align:center"><img src="{{ asset('bundles/admin/img/man.png') }}" class="img-thumbnailx" style="max-width:80% "></div>
@@ -915,7 +915,7 @@
                     }
                 });
             }
-            
+            //setClassForm();
             $(".mod-tab").click(function(){
                 var sTarget = $(this).attr('target');
                 var sUrl = "{{ url( 'eav_crear_form_modulo', {'mod_hash': 'modhash', 'usu_id': 'usuid', 'pac_id': 'pacid', 'cli_id': 'cliid', 'cit_id': 'citid'} ) }}";
@@ -932,6 +932,9 @@
                     //data: "action=delete&id=" + eventID,
                     type: "POST",
                     success: function (data) {
+
+                        setClassForm();
+
                         $("#holder_loading").hide();
                         var moduleActive = ""//"<div class='alert alert-info alert-styled-left alert-arrow-left alert-component'> Módulo activo: <span id='moduleActivated'></span></div>";
                         $("#mod-holder").html(moduleActive+""+data);
@@ -940,18 +943,33 @@
                         
                         {% if statusAppointment == "p" or statusAppointment == "c" %}
                             $('body').find("form.mod-form :input").each(function(){
-                                //console.log("x");
-                                $(this).on("change  paste", function(){
-                                //$(this).blur( function(){
-                                    //if( $(this).attr('data-value') != $(this).val() ){
-                                        var tries = 1;
-                                        var oInputLabel = $( "label[for='"+$(this).attr('id')+"']" );
-                                        oInputLabel.after("<i class='loading-gif'>&nbsp;&nbsp;<img src='{{ asset('bundles/admin/img/ajax-loader.gif') }}'> Guardando..</i>");  
-                                        $(".loading-gif").css('color', '#39AED1');
-                                        guardarEavForm( $(this), tries );
-                                    //}
-                                });
+                                
+                                if( $(this).attr('type') == "checkbox" || $(this).attr('type') == "radio" ){
+                                    $(this).change( function(){
+                                        var input_value = ( $(this).prop("checked") == true ) ? 1 : 0;
+                                        
+                                        if( $(this).attr('data-value') != input_value ){
+                                            var tries = 1;
+                                            var oInputLabel = $( "label[for='"+$(this).attr('id')+"']" );
+                                            oInputLabel.after("<i class='loading-gif'>&nbsp;&nbsp;<img src='{{ asset('bundles/admin/img/ajax-loader.gif') }}'> Guardando..</i>");  
+                                            $(".loading-gif").css('color', '#39AED1');
+                                            guardarEavForm( $(this), tries );
+                                        }
+                                    });
+                                }else{
+                                    $(this).blur( function(){
+                                        if( $(this).attr('data-value') != $(this).val() ){
+                                            var tries = 1;
+                                            var oInputLabel = $( "label[for='"+$(this).attr('id')+"']" );
+                                            oInputLabel.after("<i class='loading-gif'>&nbsp;&nbsp;<img src='{{ asset('bundles/admin/img/ajax-loader.gif') }}'> Guardando..</i>");  
+                                            $(".loading-gif").css('color', '#39AED1');
+                                            guardarEavForm( $(this), tries );
+                                        }
+                                    });
+                                }
                             });
+
+                            setClassForm();
                         {% endif %}
                         
                     },
@@ -969,8 +987,7 @@
                 });
             });
             
-            function guardarEavForm( input, tries = 0, currentInfo ){
-                console.log(currentInfo);
+            function guardarEavForm( input, tries = 0 ){
                 if( tries < 3 ){
                     var sUrl = "{{ url( 'eav_guardar_valor_form', { 'val_usu_id': 'usuid', 'val_pac_id': 'pacid', 'val_cli_id': 'cliid', 'val_cit_id': 'citid', 'val_camp_id': 'campid', 'value': 'val', } ) }}";
                     sUrl = sUrl.replace( "usuid", {{ usu_id }} );
@@ -982,19 +999,25 @@
                     sUrl = sUrl.replace( "campid", camp_id );
                     var valor_mandar = null;
                     
-                    if( input.val() == ""){
-                        valor_mandar = "value_holder";
+                    if( input.attr('type') == "radio" ||  input.attr('type') == "checkbox" ){
+                        valor_mandar = (input.prop("checked")==true) ? 1 : 0;
                     }else{
-                        valor_mandar = input.val();
+                        if( input.val() == ""){
+                            valor_mandar = "value_holder";
+                        }else{
+                            valor_mandar = input.val();
+                        }
                     }
                     
+                    
                     sUrl = sUrl.replace( "val", valor_mandar );
-
                     
                     $.post( sUrl, function(rdata){
                     }).done(function(  ){
                         $(".loading-gif").css('color', '#3ABC63');
-                        $(".loading-gif").html('&nbsp;&nbsp;Listo.').fadeOut(4000);
+                        $(".loading-gif").html('&nbsp;&nbsp;Listo.').fadeOut( 4000 );
+                        input.attr("data-value", valor_mandar);
+                        input.val(valor_mandar);
                     }).fail(function( error ){
                         tries++;
                         $('.loading-gif').replaceWith("<i class='loading-gif'>&nbsp;&nbsp;<img src='{{ asset('bundles/admin/img/ajax-loader.gif') }}'>&nbsp;&nbsp;Tratando de guardar datos nuevamente, por favor espere...</i>");
@@ -1018,6 +1041,8 @@
                 
                     $('.loading-gif').replaceWith("");
                 }
+
+
             }
             
             
@@ -1040,17 +1065,31 @@
             
             {% if statusAppointment == "p" or statusAppointment == "c" %}
                 $('body').find("form.mod-form :input").each(function(){
-                    //console.log("x");
-                    $(this).on("change  paste", function(){
-                    //$(this).blur( function(){
-                        //if( $(this).attr('data-value') != $(this).val() ){
-                            var tries = 1;
-                            var oInputLabel = $( "label[for='"+$(this).attr('id')+"']" );
-                            oInputLabel.after("<i class='loading-gif'>&nbsp;&nbsp;<img src='{{ asset('bundles/admin/img/ajax-loader.gif') }}'> Guardando..</i>");  
-                            $(".loading-gif").css('color', '#39AED1');
-                            guardarEavForm( $(this), tries );
-                        //}
-                    });
+
+                    if( $(this).attr('type') == "checkbox" || $(this).attr('type') == "radio" ){
+                        $(this).change( function(){
+                            var input_value = ( $(this).prop("checked") == true ) ? 1 : 0;
+                            
+                            if( $(this).attr('data-value') != input_value ){
+                                var tries = 1;
+                                var oInputLabel = $( "label[for='"+$(this).attr('id')+"']" );
+                                oInputLabel.after("<i class='loading-gif'>&nbsp;&nbsp;<img src='{{ asset('bundles/admin/img/ajax-loader.gif') }}'> Guardando..</i>");  
+                                $(".loading-gif").css('color', '#39AED1');
+                                guardarEavForm( $(this), tries );
+                            }
+                        });
+                    }else{
+                        $(this).blur( function(){
+                            if( $(this).attr('data-value') != $(this).val() ){
+                                var tries = 1;
+                                var oInputLabel = $( "label[for='"+$(this).attr('id')+"']" );
+                                oInputLabel.after("<i class='loading-gif'>&nbsp;&nbsp;<img src='{{ asset('bundles/admin/img/ajax-loader.gif') }}'> Guardando..</i>");  
+                                $(".loading-gif").css('color', '#39AED1');
+                                guardarEavForm( $(this), tries );
+                            }
+                        });
+                    }
+                    
                 });
                 
             {% endif %}
@@ -1196,7 +1235,17 @@
                 });
             }
 
-
+            function setClassForm()
+            {
+                //alert();
+                $("body").find("#mod-holder .tab-pane").each(function(){
+                    console.log("r");
+                    $(this).find(".form-group").each(function(){
+                        $(this).find("input[type='checkbox']").closest('.form-group').removeClass("form-group");
+                        console.log("xx");
+                    });
+                });
+            }
 
 
             function setModalMaxHeight(element) {

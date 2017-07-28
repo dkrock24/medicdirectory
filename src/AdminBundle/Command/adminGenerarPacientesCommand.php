@@ -7,7 +7,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 
-class adminGenerarPacientesPruebaCommand extends ContainerAwareCommand {
+class adminGenerarPacientesCommand extends ContainerAwareCommand {
 
     protected function configure() {
         /* php bin/console admin:generar-pacientes-prueba */

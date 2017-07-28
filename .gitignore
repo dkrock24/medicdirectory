@@ -30,6 +30,7 @@
 
 # Assets and user uploads
 /web/bundles/
+!/web/perfil/muestra.png
 /web/uploads/
 /web/config.php
 
@@ -39,7 +40,7 @@
 
 # Build data
 /build/
-!/web/cache/gitkeep.txt
+!/web/cache/.gitkeep
 /web/cache
 
 # Composer PHAR

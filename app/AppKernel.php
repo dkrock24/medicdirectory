@@ -22,6 +22,7 @@ class AppKernel extends Kernel
             new WebBundle\WebBundle(),
             new AdminBundle\AdminBundle(),
             new EmrBundle\EmrBundle(),
+            new SupportBundle\SupportBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

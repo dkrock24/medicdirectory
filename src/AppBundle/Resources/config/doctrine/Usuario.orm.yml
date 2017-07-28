@@ -72,4 +72,7 @@ AppBundle\Entity\Usuario:
             options:
                 fixed: false
             column: usu_segundo_apellido
+        usuEsAdmin:
+            type: boolean
+            column: usu_es_admin
     lifecycleCallbacks: {  }
