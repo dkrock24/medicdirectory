@@ -918,14 +918,12 @@
                         
                         {% if statusAppointment == "p" or statusAppointment == "c" %}
                             $('body').find("form.mod-form :input").each(function(){
-                                //console.log("x");
-                                //$(this).on("change  paste", function(){
                                 
                                 if( $(this).attr('type') == "checkbox" || $(this).attr('type') == "radio" ){
                                     $(this).change( function(){
-                                        console.log("saving check or radio");
-                                        console.log($(this).val());
-                                        if( $(this).attr('data-value') != $(this).val() ){
+                                        var input_value = ( $(this).prop("checked") == true ) ? 1 : 0;
+                                        
+                                        if( $(this).attr('data-value') != input_value ){
                                             var tries = 1;
                                             var oInputLabel = $( "label[for='"+$(this).attr('id')+"']" );
                                             oInputLabel.after("<i class='loading-gif'>&nbsp;&nbsp;<img src='{{ asset('bundles/admin/img/ajax-loader.gif') }}'> Guardando..</i>");  
@@ -962,8 +960,7 @@
                 });
             });
             
-            function guardarEavForm( input, tries = 0, currentInfo ){
-                console.log(currentInfo);
+            function guardarEavForm( input, tries = 0 ){
                 if( tries < 3 ){
                     var sUrl = "{{ url( 'eav_guardar_valor_form', { 'val_usu_id': 'usuid', 'val_pac_id': 'pacid', 'val_cli_id': 'cliid', 'val_cit_id': 'citid', 'val_camp_id': 'campid', 'value': 'val', } ) }}";
                     sUrl = sUrl.replace( "usuid", {{ usu_id }} );
@@ -975,26 +972,25 @@
                     sUrl = sUrl.replace( "campid", camp_id );
                     var valor_mandar = null;
                     
-                    if( input.val() == ""){
-                        valor_mandar = "value_holder";
+                    if( input.attr('type') == "radio" ||  input.attr('type') == "checkbox" ){
+                        valor_mandar = (input.prop("checked")==true) ? 1 : 0;
                     }else{
-                        if( input.attr('type') == "radio" ||  input.attr('type') == "checkbox" ){
-                            valor_mandar = (input.prop("checked")==true) ? 1 : 0;
+                        if( input.val() == ""){
+                            valor_mandar = "value_holder";
                         }else{
                             valor_mandar = input.val();
                         }
                     }
                     
+                    
                     sUrl = sUrl.replace( "val", valor_mandar );
-
                     
                     $.post( sUrl, function(rdata){
                     }).done(function(  ){
                         $(".loading-gif").css('color', '#3ABC63');
-                        $(".loading-gif").html('&nbsp;&nbsp;Listo.').fadeOut(4000);
-                        console.log( "setting data-value to: "+input.val() );
-                        input.attr("data-value", input.val());
-                        input.val(input.val());
+                        $(".loading-gif").html('&nbsp;&nbsp;Listo.').fadeOut( 4000 );
+                        input.attr("data-value", valor_mandar);
+                        input.val(valor_mandar);
                     }).fail(function( error ){
                         tries++;
                         $('.loading-gif').replaceWith("<i class='loading-gif'>&nbsp;&nbsp;<img src='{{ asset('bundles/admin/img/ajax-loader.gif') }}'>&nbsp;&nbsp;Tratando de guardar datos nuevamente, por favor espere...</i>");
@@ -1023,14 +1019,11 @@
             
             {% if statusAppointment == "p" or statusAppointment == "c" %}
                 $('body').find("form.mod-form :input").each(function(){
-                    //console.log("x");
-                    //$(this).on("change  paste", function(){
+
                     if( $(this).attr('type') == "checkbox" || $(this).attr('type') == "radio" ){
                         $(this).change( function(){
-                            console.log("saving check or radio");
                             var input_value = ( $(this).prop("checked") == true ) ? 1 : 0;
-                            console.log($(this).prop("checked"));
-                            console.log(input_value);
+                            
                             if( $(this).attr('data-value') != input_value ){
                                 var tries = 1;
                                 var oInputLabel = $( "label[for='"+$(this).attr('id')+"']" );
@@ -1050,6 +1043,7 @@
                             }
                         });
                     }
+                    
                 });
                 
             {% endif %}
