@@ -73,14 +73,14 @@ AppBundle\Entity\Paciente:
             column: pac_genero            
         pacOcupacion:
             type: string
-            nullable: false
+            nullable: true
             length: 50
             options:
                 fixed: false
             column: pac_ocupacion
         pacResponsable:
             type: string
-            nullable: false
+            nullable: true
             length: 50
             options:
                 fixed: false
