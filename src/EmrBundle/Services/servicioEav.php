@@ -238,20 +238,23 @@ class servicioEav {
 
                     $oModuloForm->add( $vcamp_props["camp_id"],
                             Type\ChoiceType::class,
-                        array(
-                            "label" => $vcamp_props["campo"],
-                            //"data" => $aFormCampData[ $vcamp_props["camp_id"] ]["id_valor_catalogo"],
-                            "choices" => $aFormCampData[ $vcamp_props["camp_id"] ]["val_catalogo"],
-                            "expanded" => true
-                        ) 
-                    );
+                            array(
+                                "label" => $vcamp_props["campo"],
+                                "choices" => $aFormCampData[ $vcamp_props["camp_id"] ]["val_catalogo"],
+                                "expanded" => true,
+                                "choices" => $aFormCampData[ $vcamp_props["camp_id"] ]["val_catalogo"],
+                            )
+                        );
                 }else{
                     
                     $oModuloForm->add( $vcamp_props["camp_id"],
                         self::$aDataTypesMap[ $vcamp_props["tipo_campo"] ],
                         array(
                             "label" => $vcamp_props["campo"],
-                            "data" => $aFormCampData[ $vcamp_props["camp_id"] ]["valor"]
+                            "data" => $aFormCampData[ $vcamp_props["camp_id"] ]["valor"],
+                            'attr' => array(
+                                'data-value' => $aFormCampData[ $vcamp_props["camp_id"] ]["valor"]
+                            )
                         ) 
                     );
                     
