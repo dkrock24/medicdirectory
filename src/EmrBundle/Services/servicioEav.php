@@ -233,7 +233,8 @@ class servicioEav {
                         ) 
                     );
                     
-                }else if( $vcamp_props['tipo_campo'] == "checkbox" || $vcamp_props['tipo_campo'] == "radio" ){
+                }else if( ($vcamp_props['tipo_campo'] == "checkbox" || $vcamp_props['tipo_campo'] == "radio") && !is_null( $aFormCampData[ $vcamp_props["camp_id"] ]["val_catalogo"] ) ){
+                    
                     $checkValue =  $aFormCampData[ $vcamp_props["camp_id"] ]["valor"];
 
                     $oModuloForm->add( $vcamp_props["camp_id"],
@@ -241,10 +242,21 @@ class servicioEav {
                             array(
                                 "label" => $vcamp_props["campo"],
                                 "choices" => $aFormCampData[ $vcamp_props["camp_id"] ]["val_catalogo"],
-                                "expanded" => true,
-                                "choices" => $aFormCampData[ $vcamp_props["camp_id"] ]["val_catalogo"],
+                                "expanded" => true
                             )
                         );
+                    
+                }else if( ($vcamp_props['tipo_campo'] == "checkbox" || $vcamp_props['tipo_campo'] == "radio") && is_null( $aFormCampData[ $vcamp_props["camp_id"] ]["val_catalogo"] ) ){
+                    $checkValue =  $aFormCampData[ $vcamp_props["camp_id"] ]["valor"];
+
+                    $oModuloForm->add( $vcamp_props["camp_id"],
+                            self::$aDataTypesMap[ $vcamp_props["tipo_campo"] ],
+                            array(
+                                "label" => $vcamp_props["campo"],
+                                "value" => $checkValue
+                            )
+                        );
+                    
                 }else{
                     
                     $oModuloForm->add( $vcamp_props["camp_id"],

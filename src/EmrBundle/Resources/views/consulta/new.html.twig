@@ -384,6 +384,10 @@
 {% block codejs %}
     <script>
         $(document).on("ready", function () {
+            
+            // fix radio buttons to be drawn properly
+            $(".radio").attr("class", "radio-inline");
+            
             var currentMilisecundsDiff = {{ currentMilisecundsDiff }};
             if( currentMilisecundsDiff > 0 )
             {
