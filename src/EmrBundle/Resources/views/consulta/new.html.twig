@@ -928,15 +928,14 @@
                                 
                                 if( $(this).attr('type') == "checkbox" || $(this).attr('type') == "radio" ){
                                     $(this).change( function(){
-                                        var input_value = ( $(this).prop("checked") == true ) ? 1 : 0;
                                         
-                                        if( $(this).attr('data-value') != input_value ){
-                                            var tries = 1;
-                                            var oInputLabel = $( "label[for='"+$(this).attr('id')+"']" );
-                                            oInputLabel.after("<i class='loading-gif'>&nbsp;&nbsp;<img src='{{ asset('bundles/admin/img/ajax-loader.gif') }}'> Guardando..</i>");  
-                                            $(".loading-gif").css('color', '#39AED1');
-                                            guardarEavForm( $(this), tries );
-                                        }
+                                        var tries = 1;
+                                        /***** agarrar el label para los radio/checkbox ********/
+                                        var oInputLabel = $( "label[for='"+$(this).attr('id')+"']" );
+                                        oInputLabel.after("<i class='loading-gif'>&nbsp;&nbsp;<img src='{{ asset('bundles/admin/img/ajax-loader.gif') }}'> Guardando..</i>");  
+                                        $(".loading-gif").css('color', '#39AED1');
+                                        guardarEavForm( $(this), tries );
+                                            
                                     });
                                 }else{
                                     $(this).blur( function(){
@@ -981,7 +980,7 @@
                     sUrl = sUrl.replace( "campid", camp_id );
                     var valor_mandar = null;
                     
-                    if( input.attr('type') == "radio" ||  input.attr('type') == "checkbox" ){
+                    if( input.attr('type') == "checkbox" ){ // || input.attr('type') == "radio"
                         valor_mandar = (input.prop("checked")==true) ? 1 : 0;
                     }else{
                         if( input.val() == ""){
@@ -998,7 +997,7 @@
                     }).done(function(  ){
                         $(".loading-gif").css('color', '#3ABC63');
                         $(".loading-gif").html('&nbsp;&nbsp;Listo.').fadeOut( 4000 );
-                        input.attr("data-value", valor_mandar);
+                        //input.attr("data-value", valor_mandar);
                         input.val(valor_mandar);
                     }).fail(function( error ){
                         tries++;
@@ -1033,15 +1032,13 @@
 
                     if( $(this).attr('type') == "checkbox" || $(this).attr('type') == "radio" ){
                         $(this).change( function(){
-                            var input_value = ( $(this).prop("checked") == true ) ? 1 : 0;
-                            
-                            if( $(this).attr('data-value') != input_value ){
                                 var tries = 1;
-                                var oInputLabel = $( "label[for='"+$(this).attr('id')+"']" );
+                                //var oInputLabel = $( "label[for='"+$(this).attr('id')+"']" );
+                                /***** agarrar el label para los radio/checkbox ********/
+                                var oInputLabel = $(this).closest("label.control-label");
                                 oInputLabel.after("<i class='loading-gif'>&nbsp;&nbsp;<img src='{{ asset('bundles/admin/img/ajax-loader.gif') }}'> Guardando..</i>");  
                                 $(".loading-gif").css('color', '#39AED1');
                                 guardarEavForm( $(this), tries );
-                            }
                         });
                     }else{
                         $(this).blur( function(){

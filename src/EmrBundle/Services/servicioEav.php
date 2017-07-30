@@ -234,26 +234,37 @@ class servicioEav {
                     );
                     
                 }else if( ($vcamp_props['tipo_campo'] == "checkbox" || $vcamp_props['tipo_campo'] == "radio") && !is_null( $aFormCampData[ $vcamp_props["camp_id"] ]["val_catalogo"] ) ){
+                    // This is when we're handling a group of checkboxes or radio buttons.
                     
-                    $checkValue =  $aFormCampData[ $vcamp_props["camp_id"] ]["valor"];
-
+                    // this holds the catalog value
+                    $radioCatValue =  $aFormCampData[ $vcamp_props["camp_id"] ]["valor"];
+                    // this holds the id from the catalog value
+                    $radioValue = $aFormCampData[ $vcamp_props["camp_id"] ]["val_catalogo"][$radioCatValue];
+                    
                     $oModuloForm->add( $vcamp_props["camp_id"],
                             Type\ChoiceType::class,
                             array(
                                 "label" => $vcamp_props["campo"],
                                 "choices" => $aFormCampData[ $vcamp_props["camp_id"] ]["val_catalogo"],
-                                "expanded" => true
+                                "data" => $radioValue,//$checkValue,
+                                "expanded" => true,
+                                "attr" => array(
+                                    "input-group" => true
+                                )
                             )
                         );
                     
                 }else if( ($vcamp_props['tipo_campo'] == "checkbox" || $vcamp_props['tipo_campo'] == "radio") && is_null( $aFormCampData[ $vcamp_props["camp_id"] ]["val_catalogo"] ) ){
-                    $checkValue =  $aFormCampData[ $vcamp_props["camp_id"] ]["valor"];
+                    // This is when the input is a single radio button or checkbox
+                    
+                    $checkValue = (boolean) $aFormCampData[ $vcamp_props["camp_id"] ]["valor"];
 
                     $oModuloForm->add( $vcamp_props["camp_id"],
                             self::$aDataTypesMap[ $vcamp_props["tipo_campo"] ],
                             array(
                                 "label" => $vcamp_props["campo"],
-                                "value" => $checkValue
+                                //"value" => $checkValue
+                                "data" => $checkValue
                             )
                         );
                     
