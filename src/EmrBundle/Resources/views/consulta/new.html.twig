@@ -370,6 +370,28 @@
                             </div>
                         </div>
                     </div>
+                    <div class="panel panel-info panel-collapsed">
+                        <div class="panel-heading">
+                            <h6 class="panel-title">Receta médica<a class="heading-elements-toggle"><i class="icon-more"></i></a></h6>
+                            <div class="heading-elements">
+                                <ul class="icons-list">
+                                    <li><a data-action="collapse"></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="panel-body" style="">
+                            <div>
+                                <span id="loadingPrescription"></span>
+                                <textarea class="form-control" rows="10" id="textPrescription"></textarea>
+                                <div class="text-right">
+                                    <br>
+                                    <button class="btn btn-success"><i class="fa fa-print" aria-hidden="true"></i> Imprimir</button>
+                                    <button class="btn btn-success"><i class="fa fa-paper-plane" aria-hidden="true"></i> Enviar</button>
+                                    <button class="btn btn-success"><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>            
                 </div>
             </div>
             
@@ -1025,6 +1047,23 @@
 
 
             }
+            
+            
+                                //console.log("x");
+            $("#textPrescription").on("change  paste", function(){
+                                //$(this).blur( function(){
+                                    //if( $(this).attr('data-value') != $(this).val() ){
+                //var tries = 1;
+                //var oInputLabel = $( "label[for='"+$(this).attr('id')+"']" );
+                //oInputLabel.after("<i class='loading-gif'>&nbsp;&nbsp;<img src='{{ asset('bundles/admin/img/ajax-loader.gif') }}'> Guardando..</i>");
+                var info = $(this).val();
+                $("#loadingPrescription").html("<i class='loading-gif'>&nbsp;&nbsp;<img src='{{ asset('bundles/admin/img/ajax-loader.gif') }}'> Guardando..</i>");
+                $(".loading-gif").css('color', '#39AED1');
+                console.log(info);
+                                    //}
+            });
+                            
+            
             
             
             {% if statusAppointment == "p" or statusAppointment == "c" %}
