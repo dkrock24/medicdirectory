@@ -145,3 +145,51 @@
     </div>
   </div>
 </div>
+                  
+                  
+<div id="modalInfoPatient" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Información del paciente</h4>
+      </div>
+      <div class="modal-body">
+          <div id="showInfoPatient"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+
+  </div>
+</div> 
+                  
+                  
+                  
+<div id="modalSendPrescription" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Email de confirmación</h4>
+      </div>
+      <div class="modal-body">
+          <div id="">
+              <label>Email del paciente:</label>
+              <input type="text" value="{{ patient[0].pacEmail }}" id="inputConfirmEmail" class="form-control">
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-success" id="btnConfirmSendEMail"><i class="fa fa-paper-plane" aria-hidden="true"></i> Enviar</button>
+        
+      </div>
+    </div>
+
+  </div>
+</div>                   

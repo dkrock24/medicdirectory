@@ -214,10 +214,17 @@ class ConsultaController extends Controller
 		//End
 		//=====================
 		
+		//$oAppointment = $em->getRepository('AppBundle:Agenda')->find( $appointment );
+		$prescription = "";
+		if( $oAppointment )
+		{
+			$prescription = $oAppointment->getAgeCit()->getCitReceta();
+		}	
 		
 		$oAppointment->getAgeEstado();
 		
 		return $this->render("EmrBundle:consulta:new.html.twig", array(
+			"locationName"=>$locationName,
 			"patient"=>$oPatient,
 			"age"=>$patientAge,
             "modulos"=>$modulos,
@@ -227,6 +234,8 @@ class ConsultaController extends Controller
 			"minutes"=>$minutes,
 			"currentMilisecundsDiff"=>$currentMilisecundsDiff,
 			'statusAppointment'=>$oAppointment->getAgeEstado(),
+			'dateAppointment'=>$oAppointment->getAgeFechaInicio(),
+			"prescription"=>$prescription,
             'usu_id' => $doctor,
             'cit_id' => $oAppointment->getAgeCit()->getCitId(),
             'cli_id' => $iLocationId
@@ -366,6 +375,133 @@ class ConsultaController extends Controller
 				"roles"=>$userRoles
 			));
 		}
+	}
+	
+	public function getFullInfoPatientAction( Request $request )
+	{
+		$em = $this->getDoctrine()->getManager();
+		$iLocationId = $this->get('session')->get('locationId');
+		$patientId = $request->get("id");
+		
+		$oPatient = $em->getRepository('AppBundle:Paciente')->findBy( array("pacId"=>$patientId, "pacCli"=>$iLocationId ) );
+		if( $oPatient )
+		{
+			$info = $oPatient;
+		}
+		else
+		{
+			$info = false;
+		}
+		
+		return $this->render("EmrBundle:consulta:_infoPatient.html.twig", array(
+            "info"=>$info
+		));
+		//exit();
+	}
+	
+	public function setPrescriptionAction( Request $request )
+	{
+		$em = $this->getDoctrine()->getManager();
+		$iLocationId = $this->get('session')->get('locationId');
+		$patientId = $request->get("patiendId");
+		$prescription = $request->get("prescription");
+		
+		$appointment = $request->get("appointment");
+		
+		$oPatient = $em->getRepository('AppBundle:Paciente')->findBy( array("pacId"=>$patientId, "pacCli"=>$iLocationId ) );
+		if( $oPatient )
+		{
+			//$info = $oPatient;
+			$oAppointment = $em->getRepository('AppBundle:Agenda')->find( $appointment );
+			if( $oAppointment )
+			{
+				$medicalConsultation = $oAppointment->getAgeCit();
+				$oReg = $em->getRepository('AppBundle:Cita')->find( $medicalConsultation );
+				if($oReg)
+				{
+					$oReg->setCitReceta($prescription);
+					$em->persist( $oReg );
+					$em->flush();
+					echo 1;
+				}
+				
+			}	
+			//$oPatient[0]->setCitReceta($prescription);
+			
+		}
+		
+		exit();
+	}
+	
+	
+	public function sendEmailPrescriptionAction( Request $request )
+	{
+		$patientName = $request->get("fullname");
+		$patientEmail = $request->get("email");
+		$prescription = $request->get("prescription");
+		$appointment = $request->get("appointment");
+		$this->sendMessage("paciente_receta", $patientName, $prescription, $to=$patientEmail, $trom=false);
+		echo 1;
+		exit();
+	}
+	
+	public function sendMessage($typeTemplate, $username, $prescription, $to, $trom=false)
+	{
+		
+		//if( $typeMessage )
+		//nuevo_usuario
+		if( isset($typeTemplate) && !empty($typeTemplate) )
+		{
+			$srvMail = $this->get('srv_correos');
+			$plantilla =$typeTemplate;// "nuevo_usuario";
+
+			$locationName = $this->get('session')->get('locationName');
+
+			$variables['location'] = $locationName;
+			$variables['username'] = $username;
+			$variables['prescription'] = $prescription;
+
+			//$srvParameter = $this->get('srv_parameters');
+			//$link_sistema = $srvParameter->getParametro("link_sistema", $default_return_value = "");
+
+			//$variables['link'] = $link_sistema;
+
+			$res = $srvMail->enviarCorreo ($plantilla, $variables, $to, $de = '') ;
+		}
+		
+		/*
+		// Create Transport
+        $https['ssl']['verify_peer'] = FALSE;
+        $https['ssl']['verify_peer_name'] = FALSE;
+
+        $this->transport = \Swift_SmtpTransport::newInstance('smtp.gmail.com', 587, 'tls')
+           ->setUsername("")
+           ->setPassword("")
+           ->setStreamOptions($https)
+           ;
+        // Create Mailer with our Transport.
+        $this->mailer = \Swift_Mailer::newInstance($this->transport);
+		
+		
+		$to = "gialvarezlopez@gmail.com";
+		$from = "gialvarezlopez@gmail.com";
+		$message = \Swift_Message::newInstance()
+					->setSubject('Regístro de nuevo usuario')
+					->setFrom($from)
+					->setTo('gialvarezlopez@gmail.com')
+					->setBody(
+						$this->renderView(
+							'EmrBundle:cliente:mail.html.twig',
+							array('location'=>$location, 'link'=>$link, 'username' => $username, "password"=>$password)
+						)
+					);
+
+		# Send the message
+		//$this->get('mailer')->send($message);
+		$results = $this->mailer->send($message);
+		
+		*/
+		
 	}
 	
 }

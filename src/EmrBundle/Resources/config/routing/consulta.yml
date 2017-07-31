@@ -20,7 +20,18 @@ consulta_procesa:
 consulta_estado_cita:
     path:     /proceso/actual
     defaults: { _controller: "EmrBundle:Consulta:isRunningAppointment" } 
-
+    
+consulta_info_patient:
+    path:     /info/patient/{id}
+    defaults: { _controller: "EmrBundle:Consulta:getFullInfoPatient" }
+    
+consulta_set_prescription:
+    path:     /prescription/patient
+    defaults: { _controller: "EmrBundle:Consulta:setPrescription"}
+    
+consulta_prescription_send_email:
+    path:     /prescription/sendmail
+    defaults: { _controller: "EmrBundle:Consulta:sendEmailPrescription"}
 #agenda_edit:
     #path:     /{id}/editar
     #defaults: { _controller: "EmrBundle:Agenda:edit" }

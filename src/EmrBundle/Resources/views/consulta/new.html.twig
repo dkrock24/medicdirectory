@@ -2,7 +2,7 @@
 
 
 {% block title_page %}
-    EMR || Nueva Consulta
+    EMR || Consulta Médica
 {% endblock %}
 
 {% block breadcrumb %}
@@ -21,7 +21,18 @@
                 margin: 0 auto;
         }
         */
-
+        .current{
+            background: #48A64C !important;
+            color:#fff;
+        }
+        .ended{
+            background: #48A64C !important;
+            color:#fff;
+        }
+        .pending{
+            background: #d6e5fc !important;
+            color:#11a0af;
+        }
         #divUserPatient{
             display: none;
 
@@ -32,7 +43,19 @@
             font-weight: 500;
         }
         
+        #mod-holder .checkbox{
+            /* margin-top: 0px !important; */
+        }
+        textarea {
+            
+        }
+        
+        #clonePrescription{
+            display:none;
+        }
     </style>
+    <script src="{{ asset('bundles/admin/add-on/jQuery.print/jQuery.print.js') }}"></script>
+    <script src="{{ asset('bundles/admin/add-on/ScrollToFixed/jquery-scrolltofixed.js') }}" type="text/javascript"></script>
     <script src="{{ asset('bundles/admin/add-on/Countdown-Stopwatch/jquery.timer.js') }}"></script>
     {# <script src="{{ asset('bundles/admin/add-on/Countdown-Stopwatch/res/demo.js') }}"></script> #}
     <script>
@@ -78,6 +101,8 @@
             return (min > 0 ? pad(min, 2) : "00") + ":" + pad(sec, 2) + ":" + hundredths;
         }
     </script>
+    
+    
     <div class="page-header-content">
         
         <div class="page-title">
@@ -104,8 +129,13 @@
         </div>
                 
     </div>
-
-
+                
+    {% if statusAppointment == "p" or statusAppointment == "c" %}
+        {% set collapsed = "panel-collapsed" %}
+    {% else %}
+        {% set collapsed = "" %}
+    {% endif %}            
+                
     {# {{ app.request.query.get("d") }} #}
     {# <div class="panel panel-flat" style="background: #f1f3f2">#}
     <div class="panel panel-flat" style="">
@@ -122,17 +152,24 @@
                             </div>
                         </div>
                         <div class="panel-body" style="padding-bottom: 10px;">
-                            
-                            <p>Consultas recibidas: <span class="badge badge-flat border-grey text-grey-600"> {{ historialDetail.processed }}</span></p>
-                            <p>Consultas Pendientes: <span class="badge badge-flat border-grey text-grey-600" id="pendingAppointment"> {{ historialDetail.pending }}</span></p>
-                            <p>Consultas Canceladas: <span class="badge badge-flat border-grey text-grey-600"> {{ historialDetail.cancelated }}</span></p>
+                            <table>
+                                <tr>
+                                    <td><p>Citas recibidas: &nbsp;</td><td> <span class="badge badge-flat border-grey text-grey-600"> {{ historialDetail.processed }}</span></p></td>
+                                </tr>
+                                <tr>
+                                    <td><p>Citas Pendientes: &nbsp;</td><td> <span class="badge badge-flat border-grey text-grey-600" id="pendingAppointment"> {{ historialDetail.pending }}</span></p></td>
+                                </tr>
+                                <tr>
+                                    <td><p>Citas Canceladas: &nbsp;</td><td> <span class="badge badge-flat border-grey text-grey-600"> {{ historialDetail.cancelated }}</span></p></td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-9 col-md-8 col-sm-8 col-xs-12">
                     <div class="panel panel-info">
                         <div class="panel-heading">
-                            <h6 class="panel-title">Ficha de identificación<a class="heading-elements-toggle"><i class="icon-more"></i></a></h6>
+                            <h6 class="panel-title">Ficha de identificación del paciente y consulta médicas<a class="heading-elements-toggle"><i class="icon-more"></i></a></h6>
                             <div class="heading-elements">
                                 <ul class="icons-list">
                                     <li><a data-action="collapse"></a></li>
@@ -154,7 +191,7 @@
                                         </div>
                                         #}
                                         <div class="row">
-                                            <div class="col-lg-7 col-md-7 col-sm-12">
+                                            <div class="col-lg-6 col-md-7 col-sm-12">
                                                 
                                                 <div style="float: left; max-width: 100px;">
                                                     {% if  patient[0].pacFoto is defined and patient[0].pacFoto != "" %}
@@ -180,10 +217,92 @@
                                                     <label>Edad:</label><span>{{ age }}</span>
                                                 </div>
                                                 <div class="detail-patient">
-                                                    <label>Expediente:</label><span>Ver detalle completo</span>
+                                                    <label>Expediente:</label><span><a href="#" id="btnInfoPatient">Ver detalle completo</a></span>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-5 col-md-5 col-sm-12">
+                                            <div class="col-lg-6 col-md-5 col-sm-12">
+                                                
+                                                <div class="panel panel-alpha-teal {{ collapsed }}">
+                                                    <div class="panel-heading">
+                                                        <h6 class="panel-title">Histórico de consultas<a class="heading-elements-toggle"><i class="icon-more"></i></a><a class="heading-elements-toggle"><i class="icon-more"></i></a></h6>
+                                                        <div class="heading-elements">
+                                                            <ul class="icons-list">
+                                                                <li><a data-action="collapse"></a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="panel-body" style="padding-bottom: 10px;">
+                                                       {#
+                                                        <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">
+                                                            Consultas anteriores
+                                                        </div>
+                                                        #}    
+                                                       
+                                                        <div class="table-responsive">
+
+                                                            {% if historical|length > 0 %}
+                                                                <table class="table table-striped">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Fecha</th>
+                                                                            <th>Estado</th>
+                                                                            <th>Acción</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>        
+                                                                {% for data in historical %}
+
+                                                                            {# {% if app.request.get("cm") == data.id and data.age_estado == "t" %} #}
+                                                                            
+                                                                            {% if data.age_estado == "t" %}    
+                                                                                {% set current = "ended" %}
+                                                                            {% elseif data.age_estado == "p" %}
+                                                                                {% set current = "pending" %}
+                                                                            {% else %}  
+                                                                                {% set current = "" %}
+                                                                            {% endif %}    
+                                                                            <tr id="h_{{ data.id }}" class="{{ current }}">
+                                                                                <td>{{ data.start }}</td>
+                                                                                <td>
+                                                                                    {% if data.age_estado == "p" %}
+                                                                                                    Pendiente
+                                                                                    {% elseif data.age_estado == "a" %}
+                                                                                                    Anulada
+                                                                                    {% elseif data.age_estado == "c" %}
+                                                                                                    En curso
+                                                                                    {% elseif data.age_estado == "t" %}
+                                                                                                    Finalizada
+                                                                                    {% endif %}
+                                                                                </td>
+                                                                                
+                                                                                <td>
+                                                                                       
+                                                                                    <a href = "{{ path('consulta_new', { 'id': app.request.get('id'), 'cm': data.id }) }}" class="btn btn-default btn-xs" id="{{ data.id }}"> 
+                                                                                        
+                                                                                        {% if data.age_estado == "p" %}
+                                                                                            {% if app.request.get("cm") == data.id %}
+                                                                                                Consulta en curso
+                                                                                            {% else %}
+                                                                                                <i class="fa fa-medkit" aria-hidden="true"></i> Ir a la consulta
+                                                                                            {% endif %}    
+                                                                                            
+                                                                                        {% else %}
+                                                                                            <i class="fa fa-search" aria-hidden="true"></i> Vista previa
+                                                                                        {% endif %} 
+                                                                                    </a>
+                                                                                </td>
+                                                                            </tr>
+
+                                                                {% endfor %} 
+                                                                    </tbody>
+                                                                </table>
+                                                            {% else %}
+                                                                <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">Este paciente no tiene histórico de citas aún</div>
+                                                            {% endif %}    
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
                                                 
                                             </div>    
                                             {#    
@@ -207,49 +326,7 @@
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12 ">
                                     {#
-                                    <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">
-                                        Consultas anteriores
-                                    </div>
-                                    #}
-                                    {#
-                                    <div>
-                                       
-                                        {% if historical|length > 0 %}
-                                            <table class="table table-striped">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Fecha</th>
-                                                        <th>Estado</th>
-                                                        <th>Acción</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>        
-                                            {% for data in historical %}
-                                                
-                                                    
-                                                        <tr>
-                                                            <td>{{ data.start }}</td>
-                                                            <td>
-                                                                {% if data.age_estado == "p" %}
-                                                                                Pendiente
-                                                                {% elseif data.age_estado == "a" %}
-                                                                                Anulada
-                                                                {% elseif data.age_estado == "c" %}
-                                                                                En curso
-                                                                {% elseif data.age_estado == "t" %}
-                                                                                Finalizada
-                                                                {% endif %}
-                                                            </td>
-                                                            <td><button class="btn btn-default btn-xs"> <i class="fa fa-search" aria-hidden="true"></i> Vista previa</button></td>
-                                                        </tr>
-                                                    
-                                            {% endfor %} 
-                                                </tbody>
-                                            </table>
-                                        {% else %}
-                                            Este paciente no tiene historico de citas aún
-                                        {% endif %}    
-                                    </div>
+                                    
                                     #}
                                 </div>
                             </div>
@@ -312,10 +389,10 @@
                                 <input type="hidden" id="currentMilisecundsDiff" value="{{ currentMilisecundsDiff }}">
                             
                             <hr>    
-                            <div class="btn-group">
+                            <div class="btn-group text-center">
                                     {#<button class="btn btn-success" data-toggle="modal" data-target="#newApponintment" data-backdrop="static" data-keyboard="false" style="margin-bottom: 10px;"><i class="fa fa-calendar" aria-hidden="true" ></i> Agendar nueva consulta</button>#}
                                     <button class="btn btn-success" id="btn_appointment" style="margin-bottom: 10px;"><i class="fa fa-calendar" aria-hidden="true" ></i> Agendar nueva consulta</button>
-                                    <button class="btn btn-success" style="margin-bottom: 10px;"><i class="fa fa-address-card-o" aria-hidden="true"></i> Histórico de conultas</button>
+                                    {# <button class="btn btn-success" style="margin-bottom: 10px;"><i class="fa fa-address-card-o" aria-hidden="true"></i> Histórico de consultas</button> #}
                              </div>    
                         </div>
                     </div>
@@ -340,7 +417,7 @@
                 <div class="col-lg-9 col-md-8">
                     <div class="panel panel-info">
                         <div class="panel-heading">
-                            <h6 class="panel-title">Captura de datos del paciente<a class="heading-elements-toggle"><i class="icon-more"></i></a></h6>
+                            <h6 class="panel-title">Captura de datos del paciente - {{ dateAppointment|date("Y-m-d") }} <a class="heading-elements-toggle"><i class="icon-more"></i></a></h6>
                             <div class="heading-elements">
                                 <ul class="icons-list">
                                     <li><a data-action="collapse"></a></li>
@@ -370,7 +447,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="panel panel-info panel-collapsed">
+                       
+                    <div class="panel panel-info {{ collapsed }}">
                         <div class="panel-heading">
                             <h6 class="panel-title">Receta médica<a class="heading-elements-toggle"><i class="icon-more"></i></a></h6>
                             <div class="heading-elements">
@@ -381,13 +459,15 @@
                         </div>
                         <div class="panel-body" style="">
                             <div>
+                                <p>Ingrese los detalles de la recete médica</p>
                                 <span id="loadingPrescription"></span>
-                                <textarea class="form-control" rows="10" id="textPrescription"></textarea>
+                                <textarea class="form-control" rows="10" id="textPrescription">{{ prescription }}</textarea>
                                 <div class="text-right">
                                     <br>
-                                    <button class="btn btn-success"><i class="fa fa-print" aria-hidden="true"></i> Imprimir</button>
-                                    <button class="btn btn-success"><i class="fa fa-paper-plane" aria-hidden="true"></i> Enviar</button>
-                                    <button class="btn btn-success"><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar</button>
+                                    
+                                    <button class="btn btn-success" id="btnPrint"><i class="fa fa-print" aria-hidden="true"></i> Imprimir</button>
+                                    <button class="btn btn-success" id="btnSendEmail"><i class="fa fa-paper-plane" aria-hidden="true"></i> Enviar por email</button>
+                                    {# <button class="btn btn-success"><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar</button> #}
                                 </div>
                             </div>
                         </div>
@@ -398,6 +478,7 @@
         </div>
     </div>
                                
+     
              
     {{ include('EmrBundle:consulta:_modals.html.twig' )  }}                           
 {% endblock %}
@@ -407,8 +488,137 @@
     <script>
         $(document).on("ready", function () {
             
+            
+            $('#appointmentControl').scrollToFixed( {
+                
+                marginTop: 10,
+            });
+            
+            $("#btnPrint").on("click", function(){
+                
+                    var text = $("#textPrescription").val();
+                    text = text.replace(/\n/g, "<br />");
+                    if( $("body").find("#clonePrescription").size() == 0 )
+                    {
+                        $("body").append("<div id='clonePrescription'><div id='infoCloneTxt'></div></div>");
+                    }
+                    $("#infoCloneTxt").html(text);
+                    //$("#clonePrescription").hide;
+                    //Print ele4 with custom options
+                    $("#infoCloneTxt").print({
+                        //Use Global styles
+                        globalStyles : false,
+                        //Add link with attrbute media=print
+                        mediaPrint : false,
+                        //Custom stylesheet
+                        stylesheet : "http://fonts.googleapis.com/css?family=Inconsolata",
+                        //Print in a hidden iframe
+                        iframe : false,
+                        //Don't print this
+                        noPrintSelector : ".avoid-this",
+                        //manuallyCopyFormValues: true,
+                        //Add this at top
+                        prepend : "Receta médica<br>",
+                        title: "{{ locationName }}",
+                        //Add this on bottom
+                        append : "",
+                        //Log to console when printing is done via a deffered callback
+                        deferred: $.Deferred().done(function() { console.log('Printing done', arguments); })
+                    });
+                    // Fork https://github.com/doersguild/jQuery.print for the full list of options
+                
+                
+            });
+            
+            $("#btnSendEmail").on("click", function(){
+                $("#modalSendPrescription").modal({
+                    backdrop: 'static',
+                    keyboard: true, 
+                    show: true
+                });
+            });
+            
+            //$("#inputConfirmEmail").val("{{ patient[0].pacEmail }}");
+            $("#btnConfirmSendEMail").on("click", function(){
+                var fullname = "{{ patient[0].pacNombre }} {{ patient[0].pacSegNombre }} {{ patient[0].pacApellido }} {{ patient[0].pacSegApellido }}";
+                var email = $("#inputConfirmEmail").val();
+                var prescription = $("#textPrescription").val();
+                prescription = prescription.replace(/\n/g, "<br />");
+                var appointment = "{{ app.request.get("cm") }}";
+                $("#holder_loading").show();
+                $.ajax({
+
+                    url: "{{ path('consulta_prescription_send_email') }}",
+                    data: { "fullname":fullname, "email":email, "prescription":prescription, "appointment":appointment  },
+                    type: "POST",
+                    success: function(data) {
+                       $("#holder_loading").hide();
+                       $("#modalSendPrescription").modal("hide");
+                       $.alert({
+                            icon: 'fa fa-envelope',
+                            title: 'Ok!',
+                            content: "<p class=''>Receta médica enviada exitosamente</p>",
+                            type: 'green',
+                            typeAnimated: true,
+                        });
+
+                    },
+                    error: function(data){
+                       // alert(json.id);
+                       $("#holder_loading").hide(); 
+                       $.alert({
+                            icon: 'fa fa-clock-o',
+                            title: 'Error!',
+                            content: "<p class=''>Ha ocurrido un error inesperado al intentar mostrar la información del paciente</p>",
+                            type: 'red',
+                            typeAnimated: true,
+                        });
+                    }
+                }); 
+            });
+            
+            
+            $("#btnInfoPatient").on("click",function(event){
+                getInfoPatient();
+                event.preventDefault();
+            });
+            
+            
+            function getInfoPatient()
+            {
+                
+                $("#holder_loading").show();
+                $.ajax({
+
+                    url: "{{ path('consulta_info_patient',{"id": app.request.get("id") }) }}",
+                    //data: "action=add&title="+title+"&start="+startTime+"&end="+endTime+"&doctor="+doctorId+"&patient="+setUserAppointmentId+"&room="+room+"&eventType="+eventType,
+                    type: "POST",
+                    success: function(data) {
+                        $("#holder_loading").hide();
+                        
+                        $("#showInfoPatient").html(data);
+                        $("#modalInfoPatient").modal({
+                            backdrop: 'static',
+                            keyboard: true, 
+                            show: true
+                        });
+
+                    },
+                    error: function(data){
+                       // alert(json.id);
+                       $("#holder_loading").hide(); 
+                       $.alert({
+                            icon: 'fa fa-clock-o',
+                            title: 'Error!',
+                            content: "<p class=''>Ha ocurrido un error inesperado al intentar mostrar la información del paciente</p>",
+                            type: 'red',
+                            typeAnimated: true,
+                        });
+                    }
+                }); 
+            }
             // fix radio buttons to be drawn properly
-            $(".radio").attr("class", "radio-inline");
+            //$(".radio").attr("class", "radio-inline");
             
             var currentMilisecundsDiff = {{ currentMilisecundsDiff }};
             if( currentMilisecundsDiff > 0 )
@@ -919,7 +1129,9 @@
                     }
                 });
             }
-            //setClassForm();
+            
+            setClassForm();
+            
             $(".mod-tab").click(function(){
                 var sTarget = $(this).attr('target');
                 var sUrl = "{{ url( 'eav_crear_form_modulo', {'mod_hash': 'modhash', 'usu_id': 'usuid', 'pac_id': 'pacid', 'cli_id': 'cliid', 'cit_id': 'citid'} ) }}";
@@ -953,26 +1165,37 @@
                                         
                                         var tries = 1;
                                         /***** agarrar el label para los radio/checkbox ********/
-                                        var oInputLabel = $( "label[for='"+$(this).attr('id')+"']" );
-                                        oInputLabel.after("<i class='loading-gif'>&nbsp;&nbsp;<img src='{{ asset('bundles/admin/img/ajax-loader.gif') }}'> Guardando..</i>");  
+                                        //var oInputLabel = $( "label[for='"+$(this).attr('id')+"']" );
+                                        //oInputLabel.after("<i class='loading-gif'>&nbsp;&nbsp;<img src='{{ asset('bundles/admin/img/ajax-loader.gif') }}'> Guardando..</i>");  
+                                        
+                                        var msg = ("<i class='loading-gif'>&nbsp;&nbsp;<img src='{{ asset('bundles/admin/img/ajax-loader.gif') }}'> Guardando..</i>");  
+                                        $(this).closest("div").find("i").remove();
+                                        $(this).closest("div").append(msg);
+                                        
                                         $(".loading-gif").css('color', '#39AED1');
                                         guardarEavForm( $(this), tries );
-                                            
+                                       //alert();    
                                     });
                                 }else{
-                                    $(this).blur( function(){
-                                        if( $(this).attr('data-value') != $(this).val() ){
+                                    $(this).on("change  paste", function(){
+                                    //$(this).blur( function(){
+                                        //alert($(this).data('value'));
+                                        //if( $(this).data('value') != $(this).val() ){
                                             var tries = 1;
                                             var oInputLabel = $( "label[for='"+$(this).attr('id')+"']" );
                                             oInputLabel.after("<i class='loading-gif'>&nbsp;&nbsp;<img src='{{ asset('bundles/admin/img/ajax-loader.gif') }}'> Guardando..</i>");  
                                             $(".loading-gif").css('color', '#39AED1');
                                             guardarEavForm( $(this), tries );
-                                        }
+                                        //}
                                     });
                                 }
                             });
 
                             setClassForm();
+                        {% else %}
+                            $('body').find("form.mod-form :input").each(function(){
+                                $(this).attr("disabled",true);
+                            });
                         {% endif %}
                         
                     },
@@ -1006,7 +1229,8 @@
                         valor_mandar = (input.prop("checked")==true) ? 1 : 0;
                     }else{
                         if( input.val() == ""){
-                            valor_mandar = "value_holder";
+                            //valor_mandar = "value_holder";
+                            valor_mandar = "";
                         }else{
                             valor_mandar = input.val();
                         }
@@ -1019,7 +1243,7 @@
                     }).done(function(  ){
                         $(".loading-gif").css('color', '#3ABC63');
                         $(".loading-gif").html('&nbsp;&nbsp;Listo.').fadeOut( 4000 );
-                        //input.attr("data-value", valor_mandar);
+                        //input.data("value-input", valor_mandar);
                         input.val(valor_mandar);
                     }).fail(function( error ){
                         tries++;
@@ -1050,18 +1274,7 @@
             
             
                                 //console.log("x");
-            $("#textPrescription").on("change  paste", function(){
-                                //$(this).blur( function(){
-                                    //if( $(this).attr('data-value') != $(this).val() ){
-                //var tries = 1;
-                //var oInputLabel = $( "label[for='"+$(this).attr('id')+"']" );
-                //oInputLabel.after("<i class='loading-gif'>&nbsp;&nbsp;<img src='{{ asset('bundles/admin/img/ajax-loader.gif') }}'> Guardando..</i>");
-                var info = $(this).val();
-                $("#loadingPrescription").html("<i class='loading-gif'>&nbsp;&nbsp;<img src='{{ asset('bundles/admin/img/ajax-loader.gif') }}'> Guardando..</i>");
-                $(".loading-gif").css('color', '#39AED1');
-                console.log(info);
-                                    //}
-            });
+            
                             
             
             
@@ -1076,23 +1289,33 @@
                                 /***** agarrar el label para los radio/checkbox ********/
                                 var oInputLabel = $(this).closest("label.control-label");
                                 oInputLabel.after("<i class='loading-gif'>&nbsp;&nbsp;<img src='{{ asset('bundles/admin/img/ajax-loader.gif') }}'> Guardando..</i>");  
+                                
+                                var msg = ("<i class='loading-gif'>&nbsp;&nbsp;<img src='{{ asset('bundles/admin/img/ajax-loader.gif') }}'> Guardando..</i>");  
+                                $(this).closest("div").find("i").remove();
+                                $(this).closest("div").append(msg);
+                                
                                 $(".loading-gif").css('color', '#39AED1');
                                 guardarEavForm( $(this), tries );
                         });
                     }else{
-                        $(this).blur( function(){
-                            if( $(this).attr('data-value') != $(this).val() ){
+                        $(this).on("change  paste", function(){
+                       //$(this).blur( function(){
+                            //if( $(this).data('valueInput') != $(this).val() ){
                                 var tries = 1;
                                 var oInputLabel = $( "label[for='"+$(this).attr('id')+"']" );
                                 oInputLabel.after("<i class='loading-gif'>&nbsp;&nbsp;<img src='{{ asset('bundles/admin/img/ajax-loader.gif') }}'> Guardando..</i>");  
                                 $(".loading-gif").css('color', '#39AED1');
                                 guardarEavForm( $(this), tries );
-                            }
+                            //}
                         });
                     }
                     
                 });
                 
+            {% else %}
+                $('body').find("form.mod-form :input").each(function(){
+                    $(this).attr("disabled",true);
+                });
             {% endif %}
             
             function doDelete() {  // delete event 
@@ -1240,15 +1463,89 @@
             {
                 //alert();
                 $("body").find("#mod-holder .tab-pane").each(function(){
-                    console.log("r");
+                    //console.log("r");
                     $(this).find(".form-group").each(function(){
-                        $(this).find("input[type='checkbox']").closest('.form-group').removeClass("form-group");
-                        console.log("xx");
+                        $(this).removeClass("form-group");
+                        //$(this).find("input[type='checkbox']").closest('.form-group').removeClass("form-group");
+                        //console.log("xx");
                     });
                 });
+                
+                $(".radio").attr("class", "radio-inline");
             }
 
 
+            
+            //$("#listSpecialities")
+            //======================================================
+            //======================================================
+            // Default initialization
+            // Simple toolbar
+            /*
+            var edit = $('#textPrescription').wysihtml5({
+                parserRules:  wysihtml5ParserRules,
+                stylesheets: ["{{ asset('bundles/admin/template_clients/assets/css/components.css') }}  "],
+                "font-styles": true, // Font styling, e.g. h1, h2, etc. Default true
+                "emphasis": true, // Italics, bold, etc. Default true
+                "lists": true, // (Un)ordered lists, e.g. Bullets, Numbers. Default true
+                "html": false, // Button which allows you to edit the generated HTML. Default false
+                "link": true, // Button to insert a link. Default true
+                "image": false, // Button to insert an image. Default true,
+                "action": true, // Undo / Redo buttons,
+                "color": true, // Button to change color of font
+                "events": {
+                    "blur": function() { 
+                        //alert();
+                        {% if statusAppointment == "p" or statusAppointment == "c" %}
+                            
+                            $("#loadingPrescription").html("<i class='loading-gif'>&nbsp;&nbsp;<img src='{{ asset('bundles/admin/img/ajax-loader.gif') }}'> Guardando..</i>");
+                            $(".loading-gif").css('color', '#39AED1');
+                            setPrescription();
+                        {% endif %}
+                    }
+                }
+            });
+            */
+            
+                $("#textPrescription").on("change  paste", function(){   
+                    var info = $(this).val();
+                    $("#loadingPrescription").html("<i class='loading-gif'>&nbsp;&nbsp;<img src='{{ asset('bundles/admin/img/ajax-loader.gif') }}'> Guardando..</i>");
+                    $(".loading-gif").css('color', '#39AED1');
+                    setPrescription();
+                                        //}
+                });
+            
+            function setPrescription()
+            {
+                
+                $("#holder_loading").show();
+                var textPrescription = $('#textPrescription').val();
+                var patiente = "{{app.request.get("id")}}";
+                var appointment = "{{ app.request.get("cm") }}";
+                $.ajax({
+
+                    url: "{{ path('consulta_set_prescription') }}",
+                    data: { "prescription":textPrescription, "patiendId":patiente,"appointment":appointment  },
+                    type: "POST",
+                    success: function(json) {
+                        $("#holder_loading").hide();
+                        $("#loadingPrescription .loading-gif").html('&nbsp;&nbsp;Listo.').fadeOut( 4000 );
+                    },
+                    error: function(json){
+                       // alert(json.id);
+                       $("#holder_loading").hide(); 
+                       $.alert({
+                            icon: 'fa fa-clock-o',
+                            title: 'Error!',
+                            content: "<p class=''>Ha ocurrido un error inesperado al intentar guardar la receta</p>",
+                            type: 'red',
+                            typeAnimated: true,
+                        });
+                    }
+                }); 
+            }                                            
+                                                        
+            
             function setModalMaxHeight(element) {
                 this.$element = $(element);
                 this.$content = this.$element.find('.modal-content');

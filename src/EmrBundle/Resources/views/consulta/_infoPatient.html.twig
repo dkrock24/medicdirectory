@@ -1,0 +1,92 @@
+{% if info|length > 0 %}
+    <table class="table table-striped">
+        <thead>
+            <tr><th></th><th></th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>Nombre:</th>
+                <td>{{ info[0].pacNombre|capitalize }} {{ info[0].pacSegNombre|capitalize }} {{ info[0].pacApellido|capitalize }} {{ info[0].pacSegApellido|capitalize }}</td>
+            </tr>
+            <tr>
+                <th>DUI:</th><td>{{ info[0].pacDui }}</td>
+            </tr>
+            <tr>
+                <th>Ocupación:</th><td>{{ info[0].pacOcupacion }}</td>
+            </tr>
+            <tr>
+                <th>Género:</th>
+                <td>
+                    {% if info[0].pacGenero|lower == "m" %}
+                        Masculino
+                    {% else %}
+                        Femenino    
+                    {% endif %} 
+                </td>
+            </tr>
+            <tr>
+                <th>Estado Civil:</th>
+                <td>
+                    {% if info[0].pacGenero|lower == "m" %}
+                        {% if info[0].pacEstadoCivil == "s" %}
+                            Soltero
+                        {% elseif info[0].pacEstadoCivil == "c" %}
+                            Casado
+                        {% elseif info[0].pacEstadoCivil == "d" %}
+                            Divorciado 
+                        {% elseif info[0].pacEstadoCivil == "v" %}
+                            Viudo     
+                        {% endif %}    
+                    {% else %}
+                        {% if info[0].pacEstadoCivil == "s" %}
+                            Soltera
+                        {% elseif info[0].pacEstadoCivil == "c" %}
+                            Casada
+                        {% elseif info[0].pacEstadoCivil == "d" %}
+                            Divorciada 
+                        {% elseif info[0].pacEstadoCivil == "v" %}
+                            Viuda     
+                        {% endif %}
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>Tipo Sangre:</th><td>{{ info[0].pacTipSangre }}</td>
+            </tr>
+            <tr>
+                <th>Fecha de nacimiento:</th><td>{% if info[0].pacFechaNacimiento %}{{ info[0].pacFechaNacimiento|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Email:</th><td> {{ info[0].pacEmail }}</td>
+            </tr>
+            <tr>
+                <th>Telefono Trabajo:</th><td>{{ info[0].pacTelTrabajo }} </td>
+            </tr>
+            <tr>
+                <th>Telefóno Casa:</th><td> {{ info[0].pacTelCasa }}</td>
+            </tr>
+            <tr>
+                <th>Celular:</th><td>{{ info[0].pacTelCelular }}</td>
+            </tr>
+            <tr>
+                <th>Persona a responsable:</th><td>{{ info[0].pacResponsable }}</td>
+            </tr>
+            <tr>
+                <th>Dirección:</th><td>{{ info[0].pacDireccion }}
+                    <div>
+                        {% if info[0].pacMun != "" %}
+                            {{ info[0].pacMun }}
+                            {{ (info[0].pacMun.munDep != null  and info[0].pacMun.munDep !="") ? ","~info[0].pacMun.munDep }}  {{ info[0].pacMun.munDep.depPai != ""?","~info[0].pacMun.munDep.depPai }}
+                        {% endif %}
+                    </div>                    
+                </td>
+            </tr>
+            <tr>
+                <th>Fecha creación:</th><td>{% if info[0].pacFechaCrea %}{{ info[0].pacFechaCrea|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Fecha actualizado:</th><td>{% if info[0].pacFechaMod %}{{ info[0].pacFechaMod|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+{% endif %}    
