@@ -30,7 +30,7 @@
 
 # Assets and user uploads
 /web/bundles/
-!/web/perfil/muestra.png
+!/web/uploads/perfil/muestra.png
 /web/uploads/
 /web/config.php
 
