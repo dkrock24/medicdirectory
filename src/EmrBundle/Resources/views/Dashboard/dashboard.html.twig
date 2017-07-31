@@ -155,15 +155,17 @@
                                                                     #}
                                                                     <div class="media-body">
                                                                         <div class="media-heading">
+                                                                            {#
                                                                             {% if roles.3 is defined %}
                                                                                 <span  class="letter-icon-title">{{ appointment.pac_nombre|capitalize ~" "~ appointment.pac_seg_nombre|capitalize ~" "~ appointment.pac_apellido|capitalize ~" "~ appointment.pac_seg_apellido|capitalize }}</span>
                                                                             {% else %}
+                                                                            #}    
                                                                                 {% if appointment.pac_id is defined and appointment.pac_id > 0 %}
                                                                                     <a href="{{ path('consulta_new',{'id':appointment.pac_id,'cm':appointment.id}) }}" class="letter-icon-title" data-toggle="tooltip" data-placement="top" title="">{{ appointment.pac_nombre|capitalize ~" "~ appointment.pac_seg_nombre|capitalize ~" "~ appointment.pac_apellido|capitalize ~" "~ appointment.pac_seg_apellido|capitalize }}</a>
                                                                                 {% else %}
                                                                                     <span  class="letter-icon-title">{{ appointment.pac_nombre|capitalize ~" "~ appointment.pac_seg_nombre|capitalize ~" "~ appointment.pac_apellido|capitalize ~" "~ appointment.pac_seg_apellido|capitalize }}</span>
                                                                                 {% endif %}    
-                                                                            {% endif %}    
+                                                                            {# {% endif %}  #}  
                                                                             
                                                                         </div>
 
@@ -634,11 +636,13 @@
                                 var name = $.trim(n); //data[i]['pac_nombre']+" "+data[i]['pac_seg_nombre']+" "+data[i]['pac_apellido']+" "+data[i]['pac_seg_apellido'];
                                 var fullname = capitalize(name);
                                 //alert(fullname);
+                                {#
                                 {% if roles.3 is defined %}
                                     btn_group += "<span class='letter-icon-title'>";
                                     btn_group += fullname;
                                     btn_group += "</span>";
                                 {% else %}
+                                #}    
                                     if( renderToUpdate != "result_update_appointment" )
                                     {
                                         btn_group += "<a href='"+routeShow+"' class='letter-icon-title' data-toggle='tooltip' data-placement='top' title=''>";
@@ -650,7 +654,7 @@
                                         btn_group += fullname;
                                         btn_group += "</span>";
                                     }
-                                {% endif %}    
+                                    {# {% endif %}   #} 
                                 {#
                                 btn_group += "<a href='"+routeShow+"' class='letter-icon-title' data-toggle='tooltip' data-placement='top' title='Procesar Consulta'>";
                                 btn_group += data[i]['pac_nombre']+" "+data[i]['pac_seg_nombre']+" "+data[i]['pac_apellido']+" "+data[i]['pac_seg_apellido'];

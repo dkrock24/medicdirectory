@@ -223,8 +223,10 @@ class ConsultaController extends Controller
 		
 		$oAppointment->getAgeEstado();
 		
+		$roles = $this->get('session')->get('userRoles');
 		return $this->render("EmrBundle:consulta:new.html.twig", array(
 			"locationName"=>$locationName,
+			"roles"=>$roles,
 			"patient"=>$oPatient,
 			"age"=>$patientAge,
             "modulos"=>$modulos,

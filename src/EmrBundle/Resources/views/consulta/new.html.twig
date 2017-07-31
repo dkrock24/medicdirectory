@@ -365,17 +365,21 @@
                                         Minuto
                                     {% endif %}    
                                 </h6>
-                                <span id="stopwatch">00:00:00</span>
-                                <p>
-                                    {# <input class='btn btn-primary' id="btn_start_appointment" type='button' value='Iniciar/Pausar' onclick='Example1.Timer.toggle();' /> #}
-                                    {% if currentMilisecundsDiff == 0 %}
-                                        <input class='btn btn-primary' id="btn_start_appointment" type='button' value='Iniciar Consulta' onclick='' />
-                                    {% else %} 
-                                        <input class='btn btn-primary' id="btn_end_appointment" type='button' value='Finalizar Consulta' onclick='Example1.resetStopwatch();'/>
-                                    {% endif %}
-                                    <input class='btn btn-primary' id="btn_end_appointment" type='button' value='Finalizar Consulta' onclick='Example1.resetStopwatch();' style="display:none" />
-                                    
-                                </p>
+                                
+                                
+                                {% if roles.6 is defined %}
+                                    <span id="stopwatch">00:00:00</span>
+                                    <p>
+                                        {# <input class='btn btn-primary' id="btn_start_appointment" type='button' value='Iniciar/Pausar' onclick='Example1.Timer.toggle();' /> #}
+                                        {% if currentMilisecundsDiff == 0 %}
+                                            <input class='btn btn-primary' id="btn_start_appointment" type='button' value='Iniciar Consulta' onclick='' />
+                                        {% else %} 
+                                            <input class='btn btn-primary' id="btn_end_appointment" type='button' value='Finalizar Consulta' onclick='Example1.resetStopwatch();'/>
+                                        {% endif %}
+                                        <input class='btn btn-primary' id="btn_end_appointment" type='button' value='Finalizar Consulta' onclick='Example1.resetStopwatch();' style="display:none" />
+
+                                    </p>
+                                {% endif %}
                                 </div>
                                 {% elseif statusAppointment == "t" %}
                                     <div class="alert alert-success alert-styled-left alert-arrow-left alert-component">Esta consulta ya ha sido procesada</div>

@@ -515,7 +515,7 @@
                                                     <div class="col-lg-2 col-md-6 col-sm-6">
                                                         <div class="form-group">
                                                             <label class="control-label">Tipo de usuario</label>
-                                                            <select name="typeUser[]" id="typeUser" class="form-control" required>
+                                                            <select name="typeUser[]" id="typeUser" class="form-control typeUser" required>
                                                                 <option value="6">Doctor/Doctora</option>
                                                                 <option value="3">Asistente</option>
                                                             </select>
@@ -527,7 +527,7 @@
                                                             <label class="control-label">&nbsp;<br><label>
                                                             <div class="checkbox">
                                                                 <label>
-                                                                    <input type="checkbox" name="publicityWeb[]" checked="checked"> Publicitarlo en web
+                                                                    <input type="checkbox" name="publicityWeb[]" checked="checked" class="publicityWeb"> Publicitarlo en web
                                                                 </label>
                                                             </div>
                                                         </div>
@@ -1756,6 +1756,19 @@
                 
             }
             
+            $("body").on("change",".typeUser", function(){
+                var opt = $(this).val();
+                if(opt == 3)
+                {
+                    $(this).closest(".section").find(".publicityWeb").attr("checked",false);
+                    $(this).closest(".section").find(".publicityWeb").closest("div").hide();
+                }
+                else
+                {
+                    $(this).closest(".section").find(".publicityWeb").closest("div").show();
+                    $(this).closest(".section").find(".publicityWeb").attr("checked",true);
+                }    
+           });
             
             
             //$(".ui-datepicker-year").select2();
