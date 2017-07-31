@@ -419,39 +419,47 @@
                     #}
                 </div>
                 <div class="col-lg-9 col-md-8">
-                    <div class="panel panel-info">
-                        <div class="panel-heading">
-                            <h6 class="panel-title">Captura de datos del paciente - {{ dateAppointment|date("Y-m-d") }} <a class="heading-elements-toggle"><i class="icon-more"></i></a></h6>
-                            <div class="heading-elements">
-                                <ul class="icons-list">
-                                    <li><a data-action="collapse"></a></li>
-                                </ul>
+
+                    
+                    {% if roles.3 is defined and statusAppointment == "t" %}
+                        {% if statusAppointment == "c" %}
+                            <div class="alert alert-danger alert-styled-left alert-arrow-left alert-component">Esta consulta aún esta en curso</div>
+                        {% endif %}    
+                    {% else %}
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <h6 class="panel-title">Captura de datos del paciente - {{ dateAppointment|date("Y-m-d") }} <a class="heading-elements-toggle"><i class="icon-more"></i></a></h6>
+                                <div class="heading-elements">
+                                    <ul class="icons-list">
+                                        <li><a data-action="collapse"></a></li>
+                                    </ul>
+                                </div>
                             </div>
-                        </div>
-                        <div class="panel-body">
-                            
-                            <div class="row">
-                                
-                                <div class="col-lg-4">
-                                    <div class="alert alpha-teal border-teal alert-styled-left">
-                                        Módulos adquiridos <i class="fa fa-hand-o-down" aria-hidden="true"></i>
+                            <div class="panel-body">
+
+                                <div class="row">
+
+                                    <div class="col-lg-4">
+                                        <div class="alert alpha-teal border-teal alert-styled-left">
+                                            Módulos adquiridos <i class="fa fa-hand-o-down" aria-hidden="true"></i>
+                                        </div>
+                                    <!-- Here goes the modules list -->
+                                    {{ render( controller('EmrBundle:EavModulos:crearMenuModulos', { 'modulos': modulos } ) ) }}
                                     </div>
-                                <!-- Here goes the modules list -->
-                                {{ render( controller('EmrBundle:EavModulos:crearMenuModulos', { 'modulos': modulos } ) ) }}
-                                </div>
-                                <div class="col-lg-8">
-                                <!-- end of modules list -->
-                                {% if modulos|length > 0 %}
-                                    {{ render( controller( 'EmrBundle:EavModulos:crearFormModulo', 
-                                        { 'mod_hash': modulos[0]['mod_hash'], 
-                                        'usu_id': usu_id, 'pac_id': patient[0].pacId, 'cli_id': cli_id, 'cit_id': cit_id } ) ) 
-                                    }}
-                                {% endif %}
+                                    <div class="col-lg-8">
+                                    <!-- end of modules list -->
+                                    {% if modulos|length > 0 %}
+                                        {{ render( controller( 'EmrBundle:EavModulos:crearFormModulo', 
+                                            { 'mod_hash': modulos[0]['mod_hash'], 
+                                            'usu_id': usu_id, 'pac_id': patient[0].pacId, 'cli_id': cli_id, 'cit_id': cit_id } ) ) 
+                                        }}
+                                    {% endif %}
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                       
+                    {% endif %}
+                    
                     <div class="panel panel-info {{ collapsed }}">
                         <div class="panel-heading">
                             <h6 class="panel-title">Receta médica<a class="heading-elements-toggle"><i class="icon-more"></i></a></h6>
