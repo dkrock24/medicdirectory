@@ -32,7 +32,6 @@ AppBundle\Entity\EavModCatValores:
             column: mod_cat_val_activo
             options:
                 default: 1
-                unsigned: true
         modCatValFechaCrea:
             type: datetime
             nullable: false

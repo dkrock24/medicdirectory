@@ -23,7 +23,6 @@ AppBundle\Entity\EavTipCampos:
             type: boolean
             nullable: false
             options:
-                unsigned: true
                 default: 1
             column: tip_camp_activo
         tipCampFechaCrea:

@@ -37,7 +37,6 @@ AppBundle\Entity\EavModCampos:
             nullable: false
             options:
                 default: 0
-                unsigned: true
             column: mod_camp_show_ifnull
         modCampValorDefault:
             type: string
@@ -55,14 +54,12 @@ AppBundle\Entity\EavModCampos:
             nullable: true
             options:
                 default: 0
-                unsigned: true
             column: mod_camp_es_catalogo
         modCampRequerido:
             type: boolean
             nullable: false
             options:
                 default: 0
-                unsigned: true
             column: mod_camp_requerido
         modCampTipCampId:
             type: integer
@@ -81,7 +78,6 @@ AppBundle\Entity\EavModCampos:
             nullable: false
             options:
                 default: 1
-                unsigned: true
             column: mod_camp_activo
         modCampFechaCrea:
             type: datetime

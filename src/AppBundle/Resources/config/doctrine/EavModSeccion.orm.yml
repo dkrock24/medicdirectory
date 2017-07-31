@@ -32,7 +32,6 @@ AppBundle\Entity\EavModSeccion:
             nullable: false
             options:
                 default: 1
-                unsigned: true
             column: mod_secc_activo
         modSeccFechaCrea:
             type: datetime
