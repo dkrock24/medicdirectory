@@ -622,6 +622,7 @@ class ClienteController extends Controller
 			$oRepresenter->setUsuTercerNombre($representerNameThree);
 			$oRepresenter->setUsuPrimerApellido($representerLastNameOne);
 			$oRepresenter->setUsuSegundoApellido($representerLastNameTwo);
+			$oRepresenter->setUsuEsAdmin(0);
 			//$oRepresenter->setUsu	
 			
 			if (isset($clientId) && $clientId > 0) 
@@ -774,6 +775,7 @@ class ClienteController extends Controller
 						}
 
 						$user->setUsuGenero($locationListUsers[$i]['gender']);
+						$user->setUsuEsAdmin(0);
 						$role_repo = $em->getRepository('AppBundle:Rol')->find($locationListUsers[$i]['typeUser']);
 						$em->persist($user);
 						$flush = $em->flush();
