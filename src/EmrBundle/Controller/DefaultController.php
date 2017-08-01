@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class DefaultController extends Controller
 {
@@ -105,6 +106,51 @@ class DefaultController extends Controller
 		{
 			return $this->redirectToRoute("login");
 		}
+	}
+	
+	public function getDoctorsFromLocationAction( Request $request )
+	{
+		$em = $this->getDoctrine()->getManager();
+		$idUser =  $this->getUser()->getUsuId();
+		$locationId = $request->get("id");
+		
+		$location_repo = $em->getRepository("AppBundle:ClienteUsuario")->findBy( array("cliUsuCli"=>$locationId, "cliUsuUsu"=>$idUser, "cliUsuRol"=>2) );
+		if( !$location_repo )
+		{
+			throw new AccessDeniedException('Acceso denegado');
+		}
+		else
+		{
+			$RAW_QUERY = "SELECT 
+							cu.cli_usu_usu_id AS id, cu.cli_usu_correo as email, cu.cli_usu_exponer as exponer, cu.cli_usu_jvpm as jvpm,
+							( 
+								SELECT gu.gal_hash from usuario_galeria gu 
+										WHERE gu.gal_usu_id = cu.cli_usu_usu_id AND gu.gal_tipo = 1 AND gu.gal_activo = 1 and gu.gal_cliente_id = 24 
+							) as foto,
+							( 
+								SELECT CONCAT_WS(' ',u.usu_nombre,u.usu_segundo_nombre,u.usu_tercer_nombre,u.usu_primer_apellido,u.usu_segundo_apellido) 
+								FROM usuario u WHERE u.usu_id = cu.cli_usu_usu_id  
+							) as nombre,
+							
+							(
+								SELECT u.usu_genero
+								FROM usuario u
+								WHERE u.usu_id = cu.cli_usu_usu_id
+							) AS genero
+							FROM cliente_usuario cu
+							WHERE cu.cli_usu_cli_id = $locationId and cu.cli_usu_rol_id = 6
+							";
+			
+			$statement = $em->getConnection()->prepare($RAW_QUERY);
+			$statement->bindValue("idUser", $idUser );
+			$statement->execute();
+			$aDoctors = $statement->fetchAll();
+			
+			//var_dump($aDoctors);
+		}
+		
+		
+		return $this->render("EmrBundle:Default:locationHasDoctors.html.twig", array( 'doctors' => $aDoctors ));
 	}
 	
 	public function checkSessionLocationAction( Request $request )
