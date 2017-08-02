@@ -160,7 +160,7 @@ class DefaultController extends Controller {
             $num = 1;
             
             $horaDias = array();
-            $dias = array(1 => "Mon", 2 => "Mar", 3 => "Mie", 4 => "Jue", 5 => "Vie", 6 => "Sab", 7 => "Dom");
+            $dias = array(1 => "Lun", 2 => "Mar", 3 => "Mie", 4 => "Jue", 5 => "Vie", 6 => "Sab", 7 => "Dom");
             $hoy = $dias[date("N")];
 
             foreach ($arr as $key => $value) 
