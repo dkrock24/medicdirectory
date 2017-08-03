@@ -251,6 +251,7 @@
                                     <div class="col-lg-4 col-md-4 col-sm-6">
                                         <div class="text-left">
                                             <div class="rowx">
+                                                
                                                 <div class="{{ layout }}">
                                                      <fieldset>
                                                         <legend class="text-semibold">
@@ -352,6 +353,9 @@
                     $("#holder_loading").show();
                 });
                 
+                    {% if settings.minutos_por_evento is defined %}
+                            $("#calMinutes").val("{{settings.minutos_por_evento}}");
+                    {% endif %}        
                     
                     {% if userRoles.3 is defined %}
                            // $("#btnViewPrescription").hide();
