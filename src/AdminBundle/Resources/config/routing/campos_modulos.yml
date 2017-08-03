@@ -18,6 +18,10 @@ campos_modulos_lista_secciones:
     path: /lista_secciones
     defaults: { _controller: AdminBundle:CamposModulos:getSeccionesModulo }
     
+campos_modulos_lista_grupos:
+    path: /lista_grupos
+    defaults: { _controller: AdminBundle:CamposModulos:getGruposSeccion }
+    
 campos_modulos_lista_campos:
     path: /lista_campos
     defaults: { _controller: AdminBundle:CamposModulos:tableList }

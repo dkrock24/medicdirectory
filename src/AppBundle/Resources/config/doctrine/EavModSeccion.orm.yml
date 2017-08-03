@@ -51,8 +51,12 @@ AppBundle\Entity\EavModSeccion:
                 name: mod_secc_mod_id
                 referencedColumnName: mod_id
     oneToMany:
-        campos:
-            targetEntity: EavModCampos
+#        campos:
+#            targetEntity: EavModCampos
+#            cascade: [persist]
+#            mappedBy: seccionCampo
+        seccionGrupo:
+            targetEntity: EavModSecGrupo
             cascade: [persist]
-            mappedBy: seccionCampo
+            mappedBy: grupoCampo
     lifecycleCallbacks: {  }

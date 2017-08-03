@@ -13,11 +13,6 @@ class EavModCampos
     private $modCampId;
 
     /**
-     * @var integer
-     */
-    private $modCampModSeccId;
-
-    /**
      * @var string
      */
     private $modCampNombre;
@@ -28,9 +23,9 @@ class EavModCampos
     private $modCampNombreCorto;
 
     /**
-     * @var integer
+     * @var boolean
      */
-    private $modCampShowIfnull = false;
+    private $modCampShowIfnull = 0;
 
     /**
      * @var string
@@ -43,9 +38,14 @@ class EavModCampos
     private $modCampCampoPadre;
 
     /**
-     * @var integer
+     * @var boolean
      */
-    private $modCampRequerido = false;
+    private $modCampEsCatalogo = 0;
+
+    /**
+     * @var boolean
+     */
+    private $modCampRequerido = 0;
 
     /**
      * @var integer
@@ -58,9 +58,9 @@ class EavModCampos
     private $modCampOrden;
 
     /**
-     * @var integer
+     * @var boolean
      */
-    private $modCampActivo = true;
+    private $modCampActivo = 1;
 
     /**
      * @var \DateTime
@@ -73,19 +73,32 @@ class EavModCampos
     private $modCampFechaMod;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $camposHijo;
+
+    /**
      * @var \AppBundle\Entity\EavTipCampos
      */
     private $tipoCampos;
 
     /**
-     * @var \AppBundle\Entity\EavModSeccion
+     * @var \AppBundle\Entity\EavModSecGrupo
      */
-    private $modSeccion;
-    
-    public function __toString() {
-        return $this->modCampNombre;
-    }
+    private $grupoCampo;
 
+    /**
+     * @var \AppBundle\Entity\EavModCampos
+     */
+    private $campoPadre;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->camposHijo = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get modCampId
@@ -95,30 +108,6 @@ class EavModCampos
     public function getModCampId()
     {
         return $this->modCampId;
-    }
-
-    /**
-     * Set modCampModSeccId
-     *
-     * @param integer $modCampModSeccId
-     *
-     * @return EavModCampos
-     */
-    public function setModCampModSeccId($modCampModSeccId)
-    {
-        $this->modCampModSeccId = $modCampModSeccId;
-
-        return $this;
-    }
-
-    /**
-     * Get modCampModSeccId
-     *
-     * @return integer
-     */
-    public function getModCampModSeccId()
-    {
-        return $this->modCampModSeccId;
     }
 
     /**
@@ -172,7 +161,7 @@ class EavModCampos
     /**
      * Set modCampShowIfnull
      *
-     * @param integer $modCampShowIfnull
+     * @param boolean $modCampShowIfnull
      *
      * @return EavModCampos
      */
@@ -186,7 +175,7 @@ class EavModCampos
     /**
      * Get modCampShowIfnull
      *
-     * @return integer
+     * @return boolean
      */
     public function getModCampShowIfnull()
     {
@@ -242,9 +231,33 @@ class EavModCampos
     }
 
     /**
+     * Set modCampEsCatalogo
+     *
+     * @param boolean $modCampEsCatalogo
+     *
+     * @return EavModCampos
+     */
+    public function setModCampEsCatalogo($modCampEsCatalogo)
+    {
+        $this->modCampEsCatalogo = $modCampEsCatalogo;
+
+        return $this;
+    }
+
+    /**
+     * Get modCampEsCatalogo
+     *
+     * @return boolean
+     */
+    public function getModCampEsCatalogo()
+    {
+        return $this->modCampEsCatalogo;
+    }
+
+    /**
      * Set modCampRequerido
      *
-     * @param integer $modCampRequerido
+     * @param boolean $modCampRequerido
      *
      * @return EavModCampos
      */
@@ -258,7 +271,7 @@ class EavModCampos
     /**
      * Get modCampRequerido
      *
-     * @return integer
+     * @return boolean
      */
     public function getModCampRequerido()
     {
@@ -316,7 +329,7 @@ class EavModCampos
     /**
      * Set modCampActivo
      *
-     * @param integer $modCampActivo
+     * @param boolean $modCampActivo
      *
      * @return EavModCampos
      */
@@ -330,7 +343,7 @@ class EavModCampos
     /**
      * Get modCampActivo
      *
-     * @return integer
+     * @return boolean
      */
     public function getModCampActivo()
     {
@@ -386,129 +399,6 @@ class EavModCampos
     }
 
     /**
-     * Set tipoCampos
-     *
-     * @param \AppBundle\Entity\EavTipCampos $tipoCampos
-     *
-     * @return EavModCampos
-     */
-    public function setTipoCampos(\AppBundle\Entity\EavTipCampos $tipoCampos = null)
-    {
-        $this->tipoCampos = $tipoCampos;
-
-        return $this;
-    }
-
-    /**
-     * Get tipoCampos
-     *
-     * @return \AppBundle\Entity\EavTipCampos
-     */
-    public function getTipoCampos()
-    {
-        return $this->tipoCampos;
-    }
-
-    /**
-     * Set modSeccion
-     *
-     * @param \AppBundle\Entity\EavModSeccion $modSeccion
-     *
-     * @return EavModCampos
-     */
-    public function setModSeccion(\AppBundle\Entity\EavModSeccion $modSeccion = null)
-    {
-        $this->modSeccion = $modSeccion;
-
-        return $this;
-    }
-
-    /**
-     * Get modSeccion
-     *
-     * @return \AppBundle\Entity\EavModSeccion
-     */
-    public function getModSeccion()
-    {
-        return $this->modSeccion;
-    }
-    /**
-     * @var boolean
-     */
-    private $modCampEsCatalogo = false;
-
-
-    /**
-     * Set modCampEsCatalogo
-     *
-     * @param boolean $modCampEsCatalogo
-     *
-     * @return EavModCampos
-     */
-    public function setModCampEsCatalogo($modCampEsCatalogo)
-    {
-        $this->modCampEsCatalogo = $modCampEsCatalogo;
-
-        return $this;
-    }
-
-    /**
-     * Get modCampEsCatalogo
-     *
-     * @return boolean
-     */
-    public function getModCampEsCatalogo()
-    {
-        return $this->modCampEsCatalogo;
-    }
-    /**
-     * @var \AppBundle\Entity\EavModSeccion
-     */
-    private $seccionCampo;
-
-
-    /**
-     * Set seccionCampo
-     *
-     * @param \AppBundle\Entity\EavModSeccion $seccionCampo
-     *
-     * @return EavModCampos
-     */
-    public function setSeccionCampo(\AppBundle\Entity\EavModSeccion $seccionCampo = null)
-    {
-        $this->seccionCampo = $seccionCampo;
-
-        return $this;
-    }
-
-    /**
-     * Get seccionCampo
-     *
-     * @return \AppBundle\Entity\EavModSeccion
-     */
-    public function getSeccionCampo()
-    {
-        return $this->seccionCampo;
-    }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $camposHijo;
-
-    /**
-     * @var \AppBundle\Entity\EavModCampos
-     */
-    private $campoPadre;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->camposHijo = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
      * Add camposHijo
      *
      * @param \AppBundle\Entity\EavModCampos $camposHijo
@@ -543,6 +433,54 @@ class EavModCampos
     }
 
     /**
+     * Set tipoCampos
+     *
+     * @param \AppBundle\Entity\EavTipCampos $tipoCampos
+     *
+     * @return EavModCampos
+     */
+    public function setTipoCampos(\AppBundle\Entity\EavTipCampos $tipoCampos = null)
+    {
+        $this->tipoCampos = $tipoCampos;
+
+        return $this;
+    }
+
+    /**
+     * Get tipoCampos
+     *
+     * @return \AppBundle\Entity\EavTipCampos
+     */
+    public function getTipoCampos()
+    {
+        return $this->tipoCampos;
+    }
+
+    /**
+     * Set grupoCampo
+     *
+     * @param \AppBundle\Entity\EavModSecGrupo $grupoCampo
+     *
+     * @return EavModCampos
+     */
+    public function setGrupoCampo(\AppBundle\Entity\EavModSecGrupo $grupoCampo = null)
+    {
+        $this->grupoCampo = $grupoCampo;
+
+        return $this;
+    }
+
+    /**
+     * Get grupoCampo
+     *
+     * @return \AppBundle\Entity\EavModSecGrupo
+     */
+    public function getGrupoCampo()
+    {
+        return $this->grupoCampo;
+    }
+
+    /**
      * Set campoPadre
      *
      * @param \AppBundle\Entity\EavModCampos $campoPadre
@@ -566,3 +504,4 @@ class EavModCampos
         return $this->campoPadre;
     }
 }
+

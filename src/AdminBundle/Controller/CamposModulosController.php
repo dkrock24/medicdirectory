@@ -185,6 +185,32 @@ class CamposModulosController extends Controller
         
     }
     
+    public function getGruposSeccionAction( Request $request ){
+        $id_secc = $request->request->get( "id_secc" );
+        
+        $em = $this->getDoctrine()->getManager();
+        
+        $grupos = $em->getRepository("AppBundle:EavModSecGrupo")
+                ->findBy( array("grupoSeccion" => $id_secc) )
+                ;
+        
+        $grupos_array = array();
+        
+        foreach( $grupos as $grupo ){
+            
+            $grupos_array[] = array(
+                "id" => $grupo->getSecGrId(),
+                "text" => $grupo->getSecGrGrupo()
+            );
+            
+        }
+        
+        return new Response(
+                json_encode($grupos_array)
+        );
+        
+    }
+    
     public function tableListAction(Request $request){
         
         /* Array of database columns which should be read and sent back to DataTables. Use a space where
@@ -192,15 +218,7 @@ class CamposModulosController extends Controller
          */
         $get = $request->request->all();
         
-        
-        
-        $columns = array('modCampId', 'modCampNombre', 'modCampTipCampId', 'modCampModSeccId'
-            , 'modCampShowIfnull', 'modCampValorDefault', 'modCampRequerido', 'modCampOrden', 'modCampEsCatalogo',
-            'modCampFechaCrea', 'modCampFechaMod', 'modCampActivo'
-            );
-        $get['columns'] = &$columns;
-        
-        $rResult = $this->ajaxTable($get, true)->getArrayResult(); 
+        $rResult = $this->ajaxTable($get, true);//->getArrayResult(); 
         
         /* Data set length after filtering */
         $iFilteredTotal = count($rResult);
@@ -213,61 +231,74 @@ class CamposModulosController extends Controller
             "iTotalDisplayRecords" => $iFilteredTotal,
             "aaData" => array()
         );
-        foreach ($rResult as $aRow) {
-            $row = array();
-            for ($i = 0; $i < count($columns); $i++) {
-                if ($columns[$i] == "version") {
-                    /* Special output formatting for 'version' column */
-                    $row[] = ($aRow[$columns[$i]] == "0") ? '-' : $aRow[$columns[$i]];
-                } elseif ($columns[$i] != ' ') {
-                    /* General output */
-                    // mrivas                     
-                    if( is_a($aRow[$columns[$i]], 'DateTime') ){
-                        $aRow[$columns[$i]] = $aRow[$columns[$i]]->format('Y-m-d H:i:s');
-                    }else if(is_null( $aRow[$columns[$i]] ) ){
-                        $aRow[$columns[$i]] = 'N/A';
-                    }
-                    // mrivas
-                    $row[] = $aRow[$columns[$i]];
-                }
+//        echo '<pre>HERE2:<br>';
+        foreach( $rResult as $key => $values ){
+            $tmp_array = array();
+            foreach( $values as $campo => $value ){
+                $tmp_array[] = $value;
+                //var_dump($tmp_array);
             }
-            $output['aaData'][] = $row;
+            $output["aaData"][] = $tmp_array;
         }
-        unset($rResult);
+
         return new Response(
                 json_encode($output)
         );
     }
     
-  public function ajaxTable(array $get, $flag = false){
-    /* Indexed column (used for fast and accurate table cardinality) */
-    $alias = 'a';
-    /* DB table to use */
-    $tableObjectName = 'AppBundle:EavModCampos';
-    /**
-     * Set to default
-     */
-    if(!isset($get['columns']) || empty($get['columns']))
-      $get['columns'] = array('id');
-    $aColumns = array();
-    foreach($get['columns'] as $value) $aColumns[] = $alias .'.'. $value;
-    
-    $cb = $this->getDoctrine()->getManager()
-      ->getRepository($tableObjectName)
-      ->createQueryBuilder($alias)
-      ->select(str_replace(" , ", " ", implode(", ", $aColumns)))
-      ->where( $alias.'.modCampModSeccId = '.$get['id'] )
-            ;
-    
-    /*
-     * SQL queries
-     * Get data to display
-     */
-    $query = $cb->getQuery();
-    if($flag)
-      return $query;
-    else
-      return $query->getResult();
-  }
+    public function ajaxTable(array $get, $flag = false){
+        
+        $sQuery = "SELECT 
+            mod_camp_id, mod_camp_nombre, tip.tip_camp_tipo, sec.mod_secc_seccion as seccion, gr.sec_gr_grupo as grupo,
+            mod_camp_orden,
+            mod_camp_es_catalogo, mod_camp_fecha_crea, mod_camp_fecha_mod, mod_camp_activo
+            FROM eav_mod_campos
+            LEFT JOIN eav_mod_sec_grupo gr on gr.sec_gr_id = mod_camp_sec_gr_id
+            LEFT JOIN eav_mod_seccion sec on sec.mod_secc_id = gr.sec_gr_secc_id
+            LEFT JOIN eav_tip_campos tip on tip.tip_camp_id = mod_camp_tip_camp_id
+            WHERE mod_camp_sec_gr_id = :sec_id
+        ";
+        
+        $em = $this->getDoctrine()->getManager();
+        
+        $oStatement = $em->getConnection()->prepare($sQuery);
+        $oStatement->bindValue('sec_id', $get['id']);
+        $oStatement->execute();
+        
+        $oResult = $oStatement->fetchAll();
+        return $oResult;
+//        echo '<pre>';
+//        var_dump($oResult);
+//        exit;
+        
+//        /* Indexed column (used for fast and accurate table cardinality) */
+//        $alias = 'a';
+//        /* DB table to use */
+//        $tableObjectName = 'AppBundle:EavModCampos';
+//        /**
+//         * Set to default
+//         */
+//        if(!isset($get['columns']) || empty($get['columns']))
+//          $get['columns'] = array('id');
+//        $aColumns = array();
+//        foreach($get['columns'] as $value) $aColumns[] = $alias .'.'. $value;
+//
+//        $cb = $this->getDoctrine()->getManager()
+//          ->getRepository($tableObjectName)
+//          ->createQueryBuilder($alias)
+//          ->select(str_replace(" , ", " ", implode(", ", $aColumns)))
+//          ->where( $alias.'.modCampSecGrId = '.$get['id'] )
+//                ;
+//
+//        /*
+//         * SQL queries
+//         * Get data to display
+//         */
+//        $query = $cb->getQuery();
+//        if($flag)
+//          return $query;
+//        else
+//          return $query->getResult();
+    }
 
 }

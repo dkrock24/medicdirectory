@@ -260,4 +260,43 @@ class EavModSeccion
     {
         return $this->campos;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $seccionGrupo;
+
+
+    /**
+     * Add seccionGrupo
+     *
+     * @param \AppBundle\Entity\EavModSecGrupo $seccionGrupo
+     *
+     * @return EavModSeccion
+     */
+    public function addSeccionGrupo(\AppBundle\Entity\EavModSecGrupo $seccionGrupo)
+    {
+        $this->seccionGrupo[] = $seccionGrupo;
+
+        return $this;
+    }
+
+    /**
+     * Remove seccionGrupo
+     *
+     * @param \AppBundle\Entity\EavModSecGrupo $seccionGrupo
+     */
+    public function removeSeccionGrupo(\AppBundle\Entity\EavModSecGrupo $seccionGrupo)
+    {
+        $this->seccionGrupo->removeElement($seccionGrupo);
+    }
+
+    /**
+     * Get seccionGrupo
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSeccionGrupo()
+    {
+        return $this->seccionGrupo;
+    }
 }

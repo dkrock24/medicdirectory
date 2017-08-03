@@ -44,6 +44,12 @@
                         <option></option>
                 </select>
             </div>
+            <div class="form-group">
+                <label>Grupo</label>
+                <select id="grupo-select" class="select-size-xs"> {#data-placeholder="Seleccone seccion..."#}
+                        <option></option>
+                </select>
+            </div>
                 
             <div class="form-group">
                 <label>Campos</label>
@@ -54,9 +60,7 @@
                             <th>Nombre</th>
                             <th>Tipo</th>
                             <th>Seccion</th>
-                            <th>Mostrar Siempre</th>
-                            <th>Valor Defecto</th>
-                            <th>Obligatorio</th>
+                            <th>Grupo</th>
                             <th>Orden</th>
                             <th>Es Catalogo</th>
                             <th>Fecha Creación</th>
@@ -98,8 +102,6 @@
                     null,
                     null,
                     null,
-                    null,
-                    null,
                     {
                         "data": "Acciones",
                         "defaultContent": "<ul class=\"list-inline\">"+
@@ -121,6 +123,9 @@
             });
             $('#seccion-select').select2({
                 placeholder: 'seleccione seccion...'
+            });
+            $('#grupo-select').select2({
+                placeholder: 'seleccione grupo...'
             });
             
             $('#modulo-select').on('select2:select', function(e){  
@@ -148,6 +153,28 @@
 
             $('#seccion-select').on('select2:select', function(e){
                 var id_secc = $(this).val();
+                var sUrl = "{{ path('campos_modulos_lista_grupos') }}";
+                
+                $.ajax({
+                    url: sUrl,
+                    type: "post",
+                    data: { id_secc: id_secc }
+                 }).done(function (result) {
+                    var jresult = JSON.parse(result);
+                        
+                    $('#grupo-select').html('<option></option>').select2({
+                        placeholder: 'seleccione grupo...',
+                        data: jresult
+                    });
+
+                }).fail(function (jqXHR, textStatus, errorThrown) { 
+                    
+                });
+
+            });
+            
+            $('#grupo-select').on('select2:select', function(e){
+                var id_secc = $(this).val();
                 var sUrl = "{{ path('campos_modulos_lista_campos') }}";
                 
                 $.ajax({
@@ -155,10 +182,12 @@
                     type: "post",
                     data: { id: id_secc, sEcho: 616 }
                  }).done(function (result) {
-                     console.log( id_secc );
+                     
                     jdata = JSON.parse( result );
+                    
                     Table.clear().draw();
                     for ( x = 0; x < jdata['aaData'].length; x++ ){
+                        console.log( jdata["aaData"][x] );
                        Table.row.add( jdata['aaData'][x] ).draw();
                     }
                     
