@@ -78,7 +78,7 @@
                                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><i class="icon-menu7"></i> <span class="caret"></span></a>
                                                     <ul class="dropdown-menu dropdown-menu-right">
                                                         <li><a href="{{ path('cliente_edit', { 'id': reg.clientId } ) }}"><i class="icon-sync"></i> Actualizar Información</a></li>
-                                                        <li><a href="#"><i class="icon-list-unordered"></i> Médicos</a></li>
+                                                        <li><a href="{{ path('emr_location_has_doctors',{'id': reg.clientId } ) }}"><i class="icon-list-unordered"></i> Médicos</a></li>
                                                         {#<li><a href="#"><i class="icon-pie5"></i> Estadisticas</a></li> #}
                                                         <li class="divider"></li>
                                                         <li><a href="#"><i class="icon-cross3"></i> Cerrar Menú</a></li>

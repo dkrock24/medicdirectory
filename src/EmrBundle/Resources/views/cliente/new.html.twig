@@ -1,7 +1,7 @@
 {% extends "Layout/base_emr/_clients_base.location.html.twig" %}
 
 {% block title_page %}
-    Sitema Medico EMR || Regístrate
+    Sistema Médico EMR || Regístrate
 {% endblock %}
 
 {#
@@ -50,7 +50,7 @@
             <h4>
                 <a href="{{ app.request.headers.get('referer') }}">
                 <i class="icon-arrow-left52 position-left"></i>
-                <span class="text-semibold">Regresar</span></a> - Regístro de nuevo cliente
+                <span class="text-semibold">Regresar</span></a> - Registro de nuevo cliente
 
                 <small class="display-block">Formulario para nuevo cliente!</small></h4>
             <a class="heading-elements-toggle"><i class="icon-more"></i></a></div>
@@ -90,9 +90,9 @@
     <div class="panel border-left-lg border-left-success">
         <div class="panel-heading">
             {% if created == 0 %}
-                <h6 class="panel-title"><i class="fa fa-hospital-o"></i> Para regístrarse debe completar el siguiente formulario</h6>
+                <h6 class="panel-title"><i class="fa fa-hospital-o"></i> Para registrarse debe completar el siguiente formulario</h6>
             {% else %}
-                <h4 class="panel-title"><i class="fa fa-hospital-o"></i> Gracias por regístrarte</h4>
+                <h4 class="panel-title"><i class="fa fa-hospital-o"></i> Gracias por registrarte</h4>
             {% endif %}
             {#
             <div class="heading-elements">
