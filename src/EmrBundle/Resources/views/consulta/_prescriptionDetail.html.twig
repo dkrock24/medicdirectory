@@ -1,0 +1,37 @@
+
+<style>
+    #name{
+        border-bottom:  solid 1px #000;
+    }
+    #name span{
+        margin-bottom: 5px;
+    }
+
+    #left{
+        float:left;
+        width: 70px;
+    }
+
+    #right{
+        float: right;
+        width: calc(100% - 70px);
+    }
+    #prescription{
+        font-size:13px;
+    }
+</style>
+<h5 style="text-align: right">Fecha: {{ "now"|date("Y/m/d") }}</h5>
+<h4>Datos del paciente:</h4>
+
+
+<div id="left">Nombre: </div>
+<div id="right">
+    <div id="name">
+        <span>
+            {{ appointment[0].getAgeCit.getCitPac.getPacNombre|capitalize ~" "~ appointment[0].getAgeCit.getCitPac.getPacSegNombre|capitalize ~" "~ appointment[0].getAgeCit.getCitPac.getPacApellido|capitalize ~" "~ appointment[0].getAgeCit.getCitPac.getPacSegApellido|capitalize }}
+        </span>
+    </div>
+</div>                
+        <br><br>
+<h4>Receta Médica:</h4>
+<div id="prescription">{{ appointment[0].getAgeCit.getCitReceta|raw }}</div>

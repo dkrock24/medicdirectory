@@ -509,11 +509,12 @@
                             <div>
                                 <p>Ingrese los detalles de la recete médica</p>
                                 <span id="loadingPrescription"></span>
-                                <textarea class="form-control" rows="10" id="textPrescription">{{ prescription }}</textarea>
+                                <textarea class="form-control" rows="10" id="textPrescription">{{ prescription|replace({'<br />': ""}) }} </textarea>
                                 <div class="text-right">
                                     <br>
                                     
-                                    <button class="btn btn-success" id="btnPrint"><i class="fa fa-print" aria-hidden="true"></i> Imprimir</button>
+                                    {# <button class="btn btn-success" id="btnPrint"><i class="fa fa-print" aria-hidden="true"></i> Imprimir</button> #}
+                                    <a class="btn btn-success" href="{{ path('consulta_print_prescription') }}?c={{ app.request.get("cm") }}" target="_new"><i class="fa fa-print" aria-hidden="true"></i> Imprimir</a>
                                     <button class="btn btn-success" id="btnSendEmail"><i class="fa fa-paper-plane" aria-hidden="true"></i> Enviar por email</button>
                                     {# <button class="btn btn-success"><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar</button> #}
                                 </div>
@@ -535,6 +536,8 @@
 {% block codejs %}
     <script>
         $(document).on("ready", function () {
+           
+            //$("#textPrescription").val().replace(/<br>/gi,"\n");
                 /*
                 var data = {
                             labels: ['Bananas', 'Apples', 'Grapes'],
@@ -595,6 +598,20 @@
                 
                     var text = $("#textPrescription").val();
                     text = text.replace(/\n/g, "<br />");
+                    
+                    
+                    var win = window.open("{{ path('consulta_print_prescription') }}?c={{ app.request.get("cm") }}", '_blank');
+                    if (win) {
+                        
+                        //Browser has allowed it to be opened
+                        win.focus();
+                    } else {
+                        //Browser has blocked it
+                        alert('Please allow popups for this website');
+                    }
+                    
+        
+                    /*
                     if( $("body").find("#clonePrescription").size() == 0 )
                     {
                         $("body").append("<div id='clonePrescription'><div id='infoCloneTxt'></div></div>");
@@ -623,7 +640,7 @@
                         deferred: $.Deferred().done(function() { console.log('Printing done', arguments); })
                     });
                     // Fork https://github.com/doersguild/jQuery.print for the full list of options
-                
+                    */
                 
             });
             

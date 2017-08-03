@@ -98,7 +98,7 @@
                                                 {% if "6" in userRoles|keys  %}
                                                     {% if app.user.usuId == doctor.usu_id %}
                                                     <tr id="d_{{ doctor.usu_id }}">
-                                                        <td>{{ doctor.usu_nombre|capitalize~" "~doctor.usu_segundo_nombre|capitalize~" "~doctor.usu_tercer_nombre|capitalize~" "~doctor.usu_primer_apellido|capitalize~" "~doctor.usu_segundo_apellido|capitalize }}</td>
+                                                        <td>{{ doctor.usu_titulo|capitalize~" "~doctor.usu_nombre|capitalize~" "~doctor.usu_segundo_nombre|capitalize~" "~doctor.usu_tercer_nombre|capitalize~" "~doctor.usu_primer_apellido|capitalize~" "~doctor.usu_segundo_apellido|capitalize }}</td>
                                                         <td>
                                                             {# <a href="" class="btn btn-primary btn-sm" data-popup="tooltip" title="" data-original-title="Mandar email"><i class="fa fa-envelope-o" aria-hidden="true"></i> </a> #}
                                                             {% if app.request.query.get("p") == "" %}
@@ -113,7 +113,7 @@
                                                    
                                                    
                                                     <tr id="d_{{ doctor.usu_id }}">
-                                                        <td>{{ doctor.usu_nombre|capitalize~" "~doctor.usu_segundo_nombre|capitalize~" "~doctor.usu_tercer_nombre|capitalize~" "~doctor.usu_primer_apellido|capitalize~" "~doctor.usu_segundo_apellido|capitalize }}</td>
+                                                        <td>{{ doctor.usu_titulo|capitalize~" "~doctor.usu_nombre|capitalize~" "~doctor.usu_segundo_nombre|capitalize~" "~doctor.usu_tercer_nombre|capitalize~" "~doctor.usu_primer_apellido|capitalize~" "~doctor.usu_segundo_apellido|capitalize }}</td>
                                                         <td>
                                                             {#<a href="" class="btn btn-primary btn-sm" data-popup="tooltip" title="" data-original-title="Mandar email"><i class="fa fa-envelope-o" aria-hidden="true"></i> </a>#}
                                                             {% if app.request.query.get("p") == "" %}

@@ -23,6 +23,7 @@ class AppKernel extends Kernel
             new AdminBundle\AdminBundle(),
             new EmrBundle\EmrBundle(),
             new SupportBundle\SupportBundle(),
+			new TFox\MpdfPortBundle\TFoxMpdfPortBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
