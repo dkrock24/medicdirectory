@@ -104,20 +104,26 @@
                                                     <label class="display-block">Usar imagen de fondo predeterminada en mis recetas médicas:</label>
                                                     
                                                     {% if settings.usar_imagen_de_fondo_en_recetas is defined %}
-                                                        // do something
+                                                        {% if settings.usar_imagen_de_fondo_en_recetas == "SI" %}
+                                                            {% set bgYes = "checked='checked'" %}
+                                                            {% set bgNot = "" %}
+                                                        {% else %}
+                                                            {% set bgYes = "" %}
+                                                            {% set bgNot = "checked='checked'" %}
+                                                        {% endif %}    
+                                                        
                                                     {% else %}
-                                                        
-                                                        
-                                                        
+                                                        {% set bgYes = "checked='checked'" %}
+                                                        {% set bgNot = "" %}                                                        
                                                     {% endif %}
                                                     
                                                     <label class="radio-inline">
-                                                        <input type="radio" class="styled" name="bgPrescription" checked="checked" value="SI">
+                                                        <input type="radio" class="styled" name="bgPrescription" {{bgYes}} value="SI">
                                                         Si
                                                     </label>
 
                                                     <label class="radio-inline">
-                                                        <input type="radio" class="styled" name="bgPrescription" value="NO">
+                                                        <input type="radio" class="styled" name="bgPrescription" {{bgNot}} value="NO">
                                                         No
                                                     </label>
                                                     
@@ -126,14 +132,26 @@
                                                 <div class="marginB15">
                                                     <div class="form-groupx">
                                                     <label class="display-block">Vista previa de recetas:</label>
-
+                                                    {% if settings.horientacion_pdf_receta is defined %}
+                                                        {% if settings.horientacion_pdf_receta == "L" %}
+                                                            {% set viewH = "checked='checked'" %}
+                                                            {% set viewV = "" %}
+                                                        {% else %}
+                                                            {% set viewH = "" %}
+                                                            {% set viewV = "checked='checked'" %}
+                                                        {% endif %}    
+                                                        
+                                                    {% else %}
+                                                        {% set viewH = "checked='checked'" %}
+                                                        {% set viewV = "" %}                                                        
+                                                    {% endif %}
                                                     <label class="radio-inline">
-                                                        <input type="radio" class="styled" name="viewPrescription" checked="checked" value="L">
+                                                        <input type="radio" class="styled" name="viewPrescription" {{ viewH }} value="L">
                                                         Horizontal
                                                     </label>
 
                                                     <label class="radio-inline">
-                                                        <input type="radio" class="styled" name="viewPrescription" value="P">
+                                                        <input type="radio" class="styled" name="viewPrescription" {{viewV}} value="P">
                                                         Vertical
                                                     </label>
                                                 </div>
@@ -173,14 +191,26 @@
                                                 <div class="marginB15">
 
                                                         <label class="display-block">Mostrar Cronómetro de tiempo:</label>
-
+                                                        {% if settings.mostrar_cronometro_en_consulta is defined %}
+                                                        {% if settings.mostrar_cronometro_en_consulta == "SI" %}
+                                                            {% set timeYes = "checked='checked'" %}
+                                                            {% set timeNo = "" %}
+                                                        {% else %}
+                                                            {% set timeYes = "" %}
+                                                            {% set timeNo = "checked='checked'" %}
+                                                        {% endif %}    
+                                                        
+                                                        {% else %}
+                                                            {% set timeYes = "checked='checked'" %}
+                                                            {% set timeNo = "" %}                                                        
+                                                        {% endif %}
                                                         <label class="radio-inline">
-                                                            <input type="radio" class="styled" name="appTime" checked="checked" value="SI">
+                                                            <input type="radio" class="styled" name="appTime" {{timeYes}} value="SI">
                                                             Si
                                                         </label>
 
                                                         <label class="radio-inline">
-                                                            <input type="radio" class="styled" name="appTime" value="NO">
+                                                            <input type="radio" class="styled" name="appTime" {{timeNo}} value="NO">
                                                             No
                                                         </label>
                                                 </div>
