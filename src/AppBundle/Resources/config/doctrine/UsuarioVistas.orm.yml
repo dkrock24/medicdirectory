@@ -30,7 +30,7 @@ AppBundle\Entity\UsuarioVistas:
                 default: CURRENT_TIMESTAMP
             column: vis_fecha_crea
     manyToOne:
-        visUsuario:
+        visUsu:
             targetEntity: Usuario
             cascade: {  }
             fetch: LAZY

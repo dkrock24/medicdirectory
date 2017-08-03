@@ -182,7 +182,7 @@ class DefaultController extends Controller
 		$oUser = $em->getRepository('AppBundle:Usuario')->find( $idUser );
 		
 		$profilephoto = "";
-		$oProfileImage = $em->getRepository('AppBundle:UsuarioGaleria')->findOneBy( array("galUsuario"=>$idUser, "galCliente"=>$locationId, "galTipo"=>1) );
+		$oProfileImage = $em->getRepository('AppBundle:UsuarioGaleria')->findOneBy( array("galUsu"=>$idUser, "galCliente"=>$locationId, "galTipo"=>1) );
 		if( isset($locationId) && !empty($locationId) )
 		{
 			
@@ -214,7 +214,7 @@ class DefaultController extends Controller
 		
 		if( $locationId != "")
 		{
-			$oUnReadMessage = $em->getRepository('AppBundle:SolicitudContacto')->findBy( array("scUsuario"=>$idUser, "scCliente"=>$locationId, "estado"=>0) );
+			$oUnReadMessage = $em->getRepository('AppBundle:SolicitudContacto')->findBy( array("scUsu"=>$idUser, "scCli"=>$locationId, "estado"=>0) );
 			if( count($oUnReadMessage) > 0 )
 			{
 				$unread = count($oUnReadMessage);

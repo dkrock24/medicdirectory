@@ -23,11 +23,6 @@ AppBundle\Entity\Modulo:
             options:
                 fixed: false
             column: mod_modulo
-        modHashCode:
-            type: binary
-            nullable: true
-            length: 40
-            column: mod_hash_code
         modOrden:
             type: integer
             nullable: false
@@ -40,12 +35,6 @@ AppBundle\Entity\Modulo:
             precision: 6
             scale: 2
             column: mod_costo
-        modGeneral:
-            type: boolean
-            nullable: false
-            options:
-                default: 0
-            column: mod_general
         modFechaCrea:
             type: datetime
             nullable: false
@@ -62,6 +51,16 @@ AppBundle\Entity\Modulo:
             options:
                 default: '1'
             column: mod_activo
+        modHashCode:
+            type: binary
+            nullable: true
+            column: mod_hash_code
+        modGeneral:
+            type: boolean
+            nullable: false
+            options:
+                default: '0'
+            column: mod_general
     manyToOne:
         modEsp:
             targetEntity: Especialidad
@@ -73,9 +72,4 @@ AppBundle\Entity\Modulo:
                 mod_esp_id:
                     referencedColumnName: esp_id
             orphanRemoval: false
-    oneToMany:
-        secciones:
-            targetEntity: EavModSeccion
-            cascade: [persist]
-            mappedBy: modSeccModId
     lifecycleCallbacks: {  }

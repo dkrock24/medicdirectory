@@ -35,3 +35,7 @@ services:
     srv_correos:
         class:        Services\Correos
         arguments:     ["@doctrine.orm.entity_manager", "@session", "@mailer"]
+    
+    srv_client_settings:
+        class:        Services\ClientSettings
+        arguments:     ["@doctrine.orm.entity_manager", "@session"]    

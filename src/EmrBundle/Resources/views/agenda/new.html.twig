@@ -605,6 +605,7 @@
             // Initialization
             // ------------------------------
             // Agenda view
+            //alert();
             if( $("#calendar").size() == 1 )
             {
                 $('#calendar').fullCalendar({
@@ -622,7 +623,8 @@
                 {% else %}
                     defaultView: 'agendaWeek',
                 {% endif %}    
-                
+                //slotDuration: '00:30:00',// (30 minutes)
+                slotEventOverlap: false,
                 editable: true,
                 eventLimit: true, // allow "more" link when too many events
                 navLinks: true, // can click day/week names to navigate views

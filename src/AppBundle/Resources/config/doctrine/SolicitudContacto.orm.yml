@@ -1,44 +1,65 @@
 AppBundle\Entity\SolicitudContacto:
     type: entity
-    table: null
-    repositoryClass: AppBundle\Repository\SolicitudContactoRepository
+    table: solicitud_contacto
+    indexes:
+        IDX_BDDA6CF9A95296AB:
+            columns:
+                - sc_cli_id
+        IDX_BDDA6CF984A29F59:
+            columns:
+                - sc_usu_id
     id:
         id:
             type: integer
+            nullable: false
+            options:
+                unsigned: false
             id: true
             generator:
-                strategy: AUTO
+                strategy: IDENTITY
     fields:
-        sc_nombre:
-            type: string
-            length: '255'
         ip:
             type: string
-            length: '16'
+            nullable: false
+            length: 16
+            options:
+                fixed: false
         telefono:
             type: string
-            length: '50'
+            nullable: false
+            length: 50
+            options:
+                fixed: false
         correo:
             type: string
-            length: '100'
+            nullable: false
+            length: 100
+            options:
+                fixed: false
         fechaContacto:
             type: datetime
+            nullable: false
+            column: fecha_contacto
         comentario:
             type: text
+            nullable: false
+            length: null
+            options:
+                fixed: false
         estado:
             type: integer
+            nullable: false
+            options:
+                unsigned: false
+        scNombre:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+            column: sc_nombre
     manyToOne:
-        scCliente:
-            targetEntity: Cliente
-            cascade: {  }
-            fetch: LAZY
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                sc_cli_id:
-                    referencedColumnName: cli_id
-            orphanRemoval: false
-        scUsuario:
+        scUsu:
             targetEntity: Usuario
             cascade: {  }
             fetch: LAZY
@@ -48,5 +69,14 @@ AppBundle\Entity\SolicitudContacto:
                 sc_usu_id:
                     referencedColumnName: usu_id
             orphanRemoval: false
-
+        scCli:
+            targetEntity: Cliente
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                sc_cli_id:
+                    referencedColumnName: cli_id
+            orphanRemoval: false
     lifecycleCallbacks: {  }

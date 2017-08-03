@@ -23,7 +23,7 @@ AppBundle\Entity\EavTipCampos:
             type: boolean
             nullable: false
             options:
-                default: 1
+                default: '1'
             column: tip_camp_activo
         tipCampFechaCrea:
             type: datetime

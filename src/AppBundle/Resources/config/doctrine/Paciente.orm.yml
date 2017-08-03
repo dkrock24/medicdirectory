@@ -70,21 +70,7 @@ AppBundle\Entity\Paciente:
             length: 1
             options:
                 fixed: true
-            column: pac_genero            
-        pacOcupacion:
-            type: string
-            nullable: true
-            length: 50
-            options:
-                fixed: false
-            column: pac_ocupacion
-        pacResponsable:
-            type: string
-            nullable: true
-            length: 50
-            options:
-                fixed: false
-            column: pac_responsable
+            column: pac_genero
         pacEmail:
             type: string
             nullable: true
@@ -164,6 +150,20 @@ AppBundle\Entity\Paciente:
             options:
                 default: '1'
             column: pac_activo
+        pacOcupacion:
+            type: string
+            nullable: true
+            length: 50
+            options:
+                fixed: false
+            column: pac_ocupacion
+        pacResponsable:
+            type: string
+            nullable: true
+            length: 50
+            options:
+                fixed: false
+            column: pac_responsable
     manyToOne:
         pacMun:
             targetEntity: Municipio

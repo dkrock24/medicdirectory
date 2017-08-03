@@ -447,15 +447,27 @@ class ConsultaController extends Controller
 		$patientId = $request->get("p");
 		$medicalConsulation = $request->get("c");
 		
+		
+		$showDate = $request->get("date");
+		
 		$oRepo = $em->getRepository('AppBundle:Agenda')->findBy( array("ageId"=>$medicalConsulation, "ageCli"=>$locationId ) );
 		
-		if( !$oRepo )
+		//$is_appointment = "no";
+		if( isset($medicalConsulation) && $medicalConsulation != "" )
+		{	
+			if( !$oRepo )
+			{
+				throw $this->createNotFoundException('Consulta no válida para el establecimiento: '.$locationName );
+			}
+			//$is_appointment = "yes";
+		}
+		else
 		{
-			throw $this->createNotFoundException('Consulta no válida para el establecimiento: '.$locationName );
-		}	
+			//$is_appointment = "no";
+		}
 		//$oRepo[0]->getAgeCit()->getCitId();
-		
 		//$oRepo[0]->getAgeCit()->getCitReceta();
+		
 		/*
 		$oPatient = $em->getRepository('AppBundle:Paciente')->findBy( array("pacId"=>$patientId, "pacCli"=>$locationId ) );
 		if( !$oPatient )
@@ -463,14 +475,14 @@ class ConsultaController extends Controller
 			throw $this->createNotFoundException('El paciente no fue encontrado en el establecimiento: '.$locationName );
 		}	
 		*/
-		
+		/*
 		$html = $this->renderView(
 				'EmrBundle:consulta:_prescriptionDetail.html.twig',
 				array(
 				 'appointment' => $oRepo
 				)
 		    );
-		
+		*/
 		//echo $html;
 		//exit();
 		$RAW_QUERY = "SELECT u.usu_id, CONCAT_WS(' ', u.usu_nombre, u.usu_segundo_nombre, u.usu_tercer_nombre, u.usu_primer_apellido, u.usu_segundo_apellido) as usu_nombre, 
@@ -502,7 +514,8 @@ class ConsultaController extends Controller
 			$html = $this->renderView(
 				'EmrBundle:consulta:_prescriptionDetail.html.twig',
 				array(
-				 'appointment' => $oRepo
+					'appointment' => $oRepo,
+					'showDate'=>$showDate
 				)
 		    );
 			
@@ -549,7 +562,7 @@ class ConsultaController extends Controller
 		
 		
 		
-		$phone = "Tel: ".$aDoctor[0]['usu_telefono'];
+		$phone = "Tel.: ".$aDoctor[0]['usu_telefono'];
 		$email = $aDoctor[0]['usua_email'];
 		if( $email != "" )
 		{

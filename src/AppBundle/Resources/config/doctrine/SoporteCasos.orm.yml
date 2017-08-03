@@ -45,6 +45,16 @@ AppBundle\Entity\SoporteCasos:
             nullable: true
             column: fecha_actualizacion
     manyToOne:
+        usuarioAsignado:
+            targetEntity: Usuario
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                usuario_asignado_id:
+                    referencedColumnName: usu_id
+            orphanRemoval: false
         usuarioCreador:
             targetEntity: ClienteUsuario
             cascade: {  }
@@ -74,15 +84,5 @@ AppBundle\Entity\SoporteCasos:
             joinColumns:
                 tema_id:
                     referencedColumnName: id
-            orphanRemoval: false
-        usuarioAsignado:
-            targetEntity: Usuario
-            cascade: {  }
-            fetch: LAZY
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                usuario_asignado_id:
-                    referencedColumnName: usu_id
             orphanRemoval: false
     lifecycleCallbacks: {  }

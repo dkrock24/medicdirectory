@@ -428,4 +428,149 @@ class EavModDatos
     {
         return $this->campoDato;
     }
+    /**
+     * @var \AppBundle\Entity\Usuario
+     */
+    private $modDatUsu;
+
+    /**
+     * @var \AppBundle\Entity\Cliente
+     */
+    private $modDatCli;
+
+    /**
+     * @var \AppBundle\Entity\Paciente
+     */
+    private $modDatPac;
+
+    /**
+     * @var \AppBundle\Entity\Cita
+     */
+    private $modDatCit;
+
+    /**
+     * @var \AppBundle\Entity\EavModCampos
+     */
+    private $modDatModCamp;
+
+
+    /**
+     * Set modDatUsu
+     *
+     * @param \AppBundle\Entity\Usuario $modDatUsu
+     *
+     * @return EavModDatos
+     */
+    public function setModDatUsu(\AppBundle\Entity\Usuario $modDatUsu = null)
+    {
+        $this->modDatUsu = $modDatUsu;
+
+        return $this;
+    }
+
+    /**
+     * Get modDatUsu
+     *
+     * @return \AppBundle\Entity\Usuario
+     */
+    public function getModDatUsu()
+    {
+        return $this->modDatUsu;
+    }
+
+    /**
+     * Set modDatCli
+     *
+     * @param \AppBundle\Entity\Cliente $modDatCli
+     *
+     * @return EavModDatos
+     */
+    public function setModDatCli(\AppBundle\Entity\Cliente $modDatCli = null)
+    {
+        $this->modDatCli = $modDatCli;
+
+        return $this;
+    }
+
+    /**
+     * Get modDatCli
+     *
+     * @return \AppBundle\Entity\Cliente
+     */
+    public function getModDatCli()
+    {
+        return $this->modDatCli;
+    }
+
+    /**
+     * Set modDatPac
+     *
+     * @param \AppBundle\Entity\Paciente $modDatPac
+     *
+     * @return EavModDatos
+     */
+    public function setModDatPac(\AppBundle\Entity\Paciente $modDatPac = null)
+    {
+        $this->modDatPac = $modDatPac;
+
+        return $this;
+    }
+
+    /**
+     * Get modDatPac
+     *
+     * @return \AppBundle\Entity\Paciente
+     */
+    public function getModDatPac()
+    {
+        return $this->modDatPac;
+    }
+
+    /**
+     * Set modDatCit
+     *
+     * @param \AppBundle\Entity\Cita $modDatCit
+     *
+     * @return EavModDatos
+     */
+    public function setModDatCit(\AppBundle\Entity\Cita $modDatCit = null)
+    {
+        $this->modDatCit = $modDatCit;
+
+        return $this;
+    }
+
+    /**
+     * Get modDatCit
+     *
+     * @return \AppBundle\Entity\Cita
+     */
+    public function getModDatCit()
+    {
+        return $this->modDatCit;
+    }
+
+    /**
+     * Set modDatModCamp
+     *
+     * @param \AppBundle\Entity\EavModCampos $modDatModCamp
+     *
+     * @return EavModDatos
+     */
+    public function setModDatModCamp(\AppBundle\Entity\EavModCampos $modDatModCamp = null)
+    {
+        $this->modDatModCamp = $modDatModCamp;
+
+        return $this;
+    }
+
+    /**
+     * Get modDatModCamp
+     *
+     * @return \AppBundle\Entity\EavModCampos
+     */
+    public function getModDatModCamp()
+    {
+        return $this->modDatModCamp;
+    }
 }

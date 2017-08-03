@@ -283,4 +283,67 @@ class SolicitudContacto
     {
         return $this->sc_nombre;
     }
+    /**
+     * @var string
+     */
+    private $scNombre;
+
+    /**
+     * @var \AppBundle\Entity\Usuario
+     */
+    private $scUsu;
+
+    /**
+     * @var \AppBundle\Entity\Cliente
+     */
+    private $scCli;
+
+
+    /**
+     * Set scUsu
+     *
+     * @param \AppBundle\Entity\Usuario $scUsu
+     *
+     * @return SolicitudContacto
+     */
+    public function setScUsu(\AppBundle\Entity\Usuario $scUsu = null)
+    {
+        $this->scUsu = $scUsu;
+
+        return $this;
+    }
+
+    /**
+     * Get scUsu
+     *
+     * @return \AppBundle\Entity\Usuario
+     */
+    public function getScUsu()
+    {
+        return $this->scUsu;
+    }
+
+    /**
+     * Set scCli
+     *
+     * @param \AppBundle\Entity\Cliente $scCli
+     *
+     * @return SolicitudContacto
+     */
+    public function setScCli(\AppBundle\Entity\Cliente $scCli = null)
+    {
+        $this->scCli = $scCli;
+
+        return $this;
+    }
+
+    /**
+     * Get scCli
+     *
+     * @return \AppBundle\Entity\Cliente
+     */
+    public function getScCli()
+    {
+        return $this->scCli;
+    }
 }

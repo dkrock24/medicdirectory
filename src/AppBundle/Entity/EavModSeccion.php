@@ -260,4 +260,33 @@ class EavModSeccion
     {
         return $this->campos;
     }
+    /**
+     * @var \AppBundle\Entity\Modulo
+     */
+    private $modSeccMod;
+
+
+    /**
+     * Set modSeccMod
+     *
+     * @param \AppBundle\Entity\Modulo $modSeccMod
+     *
+     * @return EavModSeccion
+     */
+    public function setModSeccMod(\AppBundle\Entity\Modulo $modSeccMod = null)
+    {
+        $this->modSeccMod = $modSeccMod;
+
+        return $this;
+    }
+
+    /**
+     * Get modSeccMod
+     *
+     * @return \AppBundle\Entity\Modulo
+     */
+    public function getModSeccMod()
+    {
+        return $this->modSeccMod;
+    }
 }

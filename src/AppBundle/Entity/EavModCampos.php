@@ -565,4 +565,62 @@ class EavModCampos
     {
         return $this->campoPadre;
     }
+    /**
+     * @var \AppBundle\Entity\EavModSeccion
+     */
+    private $modCampModSecc;
+
+    /**
+     * @var \AppBundle\Entity\EavTipCampos
+     */
+    private $modCampTipCamp;
+
+
+    /**
+     * Set modCampModSecc
+     *
+     * @param \AppBundle\Entity\EavModSeccion $modCampModSecc
+     *
+     * @return EavModCampos
+     */
+    public function setModCampModSecc(\AppBundle\Entity\EavModSeccion $modCampModSecc = null)
+    {
+        $this->modCampModSecc = $modCampModSecc;
+
+        return $this;
+    }
+
+    /**
+     * Get modCampModSecc
+     *
+     * @return \AppBundle\Entity\EavModSeccion
+     */
+    public function getModCampModSecc()
+    {
+        return $this->modCampModSecc;
+    }
+
+    /**
+     * Set modCampTipCamp
+     *
+     * @param \AppBundle\Entity\EavTipCampos $modCampTipCamp
+     *
+     * @return EavModCampos
+     */
+    public function setModCampTipCamp(\AppBundle\Entity\EavTipCampos $modCampTipCamp = null)
+    {
+        $this->modCampTipCamp = $modCampTipCamp;
+
+        return $this;
+    }
+
+    /**
+     * Get modCampTipCamp
+     *
+     * @return \AppBundle\Entity\EavTipCampos
+     */
+    public function getModCampTipCamp()
+    {
+        return $this->modCampTipCamp;
+    }
 }

@@ -1,0 +1,353 @@
+{% extends "Layout/base_emr/_clients_base.html.twig" %}
+
+{% block title_page %}
+    EMR || Perfil médico
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('EmrBundle:perfil:_breadcrumb.html.twig' )  }}
+{% endblock %} 
+
+{% block submenutop %}
+    {{ include('EmrBundle:perfil:_submenu.html.twig' )  }}
+{% endblock %} 
+
+{% block body %}
+    <style>
+        .marginB15{
+            margin-bottom: 20px;
+        }
+    </style>
+    <script type="text/javascript" src="{{ asset('bundles/admin/template_clients/assets/js/pages/form_layouts.js') }}"></script>
+    
+   
+    <div class="row">
+        <div class="col-lg-12">
+
+            <!-- Check the notifications -->
+            {% for message in app.session.flashbag().get("success") %}
+                <div class="alert alert-success alert-styled-left alert-arrow-left alert-component"> {{message}}</div>
+            {% endfor %}
+            {% for message in app.session.flashbag().get("error") %}
+                <div class="alert alert-danger"><i class="fa fa-close"></i> {{message}}</div>
+            {% endfor %}
+            <!-- End notifications -->
+        </div>
+    </div>
+    <div class="page-header-content">
+        <div class="page-title">
+            
+            <h4>
+                 {# <a href="{{ app.request.headers.get('referer') }}"> #}
+                <a href="{{ path('emr_dashboard') }}"> 
+                <i class="icon-arrow-left52 position-left"></i>
+                <span class="text-semibold">Dashboard</span>
+                </a> - Ajustes del sistema
+
+                <small class="display-block">Aquí puede configurar algunas características báscias del sistema</small>
+            </h4>
+
+        </div>
+         {#  
+        <div class="heading-elements">
+            <div class="heading-btn-group">
+
+                <a href="#" class="btn btn-link btn-float has-text"><i class="icon-bars-alt text-primary"></i><span>Statistics</span></a>
+                <a href="#" class="btn btn-link btn-float has-text"><i class="icon-calculator text-primary"></i> <span>Invoices</span></a>
+                <a href="#" class="btn btn-link btn-float has-text"><i class="icon-calendar5 text-primary"></i> <span>Schedule</span></a>
+
+            </div>
+        </div>
+         #}
+        
+
+        
+    </div>        
+    <div class="row">
+        
+            <div class="col-lg-12">         
+                {#
+                {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                    <button type="submit" class="btn btn-success"><i class="icon-newspaper"></i> Crear</button>
+                {{ form_end(form) }}
+                #}
+                <div class="panel panel-white">
+
+
+                        <div class="panel-body">
+                            <p>Estos valores estan configurados por defecto, por lo que no efectára el uso del sistema</p>
+                            <div class="form_error"></div>
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs nav-tabs-highlight " role="tablist">
+                                <li role="presentation" class="active"><a href="#personal_date" aria-controls="home" role="tab" data-toggle="tab"><i class="fa fa-list-alt"></i> {{locationName}}</a></li>
+                                {# <li role="presentation"><a href="#address" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-address-book-o" aria-hidden="true"></i> Mi Perfil</a></li> #}
+                                {% if roles.6 is defined %} {# 2 = Rol Medico #}
+                                    {# <li role="presentation"><a href="#picture" aria-controls="settings" role="tab" data-toggle="tab"><i class="fa fa-file-image-o"></i> Fotografía</a></li> #}
+                                {% endif %}
+                            </ul>
+                            <!-- Tab panes -->
+                            
+                            <form action="{{ path('ajuste_set_update') }}" method="POST" enctype="multipart/form-data" id="form_setting" name="form_setting">
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-4 col-sm-6">
+
+                                        <fieldset>
+                                            <legend class="text-semibold">
+                                                Recetas Médicas
+                                                <a class="control-arrow" data-toggle="collapse" data-target="#secPrescription">
+                                                    <i class="icon-circle-down2"></i>
+                                                </a>
+                                            </legend>
+                                            <div class="collapse in" id="secPrescription" aria-expanded="true">
+                                                <div class="marginB15">
+                                                    <label class="display-block">Usar imagen de fondo predeterminada en mis recetas médicas:</label>
+                                                    
+                                                    {% if settings.usar_imagen_de_fondo_en_recetas is defined %}
+                                                        // do something
+                                                    {% else %}
+                                                        
+                                                        
+                                                        
+                                                    {% endif %}
+                                                    
+                                                    <label class="radio-inline">
+                                                        <input type="radio" class="styled" name="bgPrescription" checked="checked" value="SI">
+                                                        Si
+                                                    </label>
+
+                                                    <label class="radio-inline">
+                                                        <input type="radio" class="styled" name="bgPrescription" value="NO">
+                                                        No
+                                                    </label>
+                                                    
+                                                    
+                                                </div>
+                                                <div class="marginB15">
+                                                    <div class="form-groupx">
+                                                    <label class="display-block">Vista previa de recetas:</label>
+
+                                                    <label class="radio-inline">
+                                                        <input type="radio" class="styled" name="viewPrescription" checked="checked" value="L">
+                                                        Horizontal
+                                                    </label>
+
+                                                    <label class="radio-inline">
+                                                        <input type="radio" class="styled" name="viewPrescription" value="P">
+                                                        Vertical
+                                                    </label>
+                                                </div>
+                                                </div>
+                                            </div>
+                                            <br>
+                                        </fieldset> 
+
+                                        <fieldset>
+                                            <legend class="text-semibold">
+                                                Calendario
+                                                <a class="control-arrow" data-toggle="collapse" data-target="#secCalendar">
+                                                    <i class="icon-circle-down2"></i>
+                                                </a>
+                                            </legend>
+                                            <div class="collapse in" id="secCalendar" aria-expanded="true">
+                                                <div class="marginB15">
+                                                        <label for="calMinutes" class="control-label">Duración de las consultas/Eventos: </label>
+                                                        <select id="calMinutes" class="form-control" name="calMinutes">
+                                                            <option value="00:30:00">30 Minutos</option>
+                                                            <option value="00:20:00">20 Minutos</option>
+                                                            <option value="00:15:00">15 Minutos</option>
+                                                        </select>
+                                                </div>
+                                            </div>
+                                            <br>
+                                        </fieldset>
+
+                                        <fieldset>
+                                            <legend class="text-semibold">
+                                                Consulta Médica
+                                                <a class="control-arrow" data-toggle="collapse" data-target="#secAppointment">
+                                                    <i class="icon-circle-down2"></i>
+                                                </a>
+                                            </legend>
+                                            <div class="collapse in" id="secAppointment" aria-expanded="true">
+                                                <div class="marginB15">
+
+                                                        <label class="display-block">Mostrar Cronómetro de tiempo:</label>
+
+                                                        <label class="radio-inline">
+                                                            <input type="radio" class="styled" name="appTime" checked="checked" value="SI">
+                                                            Si
+                                                        </label>
+
+                                                        <label class="radio-inline">
+                                                            <input type="radio" class="styled" name="appTime" value="NO">
+                                                            No
+                                                        </label>
+                                                </div>
+                                            </div>
+                                            <br>
+                                        </fieldset>
+
+                                        <fieldset>
+                                            <legend class="text-semibold">
+                                                Logotipo
+                                                <a class="control-arrow" data-toggle="collapse" data-target="#secLogo">
+                                                    <i class="icon-circle-down2"></i>
+                                                </a>
+                                            </legend>
+                                            <div class="collapse in" id="secLogo" aria-expanded="true">
+                                                <div class="marginB15">
+
+                                                        <label class="display-block">Logo:</label>
+
+                                                        <input type="file" class="file-styled" id="logo" name="logo">
+                                                        <span class="help-block">Acepta formatos: gif, png, jpg. Tamaño máximo 2Mb</span>
+                                                </div>
+                                            </div>
+                                            <br>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-6">
+                                        <div class="text-left">
+
+                                            <div class="row">
+                                                <div class="col-lg-6x col-md-offset-4">
+                                                     <fieldset>
+                                                        <legend class="text-semibold">
+                                                            Logo actual
+                                                        </legend>
+                                                         <div class="alert alert-danger alert-styled-left alert-arrow-left alert-component">No se ha cargado ningún logo</div>
+                                                     </fieldset>    
+
+                                                </div>
+                                                {# <div class="col-md-6 col-md-offset-3">.col-md-3 .col-md-offset-3</div> #}
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-6">
+                                        <div class="text-left">
+                                            <div class="row">
+                                                <div class="col-lg-6x col-md-offset-4">
+                                                    <fieldset>
+                                                        <legend class="text-semibold">
+                                                            Formato de recetas en PDF
+                                                        </legend>
+                                                        <div class="marginB15">
+
+
+
+                                                            <label class="radio-inline">
+                                                                <input type="radio" class="styled checkDateApp" name="downPresDate"  value="1">
+                                                                Con fecha actual
+                                                            </label>
+
+                                                            <label class="radio-inline">
+                                                                <input type="radio" class="styled checkDateApp" name="downPresDate" checked="checked" value="0">
+                                                                Sin fecha
+                                                            </label>
+                                                        </div>
+                                                        <a href="{{ path('consulta_print_prescription') }}" target="_blank" class="btn btn-success" id="btnViewPrescription">
+                                                            <i class="fa fa-download" aria-hidden="true"></i> Descargar Aquí
+                                                        </a>
+                                                    </fieldset>    
+                                                    <br>
+
+                                                </div>
+                                            </div>
+                                        </div>    
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <button type="submit" class="btn btn-primary btn-sm" name="btnSave" id="btnSave"><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar Ajustes</button>
+                                    </div>
+                                </div>
+                            <form>                            
+                        </div>
+
+
+
+                </div>
+            </div>
+                                                    
+                                                
+                                                    
+    </div>
+
+    {% endblock %}
+
+    {% block codejs %}
+        <script>
+            $(document).on("ready", function () {
+
+                    $(".checkDateApp").change(function(){
+                        var value =  $(this).val();
+                        console.log(value);
+                        
+                        var btnPDF = $("#btnViewPrescription");
+                        var currentLink = "{{ path('consulta_print_prescription') }}";
+                        
+                        if( value == 1 )
+                        {
+                            var newLik = currentLink+"?date=hoy";
+                        }
+                        else
+                        {
+                            var newLik = currentLink;
+                        }
+                        
+                        btnPDF.attr("href",newLik);
+                        
+                    });
+                    
+                    // Initialize plugins
+                    // ------------------------------
+
+                    // Select2 selects
+                    $('.select').select2();
+
+
+                    
+                    $.datepicker.regional['es'] = {
+                        closeText: 'Cerrar',
+                        prevText: '< Ant',
+                        nextText: 'Sig >',
+                        currentText: 'Hoy',
+                        monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                        monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+                        dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+                        dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+                        dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
+                        weekHeader: 'Sm',
+                        dateFormat: 'yy-mm-dd',
+                        firstDay: 1,
+                        isRTL: false,
+                        showMonthAfterYear: false,
+                        yearSuffix: ''
+                    };
+                    $.datepicker.setDefaults($.datepicker.regional['es']);
+                    var start = new Date();
+                    start.setFullYear(start.getFullYear() - 75);
+                    var end = new Date();
+                    end.setFullYear(end.getFullYear() - 18);
+
+
+                    $( "#birth_date" ).datepicker({
+                        changeMonth: true,
+                        changeYear: true,
+                        minDate: start,
+                        //maxDate: end,
+                        //yearRange: '1945:'+(new Date).getFullYear()
+                         yearRange: start.getFullYear() + ':' + end.getFullYear()
+
+                    });
+
+                    
+
+        });
+                
+                    
+
+        </script>
+    {% endblock %}    

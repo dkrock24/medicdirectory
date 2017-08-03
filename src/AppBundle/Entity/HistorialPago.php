@@ -349,4 +349,62 @@ class HistorialPago {
         return json_decode($this->hpaPagoDetalle);
     }
 
+    /**
+     * @var \AppBundle\Entity\Cliente
+     */
+    private $hpaCli;
+
+    /**
+     * @var \AppBundle\Entity\MetodoPago
+     */
+    private $hpaMep;
+
+
+    /**
+     * Set hpaCli
+     *
+     * @param \AppBundle\Entity\Cliente $hpaCli
+     *
+     * @return HistorialPago
+     */
+    public function setHpaCli(\AppBundle\Entity\Cliente $hpaCli = null)
+    {
+        $this->hpaCli = $hpaCli;
+
+        return $this;
+    }
+
+    /**
+     * Get hpaCli
+     *
+     * @return \AppBundle\Entity\Cliente
+     */
+    public function getHpaCli()
+    {
+        return $this->hpaCli;
+    }
+
+    /**
+     * Set hpaMep
+     *
+     * @param \AppBundle\Entity\MetodoPago $hpaMep
+     *
+     * @return HistorialPago
+     */
+    public function setHpaMep(\AppBundle\Entity\MetodoPago $hpaMep = null)
+    {
+        $this->hpaMep = $hpaMep;
+
+        return $this;
+    }
+
+    /**
+     * Get hpaMep
+     *
+     * @return \AppBundle\Entity\MetodoPago
+     */
+    public function getHpaMep()
+    {
+        return $this->hpaMep;
+    }
 }

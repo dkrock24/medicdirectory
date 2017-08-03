@@ -225,4 +225,33 @@ class EavModCatValores
     {
         return $this->ModCampos;
     }
+    /**
+     * @var \AppBundle\Entity\EavModCampos
+     */
+    private $modCatValCamp;
+
+
+    /**
+     * Set modCatValCamp
+     *
+     * @param \AppBundle\Entity\EavModCampos $modCatValCamp
+     *
+     * @return EavModCatValores
+     */
+    public function setModCatValCamp(\AppBundle\Entity\EavModCampos $modCatValCamp = null)
+    {
+        $this->modCatValCamp = $modCatValCamp;
+
+        return $this;
+    }
+
+    /**
+     * Get modCatValCamp
+     *
+     * @return \AppBundle\Entity\EavModCampos
+     */
+    public function getModCatValCamp()
+    {
+        return $this->modCatValCamp;
+    }
 }

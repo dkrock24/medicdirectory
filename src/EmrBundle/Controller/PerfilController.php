@@ -119,7 +119,7 @@ class PerfilController extends Controller
 		$schedule = unserialize($oUser[0]['cli_usu_dias_trabajos']/*$oClientUser[0]->getCliUsuDiasTrabajo()*/);
 		
 		
-		$oUserGallery = $em->getRepository('AppBundle:UsuarioGaleria')->findBy( array( "galUsuario"=> $userId,"galCliente"=> $locationId), array(
+		$oUserGallery = $em->getRepository('AppBundle:UsuarioGaleria')->findBy( array( "galUsu"=> $userId,"galCliente"=> $locationId), array(
                 'galTipo' => 'ASC'
             ) );
 		//var_dump($schedule);
@@ -325,7 +325,7 @@ class PerfilController extends Controller
 				$uFile = $this->get('srv_uploadFile');
 				if( !empty($img) )
 				{
-					$oUserGallery = $em->getRepository('AppBundle:UsuarioGaleria')->findOneBy( array( "galUsuario"=> $userId,"galCliente"=> $locationId) );
+					$oUserGallery = $em->getRepository('AppBundle:UsuarioGaleria')->findOneBy( array( "galUsu"=> $userId,"galCliente"=> $locationId) );
 					
 					
 					$upload = $uFile->startUploadFile($img, $path="perfil", $pre_fix=false);
@@ -339,7 +339,7 @@ class PerfilController extends Controller
 						$oUserGallery->setGalCliente($oClient);
 						
 						$oUser = $em->getRepository('AppBundle:Usuario')->find( $userId );
-						$oUserGallery->setGalUsuario($oUser);
+						$oUserGallery->setGalUsu($oUser);
 						
 						$oGalleryType = $em->getRepository('AppBundle:UsuarioGaleriaTipo')->find( $typeImage );
 						$oUserGallery->setGalTipo($oGalleryType);
@@ -372,7 +372,7 @@ class PerfilController extends Controller
 						$oUserGallery->setGalCliente($oClient);
 						
 						$oUser = $em->getRepository('AppBundle:Usuario')->find( $userId );
-						$oUserGallery->setGalUsuario($oUser);
+						$oUserGallery->setGalUsu($oUser);
 						
 						$oGalleryType = $em->getRepository('AppBundle:UsuarioGaleriaTipo')->find( $typeImage );
 						$oUserGallery->setGalTipo($oGalleryType);

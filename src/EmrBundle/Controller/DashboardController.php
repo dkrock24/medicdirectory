@@ -77,7 +77,7 @@ class DashboardController extends Controller
 			}
 			//$appointments = "";
 			$profilephoto = "";
-			$oProfileImage = $em->getRepository('AppBundle:UsuarioGaleria')->findOneBy( array("galUsuario"=>$idUser, "galCliente"=>$locationId, "galTipo"=>1) );
+			$oProfileImage = $em->getRepository('AppBundle:UsuarioGaleria')->findOneBy( array("galUsu"=>$idUser, "galCliente"=>$locationId, "galTipo"=>1) );
 			if( $oProfileImage )
 			{
 				$hashImg = $oProfileImage->getGalHash();
@@ -100,7 +100,7 @@ class DashboardController extends Controller
 			
 			if( $locationId != "" )
 			{
-				$oUnReadMessage = $em->getRepository('AppBundle:SolicitudContacto')->findBy( array("scUsuario"=>$idUser, "scCliente"=>$locationId, "estado"=>0) );
+				$oUnReadMessage = $em->getRepository('AppBundle:SolicitudContacto')->findBy( array("scUsu"=>$idUser, "scCli"=>$locationId, "estado"=>0) );
 			
 				if( count($oUnReadMessage) > 0 )
 				{

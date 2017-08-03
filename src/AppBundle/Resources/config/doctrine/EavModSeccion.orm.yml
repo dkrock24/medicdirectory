@@ -20,6 +20,8 @@ AppBundle\Entity\EavModSeccion:
             type: string
             nullable: false
             length: 100
+            options:
+                fixed: false
             column: mod_secc_seccion
         modSeccOrden:
             type: integer
@@ -31,7 +33,7 @@ AppBundle\Entity\EavModSeccion:
             type: boolean
             nullable: false
             options:
-                default: 1
+                default: '1'
             column: mod_secc_activo
         modSeccFechaCrea:
             type: datetime
@@ -44,15 +46,14 @@ AppBundle\Entity\EavModSeccion:
             nullable: true
             column: mod_secc_fecha_mod
     manyToOne:
-        modSeccModId:
+        modSeccMod:
             targetEntity: Modulo
-            inversedBy: secciones
-            joinColumn:
-                name: mod_secc_mod_id
-                referencedColumnName: mod_id
-    oneToMany:
-        campos:
-            targetEntity: EavModCampos
-            cascade: [persist]
-            mappedBy: seccionCampo
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                mod_secc_mod_id:
+                    referencedColumnName: mod_id
+            orphanRemoval: false
     lifecycleCallbacks: {  }

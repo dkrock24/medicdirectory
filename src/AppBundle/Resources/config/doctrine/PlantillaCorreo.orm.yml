@@ -1,24 +1,39 @@
 AppBundle\Entity\PlantillaCorreo:
     type: entity
-    table: null
-    repositoryClass: AppBundle\Repository\PlantillaCorreoRepository
+    table: plantilla_correo
+    uniqueConstraints:
+        UNIQ_A392BB933A909126:
+            columns:
+                - nombre
     id:
         id:
             type: integer
+            nullable: false
+            options:
+                unsigned: false
             id: true
             generator:
-                strategy: AUTO
+                strategy: IDENTITY
     fields:
         nombre:
             type: string
+            nullable: false
             length: 255
-            unique: true
+            options:
+                fixed: false
         asunto:
             type: string
+            nullable: false
             length: 255
-            unique: false
+            options:
+                fixed: false
         plantilla:
             type: text
+            nullable: false
+            length: null
+            options:
+                fixed: false
         activo:
             type: boolean
+            nullable: false
     lifecycleCallbacks: {  }

@@ -515,4 +515,33 @@ class ClienteUsuario
     {
         return $this->cliUsuJvpm;
     }
+    /**
+     * @var string
+     */
+    private $cliUsuDiasTrabajos;
+
+
+    /**
+     * Set cliUsuDiasTrabajos
+     *
+     * @param string $cliUsuDiasTrabajos
+     *
+     * @return ClienteUsuario
+     */
+    public function setCliUsuDiasTrabajos($cliUsuDiasTrabajos)
+    {
+        $this->cliUsuDiasTrabajos = $cliUsuDiasTrabajos;
+
+        return $this;
+    }
+
+    /**
+     * Get cliUsuDiasTrabajos
+     *
+     * @return string
+     */
+    public function getCliUsuDiasTrabajos()
+    {
+        return $this->cliUsuDiasTrabajos;
+    }
 }

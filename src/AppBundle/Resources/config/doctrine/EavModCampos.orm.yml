@@ -2,9 +2,15 @@ AppBundle\Entity\EavModCampos:
     type: entity
     table: eav_mod_campos
     indexes:
+        IDX_9088536D2788F83D:
+            columns:
+                - mod_camp_mod_secc_id
         FK_campos_tipcampos_idx:
             columns:
                 - mod_camp_tip_camp_id
+        IDX_9088536D991B23FC:
+            columns:
+                - mod_camp_campo_padre
     id:
         modCampId:
             type: integer
@@ -16,57 +22,39 @@ AppBundle\Entity\EavModCampos:
             generator:
                 strategy: IDENTITY
     fields:
-        modCampModSeccId:
-            type: integer
-            nullable: false
-            options:
-                unsigned: true
-            column: mod_camp_mod_secc_id
         modCampNombre:
             type: string
             nullable: false
             length: 100
+            options:
+                fixed: false
             column: mod_camp_nombre
         modCampNombreCorto:
             type: string
             nullable: true
             length: 50
+            options:
+                fixed: false
             column: mod_camp_nombre_corto
         modCampShowIfnull:
             type: boolean
             nullable: false
             options:
-                default: 0
+                default: '0'
             column: mod_camp_show_ifnull
         modCampValorDefault:
             type: string
             nullable: true
             length: 50
+            options:
+                fixed: false
             column: mod_camp_valor_default
-        modCampCampoPadre:
-            type: integer
-            nullable: true
-            options:
-                unsigned: true
-            column: mod_camp_campo_padre
-        modCampEsCatalogo:
-            type: boolean
-            nullable: true
-            options:
-                default: 0
-            column: mod_camp_es_catalogo
         modCampRequerido:
             type: boolean
             nullable: false
             options:
-                default: 0
+                default: '0'
             column: mod_camp_requerido
-        modCampTipCampId:
-            type: integer
-            nullable: false
-            options:
-                unsigned: true
-            column: mod_camp_tip_camp_id
         modCampOrden:
             type: integer
             nullable: true
@@ -77,7 +65,7 @@ AppBundle\Entity\EavModCampos:
             type: boolean
             nullable: false
             options:
-                default: 1
+                default: '1'
             column: mod_camp_activo
         modCampFechaCrea:
             type: datetime
@@ -89,31 +77,41 @@ AppBundle\Entity\EavModCampos:
             type: datetime
             nullable: true
             column: mod_camp_fecha_mod
+        modCampEsCatalogo:
+            type: boolean
+            nullable: true
+            options:
+                default: '0'
+            column: mod_camp_es_catalogo
     manyToOne:
-        tipoCampos:
+        modCampModSecc:
+            targetEntity: EavModSeccion
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                mod_camp_mod_secc_id:
+                    referencedColumnName: mod_secc_id
+            orphanRemoval: false
+        modCampCampoPadre:
+            targetEntity: EavModCampos
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                mod_camp_campo_padre:
+                    referencedColumnName: mod_camp_id
+            orphanRemoval: false
+        modCampTipCamp:
             targetEntity: EavTipCampos
             cascade: {  }
             fetch: LAZY
+            mappedBy: null
             inversedBy: null
             joinColumns:
                 mod_camp_tip_camp_id:
                     referencedColumnName: tip_camp_id
             orphanRemoval: false
-        seccionCampo:
-            targetEntity: EavModSeccion
-            fetch: LAZY
-            inversedBy: campos
-            joinColumns:
-                mod_camp_mod_secc_id:
-                    referencedColumnName: mod_secc_id
-        campoPadre:
-            targetEntity: EavModCampos
-            joinColumns:
-                mod_camp_campo_padre:
-                    referencedColumnName: mod_camp_id
-    oneToMany:
-        camposHijo:
-            targetEntity: EavModCampos
-            cascade: [persist]
-            mappedBy: campoPadre
     lifecycleCallbacks: {  }
