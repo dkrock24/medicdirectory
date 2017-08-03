@@ -467,19 +467,7 @@
             var htmlTr = "";
             var patient_id = "";
             $("body").on("click",".btnUpdateAppointment",function(){
-                {#
-                var dateSelected = $("#dateSelected").val();
-                
-                if( dateSelected == "" )
-                {
-                    
-                    var date = $("#labelDateUpdate").text();
-                }
-                else
-                {
-                    var date = dateSelected;
-                }
-                #}
+
                 $('#tabs li:eq(0) a').tab('show');         
                 //$("#tabs").tabs("option", "active", 2);            
                             
@@ -571,7 +559,7 @@
                                     text: 'Intentar de nuevo',
                                     btnClass: 'btn-red',
                                     action: function () {
-                                        getAppointments();
+                                        getAppointments(date, renderToUpdate);
                                     }
                                 },
                                 close: function () {
@@ -1018,7 +1006,7 @@
                         
                         var date = $("#labelDateUpdate").text();
                         var newDate = $("#dateSelected").val();
-                        //console.log(date+" - "+newDate);
+                        //console.log(date+" - "+newDate+"   ||||||||| ");
                         if( date == newDate )
                         {
                             var hs = $("#hoursStart option:selected").text()//hoursStart+":"+minutesStart+":00+";
@@ -1034,21 +1022,27 @@
                             
                             $("#cm_"+appointmentId).closest("tr").find("td").eq(1).html("<span class='text-muted text-size-small'>"+newHourStart+"</span>");
                             $("#cm_"+appointmentId).closest("tr").find("td").eq(2).html("<span class='text-muted text-size-small'>"+newHourEnd+"</span>");
+                            //console.log("x");
                             getAppointments(date,"result_update_appointment");
                             //htmlTr
                             //$("#table_result_appointment").append("<tr>"+htmlTr+"<tr>");
                             //console.log(htmlTr);
                             
                             //var dt = moment(hs, ["h:mm A"]).format("hh:mm");
-                            //console.log(dt);
+                            
                         }else{
                             id = $("#cm_"+appointmentId).closest("tr").attr("id");
                             //console.log(id);
+                            //var tableApp = $('body').find("#table_result_appointment").DataTable();
+                            //tableApp.row('#tr_'+id).remove().draw( false );
+                            var eventID = $("#appointmentId").val();
                             var table = $('#table_result_appointment').DataTable();
-                            table.row('#tr_'+id).remove().draw( false );
+                            table.row('#tr_'+eventID).remove().draw( false );
                             checkItemTrTable();
+                            //$("#table_result_appointment").remove();
+                            
                         }
-
+                        //console.log("xxxxxx");
                     },
                     error: function(json){
                        // alert(json.id);

@@ -651,7 +651,11 @@ class ConsultaController extends Controller
 		if( count($aSettings) > 0 )
 		{
 			$type = @$aSettings['horientacion_pdf_receta'];
-			$mpdf->AddPage('L','','','','',50,50,50,50,10,10);
+			if($type == "L")
+			{
+				$mpdf->AddPage($type,'','','','',50,50,50,50,10,10);
+			}	
+			
 			
 			$bgImage = @$aSettings['usar_imagen_de_fondo_en_recetas'];
 			if( $bgImage == "SI" )
