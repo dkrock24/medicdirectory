@@ -47,6 +47,10 @@ class EavModSecGrupo
      */
     private $grupoSeccion;
 
+    public function __toString(){
+        return $this->grupoSeccion.' >> '.$this->secGrGrupo;
+    }
+    
     /**
      * Constructor
      */

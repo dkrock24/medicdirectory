@@ -130,10 +130,10 @@ class CamposModulosController extends Controller
             
             $mod_camp->setModCampFechaCrea( new \DateTime() );
 
-            $mod_id = $mod_camp->getSeccionCampo()->getModSeccModId()->getModId();
-            $secc_id = $mod_camp->getSeccionCampo()->getModSeccId();
+//            $mod_id = $mod_camp->getSeccionCampo()->getModSeccModId()->getModId();
+//            $secc_id = $mod_camp->getSeccionCampo()->getModSeccId();
             
-            
+                        
             $em->persist($mod_camp);
             $flush = $em->flush();
 
@@ -145,8 +145,8 @@ class CamposModulosController extends Controller
                     $status = "error";
             }
 
-            $this->session->set('modCampNew_mod_id', $mod_id);
-            $this->session->set('modCampNew_secc_id', $secc_id);
+//            $this->session->set('modCampNew_mod_id', $mod_id);
+//            $this->session->set('modCampNew_secc_id', $secc_id);
             $this->session->getFlashBag()->add($status,$msgBox);
             return $this->redirectToRoute('campos_modulos_index');
             
