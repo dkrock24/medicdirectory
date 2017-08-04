@@ -17,18 +17,6 @@ class EavModCamposType extends AbstractType
             'label' => 'Nombre del campo'
         ))
         ->add('modCampNombreCorto')
-        ->add('modCampShowIfnull', null, array(
-            'label' => 'Mostrar si vacio'
-        ))
-        ->add('modCampValorDefault', null, array(
-            'label' => 'Valor por defecto'
-        ))
-        ->add('modCampEsCatalogo', null, array(
-            'label' => 'Es catalogo'
-        ))
-        ->add('modCampRequerido', null, array(
-            'label' => 'Es obligatorio'
-        ))
         ->add('modCampTipCampId')
         ->add('modCampOrden', null, array(
             'label' => 'Orden en vista'
@@ -36,16 +24,14 @@ class EavModCamposType extends AbstractType
         ->add('modCampActivo', null, array(
             'label' => 'Activo'
         ))
-//                ->add('modCampFechaCrea')
+        ->add('grupoCampo', null, array(
+            'label' => 'Grupo'
+        ))
         ->add('modCampFechaMod')
         ->add('tipoCampos', null, array(
             'label' => 'Tipo de campo'
         ))
-        ->add('seccionCampo', null, array(
-            'label' => 'Seccion del campo'
-        ))
-        ->add('campoPadre')
-                ;
+        ;
     }
     
     /**

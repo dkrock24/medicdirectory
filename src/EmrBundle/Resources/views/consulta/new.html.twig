@@ -535,6 +535,10 @@
 {% block codejs %}
     <script>
         $(document).on("ready", function () {
+            
+            // fix radio buttons to be drawn properly
+            $("div.radio").attr("class", "radio-inline");
+            
                 /*
                 var data = {
                             labels: ['Bananas', 'Apples', 'Grapes'],
@@ -714,8 +718,6 @@
                     }
                 }); 
             }
-            // fix radio buttons to be drawn properly
-            //$(".radio").attr("class", "radio-inline");
             
             var currentMilisecundsDiff = {{ currentMilisecundsDiff }};
             if( currentMilisecundsDiff > 0 )
@@ -1274,7 +1276,7 @@
                                        //alert();    
                                     });
                                 }else{
-                                    $(this).on("change  paste", function(){
+                                    $(this).on("change paste", function(){
                                     //$(this).blur( function(){
                                         //alert($(this).data('value'));
                                         //if( $(this).data('value') != $(this).val() ){
@@ -1395,7 +1397,7 @@
                                 guardarEavForm( $(this), tries );
                         });
                     }else{
-                        $(this).on("change  paste", function(){
+                        $(this).on("change paste", function(){
                        //$(this).blur( function(){
                             //if( $(this).data('valueInput') != $(this).val() ){
                                 var tries = 1;
@@ -1568,7 +1570,7 @@
                     });
                 });
                 
-                $(".radio").attr("class", "radio-inline");
+                $("div.radio").attr("class", "radio-inline");
             }
 
 

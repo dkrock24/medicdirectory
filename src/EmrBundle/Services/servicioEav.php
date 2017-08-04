@@ -64,6 +64,7 @@ class servicioEav {
             sec.mod_secc_seccion AS seccion,
             camp.mod_camp_id as camp_id,
             camp.mod_camp_nombre AS campo,
+            gr.sec_gr_grupo as grupo,
             camp.mod_camp_nombre_corto AS campo_corto,
             tc.tip_camp_tipo as tipo_campo,
             camp.mod_camp_show_ifnull AS show_ifnull,
@@ -72,11 +73,12 @@ class servicioEav {
             camp.mod_camp_campo_padre AS campo_padre
         FROM
             eav_mod_seccion sec
-        inner join eav_mod_campos camp on sec.mod_secc_id = camp.mod_camp_mod_secc_id and camp.mod_camp_activo = 1
+        inner join eav_mod_sec_grupo gr on sec.mod_secc_id = gr.sec_gr_secc_id and gr.sec_gr_activo = 1
+        inner join eav_mod_campos camp on gr.sec_gr_id = camp.mod_camp_sec_gr_id and camp.mod_camp_activo = 1
         inner join eav_tip_campos tc on camp.mod_camp_tip_camp_id = tc.tip_camp_id and tc.tip_camp_activo = 1
             where
             sec.mod_secc_mod_id = :mod_id
-        ORDER BY sec.mod_secc_orden , camp.mod_camp_campo_padre , camp.mod_camp_orden
+        ORDER BY sec.mod_secc_orden , gr.sec_gr_orden, camp.mod_camp_campo_padre , camp.mod_camp_orden
         ";
         
         $oStatement = $this->em->getConnection()->prepare($sQuery);
@@ -88,7 +90,7 @@ class servicioEav {
         $aModProps = array();
         
         foreach( $oResult as $campo ){
-            $aModProps[$campo["seccion"]][] = array(
+            $aModProps[ $campo["seccion"] ] [ $campo["grupo"] ] [] = array(
                 "campo" => $campo["campo"],
                 "camp_id" => $campo["camp_id"],
                 "campo_corto" => $campo["campo_corto"],
@@ -131,6 +133,7 @@ class servicioEav {
                 ,cvt._ids_vals_array
             from 
             eav_mod_campos c 
+            left join eav_mod_sec_grupo gr on gr.sec_gr_id = c.mod_camp_sec_gr_id
             left join eav_mod_datos v on 
                     v.mod_dat_usu_id = :usu_id and
                     v.mod_dat_pac_id = :pac_id and
@@ -142,8 +145,8 @@ class servicioEav {
                     v.mod_dat_mod_camp_id = c.mod_camp_id	
                     and
                     c.mod_camp_activo = 1 and 
-                    c.mod_camp_mod_secc_id 
-                    in  (select mod_secc_id from eav_mod_seccion where mod_secc_mod_id = :mod_id)
+                    gr.sec_gr_secc_id
+                    in  (select mod_secc_id from eav_mod_seccion where mod_secc_mod_id = :mod_id and mod_secc_activo = 1)
 
             left join eav_mod_cat_valores cv on 
                     v.mod_dat_dato_valor = cv.mod_cat_val_id
@@ -204,16 +207,113 @@ class servicioEav {
         
         $aModSecc = array();
         
-        foreach( $mod_props as $kseccion => $vcampo ){
+//        echo '<pre>';
+//        var_dump( $mod_props );
+//        die;
+        
+        foreach( $mod_props as $kseccion => $kgrupo ){ //$vcampo ){
             
-            $oModuloForm = $this->form_factory->createBuilder()
-                ->setAction( '' )
-                ->setMethod( 'POST' ) 
-            ;
+//            $oModuloForm = $this->form_factory->createBuilder()
+//                ->setAction( '' )
+//                ->setMethod( 'POST' ) 
+//            ;
             
             
 
             $bRequired = false;
+            
+            foreach( $kgrupo as $keygrupo => $vcampo ){
+                
+                $oModuloForm = $this->form_factory->createBuilder()
+                    ->setAction( '' )
+                    ->setMethod( 'POST' ) 
+                ;
+                
+                foreach( $vcampo as $key => $vcamp_props ){
+//                    echo '<pre>';
+//                    var_dump( $vcamp_props );
+//                    echo '<br>';
+//                    var_dump( $aFormCampData );
+//                    exit;
+                    if( $vcamp_props["requerido"] == 1 ){
+                        $bRequired = true;
+                    }else{
+                        $bRequired = false;
+                    }
+
+                    if( $vcamp_props['tipo_campo'] == 'choice' ){
+
+                        $oModuloForm->add( $vcamp_props["camp_id"],
+                            self::$aDataTypesMap[ $vcamp_props["tipo_campo"] ],
+                            array(
+                                "label" => $vcamp_props["campo"],
+                                "data" => $aFormCampData[ $vcamp_props["camp_id"] ]["id_valor_catalogo"],
+                                "choices" => $aFormCampData[ $vcamp_props["camp_id"] ]["val_catalogo"]
+                            ) 
+                        );
+
+                    }else if( ($vcamp_props['tipo_campo'] == "checkbox" || $vcamp_props['tipo_campo'] == "radio") && !is_null( $aFormCampData[ $vcamp_props["camp_id"] ]["val_catalogo"] ) ){
+                        // This is when we're handling a group of checkboxes or radio buttons.
+
+                        // this holds the catalog value
+                        $radioCatValue =  $aFormCampData[ $vcamp_props["camp_id"] ]["valor"];
+                        // this holds the id from the catalog value
+//                        var_dump($vcamp_props["camp_id"]);
+//                        var_dump($radioCatValue);
+//                        exit;
+                        $radioValue = $radioCatValue != null ? $aFormCampData[ $vcamp_props["camp_id"] ]["val_catalogo"][$radioCatValue] : null;
+
+                        $oModuloForm->add( $vcamp_props["camp_id"],
+                                Type\ChoiceType::class,
+                                array(
+                                    "label" => $vcamp_props["campo"],
+                                    "choices" => $aFormCampData[ $vcamp_props["camp_id"] ]["val_catalogo"],
+                                    "data" => $radioValue,//$checkValue,
+                                    "expanded" => true,
+                                    "attr" => array(
+                                        "input-group" => true
+                                    )
+                                )
+                            );
+
+                    }else if( ($vcamp_props['tipo_campo'] == "checkbox" || $vcamp_props['tipo_campo'] == "radio") && is_null( $aFormCampData[ $vcamp_props["camp_id"] ]["val_catalogo"] ) ){
+                        // This is when the input is a single radio button or checkbox
+
+                        $checkValue = (boolean) $aFormCampData[ $vcamp_props["camp_id"] ]["valor"];
+
+                        $oModuloForm->add( $vcamp_props["camp_id"],
+                                self::$aDataTypesMap[ $vcamp_props["tipo_campo"] ],
+                                array(
+                                    "label" => $vcamp_props["campo"],
+                                    //"value" => $checkValue
+                                    "data" => $checkValue
+                                )
+                            );
+
+                    }else{
+
+                        $oModuloForm->add( $vcamp_props["camp_id"],
+                            self::$aDataTypesMap[ $vcamp_props["tipo_campo"] ],
+                            array(
+                                "label" => $vcamp_props["campo"],
+                                "data" => $aFormCampData[ $vcamp_props["camp_id"] ]["valor"],
+                                'attr' => array(
+                                    'data-value' => $aFormCampData[ $vcamp_props["camp_id"] ]["valor"]
+                                )
+                            ) 
+                        );
+
+                    }
+                }
+                
+                $oModFormView = $oModuloForm->getForm()->createView();
+            
+                $aModSecc[$kseccion][$keygrupo] = $oModFormView;
+                
+            }
+            
+            
+            /*
             foreach( $vcampo as $key => $vcamp_props ){
 
                 if( $vcamp_props["requerido"] == 1 ){
@@ -283,11 +383,17 @@ class servicioEav {
                     
                 }
             }
-            
+            */
+            /*
             $oModFormView = $oModuloForm->getForm()->createView();
             
             $aModSecc[$kseccion] = $oModFormView;
+            */
         }
+        
+//        \Doctrine\Common\Util\Debug::dump( $aModSecc );
+//        exit;
+        
         
         return $aModSecc;
         
