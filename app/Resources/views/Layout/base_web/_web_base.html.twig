@@ -56,7 +56,24 @@
                         <!-- Navbar Collapse Starts -->
                         <div class="navbar-collapse collapse alineado">
                             {#% include 'Layout/base_web/_web_base_menutop.html.twig' %#}
-                            {{ render(controller('EmrBundle:MenuTop:listShow',{ 'menu': 2 })) }}
+                            {#{ render(controller('EmrBundle:MenuTop:listShow',{ 'menu': 2 })) }#}
+                            <ul class="nav navbar-nav navbar-right">
+                                <li class="dropdown">
+                                    <a href="#">
+                                        <i class="fa fa-user"></i> Doctores
+                                    </a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="http://medicos.sv">General</a></li>
+                                    </ul>
+                                </li>
+
+                                <li><a href="{{ path('web_precios') }}">
+                                    <i class="fa fa-money"></i> Precios</a></li>
+                                <li><a href="contactanos">
+                                <i class="fa fa-phone"></i> Contáctanos</a></li>
+                                <li><a href="http://sistema.medicos.sv/cliente/nuevo">
+                                <i class="fa fa-sign-in"></i> Registrate</a></li>
+                            </ul>
                         </div>
                         <!-- Navbar Collapse Ends -->
                     </div>
