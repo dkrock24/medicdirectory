@@ -290,6 +290,20 @@ class servicioEav {
                                 )
                             );
 
+                    }else if( $vcamp_props['tipo_campo'] == "date" || $vcamp_props['tipo_campo'] == "datetime" ){
+                        
+                        $oModuloForm->add( $vcamp_props["camp_id"],
+                            Type\TextType::class,
+                            array(
+                                "label" => $vcamp_props["campo"],
+                                "data" => $aFormCampData[ $vcamp_props["camp_id"] ]["valor"],
+                                'attr' => array(
+                                    'data-value' => $aFormCampData[ $vcamp_props["camp_id"] ]["valor"]
+                                    ,'class' => 'date-field'
+                                )
+                            ) 
+                        );
+                        
                     }else{
 
                         $oModuloForm->add( $vcamp_props["camp_id"],

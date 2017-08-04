@@ -566,6 +566,11 @@
             // fix radio buttons to be drawn properly
             $("div.radio").attr("class", "radio-inline");
             
+            $('.date-field').datepicker({
+                changeMonth: true,
+                changeYear: true
+            });
+            
                 /*
                 var data = {
                             labels: ['Bananas', 'Apples', 'Grapes'],
@@ -1337,6 +1342,11 @@
                                 $(this).attr("disabled",true);
                             });
                         {% endif %}
+                        
+                        $('.date-field').datepicker({
+                            changeMonth: true,
+                            changeYear: true
+                        });
                         
                     },
                     error: function (data) {

@@ -32,6 +32,10 @@ class EavTipCampos
      */
     private $tipCampFechaMod;
 
+    
+    public function __toString() {
+        return $this->tipCampTipo;
+    }
 
     /**
      * Get tipCampId

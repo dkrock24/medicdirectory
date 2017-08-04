@@ -25,7 +25,7 @@ class EavModCampos
     /**
      * @var boolean
      */
-    private $modCampShowIfnull = 0;
+    private $modCampShowIfnull = false;
 
     /**
      * @var string
@@ -40,12 +40,12 @@ class EavModCampos
     /**
      * @var boolean
      */
-    private $modCampEsCatalogo = 0;
+    private $modCampEsCatalogo = false;
 
     /**
      * @var boolean
      */
-    private $modCampRequerido = 0;
+    private $modCampRequerido = false;
 
     /**
      * @var integer
@@ -60,7 +60,7 @@ class EavModCampos
     /**
      * @var boolean
      */
-    private $modCampActivo = 1;
+    private $modCampActivo = true;
 
     /**
      * @var \DateTime
