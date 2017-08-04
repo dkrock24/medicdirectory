@@ -43,7 +43,7 @@ class EavModDatos
     private $modDatDatoValor;
 
     /**
-     * @var integer
+     * @var boolean
      */
     private $modDatActivo = 1;
 
@@ -76,6 +76,11 @@ class EavModDatos
      * @var \AppBundle\Entity\Cita
      */
     private $citaDato;
+
+    /**
+     * @var \AppBundle\Entity\EavModCampos
+     */
+    private $campoDato;
 
 
     /**
@@ -235,7 +240,7 @@ class EavModDatos
     /**
      * Set modDatActivo
      *
-     * @param integer $modDatActivo
+     * @param boolean $modDatActivo
      *
      * @return EavModDatos
      */
@@ -249,7 +254,7 @@ class EavModDatos
     /**
      * Get modDatActivo
      *
-     * @return integer
+     * @return boolean
      */
     public function getModDatActivo()
     {
@@ -399,11 +404,6 @@ class EavModDatos
     {
         return $this->citaDato;
     }
-    /**
-     * @var \AppBundle\Entity\EavModCampos
-     */
-    private $campoDato;
-
 
     /**
      * Set campoDato
@@ -429,3 +429,4 @@ class EavModDatos
         return $this->campoDato;
     }
 }
+

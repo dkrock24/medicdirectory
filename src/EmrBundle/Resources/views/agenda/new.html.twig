@@ -55,7 +55,7 @@
         #}
     </div>
     
-    
+
     {# {{ app.request.query.get("d") }} #}
     <div class="rowx">
         <div class="col-lg-12x">
@@ -98,7 +98,7 @@
                                                 {% if "6" in userRoles|keys  %}
                                                     {% if app.user.usuId == doctor.usu_id %}
                                                     <tr id="d_{{ doctor.usu_id }}">
-                                                        <td>{{ doctor.usu_nombre|capitalize~" "~doctor.usu_segundo_nombre|capitalize~" "~doctor.usu_tercer_nombre|capitalize~" "~doctor.usu_primer_apellido|capitalize~" "~doctor.usu_segundo_apellido|capitalize }}</td>
+                                                        <td>{{ doctor.usu_titulo|capitalize~" "~doctor.usu_nombre|capitalize~" "~doctor.usu_segundo_nombre|capitalize~" "~doctor.usu_tercer_nombre|capitalize~" "~doctor.usu_primer_apellido|capitalize~" "~doctor.usu_segundo_apellido|capitalize }}</td>
                                                         <td>
                                                             {# <a href="" class="btn btn-primary btn-sm" data-popup="tooltip" title="" data-original-title="Mandar email"><i class="fa fa-envelope-o" aria-hidden="true"></i> </a> #}
                                                             {% if app.request.query.get("p") == "" %}
@@ -113,7 +113,7 @@
                                                    
                                                    
                                                     <tr id="d_{{ doctor.usu_id }}">
-                                                        <td>{{ doctor.usu_nombre|capitalize~" "~doctor.usu_segundo_nombre|capitalize~" "~doctor.usu_tercer_nombre|capitalize~" "~doctor.usu_primer_apellido|capitalize~" "~doctor.usu_segundo_apellido|capitalize }}</td>
+                                                        <td>{{ doctor.usu_titulo|capitalize~" "~doctor.usu_nombre|capitalize~" "~doctor.usu_segundo_nombre|capitalize~" "~doctor.usu_tercer_nombre|capitalize~" "~doctor.usu_primer_apellido|capitalize~" "~doctor.usu_segundo_apellido|capitalize }}</td>
                                                         <td>
                                                             {#<a href="" class="btn btn-primary btn-sm" data-popup="tooltip" title="" data-original-title="Mandar email"><i class="fa fa-envelope-o" aria-hidden="true"></i> </a>#}
                                                             {% if app.request.query.get("p") == "" %}
@@ -456,6 +456,7 @@
     </div>
 </div>            
 
+
 <!--Modal-->
 
 <!--Modal-->
@@ -605,6 +606,7 @@
             // Initialization
             // ------------------------------
             // Agenda view
+            //alert();
             if( $("#calendar").size() == 1 )
             {
                 $('#calendar').fullCalendar({
@@ -621,8 +623,13 @@
                     defaultView: 'agendaDay',        
                 {% else %}
                     defaultView: 'agendaWeek',
-                {% endif %}    
+                {% endif %} 
                 
+                {% if settings.minutos_por_evento is defined and settings.minutos_por_evento != "" %}
+                    slotDuration: "{{settings.minutos_por_evento}}",// (30 minutes)
+                {% endif %}    
+                //slotDuration: '00:30:00',// (30 minutes)
+                slotEventOverlap: false,
                 editable: true,
                 eventLimit: true, // allow "more" link when too many events
                 navLinks: true, // can click day/week names to navigate views

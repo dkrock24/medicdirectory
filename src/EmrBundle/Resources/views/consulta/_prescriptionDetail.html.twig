@@ -1,0 +1,70 @@
+
+<style>
+    #name{
+        border-bottom:  solid 1px #000;
+    }
+    #name span{
+        margin-bottom: 5px;
+    }
+
+    #left{
+        float:left;
+        width: 70px;
+    }
+
+    #right{
+        float: right;
+        width: calc(100% - 70px);
+    }
+    #prescription{
+        font-size:13px;
+    }
+    
+     #dateRight{
+        float: right;
+        width: 120px;
+    }
+    
+    #dateLeft{
+        
+        float:left;
+        width: calc(100% - 120px);
+    }
+   
+</style>
+<h5 style="text-align: rightxxxx">
+        <div id="dateLeft"></div>
+        <div id="dateRight">
+                Fecha:
+                {% if showDate == "hoy" or appointment|length > 0 %}
+                    <span>
+                        {{ "now"|date("Y/m/d") }}
+                    </div>
+                {% else %}
+                       
+                {% endif %}
+        </div>
+    
+</h5>
+<div style="clear:both"></div>
+<br>
+<h4>Datos del paciente:</h4>
+<div id="left">Nombre: </div>
+<div id="right">
+    <div id="name">
+        <span>
+            {% if appointment|length > 0 %}
+                {{ appointment[0].getAgeCit.getCitPac.getPacNombre|capitalize ~" "~ appointment[0].getAgeCit.getCitPac.getPacSegNombre|capitalize ~" "~ appointment[0].getAgeCit.getCitPac.getPacApellido|capitalize ~" "~ appointment[0].getAgeCit.getCitPac.getPacSegApellido|capitalize }}
+            {% else %}
+                &nbsp;
+            {% endif %}
+        </span>
+    </div>
+</div>                
+<br><br>
+<h4>Receta Médica:</h4>
+<div id="prescription">
+    {% if appointment|length > 0 %}
+        {{ appointment[0].getAgeCit.getCitReceta|raw }}
+    {% endif %}
+</div>

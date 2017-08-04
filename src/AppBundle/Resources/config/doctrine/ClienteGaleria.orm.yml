@@ -1,6 +1,10 @@
 AppBundle\Entity\ClienteGaleria:
     type: entity
     table: cliente_galeria
+    indexes:
+        IDX_78A14A7D731249A8:
+            columns:
+                - cli_gal_cliente_id
     id:
         cliGalId:
             type: integer
@@ -43,9 +47,14 @@ AppBundle\Entity\ClienteGaleria:
                 default: '1'
             column: cli_gal_activo
     manyToOne:
-        galCliente:
+        cliGalCliente:
             targetEntity: Cliente
-            joinColumn:
-                name: cli_gal_cliente_id
-                referencedColumnName: cli_id
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                cli_gal_cliente_id:
+                    referencedColumnName: cli_id
+            orphanRemoval: false
     lifecycleCallbacks: {  }

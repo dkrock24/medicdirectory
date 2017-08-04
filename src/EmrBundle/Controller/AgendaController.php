@@ -37,7 +37,7 @@ class AgendaController extends Controller
 			return $this->redirectToRoute("emr_location");
 		}
 		
-		$RAW_QUERY = "SELECT u.* FROM cliente_usuario cu
+		$RAW_QUERY = "SELECT u.* , cu.cli_usu_titulo as usu_titulo  FROM cliente_usuario cu
 						
 						INNER JOIN usuario u on cu.cli_usu_usu_id = u.usu_id 
 						where cli_usu_cli_id =:locationId
@@ -47,7 +47,7 @@ class AgendaController extends Controller
 		$statement->bindValue("locationId", $locationId);
 		$statement->execute();
 		$doctorList = $statement->fetchAll();
-		
+		//var_dump($doctorList);
 		/*
 		$arr = array();
 		$con = 0;
@@ -114,10 +114,22 @@ class AgendaController extends Controller
 			//exit();
 		}
 		
+		//var_dump($userRoles);
+		if (array_key_exists(6,$userRoles)) //Doctor
+		{
+			$userId = $this->getUser()->getUsuId();;
+		}
+		else
+		{
+			$userId = $doctor;
+		}
+		$srvSettings = $this->get('srv_client_settings');
+		$aSettings = $srvSettings->getClientSettings( $userId );		
 		return $this->render("EmrBundle:agenda:new.html.twig", array(
 			"userRoles" => $userRoles,
 			"doctorList"=> $doctorList,
-			"patientName"=>$patientName
+			"patientName"=>$patientName,
+			"settings"=>$aSettings
 		));
         
     }

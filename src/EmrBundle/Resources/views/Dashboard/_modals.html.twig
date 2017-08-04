@@ -77,8 +77,25 @@
                                       <div class="form-group" style="margin-left: 0px;">
                                           <label> 
                                               <select class="form-control" id="minutesStart">
-                                                <option value="00">00</option>
-                                                <option value="30">30</option>
+                                                {% if settings.minutos_por_evento is defined %}
+                                                    {% if settings.minutos_por_evento == "00:20:00" %}
+                                                        <option value="00">00</option>
+                                                        <option value="20">20</option>
+                                                        <option value="40">40</option>
+                                                    {% elseif settings.minutos_por_evento == "00:15:00" %}
+                                                        <option value="00">00</option>
+                                                        <option value="15">15</option>
+                                                        <option value="30">30</option>
+                                                        <option value="45">45</option>
+                                                    {% else %}
+                                                        <option value="00">00</option>
+                                                        <option value="30">30</option>
+                                                    {% endif %}    
+
+                                                {% else %}
+                                                    <option value="00">00</option>
+                                                    <option value="30">30</option>
+                                                {% endif %} 
                                               </select>
                                           </label>
                                       </div> 
@@ -115,8 +132,25 @@
                                         <div class="form-group" style="margin-left: 0px;">
                                             <label> 
                                                 <select class="form-control" id="minutesEnd">
-                                                  <option value="00">00</option>
-                                                  <option value="30">30</option>
+                                                    {% if settings.minutos_por_evento is defined %}
+                                                        {% if settings.minutos_por_evento == "00:20:00" %}
+                                                          <option value="00">00</option>
+                                                          <option value="20">20</option>
+                                                          <option value="40">40</option>
+                                                        {% elseif settings.minutos_por_evento == "00:15:00" %}
+                                                          <option value="00">00</option>
+                                                          <option value="15">15</option>
+                                                          <option value="30">30</option>
+                                                          <option value="45">45</option>
+                                                        {% else %}
+                                                          <option value="00">00</option>
+                                                          <option value="30">30</option>
+                                                      {% endif %}    
+
+                                                    {% else %}
+                                                        <option value="00">00</option>
+                                                        <option value="30">30</option>
+                                                    {% endif %} 
                                                 </select>
                                             </label>
                                         </div>

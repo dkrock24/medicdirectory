@@ -110,4 +110,33 @@ class UsuarioVistas
     {
         return $this->visUsuario;
     }
+    /**
+     * @var \AppBundle\Entity\Usuario
+     */
+    private $visUsu;
+
+
+    /**
+     * Set visUsu
+     *
+     * @param \AppBundle\Entity\Usuario $visUsu
+     *
+     * @return UsuarioVistas
+     */
+    public function setVisUsu(\AppBundle\Entity\Usuario $visUsu = null)
+    {
+        $this->visUsu = $visUsu;
+
+        return $this;
+    }
+
+    /**
+     * Get visUsu
+     *
+     * @return \AppBundle\Entity\Usuario
+     */
+    public function getVisUsu()
+    {
+        return $this->visUsu;
+    }
 }

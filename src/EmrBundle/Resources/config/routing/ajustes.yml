@@ -1,0 +1,10 @@
+ajuste_show:
+    path:     /usuario
+    defaults: { _controller: "EmrBundle:Ajustes:show" }
+    #methods:  [GET, POST]
+    
+ajuste_set_update:
+    path:     /configura/user
+    defaults: { _controller: "EmrBundle:Ajustes:updateSystemSetting" }
+    #methods:  [GET, POST]
+

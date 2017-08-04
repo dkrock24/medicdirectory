@@ -28,9 +28,9 @@ class EavModCatValores
     private $modCatValCatValPadre;
 
     /**
-     * @var integer
+     * @var boolean
      */
-    private $modCatValActivo;
+    private $modCatValActivo = 1;
 
     /**
      * @var \DateTime
@@ -133,7 +133,7 @@ class EavModCatValores
     /**
      * Set modCatValActivo
      *
-     * @param integer $modCatValActivo
+     * @param boolean $modCatValActivo
      *
      * @return EavModCatValores
      */
@@ -147,7 +147,7 @@ class EavModCatValores
     /**
      * Get modCatValActivo
      *
-     * @return integer
+     * @return boolean
      */
     public function getModCatValActivo()
     {
@@ -226,3 +226,4 @@ class EavModCatValores
         return $this->ModCampos;
     }
 }
+

@@ -74,5 +74,6 @@ AppBundle\Entity\Usuario:
             column: usu_segundo_apellido
         usuEsAdmin:
             type: boolean
+            nullable: false
             column: usu_es_admin
     lifecycleCallbacks: {  }

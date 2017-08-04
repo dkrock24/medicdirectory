@@ -65,7 +65,17 @@ AppBundle\Entity\UsuarioGaleria:
                 gal_cliente_id:
                     referencedColumnName: cli_id
             orphanRemoval: false
-        galUsuario:
+        galTipo:
+            targetEntity: UsuarioGaleriaTipo
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                gal_tipo:
+                    referencedColumnName: usu_gal_tip_id
+            orphanRemoval: false
+        galUsu:
             targetEntity: Usuario
             cascade: {  }
             fetch: LAZY
@@ -84,15 +94,5 @@ AppBundle\Entity\UsuarioGaleria:
             joinColumns:
                 gal_modulo_id:
                     referencedColumnName: mod_id
-            orphanRemoval: false
-        galTipo:
-            targetEntity: UsuarioGaleriaTipo
-            cascade: {  }
-            fetch: LAZY
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                gal_tipo:
-                    referencedColumnName: usu_gal_tip_id
             orphanRemoval: false
     lifecycleCallbacks: {  }

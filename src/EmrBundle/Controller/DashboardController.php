@@ -77,7 +77,7 @@ class DashboardController extends Controller
 			}
 			//$appointments = "";
 			$profilephoto = "";
-			$oProfileImage = $em->getRepository('AppBundle:UsuarioGaleria')->findOneBy( array("galUsuario"=>$idUser, "galCliente"=>$locationId, "galTipo"=>1) );
+			$oProfileImage = $em->getRepository('AppBundle:UsuarioGaleria')->findOneBy( array("galUsu"=>$idUser, "galCliente"=>$locationId, "galTipo"=>1) );
 			if( $oProfileImage )
 			{
 				$hashImg = $oProfileImage->getGalHash();
@@ -100,7 +100,7 @@ class DashboardController extends Controller
 			
 			if( $locationId != "" )
 			{
-				$oUnReadMessage = $em->getRepository('AppBundle:SolicitudContacto')->findBy( array("scUsuario"=>$idUser, "scCliente"=>$locationId, "estado"=>0) );
+				$oUnReadMessage = $em->getRepository('AppBundle:SolicitudContacto')->findBy( array("scUsu"=>$idUser, "scCli"=>$locationId, "estado"=>0) );
 			
 				if( count($oUnReadMessage) > 0 )
 				{
@@ -135,17 +135,46 @@ class DashboardController extends Controller
 		$aAppointemntDone = $this->getAppointmentStatus($locationId, $idUser, $date=false, 1, $all = false, $eventType=1, "t");
 		
         //$em = $this->getDoctrine()->getManager();
+		$srvSettings = $this->get('srv_client_settings');
+		$aSettings = $srvSettings->getClientSettings( $idUser );
+		
+		
+		$arraySlot = array();
+		if (array_key_exists(3,$roles)) //Asistente
+		{
+			//$userId = $this->getUser()->getUsuId();
+			foreach($oDoctorsList as $item)
+			{
+				
+				$id = $item->getCliUsuUsu()->getUsuId();
+				$res = $srvSettings->getClientSettings( $id );
+				if (array_key_exists("minutos_por_evento",$res))
+				{
+					$arraySlot[] = $id."-".$res["minutos_por_evento"];
+				}
+			}
+		}
+		
+		$infoSlotDoctors = "";
+		if( count($arraySlot) > 0 )
+		{
+			$infoSlotDoctors = implode("|",$arraySlot);
+		}	
+		//var_dump($arraySlot);
+		
         return $this->render('EmrBundle:Dashboard:dashboard.html.twig', array(
 			"profilephoto"=>$profilephoto,
 			"userInfo"=> $oUser,
 			"roles"=>$roles,
+			"settings"=>$aSettings,
 			"messages"=>$oMessages,
 			'unReadMessage'=>$unread,
 			"appointments"=>$appointments,
 			"appointmentsMedicalCanceled"=>$aMedicalAppointmentCanceled,
 			"otherAppointmentCanceled" => $aNoMedicalAppointmentCanceled,
 			"appointmentDone" => $aAppointemntDone,
-			"doctorsList"=>$oDoctorsList
+			"doctorsList"=>$oDoctorsList,
+			"infoSlotDoctors"=>$infoSlotDoctors
         ));
     }
 	

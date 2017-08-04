@@ -25,7 +25,7 @@ class EavModCampos
     /**
      * @var boolean
      */
-    private $modCampShowIfnull = true;
+    private $modCampShowIfnull = 0;
 
     /**
      * @var string
@@ -40,12 +40,12 @@ class EavModCampos
     /**
      * @var boolean
      */
-    private $modCampEsCatalogo = false;
+    private $modCampEsCatalogo = 0;
 
     /**
      * @var boolean
      */
-    private $modCampRequerido = false;
+    private $modCampRequerido = 0;
 
     /**
      * @var integer
@@ -60,7 +60,7 @@ class EavModCampos
     /**
      * @var boolean
      */
-    private $modCampActivo = true;
+    private $modCampActivo = 1;
 
     /**
      * @var \DateTime
@@ -91,10 +91,6 @@ class EavModCampos
      * @var \AppBundle\Entity\EavModCampos
      */
     private $campoPadre;
-    
-    public function __toString(){
-        return $this->modCampNombre;
-    }
 
     /**
      * Constructor

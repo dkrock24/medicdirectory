@@ -137,4 +137,9 @@ emr_consulta:
 emr_eav:
     resource: "@EmrBundle/Resources/config/routing/eav.yml"
     prefix:   /eav
-    host:     "%emr_domain%"    
+    host:     "%emr_domain%"
+    
+emr_ajustes_sistema:
+    resource: "@EmrBundle/Resources/config/routing/ajustes.yml"
+    prefix:   /ajustes
+    host:     "%emr_domain%"

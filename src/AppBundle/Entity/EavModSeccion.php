@@ -25,7 +25,7 @@ class EavModSeccion
     /**
      * @var boolean
      */
-    private $modSeccActivo = true;
+    private $modSeccActivo = 1;
 
     /**
      * @var \DateTime
@@ -38,16 +38,24 @@ class EavModSeccion
     private $modSeccFechaMod;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $seccionGrupo;
+
+    /**
      * @var \AppBundle\Entity\Modulo
      */
     private $modSeccModId;
 
-    
-    public function __toString() {
-        return "Modulo: ".$this->getModSeccModId()." >> Seccion: ".$this->modSeccSeccion;
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->seccionGrupo = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-        /**
+    /**
      * Get modSeccId
      *
      * @return integer
@@ -178,95 +186,6 @@ class EavModSeccion
     }
 
     /**
-     * Set modSeccModId
-     *
-     * @param \AppBundle\Entity\Modulo $modSeccModId
-     *
-     * @return EavModSeccion
-     */
-    public function setModSeccModId(\AppBundle\Entity\Modulo $modSeccModId = null)
-    {
-        $this->modSeccModId = $modSeccModId;
-
-        return $this;
-    }
-
-    /**
-     * Get modSeccModId
-     *
-     * @return \AppBundle\Entity\Modulo
-     */
-    public function getModSeccModId()
-    {
-        return $this->modSeccModId;
-    }
-    
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $modulos;
-    
-    // ...
-    public function addModulo(Modulo $modulo)
-    {
-        if (!$this->modulos->contains($modulo)) {
-            $this->modulos->add($modulo);
-        }
-    }
-    
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $campos;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->campos = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add campo
-     *
-     * @param \AppBundle\Entity\EavModCampos $campo
-     *
-     * @return EavModSeccion
-     */
-    public function addCampo(\AppBundle\Entity\EavModCampos $campo)
-    {
-        $this->campos[] = $campo;
-
-        return $this;
-    }
-
-    /**
-     * Remove campo
-     *
-     * @param \AppBundle\Entity\EavModCampos $campo
-     */
-    public function removeCampo(\AppBundle\Entity\EavModCampos $campo)
-    {
-        $this->campos->removeElement($campo);
-    }
-
-    /**
-     * Get campos
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getCampos()
-    {
-        return $this->campos;
-    }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $seccionGrupo;
-
-
-    /**
      * Add seccionGrupo
      *
      * @param \AppBundle\Entity\EavModSecGrupo $seccionGrupo
@@ -299,4 +218,29 @@ class EavModSeccion
     {
         return $this->seccionGrupo;
     }
+
+    /**
+     * Set modSeccModId
+     *
+     * @param \AppBundle\Entity\Modulo $modSeccModId
+     *
+     * @return EavModSeccion
+     */
+    public function setModSeccModId(\AppBundle\Entity\Modulo $modSeccModId = null)
+    {
+        $this->modSeccModId = $modSeccModId;
+
+        return $this;
+    }
+
+    /**
+     * Get modSeccModId
+     *
+     * @return \AppBundle\Entity\Modulo
+     */
+    public function getModSeccModId()
+    {
+        return $this->modSeccModId;
+    }
 }
+

@@ -224,9 +224,13 @@ class ConsultaController extends Controller
 		$oAppointment->getAgeEstado();
 		
 		$roles = $this->get('session')->get('userRoles');
+		
+		$srvSettings = $this->get('srv_client_settings');
+		$aSettings = $srvSettings->getClientSettings( $doctor );
 		return $this->render("EmrBundle:consulta:new.html.twig", array(
 			"locationName"=>$locationName,
 			"roles"=>$roles,
+			"settings"=>$aSettings,
 			"patient"=>$oPatient,
 			"age"=>$patientAge,
             "modulos"=>$modulos,
@@ -421,6 +425,7 @@ class ConsultaController extends Controller
 				$oReg = $em->getRepository('AppBundle:Cita')->find( $medicalConsultation );
 				if($oReg)
 				{
+					$prescription = trim( nl2br(@$prescription) );
 					$oReg->setCitReceta($prescription);
 					$em->persist( $oReg );
 					$em->flush();
@@ -435,6 +440,245 @@ class ConsultaController extends Controller
 		exit();
 	}
 	
+	
+	public function printPrescriptionAction( Request $request )
+	{
+		$em = $this->getDoctrine()->getManager();
+		
+		$locationId = $this->get('session')->get('locationId');
+		$locationName = $this->get('session')->get('locationName');
+		
+		$patientId = $request->get("p");
+		$medicalConsulation = $request->get("c");
+		
+		
+		$showDate = $request->get("date");
+		$viewDoctorId = $request->get("d");
+		
+		$oRepo = $em->getRepository('AppBundle:Agenda')->findBy( array("ageId"=>$medicalConsulation, "ageCli"=>$locationId ) );
+		
+		//$is_appointment = "no";
+		if( isset($medicalConsulation) && $medicalConsulation != "" )
+		{	
+			if( !$oRepo )
+			{
+				throw $this->createNotFoundException('Consulta no válida para el establecimiento: '.$locationName );
+			}
+			//$is_appointment = "yes";
+		}
+		else
+		{
+			//$is_appointment = "no";
+		}
+		
+		$roles = $this->get('session')->get('userRoles');
+		//var_dump($roles);
+		
+		$doctorAssgnidId = "";
+		if( $oRepo )
+		{
+			$doctorAssgnidId = $oRepo[0]->getAgeCit()->getCitUsu()->getUsuId();
+		}	
+		//echo $oRepo[0]->getAgeCit()->getCitUsu()->getUsuId();
+		
+		if (array_key_exists(6,$roles)) //6= doctor
+		{
+			echo $this->getUser()->getUsuId()." - ".$doctorAssgnidId;
+			if( $this->getUser()->getUsuId() != $doctorAssgnidId )
+			{
+				if( isset($medicalConsulation) )
+				{	
+					throw $this->createNotFoundException('Acceso denegado');
+				}else{
+					$userId = $this->getUser()->getUsuId();
+				}
+			}
+			else
+			{
+				$userId = $this->getUser()->getUsuId();
+			}
+		}
+		else
+		{
+			$userId = $doctorAssgnidId;
+			if( isset($viewDoctorId) && empty($userId) )
+			{
+				$userId = $viewDoctorId;
+			}	
+		}
+		
+		
+		//exit();
+		//$oRepo[0]->getAgeCit()->getCitId();
+		//$oRepo[0]->getAgeCit()->getCitReceta();
+		
+		/*
+		$oPatient = $em->getRepository('AppBundle:Paciente')->findBy( array("pacId"=>$patientId, "pacCli"=>$locationId ) );
+		if( !$oPatient )
+		{
+			throw $this->createNotFoundException('El paciente no fue encontrado en el establecimiento: '.$locationName );
+		}	
+		*/
+		/*
+		$html = $this->renderView(
+				'EmrBundle:consulta:_prescriptionDetail.html.twig',
+				array(
+				 'appointment' => $oRepo
+				)
+		    );
+		*/
+		//echo $html;
+		//exit();
+		$RAW_QUERY = "SELECT u.usu_id, CONCAT_WS(' ', u.usu_nombre, u.usu_segundo_nombre, u.usu_tercer_nombre, u.usu_primer_apellido, u.usu_segundo_apellido) as usu_nombre, 
+						cu.cli_usu_titulo AS usu_titulo,
+						cu.cli_usu_direccion as usu_direccion,
+						cu.cli_usu_jvpm as usu_jvpm,
+						cu.cli_usu_telefono as usu_telefono,
+						c.cli_nombre as usu_establecimiento,
+						GROUP_CONCAT(
+								   e.esp_especialidad
+								) as usu_especialidades
+					    FROM cliente_usuario cu
+					    INNER JOIN usuario u ON cu.cli_usu_usu_id = u.usu_id
+					    LEFT JOIN usuario_especialidad ue ON ue.id_usuario = u.usu_id
+					    LEFT JOIN especialidad e ON ue.id_especialidad = e.esp_id
+						LEFT JOIN cliente c ON cu.cli_usu_cli_id = c.cli_id
+					    WHERE cli_usu_cli_id =:locationId AND cu.cli_usu_rol_id = 6 AND u.usu_id =:userId
+					    ORDER BY u.usu_nombre ASC";
+		
+		$statement = $em->getConnection()->prepare($RAW_QUERY);
+		$statement->bindValue("locationId", $locationId);
+		$statement->bindValue("userId", $userId);
+		$statement->execute();
+		$aDoctor = $statement->fetchAll();
+		if( count($aDoctor) > 0 )
+		{
+			//$html = "Ok esta es la receta";
+			
+			$html = $this->renderView(
+				'EmrBundle:consulta:_prescriptionDetail.html.twig',
+				array(
+					'appointment' => $oRepo,
+					'showDate'=>$showDate
+				)
+		    );
+			
+			
+			$this->returnPDF($aDoctor, $html, $userId);
+		}	
+		//var_dump($aDoctor);
+		
+		//$this->returnPDF($html);
+		exit();
+	}
+	
+	public function returnPDF($aDoctor, $html, $userSettingId=false)
+    {
+		$srvSettings = $this->get('srv_client_settings');
+		$aSettings = $srvSettings->getClientSettings( $userSettingId );
+		
+        $mpdfService = $this->get('tfox.mpdfport');
+        $mpdf = $mpdfService->getMpdf();
+        
+        $img_file = __DIR__ . '/../../../web/bundles/emr/images/bg-prescription.jpg';
+        //$mpdf->Image($img_file,0,0,210,297,'jpg','',true, false);
+        //$mpdf->watermarkImg(true);
+        
+		$img_logo = "";
+		
+		$logo = @$aSettings['logo'];
+		
+		if( $logo != "" )
+		{
+			$url_logo = __DIR__. '/../../../web/uploads/logos/'.$logo;
+			if (file_exists($url_logo))
+			{
+				echo $img_logo = "<img src='".$url_logo."' style='width:75px; max-hight:auto; '>";
+			}	
+		}	
+
+        //exit();
+        
+		$name = $aDoctor[0]['usu_titulo']." ".  ucwords($aDoctor[0]['usu_nombre']);
+		$specialities = $aDoctor[0]['usu_especialidades'];
+		$address = $aDoctor[0]['usu_direccion'];
+		$locationName = $aDoctor[0]['usu_establecimiento'];
+		
+		
+        $title = "<div style='text-align:center font-weight: bold; '><p style='text-align: center; font-weight: bold; font-size:18px'>".$name." </p><br>";
+        $title .= "<p style='text-align: center; font-weight: bold;'>Especialista en : ".$specialities."<br><br></p>";
+        $title .= " <h3>".$locationName."</h3>";
+        $title .= "</div>";
+        
+        
+        $header = "<table width='100%' style='vertical-align: bottom; font-family: serif; font-size: 8pt; color: #000000; font-weight: bold; font-style: italic;'><tr>";
+        $header .= "<td width='9%'><span style='font-weight: bold; font-style: italic; vertical-align:center'>$img_logo</span></td>";
+        $header .= "<td width='80%' align='center' style='font-weight: bold; font-style: italic; vertical-align:middle'>$title</td>";
+        $header .= "<td width='9%' style='text-align: right; '></td>";
+        $header .= "</tr></table>";
+		
+		
+		
+		
+		$phone = "Tel.: ".$aDoctor[0]['usu_telefono'];
+		$email = $aDoctor[0]['usua_email'];
+		if( $email != "" )
+		{
+			$email = "<br>".$email;
+		}else{
+			$email = "";
+		}	
+		
+		
+		$sign = "Firma: <span style='border-bottom: solid 1px #000; width:100px; display:block'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>";
+        
+        $mpdf->SetHeader($header);
+        //$mpdf->SetHeader("$img_logo|$title|{PAGENO}");
+        $mpdf->SetTopMargin(35);
+		//$mpdf->SetBottomMargin(35);
+        //$mpdf->SetHeader('Document Title|Center Text|{PAGENO}');
+        $mpdf->SetFooter("<br><br>$sign|<br><br>$phone.$email|<br><br>Dirección: $address");
+        $mpdf->defaultheaderfontsize=10;
+        $mpdf->defaultheaderfontstyle='B';
+        $mpdf->defaultheaderline=0;
+        $mpdf->defaultfooterfontsize=10;
+        $mpdf->defaultfooterfontstyle='BI';
+        $mpdf->defaultfooterline=0;
+		
+		
+		
+		//$type = "L";
+		if( count($aSettings) > 0 )
+		{
+			$type = @$aSettings['horientacion_pdf_receta'];
+			$mpdf->AddPage('L','','','','',50,50,50,50,10,10);
+			
+			$bgImage = @$aSettings['usar_imagen_de_fondo_en_recetas'];
+			if( $bgImage == "SI" )
+			{
+				$mpdf->SetWatermarkImage($img_file, 0.1, '', array(0,38));    
+				$mpdf->showWatermarkImage = true;
+			}	
+		}
+		else
+		{
+			//$mpdf->AddPage('L','','','','',50,50,50,50,10,10);
+		}	
+		
+		
+		
+		
+		/*
+		$mpdf->fonttrans = array(
+				'trebuchet' => 'trebuchetms'
+		);
+        */
+        
+        $mpdf->WriteHTML($html);
+        $mpdf->Output();
+
+
+    }
 	
 	public function sendEmailPrescriptionAction( Request $request )
 	{

@@ -196,4 +196,33 @@ class ClienteGaleria
     {
         return $this->galCliente;
     }
+    /**
+     * @var \AppBundle\Entity\Cliente
+     */
+    private $cliGalCliente;
+
+
+    /**
+     * Set cliGalCliente
+     *
+     * @param \AppBundle\Entity\Cliente $cliGalCliente
+     *
+     * @return ClienteGaleria
+     */
+    public function setCliGalCliente(\AppBundle\Entity\Cliente $cliGalCliente = null)
+    {
+        $this->cliGalCliente = $cliGalCliente;
+
+        return $this;
+    }
+
+    /**
+     * Get cliGalCliente
+     *
+     * @return \AppBundle\Entity\Cliente
+     */
+    public function getCliGalCliente()
+    {
+        return $this->cliGalCliente;
+    }
 }

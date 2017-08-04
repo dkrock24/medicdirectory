@@ -18,7 +18,7 @@ class EavTipCampos
     private $tipCampTipo;
 
     /**
-     * @var integer
+     * @var boolean
      */
     private $tipCampActivo = 1;
 
@@ -32,9 +32,6 @@ class EavTipCampos
      */
     private $tipCampFechaMod;
 
-    public function __toString() {
-        return $this->tipCampTipo;
-    }
 
     /**
      * Get tipCampId
@@ -73,7 +70,7 @@ class EavTipCampos
     /**
      * Set tipCampActivo
      *
-     * @param integer $tipCampActivo
+     * @param boolean $tipCampActivo
      *
      * @return EavTipCampos
      */
@@ -87,7 +84,7 @@ class EavTipCampos
     /**
      * Get tipCampActivo
      *
-     * @return integer
+     * @return boolean
      */
     public function getTipCampActivo()
     {
@@ -142,3 +139,4 @@ class EavTipCampos
         return $this->tipCampFechaMod;
     }
 }
+

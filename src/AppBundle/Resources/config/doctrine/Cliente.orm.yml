@@ -14,6 +14,9 @@ AppBundle\Entity\Cliente:
         FK_cli_mun_idx:
             columns:
                 - cli_mun_id
+        IDX_F41C9B25575C5877:
+            columns:
+                - cli_metodo_pago_id
     id:
         cliId:
             type: integer
@@ -32,13 +35,6 @@ AppBundle\Entity\Cliente:
             options:
                 fixed: false
             column: cli_nombre
-        cliNombreComercial:
-            type: string
-            nullable: true
-            length: 50
-            options:
-                fixed: false
-            column: cli_nombre_comercial
         cliNombreFiscal:
             type: string
             nullable: false
@@ -92,6 +88,19 @@ AppBundle\Entity\Cliente:
             type: datetime
             nullable: true
             column: cli_fecha_mod
+        cliActivo:
+            type: boolean
+            nullable: true
+            options:
+                default: '1'
+            column: cli_activo
+        cliNombreComercial:
+            type: string
+            nullable: true
+            length: 50
+            options:
+                fixed: false
+            column: cli_nombre_comercial
         cliPagoDetalle:
             type: string
             nullable: true
@@ -119,13 +128,17 @@ AppBundle\Entity\Cliente:
             options:
                 fixed: false
             column: cli_ubicacion_lon
-        cliActivo:
-            type: boolean
-            nullable: true
-            options:
-                default: '1'
-            column: cli_activo
     manyToOne:
+        cliMetodoPago:
+            targetEntity: MetodoPago
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                cli_metodo_pago_id:
+                    referencedColumnName: mep_id
+            orphanRemoval: false
         cliTipCli:
             targetEntity: TipoCliente
             cascade: {  }
@@ -145,16 +158,6 @@ AppBundle\Entity\Cliente:
             joinColumns:
                 cli_mun_id:
                     referencedColumnName: mun_id
-            orphanRemoval: false
-        cliMetodoPago:
-            targetEntity: MetodoPago
-            cascade: {  }
-            fetch: LAZY
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                cli_metodo_pago_id:
-                    referencedColumnName: mep_id
             orphanRemoval: false
     manyToMany:
         idEspecialidad:

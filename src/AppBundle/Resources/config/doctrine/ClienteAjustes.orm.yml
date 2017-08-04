@@ -1,0 +1,63 @@
+AppBundle\Entity\ClienteAjustes:
+    type: entity
+    table: cliente_ajustes
+    indexes:
+        FK_cliente_ajustes_cliente_usuario:
+            columns:
+                - cli_aju_cli_usu_id
+    id:
+        cliAjuId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            id: true
+            column: cli_aju_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        cliAjuLlave:
+            type: string
+            nullable: false
+            length: 75
+            options:
+                fixed: false
+            column: cli_aju_llave
+        cliAjuValor:
+            type: text
+            nullable: true
+            length: 65535
+            options:
+                fixed: false
+            column: cli_aju_valor
+        cliAjuGrupo:
+            type: string
+            nullable: true
+            length: 50
+            options:
+                fixed: false
+            column: cli_aju_grupo
+        cliAjuActivo:
+            type: boolean
+            nullable: true
+            column: cli_aju_activo
+        cliAjuFechaCrea:
+            type: datetime
+            nullable: true
+            column: cli_aju_fecha_crea
+        cliAjuFechaMod:
+            type: datetime
+            nullable: true
+            column: cli_aju_fecha_mod
+    manyToOne:
+        cliAjuCliUsu:
+            targetEntity: ClienteUsuario
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                cli_aju_cli_usu_id:
+                    referencedColumnName: cli_usu_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

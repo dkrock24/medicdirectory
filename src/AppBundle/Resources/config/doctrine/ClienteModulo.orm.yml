@@ -8,6 +8,11 @@ AppBundle\Entity\ClienteModulo:
         FK_cli_mod_modulos_idx:
             columns:
                 - cli_mod_mod_id
+    uniqueConstraints:
+        cliModKey:
+            columns:
+                - cli_mod_mod_id
+                - cli_mod_cli_id
     id:
         cliMod:
             type: integer
@@ -19,18 +24,6 @@ AppBundle\Entity\ClienteModulo:
             generator:
                 strategy: IDENTITY
     fields:
-        cliModModId:
-            type: integer
-            nullable: false
-            options:
-                unsigned: true
-            column: cli_mod_mod_id
-        cliModCliId:
-            type: integer
-            nullable: false
-            options:
-                unsigned: true
-            column: cli_mod_cli_id
         cliModFechaCrea:
             type: datetime
             nullable: false
@@ -47,14 +40,12 @@ AppBundle\Entity\ClienteModulo:
             options:
                 default: '1'
             column: cli_mod_activo
-    uniqueConstraints:
-        cliModKey:
-            columns: cli_mod_mod_id, cli_mod_cli_id
     manyToOne:
         cliModMod:
             targetEntity: Modulo
             cascade: {  }
             fetch: LAZY
+            mappedBy: null
             inversedBy: null
             joinColumns:
                 cli_mod_mod_id:

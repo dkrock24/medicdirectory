@@ -255,4 +255,33 @@ class UsuarioGaleria
     {
         return $this->galTipo;
     }
+    /**
+     * @var \AppBundle\Entity\Usuario
+     */
+    private $galUsu;
+
+
+    /**
+     * Set galUsu
+     *
+     * @param \AppBundle\Entity\Usuario $galUsu
+     *
+     * @return UsuarioGaleria
+     */
+    public function setGalUsu(\AppBundle\Entity\Usuario $galUsu = null)
+    {
+        $this->galUsu = $galUsu;
+
+        return $this;
+    }
+
+    /**
+     * Get galUsu
+     *
+     * @return \AppBundle\Entity\Usuario
+     */
+    public function getGalUsu()
+    {
+        return $this->galUsu;
+    }
 }
