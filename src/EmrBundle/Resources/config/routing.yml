@@ -27,11 +27,6 @@ emr_location:
     defaults: { _controller: EmrBundle:Default:location  }
     host:     "%emr_domain%"
     
-emr_location_has_doctors:
-    path:     /doctores/establecimiento/{id}
-    defaults: { _controller: EmrBundle:Default:getDoctorsFromLocation  }
-    host:     "%emr_domain%"
-    
 emr_checkSessionLocation:
     path:     /revisa/sesion/establecimiento
     defaults: { _controller: EmrBundle:Default:checkSessionLocation  }
