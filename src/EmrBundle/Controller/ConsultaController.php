@@ -224,9 +224,13 @@ class ConsultaController extends Controller
 		$oAppointment->getAgeEstado();
 		
 		$roles = $this->get('session')->get('userRoles');
+		
+		$srvSettings = $this->get('srv_client_settings');
+		$aSettings = $srvSettings->getClientSettings( $doctor );
 		return $this->render("EmrBundle:consulta:new.html.twig", array(
 			"locationName"=>$locationName,
 			"roles"=>$roles,
+			"settings"=>$aSettings,
 			"patient"=>$oPatient,
 			"age"=>$patientAge,
             "modulos"=>$modulos,
@@ -440,7 +444,7 @@ class ConsultaController extends Controller
 	public function printPrescriptionAction( Request $request )
 	{
 		$em = $this->getDoctrine()->getManager();
-		$userId = $this->getUser()->getUsuId();
+		
 		$locationId = $this->get('session')->get('locationId');
 		$locationName = $this->get('session')->get('locationName');
 		
@@ -449,6 +453,7 @@ class ConsultaController extends Controller
 		
 		
 		$showDate = $request->get("date");
+		$viewDoctorId = $request->get("d");
 		
 		$oRepo = $em->getRepository('AppBundle:Agenda')->findBy( array("ageId"=>$medicalConsulation, "ageCli"=>$locationId ) );
 		
@@ -465,6 +470,45 @@ class ConsultaController extends Controller
 		{
 			//$is_appointment = "no";
 		}
+		
+		$roles = $this->get('session')->get('userRoles');
+		//var_dump($roles);
+		
+		$doctorAssgnidId = "";
+		if( $oRepo )
+		{
+			$doctorAssgnidId = $oRepo[0]->getAgeCit()->getCitUsu()->getUsuId();
+		}	
+		//echo $oRepo[0]->getAgeCit()->getCitUsu()->getUsuId();
+		
+		if (array_key_exists(6,$roles)) //6= doctor
+		{
+			echo $this->getUser()->getUsuId()." - ".$doctorAssgnidId;
+			if( $this->getUser()->getUsuId() != $doctorAssgnidId )
+			{
+				if( isset($medicalConsulation) )
+				{	
+					throw $this->createNotFoundException('Acceso denegado');
+				}else{
+					$userId = $this->getUser()->getUsuId();
+				}
+			}
+			else
+			{
+				$userId = $this->getUser()->getUsuId();
+			}
+		}
+		else
+		{
+			$userId = $doctorAssgnidId;
+			if( isset($viewDoctorId) && empty($userId) )
+			{
+				$userId = $viewDoctorId;
+			}	
+		}
+		
+		
+		//exit();
 		//$oRepo[0]->getAgeCit()->getCitId();
 		//$oRepo[0]->getAgeCit()->getCitReceta();
 		
@@ -520,7 +564,7 @@ class ConsultaController extends Controller
 		    );
 			
 			
-			$this->returnPDF($aDoctor, $html);
+			$this->returnPDF($aDoctor, $html, $userId);
 		}	
 		//var_dump($aDoctor);
 		
@@ -528,8 +572,11 @@ class ConsultaController extends Controller
 		exit();
 	}
 	
-	public function returnPDF($aDoctor, $html)
+	public function returnPDF($aDoctor, $html, $userSettingId=false)
     {
+		$srvSettings = $this->get('srv_client_settings');
+		$aSettings = $srvSettings->getClientSettings( $userSettingId );
+		
         $mpdfService = $this->get('tfox.mpdfport');
         $mpdf = $mpdfService->getMpdf();
         
@@ -537,9 +584,20 @@ class ConsultaController extends Controller
         //$mpdf->Image($img_file,0,0,210,297,'jpg','',true, false);
         //$mpdf->watermarkImg(true);
         
-        $url_logo = __DIR__. '/../../../web/logo.png';
-        
-        $img_logo = "";  //"<img src='".$url_logo."' style='width:75px; max-hight:auto; '>";
+		$img_logo = "";
+		
+		$logo = @$aSettings['logo'];
+		
+		if( $logo != "" )
+		{
+			$url_logo = __DIR__. '/../../../web/uploads/logos/'.$logo;
+			if (file_exists($url_logo))
+			{
+				echo $img_logo = "<img src='".$url_logo."' style='width:75px; max-hight:auto; '>";
+			}	
+		}	
+
+        //exit();
         
 		$name = $aDoctor[0]['usu_titulo']." ".  ucwords($aDoctor[0]['usu_nombre']);
 		$specialities = $aDoctor[0]['usu_especialidades'];
@@ -586,15 +644,36 @@ class ConsultaController extends Controller
         $mpdf->defaultfooterfontsize=10;
         $mpdf->defaultfooterfontstyle='BI';
         $mpdf->defaultfooterline=0;
-		$mpdf->AddPage('L','','','','',50,50,50,50,10,10);
+		
+		
+		
+		//$type = "L";
+		if( count($aSettings) > 0 )
+		{
+			$type = @$aSettings['horientacion_pdf_receta'];
+			$mpdf->AddPage('L','','','','',50,50,50,50,10,10);
+			
+			$bgImage = @$aSettings['usar_imagen_de_fondo_en_recetas'];
+			if( $bgImage == "SI" )
+			{
+				$mpdf->SetWatermarkImage($img_file, 0.1, '', array(0,38));    
+				$mpdf->showWatermarkImage = true;
+			}	
+		}
+		else
+		{
+			//$mpdf->AddPage('L','','','','',50,50,50,50,10,10);
+		}	
+		
+		
+		
 		
 		/*
 		$mpdf->fonttrans = array(
 				'trebuchet' => 'trebuchetms'
 		);
         */
-        $mpdf->SetWatermarkImage($img_file, 0.1, '', array(0,38));    
-        $mpdf->showWatermarkImage = true;
+        
         $mpdf->WriteHTML($html);
         $mpdf->Output();
 

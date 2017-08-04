@@ -114,10 +114,22 @@ class AgendaController extends Controller
 			//exit();
 		}
 		
+		//var_dump($userRoles);
+		if (array_key_exists(6,$userRoles)) //Doctor
+		{
+			$userId = $this->getUser()->getUsuId();;
+		}
+		else
+		{
+			$userId = $doctor;
+		}
+		$srvSettings = $this->get('srv_client_settings');
+		$aSettings = $srvSettings->getClientSettings( $userId );		
 		return $this->render("EmrBundle:agenda:new.html.twig", array(
 			"userRoles" => $userRoles,
 			"doctorList"=> $doctorList,
-			"patientName"=>$patientName
+			"patientName"=>$patientName,
+			"settings"=>$aSettings
 		));
         
     }

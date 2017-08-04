@@ -44,12 +44,12 @@ class AjustesController extends Controller
 		}
 		
 		//get the id in table cliente_usuario
-		//$oClientUser = $em->getRepository("AppBundle:ClienteUsuario")->findBy(array("cliUsuCli"=>$locationId, "cliUsuUsu"=>$idUser, "cliUsuRol"=>array(3, 6) ) ); //3= asistente, 6 = medico
-		$oClientUser = $em->getRepository("AppBundle:ClienteUsuario")->findBy(array("cliUsuCli"=>$locationId, "cliUsuUsu"=>$idUser, "cliUsuRol"=>6 ) ); //6 = medico
+		$oClientUser = $em->getRepository("AppBundle:ClienteUsuario")->findBy(array("cliUsuCli"=>$locationId, "cliUsuUsu"=>$idUser, "cliUsuRol"=>array(3, 6) ) ); //3= asistente, 6 = medico
+		//$oClientUser = $em->getRepository("AppBundle:ClienteUsuario")->findBy(array("cliUsuCli"=>$locationId, "cliUsuUsu"=>$idUser, "cliUsuRol"=>6 ) ); //6 = medico
 		
 		if( !$oClientUser )
 		{
-			throw new AccessDeniedException('Lo sentimos tu no tienes rol de médico o tu cuenta ya no esta activa.');
+			throw new AccessDeniedException('Lo sentimos tu no tienes rol de médico/asistente o tu cuenta ya no esta activa.');
 		}	
 		
 		
@@ -73,13 +73,17 @@ class AjustesController extends Controller
 			
 		$srvSettings = $this->get('srv_client_settings');
 		$aSettings = $srvSettings->getClientSettings( $idUser);
+		
+		
 		//var_dump($res);
+		$oDoctorsList = $em->getRepository('AppBundle:ClienteUsuario')->findBy( array("cliUsuRol"=>6, "cliUsuCli"=>$locationId, "cliUsuActivo"=>1) );
 		
 		return $this->render("EmrBundle:ajustes:settings.html.twig", array(
 			"userRoles" => $userRoles,
 			"parameters"=> $parameters,
 			"locationName"=>$locationName,
-			"settings"=>$aSettings
+			"settings"=>$aSettings,
+			"doctorsList"=>$oDoctorsList
 		));
 		
 	}
@@ -101,6 +105,10 @@ class AjustesController extends Controller
 		//get all doctors from this establishment
 		//==================================================
 		$locationId = $this->get('session')->get('locationId');
+		
+		
+		//var_dump($logo);
+		//exit();
 		
 		if( $request )
 		{
@@ -228,6 +236,64 @@ class AjustesController extends Controller
 					$em->persist($oSetting);
 					$flush = $em->flush();
 				}
+				
+				
+				//==============================================================
+				$key5 = "logo";
+				$logoImg = $request->files->get('logo');
+				if( isset($logoImg) )
+				{	
+					$uFile = $this->get('srv_uploadFile');
+					$uploadName = $uFile->startUploadFile($logoImg, $path="logos", $pre_fix=false);
+					
+					
+					$RAW_QUERY = "SELECT * FROM cliente_ajustes 
+									WHERE cli_aju_cli_usu_id = $iClientUserId
+									and cli_aju_llave = '".$key5."'"; 
+					$statement = $em->getConnection()->prepare($RAW_QUERY);
+					$statement->execute();
+					$repo = $statement->fetchAll();
+					if( count($repo) > 0 )
+					{
+						$current = $repo[0]['cli_aju_valor'];
+						if( $current != "" )
+						{
+							//$current = $oldLogo;
+							$uFile->deleteFile($current, $path="logos", $pre_fix=false);
+							//$oUserGallery->setGalHash($upload);
+						}	
+					}	
+					
+					
+					if( !empty($uploadName) )
+					{
+						
+						if (in_array($key5, $arrParameter)) {
+							//echo "Existe Irix";
+							$RAW_QUERY = "UPDATE  cliente_ajustes SET cli_aju_valor =:value, cli_aju_fecha_mod =:date 
+												where cli_aju_cli_usu_id =:cliUsuId AND cli_aju_llave =:key ";
+
+							$statement = $em->getConnection()->prepare($RAW_QUERY);
+							$statement->bindValue("key", $key5);
+							$statement->bindValue("value", $uploadName );
+							$statement->bindValue("cliUsuId", $iClientUserId);
+							$statement->bindValue("date", date("Y-m-d H:i:s"));
+							$statement->execute();
+						}
+						else
+						{
+							$oSetting = new ClienteAjustes();
+							$oSetting->setCliAjuLlave($key5);
+							$oSetting->setCliAjuValor( $uploadName );
+							$oSetting->setCliAjuCliUsu( $oClientUserId );
+							$oSetting->setCliAjuActivo(1);
+							$oSetting->setCliAjuFechaCrea( new \DateTime("now"));
+							$em->persist($oSetting);
+							$flush = $em->flush();
+						}
+					}
+				}
+				
 				
 				//var_dump($arrParameter);
 				$msgBox = "Datos fueron guardados exitosamente";

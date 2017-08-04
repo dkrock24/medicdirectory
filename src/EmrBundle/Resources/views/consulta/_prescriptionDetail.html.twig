@@ -36,7 +36,7 @@
         <div id="dateLeft"></div>
         <div id="dateRight">
                 Fecha:
-                {% if showDate == "hoy" %}
+                {% if showDate == "hoy" or appointment|length > 0 %}
                     <span>
                         {{ "now"|date("Y/m/d") }}
                     </div>

@@ -55,7 +55,7 @@
         #}
     </div>
     
-    
+
     {# {{ app.request.query.get("d") }} #}
     <div class="rowx">
         <div class="col-lg-12x">
@@ -456,6 +456,7 @@
     </div>
 </div>            
 
+
 <!--Modal-->
 
 <!--Modal-->
@@ -622,6 +623,10 @@
                     defaultView: 'agendaDay',        
                 {% else %}
                     defaultView: 'agendaWeek',
+                {% endif %} 
+                
+                {% if settings.minutos_por_evento is defined and settings.minutos_por_evento != "" %}
+                    slotDuration: "{{settings.minutos_por_evento}}",// (30 minutes)
                 {% endif %}    
                 //slotDuration: '00:30:00',// (30 minutes)
                 slotEventOverlap: false,

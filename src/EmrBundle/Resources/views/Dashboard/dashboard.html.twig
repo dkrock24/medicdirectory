@@ -363,6 +363,8 @@
 		</div>
 		<!-- /page content -->
         {{ include('EmrBundle:Dashboard:_modals.html.twig' )  }} 
+        
+        <input type="hidden" value="{{infoSlotDoctors}}" id="slotDoctors">
 	</div>
 	<!-- /page container -->
 {% endblock %}
@@ -373,7 +375,8 @@
             
             $('[data-toggle="tooltip"]').tooltip();
             $('.select').select2();
-            
+            var GlobalMinutesStart = "";
+            var GlobalMinutesEnd = "";
             if( $("#datepickerSimple").size() == 1 )
             {
                 
@@ -504,12 +507,15 @@
                 //console.log(htmlTr);
                 
                 $("#hoursStart").val(hourStart);
-                $("#minutesStart").val(minutesStart);
+                $("body").find("#minutesStart").val(minutesStart);
+                GlobalMinutesStart = minutesStart;
                 
                 $("#hoursEnd").val(hourEnd);
-                $("#minutesEnd").val(minutesEnd);
+                $("body").find("#minutesEnd").val(minutesEnd);
+                GlobalMinutesEnd = minutesEnd;
                 
                 //if( renderToUpdate != "result_update_appointment" )
+                //console.log(minutesStart+" "+minutesEnd);
                 
                 $("#dateSelected").val(date);
                 getAppointments(date,"result_update_appointment");
@@ -749,6 +755,9 @@
                                 table += "</tr>";
                             }
                             table += "</body></table></div>";
+                            
+                            
+                            setSloptSelectList(userId);
                         }
                         else
                         {
@@ -809,6 +818,54 @@
                                     
                     }
                 });
+            }
+            
+            function setSloptSelectList(userId)
+            {
+                var str = $("#slotDoctors").val();
+                var res = str.split("|");
+                for(i=0; i < res.length; i++)
+                {
+                    var reg = res[i];
+                    var slot = reg.split("-");
+                    if( slot[0] == userId )
+                    {
+                        var options = "";
+                        switch(slot[1])
+                        {
+                            case "00:20:00":
+                                options += '<option value="00">00</option>';
+                                options += '<option value="20">20</option>';
+                                options += '<option value="40">40</option>';
+                                break;
+                            case "00:15:00":
+                                options += '<option value="00">00</option>';
+                                options += '<option value="15">15</option>';
+                                options += '<option value="30">30</option>';
+                                options += '<option value="45">45</option>';
+                                break;
+                            default:
+                                options += '<option value="00">00</option>';
+                                options += '<option value="30">30</option>';
+                                break;
+                        }
+                        if( options != "" )
+                        {
+                           $("#minutesStart").html(options); 
+                           $("#minutesEnd").html(options); 
+                           
+                           $("body").find("#minutesStart").val(GlobalMinutesStart);
+                           $("body").find("#minutesEnd").val(GlobalMinutesEnd);
+                           //GlobalMinutesStart
+                           //GlobalMinutesEnd
+                        }
+                        break;
+                    }
+                    //console.log(slot);
+                }    
+                //console.log(res);
+                //minutesStart
+                //minutesEnd
             }
             
             function getNotes(appointmentId)

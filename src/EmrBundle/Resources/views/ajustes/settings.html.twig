@@ -91,162 +91,186 @@
                             <form action="{{ path('ajuste_set_update') }}" method="POST" enctype="multipart/form-data" id="form_setting" name="form_setting">
                                 <div class="row">
                                     <div class="col-lg-4 col-md-4 col-sm-6">
+                                        {% if userRoles.6 is defined %}
+                                            <fieldset>
+                                                <legend class="text-semibold">
+                                                    Recetas Médicas
+                                                    <a class="control-arrow" data-toggle="collapse" data-target="#secPrescription">
+                                                        <i class="icon-circle-down2"></i>
+                                                    </a>
+                                                </legend>
+                                                <div class="collapse in" id="secPrescription" aria-expanded="true">
+                                                    <div class="marginB15">
+                                                        <label class="display-block">Usar imagen de fondo predeterminada en mis recetas médicas:</label>
 
-                                        <fieldset>
-                                            <legend class="text-semibold">
-                                                Recetas Médicas
-                                                <a class="control-arrow" data-toggle="collapse" data-target="#secPrescription">
-                                                    <i class="icon-circle-down2"></i>
-                                                </a>
-                                            </legend>
-                                            <div class="collapse in" id="secPrescription" aria-expanded="true">
-                                                <div class="marginB15">
-                                                    <label class="display-block">Usar imagen de fondo predeterminada en mis recetas médicas:</label>
-                                                    
-                                                    {% if settings.usar_imagen_de_fondo_en_recetas is defined %}
-                                                        {% if settings.usar_imagen_de_fondo_en_recetas == "SI" %}
+                                                        {% if settings.usar_imagen_de_fondo_en_recetas is defined %}
+                                                            {% if settings.usar_imagen_de_fondo_en_recetas == "SI" %}
+                                                                {% set bgYes = "checked='checked'" %}
+                                                                {% set bgNot = "" %}
+                                                            {% else %}
+                                                                {% set bgYes = "" %}
+                                                                {% set bgNot = "checked='checked'" %}
+                                                            {% endif %}    
+
+                                                        {% else %}
                                                             {% set bgYes = "checked='checked'" %}
-                                                            {% set bgNot = "" %}
-                                                        {% else %}
-                                                            {% set bgYes = "" %}
-                                                            {% set bgNot = "checked='checked'" %}
-                                                        {% endif %}    
-                                                        
-                                                    {% else %}
-                                                        {% set bgYes = "checked='checked'" %}
-                                                        {% set bgNot = "" %}                                                        
-                                                    {% endif %}
-                                                    
-                                                    <label class="radio-inline">
-                                                        <input type="radio" class="styled" name="bgPrescription" {{bgYes}} value="SI">
-                                                        Si
-                                                    </label>
-
-                                                    <label class="radio-inline">
-                                                        <input type="radio" class="styled" name="bgPrescription" {{bgNot}} value="NO">
-                                                        No
-                                                    </label>
-                                                    
-                                                    
-                                                </div>
-                                                <div class="marginB15">
-                                                    <div class="form-groupx">
-                                                    <label class="display-block">Vista previa de recetas:</label>
-                                                    {% if settings.horientacion_pdf_receta is defined %}
-                                                        {% if settings.horientacion_pdf_receta == "L" %}
-                                                            {% set viewH = "checked='checked'" %}
-                                                            {% set viewV = "" %}
-                                                        {% else %}
-                                                            {% set viewH = "" %}
-                                                            {% set viewV = "checked='checked'" %}
-                                                        {% endif %}    
-                                                        
-                                                    {% else %}
-                                                        {% set viewH = "checked='checked'" %}
-                                                        {% set viewV = "" %}                                                        
-                                                    {% endif %}
-                                                    <label class="radio-inline">
-                                                        <input type="radio" class="styled" name="viewPrescription" {{ viewH }} value="L">
-                                                        Horizontal
-                                                    </label>
-
-                                                    <label class="radio-inline">
-                                                        <input type="radio" class="styled" name="viewPrescription" {{viewV}} value="P">
-                                                        Vertical
-                                                    </label>
-                                                </div>
-                                                </div>
-                                            </div>
-                                            <br>
-                                        </fieldset> 
-
-                                        <fieldset>
-                                            <legend class="text-semibold">
-                                                Calendario
-                                                <a class="control-arrow" data-toggle="collapse" data-target="#secCalendar">
-                                                    <i class="icon-circle-down2"></i>
-                                                </a>
-                                            </legend>
-                                            <div class="collapse in" id="secCalendar" aria-expanded="true">
-                                                <div class="marginB15">
-                                                        <label for="calMinutes" class="control-label">Duración de las consultas/Eventos: </label>
-                                                        <select id="calMinutes" class="form-control" name="calMinutes">
-                                                            <option value="00:30:00">30 Minutos</option>
-                                                            <option value="00:20:00">20 Minutos</option>
-                                                            <option value="00:15:00">15 Minutos</option>
-                                                        </select>
-                                                </div>
-                                            </div>
-                                            <br>
-                                        </fieldset>
-
-                                        <fieldset>
-                                            <legend class="text-semibold">
-                                                Consulta Médica
-                                                <a class="control-arrow" data-toggle="collapse" data-target="#secAppointment">
-                                                    <i class="icon-circle-down2"></i>
-                                                </a>
-                                            </legend>
-                                            <div class="collapse in" id="secAppointment" aria-expanded="true">
-                                                <div class="marginB15">
-
-                                                        <label class="display-block">Mostrar Cronómetro de tiempo:</label>
-                                                        {% if settings.mostrar_cronometro_en_consulta is defined %}
-                                                        {% if settings.mostrar_cronometro_en_consulta == "SI" %}
-                                                            {% set timeYes = "checked='checked'" %}
-                                                            {% set timeNo = "" %}
-                                                        {% else %}
-                                                            {% set timeYes = "" %}
-                                                            {% set timeNo = "checked='checked'" %}
-                                                        {% endif %}    
-                                                        
-                                                        {% else %}
-                                                            {% set timeYes = "checked='checked'" %}
-                                                            {% set timeNo = "" %}                                                        
+                                                            {% set bgNot = "" %}                                                        
                                                         {% endif %}
+
                                                         <label class="radio-inline">
-                                                            <input type="radio" class="styled" name="appTime" {{timeYes}} value="SI">
+                                                            <input type="radio" class="styled" name="bgPrescription" {{bgYes}} value="SI">
                                                             Si
                                                         </label>
 
                                                         <label class="radio-inline">
-                                                            <input type="radio" class="styled" name="appTime" {{timeNo}} value="NO">
+                                                            <input type="radio" class="styled" name="bgPrescription" {{bgNot}} value="NO">
                                                             No
                                                         </label>
+
+
+                                                    </div>
+                                                    <div class="marginB15">
+                                                        <div class="form-groupx">
+                                                        <label class="display-block">Formato a descargar de las recetas:</label>
+                                                        {% if settings.horientacion_pdf_receta is defined %}
+                                                            {% if settings.horientacion_pdf_receta == "L" %}
+                                                                {% set viewH = "checked='checked'" %}
+                                                                {% set viewV = "" %}
+                                                            {% else %}
+                                                                {% set viewH = "" %}
+                                                                {% set viewV = "checked='checked'" %}
+                                                            {% endif %}    
+
+                                                        {% else %}
+                                                            {% set viewH = "checked='checked'" %}
+                                                            {% set viewV = "" %}                                                        
+                                                        {% endif %}
+                                                        <label class="radio-inline">
+                                                            <input type="radio" class="styled" name="viewPrescription" {{ viewH }} value="L">
+                                                            Horizontal
+                                                        </label>
+
+                                                        <label class="radio-inline">
+                                                            <input type="radio" class="styled" name="viewPrescription" {{viewV}} value="P">
+                                                            Vertical
+                                                        </label>
+                                                    </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <br>
-                                        </fieldset>
+                                                <br>
+                                            </fieldset> 
 
-                                        <fieldset>
-                                            <legend class="text-semibold">
-                                                Logotipo
-                                                <a class="control-arrow" data-toggle="collapse" data-target="#secLogo">
-                                                    <i class="icon-circle-down2"></i>
-                                                </a>
-                                            </legend>
-                                            <div class="collapse in" id="secLogo" aria-expanded="true">
-                                                <div class="marginB15">
-
-                                                        <label class="display-block">Logo:</label>
-
-                                                        <input type="file" class="file-styled" id="logo" name="logo">
-                                                        <span class="help-block">Acepta formatos: gif, png, jpg. Tamaño máximo 2Mb</span>
+                                            <fieldset>
+                                                <legend class="text-semibold">
+                                                    Calendario
+                                                    <a class="control-arrow" data-toggle="collapse" data-target="#secCalendar">
+                                                        <i class="icon-circle-down2"></i>
+                                                    </a>
+                                                </legend>
+                                                <div class="collapse in" id="secCalendar" aria-expanded="true">
+                                                    <div class="marginB15">
+                                                            <label for="calMinutes" class="control-label">Duración de las consultas/Eventos: </label>
+                                                            <select id="calMinutes" class="form-control" name="calMinutes">
+                                                                <option value="00:30:00">30 Minutos</option>
+                                                                <option value="00:20:00">20 Minutos</option>
+                                                                <option value="00:15:00">15 Minutos</option>
+                                                            </select>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <br>
-                                        </fieldset>
+                                                <br>
+                                            </fieldset>
+
+                                            <fieldset>
+                                                <legend class="text-semibold">
+                                                    Consulta Médica
+                                                    <a class="control-arrow" data-toggle="collapse" data-target="#secAppointment">
+                                                        <i class="icon-circle-down2"></i>
+                                                    </a>
+                                                </legend>
+                                                <div class="collapse in" id="secAppointment" aria-expanded="true">
+                                                    <div class="marginB15">
+
+                                                            <label class="display-block">Mostrar Cronómetro de tiempo:</label>
+                                                            {% if settings.mostrar_cronometro_en_consulta is defined %}
+                                                            {% if settings.mostrar_cronometro_en_consulta == "SI" %}
+                                                                {% set timeYes = "checked='checked'" %}
+                                                                {% set timeNo = "" %}
+                                                            {% else %}
+                                                                {% set timeYes = "" %}
+                                                                {% set timeNo = "checked='checked'" %}
+                                                            {% endif %}    
+
+                                                            {% else %}
+                                                                {% set timeYes = "checked='checked'" %}
+                                                                {% set timeNo = "" %}                                                        
+                                                            {% endif %}
+                                                            <label class="radio-inline">
+                                                                <input type="radio" class="styled" name="appTime" {{timeYes}} value="SI">
+                                                                Si
+                                                            </label>
+
+                                                            <label class="radio-inline">
+                                                                <input type="radio" class="styled" name="appTime" {{timeNo}} value="NO">
+                                                                No
+                                                            </label>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                            </fieldset>
+
+                                            <fieldset>
+                                                <legend class="text-semibold">
+                                                    Logo
+                                                    <a class="control-arrow" data-toggle="collapse" data-target="#secLogo">
+                                                        <i class="icon-circle-down2"></i>
+                                                    </a>
+                                                </legend>
+                                                <div class="collapse in" id="secLogo" aria-expanded="true">
+                                                    <div class="marginB15">
+
+                                                            <label class="display-block">Logo:</label>
+
+                                                            <input type="file" class="file-styled" id="logo" name="logo">
+                                                            <span class="help-block">Acepta formatos: gif, png, jpg. Tamaño máximo 2Mb</span>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                            </fieldset>
+                                             
+                                            {% set layout = "col-lg-6x col-md-offset-4" %}                    
+                                        {% else %}
+                                            {% set layout = "" %}     
+                                            <fieldset>
+                                                    <legend class="text-semibold">
+                                                        Ajustes del sistema
+                                                    </legend>
+                                            </fieldset>
+                                            <div class="alert alert-danger alert-styled-left alert-arrow-left alert-component">Sección no disponible</div>
+                                        {% endif %}
                                     </div>
                                     <div class="col-lg-4 col-md-4 col-sm-6">
                                         <div class="text-left">
-
-                                            <div class="row">
-                                                <div class="col-lg-6x col-md-offset-4">
+                                            <div class="rowx">
+                                                <div class="{{ layout }}">
                                                      <fieldset>
                                                         <legend class="text-semibold">
                                                             Logo actual
                                                         </legend>
-                                                         <div class="alert alert-danger alert-styled-left alert-arrow-left alert-component">No se ha cargado ningún logo</div>
+                                                        {% set logo = "" %}
+                                                        {% if settings.logo is defined %}
+                                                            {% set logo = settings.logo %}
+                                                        {% endif %}
+                                                        
+                                                        {% if logo != "" %}
+                                                            {% if file_exists('uploads/logos/'~logo)  %}
+                                                                <img src="{{ image('uploads/logos/'~logo).cropResize(100,100) }}"  style="max-width: 100%">
+                                                            {% else %}
+                                                                <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">No fue posible encontrar el logo</div>
+                                                            {% endif %}
+                                                        {% else %}
+                                                            <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">No se ha cargado ningún logo</div>
+                                                        {% endif%}    
+                                                         
                                                      </fieldset>    
 
                                                 </div>
@@ -257,15 +281,27 @@
                                     </div>
                                     <div class="col-lg-4 col-md-4 col-sm-6">
                                         <div class="text-left">
-                                            <div class="row">
-                                                <div class="col-lg-6x col-md-offset-4">
+                                            <div class="rowx">
+                                                <div class="{{ layout }}">
+                                                    {% if userRoles.3 is defined %}
+                                                        <fieldset>
+                                                            <legend>Seleccione un doctor de la lista</legend>
+                                                            <select id="doctorsList" class="select form-control">
+                                                                    <option value="">.::Seleccione un doctor::.</option>
+                                                                    {% for doctor in doctorsList %}
+                                                                        <option value="{{ doctor.cliUsuUsu.usuId }}">
+                                                                            {{ doctor.cliUsuTitulo }} 
+                                                                            {{ doctor.cliUsuUsu.usuNombre|capitalize~" "~doctor.cliUsuUsu.usuSegundoNombre|capitalize~" "~doctor.cliUsuUsu.usuTercerNombre|capitalize~" "~doctor.cliUsuUsu.usuPrimerApellido|capitalize~" "~doctor.cliUsuUsu.usuSegundoApellido|capitalize }}
+                                                                        </option>
+                                                                    {% endfor %}
+                                                            </select>
+                                                        </fieldset>
+                                                    {% endif %}
                                                     <fieldset>
                                                         <legend class="text-semibold">
                                                             Formato de recetas en PDF
                                                         </legend>
                                                         <div class="marginB15">
-
-
 
                                                             <label class="radio-inline">
                                                                 <input type="radio" class="styled checkDateApp" name="downPresDate"  value="1">
@@ -310,26 +346,86 @@
     {% block codejs %}
         <script>
             $(document).on("ready", function () {
-
+                
+                $("#btnSave").on("click",function(){
+                    $("#holder_loading").show();
+                });
+                
+                    
+                    {% if userRoles.3 is defined %}
+                           // $("#btnViewPrescription").hide();
+                            $("#doctorsList").change(function(){
+                                var id = $(this).val();
+                                if(id > 0 )
+                                {
+                                    $("#btnViewPrescription").show();
+                                    
+                                    var value =  $('input:radio[name=downPresDate]:checked').val();
+                                    setLink(value);
+                                } else{
+                                    $("#btnViewPrescription").hide();
+                                }  
+                            });
+                    {% endif  %}
+                    
                     $(".checkDateApp").change(function(){
                         var value =  $(this).val();
-                        console.log(value);
+                        //console.log(value);
                         
+                        
+                        setLink(value);
+                    });
+                    
+                    function setLink(value)
+                    {
                         var btnPDF = $("#btnViewPrescription");
                         var currentLink = "{{ path('consulta_print_prescription') }}";
-                        
+                        var doctorId = $("#doctorsList").val();
                         if( value == 1 )
                         {
-                            var newLik = currentLink+"?date=hoy";
+                            {% if userRoles.3 is defined %}
+                                var newLik = currentLink+"?d="+doctorId+"&date=hoy";
+                            {% else %}
+                                var newLik = currentLink+"?date=hoy";
+                            {% endif %}    
+                            
                         }
                         else
                         {
-                            var newLik = currentLink;
+                             {% if userRoles.3 is defined %}
+                                 var newLik = currentLink+"?d="+doctorId;   
+                            {% else %}
+                                var newLik = currentLink;
+                            {% endif %} 
+                            
                         }
                         
                         btnPDF.attr("href",newLik);
-                        
-                    });
+                    }
+                    
+                    if( $("#doctorsList").size() > 0 )
+                    {
+                        $("#btnViewPrescription").on("click", function(event){
+                            var id = $("#doctorsList").val();
+                            if( id > 0)
+                            {
+
+                            }else{
+                                    $.alert({
+                                        icon: 'fa fa-times',
+                                        title: 'Info!',
+                                        content: 'Si desea descargar el documento debe de seleccionar un doctor',
+                                        type: 'red',
+                                        typeAnimated: true,
+                                    });
+                                    event.preventDefault();
+                                    //console.log("cagada");
+                                }
+                                
+                            });
+                        //}
+                        //var id = $("#doctorsList").val();
+                    }    
                     
                     // Initialize plugins
                     // ------------------------------

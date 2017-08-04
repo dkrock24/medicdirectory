@@ -404,17 +404,43 @@
                                 
                                 
                                 {% if roles.6 is defined %}
-                                    <span id="stopwatch">00:00:00</span>
-                                    <p>
-                                        {# <input class='btn btn-primary' id="btn_start_appointment" type='button' value='Iniciar/Pausar' onclick='Example1.Timer.toggle();' /> #}
-                                        {% if currentMilisecundsDiff == 0 %}
-                                            <input class='btn btn-primary' id="btn_start_appointment" type='button' value='Iniciar Consulta' onclick='' />
-                                        {% else %} 
-                                            <input class='btn btn-primary' id="btn_end_appointment" type='button' value='Finalizar Consulta' onclick='Example1.resetStopwatch();'/>
-                                        {% endif %}
-                                        <input class='btn btn-primary' id="btn_end_appointment" type='button' value='Finalizar Consulta' onclick='Example1.resetStopwatch();' style="display:none" />
+                                    
+                                    {% if settings.mostrar_cronometro_en_consulta is defined %}
+                                        {% if settings.mostrar_cronometro_en_consulta == "SI" %} {# si mostrar el  mostrar el cronometro #}
+                                            <span id="stopwatch">00:00:00</span>
+                                            <p>
+                                                {# <input class='btn btn-primary' id="btn_start_appointment" type='button' value='Iniciar/Pausar' onclick='Example1.Timer.toggle();' /> #}
+                                                {% if currentMilisecundsDiff == 0 %}
+                                                    <input class='btn btn-primary' id="btn_start_appointment" type='button' value='Iniciar Consulta' onclick='' />
+                                                {% else %} 
+                                                    <input class='btn btn-primary' id="btn_end_appointment" type='button' value='Finalizar Consulta' onclick='Example1.resetStopwatch();'/>
+                                                {% endif %}
+                                                <input class='btn btn-primary' id="btn_end_appointment" type='button' value='Finalizar Consulta' onclick='Example1.resetStopwatch();' style="display:none" />
 
-                                    </p>
+                                            </p>
+                                        {% else %} {# seteado para no mostrar el cronometro #}
+                                            <p>
+                                                {% if currentMilisecundsDiff == 0 %}
+                                                    <input class='btn btn-primary' id="btn_start_appointment" type='button' value='Iniciar Consulta' onclick='' />
+                                                {% else %} 
+                                                    <input class='btn btn-primary' id="btn_end_appointment" type='button' value='Finalizar Consulta' onclick=''/>
+                                                {% endif %}
+                                                <input class='btn btn-primary' id="btn_end_appointment" type='button' value='Finalizar Consulta' onclick='' style="display:none" />
+                                            </p>
+                                        {% endif %}
+                                        
+                                    {% else%} {# por defecto se muestra el cronometro #}
+                                        <span id="stopwatch">00:00:00</span>
+                                            <p>
+                                                {# <input class='btn btn-primary' id="btn_start_appointment" type='button' value='Iniciar/Pausar' onclick='Example1.Timer.toggle();' /> #}
+                                                {% if currentMilisecundsDiff == 0 %}
+                                                    <input class='btn btn-primary' id="btn_start_appointment" type='button' value='Iniciar Consulta' onclick='' />
+                                                {% else %} 
+                                                    <input class='btn btn-primary' id="btn_end_appointment" type='button' value='Finalizar Consulta' onclick='Example1.resetStopwatch();'/>
+                                                {% endif %}
+                                                <input class='btn btn-primary' id="btn_end_appointment" type='button' value='Finalizar Consulta' onclick='Example1.resetStopwatch();' style="display:none" />
+                                            </p>
+                                    {% endif %}    
                                 {% endif %}
                                 </div>
                                 {% elseif statusAppointment == "t" %}
