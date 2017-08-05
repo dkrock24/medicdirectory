@@ -102,7 +102,7 @@ class servicioEav {
             );
         }
         
-        return $aModProps;
+        return $aModProps;        
     }
     
     

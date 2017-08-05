@@ -22,34 +22,34 @@
                 
             {% set n = 1 %}
                 {% for seccion, grupo in form_modulo %}
+                    <div role="tabpanel" class="tab-pane {% if n == 1 %} active {% endif %}" id="sec_tab_{{ n }}">
                     {% for grupo_nombre, form in grupo  %}
-                        <fieldset>
-                            <legend><b>{{ grupo_nombre }}</b></legend>
-                            <div role="tabpanel" class="tab-pane {% if n == 1 %} active {% endif %}" id="sec_tab_{{ n }}">
-                               {{ form_start( form, { 'attr': { 'class': 'mod-form' } } ) }}
-                                {% set i = 0 %}
-                                {% for child in form.children %}
-                                    {% if ( i == 0) %}
-                                    <div class="row">
-                                    {% endif %}
-                                        <div class="col-lg-6">
-                                            {{ form_row( child ) }}
-                                        </div>
+                            <fieldset>
+                                <legend><b>{{ grupo_nombre }}</b></legend>
+                                   {{ form_start( form, { 'attr': { 'class': 'mod-form' } } ) }}
+                                    {% set i = 0 %}
+                                    {% for child in form.children %}
+                                        {% if ( i == 0) %}
+                                        <div class="row">
+                                        {% endif %}
+                                            <div class="col-lg-6">
+                                                {{ form_row( child ) }}
+                                            </div>
 
-                                    {% set i = i + 1 %}
+                                        {% set i = i + 1 %}
 
-                                    {% if (i == 2 or loop.last) %} {# si ya se imprimieron dos col-lg-6 se cierra el row #}
-                                        </div>
-                                        {% set i = 0 %}
-                                    {% endif %}
+                                        {% if (i == 2 or loop.last) %} {# si ya se imprimieron dos col-lg-6 se cierra el row #}
+                                            </div>
+                                            {% set i = 0 %}
+                                        {% endif %}
 
-                                {% endfor %} {# Fin del for que recorre los elementos del form #}
+                                    {% endfor %} {# Fin del for que recorre los elementos del form #}
 
-                                {{ form_end( form ) }}
-                            </div>
-                        </fieldset>
+                                    {{ form_end( form ) }}
+                            </fieldset>
                     {% endfor %}
                     {% set n = n + 1 %}
+                    </div>
                 {% endfor %}
             </div>
         </div>
