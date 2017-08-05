@@ -247,4 +247,3 @@ class EavModSecGrupo
         return $this->grupoSeccion;
     }
 }
-

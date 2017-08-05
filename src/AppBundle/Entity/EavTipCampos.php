@@ -143,4 +143,3 @@ class EavTipCampos
         return $this->tipCampFechaMod;
     }
 }
-

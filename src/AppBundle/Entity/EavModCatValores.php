@@ -226,4 +226,3 @@ class EavModCatValores
         return $this->ModCampos;
     }
 }
-

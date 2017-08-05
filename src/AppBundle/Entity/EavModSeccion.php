@@ -243,4 +243,3 @@ class EavModSeccion
         return $this->modSeccModId;
     }
 }
-

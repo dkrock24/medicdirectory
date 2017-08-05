@@ -429,4 +429,3 @@ class EavModDatos
         return $this->campoDato;
     }
 }
-

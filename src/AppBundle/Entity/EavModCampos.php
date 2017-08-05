@@ -504,4 +504,3 @@ class EavModCampos
         return $this->campoPadre;
     }
 }
-
