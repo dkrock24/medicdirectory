@@ -24,6 +24,7 @@ class AppKernel extends Kernel
             new EmrBundle\EmrBundle(),
             new SupportBundle\SupportBundle(),
 			new TFox\MpdfPortBundle\TFoxMpdfPortBundle(),
+            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

@@ -9,10 +9,24 @@
         float: left;
         display: inline-block;
     }
+    .paginacion_rigth{
+        float: right;
+        display: inline-block;
+        background: none;
+
+    }
+    .charly_enfocate{
+        float: right;
+    }
 </style>
     {% set med_length = medicos|length %}
     {% set row_limit = med_length / 4 %}
-
+    <div class="count">
+        <span class="label label-primary">
+            Total encontrados : {{ medicos.getTotalItemCount }}
+        </span>
+    </div>
+    <br/>
     <ul id="doctors-grid" class="row grid">
     {% for m in medicos %}
         
@@ -97,5 +111,14 @@
         
     {% endfor  %}
     </ul>
+    <div class="row">
+        <div class="col-md-3 col-sm-3 col-xs-12"></div>
+        <div class="col-md-9 col-sm-9 col-xs-12 paginacion_rigth">
+            <div class="charly_enfocate">
+                {{ knp_pagination_render(medicos) }}
+            </div>
+        </div>
+    </div>
+    
 
 {% endblock %}

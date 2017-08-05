@@ -42,8 +42,18 @@ class DefaultController extends Controller {
                         WHERE ug.gal_modulo_id is null and ug.gal_tipo=1 and cu.cli_usu_rol_id=6
                         group by u.usu_id";
         $statement  = $em->getConnection()->prepare($RAW_QUERY);
-        $statement->execute();                
-        $medicos    = $statement->fetchAll();
+        $statement->execute();    
+        $medicos    = $statement->fetchAll();            
+
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+                $medicos, 
+                $request->query->getInt('page', 1),
+                4
+        );
+
+
+        
 
 
 
@@ -67,7 +77,7 @@ class DefaultController extends Controller {
         return $this->render(
                     'WebBundle:Sections:index.html.twig', array(
                     //'NombreProyecto' => $NombreProyecto,
-                    'medicos' => $medicos
+                    'medicos' => $pagination
                     )
         );
     }
