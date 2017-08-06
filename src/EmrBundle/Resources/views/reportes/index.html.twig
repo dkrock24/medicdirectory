@@ -323,7 +323,10 @@
                                 var note = data[i]['cit_notas'];
                             }    
                             table += "<td>"+note+"</td>";
-                            table += "<td>"+data[i]['paciente']+"</td>";
+                            var routeShow = "{{ path('consulta_new',{'id':'HOLDERPACID','cm':'HOLDERAPPOINTMENTID'}) }}";
+                                routeShow = routeShow.replace("HOLDERPACID", data[i]['cit_pac_id']);
+                                routeShow = routeShow.replace("HOLDERAPPOINTMENTID", data[i]['age_id']);
+                            table += "<td><a href='"+routeShow+"'>"+data[i]['paciente']+"</a></td>";
                             table += "<td>"+data[i]['medico']+"</td>";
                             table += "<td>"+data[i]['estatus']+"</td>";
                             table += "<td>"+data[i]['age_fecha_inicio']+"</td>";
@@ -351,6 +354,7 @@
                                     sNext: "Siguiente",
                                     sPrevious: "Anterior"
                                 },
+                                sSearch: "Buscar: "
                             },
                             "order": [[ 0, "desc" ]],
                             //"dom": 'Bfrtip',
@@ -632,7 +636,7 @@
                 
                 $("#newSearch").remove();
                 
-                
+                {#
                 //Clean if exist a user id
                 var patient = "{{ app.request.query.get("p") }}";
                 if( d != "" && patient != "")
@@ -640,9 +644,9 @@
                     var url = "{{ path('agenda_new') }}";
                     var action_array = url.split('/');
                     var path = action_array[action_array.length-1]
-                    history.pushState(null, null, path+"?d="+d);
+                    //history.pushState(null, null, path+"?d="+d);
                 }
-                
+                #}
             });
             
                  

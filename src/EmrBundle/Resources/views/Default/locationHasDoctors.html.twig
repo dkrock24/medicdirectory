@@ -87,6 +87,7 @@
                                     <p>
                                         Nombre: {{ reg.nombre }} 
                                     </p>
+                                    <a href="{{ path('web_doctores_perfil',{ 'med_id': reg.id } ) }}">
                                     <p class="alert alert-info">
                                         J.V.P.M: <strong>
                                             {% if reg.jvpm == 0 %}
@@ -97,6 +98,7 @@
                                            
                                             </strong> 
                                     </p>
+                                    </a>
                                 </div>
                             </div>
                         </div>

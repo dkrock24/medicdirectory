@@ -436,7 +436,7 @@
             if( $("body").find("#table_result_appointment").size() == 1 )
             {
                 $("body").find("#table_result_appointment").DataTable({
-                                "searching": false,
+                                "searching": true,
                                 "bFilter": false,
                                 "bInfo": false,
                                 "bLengthChange": false,
@@ -448,7 +448,9 @@
                                         sLast: "último",
                                         sNext: "Siguiente",
                                         sPrevious: "Anterior"
+                                       
                                     },
+                                    sSearch: "Buscar: "
                                 },
                                 "order": [[ 1, "asc" ]]
                             });
@@ -775,7 +777,7 @@
                         if( $("body").find("#"+tableID).size() == 1 )
                         {
                             $("body").find("#"+tableID).DataTable({
-                                "searching": false,
+                                "searching": true,
                                 "bFilter": false,
                                 "bInfo": false,
                                 "bLengthChange": false,
@@ -788,6 +790,7 @@
                                         sNext: "Siguiente",
                                         sPrevious: "Anterior"
                                     },
+                                    sSearch: "Buscar: "
                                 },
                                 "order": [[ 1, "asc" ]]
                             });

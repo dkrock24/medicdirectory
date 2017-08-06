@@ -92,7 +92,7 @@ class ReportesController extends Controller
 							c.cit_notas, concat_ws(' ', p.pac_nombre, p.pac_seg_nombre, p.pac_apellido, p.pac_seg_apellido ) AS paciente,
 							concat_ws(' ', u.usu_nombre, u.usu_segundo_nombre, u.usu_tercer_nombre, u.usu_primer_apellido, u.usu_segundo_apellido ) AS medico,
 							 CASE a.age_estado WHEN 'c' THEN 'En curso' WHEN 't' THEN 'Finilizada' WHEN 'a' THEN 'Anulada' WHEN 'p' THEN 'Pendiente' END  AS estatus,
-							 a.age_fecha_inicio 
+							 a.age_fecha_inicio, c.cit_pac_id, a.age_id 
 							FROM agenda a
 							INNER JOIN cita c ON a.age_cit_id = c.cit_id
 							INNER JOIN paciente p ON c.cit_pac_id = p.pac_id
