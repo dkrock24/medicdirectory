@@ -139,7 +139,7 @@ class DefaultController extends Controller {
 
         $medico['usuario'] = $em->getRepository('AppBundle:ClienteUsuario')->findOneBy(array("cliUsuUsu" => $med_id,"cliUsuRol"=>6));
 
-        $medico['galeria'] = $em->getRepository('AppBundle:UsuarioGaleria')->findOneBy(array("galUsuario"=>$med_id,"galTipo"=>1,"galModulo"=>null));
+        $medico['galeria'] = $em->getRepository('AppBundle:UsuarioGaleria')->findOneBy(array("galUsu"=>$med_id,"galTipo"=>1,"galModulo"=>null));
 
         // Obtener especialidades Por Medico
         
@@ -156,7 +156,7 @@ class DefaultController extends Controller {
 
         $medico['cliente']  = $em->getRepository('AppBundle:ClienteUsuario')->findOneBy(array("cliUsuUsu" => $med_id,"cliUsuRol"=>6));
 
-        $vistas  = $em->getRepository('AppBundle:UsuarioVistas')->findBy(array("visUsuario" => $med_id));
+        $vistas  = $em->getRepository('AppBundle:UsuarioVistas')->findBy(array("visUsu" => $med_id));
 
         $medico['vistas'] = count($vistas);
         //\Doctrine\Common\Util\Debug::dump($medico['cliente']);
