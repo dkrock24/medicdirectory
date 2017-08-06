@@ -148,3 +148,8 @@ emr_ajustes_sistema:
     resource: "@EmrBundle/Resources/config/routing/ajustes.yml"
     prefix:   /ajustes
     host:     "%emr_domain%"
+    
+emr_reportes:
+    resource: "@EmrBundle/Resources/config/routing/reportes.yml"
+    prefix:   /reportes
+    host:     "%emr_domain%"
