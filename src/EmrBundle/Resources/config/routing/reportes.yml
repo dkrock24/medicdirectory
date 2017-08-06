@@ -1,0 +1,9 @@
+reporte_index:
+    path:     /
+    defaults: { _controller: "EmrBundle:Reportes:index" }
+    #methods:  GET
+
+reporte_show:
+    path:     /data
+    defaults: { _controller: "EmrBundle:Reportes:show" }
+    #methods:  GET
