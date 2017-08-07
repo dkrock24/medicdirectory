@@ -153,3 +153,8 @@ emr_reportes:
     resource: "@EmrBundle/Resources/config/routing/reportes.yml"
     prefix:   /reportes
     host:     "%emr_domain%"
+    
+emr_modulos:
+    resource: "@EmrBundle/Resources/config/routing/modulos.yml"
+    prefix:   /modulos
+    host:     "%emr_domain%"
