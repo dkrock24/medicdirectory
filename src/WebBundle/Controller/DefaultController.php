@@ -162,9 +162,9 @@ class DefaultController extends Controller {
         //\Doctrine\Common\Util\Debug::dump($medico['cliente']);
         //var_dump($medico['cliente']->getCliUsuDiasTrabajo());
         $horaDias = array();
-        $hoy = "";
-        if($medico['cliente']->getCliUsuDiasTrabajo()!=""){
-            $arr = unserialize($medico['cliente']->getCliUsuDiasTrabajo());
+        $hoy = "";        
+        if($medico['cliente']->getCliUsuDiasTrabajos()!=""){
+            $arr = unserialize($medico['cliente']->getCliUsuDiasTrabajos());
             //var_dump($arr);
 
             $num = 1;
@@ -265,7 +265,7 @@ class DefaultController extends Controller {
         // Dates
         $fecha      = $_POST['fecha'];
         $hora       = $_POST['hora'];
-        $nombre     = $_POST['nombre'];
+        $nombre2    = $_POST['nombre'];
         $telefono   = $_POST['telefono'];
         $correo     = $_POST['correo'];
         $comentario = $_POST['comentario'];
@@ -276,10 +276,10 @@ class DefaultController extends Controller {
 
         $oSolicitud = new SolicitudContacto();
 
-        $oSolicitud->setScCliente( $client_repo );
-        $oSolicitud->setScUsuario( $usuario_repo );
+        $oSolicitud->setScCli( $client_repo );
+        $oSolicitud->setScUsu( $usuario_repo );
         $oSolicitud->setIp( $ip );
-        $oSolicitud->setScNombre( $nombre );
+        $oSolicitud->setScNombre( $nombre2 );
         $oSolicitud->setTelefono( $telefono );
         $oSolicitud->setCorreo( $correo );
         $oSolicitud->setComentario( $comentario );
