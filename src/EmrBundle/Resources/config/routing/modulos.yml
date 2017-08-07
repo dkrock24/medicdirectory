@@ -1,0 +1,9 @@
+modulo_index:
+    path:     /
+    defaults: { _controller: "EmrBundle:Modulos:index" }
+    #methods:  GET
+
+modulo_show:
+    path:     /data
+    defaults: { _controller: "EmrBundle:Modulos:show" }
+    #methods:  GET

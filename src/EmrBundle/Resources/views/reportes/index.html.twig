@@ -315,6 +315,9 @@
                             btn_group += "</ul>";
                             btn_group += "</div>";
                             #}
+                            var routeShow = "{{ path('consulta_new',{'id':'HOLDERPACID','cm':'HOLDERAPPOINTMENTID'}) }}";
+                                routeShow = routeShow.replace("HOLDERPACID", data[i]['cit_pac_id']);
+                                routeShow = routeShow.replace("HOLDERAPPOINTMENTID", data[i]['age_id']);                            
                             table += "<tr>";
                             if( data[i]['cit_notas'] == "" )
                             {
@@ -322,11 +325,9 @@
                             }else{
                                 var note = data[i]['cit_notas'];
                             }    
-                            table += "<td>"+note+"</td>";
-                            var routeShow = "{{ path('consulta_new',{'id':'HOLDERPACID','cm':'HOLDERAPPOINTMENTID'}) }}";
-                                routeShow = routeShow.replace("HOLDERPACID", data[i]['cit_pac_id']);
-                                routeShow = routeShow.replace("HOLDERAPPOINTMENTID", data[i]['age_id']);
-                            table += "<td><a href='"+routeShow+"'>"+data[i]['paciente']+"</a></td>";
+                            table += "<td><a href='"+routeShow+"'>"+note+"</a></td>";
+                            
+                            table += "<td>"+data[i]['paciente']+"</td>";
                             table += "<td>"+data[i]['medico']+"</td>";
                             table += "<td>"+data[i]['estatus']+"</td>";
                             table += "<td>"+data[i]['age_fecha_inicio']+"</td>";

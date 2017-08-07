@@ -7,10 +7,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-#use \AppBundle\Entity\Cita;
-#use \AppBundle\Entity\Agenda;
+use \AppBundle\Entity\Cita;
+use \AppBundle\Entity\Agenda;
 
-class ReportesController extends Controller
+class ModulosController extends Controller
 {
 	
 	
@@ -22,22 +22,26 @@ class ReportesController extends Controller
 		$userId = $this->getUser()->getUsuId();
 		
 		
-		$RAW_QUERY = "SELECT u.* , cu.cli_usu_titulo as usu_titulo  FROM cliente_usuario cu
-						
-						INNER JOIN usuario u on cu.cli_usu_usu_id = u.usu_id 
-						where cli_usu_cli_id =:locationId
-						and cu.cli_usu_rol_id = 6 ORDER BY u.usu_nombre asc ";
-
-		$statement = $em->getConnection()->prepare($RAW_QUERY);
-		$statement->bindValue("locationId", $locationId);
-		$statement->execute();
-		$doctorList = $statement->fetchAll();
+		if( !array_key_exists(2, $userRoles) )
+		{
+			throw new AccessDeniedException('Acceso denegado.');
+		}
 		
-		return $this->render("EmrBundle:reportes:index.html.twig", array(
+	
+		$arrCurrentModules = array();
+		$oMyModules = $em->getRepository("AppBundle:ClienteModulo")->findBy(array("cliModCli"=>$locationId ) );
+		foreach($oMyModules as $item)
+		{
+			$arrCurrentModules[ $item->getCliModMod()->getModId() ][] = /*$item->getCliModMod()->getModId();//*/($item->getCliModActivo())?1:0;
+		}	
+	
+		
+		$oAllModules = $em->getRepository("AppBundle:Modulo")->findBy(array("modActivo"=>1 ) );
+		
+		return $this->render("EmrBundle:modulos:index.html.twig", array(
 			"userRoles" => $userRoles,
-			"doctorList"=> $doctorList,
-			//"patientName"=>$patientName,
-			//"settings"=>$aSettings
+			"currentModules"=>$arrCurrentModules,
+			"allModules"=>$oAllModules
 		));
 		
 	}
@@ -46,46 +50,11 @@ class ReportesController extends Controller
 	public function showAction( Request $request )
 	{
 		$iLocationId = $this->get('session')->get('locationId');
-		$doctorId = $request->get('doctorId');
-		$status = $request->get('status');
-		$from = $request->get('from');
-		$to = $request->get('to');
-		$patientId = $request->get('patientId');
+		$id = $request->get('id');
 		
-		if( isset($from) && $from != "" && isset($to) && $to != "")
-		{
-			$filterDate = " AND date(a.age_fecha_inicio) BETWEEN '".$from."' AND  '".$to."' ";
-		}else if( isset($from) && $from != "" && !isset($to) && $to == "" )
-		{
-			$filterDate = " AND date(a.age_fecha_inicio) = '".$from."'";
-		}else if( isset($to) && $to!= "" && !isset($from) && $from =="" )
-		{
-			$filterDate = " AND date(a.age_fecha_inicio) = '".$to."'";
-		}else{
-			$filterDate = " AND a.age_fecha_inicio BETWEEN DATE_SUB(NOW(), INTERVAL 3 MONTH) AND NOW()";
-		}	
-		
-		if( isset($status) && $status != "")
-		{
-			$filterStatus = " AND a.age_estado = '".$status."' ";
-		}else{
-			$filterStatus = "";
-		}
-		
-		if( isset($patientId) && $patientId != "" )
-		{
-			$filterPatiendId = " AND c.cit_pac_id = $patientId ";
-		}else{
-			$filterPatiendId = "";
-		}	
-		
+		/*
 		if( isset($doctorId) && !empty($doctorId) )
 		{
-			//$espacio = " ";
-			//$q = $sSearch;
-			//$q = str_replace($espacio, "(.*)", $q);
-
-			
 			$em = $this->getDoctrine()->getManager();
 			$RAW_QUERY = "
 							SELECT 
@@ -107,6 +76,7 @@ class ReportesController extends Controller
 			//var_dump( $result );
 		}
 		return  $response = new JsonResponse($result);
+		*/
 		exit();
 	}		
 	
