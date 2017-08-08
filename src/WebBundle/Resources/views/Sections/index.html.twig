@@ -28,6 +28,9 @@
     </div>
     <br/>
     <ul id="doctors-grid" class="row grid">
+    {% if (medicos|length == 0) %}
+        <span>No se encontraron coincidencias</span>
+    {% endif %}
     {% for m in medicos %}
         
         <li class="col-md-3 col-sm-4 col-xs-12 doctors-grid" data-groups='["all", "healthcare"]' style="margin-bottom: 100px;">

@@ -82,7 +82,7 @@ class Busqueda {
         // Si nos pasaron un valor de estado activo entonces lo aplicamos como filtro
         // si viene null omitimos el filtro para buscar todos
         if (null !== $activos) {
-            $sphinxSearch->setFilter('usu_activo', array($activos), false);
+            $sphinxSearch->setFilter('cli_usu_activo', array($activos), false);
         }
         $oResultado = $sphinxSearch->search($texto, $indexesToSearch, $options);
         $aRet['total'] = $oResultado['total'];
