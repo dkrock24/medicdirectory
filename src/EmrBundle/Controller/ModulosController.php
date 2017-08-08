@@ -6,27 +6,53 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
-
-use \AppBundle\Entity\Cita;
-use \AppBundle\Entity\Agenda;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+#use \AppBundle\Entity\Cita;
+#use \AppBundle\Entity\Agenda;
 
 class ModulosController extends Controller
 {
+	private $session;
 	
+	public function __construct() {
+		$this->session = new Session();
+	}
 	
 	public function indexAction( Request $request )
 	{
 		$em = $this->getDoctrine()->getManager();
 		$locationId = $this->get('session')->get('locationId');
-		$userRoles = $this->get('session')->get('userRoles');
-		$userId = $this->getUser()->getUsuId();
+		
+		$idUser = $this->getUser()->getUsuId();
+		
+		//$locationId = $request->get("id");
+		$location_repo = $em->getRepository("AppBundle:ClienteUsuario")->findBy( array("cliUsuCli"=>$request->get("id"), "cliUsuUsu"=>$idUser, "cliUsuRol"=>2) );
+		if( !$location_repo )
+		{
+			throw new AccessDeniedException('Acceso denegado');
+		}
 		
 		
+		if( !$locationId )
+		{
+			$srvSession = $this->get('srv_session');
+			$res = $srvSession->setSessionLocation( $idUser, $request->get("id") );
+			if( $res )
+			{
+				//return $this->redirectToRoute("emr_dashboard");
+				$userRoles = $this->get('session')->get('userRoles');
+			}
+		}else{
+			$userRoles = $this->get('session')->get('userRoles');
+		}
+		
+		/*
 		if( !array_key_exists(2, $userRoles) )
 		{
 			throw new AccessDeniedException('Acceso denegado.');
 		}
-		
+		*/
 	
 		$arrCurrentModules = array();
 		$oMyModules = $em->getRepository("AppBundle:ClienteModulo")->findBy(array("cliModCli"=>$locationId ) );
@@ -39,7 +65,7 @@ class ModulosController extends Controller
 		$oAllModules = $em->getRepository("AppBundle:Modulo")->findBy(array("modActivo"=>1 ) );
 		
 		return $this->render("EmrBundle:modulos:index.html.twig", array(
-			"userRoles" => $userRoles,
+			//"userRoles" => $userRoles,
 			"currentModules"=>$arrCurrentModules,
 			"allModules"=>$oAllModules
 		));
