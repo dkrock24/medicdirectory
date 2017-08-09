@@ -21,12 +21,6 @@
 </style>
     {% set med_length = medicos|length %}
     {% set row_limit = med_length / 4 %}
-    <div class="count">
-        <span class="label label-primary">
-            Total encontrados : {{ medicos.getTotalItemCount }}
-        </span>
-    </div>
-    <br/>
     <ul id="doctors-grid" class="row grid">
     {% if (medicos|length == 0) %}
         <span>No se encontraron coincidencias</span>

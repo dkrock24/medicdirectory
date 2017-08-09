@@ -27,6 +27,8 @@ class DefaultController extends Controller {
         $sBusqueda = $request->query->get('b');
         $sUsuarios = '';
         if (!empty($sBusqueda)) {
+            $sBusqueda = trim($sBusqueda);
+            $sBusqueda = "*$sBusqueda*";
             $aRet = $this->get('srv_busqueda')->buscarUsuarios($sBusqueda, 1, 0, 40);
 
             if ($aRet['total'] > 0) {
