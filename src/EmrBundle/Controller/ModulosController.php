@@ -76,7 +76,7 @@ class ModulosController extends Controller
 	public function showAction( Request $request )
 	{
 		$iLocationId = $this->get('session')->get('locationId');
-		$id = $request->get('id');
+		echo $id = $request->get('id');
 		
 		/*
 		if( isset($doctorId) && !empty($doctorId) )
