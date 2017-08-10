@@ -73,6 +73,12 @@ AppBundle\Entity\EavModCampos:
             options:
                 unsigned: true
             column: mod_camp_orden
+        modRecuperarHistoricoSiVacio:
+            type: boolean
+            nullable: false
+            options:
+                default: 0
+            column: mod_recuperar_historico_si_vacio
         modCampActivo:
             type: boolean
             nullable: false
