@@ -118,7 +118,46 @@ class servicioEav {
         ->findOneBy( array('modHashCode' => $mod_hash) );
 
         $module = $mod->getModId();
-        
+
+        /* ***** Soporte para acarrear historicos ******/
+        $sCitaPrevia = "SELECT cit_id FROM cita WHERE cit_cli_id = $cli_id AND cit_pac_id = $pac_id AND cit_id < $cit_id ORDER BY cit_fecha_crea DESC LIMIT 1";
+        $oCitaPrevia = $this->em->getConnection()->prepare($sCitaPrevia);
+        $oCitaPrevia->execute();
+
+        $oResultCitaPrevia = $oCitaPrevia->fetchAll();
+
+        $iCitaPrevia = 0;
+        if (!empty($oResultCitaPrevia[0]['cit_id'])) {
+            $iCitaPrevia = $oResultCitaPrevia[0]['cit_id'];
+        }
+
+        if ($iCitaPrevia > 0) {
+            // Insertar todos los valores preservables de la cita previa
+            $sInsertarHistoricos = "INSERT INTO eav_mod_datos (mod_dat_usu_id, mod_dat_pac_id, mod_dat_cli_id, mod_dat_cit_id, mod_dat_mod_camp_id, mod_dat_dato_valor, mod_dat_activo, mod_dat_fecha_crea, mod_dat_fecha_mod)
+            (SELECT
+                $usu_id, #ID usuario actual
+                datos.mod_dat_pac_id, #copiamos paciente
+                datos.mod_dat_cli_id, #copiamos cliente
+                $cit_id, #ID de cita actual
+                datos.mod_dat_mod_camp_id, #copiamos tipo de campo
+                datos.mod_dat_dato_valor, #el valor a preservar
+                1, #activo por defecto
+                NOW(),
+                NOW()
+                FROM eav_mod_campos campos 
+                JOIN eav_mod_datos datos ON campos.mod_camp_id = datos.mod_dat_mod_camp_id AND datos.mod_dat_cit_id = $iCitaPrevia
+                LEFT JOIN eav_mod_datos datos2 ON campos.mod_camp_id = datos2.mod_dat_mod_camp_id AND datos2.mod_dat_cit_id = $cit_id
+                WHERE campos.mod_recuperar_historico_si_vacio = 1
+                AND datos.mod_dat_dato_valor IS NOT NULL
+                AND datos.mod_dat_dato_valor <> ''
+                AND datos.mod_dat_pac_id = 1
+                AND datos.mod_dat_cli_id = 1
+                AND datos2.mod_dat_id IS NULL #evitemos duplicar
+            )";
+            $oInsertarHistoricos = $this->em->getConnection()->prepare($sInsertarHistoricos);
+            $oInsertarHistoricos->execute();
+        }
+
         /* ***** QUERY FOR USER PROPS AND VALUES ******/
         $sUsrProVal = "
             select 
