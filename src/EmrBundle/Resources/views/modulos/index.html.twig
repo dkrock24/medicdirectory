@@ -151,7 +151,7 @@
                                             </table>
                                             <hr>
                                             Seleccione una opción con los módulos seleccionados:<br><br> 
-                                            <button id="btnsetSelectedModules"> Adquirir </button>
+                                            <button id="btnSetSelectedModules"> Adquirir </button>
                                             <button id="btnUnSetSelectedModules"> Desactivar </button>
                                     {% else %}    
                                         <div class="alert alert-danger"><i class="fa fa-times-circle" aria-hidden="true"></i> No hay modulos asociados a este establecimiento</div>
@@ -201,7 +201,7 @@
                                 "bFilter": false,
                                 "bInfo": false,
                                 "bLengthChange": false,
-                                "pageLength": 2,
+                                "pageLength": 8,
                                 //"autoWidth": true,
                                 "language":{
                                     oPaginate: {
@@ -228,9 +228,11 @@
                 
                
                 $("#btnSetSelectedModules").on("click",function(){
+                    
                     var count = tableModules.rows( { selected: true } ).count();
                     if(count > 0)
                     {
+                       
                         tableModules.rows('.selected').data().each(function(index, rowId){
                             var id = $(this)[rowId]['DT_RowId'];
                             id = id.replace(/\D/g,'');

@@ -53,7 +53,7 @@ class ClientesModulosController extends Controller
             
             //-- check if the module-client combination already exists.
             $cli_mod_check = $em->getRepository('AppBundle:ClienteModulo')
-                    ->findBy( array( 'cliModModId' => $cliMod->getCliModMod()->getModId(), 'cliModCliId' => $cliMod->getCliModCli()->getCliId() ) )
+                    ->findBy( array( 'cliModMod' => $cliMod->getCliModMod()->getModId(), 'cliModCli' => $cliMod->getCliModCli()->getCliId() ) )
                     ;// 
             if( !empty( $cli_mod_check ) ){
                 $msgBox = "No se pudo crear el registro, ya existe un registro igual en la base de datos. ";
