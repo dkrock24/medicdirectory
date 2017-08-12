@@ -503,4 +503,33 @@ class EavModCampos
     {
         return $this->campoPadre;
     }
+    /**
+     * @var boolean
+     */
+    private $modRecuperarHistoricoSiVacio = 0;
+
+
+    /**
+     * Set modRecuperarHistoricoSiVacio
+     *
+     * @param boolean $modRecuperarHistoricoSiVacio
+     *
+     * @return EavModCampos
+     */
+    public function setModRecuperarHistoricoSiVacio($modRecuperarHistoricoSiVacio)
+    {
+        $this->modRecuperarHistoricoSiVacio = $modRecuperarHistoricoSiVacio;
+
+        return $this;
+    }
+
+    /**
+     * Get modRecuperarHistoricoSiVacio
+     *
+     * @return boolean
+     */
+    public function getModRecuperarHistoricoSiVacio()
+    {
+        return $this->modRecuperarHistoricoSiVacio;
+    }
 }

@@ -25,7 +25,7 @@ class EavModSeccion
     /**
      * @var boolean
      */
-    private $modSeccActivo = 1;
+    private $modSeccActivo = true;
 
     /**
      * @var \DateTime

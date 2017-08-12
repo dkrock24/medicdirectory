@@ -237,9 +237,11 @@
                         <img src="{{ asset("uploads/perfil/") }}{{ medico.galeria.galHash}}" alt="Doctor Profile Image" class="img-responsive img-center-xs">
                         <h3 class="panel-title">{{ medico.usuario.cliUsuTitulo}} {{ medico.usuario.cliUsuUsu.usuPrimerApellido|title }} {{ medico.usuario.cliUsuUsu.usuSegundoApellido|title }}</h3>
                         <span class="panel-title">
-                        {%for e in medico.especialidad %}
-                            {{ e.idEspecialidad.espEspecialidad }} |
-                        {% endfor %}
+                            <span style="font-size: 16px;font-weight: normal;">
+                            {%for e in medico.especialidad %}
+                                {{ e.idEspecialidad.espEspecialidad }} {% if (not loop.last) %}|{% endif %}
+                            {% endfor %}
+                            </span>
                         </span>
                     </div>
                     <div class="panel-body">
@@ -377,7 +379,7 @@
                             <i class="fa fa-eye"></i>Visitas {{ medico.vistas }}
                         </li>
                         <li>
-                            <i class="fa fa-envelope"></i> {{ medico.usuario.cliUsuCorreo }}
+                            <i class="fa fa-envelope"></i> <a href="mailto:{{ medico.usuario.cliUsuCorreo }}">{{ medico.usuario.cliUsuCorreo }}</a>
                         </li>
                         <li>
                             <a href="#">
@@ -573,21 +575,27 @@
 
 </script>
 
-<!--
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?v=3.11&sensor=false" type="text/javascript"></script>
 
+<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>-->
+<<!-- <script src="https://maps.googleapis.com/maps/api/js?v=3.11&sensor=false" type="text/javascript"></script>-->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCMGKx9bC8Drjy6j6Kh83YS8zuFC-BzqyM&signed_in=false"></script>
+<script src="http://www.farmaciasanbenito.com/js/jquery.ui.map.full.min.js"></script>
+
+
+AIzaSyCMGKx9bC8Drjy6j6Kh83YS8zuFC-BzqyM
 <script type="text/javascript">
         // check DOM Ready
         $(document).ready(function() {
             // execute
+
             var sLat = $("#lat").val();
             var sLon = $("#lon").val();
             (function() {
+
                 // map options
                 var options = {
-                    zoom: 15,
-                    center: new google.maps.LatLng(sLat, sLon), // centered US
+                    zoom: 14,
+                    center: new google.maps.LatLng(sLon,sLat), // centered US
                     mapTypeId: google.maps.MapTypeId.ROADMAP,
                     mapTypeControl: true,
                     draggable: true,
@@ -598,7 +606,7 @@
         
                     // init markers
                     var marker = new google.maps.Marker({
-                        position: new google.maps.LatLng(13.677982499999999, -89.2766328),
+                        position: new google.maps.LatLng(sLon,sLat),
                         map: map,
                         draggable: true,
                     });
@@ -617,6 +625,6 @@
             })();
         });
         </script>
--->
+
 {% endblock  %}
 

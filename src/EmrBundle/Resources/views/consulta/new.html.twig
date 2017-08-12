@@ -1379,8 +1379,8 @@
                         valor_mandar = (input.prop("checked")==true) ? 1 : 0;
                     }else{
                         if( input.val() == ""){
-                            //valor_mandar = "value_holder";
-                            valor_mandar = "";
+                            valor_mandar = "value_holder";
+                            //valor_mandar = "";
                         }else{
                             valor_mandar = input.val();
                         }
@@ -1394,7 +1394,7 @@
                         $(".loading-gif").css('color', '#3ABC63');
                         $(".loading-gif").html('&nbsp;&nbsp;Listo.').fadeOut( 4000 );
                         //input.data("value-input", valor_mandar);
-                        input.val(valor_mandar);
+                        //input.val(valor_mandar);
                     }).fail(function( error ){
                         tries++;
                         $('.loading-gif').replaceWith("<i class='loading-gif'>&nbsp;&nbsp;<img src='{{ asset('bundles/admin/img/ajax-loader.gif') }}'>&nbsp;&nbsp;Tratando de guardar datos nuevamente, por favor espere...</i>");

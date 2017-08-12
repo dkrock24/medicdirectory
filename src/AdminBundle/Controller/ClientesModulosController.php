@@ -147,7 +147,7 @@ class ClientesModulosController extends Controller
       $em = $this->getDoctrine()->getManager();
       
       $cliMo = $em->getRepository('AppBundle:ClienteModulo')
-              ->findBy(array( 'cliModCliId' => $get['id']))
+              ->findBy(array( 'cliModCli' => $get['id']))
               ;
       
       return $cliMo;

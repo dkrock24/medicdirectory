@@ -21,16 +21,13 @@
 </style>
     {% set med_length = medicos|length %}
     {% set row_limit = med_length / 4 %}
-    <div class="count">
-        <span class="label label-primary">
-            Total encontrados : {{ medicos.getTotalItemCount }}
-        </span>
-    </div>
-    <br/>
     <ul id="doctors-grid" class="row grid">
+    {% if (medicos|length == 0) %}
+        <span>No se encontraron coincidencias</span>
+    {% endif %}
     {% for m in medicos %}
         
-        <li class="col-md-3 col-sm-4 col-xs-12 doctors-grid" data-groups='["all", "healthcare"]' style="margin-bottom: 100px;">
+        <li class="col-md-3 col-sm-4 col-xs-12 doctors-grid" data-groups='["all", "healthcare"]' style="margin-bottom: 10px;">
             
             <div class="bio-box" >
                 <a href="{{ path( "web_doctores_perfil", {"med_id" : m.cli_usu_usu_id} ) }}">

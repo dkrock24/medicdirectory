@@ -5,5 +5,5 @@ modulo_index:
 
 modulo_show:
     path:     /data
-    defaults: { _controller: "EmrBundle:Modulos:show" }
+    defaults: { _controller: "EmrBundle:Modulos:buyModules" }
     #methods:  GET

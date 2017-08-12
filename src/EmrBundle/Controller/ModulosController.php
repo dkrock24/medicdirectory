@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-#use \AppBundle\Entity\Cita;
+use \AppBundle\Entity\ClienteModulo;
 #use \AppBundle\Entity\Agenda;
 
 class ModulosController extends Controller
@@ -63,21 +63,93 @@ class ModulosController extends Controller
 	
 		
 		$oAllModules = $em->getRepository("AppBundle:Modulo")->findBy(array("modActivo"=>1 ) );
+		$hash_handler = null;
+		$modulos = array();
+		if(count($oAllModules) > 0 )
+                {
+                    foreach( $oAllModules as $kmod => $modulo ){
+                        $hash_handler = $modulo->getModHashCode();
+                        $modulos[] = array(
+                                "id" => $modulo->getModId(),
+                                "hash" => stream_get_contents( $hash_handler ),
+                                "module" => $modulo->getModModulo(),
+								"cost"=>$modulo->getModCosto(),
+								"isGeneral"=>$modulo->getModGeneral(),
+								"isActive"=>$modulo->getModActivo()
+                        );
+                        rewind($hash_handler);
+                    }
+                }
 		
 		return $this->render("EmrBundle:modulos:index.html.twig", array(
 			//"userRoles" => $userRoles,
 			"currentModules"=>$arrCurrentModules,
-			"allModules"=>$oAllModules
+			"allModules"=>$oAllModules,
+			"modulos"=>$modulos
+				
 		));
 		
 	}
 	
 	
-	public function showAction( Request $request )
+	public function buyModulesAction( Request $request )
 	{
+		$em = $this->getDoctrine()->getManager();
 		$iLocationId = $this->get('session')->get('locationId');
-		echo $id = $request->get('id');
-		
+		$ids = $request->get('id');
+		$option = $request->get('option');
+		$arrIds = explode(",",$ids);
+		if( count($arrIds) > 0 )
+		{	
+			for($i=0;$i< count($arrIds);$i++)
+			{
+				$oModule = $em->getRepository("AppBundle:Modulo")->find( $arrIds[$i] );
+				
+				//echo $oModule->getModCosto()."-";
+				
+				$oClientModule = $em->getRepository("AppBundle:ClienteModulo")->findBy( array("cliModCli"=>$iLocationId,"cliModMod"=>$arrIds[$i] ) );
+				
+				if( $option == "btnSetSelectedModules" )
+				{	
+					if( !$oClientModule )
+					{
+						$oSetModule = new ClienteModulo();
+						$oCliente = $em->getRepository("AppBundle:Cliente")->find( $iLocationId );
+						$oSetModule->setCliModCli($oCliente);
+						$oModule = $em->getRepository("AppBundle:Modulo")->find( $arrIds[$i]  );
+						$oSetModule->setCliModMod($oModule);
+						if( $oModule->getModCosto() == "0.00" || $oModule->getModGeneral() == 1 )
+						{
+							$oSetModule->setCliModActivo(1);
+						}
+						else
+						{
+							$oSetModule->setCliModActivo(0);
+						}
+						$oSetModule->setCliModFechaCrea( new \Datetime() );
+						$em->persist($oSetModule);
+						$flush = $em->flush();
+
+					}
+					else
+					{
+						$RAW_QUERY = "UPDATE cliente_modulo SET cli_mod_activo = 1 WHERE cli_mod_cli_id =  $iLocationId AND cli_mod_mod_id = $arrIds[$i] ";
+						$statement = $em->getConnection()->prepare($RAW_QUERY);
+						$statement->execute();
+					}
+				}
+				else
+				{
+					//$userId = $res->getUsuId();
+					$RAW_QUERY = "UPDATE cliente_modulo SET cli_mod_activo = 0 WHERE cli_mod_cli_id =  $iLocationId AND cli_mod_mod_id = $arrIds[$i] ";
+					$statement = $em->getConnection()->prepare($RAW_QUERY);
+					$statement->execute();
+				}
+				
+			}
+		}
+		//var_dump($arrIds);
+		//echo "mierda";
 		/*
 		if( isset($doctorId) && !empty($doctorId) )
 		{

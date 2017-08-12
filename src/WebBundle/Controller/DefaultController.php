@@ -23,15 +23,20 @@ class DefaultController extends Controller {
         /* @var $em \Doctrine\ORM\EntityManager */
         $em = $this->getDoctrine()->getManager();
 
-        //$NombreProyecto = $sParametros->getParametro("nombreProyecto");
 
-        // Cambié el repository por un DQL para controlar el filtro y limite
-        // Rafa, si te enfocaras estas cosas no pasaran
-        // $medicos = $em->getRepository("AppBundle:ClienteUsuario")->findAll();
+        $sBusqueda = $request->query->get('b');
+        $sUsuarios = '';
+        if (!empty($sBusqueda)) {
+            $sBusqueda = trim($sBusqueda);
+            $sBusqueda = "*$sBusqueda*";
+            $aRet = $this->get('srv_busqueda')->buscarUsuarios($sBusqueda, 1, 0, 40);
 
-        $repository = $this->getDoctrine()->getRepository('AppBundle:ClienteUsuario');
-
-        //$query = $repository->createQueryBuilder('cu')->setMaxResults(30);
+            if ($aRet['total'] > 0) {
+                $sUsuarios = 'and cu.cli_usu_id IN ('.implode(',',$aRet['ids']).')';
+            } else {
+                $sUsuarios = 'and 0';
+            }
+        }
 
         // Raw Query
         $RAW_QUERY  = "select *, group_concat(e.esp_especialidad SEPARATOR ', ') as especialidades from usuario u
@@ -39,7 +44,7 @@ class DefaultController extends Controller {
                         JOIN usuario_especialidad AS es on u.usu_id=es.id_usuario
                         JOIN  especialidad as e on e.esp_id=es.id_especialidad
                         JOIN usuario_galeria as ug on ug.gal_usu_id=cu.cli_usu_usu_id
-                        WHERE ug.gal_modulo_id is null and ug.gal_tipo=1 and cu.cli_usu_rol_id=6
+                        WHERE ug.gal_modulo_id is null and ug.gal_tipo=1 and cu.cli_usu_rol_id=6 $sUsuarios
                         group by u.usu_id";
         $statement  = $em->getConnection()->prepare($RAW_QUERY);
         $statement->execute();    
@@ -49,34 +54,11 @@ class DefaultController extends Controller {
         $pagination = $paginator->paginate(
                 $medicos, 
                 $request->query->getInt('page', 1),
-                4
+                20
         );
-
-
-        
-
-
-
-        $sBusqueda = $request->query->get('b');
-
-        if (!empty($sBusqueda)) {
-            $aRet = $this->get('srv_busqueda')->buscarUsuarios($sBusqueda, 1, 0, 30);
-
-            if ($aRet['total'] > 0) {
-                //$query->innerJoin('AppBundle:UsuarioEspecialidad','r','WITH','r.idUsuario=cliUsuUsu.usuId');
-                $query->where('cu.cliUsuUsu IN (:usuarios)');
-                $query->setParameter('usuarios', $aRet['ids']);
-            } else {
-                return new Response('Ningún cliente encontrado con' . $sBusqueda, Response::HTTP_OK);
-            }
-
-        }
-
-        //$medicos = $query->getQuery()->getResult();
 
         return $this->render(
                     'WebBundle:Sections:index.html.twig', array(
-                    //'NombreProyecto' => $NombreProyecto,
                     'medicos' => $pagination
                     )
         );
