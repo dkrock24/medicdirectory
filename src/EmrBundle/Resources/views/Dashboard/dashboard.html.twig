@@ -272,24 +272,24 @@
                                             </div>
 
                                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                                <a href="{{ path('paciente_new') }}">
+                                                {# <a href="{{ path('paciente_new') }}"> #}
                                                     <!-- Current server load -->
-                                                    <div class="panel bg-success-400">
+                                                    <div class="panel bg-info-400">
                                                         <div class="panel-body">
-                                                            {#
+                                                            
                                                             <div class="heading-elements">
                                                                 <ul class="icons-list">
                                                                     <li class="dropdown">
-                                                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-cog3"></i> <span class="caret"></span></a>
+                                                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user-circle" aria-hidden="true"></i> <span class="caret"></span></a>
                                                                         <ul class="dropdown-menu dropdown-menu-right">
-                                                                            <li><a href="#"><i class="icon-sync"></i> Nuevo</a></li>
-                                                                            <li><a href="#"><i class="icon-list-unordered"></i> Listar</a></li>
+                                                                            <li><a href="{{ path('paciente_new') }}"><i class="fa fa-plus-square"></i> Nuevo</a></li>
+                                                                            <li><a href="{{ path('paciente_index') }}"><i class="icon-list-unordered"></i> Listar</a></li>
                                                                         </ul>
                                                                     </li>
                                                                 </ul>
                                                             </div>
-                                                            #}
-                                                            <h5 class="no-margin"><i class="fa fa-plus-square"></i> Nuevo Paciente</h5>
+                                                            
+                                                            <h5 class="no-margin"><i class="fa fa-address-card-o" aria-hidden="true"></i> Pacientes</h5>
 
                                                             {# <div class="text-muted text-size-small">34.6% avg</div> #}
                                                         </div>
@@ -297,7 +297,7 @@
                                                         <div id="server-load"></div>
                                                     </div>
                                                     <!-- /current server load -->
-                                                </a>
+                                                {# </a> #}
 
                                             </div>
 
@@ -305,7 +305,7 @@
 
                                                 <a href="{{ path('agenda_new') }}?d={{ userInfo.usuId}}">
                                                     <!-- Today's revenue -->
-                                                    <div class="panel bg-blue-400">
+                                                    <div class="panel bg-blue-700">
                                                         <div class="panel-body">
                                                             {#
                                                             <div class="heading-elements">
@@ -337,7 +337,7 @@
                                                                 </ul>
                                                             </div>
                                                             #}
-                                                            <h5 class="no-margin"><i class="icon-user-plus"></i> Mi perfil</h5>
+                                                            <h5 class="no-margin"><i class="fa fa-user-md" aria-hidden="true"></i> Mi perfil</h5>
 
                                                             {# <div class="text-muted text-size-small">$37,578 avg</div> #}
                                                         </div>

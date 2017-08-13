@@ -116,11 +116,12 @@
                                     <i class="fa fa-stethoscope" aria-hidden="true"></i> Consultas realizadas 
                                     <span class="badge bg-teal-400 pull-right"> {{ totalMedicalConsultation }}</span>
                                 </li>
+                                {#
                                 <li>
                                     <i class="fa fa-usd" aria-hidden="true"></i> Pagos Históricos
                                     <span class="badge bg-teal-400 pull-right"> 5 </span>
                                 </li>
-
+                                #}
                             </ul>
                         </div>    
                     </div>
@@ -325,7 +326,8 @@
                                     <tbody>
                                         {% for appointment in listAppointment %}
                                             <tr id="app_{{ appointment.age_id }}">
-                                                <td><small>{{ appointment.fecha_inicio }}</small></td>
+                                                
+                                                <td><small>{{ appointment.fecha_inicio|date('Y-m-d h:i:s a') }}</small></td>
                                                 <td>
                                                     
                                                     {% if appointment.estado == "Anulada" %}

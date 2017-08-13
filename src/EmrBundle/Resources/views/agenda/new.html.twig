@@ -267,7 +267,9 @@
                 <div class ="form-group" id="divSearchPatient">
                     <div class="field">
                         
-                        <div><label class="control-label" for="title" id="titlePatient">Buscar paciente:</label> <span style="float:right" ><a href="" id="new_patient" data-toggle="modal" data-target="#userModal" data-backdrop="static" data-keyboard="false">Crear paciente</a></span></div>
+                        <div><label class="control-label" for="title" id="titlePatient">Buscar paciente:</label> <span style="float:right" >
+                                <a href="" id="new_patient" data-toggle="modal" data-target="#userModal" data-backdrop="static" data-keyboard="false">Crear nuevo paciente</a></span>
+                        </div>
                         <form id="form_search_patients">
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="Nombre o DUI" id="input_search_patients" autocomplete="off">
@@ -536,7 +538,7 @@
                             $.alert({
                                 icon: 'glyphicon glyphicon-exclamation-sign',
                                 title: 'Info!',
-                                content: "<p class='small'>Debes seleccionar la agenda de un doctor para agendar los eventos</p> <hr>"+doctorMsg,
+                                content: "<p class='small'>Debes seleccionar la agenda de un doctor para agendar las citas médicas y/o eventos</p> <hr>"+doctorMsg,
                                 type: 'red',
                                 typeAnimated: true,
                             });
@@ -606,21 +608,36 @@
             // Initialization
             // ------------------------------
             // Agenda view
-            //alert();
+           
             if( $("#calendar").size() == 1 )
             {
                 $('#calendar').fullCalendar({
                 header: {
                     left: 'prev,next today',
                     center: 'title',
-                    right: 'month,agendaWeek,agendaDay'
+                    right: 'month,agendaWeek,agendaDay,listDay'
                 },
+                // customize the button names,
+                // otherwise they'd all just say "list"
+                views: {
+                    listDay: { buttonText: 'Agenda' },
+                    //listWeek: { buttonText: 'list week' }
+                },
+
                 nowIndicator:true,
+                
+                //defaultDate:"2014-02-05",
+                
                 //default: 30,
                 locale: initialLocaleCode,
                 //defaultDate: '2017-04-29',
                 {% if "6" in userRoles|keys  %} //Doctors
-                    defaultView: 'agendaDay',        
+                    {% if settings.vista_calendario is defined and settings.vista_calendario != "" %}
+                        defaultView: "{{settings.vista_calendario}}",// (30 minutes)
+                    {% else %}
+                        defaultView: 'agendaDay',
+                    {% endif %}         
+                            
                 {% else %}
                     defaultView: 'agendaWeek',
                 {% endif %} 
@@ -1290,7 +1307,7 @@
                     $("#setUserAppointmentId").val( "{{ app.request.query.get("p") }}" );
                     if( $("body").find("#newSearch").size() == 0 )
                     {
-                        $( "#result_search_patients" ).after( "<p class='text-right' id='newSearch'><a href='#'>Nueva busqueda</a></p>" );
+                        $( "#result_search_patients" ).after( "<p class='text-right' id='newSearch'><a href='#'>Nueva búsqueda</a></p>" );
                     }
             {% endif %}        
             
@@ -1429,6 +1446,16 @@
                                     if( $("body").find("#newSearch").size() == 0 )
                                     {
                                         $( "#result_search_patients" ).after( "<p class='text-right' id='newSearch'><a href='#'>Nueva busqueda</a></p>" );
+                                    }
+                                    
+                                    //Clean if exist a user id
+                                    var patient = "{{ app.request.query.get("p") }}";
+                                    if( d != "" && patient != "")
+                                    {
+                                        var url = "{{ path('agenda_new') }}";
+                                        var action_array = url.split('/');
+                                        var path = action_array[action_array.length-1]
+                                        history.pushState(null, null, path+"?d="+d);
                                     }
                                     
                                     $.alert({

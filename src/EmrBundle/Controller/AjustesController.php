@@ -294,6 +294,32 @@ class AjustesController extends Controller
 					}
 				}
 				
+				//==============================================================
+				$key6 = "vista_calendario";
+				if (in_array($key6, $arrParameter)) {
+					//echo "Existe Irix";
+					$RAW_QUERY = "UPDATE  cliente_ajustes SET cli_aju_valor =:value, cli_aju_fecha_mod =:date 
+										where cli_aju_cli_usu_id =:cliUsuId AND cli_aju_llave =:key ";
+
+					$statement = $em->getConnection()->prepare($RAW_QUERY);
+					$statement->bindValue("key", $key6);
+					$statement->bindValue("value", $request->request->get('viewCalendar') );
+					$statement->bindValue("cliUsuId", $iClientUserId);
+					$statement->bindValue("date", date("Y-m-d H:i:s"));
+					$statement->execute();
+				}
+				else
+				{
+					$oSetting = new ClienteAjustes();
+					$oSetting->setCliAjuLlave($key6);
+					$oSetting->setCliAjuValor( $request->request->get('viewCalendar') );
+					$oSetting->setCliAjuCliUsu( $oClientUserId );
+					$oSetting->setCliAjuActivo(1);
+					$oSetting->setCliAjuFechaCrea( new \DateTime("now"));
+					$em->persist($oSetting);
+					$flush = $em->flush();
+				}
+				
 				
 				//var_dump($arrParameter);
 				$msgBox = "Datos fueron guardados exitosamente";
