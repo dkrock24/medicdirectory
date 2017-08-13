@@ -110,6 +110,27 @@ class ConsultaController extends Controller
                             array( 'modFechaCrea' => 'ASC' )
                         )
                         ;
+				
+				
+				$RAW_QUERY = "SELECT m.mod_id, cm.cli_mod_activo 
+								FROM modulo m 
+								INNER JOIN cliente_modulo cm ON m.mod_id = cm.cli_mod_mod_id
+								WHERE m.mod_general = 1 AND m.mod_activo = 1 AND cm.cli_mod_cli_id =:locationId ";
+				$statement = $em->getConnection()->prepare($RAW_QUERY);
+				$statement->bindValue("locationId", $iLocationId);
+				$statement->execute();
+				$currentMod  = $statement->fetchAll();
+				$arrCurrent = array();
+				
+				if( count($currentMod) > 0 )
+				{
+					foreach($currentMod as $value)
+					{
+						$arrCurrent[ $value["mod_id"] ] = $value["cli_mod_activo"];
+					}	
+				}	
+				//var_dump($arrCurrent);
+				//$search_array = array('first' => 1, 'second' => 4);
 //                echo '<pre>';
 //                        \Doctrine\Common\Util\Debug::dump( $oUsuModulosGenerales );
 //                echo '</pre>';
@@ -128,25 +149,72 @@ class ConsultaController extends Controller
                         rewind($hash_handler);
                     }
                 }
-                
-                if( count( $oUsuModulosGenerales ) > 0 ){
-                    foreach( $oUsuModulosGenerales as $kmod => $modulo ){
-                        $hash_handler = $modulo->getModHashCode();
-                        $mod_general = array(
-                                "mod_id" => $modulo->getModId(),
-                                "mod_hash" => stream_get_contents( $hash_handler ),
-                                "modulo" => $modulo->getModModulo()
-                        );
+				
+				
+				if( count( $oUsuModulosGenerales ) > 0 )
+				{
+                    foreach( $oUsuModulosGenerales as $kmod => $modulo )
+					{
+						if (array_key_exists($modulo->getModId(), $arrCurrent))
+						{
+							if( $arrCurrent[ $modulo->getModId() ] == 1 )
+							{
+								$hash_handler = $modulo->getModHashCode();
+								$mod_general = array(
+										"mod_id" => $modulo->getModId(),
+										"mod_hash" => stream_get_contents( $hash_handler ),
+										"modulo" => $modulo->getModModulo()
+								);
+
+								//-- Fix to avoid having a module twice when this is assigned to a client and it's a
+								//-- "general" module at the same time.
+								if( !in_array( $mod_general , $modulos) ){
+									$modulos[] = $mod_general;
+								}
+								rewind($hash_handler);
+							}	
+						}
+						else
+						{
+							$hash_handler = $modulo->getModHashCode();
+							$mod_general = array(
+									"mod_id" => $modulo->getModId(),
+									"mod_hash" => stream_get_contents( $hash_handler ),
+									"modulo" => $modulo->getModModulo()
+							);
+
+							//-- Fix to avoid having a module twice when this is assigned to a client and it's a
+							//-- "general" module at the same time.
+							if( !in_array( $mod_general , $modulos) ){
+								$modulos[] = $mod_general;
+							}
+							rewind($hash_handler);
+						}
                         
-                        //-- Fix to avoid having a module twice when this is assigned to a client and it's a
-                        //-- "general" module at the same time.
-                        if( !in_array( $mod_general , $modulos) ){
-                            $modulos[] = $mod_general;
-                        }
-                        rewind($hash_handler);
                     }
                 }
                 
+				/*
+					if( count( $oUsuModulosGenerales ) > 0 )
+					{
+						foreach( $oUsuModulosGenerales as $kmod => $modulo )
+						{
+							$hash_handler = $modulo->getModHashCode();
+							$mod_general = array(
+									"mod_id" => $modulo->getModId(),
+									"mod_hash" => stream_get_contents( $hash_handler ),
+									"modulo" => $modulo->getModModulo()
+							);
+
+							//-- Fix to avoid having a module twice when this is assigned to a client and it's a
+							//-- "general" module at the same time.
+							if( !in_array( $mod_general , $modulos) ){
+								$modulos[] = $mod_general;
+							}
+							rewind($hash_handler);
+						}
+					}
+                */
                 
 		
 		if( !isset($patientId) || empty($patientId) )

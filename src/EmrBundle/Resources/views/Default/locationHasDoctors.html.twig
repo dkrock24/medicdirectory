@@ -69,6 +69,7 @@
 
                 {% if doctors|length > 0 %}
                     {% for reg in doctors%}
+                        
                         <div class="col-lg-2 col-md-3 col-sm-4">
                             <div class="thumbnail">
                                 {% if reg.foto != "" and file_exists('uploads/perfil/'~reg.foto)  %}

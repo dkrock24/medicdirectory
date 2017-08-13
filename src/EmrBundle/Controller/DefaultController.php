@@ -125,7 +125,7 @@ class DefaultController extends Controller
 							cu.cli_usu_usu_id AS id, cu.cli_usu_correo as email, cu.cli_usu_exponer as exponer, cu.cli_usu_jvpm as jvpm,
 							( 
 								SELECT gu.gal_hash from usuario_galeria gu 
-										WHERE gu.gal_usu_id = cu.cli_usu_usu_id AND gu.gal_tipo = 1 AND gu.gal_activo = 1 and gu.gal_cliente_id = 24 
+										WHERE gu.gal_usu_id = cu.cli_usu_usu_id AND gu.gal_tipo = 1 AND gu.gal_activo = 1 and gu.gal_cliente_id = $locationId 
 							) as foto,
 							( 
 								SELECT CONCAT_WS(' ',u.usu_nombre,u.usu_segundo_nombre,u.usu_tercer_nombre,u.usu_primer_apellido,u.usu_segundo_apellido) 

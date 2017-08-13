@@ -160,6 +160,7 @@
                                     <div id="modulesList">
                                     <div class="buttons-preview">
                                         {% if modulos|length > 0 %}
+                                        
                                         <table class="table table-striped" id="table_result_modules">
                                             <thead>
                                                 <tr><th></th><th>Nombre</th><th>Costo mensual</th><th>Estado</th><th>Adquirido</th><th>Información</th></tr>
@@ -196,7 +197,7 @@
                                                                     {% endif %}    
                                                                 </td>
                                                                 <td>
-                                                                    {% if key in currentModules|keys %}    
+                                                                    {% if key in currentModules|keys or m['isGeneral'] == 1 %}    
                                                                         <span class="label bg-success-400">Si</span>
                                                                     {% else %}
                                                                         <span class="label bg-warning">No</span>
@@ -234,12 +235,9 @@
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-12" id="divReport">
                                 <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">
-                                    Al adquirir la compra de un nuevo módulo se tardará un promedio de 48 Horas para que el módulo sea activado y validado
-                                    
+                                    Al adquirir la compra de un nuevo módulo podria tardar hasta 48 Horas para que el módulo sea activado y validado
                                 </div>
-                                
-                                
-                                
+
                                 <div id="mod-holder"></div>
                                 
                             </div>
