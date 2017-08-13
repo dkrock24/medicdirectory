@@ -141,9 +141,25 @@ class ModulosController extends Controller
 				else
 				{
 					//$userId = $res->getUsuId();
-					$RAW_QUERY = "UPDATE cliente_modulo SET cli_mod_activo = 0 WHERE cli_mod_cli_id =  $iLocationId AND cli_mod_mod_id = $arrIds[$i] ";
-					$statement = $em->getConnection()->prepare($RAW_QUERY);
-					$statement->execute();
+					if( !$oClientModule )
+					{
+						$oSetModule = new ClienteModulo();
+						$oCliente = $em->getRepository("AppBundle:Cliente")->find( $iLocationId );
+						$oSetModule->setCliModCli($oCliente);
+						$oModule = $em->getRepository("AppBundle:Modulo")->find( $arrIds[$i]  );
+						$oSetModule->setCliModMod($oModule);
+						$oSetModule->setCliModActivo(0);
+						$oSetModule->setCliModFechaCrea( new \Datetime() );
+						$em->persist($oSetModule);
+						$flush = $em->flush();
+					}
+					else
+					{
+						$RAW_QUERY = "UPDATE cliente_modulo SET cli_mod_activo = 0, cli_mod_fecha_mod = ".date("Y-m-d")." WHERE cli_mod_cli_id =  $iLocationId AND cli_mod_mod_id = $arrIds[$i] ";
+						$statement = $em->getConnection()->prepare($RAW_QUERY);
+						$statement->execute();
+					}	
+					
 				}
 				
 			}
