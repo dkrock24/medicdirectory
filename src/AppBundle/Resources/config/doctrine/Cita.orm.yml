@@ -59,6 +59,20 @@ AppBundle\Entity\Cita:
             options:
                 fixed: false
             column: cit_receta
+        citDiagnostico:
+            type: text
+            nullable: true
+            length: 65535
+            options:
+                fixed: false
+            column: cit_diagnostico
+        citPronostico:
+            type: text
+            nullable: true
+            length: 65535
+            options:
+                fixed: false
+            column: cit_pronostico
     manyToOne:
         citPac:
             targetEntity: Paciente

@@ -284,4 +284,62 @@ class Cita
     {
         return $this->citReceta;
     }
+    /**
+     * @var string
+     */
+    private $citDiagnostico;
+
+    /**
+     * @var string
+     */
+    private $citPronostico;
+
+
+    /**
+     * Set citDiagnostico
+     *
+     * @param string $citDiagnostico
+     *
+     * @return Cita
+     */
+    public function setCitDiagnostico($citDiagnostico)
+    {
+        $this->citDiagnostico = $citDiagnostico;
+
+        return $this;
+    }
+
+    /**
+     * Get citDiagnostico
+     *
+     * @return string
+     */
+    public function getCitDiagnostico()
+    {
+        return $this->citDiagnostico;
+    }
+
+    /**
+     * Set citPronostico
+     *
+     * @param string $citPronostico
+     *
+     * @return Cita
+     */
+    public function setCitPronostico($citPronostico)
+    {
+        $this->citPronostico = $citPronostico;
+
+        return $this;
+    }
+
+    /**
+     * Get citPronostico
+     *
+     * @return string
+     */
+    public function getCitPronostico()
+    {
+        return $this->citPronostico;
+    }
 }
