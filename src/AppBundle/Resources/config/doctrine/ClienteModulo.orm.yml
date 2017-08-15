@@ -34,6 +34,12 @@ AppBundle\Entity\ClienteModulo:
             type: datetime
             nullable: true
             column: cli_mod_fecha_mod
+        cliModCosto:
+            type: decimal
+            nullable: false
+            precision: 6
+            scale: 2
+            column: cli_mod_costo
         cliModActivo:
             type: boolean
             nullable: false

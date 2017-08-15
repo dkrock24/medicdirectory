@@ -228,4 +228,33 @@ class ClienteModulo
     {
         return $this->cliModCli;
     }
+    /**
+     * @var string
+     */
+    private $cliModCosto;
+
+
+    /**
+     * Set cliModCosto
+     *
+     * @param string $cliModCosto
+     *
+     * @return ClienteModulo
+     */
+    public function setCliModCosto($cliModCosto)
+    {
+        $this->cliModCosto = $cliModCosto;
+
+        return $this;
+    }
+
+    /**
+     * Get cliModCosto
+     *
+     * @return string
+     */
+    public function getCliModCosto()
+    {
+        return $this->cliModCosto;
+    }
 }
