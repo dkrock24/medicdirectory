@@ -234,7 +234,8 @@
             <div class="profile-block">
                 <div class="panel panel-profile">
                     <div class="panel-heading">
-                        <img src="{{ asset("uploads/perfil/") }}{{ medico.galeria.galHash}}" alt="Doctor Profile Image" class="img-responsive img-center-xs">
+                        {% set imgPerfil =  "uploads/perfil/" ~ medico.galeria.galHash %}
+                        <img src="{{ image(imgPerfil).resize(250,250).jpeg(85) }}" alt="Imagen del doctor" class="img-responsive img-center-xs">
                         <h3 class="panel-title">{{ medico.usuario.cliUsuTitulo}} {{ medico.usuario.cliUsuUsu.usuPrimerApellido|title }} {{ medico.usuario.cliUsuUsu.usuSegundoApellido|title }}</h3>
                         <span class="panel-title">
                             <span style="font-size: 16px;font-weight: normal;">
