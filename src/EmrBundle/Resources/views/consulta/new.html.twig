@@ -1471,6 +1471,7 @@
                 $('body').find("form.mod-form :input").each(function(){
                     $(this).attr("disabled",true);
                 });
+                $("#textPrescription").attr("disabled",true);
             {% endif %}
             
             function doDelete() {  // delete event 
@@ -1662,42 +1663,45 @@
             });
             */
             
-                $("#textPrescription").on("change  paste", function(){   
-                    var info = $(this).val();
-                    $("#loadingPrescription").html("<i class='loading-gif'>&nbsp;&nbsp;<img src='{{ asset('bundles/admin/img/ajax-loader.gif') }}'> Guardando..</i>");
-                    $(".loading-gif").css('color', '#39AED1');
-                    setPrescription();
+                $("#textPrescription").on("change  paste", function(){
+                    {% if statusAppointment == "p" or statusAppointment == "c" %}
+                        var info = $(this).val();
+                        $("#loadingPrescription").html("<i class='loading-gif'>&nbsp;&nbsp;<img src='{{ asset('bundles/admin/img/ajax-loader.gif') }}'> Guardando..</i>");
+                        $(".loading-gif").css('color', '#39AED1');
+                        setPrescription();
+                    {% endif %}
                                         //}
                 });
             
             function setPrescription()
             {
-                
-                $("#holder_loading").show();
-                var textPrescription = $('#textPrescription').val();
-                var patiente = "{{app.request.get("id")}}";
-                var appointment = "{{ app.request.get("cm") }}";
-                $.ajax({
+                {% if statusAppointment == "p" or statusAppointment == "c" %}
+                    $("#holder_loading").show();
+                    var textPrescription = $('#textPrescription').val();
+                    var patiente = "{{app.request.get("id")}}";
+                    var appointment = "{{ app.request.get("cm") }}";
+                    $.ajax({
 
-                    url: "{{ path('consulta_set_prescription') }}",
-                    data: { "prescription":textPrescription, "patiendId":patiente,"appointment":appointment  },
-                    type: "POST",
-                    success: function(json) {
-                        $("#holder_loading").hide();
-                        $("#loadingPrescription .loading-gif").html('&nbsp;&nbsp;Listo.').fadeOut( 4000 );
-                    },
-                    error: function(json){
-                       // alert(json.id);
-                       $("#holder_loading").hide(); 
-                       $.alert({
-                            icon: 'fa fa-clock-o',
-                            title: 'Error!',
-                            content: "<p class=''>Ha ocurrido un error inesperado al intentar guardar la receta</p>",
-                            type: 'red',
-                            typeAnimated: true,
-                        });
-                    }
-                }); 
+                        url: "{{ path('consulta_set_prescription') }}",
+                        data: { "prescription":textPrescription, "patiendId":patiente,"appointment":appointment  },
+                        type: "POST",
+                        success: function(json) {
+                            $("#holder_loading").hide();
+                            $("#loadingPrescription .loading-gif").html('&nbsp;&nbsp;Listo.').fadeOut( 4000 );
+                        },
+                        error: function(json){
+                           // alert(json.id);
+                           $("#holder_loading").hide(); 
+                           $.alert({
+                                icon: 'fa fa-clock-o',
+                                title: 'Error!',
+                                content: "<p class=''>Ha ocurrido un error inesperado al intentar guardar la receta</p>",
+                                type: 'red',
+                                typeAnimated: true,
+                            });
+                        }
+                    });
+                {% endif %}
             }                                            
                                                         
             
