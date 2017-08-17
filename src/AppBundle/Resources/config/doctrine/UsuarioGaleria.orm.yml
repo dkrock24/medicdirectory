@@ -54,6 +54,12 @@ AppBundle\Entity\UsuarioGaleria:
             options:
                 default: '1'
             column: gal_activo
+        galAprobado:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: gal_aprobado
     manyToOne:
         galCliente:
             targetEntity: Cliente
