@@ -284,10 +284,15 @@ class ConsultaController extends Controller
 		
 		//$oAppointment = $em->getRepository('AppBundle:Agenda')->find( $appointment );
 		$prescription = "";
+		$diagnostico = "";
+		$prognostico = "";
 		if( $oAppointment )
 		{
 			$prescription = $oAppointment->getAgeCit()->getCitReceta();
-		}	
+			$diagnostico = $oAppointment->getAgeCit()->getCitDiagnostico();
+			$prognostico = $oAppointment->getAgeCit()->getCitPronostico();
+		}
+		
 		
 		$oAppointment->getAgeEstado();
 		
@@ -310,6 +315,8 @@ class ConsultaController extends Controller
 			'statusAppointment'=>$oAppointment->getAgeEstado(),
 			'dateAppointment'=>$oAppointment->getAgeFechaInicio(),
 			"prescription"=>$prescription,
+			"diagnostico"=>$diagnostico,
+			"prognostico"=>$prognostico,
             'usu_id' => $doctor,
             'cit_id' => $oAppointment->getAgeCit()->getCitId(),
             'cli_id' => $iLocationId
@@ -478,7 +485,8 @@ class ConsultaController extends Controller
 		$em = $this->getDoctrine()->getManager();
 		$iLocationId = $this->get('session')->get('locationId');
 		$patientId = $request->get("patiendId");
-		$prescription = $request->get("prescription");
+		$field = $request->get("field");
+		$value = $request->get("value");
 		
 		$appointment = $request->get("appointment");
 		
@@ -493,8 +501,20 @@ class ConsultaController extends Controller
 				$oReg = $em->getRepository('AppBundle:Cita')->find( $medicalConsultation );
 				if($oReg)
 				{
-					$prescription = trim( nl2br(@$prescription) );
-					$oReg->setCitReceta($prescription);
+					$value = trim( nl2br(@$value) );
+					switch($field)
+					{
+						case "diagnostico":
+							$oReg->setCitDiagnostico($value);
+							break;
+						case "prescription":
+							$oReg->setCitReceta($value);
+							break;
+						default:
+							$oReg->setCitPronostico($value);
+							break;
+					}
+					
 					$em->persist( $oReg );
 					$em->flush();
 					echo 1;

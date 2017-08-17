@@ -529,7 +529,7 @@
                     
                     <div class="panel panel-info {{ collapsed }}">
                         <div class="panel-heading">
-                            <h6 class="panel-title">Receta médica<a class="heading-elements-toggle"><i class="icon-more"></i></a></h6>
+                            <h6 class="panel-title">Diagnóstico-Receta Médica-Prognóstico<a class="heading-elements-toggle"><i class="icon-more"></i></a></h6>
                             <div class="heading-elements">
                                 <ul class="icons-list">
                                     <li><a data-action="collapse"></a></li>
@@ -537,19 +537,66 @@
                             </div>
                         </div>
                         <div class="panel-body" style="">
-                            <div>
-                                <p>Ingrese los detalles de la recete médica</p>
-                                <span id="loadingPrescription"></span>
-                                <textarea class="form-control" rows="10" id="textPrescription">{{ prescription|replace({'<br />': ""}) }} </textarea>
-                                <div class="text-right">
-                                    <br>
-                                    
-                                    {# <button class="btn btn-success" id="btnPrint"><i class="fa fa-print" aria-hidden="true"></i> Imprimir</button> #}
-                                    <a class="btn btn-success" href="{{ path('consulta_print_prescription') }}?c={{ app.request.get("cm") }}" target="_blank"><i class="fa fa-print" aria-hidden="true"></i> Imprimir</a>
-                                    <button class="btn btn-success" id="btnSendEmail"><i class="fa fa-paper-plane" aria-hidden="true"></i> Enviar por email</button>
-                                    {# <button class="btn btn-success"><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar</button> #}
+                            
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs" role="tablist">
+                              <li role="presentation" class="active"><a href="#diagnostico" aria-controls="home" role="tab" data-toggle="tab">Diagnóstico</a></li>
+                              <li role="presentation"><a href="#receta" aria-controls="profile" role="tab" data-toggle="tab">Receta</a></li>
+                              <li role="presentation"><a href="#prognostico" aria-controls="messages" role="tab" data-toggle="tab">Prognóstico</a></li>
+                            </ul>
+                            
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane active" id="diagnostico">
+                                    <div id="">
+                                        <p>Diagnóstico médico</p>
+                                        <span id="loadingDiagnostico"></span>
+                                        <textarea class="form-control" rows="10" id="textDiagnostico">{{ diagnostico|replace({'<br />': ""}) }} </textarea>
+                                        <div class="text-right">
+                                            <br>
+
+                                            {# <button class="btn btn-success" id="btnPrint"><i class="fa fa-print" aria-hidden="true"></i> Imprimir</button> #}
+                                            <a class="btn btn-success" href="{{ path('consulta_print_prescription') }}?c={{ app.request.get("cm") }}" target="_blank"><i class="fa fa-print" aria-hidden="true"></i> Imprimir Diagnóstico</a>
+                                            <button class="btn btn-success" id="btnSendEmail"><i class="fa fa-paper-plane" aria-hidden="true"></i> Enviar por email</button>
+                                            {# <button class="btn btn-success"><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar</button> #}
+                                        </div>
+                                    </div> 
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="receta">
+                                    <div id="">
+                                        <p>Ingrese los detalles de la receta médica</p>
+                                        <span id="loadingPrescription"></span>
+                                        <textarea class="form-control" rows="10" id="textPrescription">{{ prescription|replace({'<br />': ""}) }} </textarea>
+                                        <div class="text-right">
+                                            <br>
+
+                                            {# <button class="btn btn-success" id="btnPrint"><i class="fa fa-print" aria-hidden="true"></i> Imprimir</button> #}
+                                            <a class="btn btn-success" href="{{ path('consulta_print_prescription') }}?c={{ app.request.get("cm") }}" target="_blank"><i class="fa fa-print" aria-hidden="true"></i> Imprimir Receta</a>
+                                            <button class="btn btn-success" id="btnSendEmail"><i class="fa fa-paper-plane" aria-hidden="true"></i> Enviar por email</button>
+                                            {# <button class="btn btn-success"><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar</button> #}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="prognostico">
+                                     <div id="">
+                                        <p>Prognóstico médico</p>
+                                        <span id="loadingPrognostico"></span>
+                                        <textarea class="form-control" rows="10" id="textPrognostico">{{ prognostico|replace({'<br />': ""}) }} </textarea>
+                                        <div class="text-right">
+                                            <br>
+
+                                            {# <button class="btn btn-success" id="btnPrint"><i class="fa fa-print" aria-hidden="true"></i> Imprimir</button> #}
+                                            <a class="btn btn-success" href="{{ path('consulta_print_prescription') }}?c={{ app.request.get("cm") }}" target="_blank"><i class="fa fa-print" aria-hidden="true"></i> Imprimir Prognóstico</a>
+                                            <button class="btn btn-success" id="btnSendEmail"><i class="fa fa-paper-plane" aria-hidden="true"></i> Enviar por email</button>
+                                            {# <button class="btn btn-success"><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar</button> #}
+                                        </div>
+                                    </div>       
                                 </div>
                             </div>
+                            
+                            
+                            
+                            
                         </div>
                     </div>            
                 </div>
@@ -1471,7 +1518,7 @@
                 $('body').find("form.mod-form :input").each(function(){
                     $(this).attr("disabled",true);
                 });
-                $("#textPrescription").attr("disabled",true);
+                $("#textDiagnostico, #textPrescription, #textPrognostico").attr("disabled",true);
             {% endif %}
             
             function doDelete() {  // delete event 
@@ -1663,31 +1710,68 @@
             });
             */
             
+                $("#textDiagnostico").on("change  paste", function(){
+                    {% if statusAppointment == "p" or statusAppointment == "c" %}
+                        var info = $(this).val();
+                        $("#loadingDiagnostico").html("<i class='loading-gif'>&nbsp;&nbsp;<img src='{{ asset('bundles/admin/img/ajax-loader.gif') }}'> Guardando..</i>");
+                        $(".loading-gif").css('color', '#39AED1');
+                        setDiaPresPro("diagnostico");
+                    {% endif %}
+                });
+                
                 $("#textPrescription").on("change  paste", function(){
                     {% if statusAppointment == "p" or statusAppointment == "c" %}
                         var info = $(this).val();
                         $("#loadingPrescription").html("<i class='loading-gif'>&nbsp;&nbsp;<img src='{{ asset('bundles/admin/img/ajax-loader.gif') }}'> Guardando..</i>");
                         $(".loading-gif").css('color', '#39AED1');
-                        setPrescription();
+                        setDiaPresPro("prescription");
                     {% endif %}
-                                        //}
+                });
+                
+                $("#textPrognostico").on("change  paste", function(){
+                    {% if statusAppointment == "p" or statusAppointment == "c" %}
+                        var info = $(this).val();
+                        $("#loadingPrognostico").html("<i class='loading-gif'>&nbsp;&nbsp;<img src='{{ asset('bundles/admin/img/ajax-loader.gif') }}'> Guardando..</i>");
+                        $(".loading-gif").css('color', '#39AED1');
+                        setDiaPresPro("prognostico");
+                    {% endif %}
                 });
             
-            function setPrescription()
+            function setDiaPresPro(type)
             {
                 {% if statusAppointment == "p" or statusAppointment == "c" %}
                     $("#holder_loading").show();
+                    
+                    var field = "";
+                    var value = "";
+                    var loading = "";
+                    switch(type)
+                    {
+                        case "diagnostico":
+                            value = $('#textDiagnostico').val();
+                            loading = "loadingDiagnostico";
+                            break;
+                        case "prescription":
+                            value = $('#textPrescription').val();
+                            loading = "loadingPrescription";
+                            break;
+                        default:
+                            value = $('#textPrognostico').val();
+                            loading = "loadingPrognostico";
+                            break;
+                    }
+                    
                     var textPrescription = $('#textPrescription').val();
                     var patiente = "{{app.request.get("id")}}";
                     var appointment = "{{ app.request.get("cm") }}";
                     $.ajax({
 
                         url: "{{ path('consulta_set_prescription') }}",
-                        data: { "prescription":textPrescription, "patiendId":patiente,"appointment":appointment  },
+                        data: { "field":type, "value":value, "patiendId":patiente,"appointment":appointment  },
                         type: "POST",
                         success: function(json) {
                             $("#holder_loading").hide();
-                            $("#loadingPrescription .loading-gif").html('&nbsp;&nbsp;Listo.').fadeOut( 4000 );
+                            $("#"+loading+" .loading-gif").html('&nbsp;&nbsp;Listo.').fadeOut( 4000 );
                         },
                         error: function(json){
                            // alert(json.id);
