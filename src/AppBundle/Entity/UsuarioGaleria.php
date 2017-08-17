@@ -284,4 +284,33 @@ class UsuarioGaleria
     {
         return $this->galUsu;
     }
+    /**
+     * @var integer
+     */
+    private $galAprobado;
+
+
+    /**
+     * Set galAprobado
+     *
+     * @param integer $galAprobado
+     *
+     * @return UsuarioGaleria
+     */
+    public function setGalAprobado($galAprobado)
+    {
+        $this->galAprobado = $galAprobado;
+
+        return $this;
+    }
+
+    /**
+     * Get galAprobado
+     *
+     * @return integer
+     */
+    public function getGalAprobado()
+    {
+        return $this->galAprobado;
+    }
 }

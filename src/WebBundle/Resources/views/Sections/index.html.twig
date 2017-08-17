@@ -32,7 +32,8 @@
             <div class="bio-box" >
                 <a href="{{ path( "web_doctores_perfil", {"med_id" : m.cli_usu_usu_id} ) }}">
                 <div class="profile-img">
-                    <img src="{{ asset("uploads/perfil/")}}{{m.gal_hash}}" alt="Doctor" class="lazy img-responsive img-center-sm img-center-xs" >
+                    {% set imgPerfil =  "uploads/perfil/" ~ m.gal_hash %}
+                    <img src="{{ image(imgPerfil).resize(250,250).jpeg(85) }}" alt="Doctor" class="lazy img-responsive img-center-sm img-center-xs" >
                     <!--
                     <div class="overlay">
                         <ul class="list-unstyled list-inline sm-links">
