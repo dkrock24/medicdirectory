@@ -66,6 +66,7 @@ class ConsultaController extends Controller
         
 		$iLocationId = $this->get('session')->get('locationId');
 		
+		
 		$patientId = $request->get('id');
 		$diaryId = $request->get('cm');
 		
@@ -543,6 +544,10 @@ class ConsultaController extends Controller
 		$showDate = $request->get("date");
 		$viewDoctorId = $request->get("d");
 		
+		
+		$type = $request->get("type");
+		
+		
 		$oRepo = $em->getRepository('AppBundle:Agenda')->findBy( array("ageId"=>$medicalConsulation, "ageCli"=>$locationId ) );
 		
 		//$is_appointment = "no";
@@ -596,10 +601,6 @@ class ConsultaController extends Controller
 		}
 		
 		
-		//exit();
-		//$oRepo[0]->getAgeCit()->getCitId();
-		//$oRepo[0]->getAgeCit()->getCitReceta();
-		
 		/*
 		$oPatient = $em->getRepository('AppBundle:Paciente')->findBy( array("pacId"=>$patientId, "pacCli"=>$locationId ) );
 		if( !$oPatient )
@@ -615,8 +616,6 @@ class ConsultaController extends Controller
 				)
 		    );
 		*/
-		//echo $html;
-		//exit();
 		$RAW_QUERY = "SELECT u.usu_id, CONCAT_WS(' ', u.usu_nombre, u.usu_segundo_nombre, u.usu_tercer_nombre, u.usu_primer_apellido, u.usu_segundo_apellido) as usu_nombre, 
 						cu.cli_usu_titulo AS usu_titulo,
 						cu.cli_usu_direccion as usu_direccion,
@@ -643,8 +642,17 @@ class ConsultaController extends Controller
 		{
 			//$html = "Ok esta es la receta";
 			
+			if( $type == "d" ) //Diagnostico
+			{
+				$view = "_diagnosisDetail.html.twig";
+			}
+			else //Receta
+			{
+				$view = "_prescriptionDetail.html.twig";
+			}		
+			
 			$html = $this->renderView(
-				'EmrBundle:consulta:_prescriptionDetail.html.twig',
+				"EmrBundle:consulta:".$view."",
 				array(
 					'appointment' => $oRepo,
 					'showDate'=>$showDate
@@ -774,16 +782,46 @@ class ConsultaController extends Controller
 	
 	public function sendEmailPrescriptionAction( Request $request )
 	{
+		$em = $this->getDoctrine()->getManager();
+		$iLocationId = $this->get('session')->get('locationId');
+		
 		$patientName = $request->get("fullname");
+		
+		
+		
 		$patientEmail = $request->get("email");
-		$prescription = $request->get("prescription");
+		$info = $request->get("info");
 		$appointment = $request->get("appointment");
-		$this->sendMessage("paciente_receta", $patientName, $prescription, $to=$patientEmail, $trom=false);
+		$type = $request->get("type");
+		
+		//$doctor = $this->get('session')->get('fullNameUserLoagged');
+		
+		//$cmId = $request->get("cm");
+		$doctor = "";
+		$oAgenda = $em->getRepository("AppBundle:Agenda")->findByAgeId($appointment);
+		foreach( $oAgenda as $key)
+		{
+			$doctorId = $key->getAgeUsu()->getUsuId();
+			$user_repo = $em->getRepository("AppBundle:ClienteUsuario")->findBy(array("cliUsuCli"=>$iLocationId, "cliUsuUsu"=>$doctorId, "cliUsuRol"=>6 ) );
+			$title =  $user_repo[0]->getCliUsuTitulo();
+			$doctor = ucwords( $title." ".$key->getAgeUsu()->getUsuNombre()." ".$key->getAgeUsu()->getUsuSegundoNombre()." ".$key->getAgeUsu()->getUsuTercerNombre()." ".$key->getAgeUsu()->getUsuPrimerApellido()." ".$key->getAgeUsu()->getUsuSegundoApellido() );
+			//$this->session->set('fullNameUserLoagged', $fullName );
+		}
+		
+		if( $type == "textDiagnostico" )
+		{ 
+			$this->sendMessage("paciente_diagnostico", $patientName, $info, $doctor, $to=$patientEmail, $trom=false);
+		}
+		else
+		{
+			$this->sendMessage("paciente_receta", $patientName, $info, $doctor,  $to=$patientEmail, $trom=false);
+		}	
+		
 		echo 1;
 		exit();
 	}
 	
-	public function sendMessage($typeTemplate, $username, $prescription, $to, $trom=false)
+	public function sendMessage($typeTemplate, $username, $info, $doctor, $to, $trom=false)
 	{
 		
 		//if( $typeMessage )
@@ -797,7 +835,8 @@ class ConsultaController extends Controller
 
 			$variables['location'] = $locationName;
 			$variables['username'] = $username;
-			$variables['prescription'] = $prescription;
+			$variables['doctor'] = $doctor;
+			$variables['info'] = $info;
 
 			//$srvParameter = $this->get('srv_parameters');
 			//$link_sistema = $srvParameter->getParametro("link_sistema", $default_return_value = "");

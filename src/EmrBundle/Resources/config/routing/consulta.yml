@@ -29,8 +29,8 @@ consulta_set_prescription:
     path:     /prescription/patient
     defaults: { _controller: "EmrBundle:Consulta:setPrescription"}
     
-consulta_print_prescription:
-    path:     /prescription/print
+consulta_print_diagnostico_receta:
+    path:     /diagnostico-receta/print
     defaults: { _controller: "EmrBundle:Consulta:printPrescription"}
     
 consulta_prescription_send_email:

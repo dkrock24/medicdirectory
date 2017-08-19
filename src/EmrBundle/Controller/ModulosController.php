@@ -117,6 +117,7 @@ class ModulosController extends Controller
 						$oCliente = $em->getRepository("AppBundle:Cliente")->find( $iLocationId );
 						$oSetModule->setCliModCli($oCliente);
 						$oModule = $em->getRepository("AppBundle:Modulo")->find( $arrIds[$i]  );
+						$oSetModule->setCliModCosto( $oModule->getModCosto() );
 						$oSetModule->setCliModMod($oModule);
 						if( $oModule->getModCosto() == "0.00" || $oModule->getModGeneral() == 1 )
 						{

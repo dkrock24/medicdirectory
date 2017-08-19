@@ -117,7 +117,7 @@ class AgendaController extends Controller
 		//var_dump($userRoles);
 		if (array_key_exists(6,$userRoles)) //Doctor
 		{
-			$userId = $this->getUser()->getUsuId();;
+			$userId = $this->getUser()->getUsuId();
 		}
 		else
 		{

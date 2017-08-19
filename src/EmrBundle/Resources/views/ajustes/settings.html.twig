@@ -131,7 +131,7 @@
                                                     </div>
                                                     <div class="marginB15">
                                                         <div class="form-groupx">
-                                                        <label class="display-block">Formato a descargar de las recetas:</label>
+                                                        <label class="display-block">Formato de impresión del diagnóstico y recetas médicas:</label>
                                                         {% if settings.horientacion_pdf_receta is defined %}
                                                             {% if settings.horientacion_pdf_receta == "L" %}
                                                                 {% set viewH = "checked='checked'" %}
@@ -312,7 +312,7 @@
                                                     {% endif %}
                                                     <fieldset>
                                                         <legend class="text-semibold">
-                                                            Formato de recetas en PDF
+                                                            Formato del diagnóstico y recetas en PDF
                                                         </legend>
                                                         <div class="marginB15">
 
@@ -326,9 +326,12 @@
                                                                 Sin fecha
                                                             </label>
                                                         </div>
-                                                        <a href="{{ path('consulta_print_prescription') }}" target="_blank" class="btn btn-success" id="btnViewPrescription">
-                                                            <i class="fa fa-download" aria-hidden="true"></i> Descargar Aquí
+                                                        <a href="{{ path('consulta_print_diagnostico_receta') }}" target="_blank" class="btn btn-success btnViewDiagnosisPrescription" id="btnViewDiagnosis">
+                                                            <i class="fa fa-download" aria-hidden="true"></i> Descargar Diagnóstico Aquí
                                                         </a>
+                                                        <a href="{{ path('consulta_print_diagnostico_receta') }}" target="_blank" class="btn btn-success btnViewDiagnosisPrescription" id="btnViewPrescription">
+                                                            <i class="fa fa-download" aria-hidden="true"></i> Descargar Receta Aquí
+                                                        </a>    
                                                     </fieldset>    
                                                     <br>
 
@@ -373,24 +376,24 @@
                     {% endif %}    
                     
                     {% if userRoles.3 is defined %}
-                           // $("#btnViewPrescription").hide();
+                           // $("#btnViewDiagnosisPrescription").hide();
                             $("#doctorsList").change(function(){
                                 var id = $(this).val();
                                 if(id > 0 )
                                 {
-                                    $("#btnViewPrescription").show();
+                                    $(".btnViewDiagnosisPrescription").show();
                                     
                                     var value =  $('input:radio[name=downPresDate]:checked').val();
                                     setLink(value);
                                 } else{
-                                    $("#btnViewPrescription").hide();
+                                    $(".btnViewDiagnosisPrescription").hide();
                                 }  
                             });
                     {% endif  %}
                     
                     $(".checkDateApp").change(function(){
                         var value =  $(this).val();
-                        //console.log(value);
+                        console.log(value);
                         
                         
                         setLink(value);
@@ -398,34 +401,41 @@
                     
                     function setLink(value)
                     {
-                        var btnPDF = $("#btnViewPrescription");
-                        var currentLink = "{{ path('consulta_print_prescription') }}";
+                        //alert(value);
+                        //var btnPDF = $(".btnViewDiagnosisPrescription");
+                        var currentLink = "{{ path('consulta_print_diagnostico_receta') }}";
                         var doctorId = $("#doctorsList").val();
                         if( value == 1 )
                         {
                             {% if userRoles.3 is defined %}
-                                var newLik = currentLink+"?d="+doctorId+"&date=hoy";
+                                var newLikD = currentLink+"?d="+doctorId+"&date=hoy&type=d";
+                                var newLikP = currentLink+"?d="+doctorId+"&date=hoy&type=p";
                             {% else %}
-                                var newLik = currentLink+"?date=hoy";
+                                var newLikD = currentLink+"?date=hoy&type=d";
+                                var newLikP = currentLink+"?date=hoy&type=p";
                             {% endif %}    
                             
                         }
                         else
                         {
                              {% if userRoles.3 is defined %}
-                                 var newLik = currentLink+"?d="+doctorId;   
+                                 var newLikD = currentLink+"?d="+doctorId+"&type=d";   
+                                 var newLikP = currentLink+"?d="+doctorId+"&type=p";   
                             {% else %}
-                                var newLik = currentLink;
+                                var newLikD = currentLink+"?type=d";
+                                var newLikP = currentLink+"?type=p";
                             {% endif %} 
                             
                         }
                         
-                        btnPDF.attr("href",newLik);
+                        $("#btnViewDiagnosis").attr("href", newLikD);
+                        $("#btnViewPrescription").attr("href", newLikP);
+                        //btnPDF.attr("href",newLik);
                     }
                     
                     if( $("#doctorsList").size() > 0 )
                     {
-                        $("#btnViewPrescription").on("click", function(event){
+                        $(".btnViewDiagnosisPrescription").on("click", function(event){
                             var id = $("#doctorsList").val();
                             if( id > 0)
                             {

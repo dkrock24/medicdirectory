@@ -529,7 +529,7 @@
                     
                     <div class="panel panel-info {{ collapsed }}">
                         <div class="panel-heading">
-                            <h6 class="panel-title">Diagnóstico-Receta Médica-Prognóstico<a class="heading-elements-toggle"><i class="icon-more"></i></a></h6>
+                            <h6 class="panel-title">Diagnóstico y Receta Médica<a class="heading-elements-toggle"><i class="icon-more"></i></a></h6>
                             <div class="heading-elements">
                                 <ul class="icons-list">
                                     <li><a data-action="collapse"></a></li>
@@ -542,7 +542,7 @@
                             <ul class="nav nav-tabs" role="tablist">
                               <li role="presentation" class="active"><a href="#diagnostico" aria-controls="home" role="tab" data-toggle="tab">Diagnóstico</a></li>
                               <li role="presentation"><a href="#receta" aria-controls="profile" role="tab" data-toggle="tab">Receta</a></li>
-                              <li role="presentation"><a href="#prognostico" aria-controls="messages" role="tab" data-toggle="tab">Prognóstico</a></li>
+                              {# <li role="presentation"><a href="#prognostico" aria-controls="messages" role="tab" data-toggle="tab">Prognóstico</a></li> #}
                             </ul>
                             
                             <!-- Tab panes -->
@@ -551,13 +551,13 @@
                                     <div id="">
                                         <p>Diagnóstico médico</p>
                                         <span id="loadingDiagnostico"></span>
-                                        <textarea class="form-control" rows="10" id="textDiagnostico">{{ diagnostico|replace({'<br />': ""}) }} </textarea>
+                                        <textarea class="form-control infoByEmail" rows="10" id="textDiagnostico">{{ diagnostico|replace({'<br />': ""}) }} </textarea>
                                         <div class="text-right">
                                             <br>
 
                                             {# <button class="btn btn-success" id="btnPrint"><i class="fa fa-print" aria-hidden="true"></i> Imprimir</button> #}
-                                            <a class="btn btn-success" href="{{ path('consulta_print_prescription') }}?c={{ app.request.get("cm") }}" target="_blank"><i class="fa fa-print" aria-hidden="true"></i> Imprimir Diagnóstico</a>
-                                            <button class="btn btn-success" id="btnSendEmail"><i class="fa fa-paper-plane" aria-hidden="true"></i> Enviar por email</button>
+                                            <a class="btn btn-success" href="{{ path('consulta_print_diagnostico_receta') }}?c={{ app.request.get("cm") }}&type=d" target="_blank"><i class="fa fa-print" aria-hidden="true"></i> Imprimir Diagnóstico</a>
+                                            <button class="btn btn-success sendByEmail" id="btnSendEmail"><i class="fa fa-paper-plane" aria-hidden="true"></i> Enviar por email</button>
                                             {# <button class="btn btn-success"><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar</button> #}
                                         </div>
                                     </div> 
@@ -566,17 +566,18 @@
                                     <div id="">
                                         <p>Ingrese los detalles de la receta médica</p>
                                         <span id="loadingPrescription"></span>
-                                        <textarea class="form-control" rows="10" id="textPrescription">{{ prescription|replace({'<br />': ""}) }} </textarea>
+                                        <textarea class="form-control infoByEmail" rows="10" id="textPrescription">{{ prescription|replace({'<br />': ""}) }} </textarea>
                                         <div class="text-right">
                                             <br>
 
                                             {# <button class="btn btn-success" id="btnPrint"><i class="fa fa-print" aria-hidden="true"></i> Imprimir</button> #}
-                                            <a class="btn btn-success" href="{{ path('consulta_print_prescription') }}?c={{ app.request.get("cm") }}" target="_blank"><i class="fa fa-print" aria-hidden="true"></i> Imprimir Receta</a>
-                                            <button class="btn btn-success" id="btnSendEmail"><i class="fa fa-paper-plane" aria-hidden="true"></i> Enviar por email</button>
+                                            <a class="btn btn-success" href="{{ path('consulta_print_diagnostico_receta') }}?c={{ app.request.get("cm") }}&type=p" target="_blank"><i class="fa fa-print" aria-hidden="true"></i> Imprimir Receta</a>
+                                            <button class="btn btn-success sendByEmail" id="btnSendEmail"><i class="fa fa-paper-plane" aria-hidden="true"></i> Enviar por email</button>
                                             {# <button class="btn btn-success"><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar</button> #}
                                         </div>
                                     </div>
                                 </div>
+                                {#         
                                 <div role="tabpanel" class="tab-pane" id="prognostico">
                                      <div id="">
                                         <p>Prognóstico médico</p>
@@ -585,13 +586,13 @@
                                         <div class="text-right">
                                             <br>
 
-                                            {# <button class="btn btn-success" id="btnPrint"><i class="fa fa-print" aria-hidden="true"></i> Imprimir</button> #}
+                                           
                                             <a class="btn btn-success" href="{{ path('consulta_print_prescription') }}?c={{ app.request.get("cm") }}" target="_blank"><i class="fa fa-print" aria-hidden="true"></i> Imprimir Prognóstico</a>
-                                            <button class="btn btn-success" id="btnSendEmail"><i class="fa fa-paper-plane" aria-hidden="true"></i> Enviar por email</button>
-                                            {# <button class="btn btn-success"><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar</button> #}
+                                            <button class="btn btn-success sendByEmail" id="btnSendEmail"><i class="fa fa-paper-plane" aria-hidden="true"></i> Enviar por email</button>
+                                            
                                         </div>
                                     </div>       
-                                </div>
+                                </div> #}
                             </div>
                             
                             
@@ -685,7 +686,7 @@
                     text = text.replace(/\n/g, "<br />");
                     
                     
-                    var win = window.open("{{ path('consulta_print_prescription') }}?c={{ app.request.get("cm") }}", '_blank');
+                    var win = window.open("{{ path('consulta_print_diagnostico_receta') }}?c={{ app.request.get("cm") }}", '_blank');
                     if (win) {
                         
                         //Browser has allowed it to be opened
@@ -729,7 +730,7 @@
                 
             });
             
-            $("#btnSendEmail").on("click", function(){
+            $(".sendByEmail").on("click", function(){
                 $("#modalSendPrescription").modal({
                     backdrop: 'static',
                     keyboard: true, 
@@ -739,16 +740,20 @@
             
             //$("#inputConfirmEmail").val("{{ patient[0].pacEmail }}");
             $("#btnConfirmSendEMail").on("click", function(){
+                
+                
+                
                 var fullname = "{{ patient[0].pacNombre }} {{ patient[0].pacSegNombre }} {{ patient[0].pacApellido }} {{ patient[0].pacSegApellido }}";
                 var email = $("#inputConfirmEmail").val();
-                var prescription = $("#textPrescription").val();
-                prescription = prescription.replace(/\n/g, "<br />");
+                var type = $(".infoByEmail:visible").attr("id");
+                var info = $(".infoByEmail:visible").val();//$("#textPrescription").val();
+                info = info.replace(/\n/g, "<br />");
                 var appointment = "{{ app.request.get("cm") }}";
                 $("#holder_loading").show();
                 $.ajax({
 
                     url: "{{ path('consulta_prescription_send_email') }}",
-                    data: { "fullname":fullname, "email":email, "prescription":prescription, "appointment":appointment  },
+                    data: { "fullname":fullname, "email":email, "info":info, "appointment":appointment,"type":type  },
                     type: "POST",
                     success: function(data) {
                        $("#holder_loading").hide();
@@ -759,6 +764,15 @@
                             content: "<p class=''>Receta médica enviada exitosamente</p>",
                             type: 'green',
                             typeAnimated: true,
+                            buttons: {
+                                confirm: {
+                                    text: 'Ok',
+                                    btnClass: 'btn-blue',
+                                    action: function (event) {
+                                         //event.preventDefault()();
+                                    }
+                                }
+                            }
                         });
 
                     },
@@ -1310,6 +1324,17 @@
                             content: "<p class=''>Cita creada con éxito</p>",
                             type: 'green',
                             typeAnimated: true,
+                            buttons: {
+                                confirm: {
+                                    text: 'Ok',
+                                    btnClass: 'btn-blue',
+                                    action: function () {
+                                        $("#holder_loading").show(); 
+                                        window.location.reload();
+                                    }
+                                },
+
+                            }
                         });
 
                     },
@@ -1740,7 +1765,7 @@
             function setDiaPresPro(type)
             {
                 {% if statusAppointment == "p" or statusAppointment == "c" %}
-                    $("#holder_loading").show();
+                    //$("#holder_loading").show();
                     
                     var field = "";
                     var value = "";
