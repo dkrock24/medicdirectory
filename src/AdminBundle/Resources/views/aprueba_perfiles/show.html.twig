@@ -1,0 +1,226 @@
+{% extends "Layout/base_admin/_admin_base.html.twig" %}
+
+{% block title_page %}
+        EMR || Características de la seccion
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('AdminBundle:modulos:_breadcrumb.html.twig' )  }}
+{% endblock %} 
+
+{% block submenutop %}
+    {{ include('AdminBundle:modulos:_submenu.html.twig' )  }}
+{% endblock %}
+
+{% block body %}
+    <script type="text/javascript" src="{{ asset('bundles/admin/template_clients/assets/js/plugins/tables/datatables/extensions/select.min.js')}} "></script>
+    <script type="text/javascript" src="{{ asset('bundles/admin/template_clients/assets/js/pages/datatables_extension_select.js') }}"></script>
+    <h1>Solicitudes pendientes de aprobaciones para perfiles médicos</h1>
+    <div class="row">
+        <div class="col-lg-9 col-md-8">
+            
+            <!-- Check the notifications -->
+            {% for message in app.session.flashbag().get("success") %}
+                <div class="alert alert-success"><i class="fa fa-check-circle"></i> {{message}}</div>
+            {% endfor %}
+            {% for message in app.session.flashbag().get("error") %}
+                <div class="alert alert-danger"><i class="fa fa-close"></i> {{message}}</div>
+            {% endfor %}            
+            
+            {% if list|length > 0 %}
+                <div class="table-responsive">
+                    <table class="table table-striped text-nowrap" id="table_result_list">
+                        <thead>
+                            <tr><th></th><th>ID Doctor</th><th>Establecimiento</th><th>Doctor</th><th>JVPM</th><th>Email</th><th></th></tr>
+                        </thead>    
+                        <tbody>
+                        {% for profile in list %}
+                            <tr id="tr_{{profile.gal_id}}">
+                                <td></td>
+                                <td>{{ profile.gal_usu_id }}</td>
+                                <td>{{ profile.nombre_cliente }}</td>
+                                <td>{{ profile.nombre_doctor }}</td>
+                                <td>{{ profile.jvpm }}</td>
+                                <td>{{ profile.email }}</td>
+                                <td><button data-image="{{profile.gal_hash}}" class="getImage">Ver Foto</button></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <hr>
+                Seleccione una opción para los registros seleccionados:<br><br> 
+                <button id="btnSetSelectedAprove" class="setModule btn btn-success"> Aprobar </button>
+                {# <button id="btnUnSetSelectedAprove" class="setModule btn btn-danger"> Desaprobar </button> #}
+            {% else %}
+                <div class="alert alert-info">No hay solicitudes pendientes de aprobación</div>
+            {% endif %}
+            <hr>         
+        </div>
+        <div class="col-lg-3 col-md-4">    
+            <div id="viewImageSelected"></div>
+        </div>
+                    
+    </div>
+            
+    <script>
+        $(document).on("ready", function(){
+            var arrModulesSelected = [];
+            if( $("body").find("#table_result_list").size() == 1 )
+            {
+               var tableModules = $("body").find("#table_result_list").DataTable({
+                                "searching": true,
+                                "bFilter": false,
+                                "bInfo": false,
+                                "bLengthChange": false,
+                                "pageLength": 2,
+                                //"autoWidth": true,
+                                "language":{
+                                    oPaginate: {
+                                        sFirst: "Primero",
+                                        sLast: "último",
+                                        sNext: "Siguiente",
+                                        sPrevious: "Anterior"
+                                       
+                                    },
+                                    sSearch: "Buscar: "
+                                },
+                                columnDefs: [ {
+                                    orderable: false,
+                                    className: 'select-checkbox',
+                                    targets:   0,
+                                    
+                                } ],
+                                select: {
+                                    style:    'multiple',
+                                    selector: 'td:first-child'
+                                },
+                                "order": [[ 1, "asc" ]]
+                    });
+                
+               
+                $(".setModule").on("click",function(){
+                    var btnSelected = $(this).attr("id");
+                    var count = tableModules.rows( { selected: true } ).count();
+                    if(count > 0)
+                    {
+                       
+                        tableModules.rows('.selected').data().each(function(index, rowId){
+                            var id = $(this)[rowId]['DT_RowId'];
+                            id = id.replace(/\D/g,'');
+                            arrModulesSelected.push(id);
+                        });
+                        setModulesSelected(btnSelected);
+                        arrModulesSelected = [];
+                    }
+                    else
+                    {
+                        $.alert({
+                            icon: 'glyphicon glyphicon-exclamation-sign',
+                            title: 'Info!',
+                            content: 'Debe de seleccionar almenos un regístro',
+                            type: 'red',
+                            typeAnimated: true,
+                        });
+                        return false;
+                    }    
+                });          
+            }
+            
+            function setModulesSelected(btnSelected)
+            {
+  
+                $("#holder_loading").show();
+                //console.log(arrModulesSelected);
+                $.ajax({
+                   url: "{{ path('solicitudes_valid') }}",
+                   data: "id="+arrModulesSelected+"&option="+btnSelected,
+                   type: "POST",
+                   success: function(data) {
+                       //location.hash = id;
+                      
+                       //alert("Fin modules seleccionados");
+                       var msg = "";
+                       if(btnSelected == "btnSetSelectedAprove")
+                       {
+                           msg = "los <strong>regístros seleccionados</strong> fueron aprobados con éxito";
+                       }
+                       else
+                       {
+                           msg = "Los <strong>regístros seleccionados fueron desaprobados</strong> con éxito";
+                       }    
+                       $.alert({
+                            icon: 'glyphicon glyphicon-exclamation-sign',
+                            title: 'Info!',
+                            content: msg,
+                            type: 'green',
+                            typeAnimated: true,
+                            buttons: {
+                                ok: {
+                                    text: 'Ok',
+                                    action: function () {
+                                       location.reload();
+                                    }
+                                }
+                            }    
+                        })
+                        return false;
+                   },
+                   error: function(json){
+                      // alert(json.id);
+                      $("#holder_loading").hide();
+                      //var infoError = (data);
+                        $.alert({
+                            icon: 'glyphicon glyphicon-exclamation-sign',
+                            title: 'Info!',
+                            content: 'Ha ocurrido un error',
+                            type: 'red',
+                            typeAnimated: true,
+                        });
+                        return false;
+
+                   }
+               });
+
+            }
+            
+            $("body").on("click",".getImage", function(){
+                var img = $(this).data("image");
+                viewImage(img);
+            });
+            
+            function viewImage(img)
+            {
+  
+                $("#holder_loading").show();
+                //console.log(arrModulesSelected);
+                $.ajax({
+                   url: "{{ path('solicitudes_get_image_profile') }}",
+                   data: {img:img},
+                   type: "POST",
+                   success: function(data) {
+                       //location.hash = id;
+                       $("#viewImageSelected").html(data);
+                       $("#holder_loading").hide();
+                   },
+                   error: function(json){
+                      // alert(json.id);
+                      $("#holder_loading").hide();
+                      //var infoError = (data);
+                        $.alert({
+                            icon: 'glyphicon glyphicon-exclamation-sign',
+                            title: 'Info!',
+                            content: 'Ha ocurrido un error',
+                            type: 'red',
+                            typeAnimated: true,
+                        });
+                        return false;
+
+                   }
+               });
+
+            } 
+            
+        });
+    </script>         
+{% endblock %}

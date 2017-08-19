@@ -80,3 +80,7 @@ admin_correos_probar_enviar:
 admin_contactanos:
         resource: "@AdminBundle/Resources/config/routing/contactanos.yml"
         prefix:   /contactanos
+        
+admin_aprueba_perfiles:
+    resource: "@AdminBundle/Resources/config/routing/aprueba_perfiles.yml"
+    prefix:   /aprueba_perfiles        

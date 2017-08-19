@@ -1,0 +1,13 @@
+{# empty Twig template #}
+<br><br>
+{% if image == "" %}
+    <div id="" class="alert alert-info">El usuario no tiene foto de perfil</div>
+{% elseif file_exists('uploads/perfil/'~image)  %}
+
+        <div class="thumbnailx">
+            {# <img src="{{ asset('uploads/perfil/'~image.galHash) }}" style="max-width: 100%"> #}
+            <img src="{{ image('uploads/perfil/'~image).cropResize(250,250) }}" style="max-width: 100%"/>
+        </div>
+{% else %}
+    <div id="" class="alert alert-warning">La imagen de perfil no pudo ser encontrada</div>
+{% endif %}

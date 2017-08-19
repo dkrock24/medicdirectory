@@ -351,7 +351,7 @@ class PerfilController extends Controller
 						$uFile->deleteFile($current, $path="perfil", $pre_fix=false);
 						$oUserGallery->setGalHash($upload);
 					}
-					
+					$oUserGallery->setGalAprobado(0);
 					$em->persist($oUserGallery);			
 					$flush = $em->flush();
 					

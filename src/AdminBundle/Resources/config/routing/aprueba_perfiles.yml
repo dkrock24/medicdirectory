@@ -1,0 +1,15 @@
+solicitudes_show:
+    path:     /solicitudes
+    defaults: { _controller: "AdminBundle:ApruebaPerfiles:show" }
+    #methods:  GET
+    
+    
+solicitudes_valid:
+    path:     /solicitudes/valid
+    defaults: { _controller: "AdminBundle:ApruebaPerfiles:valid" }
+    #methods:  GET
+
+solicitudes_get_image_profile:
+    path:     /foto/perfil
+    defaults: { _controller: "AdminBundle:ApruebaPerfiles:getImageProfile" }
+
