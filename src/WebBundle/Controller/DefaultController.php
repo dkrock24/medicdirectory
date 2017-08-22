@@ -44,7 +44,7 @@ class DefaultController extends Controller {
                         JOIN usuario_especialidad AS es on u.usu_id=es.id_usuario
                         JOIN  especialidad as e on e.esp_id=es.id_especialidad
                         JOIN usuario_galeria as ug on ug.gal_usu_id=cu.cli_usu_usu_id
-                        WHERE ug.gal_modulo_id is null and ug.gal_tipo=1 and cu.cli_usu_rol_id=6 $sUsuarios
+                        WHERE ug.gal_modulo_id is null and ug.gal_tipo=1 and ug.gal_aprobado=1 and cu.cli_usu_rol_id=6 $sUsuarios
                         group by u.usu_id";
         $statement  = $em->getConnection()->prepare($RAW_QUERY);
         $statement->execute();    
