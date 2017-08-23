@@ -1,3 +1,7 @@
+landing:
+    resource: "@LandingBundle/Resources/config/routing.yml"
+    prefix:   /
+
 support:
     resource: "@SupportBundle/Resources/config/routing.yml"
     prefix:   /
