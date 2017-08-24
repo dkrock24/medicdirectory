@@ -281,9 +281,9 @@ class PerfilController extends Controller
 					$schedule = json_decode($schedule, true);
 					if( count($schedule) > 0 )
 					{
-						$oClientUser[0]->setCliUsuDiasTrabajo(serialize($schedule) );
+						$oClientUser[0]->setCliUsuDiasTrabajos(serialize($schedule) );
 					}else{
-						$oClientUser[0]->setCliUsuDiasTrabajo("");
+						$oClientUser[0]->setCliUsuDiasTrabajos("");
 					}
 					
 					$em->persist($oUser);			
@@ -306,7 +306,7 @@ class PerfilController extends Controller
 						for( $i = 0; $i < count($specialitiesList); $i++)
 						{
 							$item = new UsuarioEspecialidad();
-							echo $idSpe = $specialitiesList[$i];
+							$idSpe = $specialitiesList[$i];
 							$spe = $em->getRepository('AppBundle:Especialidad')->find( $idSpe );
 							$item->setIdEspecialidad($spe);
 							$user = $em->getRepository('AppBundle:Usuario')->find( $userId );
@@ -430,6 +430,7 @@ class PerfilController extends Controller
 			}
 			catch (\Exception $e)
 			{
+				//echo "cagada";
 				$em->getConnection()->rollBack();
 				throw $e;
 				//echo ($e->getMessage());
