@@ -31,7 +31,7 @@
                 <div class="table-responsive">
                     <table class="table table-striped text-nowrap" id="table_result_list">
                         <thead>
-                            <tr><th></th><th>ID Doctor</th><th>Establecimiento</th><th>Doctor</th><th>JVPM</th><th>Email</th><th></th></tr>
+                            <tr><th></th><th>ID Doctor</th><th>Establecimiento</th><th>Doctor</th><th>JVPM</th><th>Email</th><th>Estatus</th><th></th></tr>
                         </thead>    
                         <tbody>
                         {% for profile in list %}
@@ -42,6 +42,13 @@
                                 <td>{{ profile.nombre_doctor }}</td>
                                 <td>{{ profile.jvpm }}</td>
                                 <td>{{ profile.email }}</td>
+                                <td>
+                                    {% if profile.gal_aprobado == 0 %}
+                                       <label class="label label-default">Pendiente de aprobar</label>
+                                    {% else %}
+                                        <label class="label label-danger">Desaprobado</label>
+                                    {% endif %}    
+                                </td>
                                 <td><button data-image="{{profile.gal_hash}}" class="getImage">Ver Foto</button></td>
                             </tr>
                         {% endfor %}
@@ -51,7 +58,7 @@
                 <hr>
                 Seleccione una opción para los registros seleccionados:<br><br> 
                 <button id="btnSetSelectedAprove" class="setModule btn btn-success"> Aprobar </button>
-                {# <button id="btnUnSetSelectedAprove" class="setModule btn btn-danger"> Desaprobar </button> #}
+                <button id="btnUnSetSelectedAprove" class="setModule btn btn-danger"> Desaprobar </button>
             {% else %}
                 <div class="alert alert-info">No hay solicitudes pendientes de aprobación</div>
             {% endif %}

@@ -660,7 +660,8 @@
                                                     <h6 class="panel-title">BANCO</h6> 
                                                 </div> 
                                                 <div class="panel-body"> 
-                                                    BAC CREDOMATIC : 112862321 a Nombre de Rafael Fernando Gutiérrez Tejada
+                                                    Deposito a cuenta o transferencia bancaria<br>
+                                                    BAC CREDOMATIC : <strong>112862321</strong> a Nombre de Rafael Fernando Gutiérrez Tejada
                                                 </div> 
                                             </div>
                                         </div>
@@ -764,6 +765,27 @@
                     // Forbid next action on "Warning" step if the user is to young
                     if (newIndex === 3 && Number($("#age-2").val()) < 18) {
                         return false;
+                    }
+                    
+                    if (newIndex === 2 ) {
+                        var num = 0;
+                        $("body").find(".typeUser").each(function(){
+                            if( $(this).val() == 6 ) 
+                            {
+                                num++;
+                            }
+                        });
+                        if(num == 0 )
+                        {
+                            $.alert({
+                                    icon: 'fa fa-user-times',
+                                    title: 'Error!',
+                                    content: 'Debe de crear al menos un usuario con rol de Doctor/Doctora',
+                                    type: 'red',
+                                    typeAnimated: true,
+                            });
+                            return false;
+                        }
                     }
 
                     // Needed in some cases if the user went back (clean up)

@@ -996,7 +996,7 @@ class ClienteController extends Controller
 
 			$em->getConnection()->commit();
 			if (isset($clientId) && $clientId > 0) {
-				$msg = "Se actualizó correctamente los datos del extablecimiento con éxito";
+				$msg = "Se actualizó correctamente los datos del extablecimiento";
 			}
 			else
 			{
