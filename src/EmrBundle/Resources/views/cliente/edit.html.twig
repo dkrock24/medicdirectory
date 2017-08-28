@@ -417,7 +417,7 @@
                                             </div>
                                             <div class="col-lg-2 col-md-6 col-sm-6">
                                                 <div class="form-group">
-                                                    <label class="control-label">Username(Usuario):</label>
+                                                    <label class="control-label">Usuario:</label>
                                                     <input name="username[]" id="username" value="" type="text" class="form-control user_to_location" required/>
                                                 </div>
                                             </div>
@@ -528,7 +528,7 @@
                                                                 </div>
                                                                 <div class="col-lg-2 col-md-6 col-sm-6">
                                                                     <div class="form-group has-success has-feedback">
-                                                                        <label class="control-label">Username(Usuario):</label>
+                                                                        <label class="control-label">Usuario:</label>
                                                                         <input name="username[]" id="username{{ loop.index }}" value="{{ users.usu_usuario }}" type="text" class="form-control user_to_location" required readonly="readonly"/>
                                                                         <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
                                                                     </div>
@@ -752,7 +752,10 @@
                                             <div class="panel-heading"> 
                                                 <h6 class="panel-title">BANCO</h6> 
                                             </div> 
-                                            <div class="panel-body"> BAC CREDOMATIC : 112862321 a Nombre de Rafael Fernando Gutiérrez Tejada </div> 
+                                            <div class="panel-body">
+                                                Deposito a cuenta o transferencia bancaria<br>
+                                                BAC CREDOMATIC : <strong>112862321</strong> a Nombre de Rafael Fernando Gutiérrez Tejada 
+                                            </div> 
                                         </div>
                                     </div>
                                 {% endif %}
@@ -859,7 +862,28 @@
                     if (newIndex === 3 && Number($("#age-2").val()) < 18) {
                         return false;
                     }
-
+                    
+                    if (newIndex === 2 ) {
+                        var num = 0;
+                        $("body").find(".typeUser").each(function(){
+                            if( $(this).val() == 6 ) 
+                            {
+                                num++;
+                            }
+                        });
+                        if(num == 0 )
+                        {
+                            $.alert({
+                                    icon: 'fa fa-user-times',
+                                    title: 'Error!',
+                                    content: 'Debe de crear al menos un usuario con rol de Doctor/Doctora',
+                                    type: 'red',
+                                    typeAnimated: true,
+                            });
+                            return false;
+                        }
+                    }
+                    
                     // Needed in some cases if the user went back (clean up)
                     if (currentIndex < newIndex) {
 

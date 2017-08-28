@@ -44,7 +44,7 @@ class ApruebaPerfilesController extends Controller
 								WHERE c.cli_id = gal.gal_cliente_id
 						) as nombre_cliente
 					FROM usuario_galeria gal
-					WHERE gal.gal_activo = 1 AND gal.gal_tipo = 1 AND gal.gal_aprobado = 0 AND gal.gal_hash IS NOT NULL
+					WHERE gal.gal_activo = 1 AND gal.gal_tipo = 1 AND gal.gal_aprobado IN (0,2)  AND gal.gal_hash IS NOT NULL
 					"; 
 		$statement = $em->getConnection()->prepare($RAW_QUERY);
 		$statement->execute();
@@ -67,7 +67,7 @@ class ApruebaPerfilesController extends Controller
 		{
 			$gal_opt = 1;
 		}else{
-			$gal_opt = 0;
+			$gal_opt = 2;
 		}	
 		
 		$RAW_QUERY = "UPDATE usuario_galeria SET gal_aprobado = ".$gal_opt." WHERE gal_id IN (".$ids.") ";
