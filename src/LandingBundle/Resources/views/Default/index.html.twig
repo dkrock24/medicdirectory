@@ -1906,13 +1906,13 @@
                 <div class="loginmenu">
                     <ul class="nav ancillary-nav">
                         <li id="menu-item-31048" class="">
-                            <a href="https://medicos.sv/contactanos" target="_blank">Contactános</a>
+                            <a href="{{ path("web_contactanos") }}" target="_blank">Contactános</a>
                         </li>
                         <li id="menu-item-30821" class="">
-                            <a href="https://sistema.medicos.sv/login" target="_blank">Login</a>
+                            <a href="{{ path("login") }}" target="_blank">Login</a>
                         </li>
                         <li id="menu-item-28855" class="">
-                            <a  href="https://sistema.medicos.sv/cliente/nuevo" target="_blank">Registrarme</a>
+                            <a  href="{{ path("cliente_new") }}" target="_blank">Registrarme</a>
                         </li>
                     </ul>
                 </div>
@@ -1930,10 +1930,10 @@
                                 <a href="#alcance">Alcance</a>
                             </li>
                             <li id="menu-item" class="menu-item">
-                                <a href="https://medicos.sv/precios" target="_blank">Precio</a>
+                                <a href="{{ path('web_precios') }}" target="_blank">Precio</a>
                             </li>
                             <li id="menu-item" class="menu-item">
-                                <a href="https://medicos.sv" target="_blank">Perfil Médico</a>
+                                <a href="{{ path("web_homepage") }}" target="_blank">Perfil Médico</a>
                             </li>
                         </ul>
                     </nav>
@@ -1968,7 +1968,7 @@
                             <h1 class="mensaje" style="margin-top: 25%;color:#ffa800;">La Mejor Forma Para Administrar Tu Consulta</h1>
 
                             <h4 style="margin-top: 35%; position: relative;">
-                                <a class="button green" href="https://sistema.medicos.sv/cliente/nuevo" target="_blank">Probar Gratis</a>
+                                <a class="button green" href="{{ path("cliente_new") }} " target="_blank">Probar Gratis</a>
                             </h4>
                         </div>
                     </div>
@@ -2082,7 +2082,7 @@
                                 <h4 class="titulos_1">Agenda Medica</h4>
                                 <p class="uno1" style="text-align:justify;">El medico tiene a su disposición una agenda de citas de pacientes, eventos etc. para poder llevar un control de su tiempo dia a dia.</p>
                                 <p>
-                                    <a href="https://sistema.medicos.sv/cliente/nuevo" target="_blank" class="button blue">Registrate Gratis</a>
+                                    <a href="{{ path("cliente_new") }}" target="_blank" class="button blue">Registrate Gratis</a>
                                 </p>
                             </div>
                         </div>
@@ -2104,7 +2104,7 @@
                             <div class="tab-copy">
                                 <h4 class="titulos_1">Expediente Medico</h4>
                                 <p class="uno1" style="text-align:justify;">Todos los perfiles de los pacientes son creados para ser administrados bajo el seguimeinto del medico.</p>
-                                <p> <a href="https://sistema.medicos.sv/cliente/nuevo" target="_blank" class="button blue">Registrate Gratis</a>
+                                <p> <a href="{{ path("cliente_new") }}" target="_blank" class="button blue">Registrate Gratis</a>
                                 </p>
                             </div>
                         </div>
@@ -2116,7 +2116,7 @@
                                 <h4 class="titulos_1">Multiples Sucursales</h4>
                                 <p class="uno1" style="text-align:justify;">Como medico puedes administrar tu clinica, al mismo tiempo puedes ser parte de un grupo medico en otro establecimiento.
                                     El sistema es flexible para los niveles de clinicas, policlinicos y hopitales, dando como alternativa el poder administrar el local que convenga en el momento justo.</p>
-                                <p> <a href="https://sistema.medicos.sv/cliente/nuevo"  target="_blank" class="button blue">Registrate Gratis</a>
+                                <p> <a href="{{ path("cliente_new") }}"  target="_blank" class="button blue">Registrate Gratis</a>
                                 </p>
                             </div>
                         </div>
@@ -2177,7 +2177,7 @@
             <div class="scheme cf light-gray ">
                 <div class="wrap cf fwp-columns full">
                     <div class="col"><h3>Mira Porque Medicos.sv Ofrece El Mejor Software EMR</h3>
-                        <p><a class="button green" href="https://sistema.medicos.sv/cliente/nuevo" target="_blank">
+                        <p><a class="button green" href="{{ path("cliente_new") }}" target="_blank">
                                 <span class="larger">Gratis 30-Dias</span></a></p>
                     </div>
                 </div>
@@ -2203,7 +2203,6 @@
                         <ul>
                             <li><a href="https://www.facebook.com/medicossv" target="_blank">Facebook</a></li>
                             <li><a href="https://twitter.com/sv.medicos" target="_blank">Twitter</a></li>
-                            <li><a href="https://youtube.com/" target="_blank">Youtube</a></li>
                         </ul>
                     </div>
                 </div>
@@ -2219,7 +2218,7 @@
                     <h4 class="widgettitle">Soporte</h4>
                     <div class="textwidget">
                         <ul>
-                            <li><a href="https://medicos.sv/contactanos" target="_blank">Contáctanos</a></li>
+                            <li><a href="{{ path("web_contactanos") }}" target="_blank">Contáctanos</a></li>
                         </ul>
                     </div>
                 </div>

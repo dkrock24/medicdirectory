@@ -65,8 +65,13 @@ class ClienteType extends AbstractType
 						//'empty_data'  => null,
 						'multiple'=> false,
 						//'data' => array(),
-						"attr"=>array( "class"=>"select","data-placeholder"=>"Establecimiento" )
+						"attr"=>array( "class"=>"select","data-placeholder"=>"Establecimiento" ),
 						//'preferred_choices' => array('1')
+                        "query_builder" => function(EntityRepository $repository) {
+                            return $repository->createQueryBuilder('u')
+                                ->where('u.tipCliActivo = ?1')
+                                ->setParameter('1','1');
+                        },
 					))
 				->add('cliMun', \Symfony\Bridge\Doctrine\Form\Type\EntityType::class, array(
 				
