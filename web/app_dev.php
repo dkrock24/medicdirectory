@@ -28,5 +28,8 @@ $kernel = new AppKernel('dev', true);
 $kernel->loadClassCache();
 $request = Request::createFromGlobals();
 $response = $kernel->handle($request);
+$response->headers->addCacheControlDirective('no-store, no-cache, must-revalidate', true);
+$response->headers->addCacheControlDirective('post-check=0, pre-check=0', true);
+$response->headers->set('Pragma:','no-cache');
 $response->send();
 $kernel->terminate($request, $response);
