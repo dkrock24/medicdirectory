@@ -28,7 +28,7 @@
         }
 
     </style>
-    
+    <script type="text/javascript" src="{{ asset('bundles/admin/add-on/Jquery-mask/jquery.mask.js') }}"></script>
     <div class="page-header-content">
         <div class="page-title">
             <h4>
@@ -374,14 +374,14 @@
                         <div class="form-group">
 
                             <label for="" class=" control-label">Primer Nombre:</label>
-                            <div class=""><input type="text" class="form-control" id="name1"></div>
+                            <div class=""><input type="text" class="form-control inputNewPatient" id="name1"></div>
                         </div>
                     </div>
                     <div class="col-md-4">    
                         <div class="form-group">
 
                             <label for="" class=" control-label">Segundo Nombre:</label>
-                            <div class=""><input type="text" class="form-control" id="name2"></div>
+                            <div class=""><input type="text" class="form-control inputNewPatient" id="name2"></div>
                         </div>
                     </div>
 
@@ -389,7 +389,7 @@
                         <div class="form-group">
 
                             <label for="" class=" control-label">Apellido Paterno:</label>
-                            <div class=""><input type="text" class="form-control" id="surename1"></div>
+                            <div class=""><input type="text" class="form-control inputNewPatient" id="surename1"></div>
                         </div>
                     </div>    
                 </div>
@@ -398,13 +398,31 @@
                         <div class="form-group">
 
                             <label for="" class=" control-label">Apellido Materno:</label>
-                            <div class=""><input type="text" class="form-control" id="surename2"></div>
+                            <div class=""><input type="text" class="form-control inputNewPatient" id="surename2"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            
+                            <label for="" class=" control-label">Fecha de nacimiento:</label>
+                            <div class=""><input type="text" class="form-control inputNewPatient" id="birthdate"></div>
                         </div>
                     </div>
 
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="" class="control-label">Genero:</label>
+                            <label for="" class=" control-label">DUI:</label>
+                            <div class=""><input type="text" class="form-control inputNewPatient" id="dui"></div>
+                        </div>
+                    </div>   
+                </div>
+                
+                <div class="row">
+                    
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="" class="control-label">Género:</label>
                             <div class="">
                                 <select id="gender" name="gender" class="form-control select">
                                     <option value="M">Masculino</option>
@@ -413,42 +431,79 @@
                             </div>
                         </div>
                     </div>
-
+                    
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="" class=" control-label">DUI:</label>
-                            <div class=""><input type="text" class="form-control" id="dui"></div>
+                            <label for="" class=" control-label">Ocupación:</label>
+                            <div class=""><input type="text" class="form-control inputNewPatient" id="occupation"></div>
                         </div>
-                    </div>   
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="" class=" control-label">Tipo de Sangre:</label>
+                            <div class="">
+                                <select id="blood_type" name="blood_type" class="form-control select form-control">
+                                    <option value=""></option>
+                                    <option value="A-positivo">A-positivo</option>
+                                    <option value="A-negativo">A-negativo</option>
+                                    <option value="B-positivo">B-positivo</option>
+                                    <option value="B-negativo">B-negativo</option>
+                                    <option value="O-positivo">O-positivo</option>
+                                    <option value="O-negativo">O-negativo</option>
+                                    <option value="AB-positivo">AB-positivo</option>
+                                    <option value="AB-negativo">AB-negativo</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
                 </div>
+                
+                
                 <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="" class=" control-label">Telefóno Casa:</label>
-                        <div class=""><input type="text" class="form-control" id="phonehouse"></div>
+                    
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="" class=" control-label">Estado Civil:</label>
+                            <div class="">
+                                <select id="civil_status" name="civil_status" class="form-control select form-control">
+                                    <option value=""></option>
+                                    <option value="s">Soltero/a</option>
+                                    <option value="c">Casado/a</option>
+                                    <option value="d">Divorciado/a</option>
+                                    <option value="v">Viudo/a</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-4">    
-                    <div class="form-group">
-                        <label for="" class=" control-label">Celular:</label>
-                        <div class=""><input type="text" class="form-control" id="cellphone"></div>
+                    
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="" class=" control-label">Telefóno Casa:</label>
+                            <div class=""><input type="text" class="form-control inputNewPatient" id="phonehouse"></div>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="" class=" control-label">Teléfono Trabajo:</label>
-                        <div class=""><input type="text" class="form-control" id="phonework"></div>
+                    <div class="col-md-4">    
+                        <div class="form-group">
+                            <label for="" class=" control-label">Celular:</label>
+                            <div class=""><input type="text" class="form-control inputNewPatient" id="cellphone"></div>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="" class=" control-label">Email:</label>
-                        <div class=""><input type="text" class="form-control" id="email"></div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="" class=" control-label">Teléfono Trabajo:</label>
+                            <div class=""><input type="text" class="form-control inputNewPatient" id="phonework"></div>
+                        </div>
                     </div>
-                </div>    
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="" class=" control-label">Email:</label>
+                            <div class=""><input type="text" class="form-control inputNewPatient" id="email"></div>
+                        </div>
+                    </div>    
             </div>
             </div>
-            
+            <br><br><br>
 
             <div class="modal-footer">
                 <button class="btn"  data-dismiss="modal" aria-hidden="true"><i class="fa fa-times-circle-o" aria-hidden="true"></i> Cerrar</button>
@@ -468,6 +523,12 @@
 {% block codejs %}
     <script>
         $(document).on("ready", function(){
+            
+            $('#dui').mask("99999999-9", {placeholder: "________-_"});
+            $('#birthdate').mask("9999-99-99", {placeholder: "____-__-__"});
+            $('#phonehouse').mask("9999-9999", {placeholder: "____-____"});
+            $('#cellphone').mask("9999-9999", {placeholder: "____-____"});
+            $("#phonework").mask("9999-9999", {placeholder: "____-____"});
             
             var normalize = (function() {
                 var from = "ÃÀÁÄÂÈÉËÊÌÍÏÎÒÓÖÔÙÚÜÛãàáäâèéëêìíïîòóöôùúüûÑñÇç", 
@@ -1329,6 +1390,11 @@
             var cellphone = $("#cellphone").val();
             var email = $("#email").val();
             
+            var civil_state = $("#civil_state").val();
+            var blood_type = $("#blood_type").val();
+            var occupation = $("#occupation").val();
+            var birthdate = $("#birthdate").val();
+            
             if(firts_name != "" || middle_name != "")
             {
                 
@@ -1394,7 +1460,7 @@
                                 last_name: last_name, middle_last_name: middle_last_name,
                                 gender: gender, dui:dui, 
                                 home_phone: home_phone, work_phone: work_phone, cellphone: cellphone,
-                                address: "", email: email
+                                address: "", email: email, civil_state: civil_state, occupation: occupation, date: birthdate, blood_type:blood_type
                                 
                             },
                             error: function (data) {
@@ -1430,8 +1496,8 @@
                                     
                                      //$("body").find(".cropper-container").remove();
                                      //$(".img-preview").empty();
-                                     $("#setUserAppointmentId").val(data);
-                                     $("#userModal").modal("hide");
+                                    $("#setUserAppointmentId").val(data);
+                                    $("#userModal").modal("hide");
                                      //$(".currentPicture").html("<img src='"+img+"' class='img-thumbnail'>");
                                      
                                     $("#setUserAppointmentName").val(firts_name+" "+middle_name+" "+last_name+" "+middle_last_name);
@@ -1457,6 +1523,8 @@
                                         var path = action_array[action_array.length-1]
                                         history.pushState(null, null, path+"?d="+d);
                                     }
+                                    
+                                    $(".inputNewPatient").val("");
                                     
                                     $.alert({
                                         icon: 'fa fa-check-circle',
@@ -1526,6 +1594,31 @@
               setModalMaxHeight($('.modal.in'));
             }
         });
+        
+        
+         $.datepicker.regional['es'] = {
+                        closeText: 'Cerrar',
+                        prevText: '< Ant',
+                        nextText: 'Sig >',
+                        currentText: 'Hoy',
+                        monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                        monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+                        dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+                        dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+                        dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
+                        weekHeader: 'Sm',
+                        dateFormat: 'yy-mm-dd',
+                        firstDay: 1,
+                        isRTL: false,
+                        showMonthAfterYear: false,
+                        yearSuffix: ''
+                    };
+                    $.datepicker.setDefaults($.datepicker.regional['es']);
+                    $( "#birthdate" ).datepicker({
+                        changeMonth: true,
+                        changeYear: true,
+                        yearRange: '1945:'+(new Date).getFullYear()
+                    });
             
     });
                
