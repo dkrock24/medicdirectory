@@ -646,11 +646,14 @@ class ConsultaController extends Controller
 			{
 				$view = "_diagnosisDetail.html.twig";
 			}
-			else //Receta
+			else if( $type == "p" ) //Receta
 			{
 				$view = "_prescriptionDetail.html.twig";
 			}		
-			
+			else //pronostico
+			{
+				$view = "_forecastDetail.html.twig";
+			}
 			$html = $this->renderView(
 				"EmrBundle:consulta:".$view."",
 				array(
@@ -812,10 +815,13 @@ class ConsultaController extends Controller
 		{ 
 			$this->sendMessage("paciente_diagnostico", $patientName, $info, $doctor, $to=$patientEmail, $trom=false);
 		}
-		else
+		else if( $type == "textPrescription" )
 		{
 			$this->sendMessage("paciente_receta", $patientName, $info, $doctor,  $to=$patientEmail, $trom=false);
-		}	
+		}
+		else{
+			$this->sendMessage("paciente_pronostico", $patientName, $info, $doctor,  $to=$patientEmail, $trom=false);
+		}
 		
 		echo 1;
 		exit();

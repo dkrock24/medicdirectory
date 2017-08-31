@@ -537,7 +537,7 @@
                     
                     <div class="panel panel-info {{ collapsed }}">
                         <div class="panel-heading">
-                            <h6 class="panel-title">Diagnóstico y Receta Médica<a class="heading-elements-toggle"><i class="icon-more"></i></a></h6>
+                            <h6 class="panel-title">Diagnóstico - Receta Médica - Pronóstico<a class="heading-elements-toggle"><i class="icon-more"></i></a></h6>
                             <div class="heading-elements">
                                 <ul class="icons-list">
                                     <li><a data-action="collapse"></a></li>
@@ -550,7 +550,7 @@
                             <ul class="nav nav-tabs" role="tablist">
                               <li role="presentation" class="active"><a href="#diagnostico" aria-controls="home" role="tab" data-toggle="tab">Diagnóstico</a></li>
                               <li role="presentation"><a href="#receta" aria-controls="profile" role="tab" data-toggle="tab">Receta</a></li>
-                              {# <li role="presentation"><a href="#prognostico" aria-controls="messages" role="tab" data-toggle="tab">Prognóstico</a></li> #}
+                              <li role="presentation"><a href="#prognostico" aria-controls="messages" role="tab" data-toggle="tab">Pronóstico</a></li>
                             </ul>
                             
                             <!-- Tab panes -->
@@ -585,22 +585,20 @@
                                         </div>
                                     </div>
                                 </div>
-                                {#         
+                                        
                                 <div role="tabpanel" class="tab-pane" id="prognostico">
                                      <div id="">
-                                        <p>Prognóstico médico</p>
+                                        <p>Pronóstico médico</p>
                                         <span id="loadingPrognostico"></span>
-                                        <textarea class="form-control" rows="10" id="textPrognostico">{{ prognostico|replace({'<br />': ""}) }} </textarea>
+                                        <textarea class="form-control" rows="10" id="textPronostico">{{ prognostico|replace({'<br />': ""}) }} </textarea>
                                         <div class="text-right">
                                             <br>
-
-                                           
-                                            <a class="btn btn-success" href="{{ path('consulta_print_prescription') }}?c={{ app.request.get("cm") }}" target="_blank"><i class="fa fa-print" aria-hidden="true"></i> Imprimir Prognóstico</a>
+                                            <a class="btn btn-success" href="{{ path('consulta_print_diagnostico_receta') }}?c={{ app.request.get("cm") }}&type=pro" target="_blank"><i class="fa fa-print" aria-hidden="true"></i> Imprimir Pronóstico</a>
                                             <button class="btn btn-success sendByEmail" id="btnSendEmail"><i class="fa fa-paper-plane" aria-hidden="true"></i> Enviar por email</button>
                                             
                                         </div>
                                     </div>       
-                                </div> #}
+                                </div> 
                             </div>
                             
                             
@@ -1565,7 +1563,7 @@
                 $('body').find("form.mod-form :input").each(function(){
                     $(this).attr("disabled",true);
                 });
-                $("#textDiagnostico, #textPrescription, #textPrognostico").attr("disabled",true);
+                $("#textDiagnostico, #textPrescription, #textPronostico").attr("disabled",true);
             {% endif %}
             
             function doDelete() {  // delete event 
@@ -1775,7 +1773,7 @@
                     {% endif %}
                 });
                 
-                $("#textPrognostico").on("change  paste", function(){
+                $("#textPronostico").on("change  paste", function(){
                     {% if statusAppointment == "p" or statusAppointment == "c" %}
                         var info = $(this).val();
                         $("#loadingPrognostico").html("<i class='loading-gif'>&nbsp;&nbsp;<img src='{{ asset('bundles/admin/img/ajax-loader.gif') }}'> Guardando..</i>");
@@ -1803,7 +1801,7 @@
                             loading = "loadingPrescription";
                             break;
                         default:
-                            value = $('#textPrognostico').val();
+                            value = $('#textPronostico').val();
                             loading = "loadingPrognostico";
                             break;
                     }
