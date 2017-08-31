@@ -590,7 +590,7 @@
                                      <div id="">
                                         <p>Pronóstico médico</p>
                                         <span id="loadingPrognostico"></span>
-                                        <textarea class="form-control" rows="10" id="textPronostico">{{ prognostico|replace({'<br />': ""}) }} </textarea>
+                                        <textarea class="form-control infoByEmail" rows="10" id="textPronostico">{{ prognostico|replace({'<br />': ""}) }} </textarea>
                                         <div class="text-right">
                                             <br>
                                             <a class="btn btn-success" href="{{ path('consulta_print_diagnostico_receta') }}?c={{ app.request.get("cm") }}&type=pro" target="_blank"><i class="fa fa-print" aria-hidden="true"></i> Imprimir Pronóstico</a>
@@ -769,6 +769,21 @@
                 var info = $(".infoByEmail:visible").val();//$("#textPrescription").val();
                 info = info.replace(/\n/g, "<br />");
                 var appointment = "{{ app.request.get("cm") }}";
+                
+                var msg = "";
+                if( type == "textDiagnostico" )
+                {
+                    msg = "Diagnóstico médico enviada exitosamente";
+                }
+                else if( type == "textPrescription" )
+                {
+                    msg = "Receta médica enviada exitosamente";
+                }
+                else
+                {
+                    msg = "Pronóstico médico enviada exitosamente";
+                }    
+                
                 $("#holder_loading").show();
                 $.ajax({
 
@@ -781,7 +796,7 @@
                        $.alert({
                             icon: 'fa fa-envelope',
                             title: 'Ok!',
-                            content: "<p class=''>Receta médica enviada exitosamente</p>",
+                            content: "<p class=''>"+msg+"</p>",
                             type: 'green',
                             typeAnimated: true,
                             buttons: {
