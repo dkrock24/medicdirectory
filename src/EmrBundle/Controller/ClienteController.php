@@ -683,14 +683,21 @@ class ClienteController extends Controller
 					
 					$objUserRol = $em->getRepository("AppBundle:ClienteUsuario")->findOneBy( array( "cliUsuUsu"=> $resUserRepresenter->getUsuId(), "cliUsuRol"=>2 ) );
 					
-					if( !$objUserRol )
+					if( !$objUserRol || $addToUser > 0)
 					{
 						$objUserRol = new ClienteUsuario();
+						$objUserRol->setCliUsuUsu($representer_repo); //setUsuRolUsuarios(  $representer_repo );
+						$objUserRol->setCliUsuCli($client_repo);
+						//$objUserRol->setCliUsuRol( $role_representer_repo );
 					}
 				}
 				else
 				{
 					$objUserRol = new ClienteUsuario();
+					$objUserRol->setCliUsuUsu($representer_repo); //setUsuRolUsuarios(  $representer_repo );
+					$objUserRol->setCliUsuCli($client_repo);
+					//$objUserRol->setCliUsuRol( $role_representer_repo );
+					
 				}
 				
 				//Send email notification
@@ -707,8 +714,6 @@ class ClienteController extends Controller
 						$this->sendMessage("nuevo_usuario", $representerUser, $representerPass, $to=$representerEmail,$trom=false);
 					}
 				}
-				$objUserRol->setCliUsuUsu($representer_repo); //setUsuRolUsuarios(  $representer_repo );
-				$objUserRol->setCliUsuCli($client_repo);
 				$objUserRol->setCliUsuRol( $role_representer_repo );
 				$objUserRol->setCliUsuFechaNacimiento( new \DateTime($representerBirthDate) );
 				$objUserRol->setCliUsuFechaRegistro(new \Datetime());
@@ -797,14 +802,20 @@ class ClienteController extends Controller
 
 								$objUserRol = $em->getRepository("AppBundle:ClienteUsuario")->findOneBy( array( "cliUsuUsu"=> $resUserLocation->getUsuId(), "cliUsuRol"=>array(3, 6) ) ); //3= asistente, 6 = medico
 
-								if( !$objUserRol )
+								if( !$objUserRol || $addToUser > 0 )
 								{
 									$objUserRol = new ClienteUsuario();
+									$objUserRol->setCliUsuUsu($user_repo); //setUsuRolUsuarios(  $representer_repo );
+									$objUserRol->setCliUsuCli($client_repo);
+									
 								}
 							}
 							else
 							{
 								$objUserRol = new ClienteUsuario();
+								$objUserRol->setCliUsuUsu($user_repo); //setUsuRolUsuarios(  $representer_repo );
+								$objUserRol->setCliUsuCli($client_repo);
+								
 							}
 
 							if( $is_new == false)
@@ -812,8 +823,7 @@ class ClienteController extends Controller
 								$objUserRol->setCliUsuFechaMod( new \DateTime() );
 							}	
 							$objUserRol->setCliUsuCorreo($locationListUsers[$i]['email']);
-							$objUserRol->setCliUsuUsu($user_repo); //setUsuRolUsuarios(  $representer_repo );
-							$objUserRol->setCliUsuCli($client_repo);
+							
 							$objUserRol->setCliUsuRol( $role_repo );
 							$objUserRol->setCliUsuActivo( 1 );
 							$objUserRol->setCliUsuFechaRegistro(new \Datetime());
@@ -892,10 +902,12 @@ class ClienteController extends Controller
 								
 								$objUserRol = $em->getRepository("AppBundle:ClienteUsuario")->findOneBy( array( "cliUsuUsu"=> $resUserLocation->getUsuId(), "cliUsuRol"=>array(3, 6) ) ); //3= asistente, 6 = medico
 
-								if( !$objUserRol )
+								if( !$objUserRol || $addToUser > 0 )
 								{
 									
 									$objUserRol = new ClienteUsuario();
+									$objUserRol->setCliUsuUsu( $representer_repo );
+									$objUserRol->setCliUsuCli( $client_repo );
 									$is_new = true;
 								}
 							}
@@ -903,6 +915,8 @@ class ClienteController extends Controller
 							{
 								
 								$objUserRol = new ClienteUsuario();
+								$objUserRol->setCliUsuUsu( $representer_repo );
+								$objUserRol->setCliUsuCli( $client_repo );
 								$is_new = true;
 							}
 							
@@ -911,8 +925,7 @@ class ClienteController extends Controller
 							{
 								$objUserRol->setCliUsuFechaMod( new \DateTime() );
 							}
-							$objUserRol->setCliUsuUsu( $representer_repo );
-							$objUserRol->setCliUsuCli( $client_repo );
+							
 							$objUserRol->setCliUsuRol($role_repo);
 							$objUserRol->setCliUsuActivo( 1 );
 							$objUserRol->setCliUsuFechaCrea( new \DateTime() );
@@ -922,6 +935,8 @@ class ClienteController extends Controller
 							$objUserRol->setCliUsuIdVendedor($referralId);
 							$em->persist($objUserRol);
 							$flush = $em->flush();
+							
+							//echo $is_new."----";
 							
 							if( !empty($locationListUsers[$i]['password']) )
 							{
@@ -965,7 +980,7 @@ class ClienteController extends Controller
 					}
 				}
 			}
-
+			//exit("fin");
 			
 			if( isset($clientId) && $clientId > 0 )
 			{	
@@ -976,7 +991,7 @@ class ClienteController extends Controller
 					foreach($result as $username)
 					{
 						//echo $value;
-
+						
 						$res = $this->checkExistUser($username);
 						if( $res && count($res) > 0 )
 						{
@@ -1008,6 +1023,7 @@ class ClienteController extends Controller
 		}
 		catch (Exception $e) {
 			$em->getConnection()->rollBack();
+			//var_dump($e->getMessage());
 			throw $e;
 		}
 		

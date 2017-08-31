@@ -312,6 +312,7 @@ class PacienteController extends Controller
 		$middle_last_name = $request->get('middle_last_name');
 		$gender = $request->get('gender');
 		$dui = $request->get('dui');
+		$dui = preg_replace("/[^0-9]/", "", $dui);
 		
 		$blood_type = $request->get('blood_type');
 		$email = $request->get('email');

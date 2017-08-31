@@ -41,7 +41,7 @@ class PacienteType extends AbstractType
 					),
 				))
 				->add('pacEmail', TextType::class, array("label"=>"Email:","required"=>false, "attr"=>array( "class"=>"", "autocomplete"=>false )))
-				->add('pacDui')
+				->add('pacDui', TextType::class, array("label"=>"Dui:","required"=>false, "attr"=>array( "class"=>"", "maxlength"=>10 )))
 				->add('pacEstadoCivil' , ChoiceType::class, array(
 					'required' => false,
 					'attr'   =>  array(

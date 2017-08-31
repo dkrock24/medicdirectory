@@ -13,7 +13,7 @@
 {% endblock %} 
 
 {% block body %}
-    
+    <script type="text/javascript" src="{{ asset('bundles/admin/add-on/Jquery-mask/jquery.mask.js') }}"></script>
     <div class="page-header-content">
         <div class="page-title">
             <h4>
@@ -364,6 +364,13 @@
 {% block codejs %}
         <script>
             $(document).on("ready", function () {
+                
+                    $('#appbundle_paciente_pacDui').mask("99999999-9", {placeholder: "________-_"});
+                    $('#appbundle_paciente_pacFechaNacimiento').mask("9999-99-99", {placeholder: "____-__-__"});
+                    $('#appbundle_paciente_pacTelCasa').mask("9999-9999", {placeholder: "____-____"});
+                    $('#appbundle_paciente_pacTelCelular').mask("9999-9999", {placeholder: "____-____"});
+                    $("#appbundle_paciente_pacTelTrabajo").mask("9999-9999", {placeholder: "____-____"});
+                
                     
                     var idItem = "{{ (id is defined) ? id : '' }}";
                     

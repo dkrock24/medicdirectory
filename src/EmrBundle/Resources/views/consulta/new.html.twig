@@ -62,6 +62,12 @@
             padding-top:6px !important;
             padding-bottom:6px !important;
         }
+        #bg-white{
+            background: #fff;
+        }
+        #imageIcon{
+            display:none;
+        }
     </style>
     {# https://gionkunz.github.io/chartist-js/getting-started.html #}
     <link rel="stylesheet" href="{{ asset('bundles/admin/add-on/Chartist/chartist.css') }}">
@@ -194,7 +200,7 @@
                             </div>
                         </div>
 
-                        <div class="panel-body">
+                        <div class="panel-body" id="body-ficha">
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <div class="ficha">
@@ -204,8 +210,8 @@
                                         </div>
                                         #}
                                         <div class="row">
-                                            <div class="col-lg-6 col-md-7 col-sm-12">
-                                                
+                                            <div class="col-lg-6 col-md-7 col-sm-12" id="bg-white">
+                                                <div >
                                                 <div style="float: left; max-width: 100px;">
                                                     {% if  patient[0].pacFoto is defined and patient[0].pacFoto != "" %}
                                                     <div style="text-align:center;"><img src="{{ asset("uploads/pacientes/"~patient[0].pacFoto) }}" class="img-thumbnailx" style="max-width:85% "></div>
@@ -260,6 +266,8 @@
                                                             #}
                                                     </div>
                                                 {% endif %}
+                                                 <img src="{{ image("bundles/emr/images/bg-prescription.jpg").cropResize(200,200) }}" id="imageIcon">
+                                                </div>
                                             </div>
                                             <div class="col-lg-6 col-md-5 col-sm-12">
                                                 
@@ -268,7 +276,7 @@
                                                         <h6 class="panel-title">Histórico de consultas<a class="heading-elements-toggle"><i class="icon-more"></i></a><a class="heading-elements-toggle"><i class="icon-more"></i></a></h6>
                                                         <div class="heading-elements">
                                                             <ul class="icons-list">
-                                                                <li><a data-action="collapse"></a></li>
+                                                                <li><a data-action="collapse" id="showImg"></a></li>
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -624,6 +632,20 @@
                 changeYear: true
             });
             
+            
+            if( !$("#showImg").hasClass("rotate-180") )
+            {
+                $("#imageIcon").show();
+            }
+            
+            $("#showImg").on("click", function(){
+                if( $(this).hasClass("rotate-180") )
+                {
+                    $("#imageIcon").hide();
+                }else{
+                    $("#imageIcon").show();
+                }
+            });
                 /*
                 var data = {
                             labels: ['Bananas', 'Apples', 'Grapes'],
