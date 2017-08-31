@@ -233,17 +233,9 @@
         <div class="col-sm-4 col-xs-12">
             <div class="profile-block">
                 <div class="panel panel-profile">
-                    <div class="panel-heading">
+                    <div class="panel-heading container-fluid">
                         {% set imgPerfil =  "uploads/perfil/" ~ medico.galeria.galHash %}
-                        <img src="{{ image(imgPerfil).resize(250,250).jpeg(85) }}" alt="Imagen del doctor" class="img-responsive img-center-xs">
-                        <h3 class="panel-title">{{ medico.usuario.cliUsuTitulo}} {{ medico.usuario.cliUsuUsu.usuPrimerApellido|title }} {{ medico.usuario.cliUsuUsu.usuSegundoApellido|title }}</h3>
-                        <span class="panel-title">
-                            <span style="font-size: 16px;font-weight: normal;">
-                            {%for e in medico.especialidad %}
-                                {{ e.idEspecialidad.espEspecialidad }} {% if (not loop.last) %}|{% endif %}
-                            {% endfor %}
-                            </span>
-                        </span>
+                        <img style="width:100%;margin-top:0.1em;" src="{{ image(imgPerfil).scaleResize(500).jpeg(85) }}" alt="Imagen del doctor" class="img-responsive img-center-xs">
                     </div>
                     <div class="panel-body">
                         <div class="row">
@@ -370,9 +362,9 @@
                         <span class="nombre_clinica">{{ medico.cliente.cliUsuCli.cliNombreComercial}} </span>
                     </h6>
                     <h6>
-                        <span> </span>{{ medico.cliente.cliUsuCli.cliDireccion}} /
-                                    {{ medico.cliente.cliUsuCli.cliMun.munNombre}} -
-                                    {{ medico.cliente.cliUsuCli.cliMun.munDep.depDepartamento}}
+                        <p><b>Dirección:</b></p>
+                        {{ medico.cliente.cliUsuCli.cliDireccion}}.<br />
+                        {{ medico.cliente.cliUsuCli.cliMun.munNombre}}, {{ medico.cliente.cliUsuCli.cliMun.munDep.depDepartamento}}
                                     
                     </h6>
                     <ul class="list-unstyled list-inline post-meta">
@@ -394,79 +386,78 @@
                         </li>
                     </ul>
                     <table class="table" width="100%" border=0>
-
                         <tbody>
-
-                            <tr>
-                                <td width="20%"><b>Información :</b> </td>
-                                <td width="80%">
-                                    {{ medico.usuario.cliUsuInfoPerfil|raw }}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><b>Especialidades: </b></td>
-                                <td>
-                                    <table class="table-condensed">
-                                        {% for e in medico.especialidad %}
-                                        <tr>
-                                            <td>
-                                                <section class="descripciones_esp">
-                                                    <i class="fa fa-check"></i><b> {{e.idEspecialidad.espEspecialidad }} :</b> {{e.descripcion }}
-                                                </section>
-                                            </td>
-                                        </tr>                                     
-                                        {% endfor %}
-                                    </table>                                    
-                                </td>
-                            </tr>
                             <tr>
                                 <td colspan="2">
-                                <b>Dás Laborales: </b><br><br>
+                                    <b>Días laborales: </b><br><br>
 
-                                {% if horario|length %}
+                                    {% if horario|length %}
 
-                                                <table class="table table-striped text-center" style="table-layout: fixed;">
-                                                <tr>
-                                                {% for key, horas in horario %}  
+                                        <table class="table table-striped text-center" style="table-layout: fixed;">
+                                            <tr>
+                                                {% for key, horas in horario %}
                                                     <th class="text-center">
-                                                    {% if ( key == hoy) %}
-                                                        <span style="color:#009bdb">{{ key }}</span>
-                                                    {% else %}
-                                                        {{ key }}
-                                                    {% endif %}
-                                                    </th>                         
+                                                        {% if ( key == hoy) %}
+                                                            <span style="color:#009bdb">{{ key }}</span>
+                                                        {% else %}
+                                                            {{ key }}
+                                                        {% endif %}
+                                                    </th>
                                                 {% endfor %}
-                                                </tr>
-                                                <tr>
-                                                {% for key, horas in horario %} 
+                                            </tr>
+                                            <tr>
+                                                {% for key, horas in horario %}
                                                     <td>
                                                         {{ horas|raw }}
-                                                    </td>   
+                                                    </td>
                                                 {% endfor %}
-                                                </tr>
-                                                </table>
-                                {% else %}
-                                    N/A
-                                {% endif %}
+                                            </tr>
+                                        </table>
+                                    {% else %}
+                                        N/A
+                                    {% endif %}
                                 </td>
                             </tr>
-                            
-                            <tr>
-                                <td colspan="2"><b>Ubicación:</b>
-                                    <input type="hidden" value="{{ medico.cliente.cliUsuCli.cliUbicacionLat }}" id="lon"/>
-                                    <input type="hidden" value="{{ medico.cliente.cliUsuCli.cliUbicacionLon }}" id="lat"/>
-                                    <div id="map_canvas" style="width: 100%; height:300px;"></div>
-                                </td>                               
-                            </tr>                            
 
-                         </tbody>
+                            <tr>
+                                <td>
+                                    <b>Especialidades: </b>
+
+                                    {% for e in medico.especialidad %}
+                                            <i class="fa fa-check"></i><b> {{e.idEspecialidad.espEspecialidad }} {% if (e.descripcion|length > 0)  %}:{% endif %}</b> {{e.descripcion }}
+                                            {% if not loop.last %},{% endif %}
+                                    {% endfor %}
+                            </tr>
+
+                        </tbody>
                     </table>
                         
                 </div>
             </article>
         </div>
     </div>
-    <hr>
+
+    <div class="container">
+
+            <div class="row">
+                <article class="news-post inner">
+                    <p><b>Información:</b></p>
+                    {{ medico.usuario.cliUsuInfoPerfil|raw }}
+                </article>
+            </div>
+
+        <div class="row">
+
+            <p><b>Ubicación:</b></p>
+            <input type="hidden" value="{{ medico.cliente.cliUsuCli.cliUbicacionLat }}" id="lon"/>
+            <input type="hidden" value="{{ medico.cliente.cliUsuCli.cliUbicacionLon }}" id="lat"/>
+            <div id="map_canvas" style="width: 100%; height:300px;"></div>
+        </div>
+
+
+
+    </div>
+
     <div class="row">
     <!--
         <h4>GALERIA</h4>

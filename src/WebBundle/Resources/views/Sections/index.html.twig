@@ -53,7 +53,7 @@
                     <p class="divider"><i class="fa fa-plus-square"></i>
 
                     <div class="table-responsive">
-                        <table class="table text-nowrap" width="100%" style="table-layout: fixed;">
+                        <table class="table text-nowrap" style="table-layout: fixed;width:100%">
                             <tbody>
                                 <tr>
                                     <td width="10%">
@@ -64,7 +64,7 @@
                                         </div>
                                     </td>
                                     <td width="90%">
-                                        <span class="text-muted text-size-small descripcion">{{ m.cli_usu_direccion }}</span>
+                                        <span class="text-muted text-size-small descripcion" title="{{ m.cli_usu_direccion }}">{{ m.mun_nombre }}</span>
                                     </td>
                                 </tr>
 
@@ -77,7 +77,7 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <span class="text-muted text-size-small descripcion">{{ m.cli_usu_telefono }}</span>
+                                        <span  style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" class="text-muted text-size-small descripcion">{{ m.cli_usu_telefono }}</span>
                                     </td>
                                 </tr>
 
