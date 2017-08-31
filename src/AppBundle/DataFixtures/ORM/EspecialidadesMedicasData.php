@@ -86,7 +86,9 @@ class EspecialidadesMedicasData implements FixtureInterface {
             "Podología",
             "Odontología",
             "Optometría",
-            "Psicología"];
+            "Psicología",
+            "Pediatra Gastroenterólogo",
+        ];
 
         foreach ($aEspecialidadesMedicas as $iIndice => $sEspecialidad) {
             $oEspecialidad = new Especialidad();
