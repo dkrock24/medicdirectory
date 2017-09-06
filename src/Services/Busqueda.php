@@ -29,7 +29,7 @@ class Busqueda {
 
         // Buscamos en el indice definido en el config.yml -> SphinxSearch
         // La configuración del indice esta en el archivo sphinx.conf del sistema
-        $indexesToSearch = array('Clientes');
+        $indexesToSearch = array('clientes');
         $options = array(
             'result_offset' => $offset,
             'result_limit' => $limit,
@@ -43,6 +43,7 @@ class Busqueda {
             $sphinxSearch->setFilter('cli_activo', array($activos), false);
         }
         $oResultado = $sphinxSearch->search($texto, $indexesToSearch, $options);
+        var_dump($oResultado);
         $aRet['total'] = $oResultado['total'];
         $aRet['total_encontrado'] = $oResultado['total_found'];
 
@@ -71,7 +72,7 @@ class Busqueda {
 
         // Buscamos en el indice definido en el config.yml -> SphinxSearch
         // La configuración del indice esta en el archivo sphinx.conf del sistema
-        $indexesToSearch = array('Usuarios');
+        $indexesToSearch = array('usuarios');
         $options = array(
             'result_offset' => $offset,
             'result_limit' => $limit,
