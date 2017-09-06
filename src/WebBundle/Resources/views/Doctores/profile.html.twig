@@ -263,14 +263,14 @@
                         </div>
                     </div>
                     <div class="cita_form">
-                    <input type="hidden" name="idCliente" id="idCliente" value="{{ medico.cliente.cliUsuCli.cliId }}" />                    
+                    <input type="hidden" name="idCliente" id="idCliente" value="{{ medico.usuario.cliUsuCli.cliId }}" />                    
                         <input type="hidden" name="idUsuario" id="idUsuario" value="{{ medico.usuario.cliUsuUsu.usuId }}" />
                     <form id="solicitud_cita">
                         <div class="row">
                             <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">
                                 <button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
                                 <h6 class="alert-heading text-semibold">Ingresa la información solicitada y en breve te contactaremos, para brindarte la ayuda que necesitas. <h6>
-                                <span class="clinica_mensaje"><p>Att:  {{ medico.cliente.cliUsuCli.cliNombreComercial}}</p></span>
+                                <span class="clinica_mensaje"><p>Att:  {{ medico.usuario.cliUsuCli.cliNombreComercial}}</p></span>
                             </div>
                         </div>
                         
@@ -359,12 +359,12 @@
                         {#{ medico.especialidad[0].idEspecialidad.espEspecialidad }#}
                     </h5>
                     <h6>
-                        <span class="nombre_clinica">{{ medico.cliente.cliUsuCli.cliNombreComercial}} </span>
+                        <span class="nombre_clinica">{{ medico.usuario.cliUsuCli.cliNombreComercial}} </span>
                     </h6>
                     <h6>
                         <p><b>Dirección:</b></p>
-                        {{ medico.cliente.cliUsuCli.cliDireccion}}.<br />
-                        {{ medico.cliente.cliUsuCli.cliMun.munNombre}}, {{ medico.cliente.cliUsuCli.cliMun.munDep.depDepartamento}}
+                        {{ medico.usuario.cliUsuCli.cliDireccion}}.<br />
+                        {{ medico.usuario.cliUsuCli.cliMun.munNombre}}, {{ medico.usuario.cliUsuCli.cliMun.munDep.depDepartamento}}
                                     
                     </h6>
                     <ul class="list-unstyled list-inline post-meta">
@@ -381,8 +381,8 @@
                         </li>
                         <li>
                             <i class="fa fa-hospital-o"></i>                            
-                            {{ medico.cliente.cliUsuCli.clitelefono1 }} |
-                            {{ medico.cliente.cliUsuCli.clitelefono2 }}
+                            {{ medico.usuario.cliUsuCli.clitelefono1 }} |
+                            {{ medico.usuario.cliUsuCli.clitelefono2 }}
                         </li>
                     </ul>
                     <table class="table" width="100%" border=0>
@@ -449,8 +449,8 @@
         <div class="row">
 
             <p><b>Ubicación:</b></p>
-            <input type="hidden" value="{{ medico.cliente.cliUsuCli.cliUbicacionLat }}" id="lon"/>
-            <input type="hidden" value="{{ medico.cliente.cliUsuCli.cliUbicacionLon }}" id="lat"/>
+            <input type="hidden" value="{{ medico.usuario.cliUsuCli.cliUbicacionLat }}" id="lon"/>
+            <input type="hidden" value="{{ medico.usuario.cliUsuCli.cliUbicacionLon }}" id="lat"/>
             <div id="map_canvas" style="width: 100%; height:300px;"></div>
         </div>
 

@@ -24,12 +24,6 @@ class UsuarioVistas
     private $visFechaCrea = 'CURRENT_TIMESTAMP';
 
     /**
-     * @var \AppBundle\Entity\Usuario
-     */
-    private $visUsuario;
-
-
-    /**
      * Get visId
      *
      * @return integer
@@ -88,30 +82,7 @@ class UsuarioVistas
     }
 
     /**
-     * Set visUsuario
-     *
-     * @param \AppBundle\Entity\Usuario $visUsuario
-     *
-     * @return UsuarioVistas
-     */
-    public function setVisUsuario(\AppBundle\Entity\Usuario $visUsuario = null)
-    {
-        $this->visUsuario = $visUsuario;
-
-        return $this;
-    }
-
-    /**
-     * Get visUsuario
-     *
-     * @return \AppBundle\Entity\Usuario
-     */
-    public function getVisUsuario()
-    {
-        return $this->visUsuario;
-    }
-    /**
-     * @var \AppBundle\Entity\Usuario
+     * @var \AppBundle\Entity\ClienteUsuario
      */
     private $visUsu;
 
@@ -119,11 +90,11 @@ class UsuarioVistas
     /**
      * Set visUsu
      *
-     * @param \AppBundle\Entity\Usuario $visUsu
+     * @param \AppBundle\Entity\ClienteUsuario $visUsu
      *
      * @return UsuarioVistas
      */
-    public function setVisUsu(\AppBundle\Entity\Usuario $visUsu = null)
+    public function setVisUsu(\AppBundle\Entity\ClienteUsuario $visUsu = null)
     {
         $this->visUsu = $visUsu;
 
@@ -133,7 +104,7 @@ class UsuarioVistas
     /**
      * Get visUsu
      *
-     * @return \AppBundle\Entity\Usuario
+     * @return \AppBundle\Entity\ClienteUsuario
      */
     public function getVisUsu()
     {

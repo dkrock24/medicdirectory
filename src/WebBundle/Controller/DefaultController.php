@@ -87,43 +87,21 @@ GROUP BY u.usu_id";
         );
     }
 
-    public function indexProfileAction($med_id) {
+    public function indexProfileAction(Request $request, $med_id) {
         if ($med_id === null) {
             return $this->redirect($this->generateUrl('web_homepage'));
         }
 
         $em = $this->getDoctrine()->getManager();           
 
-        // Validar si la Cookie se ha seteado
-        if(!isset($_COOKIE['contador']))
-        {        
-            // Obtener La Ip del visitante.
-            $ip = $this->getRealIP(); 
-
-            $oUser = $em->getRepository("AppBundle:Usuario")->findOneByUsuId($med_id);
-            
-            $visitas = new UsuarioVistas();
-            $visitas->setVisUsuario($oUser);
-            $visitas->setVisReferencia($ip);
-            $visitas->setVisFechaCrea(new \DateTime("now"));
-
-            $em->persist($visitas);
-            $em->flush();
-        } 
-        else 
-        { 
-            // Caduca en un año 
-            setcookie('contador', 1, time() + 365 * 24 * 60 * 60); 
-            $mensaje = 'Bienvenido a nuestra página web'; 
-        } 
 
         $medico = array();
         $em     = $this->getDoctrine()->getManager();
         $em1    = $this->getDoctrine()->getManager()->createQueryBuilder();
 
-        $medico['usuario'] = $em->getRepository('AppBundle:ClienteUsuario')->findOneBy(array("cliUsuUsu" => $med_id,"cliUsuRol"=>6));
+        $medico['usuario'] = $em->getRepository('AppBundle:ClienteUsuario')->find($med_id);
 
-        $medico['galeria'] = $em->getRepository('AppBundle:UsuarioGaleria')->findOneBy(array("galUsu"=>$med_id,"galTipo"=>1,"galModulo"=>null));
+        $medico['galeria'] = $em->getRepository('AppBundle:UsuarioGaleria')->findOneBy(array("galUsu"=>$medico['usuario']->getCliUsuUsu(),"galCliente"=>$medico['usuario']->getCliUsuCli(),"galTipo"=>1,"galModulo"=>null));
 
         // Obtener especialidades Por Medico
         
@@ -138,17 +116,12 @@ GROUP BY u.usu_id";
 
         $medico['redes']    = $em->getRepository('AppBundle:UsuarioSocial')->findBy(array("idUsuario" => $medico['usuario']->getCliUsuId()));
 
-        $medico['cliente']  = $em->getRepository('AppBundle:ClienteUsuario')->findOneBy(array("cliUsuUsu" => $med_id,"cliUsuRol"=>6));
-
-        $vistas  = $em->getRepository('AppBundle:UsuarioVistas')->findBy(array("visUsu" => $med_id));
-
-        $medico['vistas'] = count($vistas);
-        //\Doctrine\Common\Util\Debug::dump($medico['cliente']);
-        //var_dump($medico['cliente']->getCliUsuDiasTrabajo());
+        //\Doctrine\Common\Util\Debug::dump($medico['usuario'] );
+        //var_dump($medico['usuario'] ->getCliUsuDiasTrabajo());
         $horaDias = array();
         $hoy = "";        
-        if($medico['cliente']->getCliUsuDiasTrabajos()!=""){
-            $arr = unserialize($medico['cliente']->getCliUsuDiasTrabajos());
+        if($medico['usuario'] ->getCliUsuDiasTrabajos()!=""){
+            $arr = unserialize($medico['usuario'] ->getCliUsuDiasTrabajos());
             //var_dump($arr);
 
             $num = 1;
@@ -173,8 +146,27 @@ GROUP BY u.usu_id";
             //var_dump($horaDias);
 
         }
-        
 
+        // Validar si la Cookie se ha seteado
+        if(empty($_COOKIE['contador']))
+        {
+            // Obtener La Ip del visitante.
+            $ip = $this->getRealIP();
+
+            $visitas = new UsuarioVistas();
+            $visitas->setVisUsu($medico['usuario']);
+            $visitas->setVisReferencia($ip);
+            $visitas->setVisFechaCrea(new \DateTime("now"));
+
+            $em->persist($visitas);
+            $em->flush();
+
+            setcookie('contador', 1, time() + 365 * 24 * 60 * 60, $request->getRequestUri());
+        }
+
+        $vistas  = $em->getRepository('AppBundle:UsuarioVistas')->findBy(array("visUsu" => $med_id));
+        $medico['vistas'] = count($vistas);
+        
         return $this->render('WebBundle:Doctores:profile.html.twig', array(
                     "medico" => $medico,
                     "horario" => $horaDias,

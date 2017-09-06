@@ -31,13 +31,13 @@ AppBundle\Entity\UsuarioVistas:
             column: vis_fecha_crea
     manyToOne:
         visUsu:
-            targetEntity: Usuario
+            targetEntity: ClienteUsuario
             cascade: {  }
             fetch: LAZY
             mappedBy: null
             inversedBy: null
             joinColumns:
                 vis_usu_id:
-                    referencedColumnName: usu_id
+                    referencedColumnName: cli_usu_id
             orphanRemoval: false
     lifecycleCallbacks: {  }
