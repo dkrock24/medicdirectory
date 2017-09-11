@@ -71,9 +71,6 @@ GROUP BY u.usu_id order by c.cli_id desc";
             return $this->redirect($this->generateUrl('web_homepage'));
         }
 
-        $em = $this->getDoctrine()->getManager();           
-
-
         $medico = array();
         $em     = $this->getDoctrine()->getManager();
         $em1    = $this->getDoctrine()->getManager()->createQueryBuilder();
@@ -89,7 +86,7 @@ GROUP BY u.usu_id order by c.cli_id desc";
             ->innerJoin('AppBundle:UsuarioEspecialidad','r','WITH','r.idUsuario=d.usuId')
             ->innerJoin('AppBundle:Especialidad','e','WITH','e.espId=r.idEspecialidad')            
             ->where('d.usuId = :usuarioId')
-            ->setParameter('usuarioId',  $med_id)            
+            ->setParameter('usuarioId',  $medico['usuario']->getCliUsuUsu()->getUsuId())
             ->getQuery()->getResult();
 
 
