@@ -66,27 +66,6 @@ GROUP BY u.usu_id order by c.cli_id desc";
         );
     }
 
-    public function indexDoctoresAction() {
-
-        $em = $this->getDoctrine()->getManager();
-        $em1 = $this->getDoctrine()->getManager()->createQueryBuilder();
-
-
-        $medicos = $em->getRepository('AppBundle\Entity\Usuario')
-                ->getUsuariosMedicos();
-
-       
-        
-        $esp_service = $this->get('srv_catalogs')->getUsuariosMedicos();
-        $esp = $esp_service->getEspecialidades();
-
-        return $this->render('WebBundle:Doctores:index.html.twig', array(
-                    'medicos' => $medicos,
-                    'esp' => $esp
-                        )
-        );
-    }
-
     public function indexProfileAction(Request $request, $med_id) {
         if ($med_id === null) {
             return $this->redirect($this->generateUrl('web_homepage'));
