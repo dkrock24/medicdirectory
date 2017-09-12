@@ -17,7 +17,7 @@ class DefaultController extends Controller {
 
 
     public function indexAction(Request $request) {
-        /* @var $sParametros AppBundle\Services\servicioParametros */
+        /* @var $sParametros \AppBundle\Services\servicioParametros */
         //$sParametros = $this->get('parametros');
 
         /* @var $em \Doctrine\ORM\EntityManager */
@@ -95,7 +95,7 @@ GROUP BY u.usu_id order by c.cli_id desc";
         //\Doctrine\Common\Util\Debug::dump($medico['usuario'] );
         //var_dump($medico['usuario'] ->getCliUsuDiasTrabajo());
         $horaDias = array();
-        $hoy = "";        
+        $hoy = "";
         if($medico['usuario'] ->getCliUsuDiasTrabajos()!=""){
             $arr = unserialize($medico['usuario'] ->getCliUsuDiasTrabajos());
             //var_dump($arr);
@@ -244,7 +244,7 @@ GROUP BY u.usu_id order by c.cli_id desc";
         $msg = "Registro creado con Exito";
 
         //Notificar a la clinica de solicitud de cita
-        $this->sendMessage("solicitar_cita", $nombre, $telefono, $correo, $comentario,$strHora, $to=$emailClinica[0]->getCliUsuCorreo,$trom=false);
+        $this->sendMessage("solicitar_cita", $nombre2, $telefono, $correo, $comentario,$strHora, $to=$emailClinica[0]->getCliUsuCorreo,$trom=false);
 
         return  $response = new JsonResponse(($msg));
     }
