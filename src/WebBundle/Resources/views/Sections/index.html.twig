@@ -27,7 +27,7 @@
     {% endif %}
     {% for m in medicos %}
 
-        {% set link_perfil = path( "web_doctores_perfil", {"med_id" : m.cli_usu_id, "texto" : m.cli_nombre|seo }) %}
+        {% set link_perfil = path( "web_doctores_perfil", {"med_id" : m.cli_usu_id, "texto" : ("medicos de el salvador " ~ m.cli_nombre ~ " " ~ m.usu_nombre ~ " " ~ m.usu_segundo_nombre ~ " " ~ m.usu_primer_apellido ~ " " ~ m.usu_segundo_apellido)|seo }) %}
         
         <li class="col-md-3 col-sm-4 col-xs-12 doctors-grid" data-groups='["all", "healthcare"]' style="margin-bottom: 10px;">
             
