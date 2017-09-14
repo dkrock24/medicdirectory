@@ -18,6 +18,21 @@
     .charly_enfocate{
         float: right;
     }
+
+    .mas{
+        display: none;
+        background: white;
+        width: 100%;
+        height: 100px;
+        position: relative;
+        text-align: left;
+        padding: 2%;
+    }
+    .close-filtro{
+        cursor: pointer;
+        float: right;
+        text-align: right;
+    }
 </style>
     {% set med_length = medicos|length %}
     {% set row_limit = med_length / 4 %}
@@ -119,6 +134,51 @@
             </div>
         </div>
     </div>
+
+    
     
 
 {% endblock %}
+
+{% block codejs %}
+
+<script type="text/javascript">
+     $(document).ready(function() {
+        var dep,esp,resultado;
+
+        $("#busqueda-completa").click(function(){
+            $(".mas").fadeIn();
+        });
+
+        $(".close-filtro").click(function(){
+            $(".mas").fadeOut();
+        });
+
+        $("#departmanetos").change(function(){
+            dep = "@departamento "+$(this).val();
+            if(!esp)
+            {
+                esp="";
+            }
+            resultado = $("input[name='b']").val( dep +" "+ esp );
+        });
+
+        $("#especialidad").change(function(){
+            resultado = $("input[name='b']").val();
+            esp = "@especialidad "+$(this).val();
+
+            if(!dep)
+            {
+                dep="";
+            }
+
+            $("input[name='b']").val( dep +" "+ esp);
+        });
+
+        
+    });
+</script>
+
+
+
+{% endblock  %}

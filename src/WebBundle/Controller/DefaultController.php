@@ -40,28 +40,57 @@ class DefaultController extends Controller {
 
         // Raw Query
         $RAW_QUERY  = "SELECT *, group_concat(e.esp_especialidad SEPARATOR ', ') as especialidades from usuario u
-JOIN cliente_usuario as cu on cu.cli_usu_usu_id=u.usu_id
-JOIN cliente as c ON cu.cli_usu_cli_id = c.cli_id
-JOIN municipio as m ON c.cli_mun_id = m.mun_id
-JOIN usuario_especialidad AS es on u.usu_id=es.id_usuario
-JOIN  especialidad as e on e.esp_id=es.id_especialidad
-JOIN usuario_galeria as ug on ug.gal_usu_id=cu.cli_usu_usu_id
-WHERE ug.gal_modulo_id is null and ug.gal_tipo=1 and ug.gal_aprobado=1 and cu.cli_usu_rol_id=6 $sUsuarios
-GROUP BY u.usu_id order by c.cli_id desc";
-        $statement  = $em->getConnection()->prepare($RAW_QUERY);
-        $statement->execute();    
-        $medicos    = $statement->fetchAll();            
+                        JOIN cliente_usuario as cu on cu.cli_usu_usu_id=u.usu_id
+                        JOIN cliente as c ON cu.cli_usu_cli_id = c.cli_id
+                        JOIN municipio as m ON c.cli_mun_id = m.mun_id
+                        JOIN usuario_especialidad AS es on u.usu_id=es.id_usuario
+                        JOIN  especialidad as e on e.esp_id=es.id_especialidad
+                        JOIN usuario_galeria as ug on ug.gal_usu_id=cu.cli_usu_usu_id
+                        WHERE ug.gal_modulo_id is null and ug.gal_tipo=1 and ug.gal_aprobado=1 and cu.cli_usu_rol_id=6 $sUsuarios
+                        GROUP BY u.usu_id order by c.cli_id desc";
 
-        $paginator = $this->get('knp_paginator');
-        $pagination = $paginator->paginate(
-                $medicos, 
-                $request->query->getInt('page', 1),
-                20
-        );
+                        $statement  = $em->getConnection()->prepare($RAW_QUERY);
+                        $statement->execute();    
+                        $medicos    = $statement->fetchAll();        
+
+        // Especialidades
+        $RAW_ESP    = "SELECT distinct(e.esp_especialidad) from usuario u
+                        JOIN cliente_usuario as cu on cu.cli_usu_usu_id=u.usu_id
+                        JOIN cliente as c ON cu.cli_usu_cli_id = c.cli_id                        
+                        JOIN usuario_especialidad AS es on u.usu_id=es.id_usuario
+                        JOIN  especialidad as e on e.esp_id=es.id_especialidad                        
+                        WHERE cu.cli_usu_rol_id=6 
+                        GROUP BY u.usu_id order by e.esp_especialidad asc";
+
+                        $statement_esp  = $em->getConnection()->prepare($RAW_ESP);
+                        $statement_esp->execute();    
+                        $medicos_esp    = $statement_esp->fetchAll();  
+                        //End Especialidades  
+        // Especialidades
+        $RAW_MUN    = "SELECT distinct(m.mun_nombre)  from usuario u
+                        JOIN cliente_usuario as cu on cu.cli_usu_usu_id=u.usu_id
+                        JOIN cliente as c ON cu.cli_usu_cli_id = c.cli_id
+                        JOIN municipio as m ON c.cli_mun_id = m.mun_id                        
+                        WHERE cu.cli_usu_rol_id=6 
+                        GROUP BY u.usu_id order by m.mun_nombre asc";
+
+                        $statement_dep  = $em->getConnection()->prepare($RAW_MUN);
+                        $statement_dep->execute();    
+                        $medicos_dep    = $statement_dep->fetchAll();  
+                        //End Especialidades 
+
+                        $paginator = $this->get('knp_paginator');
+                        $pagination = $paginator->paginate(
+                                $medicos, 
+                                $request->query->getInt('page', 1),
+                                20
+                        );
 
         return $this->render(
                     'WebBundle:Sections:index.html.twig', array(
-                    'medicos' => $pagination
+                    'medicos' => $pagination,
+                    'especialidad' => $medicos_esp,
+                    'departmanetos' => $medicos_dep,
                     )
         );
     }
