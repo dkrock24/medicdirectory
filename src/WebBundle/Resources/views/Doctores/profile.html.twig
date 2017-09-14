@@ -1,6 +1,6 @@
 {% extends 'Layout/base_web/_web_base.html.twig' %}
 {% set imgPerfil =  "uploads/perfil/" ~ medico.galeria.galHash %}
-
+{% block title_page %}{{ medico.usuario.cliUsuTitulo}} {{ medico.usuario.cliUsuUsu.usuNombre|title }} {{ medico.usuario.cliUsuUsu.usuSegundoNombre|title }} {{ medico.usuario.cliUsuUsu.usuPrimerApellido|title }} {{ medico.usuario.cliUsuUsu.usuSegundoApellido|title }} - Medicos El Salvador{% endblock %}
 {% block breadcrumb %}
     <!-- Breadcrumb Starts -->
     <div class="breadcrumb">

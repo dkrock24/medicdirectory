@@ -26,11 +26,13 @@
         <span>No se encontraron coincidencias</span>
     {% endif %}
     {% for m in medicos %}
+
+        {% set link_perfil = path( "web_doctores_perfil", {"med_id" : m.cli_usu_id, "texto" : m.cli_nombre|seo }) %}
         
         <li class="col-md-3 col-sm-4 col-xs-12 doctors-grid" data-groups='["all", "healthcare"]' style="margin-bottom: 10px;">
             
             <div class="bio-box" >
-                <a href="{{ path( "web_doctores_perfil", {"med_id" : m.cli_usu_id} ) }}">
+                <a href="{{ link_perfil }}">
                 <div class="profile-img">
                     {% set imgPerfil =  "uploads/perfil/" ~ m.gal_hash %}
                     <img src="{{ image(imgPerfil).resize(250,250).jpeg(85) }}" alt="Doctor" class="lazy img-responsive img-center-sm img-center-xs" >
@@ -100,7 +102,7 @@
 
                     </p>
                 </div>							
-               <a href="{{ path( "web_doctores_perfil", {"med_id" : m.cli_usu_id} ) }}" class="btn btn-secondary text-uppercase">Ver Perfil</a>                
+               <a href="{{ link_perfil }}" class="btn btn-secondary text-uppercase">Ver Perfil</a>
                 <!-- /doctores -->
                 </a>
             </div>

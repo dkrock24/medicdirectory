@@ -11,3 +11,8 @@ services:
     #parametros:
     #    class: AppBundle\Services\servicioParametros
     #    arguments: [ "@doctrine.orm.entity_manager", "@logs" ]    
+
+    seo:
+      class: AppBundle\Twig\AppExtension
+      tags:
+        - { name: twig.extension }
