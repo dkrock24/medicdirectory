@@ -45,7 +45,7 @@ div.pp_default .pp_top,div.pp_default .pp_top .pp_middle,div.pp_default .pp_top 
 @media(min-width:25em){.global-header-inner{height:70px}}@media(min-width:50em){.global-header-inner{height:96px}}.global-header-inner .wrap{position:relative}.menu-background,
 
 .secondary-menu-background,.pricing-menu-background{
-	position:absolute;top:0;left:0;z-index:9001;width:100%;
+	position:fixed;left:0;z-index:9001;width:100%;
 	height:38px;background-color:#424A57;line-height:1
 }
 
