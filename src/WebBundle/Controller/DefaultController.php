@@ -171,11 +171,40 @@ class DefaultController extends Controller {
 
         $vistas  = $em->getRepository('AppBundle:UsuarioVistas')->findBy(array("visUsu" => $med_id));
         $medico['vistas'] = count($vistas);
+
+
+        // Especialidades
+        $RAW_ESP    = "SELECT distinct(e.esp_especialidad) from usuario u
+                        JOIN cliente_usuario as cu on cu.cli_usu_usu_id=u.usu_id
+                        JOIN cliente as c ON cu.cli_usu_cli_id = c.cli_id                        
+                        JOIN usuario_especialidad AS es on u.usu_id=es.id_usuario
+                        JOIN  especialidad as e on e.esp_id=es.id_especialidad                        
+                        WHERE cu.cli_usu_rol_id=6 
+                        GROUP BY u.usu_id order by e.esp_especialidad asc";
+
+                        $statement_esp  = $em->getConnection()->prepare($RAW_ESP);
+                        $statement_esp->execute();    
+                        $medicos_esp    = $statement_esp->fetchAll();  
+                        //End Especialidades  
+        // Especialidades
+        $RAW_MUN    = "SELECT distinct(m.mun_nombre)  from usuario u
+                        JOIN cliente_usuario as cu on cu.cli_usu_usu_id=u.usu_id
+                        JOIN cliente as c ON cu.cli_usu_cli_id = c.cli_id
+                        JOIN municipio as m ON c.cli_mun_id = m.mun_id                        
+                        WHERE cu.cli_usu_rol_id=6 
+                        GROUP BY u.usu_id order by m.mun_nombre asc";
+
+                        $statement_dep  = $em->getConnection()->prepare($RAW_MUN);
+                        $statement_dep->execute();    
+                        $medicos_dep    = $statement_dep->fetchAll();  
+                        //End Especialidades 
         
         return $this->render('WebBundle:Doctores:profile.html.twig', array(
                     "medico" => $medico,
                     "horario" => $horaDias,
-                    "hoy" => $hoy
+                    "hoy" => $hoy,
+                    'especialidad' => $medicos_esp,
+                    'departmanetos' => $medicos_dep,
                     )
         );
     }
