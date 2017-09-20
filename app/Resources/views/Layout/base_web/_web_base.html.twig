@@ -170,9 +170,47 @@
 
     <script type="text/javascript">
 
+        $(document).ready(function() {
+            var dep,esp,resultado;
+
+            $("#busqueda-completa").click(function(){
+                $(".mas").fadeIn(); // click en btn -> mas, y muestra los filtros
+            });
+
+            $(".close-filtro").click(function(){
+                $(".mas").fadeOut();// click en btn -> x, y cierra los filtros
+            });
+
+            $("#departmanetos").change(function(){
+
+                dep = "@departamento "+$(this).val();
+                if(!esp)
+                {
+                    esp="";
+                }
+                resultado = $("input[name='b']").val( dep +" "+ esp );
+            });
+
+            $("#especialidad").change(function(){
+
+                resultado = $("input[name='b']").val();
+
+                esp = "@especialidad "+$(this).val();
+
+                if(!dep)
+                {
+                    dep="";
+                }
+
+                $("input[name='b']").val( dep +" "+ esp);
+            });
+
+    });
+
     </script>
 
     {% block codejs %}
+
     {% endblock  %}
 
 {% endblock %}

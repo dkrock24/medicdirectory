@@ -35,6 +35,7 @@
                         <td>  
                             <label><i class="fa fa-map-marker "></i> Departamento:</label><br>
                             <select name="departmanetos" id="departmanetos" class="form-control">
+                                    <option value="-"></option>
                                 {% for dep in departmanetos %}
                                     <option value="{{ dep.mun_nombre }}">{{ dep.mun_nombre }}</option>
                                 {% endfor %}
@@ -43,6 +44,7 @@
                         <td>  
                             <label><i class="fa fa-user-md"></i> Especialidad :</label><br>
                             <select name="especialidad" id="especialidad" class="form-control">
+                                <option value="-"></option>
                                 {% for es in especialidad %}
                                     <option value="{{ es.esp_especialidad }}">{{ es.esp_especialidad }}</option>
                                 {% endfor %}
