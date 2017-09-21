@@ -147,14 +147,14 @@
                                                 <div class="">{{ form_widget(form.cliTipCli,  { 'attr': {'class': 'select'} } ) }}</div>
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-8">
                                             <div class="form-group">
                                                 <div class="form_error">{{ form_errors(form.cliNombre)}}</div>
                                                 <label for="" class=" control-label">Nombre Comercial: <span class="text-danger">*</span></label>
                                                 <div class="">{{ form_widget(form.cliNombre) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-4 div_pay">
                                             <div class="form-group">
                                                 <div class="form_error">{{ form_errors(form.cliNombreFiscal)}}</div>
                                                 <label for="" class=" control-label">Nombre Fiscal: <span class="text-danger">*</span></label>
@@ -179,7 +179,7 @@
                                         </div>
                                     </div>        
                                     <div class="row">
-                                        <div class="col-md-4">    
+                                        <div class="col-md-4 div_pay">    
                                             <div class="form-group">
                                                 <div class="form_error">{{ form_errors(form.cliNit)}}</div>
                                                 <label for="" class=" control-label">Nit: <span class="text-danger">*</span></label>
@@ -193,7 +193,7 @@
                                                 <div class="">{{ form_widget(form.cliTelefono1) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-4 div_pay">
                                             <div class="form-group">
                                                 <div class="form_error">{{ form_errors(form.cliTelefono2)}}</div>
                                                 <label for="" class=" control-label">Teléfono 2:</label>
@@ -212,7 +212,7 @@
                                         </div>    
                                     </div>
                                      
-                                    <div class="row">
+                                    <div class="row div_pay">
                                         <div class="col-md-4">    
                                             <div class="form-group">
                                                 <div class="form_error"></div>
@@ -283,7 +283,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-4 div_pay">
                                             <div class="form-group">
                                                 <div class="form_error"></div>
                                                 <label for="" class=" control-label">Tercer Nombre: </label>
@@ -294,10 +294,8 @@
                                                 {% endif %}    
                                                 
                                             </div>
-                                        </div>         
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-4">
+                                                <div class="col-md-4">
                                                 <div class="form-group">
                                                     <div class="form_error"></div>
                                                     <label for="" class=" control-label">Primer Apelldio: <span class="text-danger">*</span></label>
@@ -309,6 +307,9 @@
                                                     
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="row">
+                                            
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <div class="form_error"></div>
@@ -323,7 +324,7 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label>Genero: <span class="text-danger">*</span></label>
+                                                    <label>Género: <span class="text-danger">*</span></label>
                                                     <select name="gender_representer"  id="gender_representer" data-placeholder="Genero..." required class="select">
                                                         {% if addLocationToUser|length > 0 %}
                                                             {% if addLocationToUser.usuUsuario == "m" %}
@@ -341,48 +342,7 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            {#
-                                             {{ dump(addLocationToUser) }} 
-                                             {{ addLocationToUser.usuId }}
-                                            #}
-                                            {% if addLocationToUser|length > 0 %}
-                                                <div class="form-group has-success has-feedback">
-                                                    <label>Usuario: <span class="text-danger">*</span></label>
-                                                    <input type="text" name="user_representer" id="user_representer" value="{{ addLocationToUser.usuUsuario }}" placeholder="Usuario" class="form-control required" readonly="readonly">
-                                                    <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
-                                                </div>
-                                                <div class="form-group">
-                                                        <label>Password:</label>
-                                                        <input type="password" id="password_representer" value="deafult"  name="password_representer" placeholder="Password" class="form-control" disabled="disabled">
-                                                </div>
-                                                <div class="form-group">
-                                                        <label>Repita Password: </label>
-                                                        <input type="password" id="password_representer_repeat" value="deafult" name="password_representer_repeat" placeholder="Repita Password" class="form-control" disabled="disabled">
-                                                </div>
-                                            {% else %}
-                                                <div class="form-group">
-                                                    <label>Usuario: <span class="text-danger">*</span></label>
-                                                    <input type="text" name="user_representer" id="user_representer" placeholder="Usuario" class="form-control required">
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label>Contraseña: <span class="text-danger">*</span></label>
-                                                    <input type="password" id="password_representer" name="password_representer" placeholder="Contraseña" class="form-control required">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>Repita Contraseña: <span class="text-danger">*</span></label>
-                                                    <input type="password" id="password_representer_repeat" name="password_representer_repeat" placeholder="Repita Contraseña" class="form-control required">
-                                                </div>
-                                            {% endif %}    
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <div class="row">
-                                                <div class="col-md-12">
+                                            <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label>Correo Electrónico: <span class="text-danger">*</span></label>
                                                         {% if addLocationToUser|length > 0 %}
@@ -392,15 +352,66 @@
                                                         {% endif %}    
                                                         
                                                     </div>
+                                                </div>            
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            {#
+                                             {{ dump(addLocationToUser) }} 
+                                             {{ addLocationToUser.usuId }}
+                                            #}
+                                            {% if addLocationToUser|length > 0 %}
+                                                <div class="row">
+                                                    <div class=" col-md-6">
+                                                        <div class="form-group">
+                                                            <div class="form-group has-success has-feedback">
+                                                                <label>Usuario: <span class="text-danger">*</span></label>
+                                                                <input type="text" name="user_representer" id="user_representer" value="{{ addLocationToUser.usuUsuario }}" placeholder="Usuario" class="form-control required" readonly="readonly">
+                                                                <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                            <label>Password:</label>
+                                                            <input type="password" id="password_representer" value="deafult"  name="password_representer" placeholder="Password" class="form-control" disabled="disabled">
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                            <label>Repita Password: </label>
+                                                            <input type="password" id="password_representer_repeat" value="deafult" name="password_representer_repeat" placeholder="Repita Password" class="form-control" disabled="disabled">
+                                                    </div>
                                                 </div>
-                                                <div class="col-md-12">
+                                            {% else %}
+                                                <div class="row">
+                                                    <div class=" col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Usuario: <span class="text-danger">*</span></label>
+                                                            <input type="text" name="user_representer" id="user_representer" placeholder="Usuario" class="form-control required">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label>Contraseña: <span class="text-danger">*</span></label>
+                                                        <input type="password" id="password_representer" name="password_representer" placeholder="Contraseña" class="form-control required">
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label>Repita Contraseña: <span class="text-danger">*</span></label>
+                                                        <input type="password" id="password_representer_repeat" name="password_representer_repeat" placeholder="Repita Contraseña" class="form-control required">
+                                                    </div>
+                                                </div>
+                                            {% endif %}    
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                
+                                                <div class="col-md-12 div_pay">
                                                     <div class="form-group">
                                                         
                                                         <label>Fecha nacimiento: <span class="text-danger">*</span></label>
                                                         {% if addLocationToUser|length > 0 %}
                                                             <div class=""><input type="text" id="birth_date" value="{# {{ addLocationToUser.usuFechaNacimiento|date('Y-m-d') }} #}" name="birth_date" class="form-control" required ></div>
                                                         {% else %}
-                                                            <div class=""><input type="text" id="birth_date" name="birth_date" class="form-control" required readonly="readonly"></div>
+                                                            <div class=""><input type="text" id="birth_date" name="birth_date" class="form-control"  readonly="readonly"></div>
                                                         {% endif %}    
                                                         
                                                     </div>

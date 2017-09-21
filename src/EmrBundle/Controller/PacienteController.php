@@ -188,7 +188,7 @@ class PacienteController extends Controller
 		
 		$iLocationId = $this->get('session')->get('locationId');
 		
-		$sql = " SELECT pac_id, pac_nombre, pac_dui, pac_genero, pac_email, pac_fecha_crea FROM paciente WHERE pac_cli_id = ".$iLocationId;
+		$sql = " SELECT pac_id, pac_nombre, pac_seg_nombre, pac_apellido, pac_seg_apellido, pac_dui, pac_genero, pac_email, pac_fecha_crea FROM paciente WHERE pac_cli_id = ".$iLocationId;
 		
 		$params = $_REQUEST;
 		
@@ -220,11 +220,17 @@ class PacienteController extends Controller
 		$arr = array();
 		foreach ( $result as $v)
 		{
-
+			$fullname = ucwords(trim($v['pac_nombre']." ".$v['pac_seg_nombre']." ".$v['pac_apellido']." ".$v['pac_seg_apellido']));
+			if( $v['pac_genero'] == "M" )
+			{
+				$gender = "Masculino";
+			}else{
+				$gender = "Femenino";
+			}
 			$arr[] = array(
-							$v['pac_nombre'], 
+							$fullname, 
 							$v['pac_dui'], 
-							$v['pac_genero'], 
+							$gender, 
 							$v['pac_email'],
 							$v['pac_fecha_crea'],
 							$v['pac_id']

@@ -27,7 +27,7 @@ class ClienteType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 		//$builder = $this->createFormBuilder($article);
-        $builder->add('cliNombre')
+        $builder->add('cliNombre', TextType::class, array("label"=>"Nombre Comercial:","required"=>true, "attr"=>array( "class"=>"", "autocomplete"=>false )))
 				->add('cliNombreFiscal')
 				->add('cliNit')
 				->add('cliTelefono1')
