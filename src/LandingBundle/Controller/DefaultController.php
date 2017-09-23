@@ -10,4 +10,8 @@ class DefaultController extends Controller
     {
         return $this->render('LandingBundle:Default:index.html.twig');
     }
+    public function newAction()
+    {
+        return $this->render('LandingBundle:Default:new.html.twig');
+    }
 }

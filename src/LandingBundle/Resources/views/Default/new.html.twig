@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Médicos.sv Landing</title>
+
+    <link type="text/css" media="all" href="{{ asset('bundles/landing/content/estilo/style.css') }}" rel="stylesheet">
+
+
+    <style>@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css');</style>
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic|Montserrat:400,700" rel="stylesheet" type="text/css">
+
+    <script type="text/javascript" async="" href="{{ asset('bundles/landing/content/analytics.js') }}"></script>
+
+
+
+
+    <script type="text/javascript" async="" href="{{ asset('bundles/landing/content/js/html5shiv.js') }}"></script>
+    <script type="text/javascript" async="" href="{{ asset('bundles/landing/content/js/functions.js') }}"></script>
+    <script type="text/javascript" async="" href="{{ asset('bundles/landing/content/js/jquery-1.9.1.min.js') }}"></script>
+
+    <style type="text/css">
+        .img_bg{
+            
+            margin-top: 0%;
+        }
+        .navbar{
+            width: 100%; /* Full width */
+            background-color: white;
+            position: fixed; /* Set the navbar to fixed position */
+            top: 0; /* Position the navbar at the top of the page */
+            z-index: 1000;
+            border-bottom: 1px grey;
+            box-shadow: 0px 0px 1px black;       
+        }
+        .nav{
+            display: inline;
+        }
+        .nav a {
+            margin-top: 0px;
+            float: right;
+            display: inline-block;
+            color: #f2f2f2;
+            text-align: 0px auto;
+            padding: 14px 16px;
+            text-decoration: none;
+            color: black;
+
+        }
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            width: 60px;
+        }
+        li a {
+            display: block;
+        }
+
+        li a:hover{
+            border-bottom: 1px solid balck;
+        }
+
+
+        .btn_registro{
+            padding: 2px;
+            background: white;
+            color: white;
+            animation-name: example;
+            animation-duration: 5s;
+        }
+
+        @keyframes example {
+            0% {background-color: white;}
+            5% {background-color: #1fa2ed;}
+            100% {background-color: white;}
+        }
+        .avatar_medic{
+            width: 30%;
+        }
+        .avatar_software{
+            width: 70%;
+        }
+        .avatar_user{
+            width: 70%;
+        }
+        #my-banner h1{
+            margin-top: -5%;
+            color: #218dcb;
+
+        }
+        #logo_top{
+            width: 70px;
+            width: 70px;
+            position: absolute;
+            padding-left: 15px;
+            display: inline-block;
+        }
+        .titulo_empresa{
+            display: inline-block;
+            position: absolute;
+            margin-left: 90px;
+            margin-top:8px;
+            font-size: 32px;
+        }
+        #my-banner h1 #accent{
+    width: 100%;
+        }
+
+        #testimonial h2{
+            color: #1fa2ed;
+            box-shadow: 0px 0px 1px solid grey;
+
+        }
+        #testimonial span{
+            font-size: 22px;
+            padding-top: 10px;
+        }
+
+        #my-banner-img{
+            position: fixed;
+        }
+        #sub-heading{
+            width: 100%;
+            padding-top: 30px;
+            position: relative;
+            background-color: #feffff;
+            margin-top: -480px;
+    
+        }
+        #stats {
+            background: #25364c;
+            padding: 105px 0;
+            position: relative;
+        }
+        #testimonial,#tart-today,#brands,#footer,#start-today{
+            position: relative;
+        }
+        #btn_registrar{
+            color: white;
+            background: none;
+            padding: 20px;
+            text-decoration: none;
+            margin-top: 0px;
+            border-radius: 3px;
+            border:0px solid #25364b;
+        }
+
+        #btn_registrar:hover{
+            background: none;
+            transform: scale(2.0);
+            animation: registro 5s infinite alternate;
+        }
+
+
+
+        @keyframes registro {
+            From {
+                -webkit-transform: scale(1.0);
+            }
+            To {
+                -webkit-transform: scale(2.0);
+            }
+        }
+
+        #regustro1{
+            color: white;
+            font-size: 30px;
+            text-decoration: none;
+
+        }
+
+        .fond{position:absolute;padding-top:85px;top:0;left:0; right:0;bottom:0;
+            background-color:#00506b;}
+
+        .style_prevu_kit
+        {
+            display:inline-block;
+            border:0;
+            width:196px;
+            height:0px;
+            position: relative;
+            -webkit-transition: all 200ms ease-in;
+            -webkit-transform: scale(1); 
+            -ms-transition: all 200ms ease-in;
+            -ms-transform: scale(1); 
+            -moz-transition: all 200ms ease-in;
+            -moz-transform: scale(1);
+            transition: all 200ms ease-in;
+            transform: scale(1);   
+
+        }
+        .style_prevu_kit:hover
+        {
+  
+            z-index: 2;
+            -webkit-transition: all 200ms ease-in;
+            -webkit-transform: scale(1.5);
+            -ms-transition: all 200ms ease-in;
+            -ms-transform: scale(1.5);   
+            -moz-transition: all 200ms ease-in;
+            -moz-transform: scale(1.5);
+            transition: all 200ms ease-in;
+            transform: scale(1.5);
+        }
+        .texto_description{
+            color: black;
+            font-size: 22px;
+            background: white;
+            width: 196px;
+            position: absolute;
+            bottom: 0;
+            margin-left: -50%;
+
+            overflow: hidden;
+        }
+        .punto{
+            color: #1fa2ed;;
+        }
+        #titulo_top{
+            color: #25364b;
+            font-size: 50px;
+            letter-spacing: 0;
+            line-height: 81px;
+            position: relative;
+            top: -8px;
+            vertical-align: middle;
+        }
+
+        .btn_top a:hover{
+            background: #25364b;
+            color: white;
+        }
+
+        .link_registro{
+            text-align: center;text-decoration: none;
+            width: 100%;
+            background: #25364b;
+            padding: 20px;
+            position: relative;
+            color: white;
+            border-radius: 4px;
+        }
+        .link_registro:hover{
+             background: #1fa2ed;
+        }
+
+        #testimonial-img{
+            margin-top: -100px;
+        }
+
+        @media all and (max-width: 670px) {
+            .titulo_empresa{
+                display: none;
+            }
+            .formula{
+                width: 300px;
+                font-size: 18px;
+                line-height: 20px;
+                margin-top: -20px;
+                margin-bottom: 10px;
+                margin-left: -60px;
+            }
+            #stats img {
+                top: -30px;
+
+            }
+        }
+
+
+    
+    </style>
+
+
+</head>http://localhost/emr/web/bundles/landing/images/1656.jpg
+<body>
+
+
+
+<div class="navbar">
+    <ul class="nav">
+
+        <li class="d1">
+            <img id="logo_top"  src="{{ asset('bundles/landing/images/logo_empresa_pequeno.png') }}">
+            <span class="titulo_empresa"> MÉDICOS<i class="punto">.</i>SV</span>
+        </li>
+
+        <li id="menu-item-30821" class="btn_top">
+            <a href="{{ path("login") }}" target="_blank">Login</a>
+        </li>
+        <li id="menu-item-31048" class="btn_top">
+            <a href="{{ path("web_contactanos") }}" target="_blank">Contactános</a>
+        </li>        
+        <li id="menu-item-28855" class="btn_top">
+            <a  href="{{ path("cliente_new") }}" target="_blank" class="btn_registro">Registrate</a>
+        </li>
+        
+    </ul>
+    <br>
+
+</div>
+
+    <!-- banner --><br>
+    <section id="my-banner">
+        <img id="my-banner-img" src="{{ asset('bundles/landing/images/1656.jpg') }}" alt="my-banner background" />
+        <div class="content-wrapper img_bg">
+            <h1><span id="titulo_top">Médicos que SI se ven</span></h1>
+            <span id="btn_registrar" style="width:1000px;">
+            <!--
+                <a id="regustro1" href="{{ path("cliente_new") }}" target="_blank" class="click-btn"><u>Prueba Gratis</u><span>»</span></a>
+            -->
+             <!--
+                <div class="style_prevu_kit" style="background-image:url({{ asset('bundles/landing/images/registrate.png') }});background-size:100%;">
+                    <span class="texto_description">Registro</span>
+                </div>
+                 
+                <div class="style_prevu_kit" style="">
+                    <span class="texto_description">
+                        <a href="">Registrate</a>
+                    </span>
+                </div>-->
+                <!--
+                <div class="style_prevu_kit" style="background-image:url({{ asset('bundles/landing/images/software_emr.png') }});background-size:100%;">
+                    <span class="texto_description">Software</span>
+                </div>
+                 -->
+
+            </span>
+            <img id="my-banner-img-caret" src="{{ asset('bundles/landing/images/down-arrow.png') }}" alt="down arrow">
+        </div>
+    </section>
+    <!-- sub-heading -->
+    <section id="sub-heading">
+        <div class="content-wrapper">
+            <p id="sub-heading-primary"><strong>Nueva Plataforma Médica. Donde los médicos SI se ven.</strong></p>
+            <p id="sub-heading-secondary">Únete y se parte de la mas grande <strong>Plataforma</strong> que te ofrece los beneficios de <strong>Publicidad</strong> y un <strong>Software</strong> especializado para tu Clinica. . .</p>
+                
+            <br><br>
+            <a href="{{ path("cliente_new") }}" target="_blank" class="link_registro">Registrate Gratis</a>
+        </div>
+        
+    </section>
+    <!-- stats -->
+    <section id="stats">
+        <div id="stats-container">
+            <h2 class="formula">Formula del médico que 100% si se ve</h2><br>
+        <!--
+            <img id="stats-img-01" src="{{ asset('bundles/landing/images/math1.png') }}" alt="math symbols">
+            -->
+            <div class="stat" id="stats-01">
+                <p id="stats-02-p"><img class="avatar_medic" src="{{ asset('bundles/landing/images/medic_lan.png') }}" alt="down arrow"></p>
+                <h3 id="stats-01-h3">Publicidad</h3>
+            </div>
+            <img id="stats-img-03" src="{{ asset('bundles/landing/images/math2.png') }}" alt="math symbols">
+            <div class="stat" id="stats-02">
+                <p id="stats-02-p"><img class="avatar_software" src="{{ asset('bundles/landing/images/software_medic.png') }}" alt="down arrow"></p>
+                <h3 id="stats-01-h3">Software</h3>
+            </div>
+            <img id="stats-img-04" src="{{ asset('bundles/landing/images/math3.png') }}" alt="math symbols">
+            <div class="stat" id="stats-03">
+                <p id="stats-02-p"><img class="avatar_user" src="{{ asset('bundles/landing/images/users_demo.png') }}" alt="down arrow"></p>
+                <h3 id="stats-01-h3">Pacientes</h3>
+            </div>
+            <!--
+            <div class="stat" id="stats-04">
+                <h3 id="stats-04-h3">Tú</h3>
+                <h2 id="stats-04-h2">100%</h2>
+                <p id="stats-04-p">Si te ves</p>
+            </div>
+            -->
+        </div>
+    </section>
+    <!-- testimonial -->
+    <section id="testimonial">
+        <div class="content-wrapper">            
+            <h2 id="testimonial-author">Software Especializado</h2>
+            <span id="testimonial-title">Con Modulos Adaptados A Tu Especialidad . . .</span>
+
+            <img src="{{ asset('bundles/landing/images/flujo.png') }}" width="70%" style="margin-top: -50px;" alt="antonio rillera" id="testimonial-img">
+
+        </div>
+    </section>
+
+    <!-- How does it work -->
+    <section id="how-works">
+        <div class="content-wrapper">
+            <img id="how-works-02-img" src="{{ asset('bundles/landing/images/rapdio.png') }}" width="90px" alt="templates">
+            <h2 id="how-works-header">PUBLICATE EN 3 PASOS . . .</h2>
+            <div class="step" id="step1">
+                <div class="left">
+                    <p class="num" id="num1">1</p><h3 id="how-works-01-header">Click en Registro para únirse a medicos.sv .</h3>
+                    <p id="how-works-01-copy">Sele pediran sus datos personales y datos del establecimiento que necesita registrar. . .</p>
+                </div>
+                <a id="how-works-01-image-link" href="{{ path("cliente_new") }}" target="_blank"><div class="image" id="register-btn"><img src="{{ asset('bundles/landing/images/register-btn.png') }}" id="register-button" alt="register"></div></a>
+            </div>
+            <div class="step" id="step2">
+                <div class="right">
+                    <p class="num" id="num2">2</p><h3 id="how-works-02-header">Configura Tú Perfil .</h3>
+                    <p id="how-works-02-copy">Ingresa la información de contacto, fotografía y horario de atención . . .</p>
+                </div>
+                <div class="left" id="templates"><img id="how-works-02-img" src="{{ asset('bundles/landing/images/templates.png') }}" alt="templates"></div>
+            </div>
+            <div class="step" id="step3">
+                <div class="left">
+                    <p class="num" id="num3">3</p><h3 id="how-works-03-header">Listo! Ya Eres Un Médico Que Si se Ve . . .</h3>
+                    <p id="how-works-03-copy">Tú fotografía será aprobada y podras verte en .</p><a href="{{ path("web_homepage") }}" target="_blank">Médicos.sv</a>
+                </div>
+                <div class="image submit"><img id="how-works-03-img" src="{{ asset('bundles/landing/images/submit.png') }}" alt="submit"></div>
+            </div>
+        </div>
+    </section>
+    <!-- start-today -->
+    <section id="start-today">
+        <div class="content-wrapper">
+            <h2 id="start-today-header">Inicia Hoy!</h2>
+            <a id="start-today-link" href="{{ path("cliente_new") }}" target="_blank" class="click-btn"><u>Click Aquí</u> para Registrarte <span>»</span></a>
+        </div>
+    </section>
+    <!-- brands -->
+    <section id="brands">
+        <div class="content-wrapper">
+            <h3 id="brands-header">Contactanos</h3>
+            <div id="logos">
+                
+            </div>
+        </div>
+    </section>
+    <!-- footer -->
+    <section id="footer">
+        <div class="content-wrapper">
+            <div id="copyright">
+                <p>© 2017 <a href="{{ path("web_homepage") }}" style="color: white;">medico.sv</a>. Todos los derechos reservados  |  </p>
+            </div>
+            <div id="socials">
+                <a id="socials-facebook-link" href="https://www.facebook.com/medicosqueseven/" target="_blank"><i class="fa fa-facebook"></i></a>
+                <a id="socials-twitter-link" href="https://twitter.com/svmedicos" target="_blank"><i class="fa fa-twitter"></i></a>
+                <a id="socials-google-plus-link" href="mailto:info@medicos.sv"><i class="fa fa-google-plus"></i></a>
+            </div>
+            <div id="bottom-text">
+                
+            </div>
+        </div>
+    </section>
+</body>
+</html>
