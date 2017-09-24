@@ -20,6 +20,7 @@
         <meta name="application-name" content="Médicos El Salvador"/>
         <meta name="msapplication-TileColor" content="#009BD" />
         <meta name="msapplication-TileImage" content="{{  asset('mstile-144x144.png') }}" />
+        {% block meta %}{% endblock %}
 
         <title>{% block title_page %}Medicos.sv{% endblock %}</title>
         {% block stylesheets %}

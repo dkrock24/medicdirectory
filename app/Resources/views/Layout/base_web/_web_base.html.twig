@@ -69,7 +69,7 @@
 
                                 <li><a href="{{ path('web_precios') }}">
                                     <i class="fa fa-money"></i> Precios</a></li>
-                                <li><a href="contactanos">
+                                <li><a href="{{ path('web_contactanos') }}">
                                 <i class="fa fa-phone"></i> Contáctanos</a></li>
                                 <li><a href="{{ path("cliente_new") }}">
                                 <i class="fa fa-sign-in"></i> Registrate</a></li>
@@ -170,9 +170,47 @@
 
     <script type="text/javascript">
 
+        $(document).ready(function() {
+            var dep,esp,resultado;
+
+            $("#busqueda-completa").click(function(){
+                $(".mas").fadeIn(); // click en btn -> mas, y muestra los filtros
+            });
+
+            $(".close-filtro").click(function(){
+                $(".mas").fadeOut();// click en btn -> x, y cierra los filtros
+            });
+
+            $("#departmanetos").change(function(){
+
+                dep = "@departamento "+$(this).val();
+                if(!esp)
+                {
+                    esp="";
+                }
+                resultado = $("input[name='b']").val( dep +" "+ esp );
+            });
+
+            $("#especialidad").change(function(){
+
+                resultado = $("input[name='b']").val();
+
+                esp = "@especialidad "+$(this).val();
+
+                if(!dep)
+                {
+                    dep="";
+                }
+
+                $("input[name='b']").val( dep +" "+ esp);
+            });
+
+    });
+
     </script>
 
     {% block codejs %}
+
     {% endblock  %}
 
 {% endblock %}

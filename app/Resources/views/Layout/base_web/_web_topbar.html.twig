@@ -14,9 +14,46 @@
         <div class="input-group">
              <input name="b" type="text" class="form-control" autocomplete="off" placeholder="Búscar médicos">
                  <span class="input-group-btn">
-                 <button type="submit" form="busqueda_global" class="btn btn-info">Búscar</button>
+
+                 <button type="submit" form="busqueda_global" class="btn btn-info"><i class="fa fa-search"></i> Búscar</button>
+
+                 <button type="button" id="busqueda-completa" class="btn btn-info"><i class="fa fa-plus "></i> Más</button>
+
+                 
+
              </span>
          </div><!-- /input-group -->
        </form> 
+            <div class="mas">
+                <table border=0 width="100%">
+
+                    <tr>
+                        <td colspan="2"><span class="close-filtro"><i class="fa fa-close"></i></span></td>
+                    </tr>
+
+                    <tr>
+                        <td>  
+                            <label><i class="fa fa-map-marker "></i> Departamento:</label><br>
+                            <select name="departmanetos" id="departmanetos" class="form-control">
+                                    <option value="-"></option>
+                                {% for dep in departmanetos %}
+                                    <option value="{{ dep.mun_nombre }}">{{ dep.mun_nombre }}</option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                        <td>  
+                            <label><i class="fa fa-user-md"></i> Especialidad :</label><br>
+                            <select name="especialidad" id="especialidad" class="form-control">
+                                <option value="-"></option>
+                                {% for es in especialidad %}
+                                    <option value="{{ es.esp_especialidad }}">{{ es.esp_especialidad }}</option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                    </tr> 
+
+                </table>
+            </div>
     </div>
 </div>
+

@@ -1,4 +1,6 @@
 {% extends 'Layout/base_web/_web_base.html.twig' %}
+{% set imgPerfil =  "uploads/perfil/" ~ medico.galeria.galHash %}
+{% block title_page %}{{ medico.usuario.cliUsuTitulo}} {{ medico.usuario.cliUsuUsu.usuNombre|title }} {{ medico.usuario.cliUsuUsu.usuSegundoNombre|title }} {{ medico.usuario.cliUsuUsu.usuPrimerApellido|title }} {{ medico.usuario.cliUsuUsu.usuSegundoApellido|title }} - Medicos El Salvador{% endblock %}
 {% block breadcrumb %}
     <!-- Breadcrumb Starts -->
     <div class="breadcrumb">
@@ -13,13 +15,21 @@
     <!-- Breadcrumb Ends -->
 {% endblock %}
 
-
-
+{% block meta %}
+    {% set especialidades %}
+        {%- for e in medico.especialidad -%}
+            {{e.idEspecialidad.espEspecialidad }}{% if not loop.last %}, {% endif %}
+        {%- endfor -%}
+    {% endset %}
+    <meta property="fb:app_id" content="116326399076496" />
+    <meta property="og:url" content="{{ app.request.uri }}" />
+    <meta property="og:type" content="business.business" />
+    <meta property="og:title" content="Medicos.sv - {{ medico.usuario.cliUsuTitulo}} {{ medico.usuario.cliUsuUsu.usuNombre|title }} {{ medico.usuario.cliUsuUsu.usuSegundoNombre|title }} {{ medico.usuario.cliUsuUsu.usuPrimerApellido|title }} {{ medico.usuario.cliUsuUsu.usuSegundoApellido|title }}" />
+    <meta property="og:image" content="{{ app.request.getSchemeAndHttpHost() }}{{ image(imgPerfil).resize(1200,1200).jpeg(90) }}" />
+    <meta property="og:description" content="Especialidad: {{ especialidades }}. Dirección: {{ medico.usuario.cliUsuCli.cliDireccion}}. {{ medico.usuario.cliUsuCli.cliMun.munNombre}}, {{ medico.usuario.cliUsuCli.cliMun.munDep.depDepartamento}}. El Salvador" />
+{% endblock %}
 
 {%block body %}
-
-
-
 <style type="text/css">
     .redes{
         text-align: center;
@@ -48,185 +58,22 @@
     display: none;
     padding: 10px;
 }
+
+.mas{
+        display: none;
+        background: white;
+        width: 100%;
+        height: 100px;
+        position: relative;
+        text-align: left;
+        padding: 2%;
+    }
+    .close-filtro{
+        cursor: pointer;
+        float: right;
+        text-align: right;
+    }
 </style>
-
-<!--
-<script type="text/javascript">
-
-        $(document).ready(function() {
-            /*
-             *  Simple image gallery. Uses default settings
-             */
-
-            $('.fancybox').fancybox();
-
-            /*
-             *  Different effects
-             */
-
-            // Change title type, overlay closing speed
-            $(".fancybox-effects-a").fancybox({
-                helpers: {
-                    title : {
-                        type : 'outside'
-                    },
-                    overlay : {
-                        speedOut : 0
-                    }
-                }
-            });
-
-            // Disable opening and closing animations, change title type
-            $(".fancybox-effects-b").fancybox({
-                openEffect  : 'none',
-                closeEffect : 'none',
-
-                helpers : {
-                    title : {
-                        type : 'over'
-                    }
-                }
-            });
-
-            // Set custom style, close if clicked, change title type and overlay color
-            $(".fancybox-effects-c").fancybox({
-                wrapCSS    : 'fancybox-custom',
-                closeClick : true,
-
-                openEffect : 'none',
-
-                helpers : {
-                    title : {
-                        type : 'inside'
-                    },
-                    overlay : {
-                        css : {
-                            'background' : 'rgba(238,238,238,0.85)'
-                        }
-                    }
-                }
-            });
-
-            // Remove padding, set opening and closing animations, close if clicked and disable overlay
-            $(".fancybox-effects-d").fancybox({
-                padding: 0,
-
-                openEffect : 'elastic',
-                openSpeed  : 150,
-
-                closeEffect : 'elastic',
-                closeSpeed  : 150,
-
-                closeClick : true,
-
-                helpers : {
-                    overlay : null
-                }
-            });
-
-            /*
-             *  Button helper. Disable animations, hide close button, change title type and content
-             */
-
-            $('.fancybox-buttons').fancybox({
-                openEffect  : 'none',
-                closeEffect : 'none',
-
-                prevEffect : 'none',
-                nextEffect : 'none',
-
-                closeBtn  : false,
-
-                helpers : {
-                    title : {
-                        type : 'inside'
-                    },
-                    buttons : {}
-                },
-
-                afterLoad : function() {
-                    this.title = 'Image ' + (this.index + 1) + ' of ' + this.group.length + (this.title ? ' - ' + this.title : '');
-                }
-            });
-
-
-            /*
-             *  Thumbnail helper. Disable animations, hide close button, arrows and slide to next gallery item if clicked
-             */
-
-            $('.fancybox-thumbs').fancybox({
-                prevEffect : 'none',
-                nextEffect : 'none',
-
-                closeBtn  : false,
-                arrows    : false,
-                nextClick : true,
-
-                helpers : {
-                    thumbs : {
-                        width  : 50,
-                        height : 50
-                    }
-                }
-            });
-
-            /*
-             *  Media helper. Group items, disable animations, hide arrows, enable media and button helpers.
-            */
-            $('.fancybox-media')
-                .attr('rel', 'media-gallery')
-                .fancybox({
-                    openEffect : 'none',
-                    closeEffect : 'none',
-                    prevEffect : 'none',
-                    nextEffect : 'none',
-
-                    arrows : false,
-                    helpers : {
-                        media : {},
-                        buttons : {}
-                    }
-                });
-
-            /*
-             *  Open manually
-             */
-
-            $("#fancybox-manual-a").click(function() {
-                $.fancybox.open('1_b.jpg');
-            });
-
-            $("#fancybox-manual-b").click(function() {
-                $.fancybox.open({
-                    href : 'iframe.html',
-                    type : 'iframe',
-                    padding : 5
-                });
-            });
-
-            $("#fancybox-manual-c").click(function() {
-                $.fancybox.open([
-                    {
-                        href : '1_b.jpg',
-                        title : 'My title'
-                    }, {
-                        href : '2_b.jpg',
-                        title : '2nd title'
-                    }, {
-                        href : '3_b.jpg'
-                    }
-                ], {
-                    helpers : {
-                        thumbs : {
-                            width: 75,
-                            height: 50
-                        }
-                    }
-                });
-            });
-        });
-</script>
--->
 
     <!-- Doctor Profile Starts -->
     <div class="row">
@@ -234,7 +81,7 @@
             <div class="profile-block">
                 <div class="panel panel-profile">
                     <div class="panel-heading container-fluid">
-                        {% set imgPerfil =  "uploads/perfil/" ~ medico.galeria.galHash %}
+
                         <img style="width:100%;margin-top:0.1em;" src="{{ image(imgPerfil).scaleResize(500).jpeg(85) }}" alt="Imagen del doctor" class="img-responsive img-center-xs">
                     </div>
                     <div class="panel-body">
@@ -263,14 +110,14 @@
                         </div>
                     </div>
                     <div class="cita_form">
-                    <input type="hidden" name="idCliente" id="idCliente" value="{{ medico.cliente.cliUsuCli.cliId }}" />                    
+                    <input type="hidden" name="idCliente" id="idCliente" value="{{ medico.usuario.cliUsuCli.cliId }}" />                    
                         <input type="hidden" name="idUsuario" id="idUsuario" value="{{ medico.usuario.cliUsuUsu.usuId }}" />
                     <form id="solicitud_cita">
                         <div class="row">
                             <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">
                                 <button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
                                 <h6 class="alert-heading text-semibold">Ingresa la información solicitada y en breve te contactaremos, para brindarte la ayuda que necesitas. <h6>
-                                <span class="clinica_mensaje"><p>Att:  {{ medico.cliente.cliUsuCli.cliNombreComercial}}</p></span>
+                                <span class="clinica_mensaje"><p>Att:  {{ medico.usuario.cliUsuCli.cliNombreComercial}}</p></span>
                             </div>
                         </div>
                         
@@ -359,12 +206,12 @@
                         {#{ medico.especialidad[0].idEspecialidad.espEspecialidad }#}
                     </h5>
                     <h6>
-                        <span class="nombre_clinica">{{ medico.cliente.cliUsuCli.cliNombreComercial}} </span>
+                        <span class="nombre_clinica">{{ medico.usuario.cliUsuCli.cliNombreComercial}} </span>
                     </h6>
                     <h6>
                         <p><b>Dirección:</b></p>
-                        {{ medico.cliente.cliUsuCli.cliDireccion}}.<br />
-                        {{ medico.cliente.cliUsuCli.cliMun.munNombre}}, {{ medico.cliente.cliUsuCli.cliMun.munDep.depDepartamento}}
+                        {{ medico.usuario.cliUsuCli.cliDireccion}}.<br />
+                        {{ medico.usuario.cliUsuCli.cliMun.munNombre}}, {{ medico.usuario.cliUsuCli.cliMun.munDep.depDepartamento}}
                                     
                     </h6>
                     <ul class="list-unstyled list-inline post-meta">
@@ -381,8 +228,8 @@
                         </li>
                         <li>
                             <i class="fa fa-hospital-o"></i>                            
-                            {{ medico.cliente.cliUsuCli.clitelefono1 }} |
-                            {{ medico.cliente.cliUsuCli.clitelefono2 }}
+                            {{ medico.usuario.cliUsuCli.clitelefono1 }} |
+                            {{ medico.usuario.cliUsuCli.clitelefono2 }}
                         </li>
                     </ul>
                     <table class="table" width="100%" border=0>
@@ -449,8 +296,8 @@
         <div class="row">
 
             <p><b>Ubicación:</b></p>
-            <input type="hidden" value="{{ medico.cliente.cliUsuCli.cliUbicacionLat }}" id="lon"/>
-            <input type="hidden" value="{{ medico.cliente.cliUsuCli.cliUbicacionLon }}" id="lat"/>
+            <input type="hidden" value="{{ medico.usuario.cliUsuCli.cliUbicacionLat }}" id="lon"/>
+            <input type="hidden" value="{{ medico.usuario.cliUsuCli.cliUbicacionLon }}" id="lat"/>
             <div id="map_canvas" style="width: 100%; height:300px;"></div>
         </div>
 
@@ -614,6 +461,9 @@
             })();
         });
         </script>
+
+
+
 
 {% endblock  %}
 

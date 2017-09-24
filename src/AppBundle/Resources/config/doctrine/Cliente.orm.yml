@@ -31,14 +31,14 @@ AppBundle\Entity\Cliente:
         cliNombre:
             type: string
             nullable: true
-            length: 25
+            length: 255
             options:
                 fixed: false
             column: cli_nombre
         cliNombreFiscal:
             type: string
             nullable: false
-            length: 50
+            length: 255
             options:
                 fixed: false
             column: cli_nombre_fiscal
@@ -66,7 +66,7 @@ AppBundle\Entity\Cliente:
         cliDireccion:
             type: string
             nullable: false
-            length: 150
+            length: 255
             options:
                 fixed: false
             column: cli_direccion
@@ -97,7 +97,7 @@ AppBundle\Entity\Cliente:
         cliNombreComercial:
             type: string
             nullable: true
-            length: 50
+            length: 255
             options:
                 fixed: false
             column: cli_nombre_comercial

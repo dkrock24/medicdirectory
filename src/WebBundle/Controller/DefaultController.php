@@ -17,7 +17,7 @@ class DefaultController extends Controller {
 
 
     public function indexAction(Request $request) {
-        /* @var $sParametros AppBundle\Services\servicioParametros */
+        /* @var $sParametros \AppBundle\Services\servicioParametros */
         //$sParametros = $this->get('parametros');
 
         /* @var $em \Doctrine\ORM\EntityManager */
@@ -40,90 +40,94 @@ class DefaultController extends Controller {
 
         // Raw Query
         $RAW_QUERY  = "SELECT *, group_concat(e.esp_especialidad SEPARATOR ', ') as especialidades from usuario u
-JOIN cliente_usuario as cu on cu.cli_usu_usu_id=u.usu_id
-JOIN cliente as c ON cu.cli_usu_cli_id = c.cli_id
-JOIN municipio as m ON c.cli_mun_id = m.mun_id
-JOIN usuario_especialidad AS es on u.usu_id=es.id_usuario
-JOIN  especialidad as e on e.esp_id=es.id_especialidad
-JOIN usuario_galeria as ug on ug.gal_usu_id=cu.cli_usu_usu_id
-WHERE ug.gal_modulo_id is null and ug.gal_tipo=1 and ug.gal_aprobado=1 and cu.cli_usu_rol_id=6 
-GROUP BY u.usu_id";
-        $statement  = $em->getConnection()->prepare($RAW_QUERY);
-        $statement->execute();    
-        $medicos    = $statement->fetchAll();            
+                        JOIN cliente_usuario as cu on cu.cli_usu_usu_id=u.usu_id
+                        JOIN cliente as c ON cu.cli_usu_cli_id = c.cli_id
+                        JOIN municipio as m ON c.cli_mun_id = m.mun_id
+                        JOIN usuario_especialidad AS es on u.usu_id=es.id_usuario
+                        JOIN  especialidad as e on e.esp_id=es.id_especialidad
+                        JOIN usuario_galeria as ug on ug.gal_usu_id=cu.cli_usu_usu_id
+                        WHERE ug.gal_modulo_id is null and ug.gal_tipo=1 and ug.gal_aprobado=1 and cu.cli_usu_rol_id=6 $sUsuarios
+                        GROUP BY u.usu_id order by c.cli_id desc";
 
-        $paginator = $this->get('knp_paginator');
-        $pagination = $paginator->paginate(
-                $medicos, 
-                $request->query->getInt('page', 1),
-                20
-        );
+                        $statement  = $em->getConnection()->prepare($RAW_QUERY);
+                        $statement->execute();    
+                        $medicos    = $statement->fetchAll();        
+
+        
+
+                        $paginator = $this->get('knp_paginator');
+                        $pagination = $paginator->paginate(
+                                $medicos, 
+                                $request->query->getInt('page', 1),
+                                20
+                        );
 
         return $this->render(
                     'WebBundle:Sections:index.html.twig', array(
-                    'medicos' => $pagination
+                    'medicos' => $pagination,
+                    'especialidad' => $this->getEspecialidades(),
+                    'departmanetos' => $this->getDepartamento(),
                     )
         );
     }
 
-    public function indexDoctoresAction() {
+    private function getDepartamento(){
+        /*
+        * Retorna todos los departamentos existentes con medicos, para ser usados en el filtro del perfil.
+        */
 
         $em = $this->getDoctrine()->getManager();
-        $em1 = $this->getDoctrine()->getManager()->createQueryBuilder();
 
+        // Departamentos
+        $RAW_MUN    = "SELECT distinct(m.mun_nombre)  from usuario u
+                        JOIN cliente_usuario as cu on cu.cli_usu_usu_id=u.usu_id
+                        JOIN cliente as c ON cu.cli_usu_cli_id = c.cli_id
+                        JOIN municipio as m ON c.cli_mun_id = m.mun_id                        
+                        WHERE cu.cli_usu_rol_id=6 
+                        GROUP BY u.usu_id order by m.mun_nombre asc";
 
-        $medicos = $em->getRepository('AppBundle\Entity\Usuario')
-                ->getUsuariosMedicos();
-
-       
-        
-        $esp_service = $this->get('srv_catalogs')->getUsuariosMedicos();
-        $esp = $esp_service->getEspecialidades();
-
-        return $this->render('WebBundle:Doctores:index.html.twig', array(
-                    'medicos' => $medicos,
-                    'esp' => $esp
-                        )
-        );
+                        $statement_dep  = $em->getConnection()->prepare($RAW_MUN);
+                        $statement_dep->execute();    
+                        $medicos_dep    = $statement_dep->fetchAll();  
+                        //End Departamentos 
+        return $medicos_dep;
     }
 
-    public function indexProfileAction($med_id) {
+    private function getEspecialidades(){
+        /*
+        * Retorna todos las especialidades asociadas a medicos, para ser usados en el filtro del perfil.
+        */
+
+        $em = $this->getDoctrine()->getManager();
+
+        // Especialidades
+        $RAW_ESP    = "SELECT distinct(e.esp_especialidad) from usuario u
+                        JOIN cliente_usuario as cu on cu.cli_usu_usu_id=u.usu_id
+                        JOIN cliente as c ON cu.cli_usu_cli_id = c.cli_id                        
+                        JOIN usuario_especialidad AS es on u.usu_id=es.id_usuario
+                        JOIN  especialidad as e on e.esp_id=es.id_especialidad                        
+                        WHERE cu.cli_usu_rol_id=6 
+                        GROUP BY u.usu_id order by e.esp_especialidad asc";
+
+                        $statement_esp  = $em->getConnection()->prepare($RAW_ESP);
+                        $statement_esp->execute();    
+                        $medicos_esp    = $statement_esp->fetchAll();  
+                        //End Especialidades  
+        return $medicos_esp;
+    }
+
+    public function indexProfileAction(Request $request, $med_id) {
         if ($med_id === null) {
             return $this->redirect($this->generateUrl('web_homepage'));
         }
-
-        $em = $this->getDoctrine()->getManager();           
-
-        // Validar si la Cookie se ha seteado
-        if(!isset($_COOKIE['contador']))
-        {        
-            // Obtener La Ip del visitante.
-            $ip = $this->getRealIP(); 
-
-            $oUser = $em->getRepository("AppBundle:Usuario")->findOneByUsuId($med_id);
-            
-            $visitas = new UsuarioVistas();
-            $visitas->setVisUsuario($oUser);
-            $visitas->setVisReferencia($ip);
-            $visitas->setVisFechaCrea(new \DateTime("now"));
-
-            $em->persist($visitas);
-            $em->flush();
-        } 
-        else 
-        { 
-            // Caduca en un año 
-            setcookie('contador', 1, time() + 365 * 24 * 60 * 60); 
-            $mensaje = 'Bienvenido a nuestra página web'; 
-        } 
 
         $medico = array();
         $em     = $this->getDoctrine()->getManager();
         $em1    = $this->getDoctrine()->getManager()->createQueryBuilder();
 
-        $medico['usuario'] = $em->getRepository('AppBundle:ClienteUsuario')->findOneBy(array("cliUsuUsu" => $med_id,"cliUsuRol"=>6));
+        $medico['usuario'] = $em->getRepository('AppBundle:ClienteUsuario')->find($med_id);
 
-        $medico['galeria'] = $em->getRepository('AppBundle:UsuarioGaleria')->findOneBy(array("galUsu"=>$med_id,"galTipo"=>1,"galModulo"=>null));
+        $medico['galeria'] = $em->getRepository('AppBundle:UsuarioGaleria')->findOneBy(array("galUsu"=>$medico['usuario']->getCliUsuUsu(),"galCliente"=>$medico['usuario']->getCliUsuCli(),"galTipo"=>1,"galModulo"=>null));
 
         // Obtener especialidades Por Medico
         
@@ -132,23 +136,18 @@ GROUP BY u.usu_id";
             ->innerJoin('AppBundle:UsuarioEspecialidad','r','WITH','r.idUsuario=d.usuId')
             ->innerJoin('AppBundle:Especialidad','e','WITH','e.espId=r.idEspecialidad')            
             ->where('d.usuId = :usuarioId')
-            ->setParameter('usuarioId',  $med_id)            
+            ->setParameter('usuarioId',  $medico['usuario']->getCliUsuUsu()->getUsuId())
             ->getQuery()->getResult();
 
 
         $medico['redes']    = $em->getRepository('AppBundle:UsuarioSocial')->findBy(array("idUsuario" => $medico['usuario']->getCliUsuId()));
 
-        $medico['cliente']  = $em->getRepository('AppBundle:ClienteUsuario')->findOneBy(array("cliUsuUsu" => $med_id,"cliUsuRol"=>6));
-
-        $vistas  = $em->getRepository('AppBundle:UsuarioVistas')->findBy(array("visUsu" => $med_id));
-
-        $medico['vistas'] = count($vistas);
-        //\Doctrine\Common\Util\Debug::dump($medico['cliente']);
-        //var_dump($medico['cliente']->getCliUsuDiasTrabajo());
+        //\Doctrine\Common\Util\Debug::dump($medico['usuario'] );
+        //var_dump($medico['usuario'] ->getCliUsuDiasTrabajo());
         $horaDias = array();
-        $hoy = "";        
-        if($medico['cliente']->getCliUsuDiasTrabajos()!=""){
-            $arr = unserialize($medico['cliente']->getCliUsuDiasTrabajos());
+        $hoy = "";
+        if($medico['usuario'] ->getCliUsuDiasTrabajos()!=""){
+            $arr = unserialize($medico['usuario'] ->getCliUsuDiasTrabajos());
             //var_dump($arr);
 
             $num = 1;
@@ -173,12 +172,35 @@ GROUP BY u.usu_id";
             //var_dump($horaDias);
 
         }
-        
 
+        // Validar si la Cookie se ha seteado
+        if(empty($_COOKIE['contador']))
+        {
+            // Obtener La Ip del visitante.
+            $ip = $this->getRealIP();
+
+            $visitas = new UsuarioVistas();
+            $visitas->setVisUsu($medico['usuario']);
+            $visitas->setVisReferencia($ip);
+            $visitas->setVisFechaCrea(new \DateTime("now"));
+
+            $em->persist($visitas);
+            $em->flush();
+
+            setcookie('contador', 1, time() + 365 * 24 * 60 * 60, $request->getRequestUri());
+        }
+
+        $vistas  = $em->getRepository('AppBundle:UsuarioVistas')->findBy(array("visUsu" => $med_id));
+        $medico['vistas'] = count($vistas);
+
+
+        
         return $this->render('WebBundle:Doctores:profile.html.twig', array(
                     "medico" => $medico,
                     "horario" => $horaDias,
-                    "hoy" => $hoy
+                    "hoy" => $hoy,
+                    'especialidad' => $this->getEspecialidades(),
+                    'departmanetos' => $this->getDepartamento(),
                     )
         );
     }
@@ -219,7 +241,10 @@ GROUP BY u.usu_id";
     }
 
     public function indexPreciosAction() {
-        return $this->render('WebBundle:Precios:index.html.twig');
+        return $this->render('WebBundle:Precios:index.html.twig',array(
+            'especialidad' => $this->getEspecialidades(),
+            'departmanetos' => $this->getDepartamento()
+            ));
     }
 
     public function indexTerminosAction() {
@@ -276,13 +301,16 @@ GROUP BY u.usu_id";
         $msg = "Registro creado con Exito";
 
         //Notificar a la clinica de solicitud de cita
-        $this->sendMessage("solicitar_cita", $nombre, $telefono, $correo, $comentario,$strHora, $to=$emailClinica[0]->getCliUsuCorreo,$trom=false);
+        $this->sendMessage("solicitar_cita", $nombre2, $telefono, $correo, $comentario,$strHora, $to=$emailClinica[0]->getCliUsuCorreo,$trom=false);
 
         return  $response = new JsonResponse(($msg));
     }
 
     public function indexContactanosAction(){
-        return $this->render('WebBundle:Contactanos:index.html.twig');
+        return $this->render('WebBundle:Contactanos:index.html.twig',array(
+            'especialidad' => $this->getEspecialidades(),
+            'departmanetos' => $this->getDepartamento(),
+            ));
     }
 
     public function indexContactosAction()
