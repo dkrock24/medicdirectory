@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Médicos.sv Landing</title>
+    <title>Médicos.sv Landing Pages</title>
 
     <link type="text/css" media="all" href="{{ asset('bundles/landing/content/estilo/style.css') }}" rel="stylesheet">
 
@@ -275,6 +275,27 @@
             }
         }
 
+        .otros{
+            width: 100%;
+            color: white;
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            float: left;
+            text-align: center;
+        }
+        .lista{
+            display:flex;  
+            list-style:none;
+            padding: 10px;
+            margin: 10px;
+            text-align: center;
+        }
+        .lista li a{
+            text-decoration: none;
+            color: white;
+        }
+
 
     
     </style>
@@ -290,9 +311,11 @@
 
         <li class="d1">
             <img id="logo_top"  src="{{ asset('bundles/landing/images/logo_empresa_pequeno.png') }}">
-            <span class="titulo_empresa"> MÉDICOS<i class="punto">.</i>SV</span>
+            <span class="titulo_empresa"> MEDICOS<i class="punto">.</i>SV</span>
         </li>
 
+
+        
         <li id="menu-item-30821" class="btn_top">
             <a href="{{ path("login") }}" target="_blank">Login</a>
         </li>
@@ -301,6 +324,9 @@
         </li>        
         <li id="menu-item-28855" class="btn_top">
             <a  href="{{ path("cliente_new") }}" target="_blank" class="btn_registro">Registrate</a>
+        </li>
+        <li id="menu-item-30821" class="btn_top">
+            <a href="{{ path("web_precios") }}" target="_blank">Precio</a>
         </li>
         
     </ul>
@@ -445,7 +471,28 @@
                 <a id="socials-google-plus-link" href="mailto:info@medicos.sv"><i class="fa fa-google-plus"></i></a>
             </div>
             <div id="bottom-text">
-                
+                <div class="otros">
+                    <ul class="lista" style="width: 100%; padding: 10px; margin:10px; background: none; text-align: center;">
+                        <li style="padding: 10px;">                            
+                            <a href="http://medicos.sv" class="otros">Web Oficial</a>
+                        </li>
+                        <li style="padding: 10px;">
+                                
+                            <a href="mailto:info@medicos.sv "> Email  </a>
+                        </li>
+                        <li style="padding: 10px;">
+                            <a href="{{ path("web_contactanos") }}" target="_blank">Contáctanos</a>
+                        </li>
+                        <li style="padding: 10px;">
+                            
+                           <a href="https://medicos.sv/terminos" target="_blank">Términos</a>
+                        </li>
+                        <li style="padding: 10px;">
+                            <a href="https://medicos.sv/privacidad" target="_blank">Privacidad</a>
+                        </li>
+                    </ul>
+                </div>     
+                     
             </div>
         </div>
     </section>
