@@ -112,7 +112,7 @@
             font-size: 32px;
         }
         #my-banner h1 #accent{
-    width: 100%;
+        width: 100%;
         }
 
         #testimonial h2{
@@ -297,7 +297,66 @@
         }
 
 
-    
+        .videos{
+            width: 100%;
+            position:relative;
+            margin-top: 20px;
+            padding: 10px;
+        }
+        .tutoriales{
+            background: none;
+            width: 300px;
+            height: 400px;
+            display: inline-block;
+            position: relative;
+            padding: 0px;
+            margin-top: 10px;
+            top:0px;
+            border:1px solid grey;
+            border-radius: 1px;
+            box-shadow: 2px 2px 2px 1px grey;
+           
+              overflow: auto;
+              margin: auto;
+              position: relative;
+              top: 0; left: 10; bottom: 0; right: 0;
+        }
+        .descripcion_video{
+            position: relative;
+            top: 10px;
+        }
+        .titulo_top{
+            position: relative;
+            padding: 10px;
+            display: inline-block;
+            font-weight: bold;
+        }
+        .descripcion_titulo{
+            position: relative;
+            display: inline-block;
+            top:5px;
+            padding: 5px;
+            text-align: center;
+        }
+        .anuncio{
+            width: 100%;
+            height: 35px;
+            position: absolute;
+            z-index: 100;
+            display: inline-block;
+            float: right;
+            top: 0px;
+            right: 0px;
+            background: #1fa2ed;
+            color: white;
+            padding: 3px;
+            box-shadow: 5px 0px 3px 5px grey;
+        }
+        .cuadro{
+            position: relative;
+            display: inline-block;
+            padding: 10px;
+        }
     </style>
 
 
@@ -371,10 +430,111 @@
                 
             <br><br>
             <a href="{{ path("cliente_new") }}" target="_blank" class="link_registro">Registrate Gratis</a>
+            <br><br><br>
+            
+
+            <div class="videos">
+                <div class="cuadro">
+                    <div class="tutoriales">
+                        <div class="anuncio"> Login <i class="fa fa-sign-in "></i></div>
+                       <iframe width="300" height="250" src="https://www.youtube.com/embed/M9jvU6K4XjM" frameborder="0" allowfullscreen></iframe>
+                       <span class="descripcion_video">
+                            <span class="titulo_top">Acceso al sistema.</span>
+                            <hr>
+                            <span class="descripcion_titulo">
+                                Mira que tan facil es ingresar a nuestra plataforma y poder iniciar la administración de tu clinica.
+                           </span>
+                       </span>
+                    </div>
+                </div>
+                
+                <div class="cuadro">
+                    <div class="tutoriales">
+                    <div class="anuncio">Perfil Médico <i class="fa fa-stethoscope "></i></div>
+                        <iframe width="300" height="250" src="https://www.youtube.com/embed/iDTpE7O_Gb4" frameborder="0" allowfullscreen></iframe>
+                        <span class="descripcion_video">
+                            <span class="titulo_top">Tú Perfil Médico.</span>
+                            <hr>
+                            <span class="descripcion_titulo">
+                                 Ingresa tu información personal y los horarios de atención para publicarte con exito.
+                            </span>
+                          
+                       </span>
+                    </div>
+                </div>
+
+                <div class="cuadro">
+                    <div class="tutoriales">
+                    <div class="anuncio">Pacientes <i class="fa fa-user "></i></div>
+                        <iframe width="300" height="250" src="https://www.youtube.com/embed/iaNETgyuWc4?ecver=2"  frameborder="0" allowfullscreen></iframe>
+                        <span class="descripcion_video">
+                           <span class="titulo_top">Crear Ficha del Pacientes.</span>
+                           <hr>
+                           <span class="descripcion_titulo">
+                                Creación del expediente de los pacientes.
+                            </span>
+                       </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="videos">
+                
+                <div class="cuadro">
+                    <div class="tutoriales">
+                         <div class="anuncio">Agendar Cita <i class="fa fa-calendar "></i></div>
+                       <iframe width="300" height="250" src="https://www.youtube.com/embed/TmOam9_IJP0?ecver=2" frameborder="0" allowfullscreen></iframe>
+                       <span class="descripcion_video">
+                            <span class="titulo_top">Agendar Cita Médica.</span>
+                            <hr>
+                            <span class="descripcion_titulo">
+                                Desde el calendario puedes ingresar nueva cita médica para un paciente.
+                           </span>
+                       </span>
+                    </div>
+                </div>
+
+                <div class="cuadro">
+                    <div class="tutoriales">
+                    <div class="anuncio">Iniciar Consulta <i class="fa fa-clock-o "></i></div>
+                       <iframe width="300" height="250" src="https://www.youtube.com/embed/AK0UNglq0CI?ecver=2" frameborder="0" allowfullscreen></iframe>
+                       <span class="descripcion_video">
+                            <span class="titulo_top">Cosulta Médica.</span>
+                            <hr>
+                            <span class="descripcion_titulo">
+                                El ingreso de información en una consulta, nunca fue tan fácil.
+                           </span>
+                       </span>
+                    </div>
+                </div>
+
+                <div class="cuadro">
+                    <div class="tutoriales">
+                        <div class="anuncio"> Módulos Gratis <i class="fa fa-shopping-cart  "></i></div>
+                        <iframe width="300" height="250" src="https://www.youtube.com/embed/nMMdZOfvogw?ecver=2" frameborder="0" allowfullscreen></iframe>
+                        <span class="descripcion_video">
+                            <span class="titulo_top">Adquirir Módulos Gratis.</span>
+                            <hr>
+                            <span class="descripcion_titulo">
+                                Selecciona todos los módulos por especialidad que necesites ¡Gratis!
+                           </span>
+                       </span>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+            
+
         </div>
+
         
     </section>
+
     <!-- stats -->
+
     <section id="stats">
         <div id="stats-container">
             <h2 class="formula">Formula del médico que 100% si se ve</h2><br>
