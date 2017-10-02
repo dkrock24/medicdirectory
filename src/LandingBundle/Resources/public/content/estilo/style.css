@@ -946,6 +946,9 @@ a, button, input:focus, input[type="button"], input[type="reset"], input[type="s
     #my-banner p {
         display: none;
     }
+    #img_cafe{
+        width: 50%;
+    }
 }
 @media all and (max-width: 450px) {
     #my-banner h1 {
@@ -967,6 +970,9 @@ a, button, input:focus, input[type="button"], input[type="reset"], input[type="s
     #how-works .step:nth-child(2n+3) {
         height: 390px;
     }
+    #img_cafe{
+        width: 50%;
+    }
 }
 @media all and (max-width: 350px) {
     #my-banner h1 {
@@ -980,5 +986,8 @@ a, button, input:focus, input[type="button"], input[type="reset"], input[type="s
     #start-today .click-btn span {
         font-size: 24px;
         line-height: 2px;
+    }
+    #img_cafe{
+        width: 50%;
     }
 }

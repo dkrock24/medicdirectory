@@ -357,10 +357,34 @@
             display: inline-block;
             padding: 10px;
         }
+        .cafe{
+            width: 100%;
+            margin: auto;
+            background: none;
+        }
+        .img_cafe{
+            position: absolute;
+            top: 35%;
+            float: left;
+            background: red;
+            margin: -1%;
+        }
+        #img_cafe{
+            bottom: -2%;
+            position: relative;
+        }
+        .arriba{
+            position: relative;
+            top: -50px;
+        }
+        .cafecito{
+            background: orange;
+            box-shadow: 0px 5px 5px 3px grey;
+        }
     </style>
 
 
-</head>http://localhost/emr/web/bundles/landing/images/1656.jpg
+</head>
 <body>
 
 
@@ -578,6 +602,16 @@
     <!-- How does it work -->
     <section id="how-works">
         <div class="content-wrapper">
+            <div id="titulo_top" class="cafecito">
+                <div class="cafe">
+                    <b>Nuestro servicio</b> es equivalente al <br>
+                    <span class="arriba"><b>costo</b> de 3 </span>
+                    <img id="img_cafe" src="{{ asset('bundles/landing/images/starbucks-2-153x150.png') }}" width="153px" alt="templates">  <span class="arriba"> <b>al mes</b>. </span>
+                </div>
+                       
+            </div>
+
+            <br><br>
             <img id="how-works-02-img" src="{{ asset('bundles/landing/images/rapdio.png') }}" width="90px" alt="templates">
             <h2 id="how-works-header">PUBLICATE EN 3 PASOS . . .</h2>
             <div class="step" id="step1">
