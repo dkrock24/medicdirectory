@@ -206,7 +206,7 @@
                   </button>
                   <label class="btn btn-danger btn-upload" for="inputImage" title="Upload image file">
                     <input type="file" class="sr-only" id="inputImage" name="file" accept=".jpg,.jpeg,.png,.gif,.bmp,.tiff">
-                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="Importar imagen con Blob URLs">
+                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="Importar imagen">
                       <span class="fa fa-upload"></span>
                     </span>
                   </label>
@@ -214,9 +214,9 @@
                 </div>
 
                 <div class="btn-group btn-group-crop">
-                  <button type="button" class="btn btn-primary" data-method="getCroppedCanvas">
+                  <button type="button" class="btn btn-danger" data-method="getCroppedCanvas">
                     <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
-                      Recortar Imagen
+                      Recortar y guardar imagen seleccionada
                     </span>
                   </button>
                    <!-- 
@@ -226,11 +226,13 @@
                     </span>
                   </button>
                     -->
+                  {#  
                   <button type="button" class="btn btn-primary" data-method="getCroppedCanvas" data-option="{ &quot;width&quot;: 320, &quot;height&quot;: 180 }">
                     <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
                       320&times;180
                     </span>
                   </button>
+                  #}  
                 </div>
 
                 <!-- Show the cropped image in modal -->
@@ -255,7 +257,7 @@
 
                 <button type="button" class="btn btn-primary" data-method="zoomTo" data-option="1">
                   <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="cropper.zoomTo(1)">
-                    Zoom to 100%
+                    Zoom al 100%
                   </span>
                 </button>
               </div><!-- /.docs-buttons -->

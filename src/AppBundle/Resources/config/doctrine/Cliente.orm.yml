@@ -44,7 +44,7 @@ AppBundle\Entity\Cliente:
             column: cli_nombre_fiscal
         cliNit:
             type: string
-            nullable: false
+            nullable: true
             length: 20
             options:
                 fixed: false

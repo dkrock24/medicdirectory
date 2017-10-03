@@ -196,11 +196,11 @@
                                                                     </div>
                                                                 </td>
                                                                 <td>
-                                                                    <span class="text-muted text-size-small">{{ appointment.start|date("h:i:s A") }} {#{{ appointment.start}} #}</span>
+                                                                    <span class="text-muted text-size-small">{{ appointment.start|date("h:i A") }} {#{{ appointment.start}} #}</span>
                                                                     
                                                                 </td>
                                                                 <td>
-                                                                    <span class="text-muted text-size-small">{{ appointment.end|date("h:i:s A") }} {#{{ appointment.start}} #}</span>
+                                                                    <span class="text-muted text-size-small">{{ appointment.end|date("h:i A") }} {#{{ appointment.start}} #}</span>
                                                                     
                                                                 </td>
                                                                 <td>
@@ -698,14 +698,14 @@
                                 table += "<td>"+btn_group+"</td>";
                                 var stringDate = data[i]['start'];
                                 var stringDate = stringDate.split(" ");
-                                var hourType = moment(stringDate[1], ["HH:mm:ss"]).format("hh:mm:ss A");
+                                var hourType = moment(stringDate[1], ["HH:mm"]).format("hh:mm A");
                                 //alert(f);
                                 table += "<td><span class='text-muted text-size-small'>"+hourType+"</span></td>";
                                 
                                 
                                 var stringDate = data[i]['end'];
                                 var stringDate = stringDate.split(" ");
-                                var hourType = moment(stringDate[1], ["HH:mm:ss"]).format("hh:mm:ss A");
+                                var hourType = moment(stringDate[1], ["HH:mm"]).format("hh:mm A");
                                 table += "<td><span class='text-muted text-size-small'>"+hourType+"</span></td>";
                                 
                                 var status = "";

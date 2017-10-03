@@ -50,27 +50,28 @@
     
     <!-- End notifications -->
     {% if pacientes|length > 0%}
-
-       <table class="table table-striped" id="patients_grid">
-           <thead>
-               <tr>
-                   <th>Nombre</th>
-                   <th>Dui</th>
-                   <th>Genero</th>
-                   <th>Email</th>
-                   <th>fecha creación</th>
-                   <th>Acciones</th>
-               </tr>
-           </thead>
-           <tbody>
-           </tbody>
-       </table>
+       <div class="table-responsivex">
+        <table class="table table-striped text-nowrapx " id="patients_grid">
+            <thead>
+                <tr>
+                    <th>Nombre </th>
+                    <th>Dui</th>
+                    <th>Genero</th>
+                    <th>Email</th>
+                    <th>fecha creación</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+       </div>    
     {% else %}
         <div class="alert alert-info" role=""><i class="fa fa-info-circle"></i> No hay regístros creados</div>
     {% endif %}    
     <ul class="list-inline">
         <li>
-            <a href="{{ path('paciente_new') }}" class="btn btn-primary btn-sm"><i class="fa fa-plus-circle"></i> Nuevo</a>
+            <a href="{{ path('paciente_new') }}" class="btn btn-primary btn-sm"><i class="fa fa-plus-circle"></i> Nuevo </a>
         </li>
     </ul>
             
