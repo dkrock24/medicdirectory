@@ -39,6 +39,10 @@
         .div_pay{
             display: none;
         }
+        
+       .pac-container{
+            z-index: 99999999999999 !important;
+          }
     </style>
     <script type="text/javascript" src="{{ asset('bundles/admin/add-on/Jquery-mask/jquery.mask.js') }}"></script>
     <div class="page-header-content">
@@ -203,7 +207,7 @@
                                             <div class="form-group">
                                                 <div class="form_error"></div>
                                                 <label for="" class=" control-label"></label>
-                                                <div class=""><button type="button" id="btn-map" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Ubicación en Google map</button></div>
+                                                <div class=""><button type="button" id="btn-map" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg" data-backdrop="static" data-keyboard="false">Ubicación en Google map</button></div>
                                             </div>
                                         </div>
                                         <div class="col-md-4">    
@@ -791,16 +795,68 @@
                     <h4 class="modal-title" id="gridSystemModalLabel">Mapa para ubicar el establecimiento</h4>
                 </div>
                 <div class="modal-body">
-                    <div id="dvMap" style="width:100%; height: 500px"></div>
+                    {#
+                    <form>
+                        <input id="geocomplete" type="text" placeholder="Type in an address" value="El Salvador" style="width:350px" />
+                        <input id="find" type="button" value="find" />
+
+                        <fieldset>
+                          <label>Latitude</label>
+                          <input name="lat" type="text" value="">
+
+                          <label>Longitude</label>
+                          <input name="lng" type="text" value="">
+
+                          <label>Formatted Address</label>
+                          <input name="formatted_address" type="text" value="">
+                        </fieldset>
+
+                        <a id="reset" href="#" style="display:none;">Reset Marker</a>
+                      </form>
+                    #}
+                     <form>
+                        <div class="row">
+                            <div class="col-lg-8 col-md-8">
+                                {#
+                                <input id="geocomplete" type="text" placeholder="Type in an address" value="" style="width:350px" class="form-control"/>
+                                <input id="find" type="button" value="Buscar" />
+                                #}
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="geocomplete" type="text" placeholder="Type in an address" value=""  class="form-control">
+                                    <span class="input-group-btn">
+                                      {# <button class="btn btn-default" type="button">Go!</button> #}
+                                      <input id="find" type="button" value="Buscar" class="btn btn-primary"/>
+                                    </span>
+                                </div><!-- /input-group -->
+                                
+                            </div>
+                            <div class="col-lg-4 col-md-4">
+                                <input name="formatted_address" type="text" value="" class="form-control" placeholder="Dirección Formateada">
+                            </div>
+                        </div>
+                        <hr>
+                        <fieldset>
+                          <div style="display:block">  
+                            <label>Latitude</label>
+                            <input name="lat" type="text" value="">
+
+                            <label>Longitude</label>
+                            <input name="lng" type="text" value="">
+                          </div>
+                        </fieldset>
+
+                        <a id="reset" href="#" style="display:none;">Resetear Marker</a>
+                      </form>
+                    <div id="dvMap" style="width:100%; height: 500px" class="dvMap"></div>
                 </div>
                 <div class="modal-footer">
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6">
-                            <div class="text-left"><button class="btn btn-primary" id="find_btn">Encontrar mi ubicación</button></div>
+                            {# <div class="text-left"><button class="btn btn-primary" id="find_btn">Encontrar mi ubicación</button></div> #}
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Cerrar</button>
-                            <button type="button" class="btn btn-success" id="btn-set-location"><i class="fa fa-map-marker" aria-hidden="true"></i> Ubicar establecimiento</button>
+                            <button type="button" class="btn btn-success" id="btn-set-location" data-dismiss="modal"><i class="fa fa-map-marker" aria-hidden="true"></i> Ubicar establecimiento</button>
                         </div>
                     </div>
                     
@@ -1974,14 +2030,22 @@
              //=====================================================
             //Google maps
             //=====================================================
-            var map
-            if( $("#dvMap").size() == 1 )
+            var map;
+            var markers = [];
+            if( $("#dvMapx").size() == 1 )
             {
                 var markers = [];
                 var uniqueId = 1;
                 var lat = "13.684978";
                 var lon = "-89.263635";
+                
+                
+                
                 window.onload = function () {
+                    
+                    
+                    
+                    
                    //var lat = 13.684978;
                    // var lon = -89.263635;
                     if( $.trim($("#appbundle_cliente_cliUbicacionLat").val() ) != "" && $("#appbundle_cliente_cliUbicacionLat").val() != 0 )
@@ -2038,10 +2102,14 @@
                         markers.push(marker);
                         //markers = marker;
                     });
+                    
+                    
+                    
+                    
                 };
                 
                 
-                
+                 
                 
                 $("body").on("click","#btn-delete-map", function(){
                     DeleteMarker();
@@ -2061,12 +2129,103 @@
                     
                 };
                 
+                
+                
                 $('#modalMap').on('shown.bs.modal', function () {
-                    google.maps.event.trigger(map, 'resize');
+                    //google.maps.event.trigger(map, 'resize');
+                      google.maps.event.trigger(map, 'resize');
+                    
                 })
             }
-
             
+            var lat = 13.794185;
+            var long = -88.89652999999998;
+            if( $.trim($("#appbundle_cliente_cliUbicacionLat").val() ) != "" && $("#appbundle_cliente_cliUbicacionLat").val() != 0 )
+            {
+                lat = $("#appbundle_cliente_cliUbicacionLat").val();
+            }
+                        
+            if( $.trim($("#appbundle_cliente_cliUbicacionLon").val() ) != "" && $("#appbundle_cliente_cliUbicacionLon").val() !=0 )
+            {
+                long = $("#appbundle_cliente_cliUbicacionLon").val();
+                        
+            }
+            var setloc = new google.maps.LatLng(lat, long);
+            
+            $('#modalMap').on('shown.bs.modal', function () {
+ 
+                var latInput =  $("#appbundle_cliente_cliUbicacionLat").val();
+                var lonInput =  $("#appbundle_cliente_cliUbicacionLon").val();
+                if( latInput != "" )
+                {
+                    $("input[name=lat]").val(latInput);
+                    $("#geocomplete").val("");
+                }
+                
+                if( lonInput != "" )
+                {
+                    $("input[name=lng]").val(lonInput);
+                    $("#geocomplete").val("");
+                }    
+                
+                var map = $("#geocomplete").geocomplete({
+                            map: ".dvMap",
+                            details: "form",
+                            location: setloc,
+                            markerOptions: {
+                              draggable: true,
+                              //disableDefaultUI: false,
+                            },
+                            mapOptions: {
+                                zoom: 11,
+                                scrollwheel: false,
+                                mapTypeId: "roadmap"
+                            },
+
+                });
+
+                $("#geocomplete").bind("geocode:dragged", function(event, latLng){
+                    $("input[name=lat]").val(latLng.lat());
+                    $("input[name=lng]").val(latLng.lng());
+                    $("#reset").show();
+                });
+
+
+                $("#geocomplete").geocomplete({
+                    map: ".dvMap"
+                  }).bind("geocode:clicked", function(event, latLng){
+                        $("#lat").val(latLng.lat());
+                        $("#lng").val(latLng.lng());            
+                  });
+
+
+                $("#reset").click(function(){
+                    $("#geocomplete").geocomplete("resetMarker");
+                    $("#reset").hide();
+                    return false;
+                });
+
+                $("#find").click(function(){
+                    $("#geocomplete").trigger("geocode");
+                }).click();
+            
+            //var center = new google.maps.LatLng(13.794185, -88.89652999999998);
+            
+                
+                /*
+                //var map = $("#geocomplete").geocomplete("map");
+                var myLatlng = {lat: -25.363, lng: 131.044};
+
+                var map = new google.maps.Map(document.getElementById('dvMap'), {
+                  zoom: 4,
+                  center: myLatlng
+                 });
+                    */
+                //google.maps.event.trigger(map, 'resize');
+                //map.setCenter(setloc);
+                //alert(setloc);
+            });
+            //==========================================================================================
             //var map;
             var myLatlng = {lat: lat, lng: lon};
             var geo = false;
@@ -2153,6 +2312,7 @@
             $("#btn-set-location").on("click", function(){
                     
                     //alert();
+                    /*
                     if( markers.length > 0 || geo)
                     {
                         $("#appbundle_cliente_cliUbicacionLat").val(lat);
@@ -2169,6 +2329,12 @@
                             typeAnimated: true,
                         });
                     }
+                    */
+                     var lat = $("input[name=lat]").val();
+                     var lon = $("input[name=lng]").val();
+                     
+                     $("#appbundle_cliente_cliUbicacionLat").val(lat);
+                     $("#appbundle_cliente_cliUbicacionLon").val(lon);
                     
                 });
             
