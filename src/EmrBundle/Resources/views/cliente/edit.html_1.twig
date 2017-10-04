@@ -1,10 +1,9 @@
-{% extends "Layout/base_emr/_clients_base.location.html.twig" %}
+{% extends "Layout/base_emr/_clients_base.html.twig" %}
 
 {% block title_page %}
-    Sistema Médico EMR || Regístrate
+        EMR || Edición del establecimiento
 {% endblock %}
 
-{#
 {% block breadcrumb %}
     {{ include('EmrBundle:Dashboard:_breadcrumb.html.twig' )  }}
 {% endblock %} 
@@ -12,9 +11,8 @@
 {% block submenutop %}
     {{ include('EmrBundle:Dashboard:_submenu.html.twig' )  }}
 {% endblock %} 
-#}
 
-{% block body %} 
+{% block body %}
     <style>
         .border-warning-available{
             border: solid 1px #E44F4C;
@@ -42,22 +40,24 @@
             display: none;
         }
         
-        .pac-container{
+       .pac-container{
             z-index: 99999999999999 !important;
           }
     </style>
-    
     <script type="text/javascript" src="{{ asset('bundles/admin/add-on/Jquery-mask/jquery.mask.js') }}"></script>
-    
     <div class="page-header-content">
         <div class="page-title">
             <h4>
-                <a href="{{ app.request.headers.get('referer') }}">
+                {# <a href="{{ app.request.headers.get('referer') }}"> #}
+                <a href="{{ path('emr_dashboard') }}">     
                 <i class="icon-arrow-left52 position-left"></i>
-                <span class="text-semibold">Regresar</span></a> - Registro de nuevo cliente
+                <span class="text-semibold">Dashboard</span>
+                </a> - Edición de establecimiento
 
-                <small class="display-block">Formulario para nuevo cliente!</small></h4>
-            <a class="heading-elements-toggle"><i class="icon-more"></i></a></div>
+                <small class="display-block">Formulario del cliente!</small>
+            </h4>
+                
+               
         {#    
         <div class="heading-elements">
             <div class="heading-btn-group">
@@ -67,13 +67,13 @@
             </div>
         </div>
         #}
+        </div>
     </div>
-    
+ 
     <div class="row">
         <div class="col-lg-12">
 
             <!-- Check the notifications -->
-            {% set created = 0 %}
             {% for message in app.session.flashbag().get("success") %}
                 <div class="alert alert-success alert-styled-left alert-arrow-left alert-component"> {{message}}
                     
@@ -81,7 +81,8 @@
                     {% else %}
                         , Inicia sesión haciendo click <a href="{{path('emr_homepage')}}">Aquí</a>
                     {% endif %}
-                    {% set created = 1 %}
+                    
+                    
                 </div>
             {% endfor %}
             {% for message in app.session.flashbag().get("error") %}
@@ -90,20 +91,23 @@
             <!-- End notifications -->
         </div>
     </div>
-            
+
+    {#
+    {{ form_start(edit_form) }}
+        {{ form_widget(edit_form) }}
+        <input type="submit" value="Edit" />
+    {{ form_end(edit_form) }}
+    #}
     <div class="panel border-left-lg border-left-success">
         <div class="panel-heading">
-            {% if created == 0 %}
-                <h6 class="panel-title"><i class="fa fa-hospital-o"></i> Para registrarse debe completar el siguiente formulario</h6>
-            {% else %}
-                <h4 class="panel-title"><i class="fa fa-hospital-o"></i> Gracias por registrarte</h4>
-            {% endif %}
+            <h6 class="panel-title"><i class="fa fa-hospital-o"></i> Los campos con (*) son requeridos </h6>
             {#
             <div class="heading-elements">
                 <ul class="icons-list">
                     <li><a data-action="collapse"></a></li>
                     <li><a data-action="reload"></a></li>
                     <li><a data-action="close"></a></li>
+                   
                 </ul>
             </div>
             #}
@@ -111,614 +115,678 @@
         <div class="panel-body">
             
             <div class="row">
-            <div class="col-lg-12">        
-            {#
-            {{ form_start(form) }}
-                {{ form_widget(form) }}
-                <input type="submit" value="Create" />
-            {{ form_end(form) }}
-            #}
-            {% if created == 1 %}
-                <p>Ahora ya puedes usar todos los beneficios que medicos.sv ofrece para tí.</p>
-                Inicio rápido
-                <br>
-                <p>Administre su establecimiento</p>
-                <p>Cree Pacientes</p>
-                <p>Agende Consultas y muchos más</p>
-                <p>Listo ya puede iniciar la consulta</p>
-                <p>Inicia sesión haciendo click <a href="{{path('emr_homepage')}}" class="btn btn-success">Aquí</a></p>
-            {% else %}
-                
-                {{ form_start(form, {'attr': {'class': 'steps-basic steps-validation'}}) }}
-                    <div class="form_error">{{ form_errors(form)}}</div>
-                    <h6>Representante</h6>
-                    <fieldset title="1">
-                            <!--<legend class="text-semibold">Establecimiento</legend>-->
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="row">
-                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                            <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">
-                                                Información del establecimiento
-                                            </div>
+            <div class="col-lg-12">
+        {{ form_start(edit_form, {'attr': {'class': 'steps-basic steps-validation'}}) }}
+                <div class="form_error">{{ form_errors(edit_form)}}</div>
+                <h6>Representante </h6>
+                <fieldset title="1">
+						<!--<legend class="text-semibold">Establecimiento</legend>-->
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">
+                                            Información del establecimiento
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <div class="form_error">{{ form_errors(form.cliTipCli)}}</div>
-                                                <label for="" class=" control-label">Tipo establecimiento: <span class="text-danger">*</span></label>
-                                                <div class="">{{ form_widget(form.cliTipCli,  { 'attr': {'class': 'select'} } ) }}</div>
-                                            </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <div class="form_error">{{ form_errors(edit_form.cliTipCli)}}</div>
+                                            <label for="" class=" control-label">Tipo establecimiento: <span class="text-danger">*</span></label>
+                                            <div class="">{{ form_widget(edit_form.cliTipCli,  { 'attr': {'class': 'select'} } ) }}</div>
                                         </div>
-                                        <div class="col-md-4">
+                                    </div>
+                                    <div class="col-md-4">
                                             <div class="form-group">
-                                                <div class="form_error">{{ form_errors(form.cliNombre)}}</div>
+                                                <div class="form_error">{{ form_errors(edit_form.cliNombre)}}</div>
                                                 <label for="" class=" control-label">Nombre Comercial: <span class="text-danger">*</span></label>
-                                                <div class="">{{ form_widget(form.cliNombre) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <div class="form_error">{{ form_errors(form.cliNombreFiscal)}}</div>
-                                                <label for="" class=" control-label">Nombre Fiscal: <span class="text-danger">*</span></label>
-                                                <div class="">{{ form_widget(form.cliNombreFiscal) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                                <div class="">{{ form_widget(edit_form.cliNombre) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
                                             </div>
                                         </div>    
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <div class="form_error">{{ form_errors(edit_form.cliNombreFiscal)}}</div>
+                                            <label for="" class=" control-label">Nombre Fiscal: <span class="text-danger">*</span></label>
+                                            <div class="">{{ form_widget(edit_form.cliNombreFiscal) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                        </div>
+                                    </div>    
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">    
+                                        <div class="form-group">
+                                            <div class="form_error">{{ form_errors(edit_form.cliMun)}}</div>
+                                            <label for="" class=" control-label">Municipio del establecimiento: <span class="text-danger">*</span></label>
+                                            <div class="">{{ form_widget(edit_form.cliMun) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                        </div>
+                                    </div>    
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+                                            <div class="form_error">{{ form_errors(edit_form.cliDireccion)}}</div>
+                                            <label for="" class=" control-label">Dirección del establecimiento: <span class="text-danger">*</span></label>
+                                            <div class="">{{ form_widget(edit_form.cliDireccion) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                        </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-4">    
-                                            <div class="form-group">
-                                                <div class="form_error">{{ form_errors(form.cliMun)}}</div>
-                                                <label for="" class=" control-label">Municipio: <span class="text-danger">*</span></label>
-                                                <div class="">{{ form_widget(form.cliMun) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
-                                            </div>
-                                        </div>    
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                <div class="form_error">{{ form_errors(form.cliDireccion)}}</div>
-                                                <label for="" class=" control-label">Dirección: <span class="text-danger">*</span></label>
-                                                <div class="">{{ form_widget(form.cliDireccion) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
-                                            </div>
+                                </div>        
+                                <div class="row">
+                                    <div class="col-md-4">    
+                                        <div class="form-group">
+                                            <div class="form_error">{{ form_errors(edit_form.cliNit)}}</div>
+                                            <label for="" class=" control-label">Nit del establecimiento: <span class="text-danger">*</span></label>
+                                            <div class="">{{ form_widget(edit_form.cliNit) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
                                         </div>
-                                    </div>        
-                                    <div class="row">
-                                        <div class="col-md-4">    
-                                            <div class="form-group">
-                                                <div class="form_error">{{ form_errors(form.cliNit)}}</div>
-                                                <label for="" class=" control-label">Nit: <span class="text-danger">*</span></label>
-                                                <div class="">{{ form_widget(form.cliNit) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <div class="form_error">{{ form_errors(form.cliTelefono1)}}</div>
-                                                <label for="" class=" control-label">Teléfono 1: <span class="text-danger">*</span></label>
-                                                <div class="">{{ form_widget(form.cliTelefono1) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <div class="form_error">{{ form_errors(form.cliTelefono2)}}</div>
-                                                <label for="" class=" control-label">Teléfono 2:</label>
-                                                <div class="">{{ form_widget(form.cliTelefono2) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
-                                            </div>
-                                        </div>    
                                     </div>
-                                           
-                                    <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <div class="form_error">{{ form_errors(edit_form.cliTelefono1)}}</div>
+                                            <label for="" class=" control-label">Teléfono 1: <span class="text-danger">*</span></label>
+                                            <div class="">{{ form_widget(edit_form.cliTelefono1) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <div class="form_error">{{ form_errors(edit_form.cliTelefono2)}}</div>
+                                            <label for="" class=" control-label">Teléfono 2:</label>
+                                            <div class="">{{ form_widget(edit_form.cliTelefono2) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                        </div>
+                                    </div>    
+                                </div>
+                                        
+                                <div class="row">
                                         <div class="col-md-12">    
                                             <div class="form-group">
-                                                <div class="form_error">{{ form_errors(form.idEspecialidad)}}</div>
+                                                <div class="form_error">{{ form_errors(edit_form.idEspecialidad)}}</div>
                                                 <label for="" class=" control-label">Tipos de especialidades asociadas al establecimiento: <span class="text-danger">*</span></label>
-                                                <div class="">{# {{ form_widget(edit_form.idEspecialidad) }} #}{{ form_widget(form.idEspecialidad,  { 'attr': {'class': 'select', 'required':true} } ) }}</div>
+                                                <div class="">{# {{ form_widget(edit_form.idEspecialidad) }} #}{{ form_widget(edit_form.idEspecialidad,  { 'attr': {'class': 'select', 'required':true} } ) }}</div>
                                             </div>
                                         </div>    
-                                    </div>
-                                     
-                                    <div class="row">
+                                </div>
+                                <div class="row">
                                         <div class="col-md-4">    
                                             <div class="form-group">
                                                 <div class="form_error"></div>
                                                 <label for="" class=" control-label"></label>
-                                                <div class=""><button type="button" id="btn-map" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Ubicación en Google map</button></div>
+                                                <div class=""><button type="button" id="btn-map" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg" data-backdrop="static" data-keyboard="false">Ubicación en Google map</button></div>
                                             </div>
                                         </div>
                                         <div class="col-md-4">    
                                             <div class="form-group">
-                                                <div class="form_error">{{ form_errors(form.cliUbicacionLat)}}</div>
+                                                <div class="form_error">{{ form_errors(edit_form.cliUbicacionLat)}}</div>
                                                 <label for="" class=" control-label">Latitud: </label>
-                                                <div class="">{# {{ form_widget(edit_form.idEspecialidad) }} #}{{ form_widget(form.cliUbicacionLat,  { 'attr': {'class': '', 'required':false} } ) }}</div>
+                                                <div class="">{# {{ form_widget(edit_form.idEspecialidad) }} #}{{ form_widget(edit_form.cliUbicacionLat,  { 'attr': {'class': '', 'required':false} } ) }}</div>
                                             </div>
-                                        </div>    
+                                        </div>
                                         <div class="col-md-4">    
                                             <div class="form-group">
-                                                <div class="form_error">{{ form_errors(form.cliUbicacionLon)}}</div>
+                                                <div class="form_error">{{ form_errors(edit_form.cliUbicacionLon)}}</div>
                                                 <label for="" class=" control-label">Logitud: </label>
-                                                <div class="">{# {{ form_widget(edit_form.idEspecialidad) }} #}{{ form_widget(form.cliUbicacionLon,  { 'attr': {'class': '', 'required':false} } ) }}</div>
+                                                <div class="">{# {{ form_widget(edit_form.idEspecialidad) }} #}{{ form_widget(edit_form.cliUbicacionLon,  { 'attr': {'class': '', 'required':false} } ) }}</div>
                                             </div>
-                                        </div>    
-                                    </div>        
-                                           
+                                        </div> 
+                                            
+                                </div>            
+                                       
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">
+                                            Información del representante
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-lg-6">
-                                    <div class="row">
-                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                            <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">
-                                                Información del representante
+                                <div class="row">
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <div class="form_error"></div>
+                                            <label for="" class=" control-label">Primer Nombre: <span class="text-danger">*</span></label>
+                                            <div class="">
+                                                <input type="text" id="nameone_representer" name="nameone_representer" placeholder="Primer Nombre" class="form-control" value="{{ getUserRepresenter[0].usu_nombre }}" required>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <div class="form_error"></div>
-                                                <label for="" class=" control-label">Primer Nombre: <span class="text-danger">*</span></label>
-                                                {# 
-                                                {% if addLocationToUser|length > 0 %}
-                                                     <div class="">{{ form_widget(form.cliNombre,  { 'attr': {'class': 'c4', 'value':addLocationToUser.usuNombre} } ) }}</div>
-                                                 {% else %}
-                                                     <div class="">{{ form_widget(form.cliNombre) }}</div>
-                                                 {% endif %}
-                                                 #}
-                                                 <div class="">
-                                                 {% if addLocationToUser|length > 0 %}
-                                                    
-                                                     <input type="text" id="nameone_representer" name="nameone_representer" placeholder="Primer Nombre" class="form-control" value="{{ addLocationToUser.usuNombre }}" required>
-                                                 {% else %}
-                                                     
-                                                     <input type="text" id="nameone_representer" name="nameone_representer" placeholder="Primer Nombre" class="form-control" value="" required>
-                                                 {% endif %}
-                                                
-                                                 </div>
-                                           </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <div class="form_error"></div>
-                                                <label for="" class=" control-label">Segundo Nombre: <span class="text-danger">*</span></label>
-                                                <div class="">
-                                                    {% if addLocationToUser|length > 0 %}
-                                                        <input type="text" id="nametwo_representer" name="nametwo_representer" placeholder="Segundo Nombre" class="form-control" value="{{ addLocationToUser.usuSegundoNombre }}" required>
-                                                    {% else %}
-                                                        <input type="text" id="nametwo_representer" name="nametwo_representer" placeholder="Segundo Nombre" class="form-control" value="" required>
-                                                    {% endif %}    
-                                                </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <div class="form_error"></div>
+                                            <label for="" class=" control-label">Segundo Nombre: <span class="text-danger">*</span></label>
+                                            <div class="">{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}
+                                                <input type="text" id="nametwo_representer" name="nametwo_representer" placeholder="Segundo Nombre" class="form-control" value="{{ getUserRepresenter[0].usu_segundo_nombre }}" required>
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <div class="form_error"></div>
-                                                <label for="" class=" control-label">Tercer Nombre: </label>
-                                                {% if addLocationToUser|length > 0 %}
-                                                    <div class=""><input type="text" id="namethree_representer" name="namethree_representer" placeholder="Tercer Nombre" class="form-control" value="{{ addLocationToUser.usuTercerNombre }}"></div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <div class="form_error"></div>
+                                            <label for="" class=" control-label">Tercer Nombre: </label>
+                                            <div class=""><input type="text" id="namethree_representer" name="namethree_representer" placeholder="Tercer Nombre" class="form-control" value="{{ getUserRepresenter[0].usu_tercer_nombre }}"></div>
+                                        </div>
+                                    </div>    
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <div class="form_error"></div>
+                                            <label for="" class=" control-label">Primer Apelldio: <span class="text-danger">*</span></label>
+                                            <div class=""><input type="text" id="lastnameone_representer" name="lastnameone_representer" placeholder="Primer Apelldo" class="form-control" value="{{ getUserRepresenter[0].usu_primer_apellido }}" required></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <div class="form_error"></div>
+                                            <label for="" class=" control-label">Segundo Apellido:</label>
+                                            <div class=""><input type="text" id="lastnametwo_representer" name="lastnametwo_representer" placeholder="Segundo Apelldo" class="form-control" value="{{ getUserRepresenter[0].usu_segundo_apellido }}" ></div>
+                                        </div>
+                                    </div>    
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Genero del presentante: <span class="text-danger">*</span></label>
+                                            <select name="gender_representer"  id="gender_representer" data-placeholder="Genero..." required class="select">
+                                                {% if getUserRepresenter[0].usu_genero is defined and getUserRepresenter[0].usu_genero == "m" %}
+                                                    <option value="m" selected="selected">Masculino</option> 
+                                                    <option value="f">Femenino</option> 
                                                 {% else %}
-                                                    <div class=""><input type="text" id="namethree_representer" name="namethree_representer" placeholder="Tercer Nombre" class="form-control" value=""></div>
+                                                    <option value="m">Masculino</option> 
+                                                    <option value="f" selected="selected">Femenino</option> 
                                                 {% endif %}    
                                                 
-                                            </div>
-                                        </div>         
+                                            </select>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <div class="form_error"></div>
-                                                    <label for="" class=" control-label">Primer Apelldio: <span class="text-danger">*</span></label>
-                                                    {% if addLocationToUser|length > 0 %}
-                                                        <div class=""><input type="text" id="lastnameone_representer" name="lastnameone_representer" placeholder="Primer Apelldo" class="form-control" value="{{ addLocationToUser.usuPrimerApellido }}" required></div>
-                                                    {% else %}
-                                                        <div class=""><input type="text" id="lastnameone_representer" name="lastnameone_representer" placeholder="Primer Apelldo" class="form-control" value="" required></div>
-                                                    {% endif %}    
-                                                    
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <div class="form_error"></div>
-                                                    <label for="" class=" control-label">Segundo Apellido:</label>
-                                                    {% if addLocationToUser|length > 0 %}
-                                                        <div class=""><input type="text" id="lastnametwo_representer" name="lastnametwo_representer" placeholder="Segundo Apelldo" class="form-control" value="{{ addLocationToUser.usuSegundoApellido }}" ></div>
-                                                    {% else %}
-                                                        <div class=""><input type="text" id="lastnametwo_representer" name="lastnametwo_representer" placeholder="Segundo Apelldo" class="form-control" value="" ></div>
-                                                    {% endif %}    
-                                                    
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label>Genero: <span class="text-danger">*</span></label>
-                                                    <select name="gender_representer"  id="gender_representer" data-placeholder="Genero..." required class="select">
-                                                        {% if addLocationToUser|length > 0 %}
-                                                            {% if addLocationToUser.usuUsuario == "m" %}
-                                                                <option value="m" selected="selected">Masculino</option> 
-                                                                <option value="f">Femenino</option>
-                                                            {% else %}
-                                                                <option value="m">Masculino</option> 
-                                                                <option value="f" selected="selected">Femenino</option>
-                                                            {% endif %}    
-                                                        {% else %}
-                                                            <option value="m">Masculino</option> 
-                                                            <option value="f">Femenino</option> 
-                                                        {% endif %}    
+                                    </div>
+                                </div>
 
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        
+                                         {# {{ dump(getUserRepresenter) }} #} 
+                                        
+                                         
+                                         
+                                         
+                                        <div class="form-group has-success has-feedback">
+                                            <label>Usuario del representante: <span class="text-danger">*</span></label>
+                                            <input type="text" value="{{ getUserRepresenter[0].usu_usuario }}" name="user_representer" id="user_representer" placeholder="Usuario" class="form-control" required readonly>
+                                            <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Password del representante: </label>
+                                            <input type="password" id="password_representer" name="password_representer" placeholder="Password" class="form-control ">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Repita Password: </label>
+                                            <input type="password" id="password_representer_repeat" name="password_representer_repeat" placeholder="Repita Password" class="form-control ">
+                                        </div>  
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label>Email del representante:</label>
+                                                    <input type="text" value="{{ getUserRepresenter[0].cli_usu_correo }}" name="email_representer" id="email_representer" placeholder="Email" class="form-control required">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    
+                                                    <label>Fecha nacimiento del representante: <span class="text-danger">*</span></label>
+                                                    <div class=""><input type="text" value="{{ getUserRepresenter[0].cli_usu_fecha_nacimiento }}" id="birth_date" name="birth_date" class="form-control" required readonly="readonly"></div>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <div>&nbsp;</div>
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            {% if representerIsDoctorOrAssistant > 0  %}
+                                                                <input type="checkbox" checked="checked" value="" name="user_representer_doctor" id="user_representer_doctor" class="user_representer_doctor" >
+                                                            {% else %}
+                                                                <input type="checkbox" value="" name="user_representer_doctor" id="user_representer_doctor" class="user_representer_doctor" >
+                                                            {% endif %}    
+                                                        <span clas="">
+                                                           Quiero asociar mis datos de representante para usarlo como un doctor de este establecimiento    
+                                                        </span></label>
+                                                    </div>
+                                                </div>
+                                            </div>    
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>            
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-10"></div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <div class="form_error"></div>
+                                    <label for="" class=" control-label">Puedes ingresar el código de la persona que te ha referido(opcional):</label>
+                                    <div class=""><input type="text" value="" placeholder="" class="form-control" id="referralId" name="referralId"></div>
+                                </div>
+                            </div>
+                        </div>                                
+                                        
+                </fieldset>
+                <h6>Drs/Asistentes</h6>
+                <fieldset title="3">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">
+                                <strong>Nota:</strong> El monto a cobrar será de <strong>$30</strong> mensualmente por cada doctor/a que asocie a su establecimiento, este monto no incluye a usuarios tipo "Asistente"
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div id="sections">
+                                  
+                                <div class="section">
+                                    <div class="" style="padding: 5px;">
+                                        <fieldset>
+                                        <legend><i class="fa fa-user-plus" aria-hidden="true"></i> Usuario</legend>
+                                        <div class="row">
+                                            <div class="col-lg-2 col-md-6 col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="control-label">Primer Nombre:</label>
+                                                    <input name="nameone[]" id="nameone" value="" type="text" class="form-control inputAssName inputUser" required />
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2 col-md-6 col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="control-label">Segundo Nombre:</label>
+                                                    <input name="nametwo[]" id="nametwo" value="" type="text" class="form-control inputAssName inputUser"  />
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2 col-md-6 col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="control-label">Tercer Nombre:</label>
+                                                    <input name="namethree[]" id="namethree" value="" type="text" class="form-control inputAssName inputUser"  />
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2 col-md-6 col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="control-label">Primer Apellido:</label>
+                                                    <input name="lastnameone[]" id="lastnameone" value="" type="text" class="form-control inputAssName inputUser"  />
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2 col-md-6 col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="control-label">Segundo Apellido:</label>
+                                                    <input name="lastnametwo[]" id="lastnametwo" value="" type="text" class="form-control inputAssName inputUser"  />
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2 col-md-6 col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="control-label">Email:</label>
+                                                    <input name="email[]" id="email" value="" type="text" class="form-control inputAssEmail inputUser" />
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2 col-md-6 col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="control-label">Usuario:</label>
+                                                    <input name="username[]" id="username" value="" type="text" class="form-control user_to_location" required/>
+                                                </div>
+                                            </div>
+                                            <input name="availbleUser[]" id="availbleUser" value="" type="hidden" class="form-control inputAvailable" />
+                                            <div class="col-lg-2 col-md-6 col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="control-label">Género:</label>
+                                                    <select name="gender[]" id="gender" class="form-control selectAssGender" required>
+                                                        <option value="m">Masculino</option>
+                                                        <option value="f">Femenino</option>
                                                     </select>
                                                 </div>
                                             </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            {#
-                                             {{ dump(addLocationToUser) }} 
-                                             {{ addLocationToUser.usuId }}
-                                            #}
-                                            {% if addLocationToUser|length > 0 %}
-                                                <div class="form-group has-success has-feedback">
-                                                    <label>Usuario: <span class="text-danger">*</span></label>
-                                                    <input type="text" name="user_representer" id="user_representer" value="{{ addLocationToUser.usuUsuario }}" placeholder="Usuario" class="form-control required" readonly="readonly">
-                                                    <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
-                                                </div>
+                                            
+                                            <div class="col-lg-2 col-md-6 col-sm-6">
                                                 <div class="form-group">
-                                                        <label>Password:</label>
-                                                        <input type="password" id="password_representer" value="deafult"  name="password_representer" placeholder="Password" class="form-control" disabled="disabled">
+                                                    <label class="control-label">Password:</label>
+                                                    <input name="password[]" id="password_user" value="" type="password" class="form-control inputAssPassword inputUser" placeholder="" />
                                                 </div>
+                                            </div>
+                                            <div class="col-lg-2 col-md-6 col-sm-6">
                                                 <div class="form-group">
-                                                        <label>Repita Password: </label>
-                                                        <input type="password" id="password_representer_repeat" value="deafult" name="password_representer_repeat" placeholder="Repita Password" class="form-control" disabled="disabled">
+                                                    <label class="control-label">Repita Password:</label>
+                                                    <input name="repeatpassword[]" id="password_user_again" value="" type="password" class="form-control inputAssPassword inputUser" placeholder=""/>
                                                 </div>
-                                            {% else %}
+                                            </div>
+                                            <div class="col-lg-2 col-md-6 col-sm-6">
                                                 <div class="form-group">
-                                                    <label>Usuario: <span class="text-danger">*</span></label>
-                                                    <input type="text" name="user_representer" id="user_representer" placeholder="Usuario" class="form-control required">
+                                                    <label class="control-label">Tipo de usuario:</label>
+                                                    <select name="typeUser[]" id="typeUser" class="form-control typeUser" required>
+                                                        <option value="6">Doctor/Doctora</option>
+                                                        <option value="3">Asistente</option>
+                                                    </select>
                                                 </div>
-
+                                            </div>
+                                            
+                                            <div class="col-lg-2 col-md-6 col-sm-6">
                                                 <div class="form-group">
-                                                    <label>Contraseña: <span class="text-danger">*</span></label>
-                                                    <input type="password" id="password_representer" name="password_representer" placeholder="Contraseña" class="form-control required">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>Repita Contraseña: <span class="text-danger">*</span></label>
-                                                    <input type="password" id="password_representer_repeat" name="password_representer_repeat" placeholder="Repita Contraseña" class="form-control required">
-                                                </div>
-                                            {% endif %}    
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <label>Correo Electrónico: <span class="text-danger">*</span></label>
-                                                        {% if addLocationToUser|length > 0 %}
-                                                            <input type="email" name="email_representer" id="email_representer" value="{# {{  addLocationToUser.usuCorreo }} #}" placeholder="Email" class="form-control required" >
-                                                        {% else %}
-                                                            <input type="email" name="email_representer" id="email_representer" placeholder="Email" class="form-control required">
-                                                        {% endif %}    
-                                                        
+                                                   <label class="control-label">&nbsp;<br><label>
+                                                    <div class="checkbox">
+                                                        <label>
+                                                          <input type="checkbox" name="publicityWeb[]" checked="checked" class="publicityWeb"> Publicitarlo en web
+                                                        </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        
-                                                        <label>Fecha nacimiento: <span class="text-danger">*</span></label>
-                                                        {% if addLocationToUser|length > 0 %}
-                                                            <div class=""><input type="text" id="birth_date" value="{# {{ addLocationToUser.usuFechaNacimiento|date('Y-m-d') }} #}" name="birth_date" class="form-control" required ></div>
-                                                        {% else %}
-                                                            <div class=""><input type="text" id="birth_date" name="birth_date" class="form-control" required readonly="readonly"></div>
-                                                        {% endif %}    
-                                                        
-                                                    </div>
+                                            </div>
+                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                <div class="form-group text-right">
+                                                    
+                                                    <a href="#" class='remove btn bg-danger-400 ' style="margin-top: 7px;" data-toggle="tooltip" data-placement="top" title="Remover Usuario"><b><i class="fa fa-user-times"></i></b> </a>
                                                 </div>
-                                                <div class="col-md-12" style="display:none">
-                                                    <div class="form-group">
-                                                        <div>&nbsp;</div>
-                                                        <div class="checkbox">
-                                                            <label><input type="checkbox" value="" name="user_representer_doctor" id="user_representer_doctor" class="user_representer_doctor" checked="checked"><span clas="">
-                                                               Quiero asociar mis datos de representante para usarlo como un doctor de este establecimiento    
-                                                            </span></label>
-                                                        </div>
-                                                    </div>
-                                                </div>    
                                             </div>
                                         </div>
+                                        <!-- <div class="row">
+                                            
+                                        <!-- </div>-->
+                                        <br>  
+                                    </fieldset>
                                     </div>
-                                </div>            
+                                </div>    
+                                    {% if representerIsDoctorOrAssistant > 0  and getUsersLocation|length == 1 %}
+                                       
+                                    {% else %}
+                                        {% for users in getUsersLocation %}
+                                            
+                                            {% if users.usu_id == getUserRepresenter[0].usu_id and  representerIsDoctorOrAssistant > 0 %}
+                                            {% else %}
+                                                <div class="section">
+                                                    <div class="" style="padding: 5px;">
+                                                        <fieldset>
+                                                            <legend><i class="fa fa-user-plus" aria-hidden="true"></i> Usuario</legend>
+                                                            <div class="row">
+                                                                <div class="col-lg-2 col-md-6 col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label">Primer Nombre:</label>
+                                                                        <input name="nameone[]" id="nameone{{ loop.index }}" value="{{ users.usu_nombre }}" type="text" class="form-control inputAssName inputUser" required />
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-2 col-md-6 col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label">Segundo Nombre:</label>
+                                                                        <input name="nametwo[]" id="nametwo{{ loop.index }}" value="{{ users.usu_segundo_nombre }}" type="text" class="form-control inputAssName inputUser"  />
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-2 col-md-6 col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label">Tercer Nombre:</label>
+                                                                        <input name="namethree[]" id="namethree{{ loop.index }}" value="{{ users.usu_tercer_nombre }}" type="text" class="form-control inputAssName inputUser"  />
+                                                                    </div>
+                                                                </div>    
+                                                                <div class="col-lg-2 col-md-6 col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label">Primer Apellido:</label>
+                                                                        <input name="lastnameone[]" id="lastnameone{{ loop.index }}" value="{{ users.usu_primer_apellido }}" type="text" class="form-control inputAssName inputUser" />
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-2 col-md-6 col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label">Segundo Apellido:</label>
+                                                                        <input name="lastnametwo[]" id="lastnametwo{{ loop.index }}" value="{{ users.usu_segundo_apellido }}" type="text" class="form-control inputAssName inputUser"  />
+                                                                    </div>
+                                                                </div>    
+                                                                <div class="col-lg-2 col-md-6 col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label">Email:</label>
+                                                                        <input name="email[]" id="email{{ loop.index }}" value="{{ users.cli_usu_correo }}" type="text" class="form-control inputAssEmail inputUser" />
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-2 col-md-6 col-sm-6">
+                                                                    <div class="form-group has-success has-feedback">
+                                                                        <label class="control-label">Usuario:</label>
+                                                                        <input name="username[]" id="username{{ loop.index }}" value="{{ users.usu_usuario }}" type="text" class="form-control user_to_location" required readonly="readonly"/>
+                                                                        <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                                                                    </div>
+                                                                </div>
+                                                                <input name="availbleUser[]" id="availbleUser" value="1" type="hidden" class="form-control inputAvailable" />
+                                                                <div class="col-lg-2 col-md-6 col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label">Género:</label>
+                                                                        <select name="gender[]" id="gender{{ loop.index }}" class="form-control selectAssGender" required>
+                                                                            <option value="m">Masculino</option>
+                                                                            <option value="f">Femenino</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-2 col-md-6 col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label">Password:</label>
+                                                                        <input name="password[]" id="password_user{{ loop.index }}" value="" type="password" class="form-control inputAssPassword inputUser"  placeholder=""/>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-2 col-md-6 col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label">Repita Password:</label>
+                                                                        <input name="repeatpassword[]" id="password_user_again{{ loop.index }}" value="" type="password" class="form-control inputAssPassword inputUser"  placeholder="" />
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-2 col-md-6 col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label">Tipo de usuario:</label>
+                                                                        <select name="typeUser[]" id="typeUser{{ loop.index }}" class="form-control typeUser" required>
+                                                                            {% if users.cli_usu_rol_id == 3 %}
+                                                                                <option value="3" selected="selected">Asistente</option> 
+                                                                                <option value="6">Doctor/Doctora</option> 
+                                                                            {% else %}
+                                                                                <option value="3">Asistente</option> 
+                                                                                <option value="6" selected="selected">Doctor</option> 
+                                                                            {% endif %}
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-lg-2 col-md-6 col-sm-6">
+                                                                    <div class="form-group">
+                                                                       <label class="control-label">&nbsp;<br><label>
+                                                                        <div class="checkbox">
+                                                                            <label>
+                                                                              {% if users.cli_usu_exponer == 1 %}
+                                                                                  <input type="checkbox" name="publicityWeb[]" checked="checked" class="publicityWeb"> 
+                                                                              {% else %}
+                                                                                  <input type="checkbox" name="publicityWeb[]" class="publicityWeb"> 
+                                                                              {% endif %}    
+                                                                              
+                                                                              Publicitarlo en web 
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                                                    <div class="form-group text-right">
+
+                                                                        <a href="#" class='remove btn bg-danger-400 ' style="margin-top: 7px;" data-toggle="tooltip" data-placement="top" title="Remover Usuario"><b><i class="fa fa-user-times"></i></b> </a>
+                                                                    </div>
+                                                                </div>           
+                                                            </div>
+                                                            <!--                
+                                                            <div class="row">
+                                                                
+                                                            </div>-->
+                                                            <br>  
+                                                        </fieldset>
+                                                    </div>
+                                                </div>
+                                            {% endif %}    
+                                                                    
+                                        {% endfor %}    
+                                    {% endif %}  
+                                    
+                                
                             </div>
                             <hr>
-                            <div class="row">
-                                <div class="col-md-10"></div>
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <div class="form_error"></div>
-                                        <label for="" class=" control-label">Puedes ingresar el código de la persona que te ha referido(opcional):</label>
-                                        <div class=""><input type="text" value="" placeholder="" class="form-control" id="referralId" name="referralId"></div>
-                                    </div>
-                                </div>
-                            </div>
-
-                    </fieldset>
-                    <h6>Creación de médicos y asistentes</h6>
-                    <fieldset title="3">
-                        <div class="row">
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">
-                                    <strong>Nota:</strong> El monto a cobrar será de <strong>$30</strong> mensualmente por cada doctor/a que asocie a su establecimiento, este monto no incluye a usuarios tipo "Asistente"
-                                </div>
-                            </div>
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <div id="sections">
-                                    <div class="section">
-                                        <div class="" style="padding: 5px;">
-                                            <fieldset>
-                                                <legend><i class="fa fa-user-plus" aria-hidden="true"></i> Doctor/Asistente</legend>
-                                                <div class="row">
-                                                    <div class="col-lg-2 col-md-6 col-sm-6">
-                                                        <div class="form-group">
-                                                            <label class="control-label">Primer Nombre:</label>
-                                                            <input name="nameone[]" id="nameone" value="" type="text" class="form-control inputAssName inputUser" required />
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-2 col-md-6 col-sm-6">
-                                                        <div class="form-group">
-                                                            <label class="control-label">Segundo Nombre:</label>
-                                                            <input name="nametwo[]" id="nametwo" value="" type="text" class="form-control inputAssName inputUser"  />
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-2 col-md-6 col-sm-6">
-                                                        <div class="form-group">
-                                                            <label class="control-label">Tercer Nombre:</label>
-                                                            <input name="namethree[]" id="namethree" value="" type="text" class="form-control inputAssName inputUser"  />
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-2 col-md-6 col-sm-6">
-                                                        <div class="form-group">
-                                                            <label class="control-label">Primer Apellido:</label>
-                                                            <input name="lastnameone[]" id="lastnameone" value="" type="text" class="form-control inputAssName inputUser"  />
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-2 col-md-6 col-sm-6">
-                                                        <div class="form-group">
-                                                            <label class="control-label">Segundo Apellido:</label>
-                                                            <input name="lastnametwo[]" id="lastnametwo" value="" type="text" class="form-control inputAssName inputUser"  />
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-2 col-md-6 col-sm-6">
-                                                        <div class="form-group">
-                                                            <label class="control-label">Correo Electrónico</label>
-                                                            <input name="email[]" id="email" value="" type="text" class="form-control inputAssEmail inputUser" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-2 col-md-6 col-sm-6">
-                                                        <div class="form-group">
-                                                            <label class="control-label">Usuario</label>
-                                                            <input name="username[]" id="username" value="" type="text" class="form-control user_to_location" required/>
-                                                        </div>
-                                                    </div>
-                                                    <input name="availbleUser[]" id="availbleUser" value="" type="hidden" class="form-control inputAvailable" />
-                                                    <div class="col-lg-2 col-md-6 col-sm-6">
-                                                        <div class="form-group">
-                                                            <label class="control-label">Género</label>
-                                                            <select name="gender[]" id="gender" class="form-control selectAssGender" required>
-                                                                <option value="m">Masculino</option>
-                                                                <option value="f">Femenino</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-2 col-md-6 col-sm-6">
-                                                        <div class="form-group">
-                                                            <label class="control-label">Contraseña</label>
-                                                            <input name="password[]" id="password_user" value="" type="password" class="form-control inputAssPassword inputUser" placeholder="" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-2 col-md-6 col-sm-6">
-                                                        <div class="form-group">
-                                                            <label class="control-label">Repita Contraseña</label>
-                                                            <input name="repeatpassword[]" id="password_user_again" value="" type="password" class="form-control inputAssPassword inputUser" placeholder=""/>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-2 col-md-6 col-sm-6">
-                                                        <div class="form-group">
-                                                            <label class="control-label">Tipo de usuario</label>
-                                                            <select name="typeUser[]" id="typeUser" class="form-control typeUser" required>
-                                                                <option value="6">Doctor/Doctora</option>
-                                                                <option value="3">Asistente</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-lg-2 col-md-6 col-sm-6">
-                                                        <div class="form-group">
-                                                            <label class="control-label">&nbsp;<br><label>
-                                                            <div class="checkbox">
-                                                                <label>
-                                                                    <input type="checkbox" name="publicityWeb[]" checked="checked" class="publicityWeb"> Publicitarlo en web
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-12 col-md-12 col-sm-12">
-                                                        <div class="form-group text-right">
-
-                                                            <a href="#" class='remove btn bg-danger-400 ' style="margin-top: 7px;" data-toggle="tooltip" data-placement="top" title="Remover Usuario"><b><i class="fa fa-user-times"></i></b> </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!--
-                                                <div class="row">
-                                                    
-                                                </div> -->
-                                                <br>  
-                                            </fieldset>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr>
-                                {# <p><a href="#" class='addsection btn bg-teal-400 btn-labele btn-sm'><b><i class="fa fa-plus-circle"></i></b> Agregar usuario</a></p> #}
-                                <p><span class='addsection btn bg-teal-400 btn-labele btn-sm'><b><i class="fa fa-plus-circle"></i></b> Agregar usuario</span></p>
-                            </div>
-
+                            {# <p><a href="#" class='addsection btn bg-teal-400 btn-labele btn-sm'><b><i class="fa fa-plus-circle"></i></b> Agregar usuario</a></p> #}
+                            <p><span class='addsection btn bg-teal-400 btn-labele btn-sm'><b><i class="fa fa-plus-circle"></i></b> Agregar usuario</span></p>
                         </div>
-
-
-                    </fieldset>
-                    <h6>Formas de pago</h6>
-                    <fieldset>
-                        <div class="row"> 
-                            <div class="col-lg-1 col-md-3 col-sm-3 col-xs-12">
-                                {% for method in methodPay %}
-                                    <div class="radio ">
-                                        <label class="text-right">
-                                            {% if method.mepId == 2 %}  
-                                                <input type="radio" name="optionPay" class="optionPay" id="optionsRadios1" value="{{ method.mepId }}" checked="true">
-                                            {% else %}
-                                                <input type="radio" name="optionPay" class="optionPay" id="optionsRadios1" value="{{ method.mepId }}" >
-                                            {% endif %}    
-                                            {{ method.mepMetodoPago }}
-                                        </label>
-                                    </div>
-                                {% endfor %}
-                            </div>
-                            <div class="col-lg-11 col-md-9 col-sm-9 col-xs-12">
-                                {% for method in methodPay %}
-                                    {% if method.mepId == 1 %}
-                                        <div id="pay_1" class="div_pay">
-                                            <div class="panel panel-info"> 
-                                                <div class="panel-heading"> 
-                                                    <h6 class="panel-title">Efectivo</h6> 
-                                                </div> 
-                                                <div class="panel-body"> Descripción del efectivo </div> 
-                                            </div>
-                                        </div>
-                                    {% endif %}
-                                    {% if method.mepId == 2 %}
-                                        <div id="pay_2" class="div_pay">
-                                            <div class="panel panel-info"> 
-                                                <div class="panel-heading"> 
-                                                    <h6 class="panel-title">Tarjeta de crédito</h6> 
-                                                </div> 
-                                                <div class="panel-body"> 
-
-                                                    <div class="row">
-                                                        <div class="col-lg-6">
-                                                            <div class="form-group">
-                                                                <label for="cc-number" class="control-label">Número de tarjeta <small class="text-muted">[<span class="cc-brand"></span>]</small></label>
-                                                                <input id="cc-number" type="tel" class="input-lg form-control cc-number" autocomplete="cc-number" placeholder="•••• •••• •••• ••••" required>
-                                                            </div>
-
-                                                            <div class="form-group">
-                                                                <label for="cc-exp" class="control-label">Fecha de expiración</label>
-                                                                <input id="cc-exp" type="tel" class="input-lg form-control cc-exp" autocomplete="cc-exp" placeholder="MM / YY" required>
-                                                            </div>
-
-                                                            <div class="form-group">
-                                                                <label for="cc-cvc" class="control-label">CVC</label>
-                                                                <input id="cc-cvc" type="tel" class="input-lg form-control cc-cvc" autocomplete="off" placeholder="•••" required>
-                                                            </div>
-                                                            <!--
-                                                            <div class="form-group">
-                                                                <label for="numeric" class="control-label">Restrict numeric</label>
-                                                                <input id="numeric" type="tel" class="input-lg form-control" data-numeric>
-                                                            </div>
-                                                            -->
-                                                            <button id="btn-check-credit-card" class="btn btn-lg btn-primary"><i class="fa fa-credit-card-alt" aria-hidden="true"></i> Validar</button>
-
-                                                            <h2 class="validation"></h2>
-                                                        </div>
-                                                        <div class="col-lg-6">
-
-                                                            <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">
-                                                                <i class="fa fa-credit-card-alt" aria-hidden="true"></i> Tarjetas soportadas:
-                                                            </div>
-                                                            <ul class="list-unstyled">
-                                                                <li>Visa</li>
-                                                                <li>MasterCard
-                                                                <li>American Express</li>
-                                                                <li>Diners Club</li>
-                                                                <li>Discover</li>
-                                                                <li>UnionPay</li>
-                                                                <li>JCB</li>
-                                                                <li>Maestro</li>
-                                                                <li>Forbrugsforeningen</li>
-                                                                <li>Dankort</li>
-                                                            </ul>    
-                                                        </div>
-                                                    </div>
-                                                </div> 
-                                            </div>
-                                        </div>
-                                    {% endif %}
-                                    {% if method.mepId == 3 %}
-                                        <div id="pay_3" class="div_pay">
-                                            <div class="panel panel-info"> 
-                                                <div class="panel-heading"> 
-                                                    <h6 class="panel-title">CHEQUE</h6> 
-                                                </div> 
-                                                <div class="panel-body"> Descripción del cheque </div> 
-                                            </div>
-                                        </div>
-                                    {% endif %}
-                                    {% if method.mepId == 4 %}
-                                        <div id="pay_4" class="div_pay">
-                                            <div class="panel panel-info"> 
-                                                <div class="panel-heading"> 
-                                                    <h6 class="panel-title">BANCO</h6> 
-                                                </div> 
-                                                <div class="panel-body"> 
-                                                    BAC CREDOMATIC : 112862321 a Nombre de Rafael Fernando Gutiérrez Tejada
-                                                </div> 
-                                            </div>
-                                        </div>
-                                    {% endif %}
-                                    {% if method.mepId == 5 %}
-                                        <div id="pay_5" class="div_pay">
-                                            <div class="panel panel-info"> 
-                                                <div class="panel-heading"> 
-                                                    <h6 class="panel-title">PAYPAL</h6> 
-                                                </div> 
-                                                <div class="panel-body"> Descripción de paypal </div> 
-                                            </div>
-                                        </div>
-                                    {% endif %}
-                                {% endfor %}
-                            </div>
-                        </div>
-                    </fieldset>
-                    <!-- <button type="submit" class="btn btn-primary stepy-finish">Submit <i class="icon-check position-right"></i></button>  -->      
-                {{ form_end(form)}}   
-            {% endif %}    
-            </div>
-            </div>
-            
-        </div>
-    </div>
-     
-   {#         
-    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="modalMap">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="gridSystemModalLabel">Mapa para ubicar el establecimiento</h4>
-                </div>
-                <div class="modal-body">
-                    <div id="dvMap" style="width:100%; height: 500px"></div>
-                </div>
-                <div class="modal-footer">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-6">
-                            <div class="text-left"><button class="btn btn-primary" id="find_btn">Encontrar mi ubicación</button></div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6">
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Cerrar</button>
-                            <button type="button" class="btn btn-success" id="btn-set-location"><i class="fa fa-map-marker" aria-hidden="true"></i> Ubicar establecimiento</button>
-                        </div>
+                        
                     </div>
                     
-                </div>    
+                    
+				</fieldset>
+                <h6>Formas de pago</h6>
+                <fieldset>
+                    <div class="row"> 
+                        <div class="col-lg-1 col-md-3 col-sm-3 col-xs-12">
+                            {% for method in methodPay %}
+                                <div class="radio ">
+                                    <label class="text-right">
+                                        {% if method.mepId == currentPayment[0].cli_metodo_pago_id %}  
+                                            <input type="radio" name="optionPay" class="optionPay" id="optionsRadios1" value="{{ method.mepId }}" checked="true">
+                                        {% else %}
+                                            <input type="radio" name="optionPay" class="optionPay" id="optionsRadios1" value="{{ method.mepId }}" >
+                                        {% endif %}    
+                                        {{ method.mepMetodoPago }}
+                                    </label>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="col-lg-11 col-md-9 col-sm-9 col-xs-12">
+                            {% for method in methodPay %}
+                                {% if method.mepId == 1 %}
+                                    <div id="pay_1" class="div_pay">
+                                        <div class="panel panel-info"> 
+                                            <div class="panel-heading"> 
+                                                <h6 class="panel-title">Efectivo</h6> 
+                                            </div> 
+                                            <div class="panel-body"> Descripción del efectivo </div> 
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                {% if method.mepId == 2 %}
+                                    <div id="pay_2" class="div_pay">
+                                        <div class="panel panel-info"> 
+                                            <div class="panel-heading"> 
+                                                <h6 class="panel-title">Tarjeta de crédito</h6> 
+                                            </div> 
+                                            <div class="panel-body"> 
+                                                
+                                                <div class="row">
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group">
+                                                            <label for="cc-number" class="control-label">Número de tarjeta <small class="text-muted">[<span class="cc-brand">{{ brand }}</span>]</small></label>
+                                                          
+                                                            {% if creditCard != "" %}
+                                                                <input id="cc-number" type="tel" class="input-lg form-control cc-number" autocomplete="cc-number" placeholder="{{ creditCard }}" readonly="readonly">
+                                                                {% set cardNumber = creditCard %}
+                                                            {% else %} 
+                                                                <input id="cc-number" type="tel" class="input-lg form-control cc-number" autocomplete="cc-number" placeholder="•••• •••• •••• ••••" required>
+                                                            {% endif %}
+                                                            
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="cc-exp" class="control-label">Fecha de expiración</label>
+                                                            {% if exp != "" %}
+                                                                <input id="cc-exp" type="tel" class="input-lg form-control cc-exp" autocomplete="cc-exp" placeholder="{{ exp }}" readonly="readonly">
+                                                            {% else %}
+                                                                <input id="cc-exp" type="tel" class="input-lg form-control cc-exp" autocomplete="cc-exp" placeholder="MM / YY" required>
+                                                            {% endif %}
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="cc-cvc" class="control-label">CVC</label>
+                                                            {% if cvc != "" %}
+                                                                <input id="cc-cvc" type="tel" class="input-lg form-control cc-cvc" autocomplete="off" placeholder="{{ cvc }}" readonly="readonly">
+                                                            {% else %}
+                                                                <input id="cc-cvc" type="tel" class="input-lg form-control cc-cvc" autocomplete="off" placeholder="•••" required>
+                                                            {% endif %}
+                                                            
+                                                        </div>
+                                                  
+                                                        {% if creditCard is defined and creditCard != "" %}
+                                                           
+                                                            {% set displayChange = "" %}
+                                                        {% else %}
+                                                            
+                                                             {% set displayChange = 'style=display:none' %}
+                                                        {% endif %}   
+                                                       <div id="enable_card" class="text-left" {{ displayChange }}><span class="btn btn-lg btn-primary">Cambiar datos de tarjeta</span></div>
+                                                        <!--
+                                                        <div class="form-group">
+                                                            <label for="numeric" class="control-label">Restrict numeric</label>
+                                                            <input id="numeric" type="tel" class="input-lg form-control" data-numeric>
+                                                        </div>
+                                                        -->
+                                                        {% if creditCard is defined and creditCard == "" %}
+                                                            {% set display = "" %}
+                                                            
+                                                        {% else %}
+                                                            
+                                                            {% set display = 'style=display:none' %}
+                                                        {% endif %}    
+                                                        <button id="btn-check-credit-card" class="btn btn-lg btn-primary" {{ display }}><i class="fa fa-credit-card-alt" aria-hidden="true"></i> Validar</button>
+                                                        
+                                                        <h2 class="validation"></h2>
+                                                        <span id="use-same-card"></span>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        
+                                                        <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">
+                                                            <i class="fa fa-credit-card-alt" aria-hidden="true"></i> Tarjetas soportadas:
+                                                        </div>
+                                                        <ul class="list-unstyled">
+                                                            <li>Visa</li>
+                                                            <li>MasterCard
+                                                            <li>American Express</li>
+                                                            <li>Diners Club</li>
+                                                            <li>Discover</li>
+                                                            <li>UnionPay</li>
+                                                            <li>JCB</li>
+                                                            <li>Maestro</li>
+                                                            <li>Forbrugsforeningen</li>
+                                                            <li>Dankort</li>
+                                                        </ul>    
+                                                    </div>
+                                                </div>
+                                            </div> 
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                {% if method.mepId == 3 %}
+                                    <div id="pay_3" class="div_pay">
+                                        <div class="panel panel-info"> 
+                                            <div class="panel-heading"> 
+                                                <h6 class="panel-title">CHEQUE</h6> 
+                                            </div> 
+                                            <div class="panel-body"> Descripción del cheque </div> 
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                {% if method.mepId == 4 %}
+                                    <div id="pay_4" class="div_pay">
+                                        <div class="panel panel-info"> 
+                                            <div class="panel-heading"> 
+                                                <h6 class="panel-title">BANCO</h6> 
+                                            </div> 
+                                            <div class="panel-body">
+                                                Deposito a cuenta o transferencia bancaria<br>
+                                                BAC CREDOMATIC : <strong>112862321</strong> a Nombre de Rafael Fernando Gutiérrez Tejada 
+                                            </div> 
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                {% if method.mepId == 5 %}
+                                    <div id="pay_5" class="div_pay">
+                                        <div class="panel panel-info"> 
+                                            <div class="panel-heading"> 
+                                                <h6 class="panel-title">PAYPAL</h6> 
+                                            </div> 
+                                            <div class="panel-body"> Descripción de paypal </div> 
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </fieldset>
+                <!-- <button type="submit" class="btn btn-primary stepy-finish">Submit <i class="icon-check position-right"></i></button>  -->      
+        {{ form_end(edit_form)}}
+            </div>
             </div>
         </div>
     </div>
-   #}         
+         
     <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="modalMap">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -727,7 +795,26 @@
                     <h4 class="modal-title" id="gridSystemModalLabel">Mapa para ubicar el establecimiento</h4>
                 </div>
                 <div class="modal-body">
+                    {#
                     <form>
+                        <input id="geocomplete" type="text" placeholder="Type in an address" value="El Salvador" style="width:350px" />
+                        <input id="find" type="button" value="find" />
+
+                        <fieldset>
+                          <label>Latitude</label>
+                          <input name="lat" type="text" value="">
+
+                          <label>Longitude</label>
+                          <input name="lng" type="text" value="">
+
+                          <label>Formatted Address</label>
+                          <input name="formatted_address" type="text" value="">
+                        </fieldset>
+
+                        <a id="reset" href="#" style="display:none;">Reset Marker</a>
+                      </form>
+                    #}
+                     <form>
                         <div class="row">
                             <div class="col-lg-8 col-md-8">
                                 {#
@@ -776,16 +863,26 @@
                 </div>    
             </div>
         </div>
-    </div>
-        
+    </div>        
+    
+    {#
+    <ul>
+        <li>
+            <a href="{{ path('cliente_index') }}">Back to the list</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+    #}
 {% endblock %}
 
 {% block codejs %}
      
     <script>
         $(document).on("ready", function(){
-            
-            //$(".optionPay").
             
             $('#appbundle_cliente_cliNit').mask("9999-999999-999-9", {placeholder: "____-______-___-_"});
             $('#appbundle_cliente_cliTelefono1').mask("9999-9999", {placeholder: "____-____"});
@@ -811,7 +908,7 @@
                 labels: {
                     current: "current step:",
                     pagination: "Pagination",
-                    finish: "Crear",
+                    finish: "Guardar",
                     next: "Siguiente",
                     previous: "Anterior",
                     loading: "Loading ..."
@@ -827,7 +924,28 @@
                     if (newIndex === 3 && Number($("#age-2").val()) < 18) {
                         return false;
                     }
-
+                    
+                    if (newIndex === 2 ) {
+                        var num = 0;
+                        $("body").find(".typeUser").each(function(){
+                            if( $(this).val() == 6 ) 
+                            {
+                                num++;
+                            }
+                        });
+                        if(num == 0 )
+                        {
+                            $.alert({
+                                    icon: 'fa fa-user-times',
+                                    title: 'Error!',
+                                    content: 'Debe de crear al menos un usuario con rol de Doctor/Doctora',
+                                    type: 'red',
+                                    typeAnimated: true,
+                            });
+                            return false;
+                        }
+                    }
+                    
                     // Needed in some cases if the user went back (clean up)
                     if (currentIndex < newIndex) {
 
@@ -878,18 +996,23 @@
 
                 onFinished: function (event, currentIndex) {
                     var methodPay = $('input:radio[name=optionPay]:checked').val();
+                    //var methodPay = $("body").find("input:radio[name=optionPay]:checked").val();
+                   // alert(methodPay);
                     if( methodPay == 2 )
                     {
                         if( $("#val_cc_number").size() == 0 )
                         {
-                            $.alert({
-                                icon: 'fa fa-credit-card-alt',
-                                title: 'Error!',
-                                content: 'Es necesario validar la tarjeta',
-                                type: 'red',
-                                typeAnimated: true,
-                            });
-                            return false;
+                            if( $("#cc-number").val() != "" || $("#cc-exp").val() != "" || $("#cc-cvc").val() != ""  )
+                            {    
+                                $.alert({
+                                    icon: 'fa fa-credit-card-alt',
+                                    title: 'Error!',
+                                    content: 'Ha actualizado los datos de la tarjeta por lo que es necesario validarla',
+                                    type: 'red',
+                                    typeAnimated: true,
+                                });
+                                return false;
+                            }
                         }
                         else if( $("#val_cc_number").val() != 1 )
                         {
@@ -1008,17 +1131,18 @@
                 //increment
                 if( increment == "yes")
                 {
+                    var sum = $("#sections .section").size();
                     sectionsCount++;
                     
                     //loop through each input
                     var section = template.clone().find(':input').each(function(){
 
                         //set id to store the updated section number
-                        var newId = this.id + sectionsCount; //sectionsCount;
+                        var newId = this.id + (sectionsCount + sum); //sectionsCount;
 
                         //update for label
                         $(this).prev().attr('for', newId);
-
+                        $(this).addClass("cloned");
                         //update id
                         this.id = newId;
 
@@ -1048,6 +1172,7 @@
                     //inject new section
                     $('#sections').prepend(section);
                     $('[data-toggle="tooltip"]').tooltip();
+                    //$("#newId").closest("fieldset").find("")
                     return false;
                 }
                 
@@ -1083,72 +1208,6 @@
             {
                 var users = [];
                 var error = 0;
-                /*
-                $(".section").each(function(index){
-                    
-                    var name = $.trim( $(this).find("input[name='name[]']").val() );
-                    var email = $.trim( $(this).find("input[name='email[]']").val() );
-                    var username = $.trim( $(this).find("input[name='username[]']").val() );
-                    var password = $.trim( $(this).find("input[name='password[]']").val() );
-                    var password_again = $.trim( $(this).find("input[name='repeatpassword[]']").val() );
-                    var gender = $.trim( $(this).find("select[name='gender[]']").val() );
-                    var inputAvailable = $(this).find(".inputAvailable").val();
-                    var typeUser = $.trim( $(this).find("select[name='typeUser[]']").val() );
-                    
-                    var msg = "";
-                    if( name == "" )
-                    {
-                        msg = "Ingrese el nombre del usuario";
-                    }else if( username == "" )
-                    {
-                        msg = "Ingrese el usurname del usuario";
-                    }else if( password == "" )
-                    {
-                        msg = "Ingrese el password del usuario";
-                    }else if( password_again == "" )
-                    {
-                        msg = "Repita el password del usuario";
-                    }else if ( password != password_again )
-                    {
-                        msg = "Los password no son iguales";
-                    }else if ( inputAvailable != 1 )
-                    {
-                        msg = "Debe de validar el usuario a crear";
-                    }
-                    
-                    if( msg != "")
-                    {
-                        
-                        $.alert({
-                            icon: 'glyphicon glyphicon-exclamation-sign',
-                            title: 'Info!',
-                            content: msg,
-                            type: 'red',
-                            typeAnimated: true,
-                        });
-                        
-                        $('html, body').animate({
-                            scrollTop: $(this).offset().top
-                        }, 1000);
-                        
-                        users = [];
-                        error++;
-                        $(".section").removeClass("border-warning-available");
-                        $(this).addClass("border-warning-available");
-                        //break;
-                        return false;
-                        return "error";
-                    }
-                    else
-                    {
-
-                        item = {"name":name, "email":email, "username":username, "password":password, "gender":gender, "typeUser":typeUser };
-                        users.push(item);
-
-                        $(this).removeClass("border-warning-available");
-                    }
-                });
-                */
                 $(".section").each(function(index){
                     
                     var nameone = $(this).find("input[name='nameone[]']");
@@ -1170,6 +1229,7 @@
                     if( $(this).find("input[name='publicityWeb[]']").prop('checked') ) {
                         valPublicity = 1;
                     }
+
                     
                     var email = $(this).find("input[name='email[]']").val();
                     //var valEmail = $.trim( email.val() );
@@ -1229,11 +1289,12 @@
                         msg = "Debe de validar el usuario a crear";
                     }
                     
-                    
                     if ( email == "" )
                     {
                         msg = "Ingrese un email válido";
                     }
+                    
+                    console.log(email);
                     
                     if( msg != "")
                     {
@@ -1266,6 +1327,7 @@
                         $(this).removeClass("border-warning-available");
                     }
                 });
+                
                 if( error == 0 )
                 {
                     //console.log(users);
@@ -1307,6 +1369,7 @@
                     
                     if( $('.validation').hasClass("text-success") )
                     {
+                        //$("#use-same-card").html("<button class='btn btn-info'></button>");
                         /*
                         creditCard['cc-number'] = $('.cc-number').val();
                         creditCard['cc-exp'] =  $('.cc-exp').val();
@@ -1319,6 +1382,12 @@
                         //console.log("cagada");
                         //creditCard = [];
                         val_cc_number = 0;
+                        var creditCard = "{{ creditCard }}";
+                        if( creditCard != "" )
+                        {
+                            $("#use-same-card").html("<span class='btn btn-info' id='btn-use-same-card'>Usar tarjeta anterior</span>");
+                        }
+                         
                     }
                     
                     if( $("body").find("#val_cc_number").size() == 0 )
@@ -1328,10 +1397,63 @@
                     
                     $("body").find("#val_cc_number").val(val_cc_number);
                     
+                    
                     //e.preventDefault();
                     //return creditCard;
                     
                 });
+                
+                $("body").on("click","#btn-use-same-card", function(){
+                        $("#pay_2").find(".form-group").each(function(){
+                            $(this).removeClass("has-error");
+                            $(this).find("input[type='text']").val("");
+                        });
+                        $("#cc-number").attr("placeholder", "{{ creditCard }}");
+                        $("#cc-exp").attr("placeholder", "{{ exp }}");
+                        $("#cc-cvc").attr("placeholder", "{{ cvc }}");
+                        $(".cc-brand").text("{{ brand }}");
+                        //$(this).attr("placeholder", "Type your answer here");
+                        $('.validation').removeClass('text-danger text-success');
+                        $("#use-same-card").empty();
+                        if( $("body").find("#val_cc_number").size() == 0 )
+                        {
+                            $("body").append("<input type='hidden' value=''  id='val_cc_number'>");
+                        }
+                        $("#cc-number").prop('readonly', true);
+                        $("#cc-exp").prop('readonly', true);
+                        $("#cc-cvc").prop('readonly', true);
+                        $("body").find("#val_cc_number").val(1);
+                        
+                        $("#btn-check-credit-card").hide();
+                        $("#enable_card span").show();
+                    });
+                
+                $("body").on("click","#enable_card span",function(){
+                        $("#pay_2").find(".form-group").each(function(){
+                            //$(this).removeClass("has-error");
+                            //$(this).find("input[type='text']").prop('readonly', false);
+                            
+                        });
+                        if( $("body").find("#val_cc_number").size() == 0 )
+                        {
+                            $("body").append("<input type='hidden' value=''  id='val_cc_number'>");
+                        }
+                        $("body").find("#val_cc_number").val(0);
+                        $("#cc-number").attr("placeholder", "•••• •••• •••• ••••");
+                        $("#cc-exp").attr("placeholder", "MM / YY");
+                        $("#cc-cvc").attr("placeholder", "•••");
+                        $(".cc-brand").empty();
+                        
+                        $("#cc-number").prop('readonly', false);
+                        $("#cc-exp").prop('readonly', false);
+                        $("#cc-cvc").prop('readonly', false);
+                        $("#enable_card span").hide();
+                        $("#btn-check-credit-card").show();
+                        
+                        //$("#use-same-card").html("<button class='btn btn-info' id='use-same-card'>Usar tarjeta anterior</button>");
+                        $("#use-same-card").html("<span class='btn btn-info' id='btn-use-same-card'>Usar tarjeta anterior</span>");
+                    });
+                
             }
             
             
@@ -1350,9 +1472,16 @@
                     {
                         $("#cc-number, #cc-exp, #cc-cvc").attr("required", false);
                     }else{
-                        $("#cc-number, #cc-exp, #cc-cvc").attr("required", true);
+                        //$("#cc-number, #cc-exp, #cc-cvc").attr("required", true);
                     }
                 });
+                
+                if( option != 2 )
+                {
+                    $("#cc-number, #cc-exp, #cc-cvc").attr("required", false);
+                }else{
+                    //$("#cc-number, #cc-exp, #cc-cvc").attr("required", true);
+                }
             }
             
             function useDateRepresenterAsDoctor(number)
@@ -1518,6 +1647,7 @@
                 $("#holder_loading").show();
 				$.ajax({
                     type: "post",
+                    //dataType: 'json',
                     url: "{{ path('cliente_check_available_user') }}",
                     data: {
                         username: username
@@ -1535,7 +1665,7 @@
                                     text: 'Intentar de nuevo',
                                     btnClass: 'btn-red',
                                     action: function () {
-                                        checkAvailableUser();
+                                        checkAvailableUserDB();
                                     }
                                 },
                                 close: function () {}
@@ -1571,11 +1701,13 @@
                                 if( $("#"+idInput).hasClass("user_to_location") )
                                 {
                                     var msg = "<p class='small'>El usuario <strong>"+username+"</strong>";
+                                    var email = "";
                                     if( data.email != "" )
                                     {
-                                        msg += " con email <strong>"+data.email+"</strong></p><p class='small'>";
+                                        email = "Al asociarlo se le notificara al usuario por medio del email: <strong>"+data.email+"</strong></p>";
                                     }
-                                    msg += "ya existe desea asociar este usuario a este establecimiento?</p>";
+                                    msg += " ya existe desea asociar este usuario a este establecimiento?</p>";
+                                    msg += email;
                                     $.confirm({
                                         icon: 'fa fa-question-circle-o',
                                         title: 'Confirmar datos',
@@ -1603,7 +1735,6 @@
                                                     $("#"+idInput).closest(".section").find(".inputAssName").addClass("passed");
                                                     $("#"+idInput).closest(".section").find(".inputAssPassword").addClass("passed");
                                                     $("#"+idInput).closest(".section").find(".inputAssEmail").addClass("passed");
-                                                    //$("#"+idInput).closest(".section").find(".inputAssEmail").addClass("passed");
                                                       
                                                     $("#"+idInput).closest(".form-group").removeClass("has-error");
                                                     $("#"+idInput).closest(".form-group").addClass("has-success has-feedback").append('<span class="glyphicon glyphicon-ok form-control-feedback icon-status" aria-hidden="true"></span>');
@@ -1682,6 +1813,9 @@
                    
                    useDateRepresenterAsDoctor("");
                    
+                   $("#typeUser option[value='3']").remove();
+                   //$("#typeUser option").find("").remove("<option></option>");
+                   
                 }
                 else
                 {
@@ -1693,12 +1827,14 @@
                     $("#username").attr("readonly", false);
                     $("#gender").attr("readonly", false);
                     $('#gender option').prop('disabled', false);
+                    //$("#")
                 }
             }
             
             
             function sendFormRepresenter(users){
 
+                
                 //console.log(users);
                 var location = $("#appbundle_cliente_cliTipCli");
                 var fiscal_name = $("#appbundle_cliente_cliNombreFiscal");
@@ -1721,7 +1857,6 @@
                 var representerLastNameOne = $("#lastnameone_representer");
                 var representerLastNameTwo = $("#lastnametwo_representer");
                 
-                
                 var representerGender = $("#gender_representer");
                 var representerUser = $("#user_representer");
                 var representerEmail = $("#email_representer");
@@ -1736,20 +1871,19 @@
                 var representer_cc_cvc = $("#cc-cvc");
                 var representer_cc_brand = $(".cc-brand");
              
-                
+                //console.log(locationUsers);
+                //return false;
                 $("#holder_loading").show();
                 $.ajax({
                         type: "post",
                         url: "{{ path('cliente_valid_form') }}",
-                        data: { 
+                        data: {
+                            id: {{ id }},
                             location: location.val(),
-                            {% if addLocationToUser|length > 0 %}
-                                addToUser: {{ addLocationToUser.usuId }},    
-                            {% endif %}
                             fiscal_name: fiscal_name.val(),
                             comercial_name: comercialName.val(),
                             lat: lat.val(),
-                            lon: lon.val(),        
+                            lon: lon.val(),
                             municipality: municipality.val(),
                             address: address.val(),
                             locationNit: locationNit.val(),
@@ -1798,8 +1932,9 @@
                         success: function (data) {
                             if( data == "1" )
                             {
-                               window.location = "{{ path('cliente_new') }}";
-                               $("#holder_loading").hide();
+                               
+                               window.location.reload();
+                               //$("#holder_loading").hide();
                             }
                             else
                             {
@@ -1818,7 +1953,8 @@
                 
             }
             
-            $("body").on("change",".typeUser", function(){
+            
+           $("body").on("change",".typeUser", function(){
                 var opt = $(this).val();
                 if(opt == 3)
                 {
@@ -1831,7 +1967,6 @@
                     $(this).closest(".section").find(".publicityWeb").attr("checked",true);
                 }    
            });
-            
             
             //$(".ui-datepicker-year").select2();
              $.datepicker.regional['es'] = {
@@ -1852,7 +1987,6 @@
                 yearSuffix: ''
             };
             $.datepicker.setDefaults($.datepicker.regional['es']);
-            
             var start = new Date();
             start.setFullYear(start.getFullYear() - 75);
             var end = new Date();
@@ -1876,6 +2010,19 @@
                  yearRange: start.getFullYear() + ':' + end.getFullYear()
                  
             });
+            /*
+            $.datepicker.setDefaults($.datepicker.regional['es']);
+            $( "#birth_date" ).datepicker({
+                changeMonth: true,
+                changeYear: true,
+                yearRange: '1945:'+(new Date).getFullYear()
+            });
+            */
+            
+            $("ul[role='tablist'] li").each(function(){
+                $(this).addClass("done");
+                $(this).removeClass("disabled");
+            });
             
             $('[data-toggle="tooltip"]').tooltip();
             //$("body").find(".ui-datepicker-year").select2();
@@ -1883,14 +2030,22 @@
              //=====================================================
             //Google maps
             //=====================================================
-            var map
+            var map;
+            var markers = [];
             if( $("#dvMapx").size() == 1 )
             {
                 var markers = [];
                 var uniqueId = 1;
                 var lat = "13.684978";
                 var lon = "-89.263635";
+                
+                
+                
                 window.onload = function () {
+                    
+                    
+                    
+                    
                    //var lat = 13.684978;
                    // var lon = -89.263635;
                     if( $.trim($("#appbundle_cliente_cliUbicacionLat").val() ) != "" && $("#appbundle_cliente_cliUbicacionLat").val() != 0 )
@@ -1947,10 +2102,14 @@
                         markers.push(marker);
                         //markers = marker;
                     });
+                    
+                    
+                    
+                    
                 };
                 
                 
-                
+                 
                 
                 $("body").on("click","#btn-delete-map", function(){
                     DeleteMarker();
@@ -1970,12 +2129,15 @@
                     
                 };
                 
+                
+                
                 $('#modalMap').on('shown.bs.modal', function () {
-                    google.maps.event.trigger(map, 'resize');
+                    //google.maps.event.trigger(map, 'resize');
+                      google.maps.event.trigger(map, 'resize');
+                    
                 })
             }
             
-            //==========================================================================================
             var lat = 13.794185;
             var long = -88.89652999999998;
             if( $.trim($("#appbundle_cliente_cliUbicacionLat").val() ) != "" && $("#appbundle_cliente_cliUbicacionLat").val() != 0 )
@@ -1989,10 +2151,11 @@
                         
             }
             var setloc = new google.maps.LatLng(lat, long);
+            
             $('#modalMap').on('shown.bs.modal', function () {
  
-                var latInput = $("#appbundle_cliente_cliUbicacionLat").val();
-                var lonInput = $("#appbundle_cliente_cliUbicacionLon").val();
+                var latInput =  $("#appbundle_cliente_cliUbicacionLat").val();
+                var lonInput =  $("#appbundle_cliente_cliUbicacionLon").val();
                 if( latInput != "" )
                 {
                     $("input[name=lat]").val(latInput);
@@ -2046,10 +2209,23 @@
                     $("#geocomplete").trigger("geocode");
                 }).click();
             
+            //var center = new google.maps.LatLng(13.794185, -88.89652999999998);
+            
+                
+                /*
+                //var map = $("#geocomplete").geocomplete("map");
+                var myLatlng = {lat: -25.363, lng: 131.044};
+
+                var map = new google.maps.Map(document.getElementById('dvMap'), {
+                  zoom: 4,
+                  center: myLatlng
+                 });
+                    */
+                //google.maps.event.trigger(map, 'resize');
+                //map.setCenter(setloc);
+                //alert(setloc);
             });
-            
             //==========================================================================================
-            
             //var map;
             var myLatlng = {lat: lat, lng: lon};
             var geo = false;
@@ -2161,9 +2337,7 @@
                      $("#appbundle_cliente_cliUbicacionLon").val(lon);
                     
                 });
-
-            //https://developers.google.com/maps/documentation/javascript/examples/map-geolocation?hl=es-419
-            //https://www.sanwebe.com/2016/04/get-current-location-of-user-using-jquery
+            
         });
     </script>
-{% endblock %}    
+{% endblock %}  

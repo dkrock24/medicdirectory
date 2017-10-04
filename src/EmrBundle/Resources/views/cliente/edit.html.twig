@@ -40,7 +40,7 @@
             display: none;
         }
         
-       .pac-container{
+        .pac-container{
             z-index: 99999999999999 !important;
           }
     </style>
@@ -207,7 +207,7 @@
                                             <div class="form-group">
                                                 <div class="form_error"></div>
                                                 <label for="" class=" control-label"></label>
-                                                <div class=""><button type="button" id="btn-map" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg" data-backdrop="static" data-keyboard="false">Ubicación en Google map</button></div>
+                                                <div class=""><button type="button" id="btn-map" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Ubicación en Google map</button></div>
                                             </div>
                                         </div>
                                         <div class="col-md-4">    
@@ -786,7 +786,33 @@
             </div>
         </div>
     </div>
-         
+    {#     
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="modalMap">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="gridSystemModalLabel">Mapa para ubicar el establecimiento</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="dvMap" style="width:100%; height: 500px"></div>
+                </div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="text-left"><button class="btn btn-primary" id="find_btn">Encontrar mi ubicación</button></div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Cerrar</button>
+                            <button type="button" class="btn btn-success" id="btn-set-location"><i class="fa fa-map-marker" aria-hidden="true"></i> Ubicar establecimiento</button>
+                        </div>
+                    </div>
+                    
+                </div>    
+            </div>
+        </div>
+    </div>
+    #}
     <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="modalMap">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -863,7 +889,7 @@
                 </div>    
             </div>
         </div>
-    </div>        
+    </div> 
     
     {#
     <ul>
@@ -2038,14 +2064,7 @@
                 var uniqueId = 1;
                 var lat = "13.684978";
                 var lon = "-89.263635";
-                
-                
-                
                 window.onload = function () {
-                    
-                    
-                    
-                    
                    //var lat = 13.684978;
                    // var lon = -89.263635;
                     if( $.trim($("#appbundle_cliente_cliUbicacionLat").val() ) != "" && $("#appbundle_cliente_cliUbicacionLat").val() != 0 )
@@ -2102,14 +2121,10 @@
                         markers.push(marker);
                         //markers = marker;
                     });
-                    
-                    
-                    
-                    
                 };
                 
                 
-                 
+                
                 
                 $("body").on("click","#btn-delete-map", function(){
                     DeleteMarker();
@@ -2129,12 +2144,8 @@
                     
                 };
                 
-                
-                
                 $('#modalMap').on('shown.bs.modal', function () {
-                    //google.maps.event.trigger(map, 'resize');
-                      google.maps.event.trigger(map, 'resize');
-                    
+                    google.maps.event.trigger(map, 'resize');
                 })
             }
             
@@ -2226,6 +2237,8 @@
                 //alert(setloc);
             });
             //==========================================================================================
+
+            
             //var map;
             var myLatlng = {lat: lat, lng: lon};
             var geo = false;
