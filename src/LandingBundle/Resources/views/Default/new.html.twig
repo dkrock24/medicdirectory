@@ -74,13 +74,12 @@
             padding: 2px;
             background: white;
             color: white;
-            animation-name: example;
-            animation-duration: 5s;
+            animation: example 2s infinite;
         }
 
         @keyframes example {
             0% {background-color: white;}
-            5% {background-color: #1fa2ed;}
+            50% {background-color: #1fa2ed; color:white;}
             100% {background-color: white;}
         }
         .avatar_medic{
@@ -157,7 +156,7 @@
         #btn_registrar:hover{
             background: none;
             transform: scale(2.0);
-            animation: registro 5s infinite alternate;
+            animation: registro 2s infinite;
         }
 
 
@@ -410,6 +409,10 @@
         </li>
         <li id="menu-item-30821" class="btn_top">
             <a href="{{ path("web_precios") }}" target="_blank">Precio</a>
+        </li>
+
+        <li id="menu-item-30821" class="btn_top">
+            <a href="{{ path("web_homepage") }}" target="_blank">Perfil Médico</a>
         </li>
         
     </ul>
