@@ -5,6 +5,9 @@ AppBundle\Entity\Departamento:
         FK_dep_pais_idx:
             columns:
                 - dep_pai_id
+        FK_dep_timezone_idx:
+            columns:
+                - dep_timezone_id
     id:
         depId:
             type: integer
@@ -63,5 +66,15 @@ AppBundle\Entity\Departamento:
             joinColumns:
                 dep_pai_id:
                     referencedColumnName: pai_id
+            orphanRemoval: false
+        depTimezone:
+            targetEntity: Timezones
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                dep_timezone_id:
+                    referencedColumnName: id_timezone
             orphanRemoval: false
     lifecycleCallbacks: {  }

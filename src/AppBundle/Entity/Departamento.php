@@ -47,6 +47,11 @@ class Departamento
      */
     private $depPai;
 
+    /**
+     * @var \AppBundle\Entity\Timezones
+     */
+    private $depTimezone;
+
 
     /**
      * Get depId
@@ -226,7 +231,31 @@ class Departamento
         return $this->depPai;
     }
 	
-	public function __toString() {
-		return $this->depDepartamento;
-	}
+    /**
+     * Set depTimezone
+     *
+     * @param \AppBundle\Entity\Timezones $depTimezone
+     *
+     * @return Timezones
+     */
+    public function setDepTim(\AppBundle\Entity\Timezones $depTim = null)
+    {
+        $this->depTimezone = $depTim;
+
+        return $this;
+    }
+
+    /**
+     * Get depPai
+     *
+     * @return \AppBundle\Entity\Pais
+     */
+    public function getDepTim()
+    {
+        return $this->depTimezone;
+    }
+    
+    public function __toString() {
+        return $this->depDepartamento;
+    }
 }

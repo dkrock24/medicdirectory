@@ -1,0 +1,17 @@
+AppBundle\Entity\Timezones:
+    type: entity
+    table: null
+    repositoryClass: AppBundle\Repository\TimezonesRepository
+    id:
+        id:
+            type: integer
+            id: true
+            column: id_timezone
+            generator:
+                strategy: IDENTITY
+    fields:
+        timezoneValue:
+            type: string
+            length: 255
+            column: TimezoneValue
+    lifecycleCallbacks: {  }
