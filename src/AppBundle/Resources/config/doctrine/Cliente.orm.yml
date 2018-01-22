@@ -159,6 +159,16 @@ AppBundle\Entity\Cliente:
                 cli_mun_id:
                     referencedColumnName: mun_id
             orphanRemoval: false
+        cliTim:
+            targetEntity: Timezones
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                cli_tim_id:
+                    referencedColumnName: id_timezone
+            orphanRemoval: false
     manyToMany:
         idEspecialidad:
             targetEntity: Especialidad

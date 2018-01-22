@@ -78,6 +78,11 @@ class Cliente
     private $cliMun;
 
     /**
+     * @var \AppBundle\Entity\Timezones
+     */
+    private $cliTim;
+
+    /**
      * @var \Doctrine\Common\Collections\Collection
      */
     private $espid;
@@ -631,5 +636,31 @@ class Cliente
     public function getIdEspecialidad()
     {
         return $this->idEspecialidad;
+    }
+
+
+
+    /**
+     * Set cliTim
+     *
+     * @param \AppBundle\Entity\Timezones $cliTim
+     *
+     * @return Cliente
+     */
+    public function setCliTim(\AppBundle\Entity\Timezones $cliTim = null)
+    {
+        $this->cliTim = $cliTim;
+
+        return $this;
+    }
+
+    /**
+     * Get cliTim
+     *
+     * @return \AppBundle\Entity\Municipio
+     */
+    public function getCliTim()
+    {
+        return $this->cliTim;
     }
 }

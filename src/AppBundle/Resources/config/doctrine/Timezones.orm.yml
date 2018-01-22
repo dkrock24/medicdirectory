@@ -1,7 +1,10 @@
 AppBundle\Entity\Timezones:
     type: entity
-    table: null
-    repositoryClass: AppBundle\Repository\TimezonesRepository
+    table: timezones
+    indexes:
+        FK_dtim_pais_idx:
+            columns:
+                - tim_pai_id
     id:
         id:
             type: integer
@@ -13,5 +16,24 @@ AppBundle\Entity\Timezones:
         timezoneValue:
             type: string
             length: 255
-            column: TimezoneValue
+            column: timezone_vlue
+        zonaHoraria:
+            type: string
+            length: 255
+            column: zona_horaria
+        ciudadTime:
+            type: string
+            length: 255
+            column: timezone_Value
+    manyToOne:
+        timPai:
+            targetEntity: Pais
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                tim_pai_id:
+                    referencedColumnName: pai_id
+            orphanRemoval: false
     lifecycleCallbacks: {  }

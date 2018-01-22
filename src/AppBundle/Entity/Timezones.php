@@ -22,6 +22,23 @@ class Timezones
      */
     private $timezoneValue;
 
+    /**
+     * @var string
+     */
+    private $zonaHoraria;
+
+    /**
+     * @var string
+     */
+    private $ciudadTime;
+
+    /**
+     * @var int
+     */
+    private $timPai;
+
+    
+
 
     /**
      * Get id.
@@ -80,4 +97,82 @@ class Timezones
     {
         return $this->timezoneValue;
     }
+
+    // ::::::::::::::::::::::::::::::::::::::::::::
+
+    /**
+     * Set zonaHoraria.
+     *
+     * @param string $zonaHoraria
+     *
+     * @return zonaHoraria
+     */
+    public function setZonaHoraria($zonaHoraria)
+    {
+        $this->zonaHoraria = $zonaHoraria;
+
+        return $this;
+    }
+
+    /**
+     * Get zonaHoraria.
+     *
+     * @return string
+     */
+    public function getZonaHoraria()
+    {
+        return $this->zonaHoraria;
+    }
+
+    // ::::::::::::::::::::::::::::::::::::::::::::
+
+    /**
+     * Set ciudadTime.
+     *
+     * @param string $ciudadTime
+     *
+     * @return ciudadTime
+     */
+    public function setCiudadTime($ciudadTime)
+    {
+        $this->ciudadTime = $ciudadTime;
+
+        return $this;
+    }
+
+    /**
+     * Get zonaHoraria.
+     *
+     * @return string
+     */
+    public function getCiudadTime()
+    {
+        return $this->ciudadTime;
+    }
+
+    /**
+     * Get timPai.
+     *
+     * @return int
+     */
+    public function getTimPai()
+    {
+        return $this->timPai;
+    }
+
+    /**
+     * Set idTimezone.
+     *
+     * @param int $idTimezone
+     *
+     * @return Timezones
+     */
+    public function setTimPai($timPai)
+    {
+        $this->timPai = $timPai;
+
+        return $this;
+    }
+
+    
 }
