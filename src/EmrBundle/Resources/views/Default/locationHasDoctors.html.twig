@@ -1,7 +1,7 @@
 {% extends "Layout/base_emr/_clients_base.location.html.twig" %}
 
 {% block title_page %}
-        EMR || Lista de médicos por establecimiento
+        EMR || List of doctors in establishment
 {% endblock %}
 {#
 {% block breadcrumb %}
@@ -34,11 +34,11 @@
                         {# <a href="{{ app.request.headers.get('referer') }}"> #}
                         <a href="{{ path('emr_location') }}">
                             <i class="fa fa-info-circle position-left"></i>
-                            <span class="text-semibold">Establecimientos</span>
+                            <span class="text-semibold">Establishment</span>
                         </a>
-                        - Lista de doctores asignados al establecimiento: 
+                        - List of doctors in establishment: 
 
-                        <small class="display-block">Si el doctor no cuenta con foto de perfil no podrá ser publicado en el sitio web!</small></h4>
+                        <small class="display-block">You must have a profile photo, otherwise your profile won't be posted.!</small></h4>
                     <a class="heading-elements-toggle"><i class="icon-more"></i></a><a class="heading-elements-toggle"><i class="icon-more"></i></a></div>
                     
                 <div class="heading-elements">
@@ -50,14 +50,14 @@
                         #}
                         <ul class="icons-list">
                             <li class="dropdown ">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><i class="glyphicon glyphicon-plus-sign"></i> Nuevo establecimiento <span class="caret"></span></a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><i class="glyphicon glyphicon-plus-sign"></i> New Establishment <span class="caret"></span></a>
                                 <ul class="dropdown-menu dropdown-menu-right">
 
-                                    <li><a href="{{ path('cliente_new') }}?id=myself"><i class="fa fa-user-plus"></i> Para mí usuario</a></li>
+                                    <li><a href="{{ path('cliente_new') }}?id=myself"><i class="fa fa-user-plus"></i> For my user</a></li>
 
-                                    <li><a href="{{ path('cliente_new') }}"><i class="fa fa-user-md"></i> Nuevo usuario</a></li>
+                                    <li><a href="{{ path('cliente_new') }}"><i class="fa fa-user-md"></i> New user</a></li>
                                         {#<li class="divider"></li>#}
-                                        {# <li><a href="#"><i class="fa fa-hospital-o"></i> Ver lista</a></li> #}
+                                        {# <li><a href="#"><i class="fa fa-hospital-o"></i> Vie List</a></li> #}
                                 </ul>
                             </li>
                         </ul>
@@ -84,9 +84,9 @@
                                     {% endif %}
                                 {% endif %}
                                 <div class="caption">
-                                    {#<p>Usuario: {{ reg.usu_usuario }}</p> #}
+                                    {#<p>Username: {{ reg.usu_usuario }}</p> #}
                                     <p>
-                                        Nombre: {{ reg.nombre }} 
+                                        Name: {{ reg.nombre }} 
                                     </p>
                                     <a href="{{ path('web_doctores_perfil',{ 'med_id': reg.id } ) }}">
                                     <p class="alert alert-info">
@@ -108,7 +108,7 @@
                 {% else %}
                     <div class="col-lg-12">
                          <div class="alert alert-warning alert-styled-left alert-arrow-left alert-component">
-                            No hay doctores asociados a este establecimiento
+                            There are no doctors associated with this institution
                         </div>
                     </div>
                 {% endif %}

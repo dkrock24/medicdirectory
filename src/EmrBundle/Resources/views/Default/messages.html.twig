@@ -27,7 +27,7 @@
 <li class="dropdown">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
         <i class="icon-bubbles4"></i>
-        <span class="visible-xs-inline-block position-right">Mensajes</span>
+        <span class="visible-xs-inline-block position-right">Messages</span>
         {#
         {% if unread > 0 %}
             
@@ -40,7 +40,7 @@
 
     <div class="dropdown-menu dropdown-content width-350">
         <div class="dropdown-content-heading">
-            Mensajes
+            Messages
             {#
             <ul class="icons-list">
                 <li><a href="#"><i class="icon-compose"></i></a></li>
@@ -70,7 +70,7 @@
                             <span class="text-muted">{{ message.comentario|slice(0, 100) }}</span>
                             {#
                             <button type="button" class="btn btn-info btn-xs openModal" id="msg_{{message.id}}" data-status="{{message.estado}}">
-                                <i class="icon-comment-discussion position-left"></i> Ver más
+                                <i class="icon-comment-discussion position-left"></i> View more
                             </button>
                             #}
                             <span class="label label-default openModal" id="msg_{{message.id}}" data-status="{{message.estado}}" style="cursor: pointer">

@@ -1,7 +1,7 @@
 {% extends "Layout/base_emr/_clients_base.html.twig" %}
 
 {% block title_page %}
-    EMR || Perfil médico
+    Medic Profile
 {% endblock %}
 
 {% block breadcrumb %}
@@ -43,9 +43,9 @@
                 <a href="{{ path('emr_dashboard') }}"> 
                     <i class="icon-arrow-left52 position-left"></i>
                     <span class="text-semibold">Dashboard</span>
-                </a> - Perfil Médico
+                </a> - Medic profile
 
-                <small class="display-block">Ingrese su experiencia médica</small>
+                <small class="display-block">Add medic information</small>
             </h4>
 
         </div>
@@ -70,7 +70,7 @@
                 {#
                 {{ form_start(form) }}
                     {{ form_widget(form) }}
-                    <button type="submit" class="btn btn-success"><i class="icon-newspaper"></i> Crear</button>
+                    <button type="submit" class="btn btn-success"><i class="icon-newspaper"></i> Create</button>
                 {{ form_end(form) }}
                 #}
                 <div class="panel panel-white">

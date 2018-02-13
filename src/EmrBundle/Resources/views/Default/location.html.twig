@@ -32,9 +32,9 @@
                 <div class="page-title">
                     <h4>
                         <i class="fa fa-info-circle position-left"></i>
-                        <span class="text-semibold">Establecimientos</span> - Lista de sucursales
+                        <span class="text-semibold">Establishment</span> - Location List
 
-                        <small class="display-block">Seleccione la sucursa ha iniciar sesión o administrar!</small></h4>
+                        <small class="display-block">Click on local to manage!</small></h4>
                     <a class="heading-elements-toggle"><i class="icon-more"></i></a><a class="heading-elements-toggle"><i class="icon-more"></i></a></div>
                     
                 <div class="heading-elements">
@@ -46,14 +46,14 @@
                         #}
                         <ul class="icons-list">
                             <li class="dropdown ">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><i class="glyphicon glyphicon-plus-sign"></i> Nuevo establecimiento <span class="caret"></span></a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><i class="glyphicon glyphicon-plus-sign"></i> New Establishment <span class="caret"></span></a>
                                 <ul class="dropdown-menu dropdown-menu-right">
 
-                                    <li><a href="{{ path('cliente_new') }}?id=myself"><i class="fa fa-user-plus"></i> Para mí usuario</a></li>
+                                    <li><a href="{{ path('cliente_new') }}?id=myself"><i class="fa fa-user-plus"></i> For my user</a></li>
 
-                                    <li><a href="{{ path('cliente_new') }}"><i class="fa fa-user-md"></i> Nuevo usuario</a></li>
+                                    <li><a href="{{ path('cliente_new') }}"><i class="fa fa-user-md"></i> New user</a></li>
                                         {#<li class="divider"></li>#}
-                                        {# <li><a href="#"><i class="fa fa-hospital-o"></i> Ver lista</a></li> #}
+                                        {# <li><a href="#"><i class="fa fa-hospital-o"></i> View List</a></li> #}
                                 </ul>
                             </li>
                         </ul>
@@ -77,12 +77,13 @@
                                                 <li class="dropdown ">
                                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><i class="icon-menu7"></i> <span class="caret"></span></a>
                                                     <ul class="dropdown-menu dropdown-menu-right">
-                                                        <li><a href="{{ path('cliente_edit', { 'id': reg.clientId } ) }}"><i class="icon-sync"></i> Actualizar Información</a></li>
-                                                        <li><a href="{{ path('modulo_index',{'id': reg.clientId }) }}"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Adquir Módulos</a></li>
-                                                        <li><a href="{{ path('emr_location_has_doctors',{'id': reg.clientId } ) }}"><i class="icon-list-unordered"></i> Médicos</a></li>
-                                                        {#<li><a href="#"><i class="icon-pie5"></i> Estadisticas</a></li> #}
+                                                        <li><a href="{{ path('cliente_edit', { 'id': reg.clientId } ) }}"><i class="icon-sync"></i> Update Information</a></li>
+                                                        <!--
+                                                        <li><a href="{{ path('modulo_index',{'id': reg.clientId }) }}"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Add Module</a></li>-->
+                                                        <li><a href="{{ path('emr_location_has_doctors',{'id': reg.clientId } ) }}"><i class="icon-list-unordered"></i> Medic Profiles</a></li>
+                                                        {#<li><a href="#"><i class="icon-pie5"></i> Estadistic</a></li> #}
                                                         <li class="divider"></li>
-                                                        <li><a href="#"><i class="icon-cross3"></i> Cerrar Menú</a></li>
+                                                        <li><a href="#"><i class="icon-cross3"></i> Close Menu</a></li>
                                                     </ul>
                                                 </li>
                                             </ul>
@@ -90,10 +91,10 @@
                                     {% endif %}                
                                 </div>
                                 <div class="panel-body">
-                                    Localizado en: <i class="glyphicon glyphicon-map-marker"></i> {{ reg.municipality  }}
+                                    Located in: <i class="glyphicon glyphicon-map-marker"></i> {{ reg.municipality  }}
                                     <hr>
                                     {% if 3 in reg.roles  or 6 in reg.roles %}
-                                        <a href="{{ path('emr_homepage',{'id':reg.clientId} ) }}" class="btn btn-success"><i class="fa fa-stethoscope"></i> Iniciar administración</a>
+                                        <a href="{{ path('emr_homepage',{'id':reg.clientId} ) }}" class="btn btn-success"><i class="fa fa-stethoscope"></i> Start the administration</a>
                                     {% else %}
                                         <span style="height:36px;"> Para iniciar debes de tener el rol de doctor</span>
                                     {% endif %}
