@@ -2,7 +2,7 @@
 
 
 {% block title_page %}
-    Sistema Médico EMR || Regístrate
+    Profile Medic || Register
 {% endblock %}
 
 {#
@@ -54,9 +54,9 @@
             <h4>
                 <a href="{{ app.request.headers.get('referer') }}">
                 <i class="icon-arrow-left52 position-left"></i>
-                <span class="text-semibold">Regresar</span></a> - Registro de nuevo cliente
+                <span class="text-semibold">Go Back</span></a> - New Client Register
 
-                <small class="display-block">Formulario para nuevo cliente!</small></h4>
+                <small class="display-block">Form for new client!</small></h4>
             <a class="heading-elements-toggle"><i class="icon-more"></i></a>
         </div>
         {#    
@@ -80,7 +80,7 @@
                     
                     {% if app.user.getUsuId() is defined and app.user.getUsuId() > 0 %}
                     {% else %}
-                        , Inicia sesión haciendo click <a href="{{path('emr_homepage')}}">Aquí</a>
+                        , Please login  <a href="{{path('emr_homepage')}}">Here</a>
                     {% endif %}
                     {% set created = 1 %}
                 </div>
@@ -95,9 +95,9 @@
     <div class="panel border-left-lg border-left-success">
         <div class="panel-heading">
             {% if created == 0 %}
-                <h6 class="panel-title"><i class="fa fa-hospital-o"></i> Para registrarse debe completar el siguiente formulario</h6>
+                <h6 class="panel-title"><i class="fa fa-hospital-o"></i> To register you must complete the following form</h6>
             {% else %}
-                <h4 class="panel-title"><i class="fa fa-hospital-o"></i> Gracias por registrarte</h4>
+                <h4 class="panel-title"><i class="fa fa-hospital-o"></i> Thank you for registering</h4>
             {% endif %}
             {#
             <div class="heading-elements">
@@ -119,20 +119,15 @@
                 <input type="submit" value="Create" />
             {{ form_end(form) }}
             #}
-            {% if created == 1 %}
-                <p>Ahora ya puedes usar todos los beneficios que medicos.sv ofrece para tí.</p>
-                Inicio rápido
+            {% if created == 1 %}                
+                Quick Start
                 <br>
-                <p>Administre su establecimiento</p>
-                <p>Cree Pacientes</p>
-                <p>Agende Consultas y muchos más</p>
-                <p>Listo ya puede iniciar la consulta</p>
-                <p>Inicia sesión haciendo click <a href="{{path('emr_homepage')}}" class="btn btn-success">Aquí</a></p>
+                <p>Login <a href="{{path('emr_homepage')}}" class="btn btn-success">Here</a></p>
             {% else %}
                 
                 {{ form_start(form, {'attr': {'class': 'steps-basic steps-validation'}}) }}
                     <div class="form_error">{{ form_errors(form)}}</div>
-                    <h6>Representante</h6>
+                    <h6>Representative</h6>
                     <fieldset title="1">
                             <!--<legend class="text-semibold">Establecimiento</legend>-->
                             <div class="row">
@@ -140,7 +135,7 @@
                                     <div class="row">
                                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                             <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">
-                                                Información del establecimiento
+                                                Locale Informations
                                             </div>
                                         </div>
                                     </div>
@@ -148,21 +143,21 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <div class="form_error">{{ form_errors(form.cliTipCli)}}</div>
-                                                <label for="" class=" control-label">Tipo establecimiento: <span class="text-danger">*</span></label>
+                                                <label for="" class=" control-label">Location Type: <span class="text-danger">*</span></label>
                                                 <div class="">{{ form_widget(form.cliTipCli,  { 'attr': {'class': 'select'} } ) }}</div>
                                             </div>
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group">
                                                 <div class="form_error">{{ form_errors(form.cliNombre)}}</div>
-                                                <label for="" class=" control-label">Nombre Comercial: <span class="text-danger">*</span></label>
+                                                <label for="" class=" control-label">Tradename: <span class="text-danger">*</span></label>
                                                 <div class="">{{ form_widget(form.cliNombre) }}</div>
                                             </div>
                                         </div>
                                         <div class="col-md-4 div_pay">
                                             <div class="form-group">
                                                 <div class="form_error">{{ form_errors(form.cliNombreFiscal)}}</div>
-                                                <label for="" class=" control-label">Nombre Fiscal: <span class="text-danger">*</span></label>
+                                                <label for="" class=" control-label">Tax Name: <span class="text-danger">*</span></label>
                                                 <div class="">{{ form_widget(form.cliNombreFiscal) }}</div>
                                             </div>
                                         </div>    
@@ -171,14 +166,14 @@
                                         <div class="col-md-4">    
                                             <div class="form-group">
                                                 <div class="form_error">{{ form_errors(form.cliMun)}}</div>
-                                                <label for="" class=" control-label">Municipio: <span class="text-danger">*</span></label>
+                                                <label for="" class=" control-label">Department: <span class="text-danger">*</span></label>
                                                 <div class="">{{ form_widget(form.cliMun) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
                                             </div>
                                         </div>    
                                         <div class="col-md-8">
                                             <div class="form-group">
                                                 <div class="form_error">{{ form_errors(form.cliDireccion)}}</div>
-                                                <label for="" class=" control-label">Dirección: <span class="text-danger">*</span></label>
+                                                <label for="" class=" control-label">Address: <span class="text-danger">*</span></label>
                                                 <div class="">{{ form_widget(form.cliDireccion) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
                                             </div>
                                         </div>
@@ -194,21 +189,21 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <div class="form_error">{{ form_errors(form.cliTelefono1)}}</div>
-                                                <label for="" class=" control-label">Teléfono 1: <span class="text-danger">*</span></label>
+                                                <label for="" class=" control-label">Phone Number 1: <span class="text-danger">*</span></label>
                                                 <div class="">{{ form_widget(form.cliTelefono1) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
                                             </div>
                                         </div>
                                         <div class="col-md-4 div_pay">
                                             <div class="form-group">
                                                 <div class="form_error">{{ form_errors(form.cliTelefono2)}}</div>
-                                                <label for="" class=" control-label">Teléfono 2:</label>
+                                                <label for="" class=" control-label">Phone Number 2:</label>
                                                 <div class="">{{ form_widget(form.cliTelefono2) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
                                             </div>
                                         </div>
                                         <div class="col-md-8">    
                                             <div class="form-group">
                                                 <div class="form_error">{{ form_errors(form.idEspecialidad)}}</div>
-                                                <label for="" class=" control-label">Tipos de especialidades asociadas al establecimiento: <span class="text-danger">*</span></label>
+                                                <label for="" class=" control-label">specialties type: <span class="text-danger">*</span></label>
                                                 <div class="">{# {{ form_widget(edit_form.idEspecialidad) }} #}{{ form_widget(form.idEspecialidad,  { 'attr': {'class': 'select', 'required':true} } ) }}</div>
                                             </div>
                                         </div>     
@@ -231,20 +226,20 @@
                                             <div class="form-group">
                                                 <div class="form_error"></div>
                                                 <label for="" class=" control-label"></label>
-                                                <div class=""><button type="button" id="btn-map" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg" data-backdrop="static" data-keyboard="false">Ubicación en Google map</button></div>
+                                                <div class=""><button type="button" id="btn-map" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg" data-backdrop="static" data-keyboard="false">Google map location</button></div>
                                             </div>
                                         </div>
                                         <div class="col-md-4">    
                                             <div class="form-group">
                                                 <div class="form_error">{{ form_errors(form.cliUbicacionLat)}}</div>
-                                                <label for="" class=" control-label">Latitud: </label>
+                                                <label for="" class=" control-label">Latitude: </label>
                                                 <div class="">{# {{ form_widget(edit_form.idEspecialidad) }} #}{{ form_widget(form.cliUbicacionLat,  { 'attr': {'class': '', 'required':false} } ) }}</div>
                                             </div>
                                         </div>    
                                         <div class="col-md-4">    
                                             <div class="form-group">
                                                 <div class="form_error">{{ form_errors(form.cliUbicacionLon)}}</div>
-                                                <label for="" class=" control-label">Logitud: </label>
+                                                <label for="" class=" control-label">Length: </label>
                                                 <div class="">{# {{ form_widget(edit_form.idEspecialidad) }} #}{{ form_widget(form.cliUbicacionLon,  { 'attr': {'class': '', 'required':false} } ) }}</div>
                                             </div>
                                         </div>    
@@ -255,7 +250,7 @@
                                     <div class="row">
                                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                             <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">
-                                                Información del representante
+                                                Representative Información
                                             </div>
                                         </div>
                                     </div>
@@ -264,7 +259,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <div class="form_error"></div>
-                                                <label for="" class=" control-label">Primer Nombre: <span class="text-danger">*</span></label>
+                                                <label for="" class=" control-label">First name: <span class="text-danger">*</span></label>
                                                 {# 
                                                 {% if addLocationToUser|length > 0 %}
                                                      <div class="">{{ form_widget(form.cliNombre,  { 'attr': {'class': 'c4', 'value':addLocationToUser.usuNombre} } ) }}</div>
@@ -275,10 +270,10 @@
                                                  <div class="">
                                                  {% if addLocationToUser|length > 0 %}
                                                     
-                                                     <input type="text" id="nameone_representer" name="nameone_representer" placeholder="Primer Nombre" class="form-control" value="{{ addLocationToUser.usuNombre }}" required>
+                                                     <input type="text" id="nameone_representer" name="nameone_representer" placeholder="First name" class="form-control" value="{{ addLocationToUser.usuNombre }}" required>
                                                  {% else %}
                                                      
-                                                     <input type="text" id="nameone_representer" name="nameone_representer" placeholder="Primer Nombre" class="form-control" value="" required>
+                                                     <input type="text" id="nameone_representer" name="nameone_representer" placeholder="First name" class="form-control" value="" required>
                                                  {% endif %}
                                                 
                                                  </div>
@@ -287,12 +282,12 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <div class="form_error"></div>
-                                                <label for="" class=" control-label">Segundo Nombre: <span class="text-danger">*</span></label>
+                                                <label for="" class=" control-label">Second Name: <span class="text-danger">*</span></label>
                                                 <div class="">
                                                     {% if addLocationToUser|length > 0 %}
-                                                        <input type="text" id="nametwo_representer" name="nametwo_representer" placeholder="Segundo Nombre" class="form-control" value="{{ addLocationToUser.usuSegundoNombre }}" required>
+                                                        <input type="text" id="nametwo_representer" name="nametwo_representer" placeholder="Second Name" class="form-control" value="{{ addLocationToUser.usuSegundoNombre }}" required>
                                                     {% else %}
-                                                        <input type="text" id="nametwo_representer" name="nametwo_representer" placeholder="Segundo Nombre" class="form-control" value="" required>
+                                                        <input type="text" id="nametwo_representer" name="nametwo_representer" placeholder="Second Name" class="form-control" value="" required>
                                                     {% endif %}    
                                                 </div>
                                             </div>
@@ -312,11 +307,11 @@
                                                 <div class="col-md-4">
                                                 <div class="form-group">
                                                     <div class="form_error"></div>
-                                                    <label for="" class=" control-label">Primer Apelldio: <span class="text-danger">*</span></label>
+                                                    <label for="" class=" control-label">Last Name: <span class="text-danger">*</span></label>
                                                     {% if addLocationToUser|length > 0 %}
-                                                        <div class=""><input type="text" id="lastnameone_representer" name="lastnameone_representer" placeholder="Primer Apelldo" class="form-control" value="{{ addLocationToUser.usuPrimerApellido }}" required></div>
+                                                        <div class=""><input type="text" id="lastnameone_representer" name="lastnameone_representer" placeholder="Last Name" class="form-control" value="{{ addLocationToUser.usuPrimerApellido }}" required></div>
                                                     {% else %}
-                                                        <div class=""><input type="text" id="lastnameone_representer" name="lastnameone_representer" placeholder="Primer Apelldo" class="form-control" value="" required></div>
+                                                        <div class=""><input type="text" id="lastnameone_representer" name="lastnameone_representer" placeholder="Last Name" class="form-control" value="" required></div>
                                                     {% endif %}    
                                                     
                                                 </div>
@@ -327,30 +322,30 @@
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <div class="form_error"></div>
-                                                    <label for="" class=" control-label">Segundo Apellido:</label>
+                                                    <label for="" class=" control-label">Second Surname:</label>
                                                     {% if addLocationToUser|length > 0 %}
-                                                        <div class=""><input type="text" id="lastnametwo_representer" name="lastnametwo_representer" placeholder="Segundo Apelldo" class="form-control" value="{{ addLocationToUser.usuSegundoApellido }}" ></div>
+                                                        <div class=""><input type="text" id="lastnametwo_representer" name="lastnametwo_representer" placeholder="Second Surname" class="form-control" value="{{ addLocationToUser.usuSegundoApellido }}" ></div>
                                                     {% else %}
-                                                        <div class=""><input type="text" id="lastnametwo_representer" name="lastnametwo_representer" placeholder="Segundo Apelldo" class="form-control" value="" ></div>
+                                                        <div class=""><input type="text" id="lastnametwo_representer" name="lastnametwo_representer" placeholder="Second Surname" class="form-control" value="" ></div>
                                                     {% endif %}    
                                                     
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label>Género: <span class="text-danger">*</span></label>
-                                                    <select name="gender_representer"  id="gender_representer" data-placeholder="Genero..." required class="select">
+                                                    <label>Gender: <span class="text-danger">*</span></label>
+                                                    <select name="gender_representer"  id="gender_representer" data-placeholder="Gender..." required class="select">
                                                         {% if addLocationToUser|length > 0 %}
                                                             {% if addLocationToUser.usuUsuario == "m" %}
-                                                                <option value="m" selected="selected">Masculino</option> 
-                                                                <option value="f">Femenino</option>
+                                                                <option value="m" selected="selected">Male</option> 
+                                                                <option value="f">Female</option>
                                                             {% else %}
-                                                                <option value="m">Masculino</option> 
-                                                                <option value="f" selected="selected">Femenino</option>
+                                                                <option value="m">Male</option> 
+                                                                <option value="f" selected="selected">Female</option>
                                                             {% endif %}    
                                                         {% else %}
-                                                            <option value="m">Masculino</option> 
-                                                            <option value="f">Femenino</option> 
+                                                            <option value="m">Male</option> 
+                                                            <option value="f">Female</option> 
                                                         {% endif %}    
 
                                                     </select>
@@ -358,11 +353,11 @@
                                             </div>
                                             <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label>Correo Electrónico: <span class="text-danger">*</span></label>
+                                                        <label>Email Address: <span class="text-danger">*</span></label>
                                                         {% if addLocationToUser|length > 0 %}
-                                                            <input type="email" name="email_representer" id="email_representer" value="{# {{  addLocationToUser.usuCorreo }} #}" placeholder="Email" class="form-control required" >
+                                                            <input type="email" name="email_representer" id="email_representer" value="{# {{  addLocationToUser.usuCorreo }} #}" placeholder="Email Address" class="form-control required" >
                                                         {% else %}
-                                                            <input type="email" name="email_representer" id="email_representer" placeholder="Email" class="form-control required">
+                                                            <input type="email" name="email_representer" id="email_representer" placeholder="Email Address" class="form-control required">
                                                         {% endif %}    
                                                         
                                                     </div>
@@ -380,8 +375,8 @@
                                                     <div class=" col-md-6">
                                                         <div class="form-group">
                                                             <div class="form-group has-success has-feedback">
-                                                                <label>Usuario: <span class="text-danger">*</span></label>
-                                                                <input type="text" name="user_representer" id="user_representer" value="{{ addLocationToUser.usuUsuario }}" placeholder="Usuario" class="form-control required" readonly="readonly">
+                                                                <label>User: <span class="text-danger">*</span></label>
+                                                                <input type="text" name="user_representer" id="user_representer" value="{{ addLocationToUser.usuUsuario }}" placeholder="User" class="form-control required" readonly="readonly">
                                                                 <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
                                                             </div>
                                                         </div>
@@ -391,25 +386,25 @@
                                                             <input type="password" id="password_representer" value="deafult"  name="password_representer" placeholder="Password" class="form-control" disabled="disabled">
                                                     </div>
                                                     <div class="form-group col-md-6">
-                                                            <label>Repita Password: </label>
-                                                            <input type="password" id="password_representer_repeat" value="deafult" name="password_representer_repeat" placeholder="Repita Password" class="form-control" disabled="disabled">
+                                                            <label>Repit Password: </label>
+                                                            <input type="password" id="password_representer_repeat" value="deafult" name="password_representer_repeat" placeholder="Repit Password" class="form-control" disabled="disabled">
                                                     </div>
                                                 </div>
                                             {% else %}
                                                 <div class="row">
                                                     <div class=" col-md-6">
                                                         <div class="form-group">
-                                                            <label>Usuario: <span class="text-danger">*</span></label>
-                                                            <input type="text" name="user_representer" id="user_representer" placeholder="Usuario" class="form-control required">
+                                                            <label>User: <span class="text-danger">*</span></label>
+                                                            <input type="text" name="user_representer" id="user_representer" placeholder="User" class="form-control required">
                                                         </div>
                                                     </div>
                                                     <div class="form-group col-md-6">
-                                                        <label>Contraseña: <span class="text-danger">*</span></label>
-                                                        <input type="password" id="password_representer" name="password_representer" placeholder="Contraseña" class="form-control required">
+                                                        <label>Password: <span class="text-danger">*</span></label>
+                                                        <input type="password" id="password_representer" name="password_representer" placeholder="Password" class="form-control required">
                                                     </div>
                                                     <div class="form-group col-md-6">
-                                                        <label>Repita Contraseña: <span class="text-danger">*</span></label>
-                                                        <input type="password" id="password_representer_repeat" name="password_representer_repeat" placeholder="Repita Contraseña" class="form-control required">
+                                                        <label>Repit Password: <span class="text-danger">*</span></label>
+                                                        <input type="password" id="password_representer_repeat" name="password_representer_repeat" placeholder="Repit Password" class="form-control required">
                                                     </div>
                                                 </div>
                                             {% endif %}    
@@ -421,7 +416,7 @@
                                                 <div class="col-md-12 div_pay">
                                                     <div class="form-group">
                                                         
-                                                        <label>Fecha nacimiento: <span class="text-danger">*</span></label>
+                                                        <label>Birth day: <span class="text-danger">*</span></label>
                                                         {% if addLocationToUser|length > 0 %}
                                                             <div class=""><input type="text" id="birth_date" value="{# {{ addLocationToUser.usuFechaNacimiento|date('Y-m-d') }} #}" name="birth_date" class="form-control" required ></div>
                                                         {% else %}
@@ -435,7 +430,7 @@
                                                         <div>&nbsp;</div>
                                                         <div class="checkbox">
                                                             <label><input type="checkbox" value="" name="user_representer_doctor" id="user_representer_doctor" class="user_representer_doctor" checked="checked"><span clas="">
-                                                               Quiero asociar mis datos de representante para usarlo como un doctor de este establecimiento    
+                                                               quitar -------> Quiero asociar mis datos de representante para usarlo como un doctor de este establecimiento    
                                                             </span></label>
                                                         </div>
                                                     </div>
@@ -451,14 +446,14 @@
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <div class="form_error"></div>
-                                        <label for="" class=" control-label">Puedes ingresar el código de la persona que te ha referido(opcional):</label>
+                                        <label for="" class=" control-label">quitar -------> Puedes ingresar el código de la persona que te ha referido(opcional):</label>
                                         <div class=""><input type="text" value="" placeholder="" class="form-control" id="referralId" name="referralId"></div>
                                     </div>
                                 </div>
                             </div>
 
                     </fieldset>
-                    <h6>Creación de médicos y asistentes</h6>
+                    <h6>Create Doctor Profiles </h6>
                     <fieldset title="3">
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -475,74 +470,73 @@
                                                 <div class="row">
                                                     <div class="col-lg-2 col-md-6 col-sm-6">
                                                         <div class="form-group">
-                                                            <label class="control-label">Primer Nombre:</label>
+                                                            <label class="control-label">First Name:</label>
                                                             <input name="nameone[]" id="nameone" value="" type="text" class="form-control inputAssName inputUser" required />
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-2 col-md-6 col-sm-6">
                                                         <div class="form-group">
-                                                            <label class="control-label">Segundo Nombre:</label>
+                                                            <label class="control-label">Second Name:</label>
                                                             <input name="nametwo[]" id="nametwo" value="" type="text" class="form-control inputAssName inputUser"  />
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-2 col-md-6 col-sm-6">
                                                         <div class="form-group">
-                                                            <label class="control-label">Tercer Nombre:</label>
+                                                            <label class="control-label"> Quitar ---> Tercer Nombre:</label>
                                                             <input name="namethree[]" id="namethree" value="" type="text" class="form-control inputAssName inputUser"  />
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-2 col-md-6 col-sm-6">
                                                         <div class="form-group">
-                                                            <label class="control-label">Primer Apellido:</label>
+                                                            <label class="control-label">Last Name:</label>
                                                             <input name="lastnameone[]" id="lastnameone" value="" type="text" class="form-control inputAssName inputUser"  />
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-2 col-md-6 col-sm-6">
                                                         <div class="form-group">
-                                                            <label class="control-label">Segundo Apellido:</label>
+                                                            <label class="control-label">Second Surname:</label>
                                                             <input name="lastnametwo[]" id="lastnametwo" value="" type="text" class="form-control inputAssName inputUser"  />
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-2 col-md-6 col-sm-6">
                                                         <div class="form-group">
-                                                            <label class="control-label">Correo Electrónico</label>
+                                                            <label class="control-label">Email Address</label>
                                                             <input name="email[]" id="email" value="" type="text" class="form-control inputAssEmail inputUser" />
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-2 col-md-6 col-sm-6">
                                                         <div class="form-group">
-                                                            <label class="control-label">Usuario</label>
+                                                            <label class="control-label">User</label>
                                                             <input name="username[]" id="username" value="" type="text" class="form-control user_to_location" required/>
                                                         </div>
                                                     </div>
                                                     <input name="availbleUser[]" id="availbleUser" value="" type="hidden" class="form-control inputAvailable" />
                                                     <div class="col-lg-2 col-md-6 col-sm-6">
                                                         <div class="form-group">
-                                                            <label class="control-label">Género</label>
+                                                            <label class="control-label">Gender</label>
                                                             <select name="gender[]" id="gender" class="form-control selectAssGender" required>
-                                                                <option value="m">Masculino</option>
-                                                                <option value="f">Femenino</option>
+                                                                <option value="m">Male</option>
+                                                                <option value="f">Female</option>
                                                             </select>
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-2 col-md-6 col-sm-6">
                                                         <div class="form-group">
-                                                            <label class="control-label">Contraseña</label>
+                                                            <label class="control-label">Password</label>
                                                             <input name="password[]" id="password_user" value="" type="password" class="form-control inputAssPassword inputUser" placeholder="" />
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-2 col-md-6 col-sm-6">
                                                         <div class="form-group">
-                                                            <label class="control-label">Repita Contraseña</label>
+                                                            <label class="control-label">Repit Password</label>
                                                             <input name="repeatpassword[]" id="password_user_again" value="" type="password" class="form-control inputAssPassword inputUser" placeholder=""/>
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-2 col-md-6 col-sm-6">
                                                         <div class="form-group">
-                                                            <label class="control-label">Tipo de usuario</label>
+                                                            <label class="control-label">User Type</label>
                                                             <select name="typeUser[]" id="typeUser" class="form-control typeUser" required>
-                                                                <option value="6">Doctor/Doctora</option>
-                                                                <option value="3">Asistente</option>
+                                                                <option value="6">Doctor</option>                                                                
                                                             </select>
                                                         </div>
                                                     </div>
@@ -552,7 +546,7 @@
                                                             <label class="control-label">&nbsp;<br><label>
                                                             <div class="checkbox">
                                                                 <label>
-                                                                    <input type="checkbox" name="publicityWeb[]" checked="checked" class="publicityWeb"> Publicitarlo en web
+                                                                    <input type="checkbox" name="publicityWeb[]" checked="checked" class="publicityWeb"> Public Profile in Website
                                                                 </label>
                                                             </div>
                                                         </div>
@@ -574,15 +568,15 @@
                                     </div>
                                 </div>
                                 <hr>
-                                {# <p><a href="#" class='addsection btn bg-teal-400 btn-labele btn-sm'><b><i class="fa fa-plus-circle"></i></b> Agregar usuario</a></p> #}
-                                <p><span class='addsection btn bg-teal-400 btn-labele btn-sm'><b><i class="fa fa-plus-circle"></i></b> Agregar usuario</span></p>
+                                {# <p><a href="#" class='addsection btn bg-teal-400 btn-labele btn-sm'><b><i class="fa fa-plus-circle"></i></b> Add User</a></p> #}
+                                <p><span class='addsection btn bg-teal-400 btn-labele btn-sm'><b><i class="fa fa-plus-circle"></i></b> Add User</span></p>
                             </div>
 
                         </div>
 
 
                     </fieldset>
-                    <h6>Formas de pago</h6>
+                    <h6>Payment Methods</h6>
                     <fieldset>
                         <div class="row"> 
                             <div class="col-lg-1 col-md-3 col-sm-3 col-xs-12">
@@ -605,9 +599,9 @@
                                         <div id="pay_1" class="div_pay">
                                             <div class="panel panel-info"> 
                                                 <div class="panel-heading"> 
-                                                    <h6 class="panel-title">Efectivo</h6> 
+                                                    <h6 class="panel-title">Cash</h6> 
                                                 </div> 
-                                                <div class="panel-body"> Descripción del efectivo </div> 
+                                                <div class="panel-body"> Cash Description </div> 
                                             </div>
                                         </div>
                                     {% endif %}
@@ -615,19 +609,19 @@
                                         <div id="pay_2" class="div_pay">
                                             <div class="panel panel-info"> 
                                                 <div class="panel-heading"> 
-                                                    <h6 class="panel-title">Tarjeta de crédito</h6> 
+                                                    <h6 class="panel-title">Credit Card</h6> 
                                                 </div> 
                                                 <div class="panel-body"> 
 
                                                     <div class="row">
                                                         <div class="col-lg-6">
                                                             <div class="form-group">
-                                                                <label for="cc-number" class="control-label">Número de tarjeta <small class="text-muted">[<span class="cc-brand"></span>]</small></label>
+                                                                <label for="cc-number" class="control-label">Card Number <small class="text-muted">[<span class="cc-brand"></span>]</small></label>
                                                                 <input id="cc-number" type="tel" class="input-lg form-control cc-number" autocomplete="cc-number" placeholder="•••• •••• •••• ••••" required>
                                                             </div>
 
                                                             <div class="form-group">
-                                                                <label for="cc-exp" class="control-label">Fecha de expiración</label>
+                                                                <label for="cc-exp" class="control-label">Expiration date</label>
                                                                 <input id="cc-exp" type="tel" class="input-lg form-control cc-exp" autocomplete="cc-exp" placeholder="MM / YY" required>
                                                             </div>
 
@@ -641,14 +635,14 @@
                                                                 <input id="numeric" type="tel" class="input-lg form-control" data-numeric>
                                                             </div>
                                                             -->
-                                                            <button id="btn-check-credit-card" class="btn btn-lg btn-primary"><i class="fa fa-credit-card-alt" aria-hidden="true"></i> Validar</button>
+                                                            <button id="btn-check-credit-card" class="btn btn-lg btn-primary"><i class="fa fa-credit-card-alt" aria-hidden="true"></i> Validate</button>
 
                                                             <h2 class="validation"></h2>
                                                         </div>
                                                         <div class="col-lg-6">
 
                                                             <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">
-                                                                <i class="fa fa-credit-card-alt" aria-hidden="true"></i> Tarjetas soportadas:
+                                                                <i class="fa fa-credit-card-alt" aria-hidden="true"></i> Valid Cards:
                                                             </div>
                                                             <ul class="list-unstyled">
                                                                 <li>Visa</li>
@@ -668,6 +662,7 @@
                                             </div>
                                         </div>
                                     {% endif %}
+                                    <!--
                                     {% if method.mepId == 3 %}
                                         <div id="pay_3" class="div_pay">
                                             <div class="panel panel-info"> 
@@ -691,13 +686,14 @@
                                             </div>
                                         </div>
                                     {% endif %}
+                                    -->
                                     {% if method.mepId == 5 %}
                                         <div id="pay_5" class="div_pay">
                                             <div class="panel panel-info"> 
                                                 <div class="panel-heading"> 
                                                     <h6 class="panel-title">PAYPAL</h6> 
                                                 </div> 
-                                                <div class="panel-body"> Descripción de paypal </div> 
+                                                <div class="panel-body"> Paypal Description </div> 
                                             </div>
                                         </div>
                                     {% endif %}
@@ -719,7 +715,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="gridSystemModalLabel">Mapa para ubicar el establecimiento</h4>
+                    <h4 class="modal-title" id="gridSystemModalLabel">Location Map</h4>
                 </div>
                 <div class="modal-body">
                     <form>
@@ -745,7 +741,7 @@
                         <hr>
                         <fieldset>
                           <div style="display:none">  
-                            <label>Latitude</label>
+                            <label>Latitud</label>
                             <input name="lat" type="text" value="">
 
                             <label>Longitude</label>
@@ -760,11 +756,11 @@
                 <div class="modal-footer">
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6">
-                            {# <div class="text-left"><button class="btn btn-primary" id="find_btn">Encontrar mi ubicación</button></div> #}
+                            {# <div class="text-left"><button class="btn btn-primary" id="find_btn">Find my location</button></div> #}
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6">
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Cerrar</button>
-                            <button type="button" class="btn btn-success" id="btn-set-location" data-dismiss="modal"><i class="fa fa-map-marker" aria-hidden="true"></i> Ubicar establecimiento</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
+                            <button type="button" class="btn btn-success" id="btn-set-location" data-dismiss="modal"><i class="fa fa-map-marker" aria-hidden="true"></i> Search Local</button>
                         </div>
                     </div>
                     
