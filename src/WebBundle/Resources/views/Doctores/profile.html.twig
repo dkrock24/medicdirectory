@@ -6,9 +6,9 @@
     <div class="breadcrumb">
         <div class="container">
             <ul class="list-unstyled list-inline">
-                <li><a href="{{ url('web_homepage') }}">Inicio</a></li>
-                <li><a href="{{ url('web_homepage') }}">Doctores</a></li>
-                <li class="active">Perfil</li>
+                <li><a href="{{ url('web_homepage') }}">Home</a></li>
+                <li><a href="{{ url('web_homepage') }}">Doctors</a></li>
+                <li class="active">Profiles</li>
             </ul>
         </div>
     </div>		
@@ -99,12 +99,12 @@
                             <div class="col-lg-12 col-xs-12">
                                 <a href="{{ path( "web_homepage") }}" class="btn btn-secondary text-uppercase">
                                     <i class="fa fa-arrow-circle-left"></i>
-                                    Regresar
+                                    Go Back
                                 </a>
                                 
                                 <a href="#" class="btn btn-secondary text-uppercase" id="solicitar_cita">
                                     <i class="fa fa-envelope" aria-hidden="true"></i>
-                                    Solicitar Cita
+                                    Get an apoiment
                                 </a>
                             </div>
                         </div>
@@ -116,7 +116,7 @@
                         <div class="row">
                             <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">
                                 <button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
-                                <h6 class="alert-heading text-semibold">Ingresa la información solicitada y en breve te contactaremos, para brindarte la ayuda que necesitas. <h6>
+                                <h6 class="alert-heading text-semibold">Enter your information and you will be contactive soom to solve any concern. <h6>
                                 <span class="clinica_mensaje"><p>Att:  {{ medico.usuario.cliUsuCli.cliNombreComercial}}</p></span>
                             </div>
                         </div>
@@ -125,7 +125,7 @@
                             <div class="col-sm-12 col-xs-12">
                             <div class="input-group">
                                 <span class="input-group-addon" id="basic-addon1"><i class="fa fa-user"></i></span>
-                                <input type="text" class="form-control" id="nombre_1" required="true" placeholder="Nombre Completo" aria-describedby="basic-addon1">
+                                <input type="text" class="form-control" id="nombre_1" required="true" placeholder="Full Name" aria-describedby="basic-addon1">
                             </div>
                             </div>
                         </div>
@@ -135,7 +135,7 @@
                             <div class="col-sm-12 col-xs-12">
                             <div class="input-group">
                                 <span class="input-group-addon" id="basic-addon1"><i class="fa fa-phone"></i></span>
-                                <input type="text" pattern="[2-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]" class="form-control" id="telefono_1" required="true" placeholder="Telefono" aria-describedby="basic-addon1">
+                                <input type="text" class="form-control" id="telefono_1" required="true" placeholder="phone" aria-describedby="basic-addon1">
                             </div>
                             </div>
                         </div>
@@ -145,7 +145,7 @@
                             <div class="col-sm-12 col-xs-12">
                             <div class="input-group">
                                 <span class="input-group-addon" id="basic-addon1"><i class="fa fa-envelope"></i></span>
-                                <input type="email" class="form-control" id="correo_1" required="true" placeholder="Correo" aria-describedby="basic-addon1">
+                                <input type="email" class="form-control" id="correo_1" required="true" placeholder="Email Address" aria-describedby="basic-addon1">
                             </div>
                             </div>
                         </div>
@@ -177,7 +177,7 @@
                         <div class="panel-footer text-center-md text-center-sm text-center-xs">
                             <div class="input-group">
                                 <span class="input-group-addon"> <i class="fa fa-user-md"></i></span>                                   
-                                <input type="submit" name="enviar" value="Enviar" class="btn btn-secondary col-sm-12 col-xs-12"/>
+                                <input type="submit" name="Send" value="Send" class="btn btn-secondary col-sm-12 col-xs-12"/>
                             </div>                            
                         </div>
                     </form>
@@ -209,14 +209,14 @@
                         <span class="nombre_clinica">{{ medico.usuario.cliUsuCli.cliNombreComercial}} </span>
                     </h6>
                     <h6>
-                        <p><b>Dirección:</b></p>
+                        <p><b>Address:</b></p>
                         {{ medico.usuario.cliUsuCli.cliDireccion}}.<br />
                         {{ medico.usuario.cliUsuCli.cliMun.munNombre}}, {{ medico.usuario.cliUsuCli.cliMun.munDep.depDepartamento}}
                                     
                     </h6>
                     <ul class="list-unstyled list-inline post-meta">
                         <li>
-                            <i class="fa fa-eye"></i>Visitas {{ medico.vistas }}
+                            <i class="fa fa-eye"></i>Views {{ medico.vistas }}
                         </li>
                         <li>
                             <i class="fa fa-envelope"></i> <a href="mailto:{{ medico.usuario.cliUsuCorreo }}">{{ medico.usuario.cliUsuCorreo }}</a>
@@ -236,7 +236,7 @@
                         <tbody>
                             <tr>
                                 <td colspan="2">
-                                    <b>Días laborales: </b><br><br>
+                                    <b>Bussiness Day: </b><br><br>
 
                                     {% if horario|length %}
 
@@ -268,7 +268,7 @@
 
                             <tr>
                                 <td>
-                                    <b>Especialidades: </b>
+                                    <b>Specialties: </b>
 
                                     {% for e in medico.especialidad %}
                                             <i class="fa fa-check"></i><b> {{e.idEspecialidad.espEspecialidad }} {% if (e.descripcion|length > 0)  %}:{% endif %}</b> {{e.descripcion }}
@@ -288,14 +288,14 @@
 
             <div class="row">
                 <article class="news-post inner">
-                    <p><b>Información:</b></p>
+                    <p><b>Information:</b></p>
                     {{ medico.usuario.cliUsuInfoPerfil|raw }}
                 </article>
             </div>
 
         <div class="row">
 
-            <p><b>Ubicación:</b></p>
+            <p><b>Location:</b></p>
             <input type="hidden" value="{{ medico.usuario.cliUsuCli.cliUbicacionLat }}" id="lon"/>
             <input type="hidden" value="{{ medico.usuario.cliUsuCli.cliUbicacionLon }}" id="lat"/>
             <div id="map_canvas" style="width: 100%; height:300px;"></div>

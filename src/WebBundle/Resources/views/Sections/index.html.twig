@@ -38,7 +38,7 @@
     {% set row_limit = med_length / 4 %}
     <ul id="doctors-grid" class="row grid">
     {% if (medicos|length == 0) %}
-        <span>No se encontraron coincidencias</span>
+        <span>Not Data Was Found</span>
     {% endif %}
     {% for m in medicos %}
 
@@ -117,7 +117,7 @@
 
                     </p>
                 </div>							
-               <a href="{{ link_perfil }}" class="btn btn-secondary text-uppercase">Ver Perfil</a>
+               <a href="{{ link_perfil }}" class="btn btn-secondary text-uppercase">View Profile</a>
                 <!-- /doctores -->
                 </a>
             </div>

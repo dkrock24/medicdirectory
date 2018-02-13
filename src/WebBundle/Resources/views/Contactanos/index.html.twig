@@ -5,8 +5,8 @@
     <div class="breadcrumb">
         <div class="container">
             <ul class="list-unstyled list-inline">
-                <li><a href=" {{ path('web_homepage') }}">Inicio</a></li>
-                <li class="active">Contactanos</li>
+                <li><a href=" {{ path('web_homepage') }}">Home</a></li>
+                <li class="active">Contact Us</li>
             </ul>
         </div>
     </div>      
@@ -47,13 +47,13 @@
         <br>
             <div class="input-group">
                 <span class="input-group-addon" id="basic-addon1"><i class="fa fa-user"></i></span>
-                <input type="text" class="form-control" id="nombre_contacto" required="true" placeholder="Nombre Completo" aria-describedby="basic-addon1">
+                <input type="text" class="form-control" id="nombre_contacto" required="true" placeholder="Full Name" aria-describedby="basic-addon1">
             </div>
 
             <br>
             <div class="input-group">
                 <span class="input-group-addon" id="basic-addon1"><i class="fa fa-envelope"></i></span>
-                <input type="email" class="form-control" id="email_contacto" required="true" placeholder="Correo Electronico" aria-describedby="basic-addon1">
+                <input type="email" class="form-control" id="email_contacto" required="true" placeholder="Email Address" aria-describedby="basic-addon1">
             </div>
 
             <br>
@@ -61,15 +61,15 @@
                 <span class="input-group-addon" id="basic-addon1"><i class="fa fa-chevron-down"></i></span>
                 <select class="form-control" id="tipo_contacto" name="tipo_contacto">
                     <option selected value="general">
-                        Selecione Tema en Relación a su Pregunta:
+                        Select the Topic:
                     </option>
     
                     <option value="precios">
-                        Precios
+                        Pricing
                     </option>
     
                     <option value="servicios">
-                        Servicios
+                        Services
                     </option>
     
                     <option value="legal">
@@ -77,7 +77,7 @@
                     </option>
 
                     <option value="otras">
-                        Otras
+                        Others
                     </option>
 
                 </select>
@@ -87,11 +87,11 @@
 
         <div class="col-sm-6 col-xs-6">
             <div class="span5">
-                <label>Mensaje</label> 
+                <label>Description Message</label> 
                 <textarea class="form-control" id="message" name="message" rows="7"></textarea>
             </div>            
             
-            <input type="submit" name="enviar" value="Enviar Consulta" class="btn btn-secondary col-sm-12 col-xs-12"/>
+            <input type="submit" name="Send" value="Send" class="btn btn-secondary col-sm-12 col-xs-12"/>
         </div>
     </div>
 </form>
@@ -130,7 +130,7 @@
                         //$(".cita_form").fadeOut();
                         $(':input[type="submit"]').prop('disabled', true);
                         $("#msj").show();
-                        $("#msj").text("Gracias por contactárnos. Mensaje enviado... En Breve te responderemos.");
+                        $("#msj").text("Thank you for contacting us");
                         
                         setTimeout(function() {
                             $('#msj').hide();
@@ -151,7 +151,7 @@
             }   
             else
             {
-                alert("Campos Vacios");
+                alert("Empy Fields");
             }
 
         }
