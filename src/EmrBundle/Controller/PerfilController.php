@@ -79,7 +79,7 @@ class PerfilController extends Controller
 		$oClientUser = $em->getRepository('AppBundle:ClienteUsuario')->findBy( array( "cliUsuUsu"=> $userId, "cliUsuCli"=>$locationId, "cliUsuActivo"=>1,"cliUsuRol"=>array(3,6) ) ); //6=medico
 		if( !$oClientUser )
 		{
-			$msg = "Para editar tú perfil antes debes de inicar la administración de un establecimiento";
+			$msg = "To edit your profile before you must start the administration of an establishment";
 			$this->session->getFlashBag()->add("error", $msg);
 			return $this->redirectToRoute('emr_location');
 		}
@@ -99,7 +99,7 @@ class PerfilController extends Controller
 		
 		if( count($oUser) == 0 )
 		{
-			throw new AccessDeniedException('Lo sentimos tu no tienes rol de médico y/o asistente o tu cuenta ya no esta activa.');
+			throw new AccessDeniedException('We are sorry. You do not have admin role or you account do not is active.');
 		}
 		
 		//var_dump($oUser);

@@ -43,9 +43,9 @@
                 <a href="{{ path('emr_dashboard') }}"> 
                     <i class="icon-arrow-left52 position-left"></i>
                     <span class="text-semibold">Dashboard</span>
-                </a> - Medic profile
+                </a> - Profile Medic
 
-                <small class="display-block">Add medic information</small>
+                <small class="display-block">Add profile information</small>
             </h4>
 
         </div>
@@ -77,7 +77,7 @@
 
 
                     <div class="panel-body">
-                        
+                            <!--
                             Para publicar el perfil médico debe de cumplir los siguientes requisitos:
                             <ul>
                                 <li>
@@ -86,13 +86,14 @@
                                 <li>Debe de cargar una foto de perfil y esta foto debe ser <strong>aprobada</strong> por el personal de staff de medicos.sv y puede tardar un máximo de <strong>48 horas</strong></li>
                             </ul>
                             <br>
+                            -->
                         <div class="form_error"></div>
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs nav-tabs-highlight " role="tablist">
-                            <li role="presentation" class="active"><a href="#personal_date" aria-controls="home" role="tab" data-toggle="tab"><i class="fa fa-list-alt"></i> Información personales</a></li>
-                            <li role="presentation"><a href="#address" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-address-book-o" aria-hidden="true"></i> Contácto</a></li>
+                            <li role="presentation" class="active"><a href="#personal_date" aria-controls="home" role="tab" data-toggle="tab"><i class="fa fa-list-alt"></i> Personal Information</a></li>
+                            <li role="presentation"><a href="#address" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-address-book-o" aria-hidden="true"></i> Contact Information</a></li>
                                 {% if roles.6 is defined %} {# 2 = Rol Medico #}
-                                <li role="presentation"><a href="#picture" aria-controls="settings" role="tab" data-toggle="tab"><i class="fa fa-file-image-o"></i> Fotografía</a></li>
+                                <li role="presentation"><a href="#picture" aria-controls="settings" role="tab" data-toggle="tab"><i class="fa fa-file-image-o"></i> Photography</a></li>
                                 {% endif %}
                         </ul>
                         <!-- Tab panes -->
@@ -102,36 +103,36 @@
                                     <div class="row">
                                         <div class="col-lg-6">
                                             {# {{ dump(user)}} #}
-                                            <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">Datos personales</div>
+                                            <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">Personal Information</div>
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <div class="form_error"></div>
-                                                        <label for="" class=" control-label">Primer Nombre:</label>
+                                                        <label for="" class=" control-label">First Name:</label>
                                                         <div class=""><input type="text" class="form-control" value="{{ user[0].usu_nombre }}" id="nameone"></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">    
                                                     <div class="form-group">
                                                         <div class="form_error"></div>
-                                                        <label for="" class=" control-label">Segundo Nombre:</label>
+                                                        <label for="" class=" control-label">Second Name:</label>
                                                         <div class=""><input type="text" class="form-control" value="{{ user[0].usu_segundo_nombre }}" id="nametwo"></div>
                                                     </div>
                                                 </div>
-
+                                                <!--
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <div class="form_error"></div>
                                                         <label for="" class=" control-label">Tercer Nombre:</label>
                                                         <div class=""><input type="text" class="form-control" value="{{ user[0].usu_tercer_nombre }}" id="namethree"></div>
                                                     </div>
-                                                </div>    
+                                                </div>   --> 
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <div class="form_error"></div>
-                                                        <label for="" class=" control-label">Primer Apellido:</label>
+                                                        <label for="" class=" control-label">Last Name:</label>
                                                         <div class=""><input type="text" class="form-control" value="{{ user[0].usu_primer_apellido }}" id="lastenameone"></div>
                                                     </div>
                                                 </div>
@@ -139,14 +140,14 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <div class="form_error"></div>
-                                                        <label for="" class="control-label">Segundo Apellido:</label>
+                                                        <label for="" class="control-label">Second Surname:</label>
                                                         <div class=""><input type="text" class="form-control" value="{{ user[0].usu_segundo_apellido }}" id="lastnametwo"></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <div class="form_error"></div>
-                                                        <label for="" class="control-label">Fecha de Nacimiento:</label>
+                                                        <label for="" class="control-label">Birth Day:</label>
                                                         <div class=""><input type="text" class="form-control" value="{{ user[0].cli_usu_fecha_nacimiento }}" id="birth_date" readonly="readonly"></div>
                                                     </div>
                                                 </div>    
@@ -158,13 +159,15 @@
                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                             <div class="form_error"></div>
-                                                            <label for="" class=" control-label">Título:</label>
+                                                            <label for="" class=" control-label">Titles:</label>
                                                             <div class="">
                                                                 <select id="title" class="select">
                                                                     <option value="Dr.">Dr.</option>
+                                                                    <!--
                                                                     <option value="Dra.">Dra.</option>
                                                                     <option value="Lcdo.">Lcdo.</option>
                                                                     <option value="Lcda.">Lcda.</option>
+                                                                -->
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -179,7 +182,7 @@
 
                                                 </div>
                                                 {# Schedule #}        
-                                                <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">Mi Horario</div>
+                                                <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">My Schedule</div>
                                                 <div id="scheduleWeekly"></div>        
                                             {% endif %}
                                         </div>
@@ -187,12 +190,12 @@
                                         {% if roles.6 is defined %}   
                                             <div class="col-lg-6">
 
-                                                <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">Experiencia Médica</div>
+                                                <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">Medic Specialty</div>
 
                                                 <div class="panel panel-body border-top-primary ">
                                                     <div class="form-group">
                                                         <div class="form_error"></div>
-                                                        <label for="" class=" control-label">Mis especialidades:</label>
+                                                        <label for="" class=" control-label">My specialty:</label>
                                                         <div class="">
                                                             <select id="specialitiesList" class="select" multiple>
                                                                 {% for speciality in specialities %}
@@ -212,7 +215,7 @@
 
                                                 <div class="panel panel-body border-top-primaryx">
                                                     <div class="form-group">
-                                                        <label for="" class=" control-label">Estudios/Experiencia Laboral/Cargos/Congreso/Etc</label>
+                                                        <label for="" class=" control-label">Studies / Work experience / Roles / Congresses / others</label>
                                                         <div class="">
                                                             <textarea cols="18" rows="18" id="profile_info" class="wysihtml5 wysihtml5-default form-control" placeholder="Describa su perfil..." style="height: 500px">
                                                                 {{ user[0].cli_usu_info_perfil }}
@@ -245,7 +248,7 @@
                                                                 <div class="col-lg-12">
                                                                     <div class="form-group">
                                                                         <div class="form_error"></div>
-                                                                        <label for="" class=" control-label">Dirección:</label>
+                                                                        <label for="" class=" control-label">Address:</label>
                                                                         <div class=""><input type="text" class="form-control" id="addressUser" value="{{ user[0].cli_usu_direccion }}"></div>
                                                                     </div>
                                                                 </div> 
@@ -255,14 +258,14 @@
                                                                     <div class="col-lg-6">
                                                                         <div class="form-group">
                                                                             <div class="form_error"></div>
-                                                                            <label for="" class=" control-label">Teléfono Establecimiento:</label>
+                                                                            <label for="" class=" control-label">Establishe Phone:</label>
                                                                             <div class=""><input type="text" class="form-control" id="phone" value="{{ user[0].cli_usu_telefono }}"></div>
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-lg-6">
                                                                         <div class="form-group">
                                                                             <div class="form_error"></div>
-                                                                            <label for="" class=" control-label">Correo electrónico:</label>
+                                                                            <label for="" class=" control-label">Email Address:</label>
                                                                             <div class=""><input type="text" class="form-control" id="email" value="{{ user[0].cli_usu_correo }}"></div>
                                                                         </div>
                                                                     </div>
@@ -287,13 +290,13 @@
                                         </div>
                                         {% if roles.6 is defined %}    
                                             <div class="col-md-4">
-                                                <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">Redes Sociales</div>
+                                                <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">Social Networks</div>
                                                 <div class="row">
                                                     <div class="col-lg-12">
                                                         <div class="panel panel-body border-top-primary ">
                                                             <div class="form-horizontal">
                                                                 <div class="form-group">
-                                                                    <label for="inputEmail3" class="col-sm-2 control-label">Sitio web:</label>
+                                                                    <label for="inputEmail3" class="col-sm-2 control-label">WebSites:</label>
                                                                     <div class="col-sm-10">
 
                                                                         <select class="form-control" id="social-network-list" class="select">
@@ -311,7 +314,7 @@
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <div class="col-sm-offset-2 col-sm-10 ">
-                                                                        <span  class="btn btn-default" id="btn-add-social-network">Agregar</span>
+                                                                        <span  class="btn btn-default" id="btn-add-social-network">Add</span>
                                                                     </div>
                                                                 </div>
                                                                 <div id="socialList">
@@ -319,7 +322,7 @@
                                                                         <table class="table table-striped" id="table-social-network">
                                                                             <thead>
                                                                                 <tr>
-                                                                                    <th>Tipo</th>
+                                                                                    <th>Type</th>
                                                                                     <th>Url</th>
                                                                                     <th></th>
                                                                                 </tr>
@@ -349,7 +352,7 @@
                                             </div> 
                                         {% endif %}
                                         <div class="col-md-4">
-                                            <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">Cambio de contraseña</div>
+                                            <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">Change Password</div>
                                             <div class="panel panel-body border-top-primary ">
                                                 <div class="form-horizontal">
 
@@ -357,10 +360,10 @@
 
                                                         <div class="col-sm-12">
                                                             <label class="radio-inline">
-                                                                Cambiar Contraseña?
+                                                                Change Password?
                                                             </label>
                                                             <label class="radio-inline">
-                                                                <input type="radio" name="radioPassword" id="" class="radioPassword" value="yes"> Si
+                                                                <input type="radio" name="radioPassword" id="" class="radioPassword" value="yes"> Yes
                                                             </label>
                                                             <label class="radio-inline">
                                                                 <input type="radio" name="radioPassword" id="" class="radioPassword" value="no" checked="checked"> No
@@ -369,13 +372,13 @@
                                                     </div>
                                                     <div id="change-password">
                                                         <div class="form-group">
-                                                            <label for="inputPassword3" class="col-sm-2 control-label">Contraseña</label>
+                                                            <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
                                                             <div class="col-sm-10">
                                                                 <input type="text" class="form-control" placeholder="Contraseña" id="password">
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="inputPassword3" class="col-sm-2 control-label">Repita Contraseña</label>
+                                                            <label for="inputPassword3" class="col-sm-2 control-label">Repit Password</label>
                                                             <div class="col-sm-10">
                                                                 <input type="text" class="form-control" placeholder="Repita Contraseña" id="repeat_password">
                                                             </div>
@@ -398,13 +401,13 @@
                                                 <!-- Nav tabs -->
                                                 <ul class="nav nav-tabs" role="tablistUpload">
                                                     <li role="presentation" class="active"><a href="#pc" aria-controls="pc" role="tab" data-toggle="tab"><i class='fa fa-upload'></i> PC</a></li>
-                                                        {# <li role="presentation"><a href="#webcam" aria-controls="webcam" role="tab" data-toggle="tab"><i class='fa fa-camera'></i> Carama web</a></li> #}
+                                                        {# <li role="presentation"><a href="#webcam" aria-controls="webcam" role="tab" data-toggle="tab"><i class='fa fa-camera'></i> Camera web</a></li> #}
                                                 </ul>
                                                 <!-- Tab panes -->
                                                 <div class="tab-content">
                                                     <div role="tabpanel" class="tab-pane active" id="pc">
                                                         <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">
-                                                            Seleccione una opción:  &nbsp; &nbsp;
+                                                            Select Option:  &nbsp; &nbsp;
                                                             {% for type in imageType %}
                                                                 <label class="radio-inline">
                                                                     <input type="radio" name="radioTypeImage" id="" value="{{ type.usuGalTipId }}" class="docs-toggles" > {{ type.usuGalTipNombre }}
@@ -436,12 +439,12 @@
                                 <li>
                                     <button type="button" class="btn btn-primary btn-sm" id="btn-save-form">
                                         <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="">
-                                            Enviar datos
+                                            Save Information
                                         </span>
                                     </button>
                                 </li>
                                 <li>
-                                    <a href="" class="btn btn-info btn-sm"><i class="fa fa-list"></i> Ver como me ven</a>
+                                    <a href="" class="btn btn-info btn-sm"><i class="fa fa-list"></i> See how they see me</a>
                                 </li>
                             </ul>
                         </div>
@@ -755,12 +758,12 @@
 							$.confirm({
 								icon: 'fa fa-remove',
 								title: 'Error!',
-								content: 'Ha ocurrido un error al tratar de enviar la petición',
+								content: 'An error occurred while trying to send the request',
 								type: 'red',
 								typeAnimated: true,
 								buttons: {
 									tryAgain: {
-										text: 'Intentar de nuevo',
+										text: 'Try Again',
 										btnClass: 'btn-red',
 										action: function () {
 											getLocationsAjax(id);
@@ -802,7 +805,7 @@
 								$.alert({
 									icon: 'glyphicon glyphicon-exclamation-sign',
 									title: 'Info!',
-									content: 'No hay información asociada al pais seleccionado <br>' + infoError,
+									content: 'No information associated with the selected country <br>' + infoError,
 									type: 'red',
 									typeAnimated: true,
 								});
@@ -833,7 +836,7 @@
 						$.alert({
 							icon: 'glyphicon glyphicon-exclamation-sign',
 							title: 'Info!',
-							content: 'Las contraseñas no son iguales',
+							content: 'The passwords are not the same',
 							type: 'blue',
 							typeAnimated: true,
 						});
@@ -965,12 +968,12 @@
 							$.confirm({
 								icon: 'fa fa-remove',
 								title: 'Error!',
-								content: 'Ha ocurrido un error al tratar de enviar la petición',
+								content: 'An error occurred while trying to send the request',
 								type: 'red',
 								typeAnimated: true,
 								buttons: {
 									tryAgain: {
-										text: 'Intentar de nuevo',
+										text: 'Try Again',
 										btnClass: 'btn-red',
 										action: function () {
 											saveFormAjax();
@@ -1012,7 +1015,7 @@
 								$.alert({
 									icon: 'glyphicon glyphicon-exclamation-sign',
 									title: 'Info!',
-									content: 'Ocurrio un error al intentar guardar la información <br>' + infoError,
+									content: 'An error occurred while trying to send the request <br>' + infoError,
 									type: 'blue',
 									typeAnimated: true,
 								});
@@ -1033,7 +1036,7 @@
 						$.alert({
 							icon: 'glyphicon glyphicon-exclamation-sign',
 							title: 'Info!',
-							content: 'El campo de la búsqueda no puede estar vacio',
+							content: 'The field not should be empy',
 							type: 'blue',
 							typeAnimated: true,
 						});
@@ -1049,12 +1052,12 @@
 							$.confirm({
 								icon: 'fa fa-remove',
 								title: 'Error!',
-								content: 'Ha ocurrido un error al tratar de enviar la petición',
+								content: 'An error occurred while trying to send the requestn',
 								type: 'red',
 								typeAnimated: true,
 								buttons: {
 									tryAgain: {
-										text: 'Intentar de nuevo',
+										text: 'Try Again',
 										btnClass: 'btn-red',
 										action: function () {
 											searchPatients();
@@ -1071,7 +1074,7 @@
 							if (data.length > 0)
 							{
 								//var table = "<table class='table table-striped' id='table_result_patients'><head><tr><td>Nombre</td><td>DUI</td><td></td></tr></thead><tbody>";
-								var table = "<table class='table table-striped' id='table_result_patients'><thead><tr><th>Nombre</th><th>DUI</th><th></th></tr></thead><tbody>";
+								var table = "<table class='table table-striped' id='table_result_patients'><thead><tr><th>Names</th><th>ID</th><th></th></tr></thead><tbody>";
 								for (i = 0; i < data.length; i++)
 								{
 									var routeEdit = "{{ path('paciente_edit', { 'id': "PLACEHOLDER" }) }}";
@@ -1129,7 +1132,7 @@
 					});
 				}
 
-				$.datepicker.regional['es'] = {
+				$.datepicker.regional['en'] = {
 					closeText: 'Cerrar',
 					prevText: '< Ant',
 					nextText: 'Sig >',
