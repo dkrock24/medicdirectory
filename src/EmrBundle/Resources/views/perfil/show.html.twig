@@ -1,7 +1,7 @@
 {% extends "Layout/base_emr/_clients_base.html.twig" %}
 
 {% block title_page %}
-    Medic Profile
+    Doctors' || Directory
 {% endblock %}
 
 {% block breadcrumb %}
@@ -159,7 +159,7 @@
                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                             <div class="form_error"></div>
-                                                            <label for="" class=" control-label">Titles:</label>
+                                                            <label for="" class=" control-label">Degree:</label>
                                                             <div class="">
                                                                 <select id="title" class="select">
                                                                     <option value="Dr.">Dr.</option>
@@ -239,7 +239,7 @@
                                 <fieldset>
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">Información de contacto</div>
+                                            <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">Contact Information</div>
                                             {% if roles.6 is defined %}   
                                                 <div class="row">
                                                     <div class="col-lg-12">
@@ -258,7 +258,7 @@
                                                                     <div class="col-lg-6">
                                                                         <div class="form-group">
                                                                             <div class="form_error"></div>
-                                                                            <label for="" class=" control-label">Establishe Phone:</label>
+                                                                            <label for="" class=" control-label">Institution Phone:</label>
                                                                             <div class=""><input type="text" class="form-control" id="phone" value="{{ user[0].cli_usu_telefono }}"></div>
                                                                         </div>
                                                                     </div>
@@ -374,13 +374,13 @@
                                                         <div class="form-group">
                                                             <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
                                                             <div class="col-sm-10">
-                                                                <input type="text" class="form-control" placeholder="Contraseña" id="password">
+                                                                <input type="text" class="form-control" placeholder="Password" id="password">
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="inputPassword3" class="col-sm-2 control-label">Repit Password</label>
+                                                            <label for="inputPassword3" class="col-sm-2 control-label">Repeat Password</label>
                                                             <div class="col-sm-10">
-                                                                <input type="text" class="form-control" placeholder="Repita Contraseña" id="repeat_password">
+                                                                <input type="text" class="form-control" placeholder="Repeat Password" id="repeat_password">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -723,7 +723,7 @@
 								$image.cropper('destroy').attr('src', uploadedImageURL).cropper(options);
 								$inputImage.val('');
 							} else {
-								window.alert('Porfavor seleccione una imagen.');
+								window.alert('Please, select a picture.');
 							}
 						}
 					});
@@ -1105,7 +1105,7 @@
 
 							} else
 							{
-								table = "<br><div class='alert alert-danger'><i class='glyphicon glyphicon-exclamation-sign'></i> No se han encontrado regístros</div>";
+								table = "<br><div class='alert alert-danger'><i class='glyphicon glyphicon-exclamation-sign'></i> No record found </div>";
 							}
 							$("#result_search_patients").html(table);
 							if ($("body").find("#table_result_patients").size() == 1)
@@ -1133,10 +1133,10 @@
 				}
 
 				$.datepicker.regional['en'] = {
-					closeText: 'Cerrar',
-					prevText: '< Ant',
-					nextText: 'Sig >',
-					currentText: 'Hoy',
+					closeText: 'Close',
+					prevText: '< Prev',
+					nextText: 'Next >',
+					currentText: 'Today',
 					monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
 					monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
 					dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
