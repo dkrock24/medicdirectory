@@ -1,7 +1,7 @@
 {% extends "Layout/base_emr/_clients_base.location.html.twig" %}
 
 {% block title_page %}
-        Directory || List of doctors in institutions
+        Doctors' || List of doctors in this institutions
 {% endblock %}
 {#
 {% block breadcrumb %}
@@ -36,7 +36,7 @@
                             <i class="fa fa-info-circle position-left"></i>
                             <span class="text-semibold">Institution</span>
                         </a>
-                        - List of doctors in institutions: 
+                        - List of doctors in this institutions: 
 
                         <small class="display-block">You must have a profile photo, otherwise your profile won't be posted.!</small></h4>
                     <a class="heading-elements-toggle"><i class="icon-more"></i></a><a class="heading-elements-toggle"><i class="icon-more"></i></a></div>
@@ -86,7 +86,7 @@
                                 <div class="caption">
                                     {#<p>Username: {{ reg.usu_usuario }}</p> #}
                                     <p>
-                                        Name: {{ reg.nombre }} 
+                                        Name : {{ reg.nombre }} 
                                     </p>
                                     <a href="{{ path('web_doctores_perfil',{ 'med_id': reg.id } ) }}">
                                     <p class="alert alert-info">
