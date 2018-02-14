@@ -77,9 +77,8 @@
                                                 <li class="dropdown ">
                                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><i class="icon-menu7"></i> <span class="caret"></span></a>
                                                     <ul class="dropdown-menu dropdown-menu-right">
-                                                        <li><a href="{{ path('cliente_edit', { 'id': reg.clientId } ) }}"><i class="icon-sync"></i> Update Information</a></li>
-                                                        <!--
-                                                        <li><a href="{{ path('modulo_index',{'id': reg.clientId }) }}"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Add Module</a></li>-->
+                                                        <li><a href="{{ path('cliente_edit', { 'id': reg.clientId } ) }}"><i class="icon-sync"></i> Update Information</a></li>                                                        
+                                                        <li><a href="{{ path('modulo_index',{'id': reg.clientId }) }}"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Add Module</a></li>
                                                         <li><a href="{{ path('emr_location_has_doctors',{'id': reg.clientId } ) }}"><i class="icon-list-unordered"></i> Profiles Medic</a></li>
                                                         {#<li><a href="#"><i class="icon-pie5"></i> Estadistic</a></li> #}
                                                         <li class="divider"></li>

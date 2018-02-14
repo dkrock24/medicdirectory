@@ -37,12 +37,12 @@
                             <div class="text-center">
                                 {# <div class="icon-object border-slate-300 text-slate-300"><i class="icon-reading"></i></div> #}
                                 <img src="{{ asset('bundles/admin/img/logo.png') }}" class="img-circle" style="max-width:110px;" alt="">
-                                <h5 class="content-group">Sign in to access your account <small class="display-block">Enter your credentials</small></h5>
+                                <h5 class="content-group">Login to access your account <small class="display-block">Enter your credentials</small></h5>
 
                             </div>
 
                             <div class="form-group has-feedback has-feedback-left">
-                                <input type="text" name="_username" class="form-control" placeholder="UserName" value="{{ last_username }}">
+                                <input type="text" name="_username" class="form-control" placeholder="Username" value="{{ last_username }}">
                                 <div class="form-control-feedback">
                                     <i class="icon-user text-muted"></i>
                                 </div>
@@ -62,9 +62,9 @@
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary btn-block">Login <i class="icon-circle-right2 position-right"></i></button>
                             </div>
-                            <div class="content-divider text-muted form-group"><span>You do not have an account?</span></div>
+                            <div class="content-divider text-muted form-group"><span>Do you not have an account?</span></div>
                             <div class="form-group">
-                                <a href="{{ path('cliente_new') }}" class="btn bg-teal btn-block">Regístrate Aquí<i class="icon-arrow-right14 position-right"></i></a>
+                                <a href="{{ path('cliente_new') }}" class="btn bg-teal btn-block">Sing In<i class="icon-arrow-right14 position-right"></i></a>
                             </div>
                             <div>
                                 <div class="row">
@@ -85,7 +85,7 @@
 
                     <!-- Footer -->
                     <div class="footer text-muted text-center" style="color:#fff">
-                        &copy; 2017 EMR || Sistema Médico
+                        &copy; 2018 Doctors' || Directory
                         {# {{"now"|date("Y")}} #}
                     </div>
                     <!-- /footer -->

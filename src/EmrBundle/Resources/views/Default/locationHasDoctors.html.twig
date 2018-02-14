@@ -1,7 +1,7 @@
 {% extends "Layout/base_emr/_clients_base.location.html.twig" %}
 
 {% block title_page %}
-        EMR || List of doctors in establishment
+        Directory || List of doctors in institutions
 {% endblock %}
 {#
 {% block breadcrumb %}
@@ -34,9 +34,9 @@
                         {# <a href="{{ app.request.headers.get('referer') }}"> #}
                         <a href="{{ path('emr_location') }}">
                             <i class="fa fa-info-circle position-left"></i>
-                            <span class="text-semibold">Establishment</span>
+                            <span class="text-semibold">Institution</span>
                         </a>
-                        - List of doctors in establishment: 
+                        - List of doctors in institutions: 
 
                         <small class="display-block">You must have a profile photo, otherwise your profile won't be posted.!</small></h4>
                     <a class="heading-elements-toggle"><i class="icon-more"></i></a><a class="heading-elements-toggle"><i class="icon-more"></i></a></div>
@@ -50,7 +50,7 @@
                         #}
                         <ul class="icons-list">
                             <li class="dropdown ">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><i class="glyphicon glyphicon-plus-sign"></i> New Establishment <span class="caret"></span></a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><i class="glyphicon glyphicon-plus-sign"></i> New Institutions <span class="caret"></span></a>
                                 <ul class="dropdown-menu dropdown-menu-right">
 
                                     <li><a href="{{ path('cliente_new') }}?id=myself"><i class="fa fa-user-plus"></i> For my user</a></li>
