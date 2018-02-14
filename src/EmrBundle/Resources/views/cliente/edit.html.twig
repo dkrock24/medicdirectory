@@ -52,9 +52,9 @@
                 <a href="{{ path('emr_dashboard') }}">     
                 <i class="icon-arrow-left52 position-left"></i>
                 <span class="text-semibold">Dashboard</span>
-                </a> - Edición de establecimiento
+                </a> - Edit Institution
 
-                <small class="display-block">Formulario del cliente!</small>
+                <small class="display-block">Client Form!</small>
             </h4>
                 
                
@@ -79,7 +79,7 @@
                     
                     {% if app.user.getUsuId() is defined and app.user.getUsuId() > 0 %}
                     {% else %}
-                        , Inicia sesión haciendo click <a href="{{path('emr_homepage')}}">Aquí</a>
+                        , Login <a href="{{path('emr_homepage')}}">Here</a>
                     {% endif %}
                     
                     
@@ -100,7 +100,7 @@
     #}
     <div class="panel border-left-lg border-left-success">
         <div class="panel-heading">
-            <h6 class="panel-title"><i class="fa fa-hospital-o"></i> Los campos con (*) son requeridos </h6>
+            <h6 class="panel-title"><i class="fa fa-hospital-o"></i> The fields with (*) are required </h6>
             {#
             <div class="heading-elements">
                 <ul class="icons-list">
@@ -118,7 +118,7 @@
             <div class="col-lg-12">
         {{ form_start(edit_form, {'attr': {'class': 'steps-basic steps-validation'}}) }}
                 <div class="form_error">{{ form_errors(edit_form)}}</div>
-                <h6>Representante </h6>
+                <h6>Representative </h6>
                 <fieldset title="1">
 						<!--<legend class="text-semibold">Establecimiento</legend>-->
                         <div class="row">
@@ -126,7 +126,7 @@
                                 <div class="row">
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                         <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">
-                                            Información del establecimiento
+                                            Institution Information
                                         </div>
                                     </div>
                                 </div>
@@ -134,21 +134,21 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <div class="form_error">{{ form_errors(edit_form.cliTipCli)}}</div>
-                                            <label for="" class=" control-label">Tipo establecimiento: <span class="text-danger">*</span></label>
+                                            <label for="" class=" control-label">Institution type: <span class="text-danger">*</span></label>
                                             <div class="">{{ form_widget(edit_form.cliTipCli,  { 'attr': {'class': 'select'} } ) }}</div>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                             <div class="form-group">
                                                 <div class="form_error">{{ form_errors(edit_form.cliNombre)}}</div>
-                                                <label for="" class=" control-label">Nombre Comercial: <span class="text-danger">*</span></label>
+                                                <label for="" class=" control-label">Tradename: <span class="text-danger">*</span></label>
                                                 <div class="">{{ form_widget(edit_form.cliNombre) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
                                             </div>
                                         </div>    
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <div class="form_error">{{ form_errors(edit_form.cliNombreFiscal)}}</div>
-                                            <label for="" class=" control-label">Nombre Fiscal: <span class="text-danger">*</span></label>
+                                            <label for="" class=" control-label">Tax Name: <span class="text-danger">*</span></label>
                                             <div class="">{{ form_widget(edit_form.cliNombreFiscal) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
                                         </div>
                                     </div>    
@@ -157,14 +157,14 @@
                                     <div class="col-md-4">    
                                         <div class="form-group">
                                             <div class="form_error">{{ form_errors(edit_form.cliMun)}}</div>
-                                            <label for="" class=" control-label">Municipio del establecimiento: <span class="text-danger">*</span></label>
+                                            <label for="" class=" control-label">Location: <span class="text-danger">*</span></label>
                                             <div class="">{{ form_widget(edit_form.cliMun) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
                                         </div>
                                     </div>    
                                     <div class="col-md-8">
                                         <div class="form-group">
                                             <div class="form_error">{{ form_errors(edit_form.cliDireccion)}}</div>
-                                            <label for="" class=" control-label">Dirección del establecimiento: <span class="text-danger">*</span></label>
+                                            <label for="" class=" control-label">Address: <span class="text-danger">*</span></label>
                                             <div class="">{{ form_widget(edit_form.cliDireccion) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
                                         </div>
                                     </div>
@@ -173,21 +173,21 @@
                                     <div class="col-md-4">    
                                         <div class="form-group">
                                             <div class="form_error">{{ form_errors(edit_form.cliNit)}}</div>
-                                            <label for="" class=" control-label">Nit del establecimiento: <span class="text-danger">*</span></label>
+                                            <label for="" class=" control-label">Document ID: <span class="text-danger">*</span></label>
                                             <div class="">{{ form_widget(edit_form.cliNit) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <div class="form_error">{{ form_errors(edit_form.cliTelefono1)}}</div>
-                                            <label for="" class=" control-label">Teléfono 1: <span class="text-danger">*</span></label>
+                                            <label for="" class=" control-label">Telephone 1: <span class="text-danger">*</span></label>
                                             <div class="">{{ form_widget(edit_form.cliTelefono1) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <div class="form_error">{{ form_errors(edit_form.cliTelefono2)}}</div>
-                                            <label for="" class=" control-label">Teléfono 2:</label>
+                                            <label for="" class=" control-label">Telephone 2:</label>
                                             <div class="">{{ form_widget(edit_form.cliTelefono2) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
                                         </div>
                                     </div>    
@@ -197,7 +197,7 @@
                                         <div class="col-md-12">    
                                             <div class="form-group">
                                                 <div class="form_error">{{ form_errors(edit_form.idEspecialidad)}}</div>
-                                                <label for="" class=" control-label">Tipos de especialidades asociadas al establecimiento: <span class="text-danger">*</span></label>
+                                                <label for="" class=" control-label">Specialties type in this institution : <span class="text-danger">*</span></label>
                                                 <div class="">{# {{ form_widget(edit_form.idEspecialidad) }} #}{{ form_widget(edit_form.idEspecialidad,  { 'attr': {'class': 'select', 'required':true} } ) }}</div>
                                             </div>
                                         </div>    
@@ -207,20 +207,20 @@
                                             <div class="form-group">
                                                 <div class="form_error"></div>
                                                 <label for="" class=" control-label"></label>
-                                                <div class=""><button type="button" id="btn-map" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Ubicación en Google map</button></div>
+                                                <div class=""><button type="button" id="btn-map" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Location on Google map</button></div>
                                             </div>
                                         </div>
                                         <div class="col-md-4">    
                                             <div class="form-group">
                                                 <div class="form_error">{{ form_errors(edit_form.cliUbicacionLat)}}</div>
-                                                <label for="" class=" control-label">Latitud: </label>
+                                                <label for="" class=" control-label">Latitude: </label>
                                                 <div class="">{# {{ form_widget(edit_form.idEspecialidad) }} #}{{ form_widget(edit_form.cliUbicacionLat,  { 'attr': {'class': '', 'required':false} } ) }}</div>
                                             </div>
                                         </div>
                                         <div class="col-md-4">    
                                             <div class="form-group">
                                                 <div class="form_error">{{ form_errors(edit_form.cliUbicacionLon)}}</div>
-                                                <label for="" class=" control-label">Logitud: </label>
+                                                <label for="" class=" control-label">Longitude: </label>
                                                 <div class="">{# {{ form_widget(edit_form.idEspecialidad) }} #}{{ form_widget(edit_form.cliUbicacionLon,  { 'attr': {'class': '', 'required':false} } ) }}</div>
                                             </div>
                                         </div> 
@@ -232,7 +232,7 @@
                                 <div class="row">
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                         <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">
-                                            Información del representante
+                                            Representative Information
                                         </div>
                                     </div>
                                 </div>
@@ -241,7 +241,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <div class="form_error"></div>
-                                            <label for="" class=" control-label">Primer Nombre: <span class="text-danger">*</span></label>
+                                            <label for="" class=" control-label">First Name: <span class="text-danger">*</span></label>
                                             <div class="">
                                                 <input type="text" id="nameone_representer" name="nameone_representer" placeholder="Primer Nombre" class="form-control" value="{{ getUserRepresenter[0].usu_nombre }}" required>
                                             </div>
@@ -250,45 +250,39 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <div class="form_error"></div>
-                                            <label for="" class=" control-label">Segundo Nombre: <span class="text-danger">*</span></label>
+                                            <label for="" class=" control-label">Second Name: <span class="text-danger">*</span></label>
                                             <div class="">{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}
                                                 <input type="text" id="nametwo_representer" name="nametwo_representer" placeholder="Segundo Nombre" class="form-control" value="{{ getUserRepresenter[0].usu_segundo_nombre }}" required>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <div class="form_error"></div>
-                                            <label for="" class=" control-label">Tercer Nombre: </label>
-                                            <div class=""><input type="text" id="namethree_representer" name="namethree_representer" placeholder="Tercer Nombre" class="form-control" value="{{ getUserRepresenter[0].usu_tercer_nombre }}"></div>
-                                        </div>
-                                    </div>    
+   
                                 </div>
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <div class="form_error"></div>
-                                            <label for="" class=" control-label">Primer Apelldio: <span class="text-danger">*</span></label>
+                                            <label for="" class=" control-label">Last Name: <span class="text-danger">*</span></label>
                                             <div class=""><input type="text" id="lastnameone_representer" name="lastnameone_representer" placeholder="Primer Apelldo" class="form-control" value="{{ getUserRepresenter[0].usu_primer_apellido }}" required></div>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <div class="form_error"></div>
-                                            <label for="" class=" control-label">Segundo Apellido:</label>
+                                            <label for="" class=" control-label">Second Surname:</label>
                                             <div class=""><input type="text" id="lastnametwo_representer" name="lastnametwo_representer" placeholder="Segundo Apelldo" class="form-control" value="{{ getUserRepresenter[0].usu_segundo_apellido }}" ></div>
                                         </div>
                                     </div>    
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label>Genero del presentante: <span class="text-danger">*</span></label>
+                                            <label>Representative Gender: <span class="text-danger">*</span></label>
                                             <select name="gender_representer"  id="gender_representer" data-placeholder="Genero..." required class="select">
                                                 {% if getUserRepresenter[0].usu_genero is defined and getUserRepresenter[0].usu_genero == "m" %}
-                                                    <option value="m" selected="selected">Masculino</option> 
-                                                    <option value="f">Femenino</option> 
+                                                    <option value="m" selected="selected">Male</option> 
+                                                    <option value="f">Feamle</option> 
                                                 {% else %}
-                                                    <option value="m">Masculino</option> 
-                                                    <option value="f" selected="selected">Femenino</option> 
+                                                    <option value="m">Male</option> 
+                                                    <option value="f" selected="selected">Feamle</option> 
                                                 {% endif %}    
                                                 
                                             </select>
@@ -305,17 +299,17 @@
                                          
                                          
                                         <div class="form-group has-success has-feedback">
-                                            <label>Usuario del representante: <span class="text-danger">*</span></label>
+                                            <label>Representative User: <span class="text-danger">*</span></label>
                                             <input type="text" value="{{ getUserRepresenter[0].usu_usuario }}" name="user_representer" id="user_representer" placeholder="Usuario" class="form-control" required readonly>
                                             <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
                                         </div>
 
                                         <div class="form-group">
-                                            <label>Password del representante: </label>
+                                            <label>Password: </label>
                                             <input type="password" id="password_representer" name="password_representer" placeholder="Password" class="form-control ">
                                         </div>
                                         <div class="form-group">
-                                            <label>Repita Password: </label>
+                                            <label>Repieat Password: </label>
                                             <input type="password" id="password_representer_repeat" name="password_representer_repeat" placeholder="Repita Password" class="form-control ">
                                         </div>  
                                     </div>
@@ -324,14 +318,14 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label>Email del representante:</label>
+                                                    <label>Email Addrres:</label>
                                                     <input type="text" value="{{ getUserRepresenter[0].cli_usu_correo }}" name="email_representer" id="email_representer" placeholder="Email" class="form-control required">
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     
-                                                    <label>Fecha nacimiento del representante: <span class="text-danger">*</span></label>
+                                                    <label>Brith Day: <span class="text-danger">*</span></label>
                                                     <div class=""><input type="text" value="{{ getUserRepresenter[0].cli_usu_fecha_nacimiento }}" id="birth_date" name="birth_date" class="form-control" required readonly="readonly"></div>
                                                 </div>
 
@@ -358,6 +352,7 @@
                             </div>            
                         </div>
                         <hr>
+                        <!--
                         <div class="row">
                             <div class="col-md-10"></div>
                             <div class="col-md-2">
@@ -367,16 +362,18 @@
                                     <div class=""><input type="text" value="" placeholder="" class="form-control" id="referralId" name="referralId"></div>
                                 </div>
                             </div>
-                        </div>                                
+                        </div> -->                               
                                         
                 </fieldset>
-                <h6>Drs/Asistentes</h6>
+                <h6>Drs</h6>
                 <fieldset title="3">
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <!--
                             <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">
                                 <strong>Nota:</strong> El monto a cobrar será de <strong>$30</strong> mensualmente por cada doctor/a que asocie a su establecimiento, este monto no incluye a usuarios tipo "Asistente"
                             </div>
+                            -->
                         </div>
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div id="sections">
@@ -384,57 +381,51 @@
                                 <div class="section">
                                     <div class="" style="padding: 5px;">
                                         <fieldset>
-                                        <legend><i class="fa fa-user-plus" aria-hidden="true"></i> Usuario</legend>
+                                        <legend><i class="fa fa-user-plus" aria-hidden="true"></i> Username</legend>
                                         <div class="row">
                                             <div class="col-lg-2 col-md-6 col-sm-6">
                                                 <div class="form-group">
-                                                    <label class="control-label">Primer Nombre:</label>
+                                                    <label class="control-label">First Name:</label>
                                                     <input name="nameone[]" id="nameone" value="" type="text" class="form-control inputAssName inputUser" required />
                                                 </div>
                                             </div>
                                             <div class="col-lg-2 col-md-6 col-sm-6">
                                                 <div class="form-group">
-                                                    <label class="control-label">Segundo Nombre:</label>
+                                                    <label class="control-label">Second Name:</label>
                                                     <input name="nametwo[]" id="nametwo" value="" type="text" class="form-control inputAssName inputUser"  />
                                                 </div>
                                             </div>
                                             <div class="col-lg-2 col-md-6 col-sm-6">
                                                 <div class="form-group">
-                                                    <label class="control-label">Tercer Nombre:</label>
-                                                    <input name="namethree[]" id="namethree" value="" type="text" class="form-control inputAssName inputUser"  />
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-2 col-md-6 col-sm-6">
-                                                <div class="form-group">
-                                                    <label class="control-label">Primer Apellido:</label>
+                                                    <label class="control-label">Last Name:</label>
                                                     <input name="lastnameone[]" id="lastnameone" value="" type="text" class="form-control inputAssName inputUser"  />
                                                 </div>
                                             </div>
                                             <div class="col-lg-2 col-md-6 col-sm-6">
                                                 <div class="form-group">
-                                                    <label class="control-label">Segundo Apellido:</label>
+                                                    <label class="control-label">Second Surname:</label>
                                                     <input name="lastnametwo[]" id="lastnametwo" value="" type="text" class="form-control inputAssName inputUser"  />
                                                 </div>
                                             </div>
                                             <div class="col-lg-2 col-md-6 col-sm-6">
                                                 <div class="form-group">
-                                                    <label class="control-label">Email:</label>
+                                                    <label class="control-label">Email Address:</label>
                                                     <input name="email[]" id="email" value="" type="text" class="form-control inputAssEmail inputUser" />
                                                 </div>
                                             </div>
                                             <div class="col-lg-2 col-md-6 col-sm-6">
                                                 <div class="form-group">
-                                                    <label class="control-label">Usuario:</label>
+                                                    <label class="control-label">Username:</label>
                                                     <input name="username[]" id="username" value="" type="text" class="form-control user_to_location" required/>
                                                 </div>
                                             </div>
                                             <input name="availbleUser[]" id="availbleUser" value="" type="hidden" class="form-control inputAvailable" />
                                             <div class="col-lg-2 col-md-6 col-sm-6">
                                                 <div class="form-group">
-                                                    <label class="control-label">Género:</label>
+                                                    <label class="control-label">Gender:</label>
                                                     <select name="gender[]" id="gender" class="form-control selectAssGender" required>
-                                                        <option value="m">Masculino</option>
-                                                        <option value="f">Femenino</option>
+                                                        <option value="m">Male</option>
+                                                        <option value="f">Female</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -447,16 +438,16 @@
                                             </div>
                                             <div class="col-lg-2 col-md-6 col-sm-6">
                                                 <div class="form-group">
-                                                    <label class="control-label">Repita Password:</label>
+                                                    <label class="control-label">Repeat Password:</label>
                                                     <input name="repeatpassword[]" id="password_user_again" value="" type="password" class="form-control inputAssPassword inputUser" placeholder=""/>
                                                 </div>
                                             </div>
                                             <div class="col-lg-2 col-md-6 col-sm-6">
                                                 <div class="form-group">
-                                                    <label class="control-label">Tipo de usuario:</label>
+                                                    <label class="control-label">User type:</label>
                                                     <select name="typeUser[]" id="typeUser" class="form-control typeUser" required>
-                                                        <option value="6">Doctor/Doctora</option>
-                                                        <option value="3">Asistente</option>
+                                                        <option value="6">Doctor</option>
+                                                        <!-- <option value="3">Asistente</option> -->
                                                     </select>
                                                 </div>
                                             </div>
@@ -466,7 +457,7 @@
                                                    <label class="control-label">&nbsp;<br><label>
                                                     <div class="checkbox">
                                                         <label>
-                                                          <input type="checkbox" name="publicityWeb[]" checked="checked" class="publicityWeb"> Publicitarlo en web
+                                                          <input type="checkbox" name="publicityWeb[]" checked="checked" class="publicityWeb"> Published on web
                                                         </label>
                                                     </div>
                                                 </div>
@@ -495,47 +486,42 @@
                                                 <div class="section">
                                                     <div class="" style="padding: 5px;">
                                                         <fieldset>
-                                                            <legend><i class="fa fa-user-plus" aria-hidden="true"></i> Usuario</legend>
+                                                            <legend><i class="fa fa-user-plus" aria-hidden="true"></i> Username</legend>
                                                             <div class="row">
                                                                 <div class="col-lg-2 col-md-6 col-sm-6">
                                                                     <div class="form-group">
-                                                                        <label class="control-label">Primer Nombre:</label>
+                                                                        <label class="control-label">First Name:</label>
                                                                         <input name="nameone[]" id="nameone{{ loop.index }}" value="{{ users.usu_nombre }}" type="text" class="form-control inputAssName inputUser" required />
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-2 col-md-6 col-sm-6">
                                                                     <div class="form-group">
-                                                                        <label class="control-label">Segundo Nombre:</label>
+                                                                        <label class="control-label">Second Name:</label>
                                                                         <input name="nametwo[]" id="nametwo{{ loop.index }}" value="{{ users.usu_segundo_nombre }}" type="text" class="form-control inputAssName inputUser"  />
                                                                     </div>
                                                                 </div>
+         
                                                                 <div class="col-lg-2 col-md-6 col-sm-6">
                                                                     <div class="form-group">
-                                                                        <label class="control-label">Tercer Nombre:</label>
-                                                                        <input name="namethree[]" id="namethree{{ loop.index }}" value="{{ users.usu_tercer_nombre }}" type="text" class="form-control inputAssName inputUser"  />
-                                                                    </div>
-                                                                </div>    
-                                                                <div class="col-lg-2 col-md-6 col-sm-6">
-                                                                    <div class="form-group">
-                                                                        <label class="control-label">Primer Apellido:</label>
+                                                                        <label class="control-label">Last Name:</label>
                                                                         <input name="lastnameone[]" id="lastnameone{{ loop.index }}" value="{{ users.usu_primer_apellido }}" type="text" class="form-control inputAssName inputUser" />
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-2 col-md-6 col-sm-6">
                                                                     <div class="form-group">
-                                                                        <label class="control-label">Segundo Apellido:</label>
+                                                                        <label class="control-label">Second Surname:</label>
                                                                         <input name="lastnametwo[]" id="lastnametwo{{ loop.index }}" value="{{ users.usu_segundo_apellido }}" type="text" class="form-control inputAssName inputUser"  />
                                                                     </div>
                                                                 </div>    
                                                                 <div class="col-lg-2 col-md-6 col-sm-6">
                                                                     <div class="form-group">
-                                                                        <label class="control-label">Email:</label>
+                                                                        <label class="control-label">Email Address:</label>
                                                                         <input name="email[]" id="email{{ loop.index }}" value="{{ users.cli_usu_correo }}" type="text" class="form-control inputAssEmail inputUser" />
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-2 col-md-6 col-sm-6">
                                                                     <div class="form-group has-success has-feedback">
-                                                                        <label class="control-label">Usuario:</label>
+                                                                        <label class="control-label">Username:</label>
                                                                         <input name="username[]" id="username{{ loop.index }}" value="{{ users.usu_usuario }}" type="text" class="form-control user_to_location" required readonly="readonly"/>
                                                                         <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
                                                                     </div>
@@ -543,10 +529,10 @@
                                                                 <input name="availbleUser[]" id="availbleUser" value="1" type="hidden" class="form-control inputAvailable" />
                                                                 <div class="col-lg-2 col-md-6 col-sm-6">
                                                                     <div class="form-group">
-                                                                        <label class="control-label">Género:</label>
+                                                                        <label class="control-label">Gender:</label>
                                                                         <select name="gender[]" id="gender{{ loop.index }}" class="form-control selectAssGender" required>
-                                                                            <option value="m">Masculino</option>
-                                                                            <option value="f">Femenino</option>
+                                                                            <option value="m">Male</option>
+                                                                            <option value="f">Female</option>
                                                                         </select>
                                                                     </div>
                                                                 </div>
@@ -558,19 +544,19 @@
                                                                 </div>
                                                                 <div class="col-lg-2 col-md-6 col-sm-6">
                                                                     <div class="form-group">
-                                                                        <label class="control-label">Repita Password:</label>
+                                                                        <label class="control-label">Repeat Password:</label>
                                                                         <input name="repeatpassword[]" id="password_user_again{{ loop.index }}" value="" type="password" class="form-control inputAssPassword inputUser"  placeholder="" />
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-2 col-md-6 col-sm-6">
                                                                     <div class="form-group">
-                                                                        <label class="control-label">Tipo de usuario:</label>
+                                                                        <label class="control-label">User type:</label>
                                                                         <select name="typeUser[]" id="typeUser{{ loop.index }}" class="form-control typeUser" required>
                                                                             {% if users.cli_usu_rol_id == 3 %}
-                                                                                <option value="3" selected="selected">Asistente</option> 
-                                                                                <option value="6">Doctor/Doctora</option> 
+                                                                                <!--<option value="3" selected="selected">Asistente</option> -->
+                                                                                <option value="6">Doctor</option> 
                                                                             {% else %}
-                                                                                <option value="3">Asistente</option> 
+                                                                                <!-- <option value="3">Asistente</option>  -->
                                                                                 <option value="6" selected="selected">Doctor</option> 
                                                                             {% endif %}
                                                                         </select>
@@ -587,8 +573,8 @@
                                                                               {% else %}
                                                                                   <input type="checkbox" name="publicityWeb[]" class="publicityWeb"> 
                                                                               {% endif %}    
-                                                                              
-                                                                              Publicitarlo en web 
+                                                                                                                                                            
+                                                                              Published on web
                                                                             </label>
                                                                         </div>
                                                                     </div>
@@ -616,15 +602,15 @@
                                 
                             </div>
                             <hr>
-                            {# <p><a href="#" class='addsection btn bg-teal-400 btn-labele btn-sm'><b><i class="fa fa-plus-circle"></i></b> Agregar usuario</a></p> #}
-                            <p><span class='addsection btn bg-teal-400 btn-labele btn-sm'><b><i class="fa fa-plus-circle"></i></b> Agregar usuario</span></p>
+                            {# <p><a href="#" class='addsection btn bg-teal-400 btn-labele btn-sm'><b><i class="fa fa-plus-circle"></i></b> Add user</a></p> #}
+                            <p><span class='addsection btn bg-teal-400 btn-labele btn-sm'><b><i class="fa fa-plus-circle"></i></b> Add User</span></p>
                         </div>
                         
                     </div>
                     
                     
 				</fieldset>
-                <h6>Formas de pago</h6>
+                <h6>Payment method</h6>
                 <fieldset>
                     <div class="row"> 
                         <div class="col-lg-1 col-md-3 col-sm-3 col-xs-12">
@@ -647,9 +633,9 @@
                                     <div id="pay_1" class="div_pay">
                                         <div class="panel panel-info"> 
                                             <div class="panel-heading"> 
-                                                <h6 class="panel-title">Efectivo</h6> 
+                                                <h6 class="panel-title">Chash</h6> 
                                             </div> 
-                                            <div class="panel-body"> Descripción del efectivo </div> 
+                                            <div class="panel-body"> Chash Description </div> 
                                         </div>
                                     </div>
                                 {% endif %}
@@ -657,14 +643,14 @@
                                     <div id="pay_2" class="div_pay">
                                         <div class="panel panel-info"> 
                                             <div class="panel-heading"> 
-                                                <h6 class="panel-title">Tarjeta de crédito</h6> 
+                                                <h6 class="panel-title">Credit Card</h6> 
                                             </div> 
                                             <div class="panel-body"> 
                                                 
                                                 <div class="row">
                                                     <div class="col-lg-6">
                                                         <div class="form-group">
-                                                            <label for="cc-number" class="control-label">Número de tarjeta <small class="text-muted">[<span class="cc-brand">{{ brand }}</span>]</small></label>
+                                                            <label for="cc-number" class="control-label">Card Number <small class="text-muted">[<span class="cc-brand">{{ brand }}</span>]</small></label>
                                                           
                                                             {% if creditCard != "" %}
                                                                 <input id="cc-number" type="tel" class="input-lg form-control cc-number" autocomplete="cc-number" placeholder="{{ creditCard }}" readonly="readonly">
@@ -676,7 +662,7 @@
                                                         </div>
 
                                                         <div class="form-group">
-                                                            <label for="cc-exp" class="control-label">Fecha de expiración</label>
+                                                            <label for="cc-exp" class="control-label">Expiration Date</label>
                                                             {% if exp != "" %}
                                                                 <input id="cc-exp" type="tel" class="input-lg form-control cc-exp" autocomplete="cc-exp" placeholder="{{ exp }}" readonly="readonly">
                                                             {% else %}
@@ -701,7 +687,7 @@
                                                             
                                                              {% set displayChange = 'style=display:none' %}
                                                         {% endif %}   
-                                                       <div id="enable_card" class="text-left" {{ displayChange }}><span class="btn btn-lg btn-primary">Cambiar datos de tarjeta</span></div>
+                                                       <div id="enable_card" class="text-left" {{ displayChange }}><span class="btn btn-lg btn-primary"> Cahnge register data</span></div>
                                                         <!--
                                                         <div class="form-group">
                                                             <label for="numeric" class="control-label">Restrict numeric</label>
@@ -715,7 +701,7 @@
                                                             
                                                             {% set display = 'style=display:none' %}
                                                         {% endif %}    
-                                                        <button id="btn-check-credit-card" class="btn btn-lg btn-primary" {{ display }}><i class="fa fa-credit-card-alt" aria-hidden="true"></i> Validar</button>
+                                                        <button id="btn-check-credit-card" class="btn btn-lg btn-primary" {{ display }}><i class="fa fa-credit-card-alt" aria-hidden="true"></i> Validate</button>
                                                         
                                                         <h2 class="validation"></h2>
                                                         <span id="use-same-card"></span>
@@ -723,7 +709,7 @@
                                                     <div class="col-lg-6">
                                                         
                                                         <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">
-                                                            <i class="fa fa-credit-card-alt" aria-hidden="true"></i> Tarjetas soportadas:
+                                                            <i class="fa fa-credit-card-alt" aria-hidden="true"></i> Credit Card valid:
                                                         </div>
                                                         <ul class="list-unstyled">
                                                             <li>Visa</li>
@@ -749,15 +735,16 @@
                                             <div class="panel-heading"> 
                                                 <h6 class="panel-title">CHEQUE</h6> 
                                             </div> 
-                                            <div class="panel-body"> Descripción del cheque </div> 
+                                            <div class="panel-body"> Description Check </div> 
                                         </div>
                                     </div>
                                 {% endif %}
                                 {% if method.mepId == 4 %}
+                                <!--
                                     <div id="pay_4" class="div_pay">
                                         <div class="panel panel-info"> 
                                             <div class="panel-heading"> 
-                                                <h6 class="panel-title">BANCO</h6> 
+                                                <h6 class="panel-title">BANk</h6> 
                                             </div> 
                                             <div class="panel-body">
                                                 Deposito a cuenta o transferencia bancaria<br>
@@ -765,6 +752,7 @@
                                             </div> 
                                         </div>
                                     </div>
+                                -->
                                 {% endif %}
                                 {% if method.mepId == 5 %}
                                     <div id="pay_5" class="div_pay">
@@ -772,7 +760,7 @@
                                             <div class="panel-heading"> 
                                                 <h6 class="panel-title">PAYPAL</h6> 
                                             </div> 
-                                            <div class="panel-body"> Descripción de paypal </div> 
+                                            <div class="panel-body"> Paypal Description</div> 
                                         </div>
                                     </div>
                                 {% endif %}
@@ -792,7 +780,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="gridSystemModalLabel">Mapa para ubicar el establecimiento</h4>
+                    <h4 class="modal-title" id="gridSystemModalLabel">Institution locate Map</h4>
                 </div>
                 <div class="modal-body">
                     <div id="dvMap" style="width:100%; height: 500px"></div>
@@ -800,11 +788,11 @@
                 <div class="modal-footer">
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6">
-                            <div class="text-left"><button class="btn btn-primary" id="find_btn">Encontrar mi ubicación</button></div>
+                            <div class="text-left"><button class="btn btn-primary" id="find_btn">Find my location</button></div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6">
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Cerrar</button>
-                            <button type="button" class="btn btn-success" id="btn-set-location"><i class="fa fa-map-marker" aria-hidden="true"></i> Ubicar establecimiento</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
+                            <button type="button" class="btn btn-success" id="btn-set-location"><i class="fa fa-map-marker" aria-hidden="true"></i> locate institution</button>
                         </div>
                     </div>
                     
@@ -818,7 +806,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="gridSystemModalLabel">Mapa para ubicar el establecimiento</h4>
+                    <h4 class="modal-title" id="gridSystemModalLabel"> Map for locate the institution</h4>
                 </div>
                 <div class="modal-body">
                     {#
@@ -878,11 +866,11 @@
                 <div class="modal-footer">
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6">
-                            {# <div class="text-left"><button class="btn btn-primary" id="find_btn">Encontrar mi ubicación</button></div> #}
+                            {# <div class="text-left"><button class="btn btn-primary" id="find_btn">Find my locate</button></div> #}
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6">
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Cerrar</button>
-                            <button type="button" class="btn btn-success" id="btn-set-location" data-dismiss="modal"><i class="fa fa-map-marker" aria-hidden="true"></i> Ubicar establecimiento</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
+                            <button type="button" class="btn btn-success" id="btn-set-location" data-dismiss="modal"><i class="fa fa-map-marker" aria-hidden="true"></i> Locate my instituttion</button>
                         </div>
                     </div>
                     
@@ -934,9 +922,9 @@
                 labels: {
                     current: "current step:",
                     pagination: "Pagination",
-                    finish: "Guardar",
-                    next: "Siguiente",
-                    previous: "Anterior",
+                    finish: "Save",
+                    next: "Next",
+                    previous: "Last",
                     loading: "Loading ..."
                 },
                 onStepChanging: function (event, currentIndex, newIndex) {
@@ -964,7 +952,7 @@
                             $.alert({
                                     icon: 'fa fa-user-times',
                                     title: 'Error!',
-                                    content: 'Debe de crear al menos un usuario con rol de Doctor/Doctora',
+                                    content: 'You must create at least one user with a Doctor role',
                                     type: 'red',
                                     typeAnimated: true,
                             });
@@ -1033,7 +1021,7 @@
                                 $.alert({
                                     icon: 'fa fa-credit-card-alt',
                                     title: 'Error!',
-                                    content: 'Ha actualizado los datos de la tarjeta por lo que es necesario validarla',
+                                    content: 'Credit Card updated. Please validate the credit card',
                                     type: 'red',
                                     typeAnimated: true,
                                 });
@@ -1045,7 +1033,7 @@
                             $.alert({
                                 icon: 'fa fa-credit-card-alt',
                                 title: 'Error!',
-                                content: 'La tarjeta ingresada no es valida',
+                                content: 'Credit Card not valid',
                                 type: 'red',
                                 typeAnimated: true,
                             });
@@ -1278,46 +1266,46 @@
                     var msg = "";
                     if( valNameOne == "" && !nameone.hasClass("passed") )
                     {
-                        msg = "Ingrese almenos el primer nombre del usuario";
+                        msg = "Enter the first name";
                     }
                     else if( valUsername == "" && !username.hasClass("passed") )
                     {
-                        msg = "Ingrese el usurname del usuario";
+                        msg = "Enter the Username";
                     }
                     else if ( password_cloned  || password_again_cloned )
                     {
                         
                         if( valPassword == "" &&  !password.hasClass("passed") )
                         {
-                            msg = "Ingrese el password para el nuevo usuario";
+                            msg = "Enter the password for the new user";
                             
                         }
                         else if(  valPassword_again == "" && !password_again.hasClass("passed")  )
                         {
-                                msg = "Repita el password para el nuevo usuario";
+                                msg = "Repeat password for the new user";
  
                         }
                         else if( valPassword != valPassword_again )
                         {
-                            msg = "Los passwords no son iguales, para adicionar un nuevo usuario es necesario que los passwords sean iguales";
+                            msg = "The passwords are not same";
                         }
                     }
                     else if( valPassword != "" ||  valPassword_again != "" )
                     {
                         if( valPassword != valPassword_again )
                         {
-                            msg = "Los password no son iguales";
+                            msg = "The passwords are not same";
                         }
                        
                     }
                     else if ( inputAvailable != 1 )
                     {
-                        msg = "Debe de validar el usuario a crear";
+                        msg = "Valid the new user";
                     }
                     
                     if ( email == "" )
                     {
-                        msg = "Ingrese un email válido";
+                        msg = "Enter the valid email address";
                     }
                     
                     console.log(email);
@@ -1568,7 +1556,7 @@
                     if( $.trim( user ) ==  $("#user_representer").val() && $(this).hasClass("user_to_location") && !$(this).is('[readonly]') && readonly != 1 )
                     {
                         $.confirm({
-                            title: 'Confirme!',
+                            title: 'Confirm!',
                             content: '<p class="small">Este usuario ya ha sido tomado por un representante de este establecimiento!</p><p class="small"> Desea usar las mismas credenciales?</p>',
                             type: 'blue',
                             typeAnimated: true,
@@ -1640,7 +1628,7 @@
                         $.alert({
                             icon: 'glyphicon glyphicon-remove-circle',
                             title: 'Error!',
-                            content: '<p class="small">El usuario <strong>'+username+'</strong> ya existe en esta lista intente con otro usuario</p>',
+                            content: '<p class="small">The user <strong>'+username+'</strong> already exists, please enter other</p>',
                             type: 'red',
                             typeAnimated: true,
                         });
@@ -1683,12 +1671,12 @@
                         $.confirm({
                             icon: 'fa fa-remove',
                             title: 'Error!',
-                            content: '<p class="small">Ha ocurrido un error al tratar de enviar la petición</p>',
+                            content: '<p class="small">An error has ocrred, request not send</p>',
                             type: 'red',
                             typeAnimated: true,
                             buttons: {
                                 tryAgain: {
-                                    text: 'Intentar de nuevo',
+                                    text: 'Try again',
                                     btnClass: 'btn-red',
                                     action: function () {
                                         checkAvailableUserDB();
@@ -1726,7 +1714,7 @@
                                 
                                 if( $("#"+idInput).hasClass("user_to_location") )
                                 {
-                                    var msg = "<p class='small'>El usuario <strong>"+username+"</strong>";
+                                    var msg = "<p class='small'>The username <strong>"+username+"</strong>";
                                     var email = "";
                                     if( data.email != "" )
                                     {
@@ -1736,7 +1724,7 @@
                                     msg += email;
                                     $.confirm({
                                         icon: 'fa fa-question-circle-o',
-                                        title: 'Confirmar datos',
+                                        title: 'Confirm data',
                                         content: msg,
                                         type: 'blue',
                                         typeAnimated: true,
@@ -1800,7 +1788,7 @@
                                     $.alert({
                                         icon: 'fa fa-user-times',
                                         title: 'Info!',
-                                        content: 'El usuario <strong>'+username+'</strong> no esta disponible',
+                                        content: 'The user <strong>'+username+'</strong> no available',
                                         type: 'red',
                                         typeAnimated: true,
                                     });
@@ -1814,7 +1802,7 @@
                             $.alert({
                                     icon: 'fa fa-user-times',
                                     title: 'Info!',
-                                    content: 'El usuario no pudo ser validado',
+                                    content: 'The user no is valid',
                                     type: 'red',
                                     typeAnimated: true,
                                 });
@@ -1939,12 +1927,12 @@
                             $.confirm({
                                 icon: 'fa fa-remove',
                                 title: 'Error!',
-                                content: 'Ha ocurrido un error al tratar de enviar la petición',
+                                content: 'An error occurred while trying to send the request',
                                 type: 'red',
                                 typeAnimated: true,
                                 buttons: {
                                     tryAgain: {
-                                        text: 'Intentar de nuevo',
+                                        text: 'Try again',
                                         btnClass: 'btn-red',
                                         action: function () {
                                             sendFormRepresenter();
@@ -1968,7 +1956,7 @@
                                 $.alert({
                                     icon: 'glyphicon glyphicon-remove-circle',
                                     title: 'Info!',
-                                    content: 'Ha ocurrido un error al intentar crear el regístro',
+                                    content: 'An error occurred while trying to create the record',
                                     type: 'red',
                                     typeAnimated: true,
                                  });
