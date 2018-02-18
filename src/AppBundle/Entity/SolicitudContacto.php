@@ -42,6 +42,12 @@ class SolicitudContacto
      */
     private $estado;
 
+    /**
+     * @var string
+     */
+    private $scNombre;
+
+
 
     /**
      * Get id
@@ -254,10 +260,7 @@ class SolicitudContacto
     {
         return $this->scUsuario;
     }
-    /**
-     * @var string
-     */
-    private $sc_nombre;
+
 
 
     /**
@@ -269,7 +272,7 @@ class SolicitudContacto
      */
     public function setScNombre($scNombre)
     {
-        $this->sc_nombre = $scNombre;
+        $this->scNombre = $scNombre;
 
         return $this;
     }
@@ -281,12 +284,9 @@ class SolicitudContacto
      */
     public function getScNombre()
     {
-        return $this->sc_nombre;
+        return $this->scNombre;
     }
-    /**
-     * @var string
-     */
-    private $scNombre;
+    
 
     /**
      * @var \AppBundle\Entity\Usuario
