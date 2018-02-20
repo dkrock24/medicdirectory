@@ -15,6 +15,139 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class DefaultController extends Controller {
 
+    public function getDoctorAction(Request $request){
+
+        $em = $this->getDoctrine()->getManager();
+
+        $RAW_QUERY  = "SELECT u.usu_id,
+                    CONCAT(u.usu_nombre,' ',u.usu_segundo_nombre,' ',u.usu_segundo_nombre,' ',u.usu_segundo_apellido) as        'fullName', ug.gal_hash as 'gal_hash',  cu.cli_usu_telefono,  m.mun_nombre,
+                    group_concat(e.esp_especialidad SEPARATOR ', ') as especialidades
+                    from usuario u
+                        JOIN cliente_usuario as cu on cu.cli_usu_usu_id=u.usu_id
+                        JOIN cliente as c ON cu.cli_usu_cli_id = c.cli_id
+                        JOIN municipio as m ON c.cli_mun_id = m.mun_id
+                        JOIN usuario_galeria as ug ON u.usu_id=ug.gal_usu_id
+                        JOIN usuario_especialidad AS es on u.usu_id=es.id_usuario
+                        JOIN  especialidad as e on e.esp_id=es.id_especialidad                       
+                        WHERE cu.cli_usu_rol_id=6  ";
+
+                        $statement  = $em->getConnection()->prepare($RAW_QUERY);
+                        $statement->execute();    
+                        $medicos    = $statement->fetchAll();
+
+        $response = new Response(json_encode($medicos));
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+    public function getDoctorByNameAction(Request $request){
+
+        $em = $this->getDoctrine()->getManager();
+
+        $sBusqueda = $request->query->get('name');
+
+        $RAW_QUERY  = "SELECT u.usu_id,
+            CONCAT(u.usu_nombre,' ',u.usu_segundo_nombre,' ',u.usu_segundo_nombre,' ',u.usu_segundo_apellido) as fullName,
+            ug.gal_hash as 'gal_hash', cu.cli_usu_telefono, m.mun_nombre, 
+            group_concat(e.esp_especialidad SEPARATOR ', ') as especialidades
+
+                    from usuario u
+                        JOIN cliente_usuario as cu on cu.cli_usu_usu_id=u.usu_id
+                        JOIN cliente as c ON cu.cli_usu_cli_id = c.cli_id
+                        JOIN municipio as m ON c.cli_mun_id = m.mun_id
+                        JOIN usuario_galeria as ug ON u.usu_id=ug.gal_usu_id
+                        JOIN usuario_especialidad AS es on u.usu_id=es.id_usuario
+                        JOIN  especialidad as e on e.esp_id=es.id_especialidad
+                       
+                        WHERE cu.cli_usu_rol_id=6 AND CONCAT(u.usu_nombre,' ',u.usu_segundo_nombre,' ',u.usu_segundo_nombre,' ',u.usu_segundo_apellido) like '%".$sBusqueda."%'";
+
+                        $statement  = $em->getConnection()->prepare($RAW_QUERY);
+                        $statement->execute();    
+                        $medicos    = $statement->fetchAll();
+
+        $response = new Response(json_encode($medicos));
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+    public function getEspecialidadByIdAction(Request $request){
+
+        $em = $this->getDoctrine()->getManager();
+
+        $sBusqueda = $request->query->get('id');
+
+
+        $RAW_QUERY  = "SELECT u.usu_id,
+                    CONCAT(u.usu_nombre,' ',u.usu_segundo_nombre,' ',u.usu_segundo_nombre,' ',u.usu_segundo_apellido) as        'fullName', ug.gal_hash as 'gal_hash',  cu.cli_usu_telefono,  m.mun_nombre,
+                    group_concat(e.esp_especialidad SEPARATOR ', ') as especialidades
+                    from usuario u
+                        JOIN cliente_usuario as cu on cu.cli_usu_usu_id=u.usu_id
+                        JOIN cliente as c ON cu.cli_usu_cli_id = c.cli_id
+                        JOIN municipio as m ON c.cli_mun_id = m.mun_id
+                        JOIN usuario_galeria as ug ON u.usu_id=ug.gal_usu_id
+                        JOIN usuario_especialidad AS es on u.usu_id=es.id_usuario
+                        JOIN  especialidad as e on e.esp_id=es.id_especialidad
+                       
+                        WHERE cu.cli_usu_rol_id=6 AND e.esp_id= $sBusqueda ";
+
+                        $statement  = $em->getConnection()->prepare($RAW_QUERY);
+                        $statement->execute();    
+                        $medicos    = $statement->fetchAll();
+
+        $response = new Response(json_encode($medicos));
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+    public function getAllEspecialidadAction(Request $request){
+
+        $em = $this->getDoctrine()->getManager();
+
+        $RAW_QUERY  = " SELECT *  FROM especialidad ";
+
+                        $statement  = $em->getConnection()->prepare($RAW_QUERY);
+                        $statement->execute();    
+                        $medicos    = $statement->fetchAll();
+
+        $response = new Response(json_encode($medicos));
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+    public function getClienteByIdAction(Request $request){
+
+        $em = $this->getDoctrine()->getManager();
+        $sBusqueda = $request->query->get('id');
+
+        $RAW_QUERY  = "SELECT u.usu_id,
+        CONCAT(u.usu_nombre,' ',u.usu_segundo_nombre,' ',u.usu_segundo_nombre,' ',u.usu_segundo_apellido) as fullName,
+        cu.cli_usu_titulo,cu.cli_usu_correo,cu.cli_usu_direccion,cu.cli_usu_info_perfil,c.cli_ubicacion_lat,c.cli_ubicacion_lon,ug.gal_hash as 'gal_hash', cu.cli_usu_telefono,  m.mun_nombre,
+        group_concat(e.esp_especialidad SEPARATOR ', ') as especialidades
+
+            from usuario u
+                        JOIN cliente_usuario as cu on cu.cli_usu_usu_id=u.usu_id
+                        JOIN cliente as c ON cu.cli_usu_cli_id = c.cli_id
+                        JOIN municipio as m ON c.cli_mun_id = m.mun_id
+                        JOIN usuario_galeria as ug ON u.usu_id=ug.gal_usu_id
+                        JOIN usuario_especialidad AS es on u.usu_id=es.id_usuario
+                        JOIN  especialidad as e on e.esp_id=es.id_especialidad
+                       
+                        WHERE cu.cli_usu_rol_id=6 AND c.cli_id=1";
+
+                        $statement  = $em->getConnection()->prepare($RAW_QUERY);
+                        $statement->execute();    
+                        $medicos    = $statement->fetchAll();
+
+        $response = new Response(json_encode($medicos));
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
 
     public function indexAction(Request $request) {
         /* @var $sParametros \AppBundle\Services\servicioParametros */

@@ -1,3 +1,23 @@
+web_demo:
+    path:     /getDoctor
+    defaults: { _controller: WebBundle:Default:getDoctor }
+
+web_getDoctorByName:
+    path:     /getDoctorByName
+    defaults: { _controller: WebBundle:Default:getDoctorByName }    
+
+web_getEspecialidadById:
+    path:     /getEspecialidadById
+    defaults: { _controller: WebBundle:Default:getEspecialidadById } 
+
+web_especialidad:
+    path:     /getAllEspecialidad
+    defaults: { _controller: WebBundle:Default:getAllEspecialidad } 
+
+web_getClienteById:
+    path:     /getClienteById
+    defaults: { _controller: WebBundle:Default:getClienteById }     
+
 web_homepage:
     path:     /
     defaults: { _controller: WebBundle:Default:index }
