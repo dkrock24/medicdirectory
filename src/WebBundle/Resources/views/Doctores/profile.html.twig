@@ -55,7 +55,7 @@
     text-align: justify;
 }
 .cita_form{
-    display: none;
+    
     padding: 10px;
 }
 
@@ -76,7 +76,7 @@
 </style>
 
     <!-- Doctor Profile Starts -->
-    <div class="row">
+    <div class="row" style="border-left-color: black">
         <div class="col-sm-4 col-xs-12">
             <div class="profile-block">
                 <div class="panel panel-profile">
@@ -101,28 +101,48 @@
                                     <i class="fa fa-arrow-circle-left"></i>
                                     Go Back
                                 </a>
-                                
+                                <!--
                                 <a href="#" class="btn btn-secondary text-uppercase" id="solicitar_cita">
                                     <i class="fa fa-envelope" aria-hidden="true"></i>
                                     Get an apoiment
                                 </a>
+                                -->
+                                <button type="button" class="btn btn-secondary text-uppercase" data-toggle="modal" data-target="#myModal">
+                                    Get an apoiment
+                                </button>
                             </div>
-                        </div>
-                    </div>
-                    <div class="cita_form">
+
+                            
+
+                            <!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header label-info" >
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        <div class="row" >
+            <div class="col-lg-2 col-xs-2"><h1><i class="fa fa-edit" style="color:white;"></i></h1></div>
+            <div class="col-lg-10 col-xs-10 bd-callout bd-callout-warning">
+                <h5 class="modal-title" id="exampleModalLabel">Enter your information and you will be contactive soom to solve any concern</h5>
+                <span class="clinica_mensaje"><p>Att:  {{ medico.usuario.cliUsuCli.cliNombreComercial}}</p></span>
+            </div>
+        </div>
+        
+        
+        
+      </div>
+      <div class="modal-body">
+            
+
+            <div class="cita_form">
                     <input type="hidden" name="idCliente" id="idCliente" value="{{ medico.usuario.cliUsuCli.cliId }}" />                    
                         <input type="hidden" name="idUsuario" id="idUsuario" value="{{ medico.usuario.cliUsuUsu.usuId }}" />
-                    <form id="solicitud_cita">
-                        <div class="row">
-                            <div class="alert alert-info alert-styled-left alert-arrow-left alert-component">
-                                <button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
-                                <h6 class="alert-heading text-semibold">Enter your information and you will be contactive soom to solve any concern. <h6>
-                                <span class="clinica_mensaje"><p>Att:  {{ medico.usuario.cliUsuCli.cliNombreComercial}}</p></span>
-                            </div>
-                        </div>
-                        
+                    <form id="solicitud_cita">                        
                         <div class="row">
                             <div class="col-sm-12 col-xs-12">
+                            <label>Full Name</label>
                             <div class="input-group">
                                 <span class="input-group-addon" id="basic-addon1"><i class="fa fa-user"></i></span>
                                 <input type="text" class="form-control" id="nombre_1" required="true" placeholder="Full Name" aria-describedby="basic-addon1">
@@ -133,6 +153,7 @@
                         <br>
                         <div class="row">
                             <div class="col-sm-12 col-xs-12">
+                            <label>Phone</label>                            
                             <div class="input-group">
                                 <span class="input-group-addon" id="basic-addon1"><i class="fa fa-phone"></i></span>
                                 <input type="text" class="form-control" id="telefono_1" required="true" placeholder="phone" aria-describedby="basic-addon1">
@@ -143,6 +164,7 @@
                         <br>
                         <div class="row">
                             <div class="col-sm-12 col-xs-12">
+                            <label>Email Address</label>                            
                             <div class="input-group">
                                 <span class="input-group-addon" id="basic-addon1"><i class="fa fa-envelope"></i></span>
                                 <input type="email" class="form-control" id="correo_1" required="true" placeholder="Email Address" aria-describedby="basic-addon1">
@@ -153,12 +175,14 @@
                         <br>
                         <div class="row">
                             <div class="col-sm-6 col-xs-6">
+                            <label>Contact Date</label>                            
                                 <div class="input-group">
                                     <span class="input-group-addon" id="basic-addon1"><i class="fa fa-calendar"></i></span>
                                     <input type='text' class="form-control birth_date" id="fecha_1" value="{{ "now"|date("m/d/Y") }}" required="true" placeholder="Fecha" />
                                 </div>
                             </div>
                             <div class="col-sm-6 col-xs-6">
+                            <label>Contact Hour</label>                            
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
                                     <input type="text" class="form-control pickatime" value="{{ "now"|date("H:i A") }}" required="true" id="hora_1" placeholder="Hora">
@@ -169,7 +193,7 @@
                         <br>
                         <div class="row">
                             <div class="col-sm-12 col-xs-12">                            
-                                <textarea id="comentario" class="form-control" placeholder="Comentario"></textarea>                            
+                                <textarea id="comentario" class="form-control" placeholder="Cooments"></textarea>                            
                             </div>
                         </div>
 
@@ -177,11 +201,26 @@
                         <div class="panel-footer text-center-md text-center-sm text-center-xs">
                             <div class="input-group">
                                 <span class="input-group-addon"> <i class="fa fa-user-md"></i></span>                                   
-                                <input type="submit" name="Send" value="Send" class="btn btn-secondary col-sm-12 col-xs-12"/>
+                                <input type="submit" name="Send" value="Send Apoiment" class="btn btn-primary col-sm-12 col-xs-12"/>
                             </div>                            
                         </div>
                     </form>
                     </div>
+
+
+
+      </div>
+      <div class="modal-footer label-info">
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+                        </div>
+                    </div>
+                    
 
                     
 
@@ -336,7 +375,7 @@
             showForm();
         });
 
-        $.datepicker.regional['es'] = {
+        $.datepicker.regional['en'] = {
                         closeText: 'Cerrar',
                         prevText: '< Ant',
                         nextText: 'Sig >',
@@ -384,6 +423,8 @@
         var hora        = $("#hora_1").val();
 
 
+
+
         if(telefono!=null && nombre!=null && correo!=null)
         {
             $.ajax({
@@ -394,7 +435,10 @@
                 },
                 success: function (data) {
 
-                    $(".cita_form").fadeOut();   
+                    //$(".cita_form").fadeOut();   
+                    //$("#myModal").fadeOut();  
+
+                    
                                      
                     $("#solicitud_cita :input").each(function(){
                         $(this).val('');
@@ -403,7 +447,12 @@
                     
                 }
             });
-        }       
+        } 
+        $("#solicitud_cita :input").each(function(){
+                        $(this).val('');
+                    });   
+
+        $("#myModal").modal('hide');
 
         
     });

@@ -13,7 +13,7 @@
         }, options );
  		
  		var element = this;
- 		var days = ["Mon", "Tus","Wed","Thur","Fri","Sat","Sun"];
+ 		var days = ["Mon", "Tus","Wed","Thr","Fri","Sat","Sun"];
 
  		element.html("<div id='weekly_container'><div id='weekly_days'></div><div id='weekly_scroll'><div id='weekly_schedule'></div></div></div>");
  		
@@ -40,7 +40,7 @@
  		var init;
  		switch( ($.trim(settings.start_from)).toUpperCase() )
  		{
- 			case "12:00 AM":
+ 			case "12:0 AM":
  			case "00:00":
  				init = 0;
  				break;
