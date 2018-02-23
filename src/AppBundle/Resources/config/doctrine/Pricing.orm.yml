@@ -1,0 +1,36 @@
+AppBundle\Entity\Pricing:
+    type: entity
+    table: null
+    repositoryClass: AppBundle\Repository\PricingRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        plan:
+            type: string
+            length: 255
+        mes:
+            type: string
+            length: 255
+        precio:
+            type: string
+            length: 255
+        total:
+            type: string
+            length: 255
+        descripcion:
+            type: string
+            length: 255
+        creado:
+            type: datetime
+        actualizado:
+            type: datetime
+        estado:
+            type: boolean
+            nullable: false
+            options:
+                default: '1'
+    lifecycleCallbacks: {  }
