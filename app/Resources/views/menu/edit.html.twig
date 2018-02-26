@@ -1,7 +1,7 @@
 {% extends "Layout/base_admin/_admin_base.html.twig" %}
 
 {% block title_page %}
-        EMR || Menú para backend medicos
+        EMR || Backend Medic
 {% endblock %}
 
 {% block breadcrumb %}
@@ -30,7 +30,7 @@
             
             {{ form_start(edit_form) }}
                 {{ form_widget(edit_form) }}
-                <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Guardar</button>
+                <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Save</button>
             {{ form_end(edit_form) }}
             <hr>
         </div>
@@ -38,14 +38,14 @@
     <ul class="list-inline">
         
         <li>
-            <a href="{{ path('menu_index') }}" class="btn btn-info"><i class="fa fa-list"></i> Listar</a>
+            <a href="{{ path('menu_index') }}" class="btn btn-info"><i class="fa fa-list"></i> List</a>
         </li>
         <li>
-            <a href="{{ path('menu_new') }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Nuevo</a>
+            <a href="{{ path('menu_new') }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> New</a>
         </li>
         <li>
             {{ form_start(delete_form) }}
-                <button type="submit" class="btn btn-danger"><i class="fa fa-remove"></i> Eliminar</button>
+                <button type="submit" class="btn btn-danger"><i class="fa fa-remove"></i> Delete</button>
             {{ form_end(delete_form) }}
         </li>
         
