@@ -140,11 +140,13 @@ class ClienteController extends Controller
 			$addLocationToUser = "";
 		}
 		
+		$pricing = $em->getRepository('AppBundle:Pricing')->findBy( array("estado"=>1) );
 
         return $this->render('EmrBundle:cliente:new.html.twig', array(
             'cliente' => $cliente,
 			'addLocationToUser'=>$addLocationToUser,
 			'methodPay'=> $methodPay,
+			'pricing' => $pricing,
             'form' => $form->createView(),
         ));
     }
