@@ -156,6 +156,8 @@ class DefaultController extends Controller {
         /* @var $em \Doctrine\ORM\EntityManager */
         $em = $this->getDoctrine()->getManager();
 
+        $total_medicos=0;
+
 
         $sBusqueda = $request->query->get('b');
         $sUsuarios = '';
@@ -184,7 +186,14 @@ class DefaultController extends Controller {
 
                         $statement  = $em->getConnection()->prepare($RAW_QUERY);
                         $statement->execute();    
-                        $medicos    = $statement->fetchAll();        
+                        $medicos    = $statement->fetchAll();      
+
+                        $total_medicos = count( $medicos );
+
+                        if($total_medicos < 20 ){
+
+                            echo $total_medicos = ( 20 - $total_medicos );
+                        }
 
         
 
@@ -200,6 +209,7 @@ class DefaultController extends Controller {
                     'medicos' => $pagination,
                     'especialidad' => $this->getEspecialidades(),
                     'departmanetos' => $this->getDepartamento(),
+                    'total_medicos' => $total_medicos,
                     )
         );
     }
