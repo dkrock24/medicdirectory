@@ -1,0 +1,125 @@
+AppBundle\Entity\Pagos:
+    type: entity
+    table: pagos
+    indexes:
+        ph_created_at:
+            columns:
+                - ph_created_at
+        ph_email:
+            columns:
+                - ph_email
+        ph_active:
+            columns:
+                - ph_active
+        ph_updated_at:
+            columns:
+                - ph_updated_at
+        ph_id_transaction:
+            columns:
+                - ph_id_transaction
+        ph_id_token:
+            columns:
+                - ph_id_token
+        FK_pagos_cliente:
+            columns:
+                - cli_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        phEmail:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+            column: ph_email
+        phPicture:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: ph_picture
+        phText:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: ph_text
+        phLink:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: ph_link
+        phCreatedAt:
+            type: datetime
+            nullable: true
+            options:
+                default: CURRENT_TIMESTAMP
+            column: ph_created_at
+        phUpdatedAt:
+            type: datetime
+            nullable: true
+            options:
+                default: CURRENT_TIMESTAMP
+            column: ph_updated_at
+        phActive:
+            type: boolean
+            nullable: true
+            column: ph_active
+        phPayed:
+            type: float
+            nullable: true
+            precision: 11
+            scale: 2
+            column: ph_payed
+        phIdPayer:
+            type: string
+            nullable: true
+            length: 50
+            options:
+                fixed: false
+            column: ph_id_payer
+        phIdTransaction:
+            type: string
+            nullable: true
+            length: 50
+            options:
+                fixed: false
+            column: ph_id_transaction
+        phIdToken:
+            type: string
+            nullable: true
+            length: 50
+            options:
+                fixed: false
+            column: ph_id_token
+        phHttpParsedResponse:
+            type: text
+            nullable: true
+            length: 65535
+            options:
+                fixed: false
+            column: ph_http_parsed_response
+    manyToOne:
+        cli:
+            targetEntity: Cliente
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                cli_id:
+                    referencedColumnName: cli_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

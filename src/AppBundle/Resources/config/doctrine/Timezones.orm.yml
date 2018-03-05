@@ -6,24 +6,36 @@ AppBundle\Entity\Timezones:
             columns:
                 - tim_pai_id
     id:
-        id:
+        idTimezone:
             type: integer
+            nullable: false
+            options:
+                unsigned: false
             id: true
             column: id_timezone
             generator:
                 strategy: IDENTITY
     fields:
-        timezoneValue:
+        timezoneVlue:
             type: string
+            nullable: false
             length: 255
+            options:
+                fixed: false
             column: timezone_vlue
         zonaHoraria:
             type: string
+            nullable: false
             length: 255
+            options:
+                fixed: false
             column: zona_horaria
-        ciudadTime:
+        timezoneValue:
             type: string
+            nullable: false
             length: 255
+            options:
+                fixed: false
             column: timezone_Value
     manyToOne:
         timPai:

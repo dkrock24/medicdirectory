@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use \AppBundle\Entity\Usuario;
 use \AppBundle\Entity\Rol;
 use \AppBundle\Entity\ClienteUsuario;
-//use \AppBundle\Entity\UsuariosRol;
+use \AppBundle\Entity\Pagos;
 
 /**
  * Cliente controller.
@@ -1011,16 +1011,18 @@ class ClienteController extends Controller
 			*/
 			//} 
 
-			$em->getConnection()->commit();
+			
 			if (isset($clientId) && $clientId > 0) {
-				$msg = "Se actualizó correctamente los datos del extablecimiento";
+				$msg = "The establishment data was updated correctly";
+				$this->session->getFlashBag()->add("success", $msg);
 			}
 			else
 			{
-				$msg = "Registro creado con éxito";
+				//$msg = "Record created successfully";
 			}
-			$this->session->getFlashBag()->add("success", $msg);
-			echo 1;
+			
+			$em->getConnection()->commit();
+			echo $lastClient; //1;
 			
 		}
 		catch (Exception $e) {
@@ -1035,7 +1037,7 @@ class ClienteController extends Controller
 		
 		exit();
 	}
-	
+
 	public function checkExistUser($username)
 	{
 		$em = $this->getDoctrine()->getManager();

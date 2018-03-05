@@ -246,4 +246,33 @@ class EavModSecGrupo
     {
         return $this->grupoSeccion;
     }
+    /**
+     * @var \AppBundle\Entity\EavModSeccion
+     */
+    private $secGrSecc;
+
+
+    /**
+     * Set secGrSecc
+     *
+     * @param \AppBundle\Entity\EavModSeccion $secGrSecc
+     *
+     * @return EavModSecGrupo
+     */
+    public function setSecGrSecc(\AppBundle\Entity\EavModSeccion $secGrSecc = null)
+    {
+        $this->secGrSecc = $secGrSecc;
+
+        return $this;
+    }
+
+    /**
+     * Get secGrSecc
+     *
+     * @return \AppBundle\Entity\EavModSeccion
+     */
+    public function getSecGrSecc()
+    {
+        return $this->secGrSecc;
+    }
 }

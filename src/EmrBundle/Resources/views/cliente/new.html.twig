@@ -167,20 +167,11 @@
                                                 <div class="">{{ form_widget(form.cliMun) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
                                             </div>
                                         </div>    
-                                        <div class="col-md-8">
+                                        <div class="col-md-4">
                                             <div class="form-group">
                                                 <div class="form_error">{{ form_errors(form.cliDireccion)}}</div>
                                                 <label for="" class=" control-label">Address: <span class="text-danger">*</span></label>
                                                 <div class="">{{ form_widget(form.cliDireccion) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
-                                            </div>
-                                        </div>
-                                    </div>        
-                                    <div class="row">
-                                        <div class="col-md-4">    
-                                            <div class="form-group">
-                                                <div class="form_error">{{ form_errors(form.cliNit)}}</div>
-                                                <label for="" class=" control-label">Nit: <span class="text-danger">*</span></label>
-                                                <div class="">{{ form_widget(form.cliNit) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -189,8 +180,18 @@
                                                 <label for="" class=" control-label">Phone Number 1: <span class="text-danger">*</span></label>
                                                 <div class="">{{ form_widget(form.cliTelefono1) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
                                             </div>
+                                        </div>    
+                                    </div>        
+                                    <div class="row">
+                                        <div class="col-md-4" style="display:none">    
+                                            <div class="form-group">
+                                                <div class="form_error">{{ form_errors(form.cliNit)}}</div>
+                                                <label for="" class=" control-label">Nit: <span class="text-danger">*</span></label>
+                                                <div class="">{{ form_widget(form.cliNit) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                            </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        
+                                        <div class="col-md-4" style="display:none">
                                             <div class="form-group">
                                                 <div class="form_error">{{ form_errors(form.cliTelefono2)}}</div>
                                                 <label for="" class=" control-label">Phone Number 2:</label>
@@ -280,7 +281,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-4" style="display:none">
                                             <div class="form-group">
                                                 <div class="form_error"></div>
                                                 <label for="" class=" control-label">Tercer Nombre: </label>
@@ -291,10 +292,9 @@
                                                 {% endif %}    
                                                 
                                             </div>
-                                        </div>         
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-4">
+                                       
+                                        <div class="col-md-4">
                                                 <div class="form-group">
                                                     <div class="form_error"></div>
                                                     <label for="" class=" control-label">Last Name: <span class="text-danger">*</span></label>
@@ -305,7 +305,11 @@
                                                     {% endif %}    
                                                     
                                                 </div>
-                                            </div>
+                                            </div>         
+                                        </div>
+                                                    
+                                        <div class="row">
+                                            
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <div class="form_error"></div>
@@ -318,6 +322,7 @@
                                                     
                                                 </div>
                                             </div>
+                                                    
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label>Genero: <span class="text-danger">*</span></label>
@@ -338,48 +343,7 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            {#
-                                             {{ dump(addLocationToUser) }} 
-                                             {{ addLocationToUser.usuId }}
-                                            #}
-                                            {% if addLocationToUser|length > 0 %}
-                                                <div class="form-group has-success has-feedback">
-                                                    <label>Username: <span class="text-danger">*</span></label>
-                                                    <input type="text" name="user_representer" id="user_representer" value="{{ addLocationToUser.usuUsuario }}" placeholder="Username" class="form-control required" readonly="readonly">
-                                                    <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
-                                                </div>
-                                                <div class="form-group">
-                                                        <label>Password:</label>
-                                                        <input type="password" id="password_representer" value="deafult"  name="password_representer" placeholder="Password" class="form-control" disabled="disabled">
-                                                </div>
-                                                <div class="form-group">
-                                                        <label>Repeat Password: </label>
-                                                        <input type="password" id="password_representer_repeat" value="deafult" name="password_representer_repeat" placeholder="Repit Password" class="form-control" disabled="disabled">
-                                                </div>
-                                            {% else %}
-                                                <div class="form-group">
-                                                    <label>Username: <span class="text-danger">*</span></label>
-                                                    <input type="text" name="user_representer" id="user_representer" placeholder="Username" class="form-control required">
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label>Password: <span class="text-danger">*</span></label>
-                                                    <input type="password" id="password_representer" name="password_representer" placeholder="Password" class="form-control required">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>Repeat Password: <span class="text-danger">*</span></label>
-                                                    <input type="password" id="password_representer_repeat" name="password_representer_repeat" placeholder="Repita Contraseña" class="form-control required">
-                                                </div>
-                                            {% endif %}    
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <div class="row">
-                                                <div class="col-md-12">
+                                            <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label>Email Address: <span class="text-danger">*</span></label>
                                                         {% if addLocationToUser|length > 0 %}
@@ -389,15 +353,68 @@
                                                         {% endif %}    
                                                         
                                                     </div>
+                                                </div>            
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="">
+                                            {#
+                                             {{ dump(addLocationToUser) }} 
+                                             {{ addLocationToUser.usuId }}
+                                            #}
+                                            {% if addLocationToUser|length > 0 %}
+                                                <div class="col-md-4">
+                                                    <div class="form-group has-success has-feedback">
+                                                        <label>Username: <span class="text-danger">*</span></label>
+                                                        <input type="text" name="user_representer" id="user_representer" value="{{ addLocationToUser.usuUsuario }}" placeholder="Username" class="form-control required" readonly="readonly">
+                                                        <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                                                    </div>
                                                 </div>
-                                                <div class="col-md-12">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                            <label>Password:</label>
+                                                            <input type="password" id="password_representer" value="deafult"  name="password_representer" placeholder="Password" class="form-control" disabled="disabled">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">        
+                                                    <div class="form-group">
+                                                            <label>Repeat Password: </label>
+                                                            <input type="password" id="password_representer_repeat" value="deafult" name="password_representer_repeat" placeholder="Repit Password" class="form-control" disabled="disabled">
+                                                    </div>
+                                                </div>    
+                                            {% else %}
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label>Username: <span class="text-danger">*</span></label>
+                                                        <input type="text" name="user_representer" id="user_representer" placeholder="Username" class="form-control required">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label>Password: <span class="text-danger">*</span></label>
+                                                        <input type="password" id="password_representer" name="password_representer" placeholder="Password" class="form-control required">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label>Repeat Password: <span class="text-danger">*</span></label>
+                                                        <input type="password" id="password_representer_repeat" name="password_representer_repeat" placeholder="Repita Contraseña" class="form-control required">
+                                                    </div>
+                                                </div>    
+                                            {% endif %}    
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="row">
+                                                
+                                                <div class="col-md-12" style="display:none">
                                                     <div class="form-group">
                                                         
                                                         <label>Birth Day: <span class="text-danger">*</span></label>
                                                         {% if addLocationToUser|length > 0 %}
-                                                            <div class=""><input type="text" id="birth_date" value="{# {{ addLocationToUser.usuFechaNacimiento|date('Y-m-d') }} #}" name="birth_date" class="form-control" required ></div>
+                                                            <div class=""><input type="text" id="birth_date" value="" name="birth_date" class="form-control" required ></div>
                                                         {% else %}
-                                                            <div class=""><input type="text" id="birth_date" name="birth_date" class="form-control" required readonly="readonly"></div>
+                                                            <div class=""><input type="text" id="birth_date" name="birth_date" class="form-control"></div>
                                                         {% endif %}    
                                                         
                                                     </div>
@@ -526,7 +543,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-lg-2 col-md-6 col-sm-6">
+                                                    <div class="col-lg-2 col-md-6 col-sm-6" style="display:none">
                                                         <div class="form-group">
                                                             <label class="control-label">&nbsp;<br><label>
                                                             <div class="checkbox">
@@ -536,10 +553,11 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    
                                                     <div class="col-lg-12 col-md-12 col-sm-12">
                                                         <div class="form-group text-right">
 
-                                                            <a href="#" class='remove btn bg-danger-400 ' style="margin-top: 7px;" data-toggle="tooltip" data-placement="top" title="Remover Usuario"><b><i class="fa fa-user-times"></i></b> </a>
+                                                            {# <a href="#" class='remove btn bg-danger-400 ' style="margin-top: 7px;" data-toggle="tooltip" data-placement="top" title="Remover Usuario"><b><i class="fa fa-user-times"></i></b> </a> #}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -553,8 +571,8 @@
                                     </div>
                                 </div>
                                 <hr>
-                                {# <p><a href="#" class='addsection btn bg-teal-400 btn-labele btn-sm'><b><i class="fa fa-plus-circle"></i></b> Agregar usuario</a></p> #}
-                                <p><span class='addsection btn bg-teal-400 btn-labele btn-sm'><b><i class="fa fa-plus-circle"></i></b> Agregar usuario</span></p>
+                                
+                                {# <p><span class='addsection btn bg-teal-400 btn-labele btn-sm'><b><i class="fa fa-plus-circle"></i></b> Agregar usuario</span></p> #}
                             </div>
 
                         </div>
@@ -819,7 +837,7 @@
             //$(".optionPay").
             
             $('#appbundle_cliente_cliNit').mask("9999-999999-999-9", {placeholder: "____-______-___-_"});
-            $('#appbundle_cliente_cliTelefono1').mask("9999-9999", {placeholder: "____-____"});
+            $('#appbundle_cliente_cliTelefono1').mask("(999) 999-9999", {placeholder: "(999) 999-9999"});
             $('#appbundle_cliente_cliTelefono2').mask("9999-9999", {placeholder: "____-____"});
             
             
@@ -1445,7 +1463,7 @@
                     {
                         $.confirm({
                             title: 'Confirme!',
-                            content: '<p class="small">Este usuario ya ha sido tomado por un representante de este establecimiento!</p><p class="small"> Desea usar las mismas credenciales?</p>',
+                            content: '<p class="small">This user has already been taken by a representative of this establishment!</p><p class="small"> Do you want to use the same credentials??</p>',
                             type: 'blue',
                             typeAnimated: true,
                             buttons: {
@@ -1516,7 +1534,7 @@
                         $.alert({
                             icon: 'glyphicon glyphicon-remove-circle',
                             title: 'Error!',
-                            content: '<p class="small">El usuario <strong>'+username+'</strong> ya existe en esta lista intente con otro usuario</p>',
+                            content: '<p class="small">Username <strong>'+username+'</strong> already exists in this list try another user</p>',
                             type: 'red',
                             typeAnimated: true,
                         });
@@ -1558,7 +1576,7 @@
                         $.confirm({
                             icon: 'fa fa-remove',
                             title: 'Error!',
-                            content: '<p class="small">Ha ocurrido un error al tratar de enviar la petición</p>',
+                            content: '<p class="small">An error occurred while trying to send the request</p>',
                             type: 'red',
                             typeAnimated: true,
                             buttons: {
@@ -1674,7 +1692,7 @@
                                     $.alert({
                                         icon: 'fa fa-user-times',
                                         title: 'Info!',
-                                        content: 'El usuario <strong>'+username+'</strong> no esta disponible',
+                                        content: 'Username <strong>'+username+'</strong> is not available',
                                         type: 'red',
                                         typeAnimated: true,
                                     });
@@ -1688,7 +1706,7 @@
                             $.alert({
                                     icon: 'fa fa-user-times',
                                     title: 'Info!',
-                                    content: 'El usuario no pudo ser validado',
+                                    content: 'The user could not be validated',
                                     type: 'red',
                                     typeAnimated: true,
                                 });
@@ -1812,7 +1830,7 @@
                             $.confirm({
                                 icon: 'fa fa-remove',
                                 title: 'Error!',
-                                content: 'Ha ocurrido un error al tratar de enviar la petición',
+                                content: 'An error occurred while trying to send the request',
                                 type: 'red',
                                 typeAnimated: true,
                                 buttons: {
@@ -1829,10 +1847,12 @@
                                     });
                         },
                         success: function (data) {
-                            if( data == "1" )
+                            if( data >= "1" )
                             {
-                               window.location = "{{ path('cliente_new') }}";
-                               $("#holder_loading").hide();
+                               //window.location = "{{ path('cliente_new') }}";
+                               window.location = "{{ path('app_paypal') }}?clientId="+data+"&opt="+pricing;
+                               //$("#holder_loading").hide();
+                               //alert("fin");
                             }
                             else
                             {
@@ -1840,7 +1860,7 @@
                                 $.alert({
                                     icon: 'glyphicon glyphicon-remove-circle',
                                     title: 'Info!',
-                                    content: 'Ha ocurrido un error al intentar crear el regístro',
+                                    content: 'An error occurred while trying to create the record',
                                     type: 'red',
                                     typeAnimated: true,
                                  });
@@ -1899,7 +1919,7 @@
                 yearRange: start.getFullYear() + ':' + end.getFullYear()
             });
             */
-            
+            /*
             $( "#birth_date" ).datepicker({
                 changeMonth: true,
                 changeYear: true,
@@ -1909,7 +1929,7 @@
                  yearRange: start.getFullYear() + ':' + end.getFullYear()
                  
             });
-            
+            */
             $('[data-toggle="tooltip"]').tooltip();
             //$("body").find(".ui-datepicker-year").select2();
             

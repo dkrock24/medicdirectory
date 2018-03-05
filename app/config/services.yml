@@ -38,4 +38,8 @@ services:
     
     srv_client_settings:
         class:        Services\ClientSettings
-        arguments:     ["@doctrine.orm.entity_manager", "@session"]    
+        arguments:     ["@doctrine.orm.entity_manager", "@session"]
+        
+    srv_Paypal:
+        class:        Services\Paypal
+        arguments:     ["@doctrine.orm.entity_manager"]    

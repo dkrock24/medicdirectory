@@ -49,6 +49,9 @@ security:
         - { path: ^/cliente/available/user, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/cliente/valida/form, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/cliente/nuevo, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/paypal, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/paypal/success, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/paypal/cancel, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY,  host: '^%public_domain%$' }

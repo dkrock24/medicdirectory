@@ -175,4 +175,33 @@ class Timezones
     }
 
     
+    /**
+     * @var string
+     */
+    private $timezoneVlue;
+
+
+    /**
+     * Set timezoneVlue
+     *
+     * @param string $timezoneVlue
+     *
+     * @return Timezones
+     */
+    public function setTimezoneVlue($timezoneVlue)
+    {
+        $this->timezoneVlue = $timezoneVlue;
+
+        return $this;
+    }
+
+    /**
+     * Get timezoneVlue
+     *
+     * @return string
+     */
+    public function getTimezoneVlue()
+    {
+        return $this->timezoneVlue;
+    }
 }

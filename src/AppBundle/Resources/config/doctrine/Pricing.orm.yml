@@ -1,33 +1,51 @@
 AppBundle\Entity\Pricing:
     type: entity
-    table: null
-    repositoryClass: AppBundle\Repository\PricingRepository
+    table: pricing
     id:
         id:
             type: integer
+            nullable: false
+            options:
+                unsigned: false
             id: true
             generator:
-                strategy: AUTO
+                strategy: IDENTITY
     fields:
         plan:
             type: string
+            nullable: false
             length: 255
+            options:
+                fixed: false
         mes:
             type: string
+            nullable: false
             length: 255
+            options:
+                fixed: false
         precio:
-            type: string
-            length: 255
+            type: float
+            nullable: false
+            precision: 10
+            scale: 0
         total:
             type: string
+            nullable: false
             length: 255
+            options:
+                fixed: false
         descripcion:
             type: string
+            nullable: false
             length: 255
+            options:
+                fixed: false
         creado:
             type: datetime
+            nullable: false
         actualizado:
             type: datetime
+            nullable: false
         estado:
             type: boolean
             nullable: false

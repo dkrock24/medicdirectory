@@ -1,0 +1,57 @@
+AppBundle\Entity\TmpPagos:
+    type: entity
+    table: tmp_pagos
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        tmpIdToken:
+            type: string
+            nullable: true
+            length: 50
+            options:
+                fixed: false
+            column: tmp_id_token
+        tmpEmail:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+            column: tmp_email
+        tmpPicture:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: tmp_picture
+        tmpText:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: tmp_text
+        tmpLink:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: tmp_link
+        tmpCreatedAt:
+            type: datetime
+            nullable: true
+            column: tmp_created_at
+        tmpCompleted:
+            type: boolean
+            nullable: true
+            column: tmp_completed
+    lifecycleCallbacks: {  }

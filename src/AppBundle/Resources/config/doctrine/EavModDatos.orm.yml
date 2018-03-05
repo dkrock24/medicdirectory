@@ -1,6 +1,22 @@
 AppBundle\Entity\EavModDatos:
     type: entity
     table: eav_mod_datos
+    indexes:
+        IDX_40A89A644DE28A73:
+            columns:
+                - mod_dat_usu_id
+        IDX_40A89A64727DD761:
+            columns:
+                - mod_dat_pac_id
+        IDX_40A89A6460128381:
+            columns:
+                - mod_dat_cli_id
+        IDX_40A89A64A8183B3:
+            columns:
+                - mod_dat_cit_id
+        IDX_40A89A64E039DDBE:
+            columns:
+                - mod_dat_mod_camp_id
     id:
         modDatId:
             type: integer
@@ -12,45 +28,18 @@ AppBundle\Entity\EavModDatos:
             generator:
                 strategy: IDENTITY
     fields:
-        modDatModCampId:
-            type: integer
-            nullable: false
-            options:
-                unsigned: true
-            column: mod_dat_mod_camp_id
-        modDatUsuId:
-            type: integer
-            nullable: true
-            options:
-                unsigned: true
-            column: mod_dat_usu_id
-        modDatPacId:
-            type: integer
-            nullable: true
-            options:
-                unsigned: true
-            column: mod_dat_pac_id
-        modDatCliId:
-            type: integer
-            nullable: false
-            options:
-                unsigned: true
-            column: mod_dat_cli_id
-        modDatCitId:
-            type: integer
-            nullable: false
-            options:
-                unsigned: true
-            column: mod_dat_cit_id
         modDatDatoValor:
             type: string
             nullable: true
+            length: 255
+            options:
+                fixed: false
             column: mod_dat_dato_valor
         modDatActivo:
             type: boolean
             nullable: false
             options:
-                default: 1
+                default: '1'
             column: mod_dat_activo
         modDatFechaCrea:
             type: datetime
@@ -63,48 +52,54 @@ AppBundle\Entity\EavModDatos:
             nullable: true
             column: mod_dat_fecha_mod
     manyToOne:
-        usuarioDato:
+        modDatUsu:
             targetEntity: Usuario
             cascade: {  }
             fetch: LAZY
+            mappedBy: null
             inversedBy: null
             joinColumns:
                 mod_dat_usu_id:
                     referencedColumnName: usu_id
             orphanRemoval: false
-        pacienteDato:
-            targetEntity: Paciente
-            cascade: {  }
-            fetch: LAZY
-            inversedBy: null
-            joinColumns:
-                mod_dat_pac_id:
-                    referencedColumnName: pac_id
-            orphanRemoval: false
-        clienteDato:
+        modDatCli:
             targetEntity: Cliente
             cascade: {  }
             fetch: LAZY
+            mappedBy: null
             inversedBy: null
             joinColumns:
                 mod_dat_cli_id:
                     referencedColumnName: cli_id
             orphanRemoval: false
-        citaDato:
+        modDatPac:
+            targetEntity: Paciente
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                mod_dat_pac_id:
+                    referencedColumnName: pac_id
+            orphanRemoval: false
+        modDatCit:
             targetEntity: Cita
             cascade: {  }
             fetch: LAZY
+            mappedBy: null
             inversedBy: null
             joinColumns:
                 mod_dat_cit_id:
                     referencedColumnName: cit_id
             orphanRemoval: false
-        campoDato:
+        modDatModCamp:
             targetEntity: EavModCampos
             cascade: {  }
             fetch: LAZY
+            mappedBy: null
             inversedBy: null
             joinColumns:
                 mod_dat_mod_camp_id:
                     referencedColumnName: mod_camp_id
+            orphanRemoval: false
     lifecycleCallbacks: {  }

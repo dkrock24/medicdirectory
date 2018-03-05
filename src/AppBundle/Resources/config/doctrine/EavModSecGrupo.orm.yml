@@ -1,7 +1,10 @@
 AppBundle\Entity\EavModSecGrupo:
     type: entity
     table: eav_mod_sec_grupo
-    repositoryClass: AppBundle\Repository\EavModSecGrupoRepository
+    indexes:
+        IDX_6B3087616A331933:
+            columns:
+                - sec_gr_secc_id
     id:
         secGrId:
             type: integer
@@ -16,19 +19,22 @@ AppBundle\Entity\EavModSecGrupo:
         secGrGrupo:
             type: string
             nullable: false
+            length: 255
+            options:
+                fixed: false
             column: sec_gr_grupo
         secGrActivo:
             type: boolean
             nullable: false
             options:
-                default: true
+                default: '1'
             column: sec_gr_activo
         secGrFechaCrea:
             type: datetime
             nullable: false
             options:
                 default: CURRENT_TIMESTAMP
-            column: sec_gr_fecha_crea    
+            column: sec_gr_fecha_crea
         secGrFechaMod:
             type: datetime
             nullable: true
@@ -40,16 +46,14 @@ AppBundle\Entity\EavModSecGrupo:
                 unsigned: true
             column: sec_gr_orden
     manyToOne:
-        grupoSeccion:
+        secGrSecc:
             targetEntity: EavModSeccion
+            cascade: {  }
             fetch: LAZY
-            inversedBy: seccionGrupo
+            mappedBy: null
+            inversedBy: null
             joinColumns:
                 sec_gr_secc_id:
                     referencedColumnName: mod_secc_id
-    oneToMany:
-        campos:
-            targetEntity: EavModCampos
-            cascade: [persist]
-            mappedBy: grupoCampo
+            orphanRemoval: false
     lifecycleCallbacks: {  }

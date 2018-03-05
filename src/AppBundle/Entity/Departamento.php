@@ -258,4 +258,28 @@ class Departamento
     public function __toString() {
         return $this->depDepartamento;
     }
+
+    /**
+     * Set depTimezone
+     *
+     * @param \AppBundle\Entity\Timezones $depTimezone
+     *
+     * @return Departamento
+     */
+    public function setDepTimezone(\AppBundle\Entity\Timezones $depTimezone = null)
+    {
+        $this->depTimezone = $depTimezone;
+
+        return $this;
+    }
+
+    /**
+     * Get depTimezone
+     *
+     * @return \AppBundle\Entity\Timezones
+     */
+    public function getDepTimezone()
+    {
+        return $this->depTimezone;
+    }
 }

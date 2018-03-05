@@ -1,6 +1,10 @@
 AppBundle\Entity\EavModCatValores:
     type: entity
     table: eav_mod_cat_valores
+    indexes:
+        IDX_C546A49153FE0380:
+            columns:
+                - mod_cat_val_camp_id
     id:
         modCatValId:
             type: integer
@@ -12,26 +16,25 @@ AppBundle\Entity\EavModCatValores:
             generator:
                 strategy: IDENTITY
     fields:
-        modCatValCampId:
-            type: integer
-            nullable: false
-            options:
-                unsigned: true
-            column: mod_cat_val_camp_id
         modCatValValor:
             type: string
             nullable: true
+            length: 255
+            options:
+                fixed: false
             column: mod_cat_val_valor
         modCatValCatValPadre:
             type: integer
             nullable: true
+            options:
+                unsigned: false
             column: mod_cat_val_cat_val_padre
         modCatValActivo:
             type: boolean
             nullable: false
-            column: mod_cat_val_activo
             options:
-                default: 1
+                default: '1'
+            column: mod_cat_val_activo
         modCatValFechaCrea:
             type: datetime
             nullable: false
@@ -43,10 +46,11 @@ AppBundle\Entity\EavModCatValores:
             nullable: true
             column: mod_cat_val_fecha_mod
     manyToOne:
-        ModCampos:
+        modCatValCamp:
             targetEntity: EavModCampos
             cascade: {  }
             fetch: LAZY
+            mappedBy: null
             inversedBy: null
             joinColumns:
                 mod_cat_val_camp_id:

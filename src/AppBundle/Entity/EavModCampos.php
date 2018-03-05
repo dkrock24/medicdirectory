@@ -532,4 +532,62 @@ class EavModCampos
     {
         return $this->modRecuperarHistoricoSiVacio;
     }
+    /**
+     * @var \AppBundle\Entity\EavModSecGrupo
+     */
+    private $modCampSecGr;
+
+    /**
+     * @var \AppBundle\Entity\EavTipCampos
+     */
+    private $modCampTipCamp;
+
+
+    /**
+     * Set modCampSecGr
+     *
+     * @param \AppBundle\Entity\EavModSecGrupo $modCampSecGr
+     *
+     * @return EavModCampos
+     */
+    public function setModCampSecGr(\AppBundle\Entity\EavModSecGrupo $modCampSecGr = null)
+    {
+        $this->modCampSecGr = $modCampSecGr;
+
+        return $this;
+    }
+
+    /**
+     * Get modCampSecGr
+     *
+     * @return \AppBundle\Entity\EavModSecGrupo
+     */
+    public function getModCampSecGr()
+    {
+        return $this->modCampSecGr;
+    }
+
+    /**
+     * Set modCampTipCamp
+     *
+     * @param \AppBundle\Entity\EavTipCampos $modCampTipCamp
+     *
+     * @return EavModCampos
+     */
+    public function setModCampTipCamp(\AppBundle\Entity\EavTipCampos $modCampTipCamp = null)
+    {
+        $this->modCampTipCamp = $modCampTipCamp;
+
+        return $this;
+    }
+
+    /**
+     * Get modCampTipCamp
+     *
+     * @return \AppBundle\Entity\EavTipCampos
+     */
+    public function getModCampTipCamp()
+    {
+        return $this->modCampTipCamp;
+    }
 }

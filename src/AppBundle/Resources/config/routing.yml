@@ -11,3 +11,15 @@ ws_login:
     path: /ws/login
     defaults: { _controller: AppBundle:wsLogin:wsLogin }
     methods: [POST]
+    
+app_paypal:
+    path:     /paypal/
+    defaults: { _controller: AppBundle:Paypal:paypal }
+    
+app_paypal_success:
+    path:     /paypal/success
+    defaults: { _controller: AppBundle:Paypal:paypalSuccess }
+    
+app_paypal_cancel:
+    path:     /paypal/cancel
+    defaults: { _controller: AppBundle:Paypal:paypalCancel }    

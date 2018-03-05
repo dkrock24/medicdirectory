@@ -2,6 +2,9 @@ AppBundle\Entity\Cliente:
     type: entity
     table: cliente
     indexes:
+        IDX_F41C9B252DE9EE6C:
+            columns:
+                - cli_tim_id
         IDX_cli_nit:
             columns:
                 - cli_nit
@@ -52,14 +55,14 @@ AppBundle\Entity\Cliente:
         cliTelefono1:
             type: string
             nullable: false
-            length: 9
+            length: 15
             options:
                 fixed: false
             column: cli_telefono1
         cliTelefono2:
             type: string
             nullable: true
-            length: 9
+            length: 15
             options:
                 fixed: false
             column: cli_telefono2
@@ -129,6 +132,16 @@ AppBundle\Entity\Cliente:
                 fixed: false
             column: cli_ubicacion_lon
     manyToOne:
+        cliTim:
+            targetEntity: Timezones
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                cli_tim_id:
+                    referencedColumnName: id_timezone
+            orphanRemoval: false
         cliMetodoPago:
             targetEntity: MetodoPago
             cascade: {  }
@@ -158,16 +171,6 @@ AppBundle\Entity\Cliente:
             joinColumns:
                 cli_mun_id:
                     referencedColumnName: mun_id
-            orphanRemoval: false
-        cliTim:
-            targetEntity: Timezones
-            cascade: {  }
-            fetch: LAZY
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                cli_tim_id:
-                    referencedColumnName: id_timezone
             orphanRemoval: false
     manyToMany:
         idEspecialidad:
