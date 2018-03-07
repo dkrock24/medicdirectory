@@ -28,20 +28,29 @@
                 <table border=0 width="100%">
 
                     <tr>
-                        <td colspan="2"><span class="close-filtro"><i class="fa fa-close"></i></span></td>
+                        <td colspan="3"><span class="close-filtro"><i class="fa fa-close"></i></span></td>
                     </tr>
 
                     <tr>
                         <td>  
                             <label><i class="fa fa-map-marker "></i> Department:</label><br>
-                            <select name="departmanetos" id="departmanetos" class="form-control">
+                            <select name="departmanetos" id="departamento" class="form-control">
                                     <option value="-"></option>
                                 {% for dep in departmanetos %}
-                                    <option value="{{ dep.mun_nombre }}">{{ dep.mun_nombre }}</option>
+                                    <option value="{{ dep.dep_id }}">{{ dep.dep_departamento }}</option>
                                 {% endfor %}
                             </select>
                         </td>
                         <td>  
+                            <label><i class="fa fa-map-marker "></i> City:</label><br>
+                            <select name="cities" id="cities" class="form-control">
+                                    <option value="-"></option>
+                                {% for dep in departmanetos %}
+                                    <option value="{{ dep.dep_id }}" name="{{ dep.dep_id }}">{{ dep.dep_departamento }}</option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                        <td>
                             <label><i class="fa fa-user-md"></i> Specialty :</label><br>
                             <select name="especialidad" id="especialidad" class="form-control">
                                 <option value="-"></option>

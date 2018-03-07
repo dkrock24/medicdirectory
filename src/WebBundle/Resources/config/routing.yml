@@ -61,3 +61,7 @@ web_contactanos:
 web_solicitar_contacto:
     path:     /solicitar2
     defaults: { _controller: WebBundle:Default:indexContactos }
+
+web_get_cities:
+    path:     /cities
+    defaults: { _controller: "WebBundle:Default:getCities" }  

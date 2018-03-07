@@ -226,5 +226,37 @@
 {% endblock %}
 
 {% block codejs %}
+<script>
+        $(document).on("ready", function () {
+            $("#departamento").change( function () {
 
+                var $this = $(this);
+                var idCountry = $this.attr('value');
+                loadCities(idCountry);
+
+            });
+
+            function loadCities(idCountry){
+
+                $("#holder_loading").show();
+                $.ajax({
+                    type: "post",
+                    url: "{{ path('web_get_cities') }}",
+                    data: {id: idCountry},
+                    error: function (data) {
+                            alert(1);
+                            },
+                    success: function (data) {
+                        var $this = $("#cities");
+                        $.each(data, function (key, value) {
+                            $("#cities").append("<option value=" + value.mun_nombre + ">" + value.mun_nombre + "</option>");
+                        });
+                    }
+                });
+            }
+        })
+
+
+        
+    </script>
 {% endblock  %}

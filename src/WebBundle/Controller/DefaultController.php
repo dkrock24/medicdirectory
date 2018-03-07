@@ -192,7 +192,7 @@ class DefaultController extends Controller {
 
                         if($total_medicos < 20 ){
 
-                            echo $total_medicos = ( 20 - $total_medicos );
+                            $total_medicos = ( 20 - $total_medicos );
                         }
 
         
@@ -222,18 +222,39 @@ class DefaultController extends Controller {
         $em = $this->getDoctrine()->getManager();
 
         // Departamentos
+        /*
         $RAW_MUN    = "SELECT distinct(m.mun_nombre)  from usuario u
                         JOIN cliente_usuario as cu on cu.cli_usu_usu_id=u.usu_id
                         JOIN cliente as c ON cu.cli_usu_cli_id = c.cli_id
                         JOIN municipio as m ON c.cli_mun_id = m.mun_id                        
                         WHERE cu.cli_usu_rol_id=6 
-                        GROUP BY u.usu_id order by m.mun_nombre asc";
+                        GROUP BY u.usu_id order by m.mun_nombre asc";*/
+        $RAW_MUN    = "SELECT * FROM departamento WHERE dep_activo=1";
 
                         $statement_dep  = $em->getConnection()->prepare($RAW_MUN);
                         $statement_dep->execute();    
                         $medicos_dep    = $statement_dep->fetchAll();  
                         //End Departamentos 
+
         return $medicos_dep;
+    }
+    public function getCitiesAction(){
+
+        $em = $this->getDoctrine()->getManager();
+
+        
+        $id_departamento = $_POST['id'];
+        $RAW_MUN    = "SELECT * FROM municipio WHERE mun_dep_id=".$id_departamento;
+
+                        $statement_dep  = $em->getConnection()->prepare($RAW_MUN);
+                        $statement_dep->execute();    
+                        $cities    = $statement_dep->fetchAll();  
+                        //End Departamentos 
+
+        $response = new Response(json_encode($cities));
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
     }
 
     private function getEspecialidades(){
