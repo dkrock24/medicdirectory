@@ -226,8 +226,14 @@
 {% endblock %}
 
 {% block codejs %}
+
 <script>
         $(document).on("ready", function () {
+
+            $('.select').select2();
+            
+            //jQuery(".chosen").data("placeholder","Select Frameworks...").chosen();
+
             $("#departamento").change( function () {
 
                 var $this = $(this);

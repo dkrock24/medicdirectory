@@ -33,17 +33,19 @@
 
                     <tr>
                         <td>  
+
                             <label><i class="fa fa-map-marker "></i> Department:</label><br>
-                            <select name="departmanetos" id="departamento" class="form-control">
+
+                            <select name="departmanetos" id="departamento" class="select form-control" style="width: 100%;">
                                     <option value="-"></option>
                                 {% for dep in departmanetos %}
                                     <option value="{{ dep.dep_id }}">{{ dep.dep_departamento }}</option>
                                 {% endfor %}
-                            </select>
+                            </select> 
                         </td>
                         <td>  
                             <label><i class="fa fa-map-marker "></i> City:</label><br>
-                            <select name="cities" id="cities" class="form-control">
+                            <select name="cities" id="cities" class="select form-control" style="width: 100%;">
                                     <option value="-"></option>
                                 {% for dep in departmanetos %}
                                     <option value="{{ dep.dep_id }}" name="{{ dep.dep_id }}">{{ dep.dep_departamento }}</option>
