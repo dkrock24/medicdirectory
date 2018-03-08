@@ -12,7 +12,7 @@
     <div class="col-sm-6 col-xs-12 right">
         <form   id="busqueda_global" action="{{ path('web_homepage') }}" method="GET" class="">
         <div class="input-group">
-             <input name="b" type="text" class="form-control" autocomplete="off" placeholder="Search Doctor">
+             <input name="b" type="text" class="form-control" autocomplete="off" placeholder="Doctor Search">
                  <span class="input-group-btn">
 
                  <button type="submit" form="busqueda_global" class="btn btn-info"><i class="fa fa-search"></i> Search</button>
@@ -23,7 +23,7 @@
 
              </span>
          </div><!-- /input-group -->
-       </form> 
+       
             <div class="mas">
                 <table border=0 width="100%">
 
@@ -36,12 +36,11 @@
 
                             <label><i class="fa fa-map-marker "></i> Department:</label><br>
 
-                            <select name="departmanetos" id="departamento" class="select form-control" style="width: 100%;">
-                                    <option value="-"></option>
+                            <select name="departamento" id="departamento" class="select form-control" style="width: 100%;">
                                 {% for dep in departmanetos %}
                                     <option value="{{ dep.dep_id }}">{{ dep.dep_departamento }}</option>
                                 {% endfor %}
-                            </select> 
+                            </select>
                         </td>
                         <td>  
                             <label><i class="fa fa-map-marker "></i> City:</label><br>
@@ -54,7 +53,7 @@
                         </td>
                         <td>
                             <label><i class="fa fa-user-md"></i> Specialty :</label><br>
-                            <select name="especialidad" id="especialidad" class="form-control">
+                            <select name="especialidad" id="especialidad" class="select form-control">
                                 <option value="-"></option>
                                 {% for es in especialidad %}
                                     <option value="{{ es.esp_especialidad }}">{{ es.esp_especialidad }}</option>
@@ -65,6 +64,7 @@
 
                 </table>
             </div>
+        </form> 
     </div>
 </div>
 

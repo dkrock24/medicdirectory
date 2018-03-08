@@ -158,10 +158,25 @@ class DefaultController extends Controller {
 
         $total_medicos=0;
 
+        $_estado    =   $request->query->get('departamento');
+        $_cities    =   $request->query->get('cities');
+        $_espe      =   $request->query->get('especialidad');
+        $_filter='';
+
 
         $sBusqueda = $request->query->get('b');
         $sUsuarios = '';
-        if (!empty($sBusqueda)) {
+        if (!empty($sBusqueda) or !empty($_estado) or !empty($_cities) or !empty($_espe)) {
+
+            if(!empty($_estado)){
+                $_filter = ' and dep.dep_id='.$_estado;
+            }elseif(!empty($_cities)){
+                $_filter .= ' and m.mun_id='.$_cities;
+            }elseif(!empty($_espe)){
+                $_filter .= ' and e.esp_id='.$_espe;
+            }
+            
+            /*
             $sBusqueda = trim($sBusqueda);
             $sBusqueda = "*$sBusqueda*";
             $aRet = $this->get('srv_busqueda')->buscarUsuarios($sBusqueda, 1, 0, 40);
@@ -170,7 +185,7 @@ class DefaultController extends Controller {
                 $sUsuarios = 'and cu.cli_usu_id IN ('.implode(',',$aRet['ids']).')';
             } else {
                 $sUsuarios = 'and 0';
-            }
+            }*/
         }
 
         // Raw Query
@@ -178,10 +193,11 @@ class DefaultController extends Controller {
                         JOIN cliente_usuario as cu on cu.cli_usu_usu_id=u.usu_id
                         JOIN cliente as c ON cu.cli_usu_cli_id = c.cli_id
                         JOIN municipio as m ON c.cli_mun_id = m.mun_id
+                        JOIN departamento as dep ON dep.dep_id=m.mun_dep_id
                         JOIN usuario_especialidad AS es on u.usu_id=es.id_usuario
                         JOIN  especialidad as e on e.esp_id=es.id_especialidad
                         JOIN usuario_galeria as ug on ug.gal_usu_id=cu.cli_usu_usu_id
-                        WHERE ug.gal_modulo_id is null and ug.gal_tipo=1 and ug.gal_aprobado=1 and cu.cli_usu_rol_id=6 $sUsuarios
+                        WHERE ug.gal_modulo_id is null and ug.gal_tipo=1 and ug.gal_aprobado=1 and cu.cli_usu_rol_id=6 $_filter
                         GROUP BY u.usu_id order by c.cli_id desc";
 
                         $statement  = $em->getConnection()->prepare($RAW_QUERY);
@@ -190,7 +206,7 @@ class DefaultController extends Controller {
 
                         $total_medicos = count( $medicos );
 
-                        if($total_medicos < 20 ){
+                        if($total_medicos < 20  && empty($_estado)){
 
                             $total_medicos = ( 20 - $total_medicos );
                         }

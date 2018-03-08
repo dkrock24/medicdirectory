@@ -176,7 +176,7 @@
 
         $(document).ready(function() {
             var dep,esp,resultado;
-
+            $("#departamento").append("<option value=''></option>");
             $("#busqueda-completa").click(function(){
                 $(".mas").fadeIn(); // click en btn -> mas, y muestra los filtros
             });
@@ -185,6 +185,7 @@
                 $(".mas").fadeOut();// click en btn -> x, y cierra los filtros
             });
 
+            /*
             $("#departmanetos").change(function(){
 
                 dep = "@departamento "+$(this).val();
@@ -208,6 +209,7 @@
 
                 $("input[name='b']").val( dep +" "+ esp);
             });
+            */
 
     });
 

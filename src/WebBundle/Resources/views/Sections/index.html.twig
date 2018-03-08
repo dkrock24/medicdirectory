@@ -220,6 +220,32 @@
         </div>
     </div>
 
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header label-info" >
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        <div class="row" >
+            <div class="col-lg-2 col-xs-2"><h1><i class="fa fa-edit" style="color:white;"></i></h1></div>
+            <div class="col-lg-10 col-xs-10 bd-callout bd-callout-warning">
+                <h5 class="modal-title" id="exampleModalLabel">Enter your information and you will be contactive soom to solve any concern</h5>
+                <span class="clinica_mensaje"><p>Att:  </p></span>
+            </div>
+        </div>
+        
+        
+        
+      </div>
+
+      <div class="modal-footer label-info">
+        
+      </div>
+    </div>
+  </div>
+</div>
+
     
     
 
@@ -229,8 +255,9 @@
 
 <script>
         $(document).on("ready", function () {
-
+            $("#cities").empty();
             $('.select').select2();
+            $("#departamento").append("<option value=''></option>");
             
             //jQuery(".chosen").data("placeholder","Select Frameworks...").chosen();
 
@@ -238,6 +265,7 @@
 
                 var $this = $(this);
                 var idCountry = $this.attr('value');
+                $("#cities").empty();
                 loadCities(idCountry);
 
             });
@@ -250,10 +278,11 @@
                     url: "{{ path('web_get_cities') }}",
                     data: {id: idCountry},
                     error: function (data) {
-                            alert(1);
+                            alert('Error : Load Cities');
                             },
                     success: function (data) {
                         var $this = $("#cities");
+                        $("#cities").append("<option value=''></option>");
                         $.each(data, function (key, value) {
                             $("#cities").append("<option value=" + value.mun_nombre + ">" + value.mun_nombre + "</option>");
                         });
