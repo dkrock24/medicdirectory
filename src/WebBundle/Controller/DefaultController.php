@@ -166,14 +166,21 @@ class DefaultController extends Controller {
 
         $sBusqueda = $request->query->get('b');
         $sUsuarios = '';
-        if (!empty($sBusqueda) or !empty($_estado) or !empty($_cities) or !empty($_espe)) {
+
+        if(!empty($sBusqueda)){
+            $_filter .= ' and CONCAT(u.usu_nombre," ",u.usu_primer_apellido) LIKE "%'.$sBusqueda.'%"';
+        }
+
+        if (!empty($sBusqueda) or !empty($_estado) or !empty($_cities) or !empty($_espe) or !empty($sBusqueda)) {
 
             if(!empty($_estado)){
-                $_filter = ' and dep.dep_id='.$_estado;
+                $_filter .= ' and dep.dep_id='.$_estado;
             }elseif(!empty($_cities)){
                 $_filter .= ' and m.mun_id='.$_cities;
             }elseif(!empty($_espe)){
                 $_filter .= ' and e.esp_id='.$_espe;
+            }elseif(!empty($sBusqueda)){
+                $_filter .= ' and CONCAT(u.usu_nombre," ",u.usu_primer_apellido) LIKE "%'.$sBusqueda.'%"';
             }
             
             /*
@@ -187,7 +194,6 @@ class DefaultController extends Controller {
                 $sUsuarios = 'and 0';
             }*/
         }
-
         // Raw Query
         $RAW_QUERY  = "SELECT *, group_concat(e.esp_especialidad SEPARATOR ', ') as especialidades from usuario u
                         JOIN cliente_usuario as cu on cu.cli_usu_usu_id=u.usu_id
