@@ -91,13 +91,7 @@ ul{
 	height:50px;
 	background: none;
 }
-.price2{
-	width: 100%;
-	height:50px;
-	margin: 2px;
-	background: #009bdb;
-	border-radius: 5px;
-}
+
 .comprar{
 	margin-top: 5px;
 	padding: 5px;
@@ -211,7 +205,7 @@ ul{
   font-weight: bold;
 }
 .price::after {
-  content: " / Usuario por año";
+  content: "";
   font-weight: normal;
 }
 hr {
@@ -228,6 +222,34 @@ hr {
 .brilliant {
   border-color: #009bdb;
 }
+.brilliant2 {
+  border-color: #009bdb;
+}
+.brilliant3 {
+  border-color: #009bdb;
+}
+.brilliant2::before {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 64px 64px 0 0;
+  border-color: green transparent transparent transparent;
+  position: absolute;
+  left: 0;
+  top: 0;
+  content: "";
+}
+.brilliant3::before {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 64px 64px 0 0;
+  border-color: #DAA520 transparent transparent transparent;
+  position: absolute;
+  left: 0;
+  top: 0;
+  content: "";
+}
 /* Triangle */
 .brilliant::before {
   width: 0;
@@ -240,7 +262,28 @@ hr {
   top: 0;
   content: "";
 }
+
 .brilliant::after {
+  font-family: "FontAwesome";
+  content: "\f00c";
+  color: white;
+  position: absolute;
+  left: 9px;
+  top: 6px;
+  text-shadow: 0 0 2px #37c5b6;
+  font-size: 1.4rem;
+}
+.brilliant2::after {
+  font-family: "FontAwesome";
+  content: "\f00c";
+  color: white;
+  position: absolute;
+  left: 9px;
+  top: 6px;
+  text-shadow: 0 0 2px #37c5b6;
+  font-size: 1.4rem;
+}
+.brilliant3::after {
   font-family: "FontAwesome";
   content: "\f00c";
   color: white;
@@ -307,11 +350,11 @@ a{
 	transition: all .6s;
 	width: 100%;
 }
-
-.no-touch .select:hover {
-    background-color: #1bbc9d;
-	color: #ffffff;
+.select:hover{
+	background: black;
 }
+
+
 
 .exclusive .select {
     background-color: #1bbc9d;
@@ -356,26 +399,8 @@ a{
     	color: black;
     }
 
-	.price2{
 
-		animation: registro 2s infinite;
-	}
-    @keyframes registro {
-            0% {
-                -webkit-transform: scale(1.0);
-            }
-            50%{
-            	-webkit-transform: scale(1.2);
-            	
-            	box-shadow: 0px 5px 10px grey;
-            	background: white;
-            	color: black;
-            }
-            100% {
-                color: black;
-                -webkit-transform: scale(1.0);
-            }
-        }
+
 
 
 </style>
@@ -383,109 +408,63 @@ a{
 <div class="container">	
 	<div class="row">
 
-		<div class="col-lg-3 col-md-3 col-sm-12">
+		<div class="col-lg-4 col-md-4 col-sm-12">
 			<div class='package brilliant'>
-	    			<div class='name'>General</div>
-	    			<div class='price'>$119.99 USD</div>
-	    			<div class="price2"><h3 class="mensual">Month $9.99</h3> </div>
-	    			<!--
-	    			<br>
-	    			<div class='trial'>30 Days Free</div>
-	    			<hr>-->
+	    			<div class='name'>1 Months</div>
+	    			<div class='price'>Public Profile</div>
+	    			<div class=""><h3 class="mensual">$15.00</h3> </div>
+
 
 				<div class="caracteristicas">
-				    <div class="row">
+					<div class="row">
 				    	<div class="col-lg-1 col-md-1 col-sm-1">
 				    		<strong><i class="fa fa-check-circle-o"></i></strong>
 				    	</div>
-				    	<div class="col-lg-10 col-md-10 col-sm-10">
-				    		Multiple Locations.
-				    	</div>
+				    	<div class="col-lg-10 col-md-10 col-sm-10">Profession / Occupation</div>
 				    </div>
 				    <div class="row">
 				    	<div class="col-lg-1 col-md-1 col-sm-1">
 				    		<strong><i class="fa fa-check-circle-o"></i></strong>
 				    	</div>
-				    	<div class="col-lg-10 col-md-10 col-sm-10">
-				    		<b>Public Medical Profile</b>
-				    	</div>		    	
-				    </div>
-				    <!--
-				    <div class="row">
-				    	<div class="col-lg-1 col-md-1 col-sm-1">
-				    		<strong><i class="fa fa-check-circle-o"></i></strong>
-				    	</div>
-				    	<div class="col-lg-10 col-md-10 col-sm-10">
-				    		<b>Módulos por Especialidades.</b>
-				    	</div>		    	
+				    	<div class="col-lg-10 col-md-10 col-sm-10">Work Experience</div>		    	
 				    </div>
 				    <div class="row">
 				    	<div class="col-lg-1 col-md-1 col-sm-1">
 				    		<strong><i class="fa fa-check-circle-o"></i></strong>
 				    	</div>
-				    	<div class="col-lg-10 col-md-10 col-sm-10">
-				    		<b>Agenda Médica</b>
-				    	</div>		    	
+				    	<div class="col-lg-10 col-md-10 col-sm-10">Show Direction</div>
 				    </div>
 				    <div class="row">
 				    	<div class="col-lg-1 col-md-1 col-sm-1">
 				    		<strong><i class="fa fa-check-circle-o"></i></strong>
 				    	</div>
-				    	<div class="col-lg-10 col-md-10 col-sm-10">
-				    		<b>Consulta Médicas</b>
-				    	</div>		    	
+				    	<div class="col-lg-10 col-md-10 col-sm-10">Show Email</div>		    	
+				    </div>
+				    <div class="row">
+				    	<div class="col-lg-1 col-md-1 col-sm-1">
+				    		<strong><i class="fa fa-check-circle-o"></i></strong>
+				    	</div>
+				    	<div class="col-lg-10 col-md-10 col-sm-10">Show Phones</div>		    	
+				    </div>
+				    <div class="row">
+				    	<div class="col-lg-1 col-md-1 col-sm-1">
+				    		<strong><i class="fa fa-check-circle-o"></i></strong>
+				    	</div>
+				    	<div class="col-lg-10 col-md-10 col-sm-10">Show Schedule</div>		    	
 				    </div>
 
 				    <div class="row">
 				    	<div class="col-lg-1 col-md-1 col-sm-1">
 				    		<strong><i class="fa fa-check-circle-o"></i></strong>
 				    	</div>
-				    	<div class="col-lg-10 col-md-10 col-sm-10">
-				    		Reportes
-				    	</div>		    	
-				    </div>
-
-				    <div class="row">
-				    	<div class="col-lg-1 col-md-1 col-sm-1">
-				    		<strong><i class="fa fa-check-circle-o"></i></strong>
-				    	</div>
-				    	<div class="col-lg-10 col-md-10 col-sm-10">
-				    		<b>Diagnóstico</b>
-				    	</div>		    	
-				    </div>
-
-				    <div class="row">
-				    	<div class="col-lg-1 col-md-1 col-sm-1">
-				    		<strong><i class="fa fa-check-circle-o"></i></strong>
-				    	</div>
-				    	<div class="col-lg-10 col-md-10 col-sm-10">
-				    		<b>Receta Médicas</b>
-				    	</div>		    	
+				    	<div class="col-lg-10 col-md-10 col-sm-10">Get Appointment</div>		    	
 				    </div>
 				    
-				    <div class="row">
-				    	<div class="col-lg-1 col-md-1 col-sm-1">
-				    		<strong><i class="fa fa-check-circle-o"></i></strong>
-				    	</div>
-				    	<div class="col-lg-10 col-md-10 col-sm-10">
-				    		Inventario de Medicamentos.
-				    	</div>		    	
-				    </div>
-
-				    <div class="row">
-				    	<div class="col-lg-1 col-md-1 col-sm-1">
-				    		<strong><i class="fa fa-check-circle-o"></i></strong>
-				    	</div>
-				    	<div class="col-lg-10 col-md-10 col-sm-10">
-				    		Soporte Técnico Especializado.
-				    	</div>		    	
-				    </div>
-				    -->
 				    <div class="row">
 				    	<div class="col-lg-12 col-md-12 col-sm-12">
 				    		<br>
 				    		<div class='trial'>
-				    			<a class="select" href="{{ path('cliente_new') }}">Register</a>
+				    			<a class="select" style="background: #009bdb;" href="{{ path('cliente_new') }}">Buy</a>
 				    		</div>
 				    	</div>	    	
 				    </div>
@@ -493,348 +472,136 @@ a{
 	  		</div>
 		</div>
 
-		<div class="col-lg-9 col-md-9 col-sm-12">
-			<div class="row">
-				<div class="col-lg-1 col-md-1 col-sm-12">
-			  	</div>
+		<div class="col-lg-4 col-md-4 col-sm-12">
+			<div class='package brilliant2' style="border-color:green;">
+	    			<div class='name'>6 Months</div>
+	    			<div class='price'>Public Profile</div>
+	    			<div class=""><h3 class="mensual">$12.00</h3> </div>
 
-			  	<div class="col-lg-5 col-md-5 col-sm-12">
-		    		<div class='package2'>
-		    			<div class='icon-price'><i class="fa fa-user-md fa-3x circled bg-skin central"></i></div>					    
-		    			<div class='name'>Roles y Usuarios</div>					    
-		    			<hr>
-		    			<span class="text-muted descripcion">
+	    			<div class="caracteristicas">
+					<div class="row">
+				    	<div class="col-lg-1 col-md-1 col-sm-1">
+				    		<strong><i class="fa fa-check-circle-o"></i></strong>
+				    	</div>
+				    	<div class="col-lg-10 col-md-10 col-sm-10">Profession / Occupation</div>
+				    </div>
+				    <div class="row">
+				    	<div class="col-lg-1 col-md-1 col-sm-1">
+				    		<strong><i class="fa fa-check-circle-o"></i></strong>
+				    	</div>
+				    	<div class="col-lg-10 col-md-10 col-sm-10">Work Experience</div>		    	
+				    </div>
+				    <div class="row">
+				    	<div class="col-lg-1 col-md-1 col-sm-1">
+				    		<strong><i class="fa fa-check-circle-o"></i></strong>
+				    	</div>
+				    	<div class="col-lg-10 col-md-10 col-sm-10">Show Direction</div>
+				    </div>
+				    <div class="row">
+				    	<div class="col-lg-1 col-md-1 col-sm-1">
+				    		<strong><i class="fa fa-check-circle-o"></i></strong>
+				    	</div>
+				    	<div class="col-lg-10 col-md-10 col-sm-10">Show Email</div>		    	
+				    </div>
+				    <div class="row">
+				    	<div class="col-lg-1 col-md-1 col-sm-1">
+				    		<strong><i class="fa fa-check-circle-o"></i></strong>
+				    	</div>
+				    	<div class="col-lg-10 col-md-10 col-sm-10">Show Phones</div>		    	
+				    </div>
+				    <div class="row">
+				    	<div class="col-lg-1 col-md-1 col-sm-1">
+				    		<strong><i class="fa fa-check-circle-o"></i></strong>
+				    	</div>
+				    	<div class="col-lg-10 col-md-10 col-sm-10">Show Schedule</div>		    	
+				    </div>
 
-							<i class="fa fa-check"></i>	Usuario Administrador.<br>
-							<i class="fa fa-check"></i>	Multiples Usuarios Doctores.<br>
-							<i class="fa fa-check"></i>	Multiples Asistentes.<br>
-							<i class="fa fa-asterisk"></i> Usuarios Médicos Adicionales
-						</span>
-		  			</div>
-		  		</div>
+				    <div class="row">
+				    	<div class="col-lg-1 col-md-1 col-sm-1">
+				    		<strong><i class="fa fa-check-circle-o"></i></strong>
+				    	</div>
+				    	<div class="col-lg-10 col-md-10 col-sm-10">Get Appointment</div>		    	
+				    </div>
+				    
+				    <div class="row">
+				    	<div class="col-lg-12 col-md-12 col-sm-12">
+				    		<br>
+				    		<div class='trial'>
+				    			<a class="select" style="background: green;" href="{{ path('cliente_new') }}">Buy</a>
+				    		</div>
+				    	</div>	    	
+				    </div>
+				</div>				
+	  		</div>
+		</div>
 
-		  		<div class="col-lg-5 col-md-5 col-sm-12">
-		    		<div class='package2'>
-		    			<div class='icon-price'><i class="fa fa-list-alt fa-3x circled bg-skin central"></i></div>					    
-		    			<div class='name'>Publication</div>					    
-		    			<hr>
-		    			<span class="text-muted descripcion">
-							<i class="fa fa-check"></i>	Public medical profile.<br>
-							<i class="fa fa-check"></i>	Public locations.<br>
-							<i class="fa fa-check"></i>	Public bussiness days.<br>
-							<i class="fa fa-check"></i>	Public specialties per medic.<br>
-							<i class="fa fa-asterisk"></i> Socials Networks.
-						</span>
-		  			</div>
-		  		</div>
-			</div>
+		<div class="col-lg-4 col-md-4 col-sm-12">
+			<div class='package brilliant3' style="border-color:#DAA520;">
+	    			<div class='name'>12 Months</div>
+	    			<div class='price'>Public Profile</div>
+	    			<div class=""><h3 class="mensual">$9.00</h3> </div>
 
-			<!-- 2 --><br>
+	    			<div class="caracteristicas">
+					<div class="row">
+				    	<div class="col-lg-1 col-md-1 col-sm-1">
+				    		<strong><i class="fa fa-check-circle-o"></i></strong>
+				    	</div>
+				    	<div class="col-lg-10 col-md-10 col-sm-10">Profession / Occupation</div>
+				    </div>
+				    <div class="row">
+				    	<div class="col-lg-1 col-md-1 col-sm-1">
+				    		<strong><i class="fa fa-check-circle-o"></i></strong>
+				    	</div>
+				    	<div class="col-lg-10 col-md-10 col-sm-10">Work Experience</div>		    	
+				    </div>
+				    <div class="row">
+				    	<div class="col-lg-1 col-md-1 col-sm-1">
+				    		<strong><i class="fa fa-check-circle-o"></i></strong>
+				    	</div>
+				    	<div class="col-lg-10 col-md-10 col-sm-10">Show Direction</div>
+				    </div>
+				    <div class="row">
+				    	<div class="col-lg-1 col-md-1 col-sm-1">
+				    		<strong><i class="fa fa-check-circle-o"></i></strong>
+				    	</div>
+				    	<div class="col-lg-10 col-md-10 col-sm-10">Show Email</div>		    	
+				    </div>
+				    <div class="row">
+				    	<div class="col-lg-1 col-md-1 col-sm-1">
+				    		<strong><i class="fa fa-check-circle-o"></i></strong>
+				    	</div>
+				    	<div class="col-lg-10 col-md-10 col-sm-10">Show Phones</div>		    	
+				    </div>
+				    <div class="row">
+				    	<div class="col-lg-1 col-md-1 col-sm-1">
+				    		<strong><i class="fa fa-check-circle-o"></i></strong>
+				    	</div>
+				    	<div class="col-lg-10 col-md-10 col-sm-10">Show Schedule</div>		    	
+				    </div>
 
-			<div class="row">
-				<div class="col-lg-1 col-md-1 col-sm-12">
-			  	</div>
+				    <div class="row">
+				    	<div class="col-lg-1 col-md-1 col-sm-1">
+				    		<strong><i class="fa fa-check-circle-o"></i></strong>
+				    	</div>
+				    	<div class="col-lg-10 col-md-10 col-sm-10">Get Appointment</div>		    	
+				    </div>
+				    
+				    <div class="row">
+				    	<div class="col-lg-12 col-md-12 col-sm-12">
+				    		<br>
+				    		<div class='trial'>
+				    			<a class="select" style="background: #DAA520;" href="{{ path('cliente_new') }}">Buy</a>
+				    		</div>
+				    	</div>	    	
+				    </div>
+				</div>
+	  		</div>
+		</div>
 
-			  	<div class="col-lg-5 col-md-5 col-sm-12">
-		    		<div class='package2'>
-		    			<div class='icon-price'><i class="fa fa-calendar fa-3x circled bg-skin central"></i></div>					    
-		    			<div class='name'>Agenda Médica</div>					    
-		    			<hr>
-		    			<span class="text-muted descripcion">
-							<i class="fa fa-check"></i>	Administración del Calendario para Citas por Médico.<br>
-							<i class="fa fa-check"></i>	Administración del Calendario para Eventos.<br>
-						</span>
-		  			</div>
-		  		</div>
-
-		  		<div class="col-lg-5 col-md-5 col-sm-12">
-		    		<div class='package2'>
-		    			<div class='icon-price'><i class="fa fa-stethoscope fa-3x circled bg-skin central"></i></div>					    
-		    			<div class='name'>Consulta Médica</div>					    
-		    			<hr>
-		    			<span class="text-muted descripcion">
-							<i class="fa fa-check"></i>	Modulo Especializado para el Control de la Cita Médica ha Pacientes.<br>
-							<i class="fa fa-check"></i>	Modulo Especializado para el Control de la Consulta Médica ha Pacientes.<br>													
-						</span>
-		  			</div>
-		  		</div>
-			</div>
-
-			<!-- 3 --><br>
-			
-			
-
-			<div class="row">
-				<div class="col-lg-1 col-md-1 col-sm-12">
-			  	</div>
-
-			  	<div class="col-lg-5 col-md-5 col-sm-12">
-		    		<div class='package2'>
-		    			<div class='icon-price'><i class="fa fa-check fa-3x circled bg-skin central"></i></div>					    
-		    			<div class='name'>Ciclo Médico</div>					    
-		    			<hr>
-		    			<span class="text-muted descripcion">
-							<i class="fa fa-check"></i>	El Sistema Engloba el Ciclo Médico desde la creación del expediente/ficha médica del Paciente, Pasando por la agenda de Citas, la Creación de consulta, Diagnóstico y Receta Médica. Entre otras funcionalidades.<br>
-						</span>
-		  			</div>
-		  		</div>
-
-		  		<div class="col-lg-5 col-md-5 col-sm-12">
-		    		<div class='package2'>
-		    			<div class='icon-price'><i class="fa fa-dashboard fa-3x circled bg-skin central"></i></div>					    
-		    			<div class='name'>Dashboard</div>					    
-		    			<hr>
-		    			<span class="text-muted descripcion">
-							<i class="fa fa-check"></i>	Indicadores Visuales Estadísticos.<br>
-												<i class="fa fa-check"></i>	Agenda del Médico.<br>
-												<i class="fa fa-check"></i>	Consultas Pendientes.<br>
-												<i class="fa fa-check"></i>	Etc.<br>
-						</span>
-		  			</div>
-		  		</div>
-			</div>
-
-			<!-- 4 --><br>
-
-			<div class="row">
-				<div class="col-lg-1 col-md-1 col-sm-12">
-			  	</div>
-
-			  	<div class="col-lg-5 col-md-5 col-sm-12">
-		    		<div class='package2'>
-		    			<div class='icon-price'><i class="fa fa-laptop fa-3x circled bg-skin central"></i></div>					    
-		    			<div class='name'>Multiplataforma</div>					    
-		    			<hr>
-		    			<span class="text-muted descripcion">
-							<i class="fa fa-check"></i>
-							Acceda utilizando Windows, Linux, Mac a través de su dispositivo móvil (smartphone o tablet), laptop o su computador personal.
-						</span>
-		  			</div>
-		  		</div>
-
-			  	<div class="col-lg-5 col-md-5 col-sm-12">
-		    		<div class='package2'>
-		    			<div class='icon-price'><i class="fa fa-file-excel-o fa-3x circled bg-skin central"></i></div>					    
-		    			<div class='name'>Reportes</div>					    
-		    			<hr>
-		    			<span class="text-muted descripcion">
-							<i class="fa fa-check"></i>	Generación de Reportes Económicos.<br>
-												<i class="fa fa-check"></i>	Generación de Reportes Por Consultas.<br>
-												<i class="fa fa-check"></i>	Generación de Reportes de Históricos.<br>
-												<i class="fa fa-check"></i>	Etc.<br>
-						</span>
-		  			</div>
-		  		</div>
-
-
-			</div>
-
-  		</div>
 	</div>
 </div>
-<!--
-<div class="container">		
-	
 
-	
 
-			<div class="row standard2">
-			
-				<div class="col-lg-3 col-md-3 col-sm-12">
-					<div class="plan">
-						<div class="header">
-							<span>$</span>29<sup>95</sup>
-							<p class="month">Por Mes</p>
-						</div>	
-						<div class="header">
-							<table class="caracteristicas" border=0>
-								<tr>
-									<td><span class="fa fa-arrow-right icon-success arrow"></span></td>
-									<td><h5 class="titulos_c">1 Mes Gratis</h5></td>
-								</tr>
-								<tr>
-									<td><span class="fa fa-arrow-right icon-success arrow"></span></td>
-									<td><h5 class="titulos_c">Soporte Técnico</h5></td>
-								</tr>
-								<tr>
-									<td><span class="fa fa-arrow-right icon-success arrow"></span></td>
-									<td><h5 class="titulos_c"></h5></td>
-								</tr>
-							</table>
-							
-							
-							
-						</div>
-						<div class="price">
-							<a href="#" class="btn btn-primary comprar">
-								<i class="fa fa-cart"></i>
-								<p class="cart">Comprar</p>
-							</a>
-						</div>		
-					</div>	
-								
-				</div> 
-
-				<div class="col-lg-12 col-md-12 col-sm-12">	
-					
-						<table class="table">
-							<tr>
-								<td colspan="2">
-									<div class="panel panel-body">
-										<div class="media">
-											<div class="media-body">
-												<h6 class="media-heading">Usuarios</h6>
-												<span class="text-muted">
-												<i class="fa fa-check"></i>	Usuario Administrador.<br>
-												<i class="fa fa-check"></i>	Multiples Asistentes.<br>
-												<i class="fa fa-asterisk"></i> Usuarios Medicos Adicionales
-												</span>
-											</div>
-										</div>
-									</div>
-								</td>
-								<td><i class="fa fa-user-md fa-3x circled bg-skin central"></i></td>
-								<td colspan="2"></td>
-								
-							</tr>
-							<tr>
-								<td colspan="2"></td>
-								<td><i class="fa fa-list-alt fa-3x circled bg-skin central"></i></td>
-								<td colspan="2">
-									<div class="panel panel-body">
-										<div class="media">
-											<div class="media-body">
-												<h6 class="media-heading">Publicacón</h6>
-												<span class="text-muted">
-												<i class="fa fa-check"></i>	Publicación del Perfil Medico.<br>
-												<i class="fa fa-check"></i>	Publicacón de las Sucursales Asociadas.<br>
-												<i class="fa fa-check"></i>	Publicacón de Dias Laborales.<br>
-												<i class="fa fa-check"></i>	Publicacón de Especialidades Asociadas al Medico.<br>
-												<i class="fa fa-asterisk"></i> Enlaces a Redes Sociales.
-												</span>
-											</div>
-										</div>
-									</div>
-								</td>								
-							</tr>
-							<tr>
-								<td colspan="2">
-									<div class="panel panel-body">
-										<div class="media">
-											<div class="media-body">
-												<h6 class="media-heading">Sistema EMR</h6>
-												<span class="text-muted">
-												<i class="fa fa-check"></i>	Creación y Administración de Multiples Instancias Medicas.<br>
-												<i class="fa fa-check"></i>	Ideal para Administrar Hospitales,Policlinicos,Clinicas etc.<br>
-												<i class="fa fa-check"></i> Administración de Cualquier Tipo de Especialidades Medicas.<br>
-												<i class="fa fa-check"></i> Administración de Inventario de Medicamentos Internos.<br>
-												<i class="fa fa-check"></i> Creación y Administración de Proveedores.<br>
-												</span>
-											</div>
-										</div>
-									</div>
-								</td>
-								<td><i class="fa fa-hospital-o fa-3x circled bg-skin central"></i></td>
-								<td colspan="2"></td>
-								
-							</tr>
-							<tr>
-								<td colspan="2"></td>
-								<td><i class="fa fa-dashboard fa-3x circled bg-skin central"></i></td>
-								<td colspan="2">
-									<div class="panel panel-body">
-										<div class="media">
-											<div class="media-body">
-												<h6 class="media-heading">Dashboard</h6>
-												<span class="text-muted">
-												<i class="fa fa-check"></i>	Indicadores Visuales Estadisticos.<br>
-												<i class="fa fa-check"></i>	Agenda del Medico.<br>
-												<i class="fa fa-check"></i>	Consultas Pendientes.<br>
-												<i class="fa fa-check"></i>	Etc.<br>
-												</span>
-											</div>
-										</div>
-									</div>
-								</td>
-								
-							</tr>
-							<tr>
-								<td colspan="2">
-									<div class="panel panel-body">
-										<div class="media">
-											<div class="media-body">
-												<h6 class="media-heading">Agenda Medica</h6>
-												<span class="text-muted">
-												<i class="fa fa-check"></i>	Administración del Calendario para Citas por Medico.<br>
-												<i class="fa fa-check"></i>	Administración del Calendario para Eventos.<br>
-												
-												</span>
-											</div>
-										</div>
-									</div>
-								</td>
-								<td><i class="fa fa-calendar fa-3x circled bg-skin central"></i></td>
-								<td colspan="2"></td>								
-							</tr>
-							<tr>
-								<td colspan="2"></td>
-								<td><i class="fa fa-stethoscope fa-3x circled bg-skin central"></i></td>
-								<td colspan="2">
-									<div class="panel panel-body">
-										<div class="media">
-											<div class="media-body">
-												<h6 class="media-heading">Consulta Medica</h6>
-												<span class="text-muted">
-												<i class="fa fa-check"></i>	Modulo Especializado para el Control de la Cita Medica ha Pacientes.<br>
-												<i class="fa fa-check"></i>	Modulo Especializado para el Control de la Consulta Medica ha Pacientes.<br>
-																								
-												</span>
-											</div>
-										</div>
-									</div>
-								</td>								
-							</tr>
-							<tr>
-								<td colspan="2">
-									<div class="panel panel-body">
-										<div class="media">
-											<div class="media-body">
-												<h6 class="media-heading">Reportes</h6>
-												<span class="text-muted">
-												<i class="fa fa-check"></i>	Generacón de Reportes Ecónomicos.<br>
-												<i class="fa fa-check"></i>	Generacón de Reportes Por Consultas.<br>
-												<i class="fa fa-check"></i>	Generacón de Reportes de Historicos.<br>
-												<i class="fa fa-check"></i>	Etc.<br>
-												</span>
-											</div>
-										</div>
-									</div>
-								</td>
-								<td><i class="fa fa-file-excel-o fa-3x circled bg-skin central"></i></td>
-								<td colspan="2"></td>								
-							</tr>
-							<tr>
-								<td colspan="2"></td>
-								<td><i class="fa fa-check fa-3x circled bg-skin central"></i></td>
-								<td colspan="2">
-									<div class="panel panel-body">
-										<div class="media">
-											<div class="media-body">
-												<h6 class="media-heading">Ciclo Medico</h6>
-												<span class="text-muted">
-												<i class="fa fa-check"></i>	El Sistema Engloba el Ciclo Medico desde la creacion del expediente/ficha medica del Paciente, Pasando por la agenda de Citas, la Creación de consulta, Diagnostico y Receta Medica. Entre otras funcionalidades.<br>
-												</span>
-											</div>
-										</div>
-									</div>
-								</td>								
-							</tr>
-						</table>			
-				</div>
-			</div>
-
-</div>
--->
 {% endblock %}
 
 {% block codejs %}
