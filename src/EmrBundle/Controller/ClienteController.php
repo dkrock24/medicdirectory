@@ -295,6 +295,8 @@ class ClienteController extends Controller
 			
 			//exit();
 			
+			$pricing = $em->getRepository('AppBundle:Pricing')->findBy( array("estado"=>1) );
+			
 			return $this->render('EmrBundle:cliente:edit.html.twig', array(
 				'cliente' => $cliente,
 				'id'=>$cliente->getCliId(),
@@ -308,6 +310,7 @@ class ClienteController extends Controller
 				'getUserRepresenter'=>$getUserRepresenter,
 				'getUsersLocation'=>$getUsersLocation,
 				'representerIsDoctorOrAssistant' => $representerIsDoctorOrAssistant,
+				'pricing' => $pricing,
 				'delete_form' => $deleteForm->createView(),
 			));
 

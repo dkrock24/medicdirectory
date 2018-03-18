@@ -161,20 +161,11 @@
                                             <div class="">{{ form_widget(edit_form.cliMun) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
                                         </div>
                                     </div>    
-                                    <div class="col-md-8">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <div class="form_error">{{ form_errors(edit_form.cliDireccion)}}</div>
                                             <label for="" class=" control-label">Address: <span class="text-danger">*</span></label>
                                             <div class="">{{ form_widget(edit_form.cliDireccion) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
-                                        </div>
-                                    </div>
-                                </div>        
-                                <div class="row">
-                                    <div class="col-md-4">    
-                                        <div class="form-group">
-                                            <div class="form_error">{{ form_errors(edit_form.cliNit)}}</div>
-                                            <label for="" class=" control-label">Document ID: <span class="text-danger">*</span></label>
-                                            <div class="">{{ form_widget(edit_form.cliNit) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -183,8 +174,18 @@
                                             <label for="" class=" control-label">Telephone 1: <span class="text-danger">*</span></label>
                                             <div class="">{{ form_widget(edit_form.cliTelefono1) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
                                         </div>
+                                    </div>    
+                                </div>        
+                                <div class="row">
+                                    <div class="col-md-4" style="display:none">    
+                                        <div class="form-group">
+                                            <div class="form_error">{{ form_errors(edit_form.cliNit)}}</div>
+                                            <label for="" class=" control-label">Document ID: <span class="text-danger">*</span></label>
+                                            <div class="">{{ form_widget(edit_form.cliNit) }}{# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                        </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    
+                                    <div class="col-md-4" style="display:none">>
                                         <div class="form-group">
                                             <div class="form_error">{{ form_errors(edit_form.cliTelefono2)}}</div>
                                             <label for="" class=" control-label">Telephone 2:</label>
@@ -256,16 +257,17 @@
                                             </div>
                                         </div>
                                     </div>
-   
-                                </div>
-                                <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <div class="form_error"></div>
                                             <label for="" class=" control-label">Last Name: <span class="text-danger">*</span></label>
                                             <div class=""><input type="text" id="lastnameone_representer" name="lastnameone_representer" placeholder="Primer Apelldo" class="form-control" value="{{ getUserRepresenter[0].usu_primer_apellido }}" required></div>
                                         </div>
-                                    </div>
+                                    </div>        
+   
+                                </div>
+                                <div class="row">
+                                    
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <div class="form_error"></div>
@@ -288,10 +290,16 @@
                                             </select>
                                         </div>
                                     </div>
+                                    <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>Email Addrres:</label>
+                                                    <input type="text" value="{{ getUserRepresenter[0].cli_usu_correo }}" name="email_representer" id="email_representer" placeholder="Email" class="form-control required">
+                                                </div>
+                                            </div>            
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         
                                          {# {{ dump(getUserRepresenter) }} #} 
                                         
@@ -303,11 +311,14 @@
                                             <input type="text" value="{{ getUserRepresenter[0].usu_usuario }}" name="user_representer" id="user_representer" placeholder="Usuario" class="form-control" required readonly>
                                             <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
                                         </div>
-
+                                    </div>
+                                    <div class="col-md-4">        
                                         <div class="form-group">
                                             <label>Password: </label>
                                             <input type="password" id="password_representer" name="password_representer" placeholder="Password" class="form-control ">
                                         </div>
+                                    </div>
+                                    <div class="col-md-4">        
                                         <div class="form-group">
                                             <label>Repieat Password: </label>
                                             <input type="password" id="password_representer_repeat" name="password_representer_repeat" placeholder="Repita Password" class="form-control ">
@@ -316,13 +327,8 @@
 
                                     <div class="col-md-6">
                                         <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label>Email Addrres:</label>
-                                                    <input type="text" value="{{ getUserRepresenter[0].cli_usu_correo }}" name="email_representer" id="email_representer" placeholder="Email" class="form-control required">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
+                                            
+                                            <div class="col-md-12" style="display:none">
                                                 <div class="form-group">
                                                     
                                                     <label>Brith Day: <span class="text-danger">*</span></label>
@@ -330,7 +336,7 @@
                                                 </div>
 
                                             </div>
-                                            <div class="col-md-12">
+                                            <div class="col-md-12" style="display:none">
                                                 <div class="form-group">
                                                     <div>&nbsp;</div>
                                                     <div class="checkbox">
@@ -452,7 +458,7 @@
                                                 </div>
                                             </div>
                                             
-                                            <div class="col-lg-2 col-md-6 col-sm-6">
+                                            <div class="col-lg-2 col-md-6 col-sm-6" style="display:none">
                                                 <div class="form-group">
                                                    <label class="control-label">&nbsp;<br><label>
                                                     <div class="checkbox">
@@ -462,12 +468,14 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            {#
                                             <div class="col-lg-12 col-md-12 col-sm-12">
                                                 <div class="form-group text-right">
                                                     
                                                     <a href="#" class='remove btn bg-danger-400 ' style="margin-top: 7px;" data-toggle="tooltip" data-placement="top" title="Remover Usuario"><b><i class="fa fa-user-times"></i></b> </a>
                                                 </div>
                                             </div>
+                                            #}
                                         </div>
                                         <!-- <div class="row">
                                             
@@ -563,7 +571,7 @@
                                                                     </div>
                                                                 </div>
 
-                                                                <div class="col-lg-2 col-md-6 col-sm-6">
+                                                                <div class="col-lg-2 col-md-6 col-sm-6" style="display:none">
                                                                     <div class="form-group">
                                                                        <label class="control-label">&nbsp;<br><label>
                                                                         <div class="checkbox">
@@ -579,12 +587,14 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                                {#
                                                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                                                     <div class="form-group text-right">
 
                                                                         <a href="#" class='remove btn bg-danger-400 ' style="margin-top: 7px;" data-toggle="tooltip" data-placement="top" title="Remover Usuario"><b><i class="fa fa-user-times"></i></b> </a>
                                                                     </div>
-                                                                </div>           
+                                                                </div>
+                                                                #}
                                                             </div>
                                                             <!--                
                                                             <div class="row">
@@ -603,7 +613,7 @@
                             </div>
                             <hr>
                             {# <p><a href="#" class='addsection btn bg-teal-400 btn-labele btn-sm'><b><i class="fa fa-plus-circle"></i></b> Add user</a></p> #}
-                            <p><span class='addsection btn bg-teal-400 btn-labele btn-sm'><b><i class="fa fa-plus-circle"></i></b> Add User</span></p>
+                            {# <p><span class='addsection btn bg-teal-400 btn-labele btn-sm'><b><i class="fa fa-plus-circle"></i></b> Add User</span></p> #}
                         </div>
                         
                     </div>
@@ -757,11 +767,42 @@
                                 {% if method.mepId == 5 %}
                                     <div id="pay_5" class="div_pay">
                                         <div class="panel panel-info"> 
-                                            <div class="panel-heading"> 
-                                                <h6 class="panel-title">PAYPAL</h6> 
-                                            </div> 
-                                            <div class="panel-body"> Paypal Description</div> 
-                                        </div>
+                                                <div class="panel-heading"> 
+                                                    <h6 class="panel-title">PAYPAL</h6> 
+                                                </div> 
+                                                <div class="panel-body">
+                                                    <img src="https://www.paypalobjects.com/webstatic/mktg/logo-center/logotipo_paypal_tarjetas.jpg" border="0" alt="" />
+                                                    <hr>
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th></th>
+                                                                <th>Plan</th>
+                                                                <th>Period</th>
+                                                                <th>Price</th>
+                                                                <th></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                    {% for value in pricing %}
+                                                        <tr>
+                                                            <td>
+                                                                {% if value.id == 1 %}  
+                                                                    <input type="radio" name="optionPricing" class="optionPricing" id="" value="{{ value.id }}" checked="true">
+                                                                {% else %}
+                                                                    <input type="radio" name="optionPricing" class="optionPricing" id="" value="{{ value.id }}" >
+                                                                {% endif %}
+                                                            </td>
+                                                            <td>{{ value.plan }}</td>
+                                                            <td>{{ value.mes }}</td>
+                                                            <td>$ {{ value.precio|number_format(2, '.', ',') }}</td>
+                                                            <td>{{ value.descripcion }}</td>
+                                                        </tr>
+                                                    {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                </div> 
+                                            </div>
                                     </div>
                                 {% endif %}
                             {% endfor %}
@@ -899,8 +940,9 @@
         $(document).on("ready", function(){
             
             $('#appbundle_cliente_cliNit').mask("9999-999999-999-9", {placeholder: "____-______-___-_"});
-            $('#appbundle_cliente_cliTelefono1').mask("9999-9999", {placeholder: "____-____"});
+            $('#appbundle_cliente_cliTelefono1').mask("9999-9999", {placeholder: "(999) 999-9999"});
             $('#appbundle_cliente_cliTelefono2').mask("9999-9999", {placeholder: "____-____"});
+
             
             
             var users = [];
